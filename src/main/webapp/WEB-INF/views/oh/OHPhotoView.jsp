@@ -4,9 +4,14 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<meta charset="UTF-8">
+	<meta charset="UTF-8">	
 	<title>OH - OHPhotoView.jsp</title>
-	<link rel="stylesheet" href="../resources/css/oh.css" />	
+	<!-- oh.css -->
+	<link rel="stylesheet" href="../resources/css/oh/oh.css?after" />
+	<!-- https://fontawesome.com/ -->
+	<link  rel="stylesheet"
+	  	   href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"/>
+	<!-- https://jquery.com/ -->		
 	<script src="https://code.jquery.com/jquery-3.7.1.js" ></script>
 </head>
 <body>
@@ -15,9 +20,10 @@
 	<h3>OHPhotoDetailView.jsp</h3>
 	<table border="1">
 		<tr>
-			<th colspan="15">OHPhotoBoard</th>
+			<th colspan="16">OHPhotoBoard</th>
 		</tr>
 		<tr>
+			<th>no</th>
 			<th>pb_no</th>
 			<th>pb_user</th>
 			<th>pb_title</th>
@@ -36,6 +42,7 @@
 		</tr>
 		<c:forEach items="${ohPhotoView }" var="dto">				
 			<tr>
+				<td>${dto.no }</td>
 				<td>${dto.pb_no }</td>
 				<td>${dto.pb_user }</td>
 				<td>${dto.pb_title }</td>
@@ -54,7 +61,7 @@
 			</tr>		
 		</c:forEach>			
 		<tr>
-			<th colspan="15">OHPhotoAttach</th>
+			<th colspan="3">OHPhotoAttach</th>
 		</tr>
 		<tr>
 			<th>pa_no</th>
@@ -67,7 +74,39 @@
 				<td>${dto.ohPhotoAttach.pa_attach }</td>
 				<td>${dto.ohPhotoAttach.pb_no }</td>
 			</tr>
-		</c:forEach>			
+		</c:forEach>
+		<tr>
+			<th colspan="4">Post Information</th>
+		</tr>
+		<tr>
+			<th>outputPostCount</th>
+			<th>postTotalNum</th>
+			<th>postStartNum</th>
+			<th>postEndNum</th>
+		</tr>
+		<tr>
+			<td>${ohPageVO.outputPostCount }</td>
+			<td>${ohPageVO.postTotalNum }</td>
+			<td>${ohPageVO.postStartNum }</td>
+			<td>${ohPageVO.postEndNum }</td>		
+		</tr>
+		<tr>
+			<th colspan="5">Page Information</th>
+		</tr>
+		<tr>
+			<th>groupPageCount</th>
+			<th>pageTotalNum</th>
+			<th>pageSelectedNum</th>
+			<th>pageStartNum</th>
+			<th>pageEndNum</th>
+		</tr>	
+		<tr>
+			<td>${ohPageVO.groupPageCount }</td>
+			<td>${ohPageVO.pageTotalNum }</td>
+			<td>${ohPageVO.pageSelectedNum }</td>
+			<td>${ohPageVO.pageStartNum }</td>
+			<td>${ohPageVO.pageEndNum }</td>
+		</tr>							
 	</table>
 	
 	<!-- 데이터 표시 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->	
@@ -106,8 +145,8 @@
 				</select>
 				<label for="orderingMethod">정렬방식</label>
 				<select name="orderingMethod" id="orderingMethod">
-					<option value="ascending">오름차순</option>
-					<option value="descending">내림차순</option>
+					<option value="desc">내림차순</option>
+					<option value="asc">오름차순</option>
 				</select>
 				<!-- sorting End -->
 				
@@ -180,10 +219,18 @@
 					<option value="pb_content">내용</option>
 				</select>					
 				<!-- 검색어 - input element -->		
-				<input type="text" name="searchingWord" value="${keepSearchingWord }" placeholder="검색어를 입력하세요." />
+				<input type="text" name="searchingWord" id="searchingWord" value="${keepSearchingWord }" placeholder="검색어를 입력하세요." />
 				<!-- searching End -->
 				
 				<input type="submit" value="검색" />
+			
+				<hr />
+				
+				검색된 게시글 : ${ohPageVO.postTotalNum }개
+				<br />
+				현재 페이지  ${ohPageVO.pageSelectedNum } / 전체 페이지 ${ohPageVO.pageTotalNum }
+			
+				<hr />
 			
 			</form>
 			
@@ -191,6 +238,7 @@
 				<!-- 전체 <div class="box"> 반복문 사용, 게시물 표현 -->
 				<c:forEach items="${ohPhotoView }" var="dto" varStatus="status">
 					<div class="box">
+						<div>no: ${dto.no }</div>
 						<div>pb_no: ${dto.pb_no }</div>
 						<div>pb_user: ${dto.pb_user }</div>	
 						<div>pb_title: ${dto.pb_title }</div>	
@@ -210,11 +258,38 @@
 			
 			<!-- Paging -->
 			
-			
-			
-			
+			<form action="OHPhotoView" method="post">
+				<c:if test="${ohPageVO.pageSelectedNum > 1 }">
+					<!-- 첫번째 페이지로 이동 -->	                    
+					<a href="#" onclick="toFirstPage()"><i class="fa-solid fa-angles-left"></i></a>
+					<!-- 이전 페이지로 이동 -->
+					<a href="#" onclick="toBeforePage()"><i class="fa-solid fa-circle-chevron-left"></i></a>
+					
+				</c:if>			
+				<c:forEach begin="${ohPageVO.pageStartNum }" end="${ohPageVO.pageEndNum }" var="i">
+					<c:choose>
+						<c:when test="${i eq ohPageVO.pageSelectedNum }">
+							<span style="color:red; font-weight:bold;">${i } &nbsp;</span>
+						</c:when>
+						<c:otherwise>
+							<a href="#" onclick="toPage()">${i }</a>&nbsp;
+						</c:otherwise>
+					</c:choose>
+				</c:forEach>
+				<c:if test="${ohPageVO.pageTotalNum > ohPageVO.pageSelectedNum }">
+					<!-- 다음 페이지로 이동 -->
+					<a href="#" onclick="toNextPage()"><i class="fa-solid fa-arrow-right"></i></a>
+					<!-- 마지막 페이지로 이동 -->					
+					<a href="#" onclick="toLastPage()"><i class="fa-solid fa-poo"></i></a>					                               					
+				</c:if>
+				
+				<input type="hidden" name="orderingBy" value=${orderingBy }) />
+				
+				
+				
+			</form>
 		</div>
-			
+		
 		<footer>
 			<h1>footer</h1>
 		</footer>
@@ -258,7 +333,94 @@
 		var keepSearchingWord = "${keepSearchingWord}";
 		console.log("keepSearchingWord: " + keepSearchingWord);
 		/* keepSearchingWord 값은  searchingWord에 value 값으로 입력 */
-	</script>	
+		
+		
+		
+		function toPage() {
+			var target = event.target;
+			console.log($(target).text());
+ 			location.href = 'OHPhotoView?orderingBy=' + keepOrderingBy +
+										'&orderingMethod=' + keepOrderingMethod +
+					                    '&pb_category=' + keepPb_category +
+					                    '&pb_residence=' + keepPb_residence +
+					                    '&pb_room=' + keepPb_room +
+					                    '&pb_style=' + keepPb_style +
+					                    '&pb_skill=' + keepPb_skill +
+					                    '&searchingType=' + keepSearchingType +
+					                    '&searchingWord=' + keepSearchingWord +
+	                    				'&pageSelectedNum=' + $(target).text();
+		}				
+		
+		
+		
+		
+		
+		/* 페이지 이동 */
+		function toFirstPage() {
+			location.href = 'OHPhotoView?orderingBy=' + $("#orderingBy" ).val() +
+                   						'&orderingMethod=' + $("#orderingMethod").val() +
+					                    '&pb_category=' + $("#pb_category").val() +
+					                    '&pb_residence=' + $("#pb_residence").val() +
+					                    '&pb_room=' + $("#pb_room").val() +
+					                    '&pb_style=' + $("#pb_style").val() +
+					                    '&pb_skill=' + $("#pb_skill").val() +
+					                    '&searchingType=' + $("#searchingType").val() +
+					                    '&searchingWord=' + $("#searchingWord").val() +
+					                    '&pageSelectedNum=' + '1';					
+		}
+		function toBeforePage() {
+			location.href = 'OHPhotoView?orderingBy=' + $("#orderingBy" ).val() +
+										'&orderingMethod=' + $("#orderingMethod").val() +
+					                    '&pb_category=' + $("#pb_category").val() +
+					                    '&pb_residence=' + $("#pb_residence").val() +
+					                    '&pb_room=' + $("#pb_room").val() +
+					                    '&pb_style=' + $("#pb_style").val() +
+					                    '&pb_skill=' + $("#pb_skill").val() +
+					                    '&searchingType=' + $("#searchingType").val() +
+					                    '&searchingWord=' + $("#searchingWord").val() +
+	                    				'&pageSelectedNum=' + ${ohPageVO.pageSelectedNum - 1 };
+		}
+		
+/* 		function toPage() {
+			var target = event.target;
+			location.href = 'OHPhotoView?orderingBy=' + $("#orderingBy" ).val() +
+										'&orderingMethod=' + $("#orderingMethod").val() +
+					                    '&pb_category=' + $("#pb_category").val() +
+					                    '&pb_residence=' + $("#pb_residence").val() +
+					                    '&pb_room=' + $("#pb_room").val() +
+					                    '&pb_style=' + $("#pb_style").val() +
+					                    '&pb_skill=' + $("#pb_skill").val() +
+					                    '&searchingType=' + $("#searchingType").val() +
+					                    '&searchingWord=' + $("#searchingWord").val() +
+	                    				'&pageSelectedNum=' + $(target).text();
+		}		 */		
+		
+		
+		function toNextPage() {
+			location.href = 'OHPhotoView?orderingBy=' + $("#orderingBy" ).val() +
+										'&orderingMethod=' + $("#orderingMethod").val() +
+					                    '&pb_category=' + $("#pb_category").val() +
+					                    '&pb_residence=' + $("#pb_residence").val() +
+					                    '&pb_room=' + $("#pb_room").val() +
+					                    '&pb_style=' + $("#pb_style").val() +
+					                    '&pb_skill=' + $("#pb_skill").val() +
+					                    '&searchingType=' + $("#searchingType").val() +
+					                    '&searchingWord=' + $("#searchingWord").val() +
+	                    				'&pageSelectedNum=' + ${ohPageVO.pageSelectedNum + 1 };
+		}				
+		function toLastPage() {
+			location.href = 'OHPhotoView?orderingBy=' + $("#orderingBy" ).val() +
+										'&orderingMethod=' + $("#orderingMethod").val() +
+					                    '&pb_category=' + $("#pb_category").val() +
+					                    '&pb_residence=' + $("#pb_residence").val() +
+					                    '&pb_room=' + $("#pb_room").val() +
+					                    '&pb_style=' + $("#pb_style").val() +
+					                    '&pb_skill=' + $("#pb_skill").val() +
+					                    '&searchingType=' + $("#searchingType").val() +
+					                    '&searchingWord=' + $("#searchingWord").val() +
+	                    				'&pageSelectedNum=' + ${ohPageVO.pageTotalNum };
+		}	
+	</script>		
 </html>
 
 

@@ -6,7 +6,7 @@
 <head>
 	<meta charset="UTF-8">
 	<title>OH - OHPhotoEditView.jsp</title>
-	<link rel="stylesheet" href="../resources/css/oh.css" />	
+	<link rel="stylesheet" href="../resources/css/oh/oh.css?after" />	
 </head>
 <body>
 
