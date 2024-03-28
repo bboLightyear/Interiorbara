@@ -308,6 +308,7 @@ public class CsQnaController {
 		
 		//답글 셀렉트 해서 출력
 		ArrayList<QnaReplyDto> replylist=dao.replylist(nbno);
+		
 		System.out.println("replylist : "+replylist);
 		
 		model.addAttribute("replylist",replylist);
@@ -369,6 +370,24 @@ public class CsQnaController {
 		// 전체 답글 달기
 		dao.qnareply(nbno,qnareply,qnarewriter);
 
+		
+		return "redirect:qnacontent?nbno="+nbno;
+	}
+
+	@RequestMapping(method = RequestMethod.POST,value = "/qnareply_r")
+	public String qnareply_r(HttpServletRequest request,Model model) {
+		System.out.println("qnareply()");
+		
+		QnaBoardIDao dao=sqlSession.getMapper(QnaBoardIDao.class);
+		
+		String nbno=request.getParameter("nbno");
+		String rnbno=request.getParameter("rnbno");		
+		String rwriter=request.getParameter("rwriter");		
+		String rcontent=request.getParameter("rcontent");		
+		
+		// 전체 답글 달기
+//		dao.qnareply(nbno,rwriter,rcontent);
+		
 		
 		return "redirect:qnacontent?nbno="+nbno;
 	}

@@ -6,7 +6,22 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 </head>
+
+<script>
+	function replyform() {
+		/* alert("x"); */
+ 		var target = event.target;
+		var rnbno = $(target).data("rnbno"); 
+		
+		var hiddenDiv = document.getElementById(rnbno);
+		
+		hiddenDiv.style.display = "block";
+		
+	}
+</script>
+
 <body>
 	<h3>qna content</h3>
 
@@ -68,33 +83,26 @@
 	</form>
 <hr />
 <h3>답글  개</h3>
-
-<%-- 	<table border="1px">
-		<tr>
-			<td class="left">작성자</td>
-			<td class="left">답글</td>
-		</tr>
-		<c:forEach items="${replylist }" var="dto">
-			<tr>
-				<td>${dto.rnbwriter }</td>
-				<td>${dto.rnbcontent }</td>
-				<td><input type="button" value="답글달기" /></td>
-			</tr>
-		</c:forEach>
-	</table> --%>
 	
 	<c:forEach items="${replylist }" var="dto">
 	<div>
 		<span><h3> 작성자 : ${dto.rnbwriter }</h3></span>
 		<p> 답글 : ${dto.rnbcontent }</p>
-		<button>답글달기</button>
+		
+	<!--답글 달기 버튼을 클릭 시에 아래에 입력 창이 나타나도록 하는 스크립트-->
+		<button  onclick="replyform()" data-rnbno="${dto.rnbno }">답글달기</button>
 	</div>
-	<form action="">
-		<div contenteditable="true" style="padding: 15px; background: #eee; border-radius: 5px; width: 600px;">
-			<p>@${dto.rnbwriter }&nbsp;</p> 
-		</div>
-		<input type="submit" value="입력" />
-	</form>
+	
+	<!--숨겨진 div, id 값을 조회한 답글 번호로 지정하여 위의 스크립트에서 버튼을 각각의 div를 따로 적용-->
+	<div id="${dto.rnbno }"  style="display: none;">
+		<form action="qnareply_r?rnbno=${dto.rnbno }&nbno=${qna_content.nbno }" method="post">
+			<textarea rows="6" cols="65" name="rcontent">@${dto.rnbwriter }&nbsp;</textarea>
+			<input type="text" name="rWriter" />
+			<input type="submit" value="입력" />
+		</form>
+	</div>
+	
+	
 	</c:forEach>
 </body>
 </html>
