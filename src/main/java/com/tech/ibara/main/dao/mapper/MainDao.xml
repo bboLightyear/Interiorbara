@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    
+<mapper namespace="com.tech.ibara.main.dao.MainDao">
+	<resultMap type="com.tech.ibara.main.dto.BizPreviewDto" id="biz_temp">
+		<result column="BIZ_NO" property="biz_no" />
+		<result column="BIZ_NAME" property="biz_name" />
+		<result column="BIZ_ADDR" property="biz_addr" />
+		<result column="BIZ_IMG" property="biz_img" />
+	</resultMap>
+	<select id="bizPreview" resultType="com.tech.ibara.main.dto.BizPreviewDto" resultMap="biz_temp">
+		SELECT BIZ_NO, BIZ_NAME, BIZ_ADDR, BIZ_IMG
+		FROM (
+			SELECT BIZ_NO, BIZ_NAME, BIZ_ADDR, BIZ_IMG
+			FROM BIZ_TEMP
+			ORDER BY BIZ_NO DESC
+			)
+		WHERE ROWNUM &lt;= 4
+	</select>
+</mapper>
