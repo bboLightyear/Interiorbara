@@ -11,7 +11,7 @@
 
 
 <!-- 평수 선택 모달 창 영역 -->
-<div id="sizeModal" class="modal">
+<div id="sizeModal" class="modal" data-prev-modal="">
     <div class="modal_content">
         <div class="modal_leftside">
             <div class=modal_leftside_progress>

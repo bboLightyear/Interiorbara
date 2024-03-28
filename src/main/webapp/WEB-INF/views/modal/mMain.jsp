@@ -11,7 +11,7 @@
 <body>
 
 <!-- 모달 창 영역 -->
-<div id="myModal" class="modal">
+<div id="myModal" class="modal" data-prev-modal="">
     <div class="modal_content">
         <div class="modal_leftside">
             <div class=modal_leftside_progress>
