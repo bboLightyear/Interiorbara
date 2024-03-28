@@ -82,7 +82,7 @@
 		</table>
 	</form>
 <hr />
-<h3>답글  개</h3>
+<h3>답글  ${replycnt}개</h3>
 	
 	<c:forEach items="${replylist }" var="dto">
 	<div>

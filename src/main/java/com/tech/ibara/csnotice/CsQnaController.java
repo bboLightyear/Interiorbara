@@ -312,6 +312,12 @@ public class CsQnaController {
 		System.out.println("replylist : "+replylist);
 		
 		model.addAttribute("replylist",replylist);
+		
+		//답글 갯수 셀렉트
+		int replycnt=dao.replycnt(nbno);
+		System.out.println("replycnt : "+replycnt);
+		
+		model.addAttribute("replycnt",replycnt);
 
 		return "csnotice/qnacontent";
 	}

@@ -40,5 +40,6 @@ public interface QnaBoardIDao {
 	public void qnareply(String nbno, String qnareply, String qnarewriter);
 
 	public ArrayList<QnaReplyDto> replylist(String nbno);
-	
+
+	public Integer replycnt(String nbno);
 }

@@ -192,5 +192,12 @@
         WHERE NBNO=#{param1}
 	</select>
 
+ 	<select id="replycnt" resultType="Integer">
+		SELECT COUNT(*) 
+		FROM CS_QNABOARD_REPLY
+		WHERE NBNO=#{param1}
+	</select>
+
+	
 	
 </mapper>
