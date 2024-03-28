@@ -20,4 +20,19 @@
 			)
 		WHERE ROWNUM &lt;= 4
 	</select>
+		<resultMap type="com.tech.ibara.main.dto.OHPreviewDto" id="oh_temp">
+		<result column="OH_NO" property="oh_no" />
+		<result column="OH_NAME" property="oh_name" />
+		<result column="OH_ADDR" property="oh_addr" />
+		<result column="OH_IMG" property="oh_img" />
+	</resultMap>
+	<select id="ohPreview" resultType="com.tech.ibara.main.dto.OHPreviewDto" resultMap="oh_temp">
+		SELECT OH_NO, OH_NAME, OH_CONTENT, OH_IMG
+		FROM (
+			SELECT OH_NO, OH_NAME, OH_CONTENT, OH_IMG
+			FROM OH_TEMP
+			ORDER BY OH_NO DESC
+			)
+		WHERE ROWNUM &lt;= 4
+	</select>
 </mapper>

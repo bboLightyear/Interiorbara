@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.tech.ibara.main.service.BizPreviewService;
 import com.tech.ibara.main.service.MainDataService;
+import com.tech.ibara.main.service.OHPreviewService;
 
 @Controller
 public class MainController {
@@ -18,14 +19,18 @@ public class MainController {
 	@Autowired
 	private SqlSession sqlSession;
 	
-	private MainDataService mainDataService;
+	private MainDataService bizDataService;
+	private MainDataService ohDataService;
 
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String main(HttpServletRequest request, Model model) {
 		model.addAttribute("request", request);
 		
-		mainDataService=new BizPreviewService(sqlSession);
-		mainDataService.execute(model);
+		bizDataService=new BizPreviewService(sqlSession);
+		bizDataService.execute(model);
+		
+		ohDataService=new OHPreviewService(sqlSession);
+		ohDataService.execute(model);
 		
 		return "main/main";
 	}

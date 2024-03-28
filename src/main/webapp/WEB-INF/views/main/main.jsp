@@ -280,44 +280,24 @@
 			<h1 class="main_preview_title">우리집 자랑하기</h1>
 			<hr />
 			<div class="main_preview_OH">
-				<ul>
-					<li class="main_preview_OH_img">사진1</li>
-					<li class="main_preview_OH_img">사진1</li>
-					<li class="main_preview_OH_img">사진1</li>
-					<li class="main_preview_OH_img">사진1</li>
-				</ul>
-				<ul>
-					<li class="main_preview_OH_name">이름1</li>
-					<li class="main_preview_OH_name">이름1</li>
-					<li class="main_preview_OH_name">이름1</li>
-					<li class="main_preview_OH_name">이름1</li>
-				</ul>
-				<ul>
-					<li class="main_preview_OH_addr">주소1</li>
-					<li class="main_preview_OH_addr">주소1</li>
-					<li class="main_preview_OH_addr">주소1</li>
-					<li class="main_preview_OH_addr">주소1</li>
-				</ul>
-				<ul>
+				<c:forEach items="${ohPreviewList }" var="oh">
+					<ul>
+						<li class="main_preview_OH_img">
+							<img src="resources/upload/main/${oh.oh_img }" alt="#" />
+						</li>
+					</ul>
+					<ul>
+						<li class="main_preview_OH_name">${oh.oh_name }</li>
+					</ul>
+					<ul>
+						<li class="main_preview_OH_addr">${oh.oh_content }</li>
+					</ul>
 					<li class="main_preview_OH_chat"><a
 						href="https://www.naver.com" class="main_preview_OH_chat_link">채팅
 							바로가기 <i class="far fa-comment-alt"></i>
 					</a></li>
-					<li class="main_preview_OH_chat"><a
-						href="https://www.naver.com" class="main_preview_OH_chat_link">채팅
-							바로가기 <i class="far fa-comment-alt"></i>
-					</a></li>
-					<li class="main_preview_OH_chat"><a
-						href="https://www.naver.com" class="main_preview_OH_chat_link">채팅
-							바로가기 <i class="far fa-comment-alt"></i>
-					</a></li>
-					<li class="main_preview_OH_chat"><a
-						href="https://www.naver.com" class="main_preview_OH_chat_link">채팅
-							바로가기 <i class="far fa-comment-alt"></i>
-					</a></li>
-				</ul>
+				</c:forEach>
 			</div>
-		</div>
 		<div class="main_preview_cs">
 			<div class="main_preview_cs_notice">
 				<h1 class="main_preview_title">공지사항</h1>
