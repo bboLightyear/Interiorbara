@@ -34,6 +34,17 @@
 				<div class="header_join">회원가입</div>
 				<div class="header_cs">마이페이지</div>
 			</div>
+			<!-- 로그인 세션 부분 -->
+		<!--<c:choose>
+				<c:when test="${sessionNickname eq null }">
+					<a href="my/joinform">join</a> | <a href="my/loginform">login</a>
+				</c:when>
+				<c:otherwise>
+    				${sessionNickname }님 로그인 되었습니다.
+    				<br />
+					<a href="my/mypagemain">mypage</a> | <a href="my/logout">logout</a>
+				</c:otherwise>
+			</c:choose> -->
 			<!-- 오른쪽 여백 -->
 			<div></div>
 		</div>
@@ -190,24 +201,19 @@
 			<h1 class="main_preview_title">입점 업체 보기</h1>
 			<hr />
 			<div class="main_preview_biz">
-				<ul>
-					<li class="main_preview_biz_img">사진1</li>
-					<li class="main_preview_biz_img">사진1</li>
-					<li class="main_preview_biz_img">사진1</li>
-					<li class="main_preview_biz_img">사진1</li>
-				</ul>
-				<ul>
-					<li class="main_preview_biz_name">이름1</li>
-					<li class="main_preview_biz_name">이름1</li>
-					<li class="main_preview_biz_name">이름1</li>
-					<li class="main_preview_biz_name">이름1</li>
-				</ul>
-				<ul>
-					<li class="main_preview_biz_addr">주소1</li>
-					<li class="main_preview_biz_addr">주소1</li>
-					<li class="main_preview_biz_addr">주소1</li>
-					<li class="main_preview_biz_addr">주소1</li>
-				</ul>
+				<c:forEach items="${bizPreviewList }" var="biz">
+					<ul>
+						<li class="main_preview_biz_img">
+							<img src="resources/upload/main/${biz.biz_img }" alt="#" />
+						</li>
+					</ul>
+					<ul>
+						<li class="main_preview_biz_name">${biz.biz_name }</li>
+					</ul>
+					<ul>
+						<li class="main_preview_biz_addr">${biz.biz_addr }</li>
+					</ul>
+				</c:forEach>
 				<ul>
 					<li class="main_preview_biz_chat"><a
 						href="https://www.naver.com" class="main_preview_biz_chat_link">채팅
