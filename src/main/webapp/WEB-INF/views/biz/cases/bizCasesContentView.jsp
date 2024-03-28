@@ -55,10 +55,10 @@
 		<tr class="">
 			<td class="">첨부</td>
 			<td>
-			<%-- <a href="bizCasesDownload?p=resources/upload/biz/&f=${bizCasesContentView.bc_img }
+			<%-- <a href="bizCasesDownload?p=resources/upload/biz/cases/&f=${bizCasesContentView.bc_img }
 				&bc_no=${bizCasesContentView.bc_no }">${bizCasesContentView.bc_img }</a> --%>
 				<c:forEach items="${imglist }" var="imgdto">
-					<a href="bizCasesDownload?p=resources/upload/biz/&f=${imgdto.bcimg_cgn }
+					<a href="bizCasesDownload?p=resources/upload/biz/cases/&f=${imgdto.bcimg_cgn }
 					&bc_no=${bizCasesContentView.bc_no }">${imgdto.bcimg_cgn }</a>
 				</c:forEach>					
 				
