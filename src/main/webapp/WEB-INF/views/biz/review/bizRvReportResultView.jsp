@@ -8,6 +8,10 @@
 <title>Insert title here</title>
 </head>
 <body>
+<h3>bizRvReportResultView.jsp</h3>
+<br />
+<h3><span style="color: orange">${bizRvReportResultView.br_writer }</span> 님의 리뷰가 신고되었습니다. <br /> 소중한 의견 감사합니다.</h3>
+<a href="bizRvList">목록으로 돌아가기</a> <br />
 
 </body>
 </html>

@@ -44,7 +44,8 @@
 		</c:forEach>
 		
 		<tr>
-			<td colspan="5"><a href="bizMgzWriteView">글쓰기</a></td>
+			<td colspan="5"><a href="bizMgzWriteView">글쓰기</a> <a href="bizMgzList">첫페이지로</a></td>
+			
 		</tr>				
 	</table>
 	
