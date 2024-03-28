@@ -5,6 +5,10 @@ create table shop_basket (
     option_id number,
     quantity number
 );
+
+create sequence seq_shop_basket;
+
+
 drop table shop_basket;
 insert into shop_basket values (1, 1, 424, 4, 1);
 --insert into shop_basket values (2, 1, 424, 10, 1);
