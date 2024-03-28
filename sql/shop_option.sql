@@ -418,6 +418,11 @@ insert into shop_product_data values (8, 100, 4000, null);
 insert into shop_product_data values (9, 100, 5000, null);
 
 insert into shop_product_data values (10, 100, 10000, null);
+insert into
+    shop_product_data
+values (
+    110, 44100, 4410000, null);
+select last_insert_id();
 
 insert into shop_option values (1, 1, 2, null, '소');
 insert into shop_option values (2, 1, 3, null, '중');

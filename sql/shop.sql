@@ -4,12 +4,16 @@ drop sequence seq_shop_product;
 
 create table shop_product (
     product_id number,
+    seller_id number,
     category_id number,
     option_set_id number,
+    detail_info_id number,
     name varchar2(100)
 );
 
 create sequence seq_shop_product;
+
+commit;
 
 select
     category_id
