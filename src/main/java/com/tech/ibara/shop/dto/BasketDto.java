@@ -20,6 +20,13 @@ public class BasketDto {
 
 	}
 
+	public BasketDto(int user_id, int product_id, int option_id, int quantity) {
+		this.user_id = user_id;
+		this.product_id = product_id;
+		this.option_id = option_id;
+		this.quantity = quantity;
+	}
+
 	public int getBasket_id() {
 		return basket_id;
 	}
