@@ -258,13 +258,12 @@
 			
 			<!-- Paging -->
 			
-			<form action="OHPhotoView" method="post">
+			<form action="OHPhotoView" id="pageForm" method="post">
 				<c:if test="${ohPageVO.pageSelectedNum > 1 }">
 					<!-- 첫번째 페이지로 이동 -->	                    
-					<a href="#" onclick="toFirstPage()"><i class="fa-solid fa-angles-left"></i></a>
+					<a href="#" onclick="firstPage()" id="firstPage"><i class="fa-solid fa-angles-left"></i></a>
 					<!-- 이전 페이지로 이동 -->
-					<a href="#" onclick="toBeforePage()"><i class="fa-solid fa-circle-chevron-left"></i></a>
-					
+					<a href="#" onclick="beforePage()" id="beforePage"><i class="fa-solid fa-circle-chevron-left"></i></a>
 				</c:if>			
 				<c:forEach begin="${ohPageVO.pageStartNum }" end="${ohPageVO.pageEndNum }" var="i">
 					<c:choose>
@@ -272,19 +271,84 @@
 							<span style="color:red; font-weight:bold;">${i } &nbsp;</span>
 						</c:when>
 						<c:otherwise>
-							<a href="#" onclick="toPage()">${i }</a>&nbsp;
+							<a href="#" onclick="movePage(${i })" >${i }</a>&nbsp;
 						</c:otherwise>
 					</c:choose>
 				</c:forEach>
 				<c:if test="${ohPageVO.pageTotalNum > ohPageVO.pageSelectedNum }">
 					<!-- 다음 페이지로 이동 -->
-					<a href="#" onclick="toNextPage()"><i class="fa-solid fa-arrow-right"></i></a>
+					<a href="#" onclick="nextPage()" id="nextPage"><i class="fa-solid fa-arrow-right"></i></a>
 					<!-- 마지막 페이지로 이동 -->					
-					<a href="#" onclick="toLastPage()"><i class="fa-solid fa-poo"></i></a>					                               					
+					<a href="#" onclick="lastPage()" id="lastPage"><i class="fa-solid fa-poo"></i></a>					                               					
 				</c:if>
+
+				<input type="hidden" name="orderingBy" value=${keepOrderingBy } />
+				<input type="hidden" name="orderingMethod" value=${keepOrderingMethod } />
+				<input type="hidden" name="pb_category" value=${keepPb_category } />
+				<input type="hidden" name="pb_residence" value=${keepPb_residence } />
+				<input type="hidden" name="pb_room" value=${keepPb_room } />
+				<input type="hidden" name="pb_style" value=${keepPb_style } />
+				<input type="hidden" name="pb_skill" value=${keepPb_skill } />
+				<input type="hidden" name="searchingType" value=${keepSearchingType } />
+				<input type="hidden" name="searchingWord" value=${keepSearchingWord } />
+				<input type="hidden" id="transPage"/>
 				
-				<input type="hidden" name="orderingBy" value=${orderingBy }) />
+				<script>
+					/* document.getElementById("firstPage").onclick = function() { */
+					function firstPage() {
+							var inputHidden = $('<input>', {
+							type: 'hidden',
+							name: 'pageSelectedNum',
+							value: '1'
+						}); 
+						$("#transPage").after(inputHidden);
+						document.getElementById("pageForm").submit();
+					};				
 				
+					/* document.getElementById("beforePage").onclick = function() { */
+					function beforePage() {
+							var inputHidden = $('<input>', {
+							type: 'hidden',
+							name: 'pageSelectedNum',
+							value: '${ohPageVO.pageSelectedNum - 1}'
+						}); 
+						$("#transPage").after(inputHidden);
+						document.getElementById("pageForm").submit();
+					};				
+				
+					function movePage(num) {
+						var pageNum = num
+						var inputHidden = $('<input>', {
+							type: 'hidden',
+							name: 'pageSelectedNum',
+							value: pageNum
+						});
+						$("#transPage").after(inputHidden);
+						document.getElementById("pageForm").submit();
+					}
+				
+					/* document.getElementById("nextPage").onclick = function() { */
+					function nextPage() {						
+ 						var inputHidden = $('<input>', {
+							type: 'hidden',
+							name: 'pageSelectedNum',
+							value: '${ohPageVO.pageSelectedNum + 1}'
+						}); 
+						$("#transPage").after(inputHidden);
+						document.getElementById("pageForm").submit();
+					};
+				
+					/* document.getElementById("lastPage").onclick = function() { */
+					function lastPage() {
+ 						var inputHidden = $('<input>', {
+							type: 'hidden',
+							name: 'pageSelectedNum',
+							value: '${ohPageVO.pageTotalNum}'
+						}); 
+						$("#transPage").after(inputHidden);
+						document.getElementById("pageForm").submit();
+					};				
+				</script>
 				
 				
 			</form>
@@ -335,7 +399,7 @@
 		/* keepSearchingWord 값은  searchingWord에 value 값으로 입력 */
 		
 		
-		
+/* 		
 		function toPage() {
 			var target = event.target;
 			console.log($(target).text());
@@ -354,8 +418,8 @@
 		
 		
 		
-		
-		/* 페이지 이동 */
+ 	
+		 페이지 이동 
 		function toFirstPage() {
 			location.href = 'OHPhotoView?orderingBy=' + $("#orderingBy" ).val() +
                    						'&orderingMethod=' + $("#orderingMethod").val() +
@@ -381,8 +445,9 @@
 	                    				'&pageSelectedNum=' + ${ohPageVO.pageSelectedNum - 1 };
 		}
 		
-/* 		function toPage() {
+		function toPage() {
 			var target = event.target;
+			$(target).text()
 			location.href = 'OHPhotoView?orderingBy=' + $("#orderingBy" ).val() +
 										'&orderingMethod=' + $("#orderingMethod").val() +
 					                    '&pb_category=' + $("#pb_category").val() +
@@ -393,7 +458,7 @@
 					                    '&searchingType=' + $("#searchingType").val() +
 					                    '&searchingWord=' + $("#searchingWord").val() +
 	                    				'&pageSelectedNum=' + $(target).text();
-		}		 */		
+		}		 	
 		
 		
 		function toNextPage() {
@@ -419,7 +484,7 @@
 					                    '&searchingType=' + $("#searchingType").val() +
 					                    '&searchingWord=' + $("#searchingWord").val() +
 	                    				'&pageSelectedNum=' + ${ohPageVO.pageTotalNum };
-		}	
+		}	 */
 	</script>		
 </html>
 

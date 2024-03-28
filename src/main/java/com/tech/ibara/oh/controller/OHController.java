@@ -135,8 +135,8 @@ public class OHController {
 		// 검색기준 - searchingType, model 저장, attributeName is keepSearchingType
 		model.addAttribute("keepSearchingType", searchingType);
 		
-		// 검색어 - searchingWord, null Check
-		if(searchingWord == null) {
+		// 검색어 - searchingWord, null Check, 검색어를 입력하지 않고 페이지 이동시 "/"가 입력란에 생기는 현상 때문에 조건 추가 
+		if(searchingWord == null || searchingWord.equals("/")) {
 			searchingWord = "";
 			System.out.println("searchingWord is null therefore assigned [\"\"] to it");
 		}
