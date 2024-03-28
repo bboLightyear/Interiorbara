@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    
+<mapper namespace="com.tech.ibara.biz.dao.BizIDao">
+
+
+	<sql id="includlist">
+		<choose>
+			<when test="param4==1">
+				WHERE BM_TITLE LIKE '%'||#{param3}||'%'
+			</when>
+			<when test="param4==2">
+				WHERE BM_CONTENT LIKE '%'||#{param3}||'%'
+			</when>
+			<when test="param4==3">
+				WHERE BM_CONTENT LIKE '%'||#{param3}||'%' OR BM_TITLE LIKE '%'||#{param3}||'%'
+			</when>
+			<otherwise></otherwise>
+		</choose>
+	</sql>
+
+	
+	<select id="bizMgzList" resultType="com.tech.ibara.biz.dto.BizMgzDto">
+		SELECT BM_NO,BM_TITLE,BM_CONTENT,BM_WRITER,BM_DATE,BM_HIT,USER_IDNO FROM 
+		(SELECT ROWNUM NUM,N.* FROM (SELECT BM_NO,BM_TITLE,BM_CONTENT,BM_WRITER,BM_DATE,BM_HIT,USER_IDNO 
+		FROM BIZ_MGZ ORDER BY BM_NO DESC) N
+		<include refid="includlist" />
+		)WHERE NUM BETWEEN #{param1} AND #{param2}
+	</select>
+
+	<select id="bizMgzContentView"
+		resultType="com.tech.ibara.biz.dto.BizMgzDto">
+		SELECT BM_NO,BM_TITLE,BM_CONTENT,BM_WRITER,BM_DATE,BM_HIT,USER_IDNO  
+		FROM BIZ_MGZ
+		WHERE BM_NO=#{param1}
+	</select>
+	
+	<select id="bizMgzDelView"
+		resultType="com.tech.ibara.biz.dto.BizMgzDto">
+		SELECT BM_NO, BM_TITLE 
+		FROM BIZ_MGZ
+		WHERE BM_NO=#{param1}
+	</select>
+
+	<update id="bizMgzUpHit">
+		UPDATE BIZ_MGZ SET BM_HIT=BM_HIT+1 WHERE
+		BM_NO=#{PARAM1}
+	</update>
+
+	<update id="bizMgzMod">
+		UPDATE BIZ_MGZ SET
+		BM_TITLE=#{param2},BM_CONTENT=#{param3}
+		WHERE BM_NO=#{param1}
+	</update>
+
+	<update id="bizMgzDel">
+		DELETE FROM BIZ_MGZ WHERE BM_NO=#{param1}
+	</update>
+	
+	<update id="bizMgzImgDel">
+		DELETE FROM BIZ_MGZ_IMG WHERE BM_NO=#{param1}
+	</update>
+
+	<insert id="bizMgzWrite" >
+		INSERT INTO BIZ_MGZ(BM_NO,BM_TITLE,BM_CONTENT,BM_WRITER,BM_DATE,BM_HIT,USER_IDNO) 
+    	VALUES(BIZ_MGZ_SEQ.NEXTVAL,#{param1},#{param2},#{param3},SYSDATE,0,#{param4})
+	</insert>
+	
+	<insert id="bizMgzImgWrite">
+		INSERT INTO BIZ_MGZ_IMG
+		VALUES(BIZ_MGZ_IMG_SEQ.NEXTVAL,#{param2},#{param3},#{param1})
+	</insert>
+
+	<select id="selBm_no" resultType="Integer">
+		SELECT MAX(BM_NO) FROM BIZ_MGZ
+	</select>
+
+	<select id="selectBizMgzImg" resultType="com.tech.ibara.biz.dto.BizMgzImgDto">
+		SELECT * FROM BIZ_MGZ_IMG WHERE BM_NO=#{param1}
+	</select>	
+	
+	<select id="selectBoardTotalCount1" resultType="Integer">
+		SELECT COUNT(*)
+		FROM BIZ_MGZ 
+		WHERE BM_TITLE LIKE '%'||#{param1}||'%'
+	</select>
+
+	<select id="selectBoardTotalCount2" resultType="Integer">
+		SELECT COUNT(*)
+		FROM BIZ_MGZ 
+		WHERE BM_CONTENT LIKE '%'||#{param1}||'%'
+	</select>
+
+	<select id="selectBoardTotalCount3" resultType="Integer">
+		SELECT COUNT(*)
+		FROM BIZ_MGZ 
+		WHERE BM_CONTENT LIKE '%'||#{param1}||'%' OR BM_CONTENT LIKE '%'||#{param1}||'%'
+	</select>
+	
+	<select id="selectBoardTotalCount4" resultType="Integer">
+		SELECT COUNT(*)
+		FROM BIZ_MGZ 
+	</select>
+
+
+
+</mapper>
+

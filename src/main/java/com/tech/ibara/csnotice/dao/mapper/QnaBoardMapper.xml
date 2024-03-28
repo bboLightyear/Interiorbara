@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.tech.ibara.csnotice.dao.QnaBoardIDao">
+
+
+<!-- 
+리스트 검색 결과 include문 qq일때 검색, 전체 검색, 우리집 자랑 검색 등등
+ -->
+	<sql id="includqnalist">
+		<choose>
+			<when test="param4==1">
+				WHERE NBQNADIV='qq' 
+				AND NBTITLE LIKE '%'||#{param3}||'%'
+			</when>
+			<when test="param4==2">
+				WHERE NBTITLE LIKE '%'||#{param3}||'%'
+			</when>
+			<when test="param4==3">
+				WHERE NBQNADIV='oh' 
+				AND NBTITLE LIKE '%'||#{param3}||'%'
+			</when>
+			<when test="param4==4">
+				WHERE NBQNADIV='biz' 
+				AND NBTITLE LIKE '%'||#{param3}||'%'
+			</when>
+			<when test="param4==5">
+				WHERE NBQNADIV='pf' 
+				AND NBTITLE LIKE '%'||#{param3}||'%'
+			</when>
+			<when test="param4==6">
+				WHERE NBQNADIV='sh' 
+				AND NBTITLE LIKE '%'||#{param3}||'%'
+			</when>
+			<otherwise>
+
+
+			</otherwise>
+		</choose>
+	</sql>
+
+
+	<select id="qnalist"
+		resultType="com.tech.ibara.csnotice.dto.QnaDto">
+		SELECT NBNO,NBWRITER,NBTITLE,NBCONTENT,NBDATE,NBHIT,NBGROUP,NBSTEP,NBINDENT,NBQNADIV
+		FROM (SELECT ROWNUM NUM,N.*
+				FROM (SELECT NBNO,NBWRITER,NBTITLE,NBCONTENT,NBDATE,NBHIT,NBGROUP,NBSTEP,NBINDENT,NBQNADIV
+		FROM CS_NOTICEBOARD
+		ORDER BY NBGROUP DESC,NBSTEP ASC)N
+		<include refid="includqnalist" />
+		)WHERE NUM BETWEEN #{param1} AND #{param2}
+	</select>
+
+	<select id="selectBoardTotalCount1" resultType="Integer">
+		SELECT COUNT(*)
+		FROM CS_NOTICEBOARD
+		WHERE NBQNADIV='qq' 
+	</select>
+
+	<select id="selectBoardTotalCount2" resultType="Integer">
+		SELECT COUNT(*)
+		FROM CS_NOTICEBOARD  
+	</select>
+
+	<select id="selectBoardTotalCount3" resultType="Integer">
+		SELECT COUNT(*)
+		FROM CS_NOTICEBOARD
+		WHERE NBQNADIV='oh' 
+	</select>
+
+	<select id="selectBoardTotalCount4" resultType="Integer">
+		SELECT COUNT(*)
+		FROM CS_NOTICEBOARD
+		WHERE NBQNADIV='biz' 
+	</select>
+
+	<select id="selectBoardTotalCount5" resultType="Integer">
+		SELECT COUNT(*)
+		FROM CS_NOTICEBOARD
+		WHERE NBQNADIV='pf' 
+	</select>
+
+	<select id="selectBoardTotalCount6" resultType="Integer">
+		SELECT COUNT(*)
+		FROM CS_NOTICEBOARD
+		WHERE NBQNADIV='sh'  
+	</select>
+
+	<select id="qnawrite"
+		resultType="com.tech.ibara.csnotice.dto.QnaDto">
+		INSERT INTO
+		CS_NOTICEBOARD(NBNO,NBTITLE,NBCONTENT,NBWRITER,NBHIT,NBDATE,NBGROUP,NBSTEP,NBINDENT,NBFILECODE,NBQNADIV)
+		VALUES(CS_NOTICEBOARD_SEQ.NEXTVAL,#{param2},#{param3},#{param1},0,SYSDATE,0,0,0,#{param4}+1,#{param5})
+	</select>
+
+	<select id="imgwrite"
+		resultType="com.tech.ibara.csnotice.dto.QnaImgDto">
+		INSERT INTO CS_NOTICEBOARD_IMG
+		VALUES(CS_NOTICEBOARD_IMG_SEQ.NEXTVAL,#{param1}+1,#{param2})
+	</select>
+
+	<select id="selsnbno" resultType="Integer">
+		SELECT MAX(NBFILECODE) FROM
+		CS_NOTICEBOARD_IMG
+	</select>
+
+	<update id="uphit">
+		UPDATE CS_NOTICEBOARD SET NBHIT=NBHIT+1 WHERE
+		NBNO=#{PARAM1}
+	</update>
+
+	<select id="qnacontent" resultType="com.tech.ibara.csnotice.dto.QnaDto">
+		SELECT
+		NBNO,NBQNADIV,NBWRITER,NBTITLE,NBCONTENT,NBDATE,NBHIT,NBGROUP,NBSTEP,NBINDENT,NBFILECODE
+		FROM
+		CS_NOTICEBOARD
+		WHERE NBNO=#{param1}
+	</select>
+
+	<select id="selfilecode" resultType="Integer">
+		SELECT NBFILECODE 
+		FROM CS_NOTICEBOARD
+		WHERE NBNO=#{param1}
+	</select>
+	
+	<update id="imgdelete" >
+		DELETE FROM CS_NOTICEBOARD_IMG WHERE NBFILECODE=#{param1}
+	</update>
+	
+	<update id="qnadelete" >
+		DELETE FROM CS_NOTICEBOARD WHERE NBNO=#{param1}
+	</update>
+</mapper>

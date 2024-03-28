@@ -1,0 +1,50 @@
+table {
+	text-align: left;
+}
+
+td {
+	height: 30px;
+}
+
+body {
+	text-align: center;
+}
+
+#btnstyle {
+	width: 100%;
+	height: 27px;
+	background-color: gray;
+	text-align: center;
+}
+
+a {
+	text-decoration: none;
+	color: black;
+	font-weight: bold;
+}
+
+#fs10px {
+	font-size: 10px;
+}
+
+#line1 {
+	border-top: 1px solid black;
+}
+
+.width97 {
+	width: 97%;
+}
+
+.width100 {
+	width: 100%;
+}
+
+.confirm {
+	color: white;
+	background-color: lightseagreen;
+}
+
+.error {
+	color: white;
+	background-color: lightcoral
+}
