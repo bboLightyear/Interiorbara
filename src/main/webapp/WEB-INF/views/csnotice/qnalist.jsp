@@ -6,10 +6,18 @@
 <head>
 <meta charset="UTF-8">
 <link rel="stylesheet" type="text/css"
-	href="resources/css/noticelist.css" />
+	href="resources/css/noticelist.css" /> 
 <link rel="stylesheet"
-	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css" />
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+<style>
+.fa-solid {
+	color: #333;
+}
 
+.fa-solid:hover {
+	color: gold;
+}
+</style>
 <title>Insert title here</title>
 </head>
 <body>
@@ -58,16 +66,25 @@
 	<form action="qnalist" method="post">
 		<div>
 			<select name="qnadiv">
-				<c:choose>
+			
+				<option value="all" ${all eq 'true' ? 'selected' : ''}>전체</option>
+				<option value="qq" ${qq eq 'true' ? 'selected' : ''}>퀵견적</option>
+				<option value="oh" ${oh eq 'true' ? 'selected' : ''}>우리집 자랑하기</option>
+				<option value="biz" ${biz eq 'true' ? 'selected' : ''}>업체 관련</option>
+				<option value="pf" ${pf eq 'true' ? 'selected' : ''}>로그인/회원정보</option>
+				<option value="sh" ${sh eq 'true' ? 'selected' : ''}>소품샵</option>
+				
+				
+<%-- 				<c:choose>
 					<c:when test="${all }">
 						<option value="all" selected="selected">전체</option>
 					</c:when>
 					<c:otherwise>						
 						<option value="all">전체</option>
 					</c:otherwise>
-				</c:choose>
+				</c:choose> --%>
 				
-				<c:choose>
+	<%-- 			<c:choose>
 					<c:when test="${qq }">
 						<option value="qq" selected="selected">퀵견적</option>
 					</c:when>
@@ -110,7 +127,7 @@
 					<c:otherwise>						
 						<option value="sh">소품샵</option>
 					</c:otherwise>
-				</c:choose>
+				</c:choose> --%>
 			</select> 
 			<input type="text" name="sk" value="${searchKeyword }" /> 
 			<input type="submit" value="검색" />
@@ -137,9 +154,6 @@
 		</table>
 		<a href="qnawriteview">글쓰기</a>
 		<hr />
-
-
-
 		<c:if test="${searchVo.page>1 }">
 			<a href="qnalist?page=1&sk=${searchKeyword}&all=${all==true?'all':''}
 					&qq=${qq==true?'qq':''}&oh=${oh==true?'oh':''}&biz=${biz==true?'biz':''}&qf=${qf==true?'pf':''}&sh=${sh==true?'sh':''}">

@@ -1,18 +1,18 @@
 package com.tech.ibara.csnotice.vo;
 
 public class PageVO {
-    private Integer displayRowCount = 5;           // ì¶œë ¥?•  ?°?´?„° ê°œìˆ˜
-    private Integer grpPageCnt=3;                   //// ?˜?´ì§?ê·¸ë£¹?—?„œ ?˜?´ì§?ê°??ˆ˜ ?ˆ˜? •*
-    private Integer rowStart;                       // ?‹œ?‘?–‰ë²ˆí˜¸
-    private Integer rowEnd;                         // ì¢…ë£Œ?–‰ ë²ˆí˜¸
-    private Integer totPage;                        // ? „ì²? ?˜?´?ˆ˜
-    private Integer totRow = 0;                     // ? „ì²? ?°?´?„° ?ˆ˜
-    private Integer page;                           // ?˜„?¬ ?˜?´ì§?
-    private Integer pageStart;                      // ?‹œ?‘?˜?´ì§?
-    private Integer pageEnd;                        // ì¢…ë£Œ?˜?´ì§?
+    private Integer displayRowCount = 5;           // ì¶œë ¥í•  ë°ì´í„° ê°œìˆ˜
+    private Integer grpPageCnt=5;                   //// í˜ì´ì§€ê·¸ë£¹ì—ì„œ í˜ì´ì§€ê°¯ìˆ˜ ìˆ˜ì •*
+    private Integer rowStart;                       // ì‹œì‘í–‰ë²ˆí˜¸
+    private Integer rowEnd;                         // ì¢…ë£Œí–‰ ë²ˆí˜¸
+    private Integer totPage;                        // ì „ì²´ í˜ì´ìˆ˜
+    private Integer totRow = 0;                     // ì „ì²´ ë°ì´í„° ìˆ˜
+    private Integer page;                           // í˜„ì¬ í˜ì´ì§€
+    private Integer pageStart;                      // ì‹œì‘í˜ì´ì§€
+    private Integer pageEnd;                        // ì¢…ë£Œí˜ì´ì§€
 
     /**
-     * ? „ì²? ?°?´?„° ê°œìˆ˜(total)ë¥? ?´?š©?•˜?—¬ ?˜?´ì§??ˆ˜ ê³„ì‚°. 
+     * ì „ì²´ ë°ì´í„° ê°œìˆ˜(total)ë¥¼ ì´ìš©í•˜ì—¬ í˜ì´ì§€ìˆ˜ ê³„ì‚°. 
      */
     public void pageCalculate(Integer total) {
         getPage();
@@ -35,7 +35,7 @@ public class PageVO {
     
 
     /**
-     * ?˜„?¬ ?˜?´ì§? ë²ˆí˜¸. 
+     * í˜„ì¬ í˜ì´ì§€ ë²ˆí˜¸. 
      */
     public Integer getPage() {
         if (page == null || page == 0) {

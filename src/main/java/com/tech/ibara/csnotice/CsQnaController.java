@@ -11,11 +11,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.tech.ibara.csnotice.dao.QnaBoardIDao;
 import com.tech.ibara.csnotice.dto.QnaDto;
+import com.tech.ibara.csnotice.dto.QnaImgDto;
+import com.tech.ibara.csnotice.dto.QnaReplyDto;
 import com.tech.ibara.csnotice.vo.SearchVO;
 
 @Controller
@@ -85,6 +88,7 @@ public class CsQnaController {
 		String p = request.getParameter("pf");
 		String s = request.getParameter("sh");
 
+		
 		if (a != null) {
 			if (a.equals("all")) {
 				all = a;
@@ -165,11 +169,11 @@ public class CsQnaController {
 		} else if (sh.equals("sh")) { // 소품샵 검색
 			total = dao.selectBoardTotalCount6();
 		}
-
+		
+//		total count 찍히게
 		System.out.println("total : " + total);
 
-//		total count 찍히게
-
+		//토탈 값을 보내서 페이지 수 검색 
 		searchVO.pageCalculate(total);
 
 		// 계산된 값
@@ -180,6 +184,7 @@ public class CsQnaController {
 		System.out.println("rowstart" + searchVO.getRowStart());
 		System.out.println("rowend" + searchVO.getRowEnd());
 
+		
 		int rowStart = searchVO.getRowStart();
 		int rowEnd = searchVO.getRowEnd();
 
@@ -211,13 +216,16 @@ public class CsQnaController {
 
 		return "csnotice/qnalist";
 	}
-
+	
+	
+	//별 기능 없음 writeview로 이동
 	@RequestMapping("/qnawriteview")
 	public String qnawriteview() {
 
 		return "csnotice/qnawriteview";
 	}
 
+	//글 게시
 	@RequestMapping("/qnawrite")
 	public String qnawrite(MultipartHttpServletRequest mftrequest, Model model) {
 
@@ -246,8 +254,7 @@ public class CsQnaController {
 		int snbno = dao.selsnbno();
 		System.out.println("snbno: " + snbno);
 
-		dao.qnawrite(nbwriter, nbtitle, nbcontent, snbno, qnadiv);
-
+		//파일 이름 업로드 당시 밀리초로 변경
 		for (MultipartFile mf : fileList) {
 			String originFile = mf.getOriginalFilename();
 			System.out.println("파일이름 : " + originFile);
@@ -255,13 +262,25 @@ public class CsQnaController {
 			String changeFile = longtime + "_" + mf.getOriginalFilename();
 			System.out.println("변형된 파일 이름 : " + changeFile);
 			String pathFile = path + "\\" + changeFile;
+			
+			
+			//이미지 없이 글 올릴 경우 filecode 0으로 설정
+			if (originFile=="") {
+				snbno=(-1);
+				System.out.println("snbno=-1"); 
+			}
+
+			//글 작성 
+			dao.qnawrite(nbwriter, nbtitle, nbcontent, snbno, qnadiv);
+			
+			//이미지 업로드
 			try {
 				if (!originFile.equals("")) {
 					mf.transferTo(new File(pathFile));
 					System.out.println("다중 업로드 성공");
 //					db에 파일 이름 인서트
 					dao.imgwrite(snbno, changeFile);
-
+					
 				}
 			} catch (Exception e) {
 				// TODO: handle exception
@@ -278,16 +297,41 @@ public class CsQnaController {
 
 		String nbno = request.getParameter("nbno");
 		System.out.println(nbno);
-
+		
+		//글 번호로 조회수 올리기
 		dao.uphit(nbno);
-
+		
+		//콘탠트 조회 후 dto에 담기
 		QnaDto dto = dao.qnacontent(nbno);
 		// model에 담아서 뷰단에 보내줌
-
 		model.addAttribute("qna_content", dto);
+		
+		//답글 셀렉트 해서 출력
+		ArrayList<QnaReplyDto> replylist=dao.replylist(nbno);
+		System.out.println("replylist : "+replylist);
+		
+		model.addAttribute("replylist",replylist);
 
 		return "csnotice/qnacontent";
 	}
+	
+	@RequestMapping("/qnaeditview")
+	public String qnacontentedit(HttpServletRequest request, Model model) {
+		
+		String nbno=request.getParameter("nbno");
+		
+		QnaBoardIDao dao = sqlSession.getMapper(QnaBoardIDao.class);
+		
+		QnaDto qna = dao.qnacontentview(nbno);
+		
+		ArrayList<QnaImgDto> qnaimg =dao.qnacontentimgview(nbno);
+		
+		model.addAttribute("qna_content",qna);
+		model.addAttribute("qnaimg",qnaimg);
+		
+		return "csnotice/qnaeditview";
+	}
+	
 	
 	@RequestMapping("/qnadelete")
 	public String qnadelete(HttpServletRequest request, Model model) {
@@ -299,13 +343,34 @@ public class CsQnaController {
 		String nbno=request.getParameter("nbno");
 		System.out.println("delete : "+nbno);
 		
+		// 글 번호 이용해서 파일코드 조회
 		int filecode=dao.selfilecode(nbno);
-		
+		// 파일코드 출력
 		System.out.println("filecode : "+filecode);
+		
+		//파일코드로 이미지 먼저 삭제
 		dao.imgdelete(filecode);
+		//글 앞에서 받은 글 번호로 게시글 삭제
 		dao.qnadelete(nbno);
 		
 		return "redirect:qnalist";
+	}
+	
+	@RequestMapping(method = RequestMethod.POST,value = "/qnareply")
+	public String qnareply(HttpServletRequest request,Model model) {
+		System.out.println("qnareply()");
+		
+		QnaBoardIDao dao=sqlSession.getMapper(QnaBoardIDao.class);
+
+		String nbno=request.getParameter("nbno");
+		String qnareply=request.getParameter("qnareply");		
+		String qnarewriter=request.getParameter("qnarewriter");		
+
+		// 전체 답글 달기
+		dao.qnareply(nbno,qnareply,qnarewriter);
+
+		
+		return "redirect:qnacontent?nbno="+nbno;
 	}
 
 }

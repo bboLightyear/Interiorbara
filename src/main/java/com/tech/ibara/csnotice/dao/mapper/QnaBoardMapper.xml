@@ -120,6 +120,54 @@
 		WHERE NBNO=#{param1}
 	</select>
 
+<!-- ================================================================================= -->
+ 	<select id="qnacontentview" resultType="com.tech.ibara.csnotice.dto.QnaDto">
+        SELECT B.NBNO,B.NBTITLE,B.NBQNADIV,B.NBCONTENT,B.NBWRITER,B.NBHIT,B.NBDATE,B.NBGROUP,B.NBSTEP,B.NBFILECODE,I.FILESRC
+        FROM CS_NOTICEBOARD B LEFT OUTER JOIN CS_NOTICEBOARD_IMG I
+        ON B.NBFILECODE=I.NBFILECODE
+        WHERE B.NBNO=#{param1}
+	</select>
+
+<!--  	<select id="qnacontentimgview" resultType="com.tech.ibara.csnotice.dto.QnaImgDto">
+        SELECT B.NBNO,B.NBTITLE,B.NBQNADIV,B.NBCONTENT,B.NBWRITER,B.NBHIT,B.NBDATE,B.NBGROUP,B.NBSTEP,B.NBFILECODE,I.FILESRC
+        FROM CS_NOTICEBOARD B LEFT OUTER JOIN CS_NOTICEBOARD_IMG I
+        ON B.NBFILECODE=I.NBFILECODE
+        WHERE B.NBNO=#{param1}
+	</select> -->
+ 
+
+ 	<resultMap type="com.tech.ibara.csnotice.dto.QnaImgDto" id="QnaImgDto">
+		<result column="NBNO" property="nbno" />
+		<result column="NBFILECODE" property="nbfilecode" />
+		<result column="FILESRC" property="filesrc" />		
+	</resultMap>
+	
+	<resultMap type="com.tech.ibara.csnotice.dto.QnaDto" id="QnaDto">
+		<result column="NBNO" property="nbno" />
+		<result column="NBTITLE" property="nbtitle" />
+		<result column="NBCONTENT" property="nbcontent" />		
+		<result column="NBWRITER" property="nbwriter" />		
+		<result column="NBHIT" property="nbhit" />		
+		<result column="NBDATE" property="nbdate" />		
+		<result column="NBGROUP" property="nbgroup" />		
+		<result column="NBSTEP" property="nbstep" />	
+		<result column="NBINDENT" property="nbindent" />	
+		<result column="NBFILECODE" property="nbfilecode" />	
+		<result column="NBQNADIV" property="nbqnadiv" />	
+		<collection property="qnaImgDto" resultMap="QnaImgDto"/>	
+	</resultMap>
+	
+
+
+	<select id="qnacontentimgview" parameterType="com.tech.ibara.csnotice.dto.QnaImgDto" resultMap="QnaImgDto">
+		SELECT I.FILESRC
+        FROM CS_NOTICEBOARD B LEFT OUTER JOIN CS_NOTICEBOARD_IMG I
+        ON B.NBFILECODE=I.NBFILECODE
+        WHERE B.NBNO=#{param1}
+	</select> 
+
+<!-- =================================================================================== -->
+
 	<select id="selfilecode" resultType="Integer">
 		SELECT NBFILECODE 
 		FROM CS_NOTICEBOARD
@@ -133,4 +181,16 @@
 	<update id="qnadelete" >
 		DELETE FROM CS_NOTICEBOARD WHERE NBNO=#{param1}
 	</update>
+	
+	<insert id="qnareply">
+		INSERT INTO CS_QNABOARD_REPLY VALUES(#{param1},CS_QNABOARD_REPLY_SEQ.NEXTVAL,#{param3},#{param2},0,0,0)
+	</insert>
+	
+ 	<select id="replylist" resultType="com.tech.ibara.csnotice.dto.QnaReplyDto">
+		SELECT NBNO,RNBNO,RNBWRITER,RNBCONTENT,RNBSTEP,RNBGROUP,RNBINDENT
+        FROM CS_QNABOARD_REPLY
+        WHERE NBNO=#{param1}
+	</select>
+
+	
 </mapper>

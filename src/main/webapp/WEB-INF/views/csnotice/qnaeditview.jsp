@@ -27,8 +27,22 @@
 				<td>${qna_content.nbwriter }</td>
 			</tr>
 			<tr>
+				<td class="left">글분류</td>
+				<td>
+				<select name="qnadiv">
+					<option value="all" ${qna_content.nbqnadiv eq 'all' ? 'selected' : '' }>전체</option>
+					<option value="qq" ${qna_content.nbqnadiv eq 'qq' ? 'selected' : '' }>퀵견적</option>
+					<option value="oh" ${qna_content.nbqnadiv eq 'all' ? 'selected' : '' }>우리집 자랑하기</option>
+					<option value="biz" ${qna_content.nbqnadiv eq 'all' ? 'selected' : '' }>업체 관련</option>
+					<option value="pf" ${qna_content.nbqnadiv eq 'all' ? 'selected' : '' }>로그인/회원정보</option>
+					<option value="sh" ${qna_content.nbqnadiv eq 'all' ? 'selected' : '' }>소품샵</option>
+				</select>
+				</td>
+			</tr>
+			<tr>
 				<td class="left">제목</td>
-				<td><input type="text" name="nbtitle" value="${qna_content.nbtitle }" /></td>
+				<td><input type="text" name="nbtitle"
+					value="${qna_content.nbtitle }" /></td>
 			</tr>
 			<tr>
 				<td class="left">내용</td>
@@ -40,7 +54,7 @@
 			</tr>
 			<tr>
 				<td class="left">파일</td>
-				<td><a href=""></a></td>
+				<td><input type="file" name="nbfile" multiple="multiple"/></td>
 			</tr>
 			<tr>
 				<td><input type="submit" value="수정" /></td>

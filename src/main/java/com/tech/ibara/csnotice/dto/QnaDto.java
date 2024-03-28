@@ -24,5 +24,6 @@ public class QnaDto {
 	private int nbstep;
 	private int nbindent;
 	private String nbfilecode;
+	private QnaImgDto qnaImgDto;
 
 }

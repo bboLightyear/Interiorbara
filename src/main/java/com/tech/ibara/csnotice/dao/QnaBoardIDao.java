@@ -3,6 +3,8 @@ package com.tech.ibara.csnotice.dao;
 import java.util.ArrayList;
 
 import com.tech.ibara.csnotice.dto.QnaDto;
+import com.tech.ibara.csnotice.dto.QnaImgDto;
+import com.tech.ibara.csnotice.dto.QnaReplyDto;
 
 public interface QnaBoardIDao {
 
@@ -25,10 +27,18 @@ public interface QnaBoardIDao {
 
 	public QnaDto qnacontent(String nbno);
 
+	public QnaDto qnacontentview(String nbno);
+
 	public int selfilecode(String nbno);
 
 	public void imgdelete(int filecode);
 
 	public void qnadelete(String nbno);
 
+	public ArrayList<QnaImgDto> qnacontentimgview(String nbno);
+
+	public void qnareply(String nbno, String qnareply, String qnarewriter);
+
+	public ArrayList<QnaReplyDto> replylist(String nbno);
+	
 }
