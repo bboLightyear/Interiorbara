@@ -15,10 +15,19 @@
  		var target = event.target;
 		var rnbno = $(target).data("rnbno"); 
 		
-		var hiddenDiv = document.getElementById(rnbno);
+		var hiddenDiv = document.getElementById(rnbno+"replyform");
 		
 		hiddenDiv.style.display = "block";
+	}
+
+	function replyformclose() {
+		/* alert("x"); */
+ 		var target = event.target;
+		var rnbno = $(target).data("rnbno"); 
 		
+		var hiddenDiv = document.getElementById(rnbno+"replyform");
+		
+		hiddenDiv.style.display = "none";
 	}
 </script>
 
@@ -86,21 +95,35 @@
 	
 	<c:forEach items="${replylist }" var="dto">
 	<div>
-		<span><h3> 작성자 : ${dto.rnbwriter }</h3></span>
-		<p> 답글 : ${dto.rnbcontent }</p>
+		<span><h3> 작성자 : ${dto.rnbwriter } &nbsp;&nbsp; 답글 : ${dto.rnbcontent }</h3></span>
+		
 		
 	<!--답글 달기 버튼을 클릭 시에 아래에 입력 창이 나타나도록 하는 스크립트-->
 		<button  onclick="replyform()" data-rnbno="${dto.rnbno }">답글달기</button>
 	</div>
 	
+	
+	<c:forEach items="${replyrlist}" var="rdto">
+	<div <%-- id="${dto.rnbno }replyview"  style="display: none;" --%>>
+			<p>${rdto.rnbwriter } &nbsp;&nbsp; 답글 : ${rdto.rnbcontent }</p>
+	</div>
+	</c:forEach>
+	
 	<!--숨겨진 div, id 값을 조회한 답글 번호로 지정하여 위의 스크립트에서 버튼을 각각의 div를 따로 적용-->
-	<div id="${dto.rnbno }"  style="display: none;">
+	<div id="${dto.rnbno }replyform"  style="display: none;">
 		<form action="qnareply_r?rnbno=${dto.rnbno }&nbno=${qna_content.nbno }" method="post">
+			
+			<input type="hidden" name="rnbstep" value="${dto.rnbstep }"/>
+			<input type="hidden" name="rnbgroup" value="${dto.rnbgroup }"/>
+			<input type="hidden" name="rnbindent" value="${dto.rnbindent }"/>
+			
 			<textarea rows="6" cols="65" name="rcontent">@${dto.rnbwriter }&nbsp;</textarea>
 			<input type="text" name="rwriter" />
 			<input type="submit" value="입력" />
 		</form>
+			<button onclick="replyformclose()" data-rnbno="${dto.rnbno }">접기</button>
 	</div>
+
 	
 	
 	</c:forEach>
