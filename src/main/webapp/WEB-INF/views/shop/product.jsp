@@ -65,8 +65,8 @@
 								data-quantity="1" data-option-price="'+ data.product_data_dto.price + '"\
 								data-total-price="'+ data.product_data_dto.price +'">' + 
 								optionText + '<br />\
-								<button type="button" onclick="quantity(`sub`)"><</button>(<span id="quantityText">1</span>)\
-								<button type="button" onclick="quantity(`add`)">></button>\
+								<button type="button" onclick="quantity(`sub`)">&lt;</button>(<span id="quantityText">1</span>)\
+								<button type="button" onclick="quantity(`add`)">&gt;</button>\
 								<span id="priceText">' + data.product_data_dto.price + '</span>원\
 							</div>';
 							
@@ -115,8 +115,8 @@
 								data-quantity="1" data-option-price="'+ data.product_data_dto.price + '"\
 								data-total-price="'+ data.product_data_dto.price +'">' + 
 								optionText + '<br />\
-								<button type="button" onclick="quantity(`sub`)"><</button>(<span id="quantityText">1</span>)\
-								<button type="button" onclick="quantity(`add`)">></button>\
+								<button type="button" onclick="quantity(`sub`)">&lt;</button>(<span id="quantityText">1</span>)\
+								<button type="button" onclick="quantity(`add`)">&gt;</button>\
 								<span id="priceText">' + data.product_data_dto.price + '</span>원\
 							</div>';
 							
@@ -303,8 +303,8 @@
 							<div class="selectedProductCard" data-option-id="${nonOption.option_id }" data-quantity="1" data-non-option="1"
 							data-option-price="${nonOption.product_data_dto.price }" data-total-price="${data.product_data_dto.price }">
 								${nonOption.name } <br />
-								<button type="button" onclick="quantity(`sub`)"><</button>(<span id="quantityText">1</span>)
-								<button type="button" onclick="quantity(`add`)">></button>
+								<button type="button" onclick="quantity(`sub`)">&lt;</button>(<span id="quantityText">1</span>)
+								<button type="button" onclick="quantity(`add`)">&gt;</button>
 								<span id="priceText">${nonOption.product_data_dto.price }</span>원
 							</div>
 						</c:when>
