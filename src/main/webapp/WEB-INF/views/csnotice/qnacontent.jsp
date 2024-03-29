@@ -111,21 +111,62 @@
 	
 	<!--숨겨진 div, id 값을 조회한 답글 번호로 지정하여 위의 스크립트에서 버튼을 각각의 div를 따로 적용-->
 	<div id="${dto.rnbno }replyform"  style="display: none;">
-		<form action="qnareply_r?rnbno=${dto.rnbno }&nbno=${qna_content.nbno }" method="post">
+		<div>
 			
-			<input type="hidden" name="rnbstep" value="${dto.rnbstep }"/>
-			<input type="hidden" name="rnbgroup" value="${dto.rnbgroup }"/>
-			<input type="hidden" name="rnbindent" value="${dto.rnbindent }"/>
+			<input type="hidden" id="rnbno" name="rnbno" value="${dto.rnbno }"/>
+			<input type="hidden" id="nbno" name="nbno" value="${dto.nbno }"/>
+			<input type="hidden" id="rnbstep" name="rnbstep" value="${dto.rnbstep }"/>
+			<input type="hidden" id="rnbgroup" name="rnbgroup" value="${dto.rnbgroup }"/>
+			<input type="hidden" id="rnbindent" name="rnbindent" value="${dto.rnbindent }"/>
 			
-			<textarea rows="6" cols="65" name="rcontent">@${dto.rnbwriter }&nbsp;</textarea>
-			<input type="text" name="rwriter" />
-			<input type="submit" value="입력" />
-		</form>
+			<textarea rows="6" cols="65" id="rcontent" name="rcontent">@${dto.rnbwriter }&nbsp;</textarea>
+			<input type="text" name="rwriter" id="rwriter" />
+			<input type="button" value="입력" onclick="reply()"/>
+		</div>
 			<button onclick="replyformclose()" data-rnbno="${dto.rnbno }">접기</button>
 	</div>
-
 	
 	
 	</c:forEach>
+	
+	<script>
+		function reply() {
+			var parent = event.target.parentElement;
+			var replyArea = parent.parentElement;
+			
+			$.ajax({
+				type: "post",
+				async: true,
+				url: "reply",
+				data: {
+					"rnbno" : $(parent).find("#rnbno").val(),
+					"nbno" : $(parent).find("#nbno").val(),
+					"rnbstep" : $(parent).find("#rnbstep").val(),
+					"rnbgroup" : $(parent).find("#rnbgroup").val(),
+					"rnbindent" : $(parent).find("#rnbindent").val(),
+					"rcontent" : $(parent).find("#rcontent").val(),
+					"rwriter" : $(parent).find("#rwriter").val()
+				},
+				success: function(data) {
+					console.log("success");
+					console.log(data);
+					
+					$(parent).remove();
+					
+					var htmlText = "<span>";
+					
+					for (var i = 0; i < data.length; i++) {
+						console.log(data[i].rnbcontent);
+						htmlText += data[i].rnbcontent;
+					}
+					
+					htmlText += "</span>";
+					
+					$(replyArea).prepend(htmlText);
+					
+				}
+			});
+		}
+	</script>
 </body>
 </html>
