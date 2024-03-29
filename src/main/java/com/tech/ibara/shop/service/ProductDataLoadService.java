@@ -21,9 +21,9 @@ public class ProductDataLoadService extends SqlSessionBase implements ShopRestSe
 		HttpServletRequest request = (HttpServletRequest) model.asMap().get("request");
 		ShopDao dao = sqlSession.getMapper(ShopDao.class);
 
-		int option_id = Integer.parseInt(request.getParameter("option_id"));
+		int optionId = Integer.parseInt(request.getParameter("optionId"));
 
-		optionDto = dao.selectJoinOptionById(option_id);
+		optionDto = dao.selectJoinOptionById(optionId);
 	}
 
 	@Override

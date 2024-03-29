@@ -1,11 +1,16 @@
 package com.tech.ibara.shop.dto;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public class BasketDto {
 
 	private int basket_id;
 	private int user_id;
+	@JsonProperty("productId")
 	private int product_id;
+	@JsonProperty("optionId")
 	private int option_id;
+	@JsonProperty("quantity")
 	private int quantity;
 
 	private OptionDto option_dto;
@@ -18,6 +23,13 @@ public class BasketDto {
 
 	public BasketDto() {
 
+	}
+
+	public BasketDto(int user_id, int product_id, int option_id, int quantity) {
+		this.user_id = user_id;
+		this.product_id = product_id;
+		this.option_id = option_id;
+		this.quantity = quantity;
 	}
 
 	public int getBasket_id() {

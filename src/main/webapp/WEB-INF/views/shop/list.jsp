@@ -44,16 +44,16 @@
 <body>
 	<h3>list.jsp</h3>
 	<%
-	if (session.getAttribute("user_id") == null) {
-		session.setAttribute("user_id", "1");
+	if (session.getAttribute("userId") == null) {
+		session.setAttribute("userId", "1");
 	}
 	%>
-	<h4>user_id: <%= session.getAttribute("user_id") %></h4>
+	<h4>userId: <%= session.getAttribute("userId") %></h4>
 	<a href="management">상품등록</a>
 	<div id="wrap">
 		<nav>			
 			<c:forEach items="${levelCategories }" var="cat">
-				<a href="list?category_id=${cat.category_id }">
+				<a href="list?categoryId=${cat.category_id }">
 					<c:forEach begin="1" end="${cat.level - 1}">&nbsp;&nbsp;&nbsp;</c:forEach>
 					${cat.name }
 				</a>
@@ -75,7 +75,7 @@
 			<table>
 				<c:forEach items="${productList }" var="product" varStatus="status">
 					<div class="cell">
-						<a href="product?product_id=${product.product_id }">${product.name }</a>
+						<a href="product?productId=${product.product_id }">${product.name }</a>
 					</div>
 				</c:forEach>
 			</table>

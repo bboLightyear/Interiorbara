@@ -3,6 +3,7 @@ package com.tech.ibara.shop.controller;
 import java.util.ArrayList;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.tech.ibara.shop.dto.CategoryDto;
 import com.tech.ibara.shop.dto.OptionDto;
+import com.tech.ibara.shop.service.BasketAddService;
 import com.tech.ibara.shop.service.ProductDataLoadService;
 import com.tech.ibara.shop.service.ProductSubOptionSetService;
 import com.tech.ibara.shop.service.SubCategoryLoadService;
@@ -31,7 +33,7 @@ public class ShopRestController {
 		
 		ProductSubOptionSetService shopService = new ProductSubOptionSetService(sqlSession);
 		shopService.execute(model);
-		
+
 		return shopService.getData();
 	}
 	
@@ -56,5 +58,15 @@ public class ShopRestController {
 		shopService.execute(model);
 		
 		return shopService.getData();
+	}
+	
+	@RequestMapping(method = RequestMethod.POST, value = "/shop/addBasket")
+	public void addBasket(HttpServletRequest request, HttpSession session ,Model model) {
+		
+		model.addAttribute("request", request);
+		model.addAttribute("session", session);
+		
+		BasketAddService shopService = new BasketAddService(sqlSession);
+		shopService.execute(model);
 	}
 }

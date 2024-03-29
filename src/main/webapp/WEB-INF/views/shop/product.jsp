@@ -11,14 +11,14 @@
 	<script>
 		function loadSubOptionSet() {
 			var select = event.target;
-			var option_id = select.value;
+			var optionId = select.value;
 			
 			$.ajax({
 				type: "get",
 				async: true,
 				url: "loadSubOptionSet",
 				data: {
-					"option_id" : option_id
+					"optionId" : optionId
 				},
 				success: function(data) {
 					$("option", "#finalOptionSet").not(":eq(0)").remove();
@@ -36,80 +36,180 @@
 		
 		function addOneOptionCard() {
 			var select = event.target;
-			var option_id = select.value;
+			var optionId = select.value;
 			
-			$.ajax({
-				type: "get",
-				async: true,
-				url: "loadProductData",
-				data: {
-					"option_id" : option_id
-				},
-				success: function(data) {
-					var optionText = "";
-
-					optionText = $("#finalOptionSet").find("option:first-child").text() + ": "
-						+ data.name;
-					
-					var htmlText =
-						'<div class="selectedProductCard" data-option-id="' + data.option_id + '">' + 
-							optionText + '<br />\
-							<span>' + data.product_data_dto.price + '</span>원\
-						</div>';
-						
-					$("#optionWrap").append(htmlText);
-					
-					$("#finalOptionSet").prop("selectedIndex", 0);
-				
-					
-					var price = parseInt($("#totalPrice").data("totalPrice"), 10);
-					price += parseInt(data.product_data_dto.price, 10);
-					
-					$("#totalPrice").data("totalPrice", price);
-					$("#totalPrice").text($("#totalPrice").data("totalPrice"));
+			var notContain = true;
+			$(".selectedProductCard").each(function() {
+				if (optionId == $(this).data("optionId")) {
+					alert("이미 추가한 옵션입니다");
+					notContain = false;
+					return false;
 				}
 			});
+			
+			if (notContain) {
+				$.ajax({
+					type: "get",
+					async: true,
+					url: "loadProductData",
+					data: {
+						"optionId" : optionId
+					},
+					success: function(data) {
+						var optionText = "";
+						optionText = $("#finalOptionSet").find("option:first-child").text() + ": "
+							+ data.name;
+						
+						var htmlText =
+							'<div class="selectedProductCard" data-option-id="' + data.option_id + '"\
+								data-quantity="1" data-option-price="'+ data.product_data_dto.price + '"\
+								data-total-price="'+ data.product_data_dto.price +'">' + 
+								optionText + '<br />\
+								<button type="button" onclick="quantity(`sub`)"><</button>(<span id="quantityText">1</span>)\
+								<button type="button" onclick="quantity(`add`)">></button>\
+								<span id="priceText">' + data.product_data_dto.price + '</span>원\
+							</div>';
+							
+						$("#optionWrap").append(htmlText);
+						
+					
+						updateTotalPrice();
+					}
+				});
+			}
+			
+			$("#finalOptionSet").prop("selectedIndex", 0);
 		}
 		
 		function addTwoOptionCard() {
 			var select = event.target;
-			var option_id = select.value;
+			var optionId = select.value;
 			
-			$.ajax({
-				type: "get",
-				async: true,
-				url: "loadProductData",
-				data: {
-					"option_id" : option_id
-				},
-				success: function(data) {
-					var optionText = "";
-
-					optionText = $("#optionSet").find("option:first-child").text() + ": " +
-						$("#optionSet option:selected").text() +' / ' +
-						$("#finalOptionSet").find("option:first-child").text() + ": "
-						+ data.name;
-					
-					var htmlText =
-						'<div class="selectedProductCard" data-option-id="' + data.option_id + '">' + 
-							optionText + '<br />\
-							<span>' + data.product_data_dto.price + '</span>원\
-						</div>';
-						
-					$("#optionWrap").append(htmlText);
-					
-					$("option", "#finalOptionSet").not(":eq(0)").remove();
-					$("#finalOptionSet").prop("selectedIndex", 0);
-					$("#optionSet").prop("selectedIndex", 0);
-				
-					
-					var price = parseInt($("#totalPrice").data("totalPrice"), 10);
-					price += parseInt(data.product_data_dto.price, 10);
-					
-					$("#totalPrice").data("totalPrice", price);
-					$("#totalPrice").text($("#totalPrice").data("totalPrice"));
+			var notContain = true;
+			$(".selectedProductCard").each(function() {
+				if (optionId == $(this).data("optionId")) {
+					alert("이미 추가한 옵션입니다");
+					notContain = false;
+					return false;
 				}
 			});
+			
+			if (notContain) {
+				$.ajax({
+					type: "get",
+					async: true,
+					url: "loadProductData",
+					data: {
+						"optionId" : optionId
+					},
+					success: function(data) {
+						var optionText = "";
+
+						optionText = $("#optionSet").find("option:first-child").text() + ": " +
+							$("#optionSet option:selected").text() +' / ' +
+							$("#finalOptionSet").find("option:first-child").text() + ": "
+							+ data.name;
+						
+						var htmlText =
+							'<div class="selectedProductCard" data-option-id="' + data.option_id + '"\
+								data-quantity="1" data-option-price="'+ data.product_data_dto.price + '"\
+								data-total-price="'+ data.product_data_dto.price +'">' + 
+								optionText + '<br />\
+								<button type="button" onclick="quantity(`sub`)"><</button>(<span id="quantityText">1</span>)\
+								<button type="button" onclick="quantity(`add`)">></button>\
+								<span id="priceText">' + data.product_data_dto.price + '</span>원\
+							</div>';
+							
+						$("#optionWrap").append(htmlText);
+
+						$("#optionSet").prop("selectedIndex", 0);
+						
+						updateTotalPrice();
+					}
+				});
+			}
+			
+			$("option", "#finalOptionSet").not(":eq(0)").remove();
+			$("#finalOptionSet").prop("selectedIndex", 0);
+		}
+		
+		function updateTotalPrice() {
+			var totalPrice = 0;
+			$(".selectedProductCard").each(function() {
+				totalPrice += $(this).data("totalPrice");
+			});
+			
+			$("#totalPrice").data("totalPrice", totalPrice);
+			$("#totalPrice").text(totalPrice);
+		}
+		
+		function quantity(operation) {
+			var target = event.target;
+			var parent = target.parentElement;
+			
+			var quantity = $(parent).data("quantity");
+			var price = $(parent).data("optionPrice");
+			
+			switch (operation) {
+			case "add":
+				++quantity;
+				break;
+			case "sub":
+				if (quantity == 1) {
+					alert("1개 이상 가능");
+					return;
+				} else {
+					--quantity;
+				}
+				break;
+			}
+			
+			$(parent).data("quantity", quantity);
+			
+			var totalPrice = price * quantity;
+			
+			$(parent).data("totalPrice", totalPrice);
+			$(parent).find("#priceText").text(totalPrice);
+			$(parent).find("#quantityText").text(quantity);
+			
+			updateTotalPrice();
+		}
+		
+		function addBasket() {
+			var data = [];
+
+			var productId = $("main").data("productId");
+
+			var index = 0;
+			$(".selectedProductCard").each(function() {
+				var optionId = $(this).data("optionId");
+				var quantity = $(this).data("quantity");
+				
+				data.push({
+						"productId" : productId,
+						"optionId" : optionId,
+						"quantity" : quantity
+				});
+				
+				++index;
+			});
+			
+			if (index == 0) {
+				return;
+			}
+			
+			$.ajax({
+				type: "post",
+				async: true,
+				url: "addBasket",
+				data: JSON.stringify(data),
+				success: function() {
+					alert("장바구니에 담기 완료");
+				}
+			});
+			
+			$(".selectedProductCard").remove();
+			updateTotalPrice();
 		}
 	</script>
 	<style>
@@ -134,7 +234,6 @@
 		.selectedProductCard {
 			disply: inline-block;
 			width: 300px;
-			height: 50px;
 			background-color: #f0f0f0;
 			margin-top: 5px;
 			margin-bottom: 5px;
@@ -162,13 +261,13 @@
 <body>
 	
 	<h3>product.jsp</h3>
-	<h4>user_id: <%= session.getAttribute("user_id") %></h4>
+	<h4>userId: <%= session.getAttribute("userId") %></h4>
 	<a href="basket">장바구니</a>
 	<br />
 	<main data-product-id="${product.product_id }">
 		<div>
 			<c:forEach items="${categories }" var="cat" varStatus="s">
-				<a href="list?category_id=${cat.category_id }">${cat.name }</a>
+				<a href="list?categoryId=${cat.category_id }">${cat.name }</a>
 				<c:if test="${not s.last }"> > </c:if>
 			</c:forEach>
 		</div>
@@ -190,7 +289,7 @@
 			</div>
 		</section>
 		<section id="summary">
-			product_id: ${product.product_id } <br />
+			productId: ${product.product_id } <br />
 			name: ${product.name } <br />
 			옵션 <br />
 			<form action="">
@@ -231,7 +330,7 @@
 					<br />
 				</div>
 				<br />
-				<input type="button" value="장바구니"/>
+				<input type="button" value="장바구니" onclick="addBasket()"/>
 				<input type="button" value="바로구매"/>
 			</form>
 			<br />

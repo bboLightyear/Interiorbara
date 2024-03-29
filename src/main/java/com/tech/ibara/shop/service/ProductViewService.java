@@ -25,9 +25,9 @@ public class ProductViewService extends SqlSessionBase implements ShopService {
 		HttpServletRequest request = (HttpServletRequest) model.asMap().get("request");
 		ShopDao dao = sqlSession.getMapper(ShopDao.class);
 
-		int product_id = Integer.parseInt(request.getParameter("product_id"));
+		int productId = Integer.parseInt(request.getParameter("productId"));
 
-		ProductDto productDto = dao.selectProductById(product_id);
+		ProductDto productDto = dao.selectProductById(productId);
 
 		// category
 		ArrayList<CategoryDto> categories = new ArrayList<CategoryDto>();
@@ -39,10 +39,10 @@ public class ProductViewService extends SqlSessionBase implements ShopService {
 		}
 
 		// image
-		ArrayList<ProductImgDto> productImgs = dao.selectProductImgsByProduct(product_id);
+		ArrayList<ProductImgDto> productImgs = dao.selectProductImgsByProduct(productId);
 
 		// option
-		OptionSetDto optionSetDto = dao.selectOptionSetByProduct(product_id);
+		OptionSetDto optionSetDto = dao.selectOptionSetByProduct(productId);
 		int optionSetId = optionSetDto.getOption_set_id();
 
 		OptionDto nonOptionDto = null;

@@ -25,14 +25,14 @@
 			
 			++level;
 			
-			var category_id = select.value;
+			var categoryId = select.value;
 			
 			$.ajax({
 				type: "get",
 				async: true,
 				url: "loadSubCategories",
 				data: {
-					"category_id" : category_id
+					"categoryId" : categoryId
 				},
 				success: function(data) {
 					if (data.length > 0) {

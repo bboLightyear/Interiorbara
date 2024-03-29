@@ -366,10 +366,72 @@
 				QUANTITY)
 		VALUES (
 			SEQ_SHOP_BASKET.NEXTVAL,
-			#{basket_id},
 			#{user_id},
 			#{product_id},
 			#{option_id},
 			#{quantity})
+	</insert>
+	
+<!-- 	<insert id="insertBaskets" parameterType="list">
+		<foreach collection="list" item="item" index="idx"
+			separator=";" open="DECLARE BEGIN" close="; END;">
+			INSERT INTO
+				SHOP_BASKET (
+					BASKET_ID,
+					USER_ID,
+					PRODUCT_ID,
+					OPTION_ID,
+					QUANTITY)
+			VALUES (
+				SEQ_SHOP_BASKET.NEXTVAL,
+				#{item.user_id},
+				#{item.product_id},
+				#{item.option_id},
+				#{item.quantity})
+		</foreach>
+	</insert> -->
+	
+	<insert id="insertBaskets" parameterType="list">
+		DECLARE
+			BASKET_COUNT NUMBER;
+		BEGIN
+		<foreach collection="list" item="item" index="idx">
+			SELECT
+				COUNT(*)
+			INTO
+				BASKET_COUNT
+			FROM
+				SHOP_BASKET
+			WHERE
+				USER_ID = #{item.user_id}
+			AND
+				OPTION_ID = #{item.option_id};
+				
+			IF BASKET_COUNT != 0 THEN
+				UPDATE
+					SHOP_BASKET
+				SET
+					QUANTITY = QUANTITY + #{item.quantity}
+				WHERE
+					USER_ID = #{item.user_id}
+				AND
+					OPTION_ID = #{item.option_id};
+			ELSE
+				INSERT INTO
+					SHOP_BASKET (
+						BASKET_ID,
+						USER_ID,
+						PRODUCT_ID,
+						OPTION_ID,
+						QUANTITY)
+				VALUES (
+					SEQ_SHOP_BASKET.NEXTVAL,
+					#{item.user_id},
+					#{item.product_id},
+					#{item.option_id},
+					#{item.quantity});
+			END IF;
+		</foreach>
+		END;
 	</insert>
 </mapper>
