@@ -4,58 +4,40 @@
     PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
     
-<mapper namespace="com.tech.ibara.biz.dao.BizIDao">
-	<resultMap type="com.tech.ibara.biz.dto.BizRvImgDto" id="BizRvImgDto">
-		<!-- 칼럼명은 관습적으로 대문자로 표현 -->
-		<result column="BRIMG_NO" property="brimg_no"  />
-		<result column="BRIMG_OGN" property="brimg_ogn"  />
-		<result column="BRIMG_CGN" property="brimg_cgn"  />
-		<result column="BR_NO" property="Br_no"  />
-	</resultMap>
-	<resultMap type="com.tech.ibara.biz.dto.BizRvDto" id="BizRvDto">
-		<!-- 칼럼명은 관습적으로 대문자로 표현 -->
-		<result column="BR_NO" property="br_no"  />
-		<result column="BR_CONTENT" property="br_content"  />
-		<result column="BR_WRITER" property="br_writer"  />
-		<result column="BR_LIKE_CNT" property="br_like_cnt"  />
-		<result column="BR_DATE" property="br_date"  />
-		<result column="BR_POINT" property="br_point"  />
-		<result column="BIZ_IDNO" property="biz_idno"  />
-		<result column="USER_IDNO" property="user_idno"  />
-<!-- 			dto에 넣어놓은 BizRvImgDto 가져오기, 저 위 resultMap id=BizRvImgDto의 BizRvImgDto를 resultMap=에 넣는다. -->
-		<collection property="bizRvImgDto" resultMap="BizRvImgDto"></collection>
-	</resultMap>
-
-
+<mapper namespace="com.tech.ibara.biz.dao.BizPriceIDao">
 
 
 <!-- 시공사례 게시판 쿼리 -->
-
-	<sql id="casesIncludlist">
-		<choose>
-			<when test="param4==1">
-				WHERE BC_TITLE LIKE '%'||#{param3}||'%'
-			</when>
-			<when test="param4==2">
-				WHERE BC_CONTENT LIKE '%'||#{param3}||'%'
-			</when>
-			<when test="param4==3">
-				WHERE BC_TITLE LIKE '%'||#{param3}||'%' OR BC_CONTENT LIKE '%'||#{param3}||'%'
-			</when>
-			<otherwise></otherwise>
-		</choose>
-	</sql>
-
-
 	
-	<select id="bizCasesList" resultType="com.tech.ibara.biz.dto.BizCasesDto">
-		SELECT BC_NO,BC_TITLE,BC_CONTENT,BC_WRITER,BC_DATE,BC_HIT,BIZ_IDNO FROM 
-		(SELECT ROWNUM NUM,N.* FROM (SELECT BC_NO,BC_TITLE,BC_CONTENT,BC_WRITER,BC_DATE,BC_HIT,BIZ_IDNO 
-		FROM BIZ_CASES ORDER BY BC_NO DESC) N
-		<include refid="casesIncludlist" />
-		)WHERE NUM BETWEEN #{param1} AND #{param2}
+	<select id="bizPriceList" resultType="com.tech.ibara.biz.dto.BizPriceDto">
+		SELECT NUM, BP_NO, BP_NAME, BP_CONTENT, BP_PRICE, BP_CATEGORY, BP_TYPE, BP_IMG, BIZ_IDNO
+		 FROM 
+		 (SELECT ROWNUM NUM,N.* FROM (SELECT BP_NO, BP_NAME, BP_CONTENT, BP_PRICE, BP_CATEGORY, BP_TYPE, BP_IMG, BIZ_IDNO 
+		 FROM BIZ_PRICE ORDER BY BP_NO ASC) N)
+		 WHERE BIZ_IDNO=#{param1}
 	</select>
-
+	
+	<select id="bizPriceCnt" resultType="Integer">
+		SELECT COUNT(*)  
+		 FROM BIZ_PRICE 
+		 WHERE BIZ_IDNO=#{param1}
+	</select>
+	
+	<select id="selBp_no" resultType="Integer">
+		SELECT MAX(BP_NO) FROM BIZ_PRICE
+	</select>
+	
+	<insert id="bizPriceWrite">
+		INSERT INTO BIZ_PRICE(BP_NO, BP_NAME, BP_CONTENT, BP_PRICE, BP_CATEGORY, BP_TYPE, BP_IMG, BIZ_IDNO) 
+    	VALUES(BIZ_PRICE_SEQ.NEXTVAL,#{param1},#{param2},#{param3},#{param4},#{param5},#{param6},#{param7})
+	</insert>
+	
+	<update id="bizPriceImgWrite">
+		UPDATE BIZ_PRICE SET BP_IMG=#{param2} WHERE BP_NO=#{param1}
+	</update>
+	
+	
+<!-- 
 	<select id="bizCasesContentView"
 		resultType="com.tech.ibara.biz.dto.BizCasesDto">
 		SELECT BC_NO,BC_TITLE,BC_CONTENT,BC_WRITER,BC_DATE,BC_HIT,BIZ_IDNO 
@@ -132,7 +114,7 @@
 
 
 
-<!-- 매거진 게시판 쿼리 -->
+매거진 게시판 쿼리
 
 	<sql id="mgzIncludlist">
 		<choose>
@@ -234,7 +216,7 @@
 
 
 
-<!-- 리뷰 기능 쿼리 -->
+리뷰 기능 쿼리
 
 	<sql id="rvIncludlist">
 		<choose>
@@ -267,10 +249,10 @@
 		WHERE BR_NO=#{param1}
 	</select>
 
-<!-- 	<update id="bizMgzUpHit">
+	<update id="bizMgzUpHit">
 		UPDATE BIZ_MGZ SET BM_HIT=BM_HIT+1 WHERE
 		BM_NO=#{PARAM1}
-	</update> -->
+	</update>
 
 	<update id="bizRvMod">
 		UPDATE BIZ_RV SET BR_POINT=#{param2}, BR_CONTENT=#{param3} 
@@ -379,7 +361,7 @@
 		INSERT INTO BIZ_RV_REPORTED(BRR_NO, BRR_CONTENT, BRR_WRITER, BRR_LIKE_CNT, BRR_DATE, BRR_POINT, BIZ_IDNO, USER_IDNO, BR_NO) 
     	VALUES(BIZ_RV_REPORTED_SEQ.NEXTVAL,#{param1},#{param2},#{param3},#{param4},#{param5},#{param6},#{param7},#{param8})
 	</insert>
-	
+	 -->
 	
 
 

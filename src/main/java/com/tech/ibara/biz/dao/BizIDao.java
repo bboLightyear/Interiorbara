@@ -1,5 +1,6 @@
 package com.tech.ibara.biz.dao;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
 
 import com.tech.ibara.biz.dto.BizCasesDto;
@@ -8,7 +9,6 @@ import com.tech.ibara.biz.dto.BizMgzDto;
 import com.tech.ibara.biz.dto.BizMgzImgDto;
 import com.tech.ibara.biz.dto.BizRvDto;
 import com.tech.ibara.biz.dto.BizRvImgDto;
-import com.tech.ibara.biz.dto.BizRvLikeDto;
 
 public interface BizIDao {
 
@@ -121,6 +121,22 @@ public interface BizIDao {
 	public BizRvDto bizRvReportResultView(String br_no);
 
 	public Integer bizRvLikeCnt(String br_no, String user_idno);
+
+	public void bizRvLikeDel(String user_idno, String br_no);
+
+	public void bizRvLikeAdd(String user_idno, String br_no);
+
+	public int bizRvAllUserLikeCnt(String br_no);
+
+	public void bizRvLikeSubt(String br_no);
+
+	public void bizRvLikePlus(String br_no);
+	
+	public BizRvDto bizRvReportedInfo(String br_no);
+
+	public void bizRvReportedWrite(String brr_content, String brr_writer, int brr_like_cnt, Timestamp brr_date,
+			float brr_point, int biz_idno, String user_idno, String br_no);
+
 
 	
 	

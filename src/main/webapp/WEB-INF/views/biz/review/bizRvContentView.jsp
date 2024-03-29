@@ -10,36 +10,8 @@
 <title>Insert title here</title>
 </head>
 
-<body onload="callheart();">
-
-<script>
-	function callheart() {
-		if('${bizRvLikeCnt}'!=0){
-			document.getElementById("heartImg").src = "../../resources/upload/biz/heart.png";
-		}else{
-			alert("NULLLL");
-			document.getElementById("heartImg").src = "../../resources/upload/biz/heartempty.png";
-		}
-	}
-
-	function heartChange() {
-			var heartCnt=0;
-			if ('${bizRvLikeCnt}'!=0){
-				heartCnt=0;
-				document.getElementById("heartImg").src = "../../resources/upload/biz/heartempty.png";
-				$('input[name=heartCnt]').attr('value', heartCnt);
-			}else{
-				heartCnt=1;
-				document.getElementById("heartImg").src = "../../resources/upload/biz/heart.png";
-				$('input[name=heartCnt]').attr('value', heartCnt);
-			}
-			
-		/* 		$('input[name=br_point]').attr('value', target.value); */
-	}
+<body>
 	
-
-</script>
-
 	
 <h3>bizRvContentView.jsp</h3>
 
@@ -82,12 +54,28 @@
 		<tr class="">
 			<td class="">좋아요</td>
 			<td>
-			<img src="" id="heartImg" alt="heart" width="16" onclick="heartChange();"  />
-			<input type="hidden" name="br_no" value="${bizRvContentView.br_no }" />
-			<input type="hidden" name="user_idno" value="${user_idno }" />
-			<input type="hidden" name="heartCnt" value="" size="20" />
-			${bizRvLikeCnt } 개			
-			${bizRvContentView.br_like_cnt }개</td>
+<%-- 				<a href="bizRvContentView?br_no=${bizRvContentView.br_no }&user_idno=1000&heartnew=y">
+				<img src="../../resources/upload/biz/${heartIs }" id="heartImg" alt="heart" width="16"  /></a> --%>
+			 
+<%--  			 <form action="bizRvContentView" method="post">
+				<!-- 새로고침했을 때 원주소로 돌아가는 방법을 모르겠다. --> 
+				<input type="image" src="../../resources/upload/biz/${heartIs }" id="heartImg" alt="heart" width="16"/>
+				<input type="hidden" name="br_no" value="${bizRvContentView.br_no }" />
+				<input type="hidden" name="user_idno" value="1000${session.user_idno }" />
+				<input type="hidden" name="heartnew" value="y" />
+			</form> --%>
+			
+			<!-- heartnew값을 주소창에 보이지 않으면서, 주소창에서 직접 엔터쳐서 새로고침했을 때 해당 게시물로 돌아가게 만듦 --> 
+ 			 <form action="bizRvContentView?br_no=${bizRvContentView.br_no }&user_idno=1000" method="post">
+				<input type="image" src="../../resources/upload/biz/${heartIs }" id="heartImg" alt="heart" width="16"/>
+				<input type="hidden" name="heartnew" value="y" />
+			</form>			
+			 
+			 ${allUserLikeTotal } 개
+			 
+			 
+			 
+			 
 		</tr>		
 		</tr>	
 		<tr class="">
