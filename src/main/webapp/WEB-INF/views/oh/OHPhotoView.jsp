@@ -250,6 +250,10 @@
 						<a href="OHPhotoDetailView?pb_no=${dto.pb_no }">
 							<img src="../resources/upload/oh/${dto.ohPhotoAttach.pa_attach }" alt="해당 게시글 대표사진" height="300px" width="300px"/>
 						</a>
+						<!-- 좋아요 -->
+						
+						
+						
 					</div>
 				</c:forEach>
 			</div>
@@ -257,7 +261,6 @@
 			<hr />
 			
 			<!-- Paging -->
-			
 			<form action="OHPhotoView" id="pageForm" method="post">
 				<c:if test="${ohPageVO.pageSelectedNum > 1 }">
 					<!-- 첫번째 페이지로 이동 -->	                    
@@ -281,7 +284,7 @@
 					<!-- 마지막 페이지로 이동 -->					
 					<a href="#" onclick="lastPage()" id="lastPage"><i class="fa-solid fa-poo"></i></a>					                               					
 				</c:if>
-
+				<!-- hidden, value 전달 -->
 				<input type="hidden" name="orderingBy" value=${keepOrderingBy } />
 				<input type="hidden" name="orderingMethod" value=${keepOrderingMethod } />
 				<input type="hidden" name="pb_category" value=${keepPb_category } />
@@ -292,65 +295,6 @@
 				<input type="hidden" name="searchingType" value=${keepSearchingType } />
 				<input type="hidden" name="searchingWord" value=${keepSearchingWord } />
 				<input type="hidden" id="transPage"/>
-				
-				<script>
-					/* document.getElementById("firstPage").onclick = function() { */
-					function firstPage() {
-							var inputHidden = $('<input>', {
-							type: 'hidden',
-							name: 'pageSelectedNum',
-							value: '1'
-						}); 
-						$("#transPage").after(inputHidden);
-						document.getElementById("pageForm").submit();
-					};				
-				
-					/* document.getElementById("beforePage").onclick = function() { */
-					function beforePage() {
-							var inputHidden = $('<input>', {
-							type: 'hidden',
-							name: 'pageSelectedNum',
-							value: '${ohPageVO.pageSelectedNum - 1}'
-						}); 
-						$("#transPage").after(inputHidden);
-						document.getElementById("pageForm").submit();
-					};				
-				
-					function movePage(num) {
-						var pageNum = num
-						var inputHidden = $('<input>', {
-							type: 'hidden',
-							name: 'pageSelectedNum',
-							value: pageNum
-						});
-						$("#transPage").after(inputHidden);
-						document.getElementById("pageForm").submit();
-					}
-				
-					/* document.getElementById("nextPage").onclick = function() { */
-					function nextPage() {						
- 						var inputHidden = $('<input>', {
-							type: 'hidden',
-							name: 'pageSelectedNum',
-							value: '${ohPageVO.pageSelectedNum + 1}'
-						}); 
-						$("#transPage").after(inputHidden);
-						document.getElementById("pageForm").submit();
-					};
-				
-					/* document.getElementById("lastPage").onclick = function() { */
-					function lastPage() {
- 						var inputHidden = $('<input>', {
-							type: 'hidden',
-							name: 'pageSelectedNum',
-							value: '${ohPageVO.pageTotalNum}'
-						}); 
-						$("#transPage").after(inputHidden);
-						document.getElementById("pageForm").submit();
-					};				
-				</script>
-				
-				
 			</form>
 		</div>
 		
@@ -398,93 +342,57 @@
 		console.log("keepSearchingWord: " + keepSearchingWord);
 		/* keepSearchingWord 값은  searchingWord에 value 값으로 입력 */
 		
-		
-/* 		
-		function toPage() {
-			var target = event.target;
-			console.log($(target).text());
- 			location.href = 'OHPhotoView?orderingBy=' + keepOrderingBy +
-										'&orderingMethod=' + keepOrderingMethod +
-					                    '&pb_category=' + keepPb_category +
-					                    '&pb_residence=' + keepPb_residence +
-					                    '&pb_room=' + keepPb_room +
-					                    '&pb_style=' + keepPb_style +
-					                    '&pb_skill=' + keepPb_skill +
-					                    '&searchingType=' + keepSearchingType +
-					                    '&searchingWord=' + keepSearchingWord +
-	                    				'&pageSelectedNum=' + $(target).text();
-		}				
-		
-		
-		
-		
- 	
-		 페이지 이동 
-		function toFirstPage() {
-			location.href = 'OHPhotoView?orderingBy=' + $("#orderingBy" ).val() +
-                   						'&orderingMethod=' + $("#orderingMethod").val() +
-					                    '&pb_category=' + $("#pb_category").val() +
-					                    '&pb_residence=' + $("#pb_residence").val() +
-					                    '&pb_room=' + $("#pb_room").val() +
-					                    '&pb_style=' + $("#pb_style").val() +
-					                    '&pb_skill=' + $("#pb_skill").val() +
-					                    '&searchingType=' + $("#searchingType").val() +
-					                    '&searchingWord=' + $("#searchingWord").val() +
-					                    '&pageSelectedNum=' + '1';					
+		// 처음 페이지로 이동하는 함수
+		function firstPage() {
+				var inputHidden = $('<input>', {
+				type: 'hidden',
+				name: 'pageSelectedNum',
+				value: '1'
+			}); 
+			$("#transPage").after(inputHidden);
+			document.getElementById("pageForm").submit();
+		};				
+		// 이전 페이지로 이동하는 함수
+		function beforePage() {
+				var inputHidden = $('<input>', {
+				type: 'hidden',
+				name: 'pageSelectedNum',
+				value: '${ohPageVO.pageSelectedNum - 1}'
+			}); 
+			$("#transPage").after(inputHidden);
+			document.getElementById("pageForm").submit();
+		};				
+		// 원하는 페이지로 이동하는 함수
+		function movePage(num) {
+			var pageNum = num
+			var inputHidden = $('<input>', {
+				type: 'hidden',
+				name: 'pageSelectedNum',
+				value: pageNum
+			});
+			$("#transPage").after(inputHidden);
+			document.getElementById("pageForm").submit();
 		}
-		function toBeforePage() {
-			location.href = 'OHPhotoView?orderingBy=' + $("#orderingBy" ).val() +
-										'&orderingMethod=' + $("#orderingMethod").val() +
-					                    '&pb_category=' + $("#pb_category").val() +
-					                    '&pb_residence=' + $("#pb_residence").val() +
-					                    '&pb_room=' + $("#pb_room").val() +
-					                    '&pb_style=' + $("#pb_style").val() +
-					                    '&pb_skill=' + $("#pb_skill").val() +
-					                    '&searchingType=' + $("#searchingType").val() +
-					                    '&searchingWord=' + $("#searchingWord").val() +
-	                    				'&pageSelectedNum=' + ${ohPageVO.pageSelectedNum - 1 };
-		}
-		
-		function toPage() {
-			var target = event.target;
-			$(target).text()
-			location.href = 'OHPhotoView?orderingBy=' + $("#orderingBy" ).val() +
-										'&orderingMethod=' + $("#orderingMethod").val() +
-					                    '&pb_category=' + $("#pb_category").val() +
-					                    '&pb_residence=' + $("#pb_residence").val() +
-					                    '&pb_room=' + $("#pb_room").val() +
-					                    '&pb_style=' + $("#pb_style").val() +
-					                    '&pb_skill=' + $("#pb_skill").val() +
-					                    '&searchingType=' + $("#searchingType").val() +
-					                    '&searchingWord=' + $("#searchingWord").val() +
-	                    				'&pageSelectedNum=' + $(target).text();
-		}		 	
-		
-		
-		function toNextPage() {
-			location.href = 'OHPhotoView?orderingBy=' + $("#orderingBy" ).val() +
-										'&orderingMethod=' + $("#orderingMethod").val() +
-					                    '&pb_category=' + $("#pb_category").val() +
-					                    '&pb_residence=' + $("#pb_residence").val() +
-					                    '&pb_room=' + $("#pb_room").val() +
-					                    '&pb_style=' + $("#pb_style").val() +
-					                    '&pb_skill=' + $("#pb_skill").val() +
-					                    '&searchingType=' + $("#searchingType").val() +
-					                    '&searchingWord=' + $("#searchingWord").val() +
-	                    				'&pageSelectedNum=' + ${ohPageVO.pageSelectedNum + 1 };
-		}				
-		function toLastPage() {
-			location.href = 'OHPhotoView?orderingBy=' + $("#orderingBy" ).val() +
-										'&orderingMethod=' + $("#orderingMethod").val() +
-					                    '&pb_category=' + $("#pb_category").val() +
-					                    '&pb_residence=' + $("#pb_residence").val() +
-					                    '&pb_room=' + $("#pb_room").val() +
-					                    '&pb_style=' + $("#pb_style").val() +
-					                    '&pb_skill=' + $("#pb_skill").val() +
-					                    '&searchingType=' + $("#searchingType").val() +
-					                    '&searchingWord=' + $("#searchingWord").val() +
-	                    				'&pageSelectedNum=' + ${ohPageVO.pageTotalNum };
-		}	 */
+		// 다음 페이지로 이동하는 함수
+		function nextPage() {						
+				var inputHidden = $('<input>', {
+				type: 'hidden',
+				name: 'pageSelectedNum',
+				value: '${ohPageVO.pageSelectedNum + 1}'
+			}); 
+			$("#transPage").after(inputHidden);
+			document.getElementById("pageForm").submit();
+		};
+		// 마지막 페이지로 이동하는 함수
+		function lastPage() {
+				var inputHidden = $('<input>', {
+				type: 'hidden',
+				name: 'pageSelectedNum',
+				value: '${ohPageVO.pageTotalNum}'
+			}); 
+			$("#transPage").after(inputHidden);
+			document.getElementById("pageForm").submit();
+		};				
 	</script>		
 </html>
 
