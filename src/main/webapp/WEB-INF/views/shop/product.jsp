@@ -208,7 +208,11 @@
 				}
 			});
 			
-			$(".selectedProductCard").remove();
+			$(".selectedProductCard").each(function() {
+				if ($(this).data("nonOption") != 1) {
+					$(this).remove();
+				}
+			});
 			updateTotalPrice();
 		}
 	</script>
@@ -296,9 +300,12 @@
 				<div id="optionWrap">
 					<c:choose>
 						<c:when test="${nonOption ne null }">
-							<div class="selectedProductCard">
+							<div class="selectedProductCard" data-option-id="${nonOption.option_id }" data-quantity="1" data-non-option="1"
+							data-option-price="${nonOption.product_data_dto.price }" data-total-price="${data.product_data_dto.price }">
 								${nonOption.name } <br />
-								${nonOption.product_data_dto.price }
+								<button type="button" onclick="quantity(`sub`)"><</button>(<span id="quantityText">1</span>)
+								<button type="button" onclick="quantity(`add`)">></button>
+								<span id="priceText">${nonOption.product_data_dto.price }</span>원
 							</div>
 						</c:when>
 						
