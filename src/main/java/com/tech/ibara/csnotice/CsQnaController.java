@@ -391,6 +391,12 @@ public class CsQnaController {
 		String rwriter=request.getParameter("rwriter");		
 		String rcontent=request.getParameter("rcontent");		
 		
+		
+		System.out.println("nbno :"+nbno);
+		System.out.println("rnbno :"+rnbno);
+		System.out.println("rwriter :"+rwriter);
+		System.out.println("rcontent :"+rcontent);
+		
 		// 전체 답글 달기
 //		dao.qnareply(nbno,rwriter,rcontent);
 		

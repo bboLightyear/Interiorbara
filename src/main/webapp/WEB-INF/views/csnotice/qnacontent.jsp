@@ -97,7 +97,7 @@
 	<div id="${dto.rnbno }"  style="display: none;">
 		<form action="qnareply_r?rnbno=${dto.rnbno }&nbno=${qna_content.nbno }" method="post">
 			<textarea rows="6" cols="65" name="rcontent">@${dto.rnbwriter }&nbsp;</textarea>
-			<input type="text" name="rWriter" />
+			<input type="text" name="rwriter" />
 			<input type="submit" value="입력" />
 		</form>
 	</div>
