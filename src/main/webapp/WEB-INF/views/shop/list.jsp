@@ -48,7 +48,7 @@
 		session.setAttribute("userId", "1");
 	}
 	%>
-	<h4>user_id: <%= session.getAttribute("user_id") %></h4>
+	<h4>userId: <%= session.getAttribute("userId") %></h4>
 	<a href="management">상품등록</a>
 	<div id="wrap">
 		<nav>			

@@ -1,6 +1,7 @@
 package com.tech.ibara.shop.dao;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import com.tech.ibara.shop.dto.BasketDto;
 import com.tech.ibara.shop.dto.CategoryDto;
@@ -49,4 +50,5 @@ public interface ShopDao {
 	public void insertProduct(ProductDto productDto);
 	public void insertProductImg(ProductImgDto productImgDto);
 	public void insertBasket(BasketDto basketDto);
+	public void insertBaskets(List<BasketDto> basketDtoList); 
 }

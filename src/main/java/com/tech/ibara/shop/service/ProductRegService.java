@@ -177,10 +177,8 @@ public class ProductRegService extends SqlSessionBase implements ShopService {
 			MultipartFile file = fileList.get(i);
 			String originalName = file.getOriginalFilename();
 			long longtime = System.currentTimeMillis();
-			System.out.println("originalName: " + longtime);
 			String extension = originalName.substring(originalName.lastIndexOf("."));
 			String newName = longtime + String.valueOf(i) + extension;
-			System.out.println("newName: " + newName);
 			String filePath = path + "\\" + newName;
 			try {
 				if (!originalName.equals("")) {

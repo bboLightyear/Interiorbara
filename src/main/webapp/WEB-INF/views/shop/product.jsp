@@ -87,7 +87,7 @@
 			
 			var notContain = true;
 			$(".selectedProductCard").each(function() {
-				if (option_id == $(this).data("optionId")) {
+				if (optionId == $(this).data("optionId")) {
 					alert("이미 추가한 옵션입니다");
 					notContain = false;
 					return false;
@@ -203,10 +203,8 @@
 				async: true,
 				url: "addBasket",
 				data: JSON.stringify(data),
-				success: function(data) {
+				success: function() {
 					alert("장바구니에 담기 완료");
-					
-
 				}
 			});
 			

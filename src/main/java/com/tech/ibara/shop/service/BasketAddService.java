@@ -2,6 +2,7 @@ package com.tech.ibara.shop.service;
 
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -9,6 +10,7 @@ import javax.servlet.http.HttpSession;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.ui.Model;
 
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.tech.ibara.shop.dao.ShopDao;
 import com.tech.ibara.shop.dto.BasketDto;
@@ -37,24 +39,17 @@ public class BasketAddService extends SqlSessionBase implements ShopService {
 			
 			String json = builder.toString();
 			
-			System.out.println(json);
+			ObjectMapper mapper = new ObjectMapper();
+			List<BasketDto> basketDtoList = mapper.readValue(json, new TypeReference<List<BasketDto>>() {});
 			
-//			ObjectMapper mapper = new ObjectMapper();
-//			mapper.readValue(json, BasketDto.class);
+			for (BasketDto basketDto : basketDtoList) {
+				basketDto.setUser_id(userId);
+			}
+			
+			dao.insertBaskets(basketDtoList);
 			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
-		
-		
-//		BasketDto basketDto = new BasketDto(
-//				Integer.parseInt(request.getParameter("user_id")),
-//				Integer.parseInt(request.getParameter("product_id")),
-//				Integer.parseInt(request.getParameter("option_id")),
-//				Integer.parseInt(request.getParameter("quantity")));
-//		
-//		dao.insertBasket(basketDto);
 	}
-
 }

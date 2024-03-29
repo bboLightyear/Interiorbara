@@ -1,11 +1,16 @@
 package com.tech.ibara.shop.dto;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public class BasketDto {
 
 	private int basket_id;
 	private int user_id;
+	@JsonProperty("productId")
 	private int product_id;
+	@JsonProperty("optionId")
 	private int option_id;
+	@JsonProperty("quantity")
 	private int quantity;
 
 	private OptionDto option_dto;
