@@ -24,16 +24,16 @@ public class BasketViewService extends SqlSessionBase implements ShopService {
 		
 		ShopDao dao = sqlSession.getMapper(ShopDao.class);
 		
-		int user_id = Integer.parseInt((String) session.getAttribute("user_id"));
+		int userId = Integer.parseInt((String) session.getAttribute("userId"));
 		
-		ArrayList<BasketDto> basketDtoList = dao.selectBasketsByUser(user_id);
+		ArrayList<BasketDto> basketDtoList = dao.selectBasketsByUser(userId);
 		ArrayList<Integer> productIds = new ArrayList<Integer>(); 
 		ArrayList<ProductDto> productDtoList = new ArrayList<ProductDto>();
 		for (BasketDto b : basketDtoList) {
-			int product_id = b.getProduct_id();
-			if (!productIds.contains(product_id)) {
-				productIds.add(product_id);
-				productDtoList.add(dao.selectProductById(product_id));
+			int productId = b.getProduct_id();
+			if (!productIds.contains(productId)) {
+				productIds.add(productId);
+				productDtoList.add(dao.selectProductById(productId));
 			}
 		}
 		

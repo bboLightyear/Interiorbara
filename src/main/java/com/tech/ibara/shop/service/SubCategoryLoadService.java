@@ -23,9 +23,9 @@ public class SubCategoryLoadService extends SqlSessionBase implements ShopRestSe
 		HttpServletRequest request = (HttpServletRequest) model.asMap().get("request");
 		ShopDao dao = sqlSession.getMapper(ShopDao.class);
 
-		int category_id = Integer.parseInt(request.getParameter("category_id"));
+		int categoryId = Integer.parseInt(request.getParameter("categoryId"));
 
-		subCategories = dao.selectCategoriesByUp(category_id);
+		subCategories = dao.selectCategoriesByUp(categoryId);
 
 		model.addAttribute("subCategories", subCategories);
 	}

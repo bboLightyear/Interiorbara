@@ -11,14 +11,14 @@
 	<script>
 		function loadSubOptionSet() {
 			var select = event.target;
-			var option_id = select.value;
+			var optionId = select.value;
 			
 			$.ajax({
 				type: "get",
 				async: true,
 				url: "loadSubOptionSet",
 				data: {
-					"option_id" : option_id
+					"optionId" : optionId
 				},
 				success: function(data) {
 					$("option", "#finalOptionSet").not(":eq(0)").remove();
@@ -36,11 +36,11 @@
 		
 		function addOneOptionCard() {
 			var select = event.target;
-			var option_id = select.value;
+			var optionId = select.value;
 			
 			var notContain = true;
 			$(".selectedProductCard").each(function() {
-				if (option_id == $(this).data("optionId")) {
+				if (optionId == $(this).data("optionId")) {
 					alert("이미 추가한 옵션입니다");
 					notContain = false;
 					return false;
@@ -53,7 +53,7 @@
 					async: true,
 					url: "loadProductData",
 					data: {
-						"option_id" : option_id
+						"optionId" : optionId
 					},
 					success: function(data) {
 						var optionText = "";
@@ -62,13 +62,13 @@
 						
 						var htmlText =
 							'<div class="selectedProductCard" data-option-id="' + data.option_id + '"\
-							data-quantity="1" data-option-price="'+ data.product_data_dto.price + '"\
-							data-total-price="'+ data.product_data_dto.price +'">' + 
-							optionText + '<br />\
-							<button type="button" onclick="quantity(`sub`)"><</button>(<span id="quantityText">1</span>)\
-							<button type="button" onclick="quantity(`add`)">></button>\
-						<span id="priceText">' + data.product_data_dto.price + '</span>원\
-						</div>';
+								data-quantity="1" data-option-price="'+ data.product_data_dto.price + '"\
+								data-total-price="'+ data.product_data_dto.price +'">' + 
+								optionText + '<br />\
+								<button type="button" onclick="quantity(`sub`)"><</button>(<span id="quantityText">1</span>)\
+								<button type="button" onclick="quantity(`add`)">></button>\
+								<span id="priceText">' + data.product_data_dto.price + '</span>원\
+							</div>';
 							
 						$("#optionWrap").append(htmlText);
 						
@@ -83,7 +83,7 @@
 		
 		function addTwoOptionCard() {
 			var select = event.target;
-			var option_id = select.value;
+			var optionId = select.value;
 			
 			var notContain = true;
 			$(".selectedProductCard").each(function() {
@@ -100,7 +100,7 @@
 					async: true,
 					url: "loadProductData",
 					data: {
-						"option_id" : option_id
+						"optionId" : optionId
 					},
 					success: function(data) {
 						var optionText = "";
@@ -117,8 +117,8 @@
 								optionText + '<br />\
 								<button type="button" onclick="quantity(`sub`)"><</button>(<span id="quantityText">1</span>)\
 								<button type="button" onclick="quantity(`add`)">></button>\
-							<span id="priceText">' + data.product_data_dto.price + '</span>원\
-						</div>';
+								<span id="priceText">' + data.product_data_dto.price + '</span>원\
+							</div>';
 							
 						$("#optionWrap").append(htmlText);
 
@@ -176,7 +176,42 @@
 		}
 		
 		function addBasket() {
+			var data = [];
+
+			var productId = $("main").data("productId");
+
+			var index = 0;
+			$(".selectedProductCard").each(function() {
+				var optionId = $(this).data("optionId");
+				var quantity = $(this).data("quantity");
+				
+				data.push({
+						"productId" : productId,
+						"optionId" : optionId,
+						"quantity" : quantity
+				});
+				
+				++index;
+			});
 			
+			if (index == 0) {
+				return;
+			}
+			
+			$.ajax({
+				type: "post",
+				async: true,
+				url: "addBasket",
+				data: JSON.stringify(data),
+				success: function(data) {
+					alert("장바구니에 담기 완료");
+					
+
+				}
+			});
+			
+			$(".selectedProductCard").remove();
+			updateTotalPrice();
 		}
 	</script>
 	<style>
@@ -228,13 +263,13 @@
 <body>
 	
 	<h3>product.jsp</h3>
-	<h4>user_id: <%= session.getAttribute("user_id") %></h4>
+	<h4>userId: <%= session.getAttribute("userId") %></h4>
 	<a href="basket">장바구니</a>
 	<br />
 	<main data-product-id="${product.product_id }">
 		<div>
 			<c:forEach items="${categories }" var="cat" varStatus="s">
-				<a href="list?category_id=${cat.category_id }">${cat.name }</a>
+				<a href="list?categoryId=${cat.category_id }">${cat.name }</a>
 				<c:if test="${not s.last }"> > </c:if>
 			</c:forEach>
 		</div>
@@ -256,7 +291,7 @@
 			</div>
 		</section>
 		<section id="summary">
-			product_id: ${product.product_id } <br />
+			productId: ${product.product_id } <br />
 			name: ${product.name } <br />
 			옵션 <br />
 			<form action="">

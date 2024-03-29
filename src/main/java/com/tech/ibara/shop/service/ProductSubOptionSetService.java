@@ -24,9 +24,9 @@ public class ProductSubOptionSetService extends SqlSessionBase implements ShopRe
 		HttpServletRequest request = (HttpServletRequest) model.asMap().get("request");
 		ShopDao dao = sqlSession.getMapper(ShopDao.class);
 
-		int option_id = Integer.parseInt(request.getParameter("option_id"));
+		int optionId = Integer.parseInt(request.getParameter("optionId"));
 
-		OptionDto optionDto = dao.selectOptionById(option_id);
+		OptionDto optionDto = dao.selectOptionById(optionId);
 		OptionSetDto subOptionSetDto = dao.selectOptionSetById(optionDto.getSub_option_set_id());
 		optionDtoList = dao.selectJoinOptionsBySet(subOptionSetDto.getOption_set_id());
 	}

@@ -29,11 +29,11 @@ public class ProductRegService extends SqlSessionBase implements ShopService {
 
 		ProductDto productDto = null;
 
-		String product_name = mpRequest.getParameter("productName");
-		int seller_id = Integer.parseInt(mpRequest.getParameter("sellerId"));
+		String productName = mpRequest.getParameter("productName");
+		int sellerId = Integer.parseInt(mpRequest.getParameter("sellerId"));
 
 		// category
-		int category_id = mpRequest.getParameter("lv4Category") == null
+		int categoryId = mpRequest.getParameter("lv4Category") == null
 				? Integer.parseInt(mpRequest.getParameter("lv3Category"))
 				: Integer.parseInt(mpRequest.getParameter("lv4Category"));
 
@@ -54,7 +54,7 @@ public class ProductRegService extends SqlSessionBase implements ShopService {
 					productDataDto.getProduct_data_id(), mpRequest.getParameter("optionName"));
 			dao.insertOption(optionDto);
 
-			productDto = new ProductDto(seller_id, category_id, optionSetDto.getOption_set_id(), 1, product_name);
+			productDto = new ProductDto(sellerId, categoryId, optionSetDto.getOption_set_id(), 1, productName);
 			dao.insertProduct(productDto);
 
 			break;
@@ -97,7 +97,7 @@ public class ProductRegService extends SqlSessionBase implements ShopService {
 				++optionNum;
 			}
 
-			productDto = new ProductDto(seller_id, category_id, optionSetDto.getOption_set_id(), 1, product_name);
+			productDto = new ProductDto(sellerId, categoryId, optionSetDto.getOption_set_id(), 1, productName);
 			dao.insertProduct(productDto);
 
 			break;
@@ -161,7 +161,7 @@ public class ProductRegService extends SqlSessionBase implements ShopService {
 				++setNum;
 			}
 
-			productDto = new ProductDto(seller_id, category_id, upOptionSetDto.getOption_set_id(), 1, product_name);
+			productDto = new ProductDto(sellerId, categoryId, upOptionSetDto.getOption_set_id(), 1, productName);
 			dao.insertProduct(productDto);
 			break;
 		}

@@ -33,7 +33,7 @@ public class ShopRestController {
 		
 		ProductSubOptionSetService shopService = new ProductSubOptionSetService(sqlSession);
 		shopService.execute(model);
-		
+
 		return shopService.getData();
 	}
 	

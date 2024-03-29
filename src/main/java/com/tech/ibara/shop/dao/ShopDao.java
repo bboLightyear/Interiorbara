@@ -13,35 +13,35 @@ import com.tech.ibara.shop.dto.ProductImgDto;
 
 public interface ShopDao {
 
-	public ArrayList<ProductDto> selectProductsByCategory(int category_id);
+	public ArrayList<ProductDto> selectProductsByCategory(int categoryId);
 	public ArrayList<ProductDto> selectProductsByCategories(ArrayList<CategoryDto> categoryList);
 	
-	public ArrayList<CategoryDto> selectAllSubCategoriesById(int category_id);
-	public ArrayList<CategoryDto> selectCategoriesByUp(int category_id);
+	public ArrayList<CategoryDto> selectAllSubCategoriesById(int categoryId);
+	public ArrayList<CategoryDto> selectCategoriesByUp(int categoryId);
 	public ArrayList<CategoryDto> selectLv1Categories();
 	
-	public CategoryDto selectCategoryById(int category_id);
+	public CategoryDto selectCategoryById(int categoryId);
 	
 	public ArrayList<String> selectAllCategories();
 	
 	public ArrayList<LevelCategoryDto> selectAllLevelCategories();
 	
-	public ProductDto selectProductById(int product_id);
+	public ProductDto selectProductById(int productId);
 	
-	public OptionSetDto selectOptionSetByProduct(int product_id);
-	public OptionSetDto selectOptionSetById(int option_set_id);
+	public OptionSetDto selectOptionSetByProduct(int productId);
+	public OptionSetDto selectOptionSetById(int optionSetId);
 	
-	public ArrayList<OptionDto> selectOptionsBySet(int option_set_id);
-	public OptionDto selectOptionById(int option_id);
-	public OptionDto selectJoinOptionById(int option_id);
-	public OptionDto selectJoinOptionBySet(int option_set_id);
-	public ArrayList<OptionDto> selectJoinOptionsBySet(int option_set_id);
+	public ArrayList<OptionDto> selectOptionsBySet(int optionSetId);
+	public OptionDto selectOptionById(int optionId);
+	public OptionDto selectJoinOptionById(int optionId);
+	public OptionDto selectJoinOptionBySet(int optionSetId);
+	public ArrayList<OptionDto> selectJoinOptionsBySet(int optionSetId);
 	
-	public ProductDataDto selectProductDataById(int product_data_id);
+	public ProductDataDto selectProductDataById(int productDataId);
 	
-	public ArrayList<ProductImgDto> selectProductImgsByProduct(int product_id);
+	public ArrayList<ProductImgDto> selectProductImgsByProduct(int productId);
 	
-	public ArrayList<BasketDto> selectBasketsByUser(int user_id);
+	public ArrayList<BasketDto> selectBasketsByUser(int userId);
 	
 	public void insertProductData(ProductDataDto productDataDto);
 	public void insertOptionSet(OptionSetDto optionSetDto);
