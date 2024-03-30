@@ -49,7 +49,7 @@
 				<c:set var="basketTotalPrice" value="0"/>
 				<c:forEach items="${products }" var="product">
 					<li class="productItem" data-product-id="${product.product_id }">
-						${product.name }
+						${product.name } <button class="removeProduct">X</button>
 						<ul class="selectedOptionGroup">
 							<c:set var="productTotalPrice" value="0"/>
 							<c:forEach items="${baskets }" var="basket" varStatus="status">
@@ -68,7 +68,7 @@
 											<c:if test="${basket.final_option_set_dto.name ne null }">
 												${basket.final_option_set_dto.name }:
 											</c:if>
-											${basket.final_option_dto.name }
+											${basket.final_option_dto.name }<button class="removeOption">X</button>
 										</div>
 										<button type="button" class="quantityButton" data-action="sub" data-option-id="${basket.option_id }">&lt;</button>
 										(<span class="optionQuantityText" data-option-id="${basket.option_id }">${basket.quantity }</span>)
