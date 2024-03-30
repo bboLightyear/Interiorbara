@@ -8,8 +8,10 @@ import org.springframework.ui.Model;
 
 import com.tech.ibara.shop.dao.ShopDao;
 
-public class BasketModifyQuantityService extends SqlSessionBase implements ShopService {
+public class BasketModifyQuantityService extends SqlSessionBase implements ShopRestService<Integer> {
 
+	private int modifiedQuantity;
+	
 	public BasketModifyQuantityService(SqlSession sqlSession) {
 		super(sqlSession);
 	}
@@ -20,8 +22,16 @@ public class BasketModifyQuantityService extends SqlSessionBase implements ShopS
 		HttpSession session = (HttpSession) model.asMap().get("session");
 		ShopDao dao = sqlSession.getMapper(ShopDao.class);
 		
-		int userId =  Integer.parseInt((String) session.getAttribute("userId"));
+		int userId = Integer.parseInt((String) session.getAttribute("userId"));
+		int optionId = Integer.parseInt(request.getParameter("optionId"));
+		String action = request.getParameter("action");
 		
-		
+		dao.updateBasketQuantity(userId, optionId, action);
+		modifiedQuantity = dao.selectBasketQuantity(userId, optionId);
+	}
+
+	@Override
+	public Integer getData() {
+		return modifiedQuantity;
 	}
 }

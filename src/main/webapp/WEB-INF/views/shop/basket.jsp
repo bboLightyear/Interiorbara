@@ -14,13 +14,13 @@
 			margin: auto;
 		}
 		
-		.selectedOptionList {
+		.selectedOption {
 			background-color: #f0f0f0;
 			margin-top: 5px;
 			margin-bottom: 5px;
 		}
 		
-		.productGroupItem {
+		.productItem {
 			background-color: #fefee0;
 			padding: 10px;
 		}
@@ -35,7 +35,7 @@
 	<main>
 		<ul id="productGroup">
 			<c:forEach items="${products }" var="product">
-				<li class="productGroupItem" data-product-id="${product.product_id }">
+				<li class="productItem" data-product-id="${product.product_id }">
 					${product.name }
 					<ul class="selectedOptionGroup">
 						<c:set var="productTotalPrice" value="0"/>
@@ -43,7 +43,8 @@
 							<c:if test="${product.product_id eq basket.product_id }">
 								<c:set var="optionTotalPrice" value="${basket.product_data_dto.price * basket.quantity }"/>
 								<c:set var="productTotalPrice" value="${productTotalPrice + optionTotalPrice }"/>
-								<li class="selectedOptionList" data-option-id="${basket.option_id }"
+								<li class="selectedOption" data-option-id="${basket.option_id }"
+									data-product-id="${basket.product_id }"
 									data-quantity="${basket.quantity }"
 									data-option-price="${basket.product_data_dto.price }"
 									data-option-total-price="${basket.product_data_dto.price * basket.quantity }">
@@ -56,15 +57,15 @@
 										</c:if>
 										${basket.final_option_dto.name }
 									</div>
-									<button type="button" data-action="sub">&lt;</button>
-									(<span class="optionQuantity">${basket.quantity }</span>)
-									<button type="button" data-action="add">&gt;</button>
-									<span class="optionPriceText">${basket.product_data_dto.price * basket.quantity } 원</span>
+									<button type="button" class="quantityButton" data-action="sub" data-option-id="${basket.option_id }">&lt;</button>
+									(<span class="optionQuantityText" data-option-id="${basket.option_id }">${basket.quantity }</span>)
+									<button type="button" class="quantityButton" data-action="add" data-option-id="${basket.option_id }">&gt;</button>
+									<span class="optionPriceText" data-option-id="${basket.option_id }">${basket.product_data_dto.price * basket.quantity } 원</span>
 								</li>							
 							</c:if>
 						</c:forEach>
 					</ul>
-					총 가격: <span class="productTotalPrice">${productTotalPrice } 원</span>
+					총 가격: <span class="productTotalPrice" data-product-id="${product.product_id }">${productTotalPrice } 원</span>
 				</li>
 			</c:forEach>
 		</ul>

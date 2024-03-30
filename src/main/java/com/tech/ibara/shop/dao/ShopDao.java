@@ -44,11 +44,15 @@ public interface ShopDao {
 	
 	public ArrayList<BasketDto> selectBasketsByUser(int userId);
 	
+	public int selectBasketQuantity(int userId, int optionId);
+	
 	public void insertProductData(ProductDataDto productDataDto);
 	public void insertOptionSet(OptionSetDto optionSetDto);
 	public void insertOption(OptionDto optionDto);
 	public void insertProduct(ProductDto productDto);
 	public void insertProductImg(ProductImgDto productImgDto);
 	public void insertBasket(BasketDto basketDto);
-	public void insertBaskets(List<BasketDto> basketDtoList); 
+	public void insertBaskets(List<BasketDto> basketDtoList);
+	
+	public void updateBasketQuantity(int userId, int optionId, String action);
 }

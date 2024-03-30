@@ -280,6 +280,15 @@
 			USER_ID = #{param1}
 	</select>
 	
+	<select id="selectBasketQuantity" resultType="Integer">
+		SELECT
+			QUANTITY
+		FROM
+			SHOP_BASKET
+		WHERE
+			USER_ID = #{param1} AND OPTION_ID = #{param2}
+	</select>
+	
 	<!-- ===================== INSERT ===================== -->
 	
 	<insert id="insertProductData" parameterType="com.tech.ibara.shop.dto.ProductDataDto"
@@ -434,4 +443,20 @@
 		</foreach>
 		END;
 	</insert>
+	
+	<update id="updateBasketQuantity">
+		UPDATE
+			SHOP_BASKET
+		SET
+		<choose>
+			<when test="param3 == 'add'">
+				QUANTITY = QUANTITY + 1
+			</when>
+			<when test="param3 == 'sub'">
+				QUANTITY = QUANTITY - 1
+			</when>
+		</choose>
+		WHERE
+			USER_ID = #{param1} AND OPTION_ID = #{param2}
+	</update>
 </mapper>

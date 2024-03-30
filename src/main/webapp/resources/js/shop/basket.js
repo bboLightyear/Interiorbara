@@ -1,44 +1,55 @@
-function updateOptionTotalPrice() {
-			
-}
+$(document).ready(function() {
+	$(".quantityButton").on("click", modifyQuantity);
+});
 
-function updateProductTotalPrice() {
+function modifyQuantity() {
+	const optionId = $(this).data("optionId");
+	const action = $(this).data("action");
 	
-}
-
-function updateTotalPrice() {
+	const option = $(`.selectedOption[data-option-id="${optionId}"]`).first();
+	const productId = option.data("productId");
 	
-}
-
-function quantity(operation) {
-	var target = event.target;
-	var optionParent = target.parentElement;
-	var productParent = optionParenet.parentElement;
+	var quantity = option.data("quantity");
 	
-	var quantity = $(parent).data("quantity");
-	var price = $(parent).data("optionPrice");
-	
-	switch (operation) {
-	case "add":
-		++quantity;
-		break;
-	case "sub":
-		if (quantity == 1) {
-			alert("1개 이상 가능");
-			return;
-		} else {
-			--quantity;
-		}
-		break;
+	if (action === "sub" && quantity === 1) {
+		alert("1개 이상 가능");
+		return;
 	}
 	
-	$(parent).data("quantity", quantity);
+	$.ajax({
+		type: "post",
+		async: false,
+		url: "basket/modifyQuantity",
+		data: {
+			"optionId" : optionId,
+			"action" : action
+		},
+		success: function(result) {
+			quantity = result;
+		}
+	})
 	
-	var totalPrice = price * quantity;
+	// 수량, 가격 변경
+	option.data("quantity", quantity);
 	
-	$(optionParent).data("optionTotalPrice", totalPrice);
-	$(optionParent).find("#priceText").text(totalPrice);
-	$(optionParent).find("#quantityText").text(quantity);
+	const quantityText = $(`.optionQuantityText[data-option-id="${optionId}"]`).first();
+	quantityText.text(quantity);
 	
-	updateTotalPrice();
+	const optionPrice = option.data("optionPrice");
+	option.data("optionTotalPrice", optionPrice * quantity);
+	
+	const priceText = $(`.optionPriceText[data-option-id="${optionId}"]`).first();
+	priceText.text(optionPrice * quantity + "원");
+	
+	updateProductTotalPrice(productId);
+}
+
+function updateProductTotalPrice(productId) {
+	var productTotalPrice = 0;
+	$(`.selectedOption[data-product-id="${productId}"]`).each(function() {
+		productTotalPrice += $(this).data("optionTotalPrice");
+	});
+	
+	const priceText = $(`.productTotalPrice[data-product-id="${productId}"]`).first();
+	priceText.text(productTotalPrice + "원");
 }
