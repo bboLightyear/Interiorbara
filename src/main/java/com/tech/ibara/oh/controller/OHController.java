@@ -2,6 +2,7 @@ package com.tech.ibara.oh.controller;
 
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,45 +30,67 @@ public class OHController {
 	
 	// ---------- OHMainView.jsp ---------- 
 	@RequestMapping("oh/OHMainView")
-	public String OHMainView(HttpServletRequest request, Model model) {
+	public String OHMainView(HttpServletRequest request, HttpSession session,  Model model) {
 		// Console 출력
 		System.out.println("OHMainView Controller");
+		System.out.println("------------------------------");
 		
-		/* MVC2 Model */
+		// 임시 session 내장객체 설정 - 사용자 ID
+		session.setAttribute("userId", "KimGyeongTae");
+		// session - null Check, userID 출력 
+		if(session.getAttribute("userId") != null) {
+			System.out.println("userId: " + session.getAttribute("userId"));
+			System.out.println("------------------------------");
+		} else {
+			System.out.println("userId: " + session.getAttribute("userId"));
+			System.out.println("------------------------------");
+		}		
+		
+		// MVC2 Model 
 		
 		return "oh/OHMainView";
 	}
 	// ---------- OHPhotoView.jsp ---------- 
 	@RequestMapping("oh/OHPhotoView")
-	public String OHPhotoView(HttpServletRequest request, Model model, OHPageVO ohPageVO) {
+	public String OHPhotoView(HttpServletRequest request, HttpSession session, Model model, OHPageVO ohPageVO) {
 		// Console 출력
 		System.out.println("OHPhotoView Controller");
-		// Model
+		System.out.println("------------------------------");
+		
+		// Model - request
 		model.addAttribute("request", request);
+		// Model - ohPageVO
 		model.addAttribute("ohPageVO", ohPageVO);
+		
 		// Service
 		ohInterfaceService = new OHPhotoViewService(sqlSession);
-		ohInterfaceService.execute(model);
+		ohInterfaceService.execute(model);	
 
 		return "oh/OHPhotoView";
 	}
 	// ---------- OHPhotoWriteView.jsp ---------- 
 	@RequestMapping("oh/OHPhotoWriteView")
-	public String OHPhotoWriteView(HttpServletRequest request, Model model) {
+	public String OHPhotoWriteView(HttpServletRequest request, HttpSession session, Model model) {
 		// Console 출력
 		System.out.println("OHPhotoWriteView Controller");
+		System.out.println("------------------------------");
 		
-		/* MVC2 Model */
+		// MVC2 Model
 		
 		return "oh/OHPhotoWriteView";
 	}
 	// ---------- OHPhotoWriteExecute ---------- 
 	@RequestMapping("oh/OHPhotoWriteExecute")
-	public String OHPhotoWriteExecute(MultipartHttpServletRequest mftRequest, Model model) {
+	public String OHPhotoWriteExecute(MultipartHttpServletRequest mftRequest, HttpSession session, Model model) {
 		// Console 출력
 		System.out.println("OHPhotoWriteExecute Controller");
-		// Model
+		System.out.println("------------------------------");
+		
+		// Model - mftRequest
 		model.addAttribute("mftRequest", mftRequest);
+		// Model - session
+		model.addAttribute("session", session);
+		
 		// Service
 		ohInterfaceService = new OHPhotoWriteExecuteService(sqlSession);
 		ohInterfaceService.execute(model);
@@ -76,11 +99,14 @@ public class OHController {
 	}
 	// ---------- OHPhotoDetailView.jsp ---------- 
 	@RequestMapping("oh/OHPhotoDetailView")
-	public String OHPhotoDetailView(HttpServletRequest request, Model model) {
+	public String OHPhotoDetailView(HttpServletRequest request, HttpSession session, Model model) {
 		// Console 출력
 		System.out.println("OHPhotoDetailView Controller");
-		// Model
+		System.out.println("------------------------------");
+		
+		// Model - request
 		model.addAttribute("request", request);
+		
 		// Service
 		ohInterfaceService = new OHPhotoDetailViewService(sqlSession);
 		ohInterfaceService.execute(model);		
@@ -89,11 +115,14 @@ public class OHController {
 	}
 	// ---------- OHPhotoEditView.jsp ----------
 	@RequestMapping("oh/OHPhotoEditView")
-	public String OHPhotoEditView(HttpServletRequest request, Model model) {
+	public String OHPhotoEditView(HttpServletRequest request, HttpSession session, Model model) {
 		// Console 출력
 		System.out.println("OHPhotoEditView Controller");
-		// Model
+		System.out.println("------------------------------");
+		
+		// Model - request
 		model.addAttribute("request", request);
+		
 		// Service
 		ohInterfaceService = new OHPhotoEditViewService(sqlSession);
 		ohInterfaceService.execute(model);			
@@ -102,28 +131,36 @@ public class OHController {
 	}
 	// ---------- OHPhotoEditExecute ----------
 	@RequestMapping("oh/OHPhotoEditExecute")
-	public String OHPhotoEditExecute(MultipartHttpServletRequest mftRequest, Model model) {
+	public String OHPhotoEditExecute(MultipartHttpServletRequest mftRequest, HttpSession session, Model model) {
 		// Console 출력
 		System.out.println("OHPhotoEditExecute Controller");
-		// Model
+		System.out.println("------------------------------");
+		
+		// Model - mftRequest
 		model.addAttribute("mftRequest", mftRequest);
+		
 		// Service
 		ohInterfaceService = new OHPhotoEditExecuteService(sqlSession);
-		ohInterfaceService.execute(model);		
-		// 변수 선언, 값 저장
+		ohInterfaceService.execute(model);
+		
+		// pb_no 변수 선언, 값 저장
 		String pb_no = mftRequest.getParameter("pb_no");		
-		// 변수 값 출력
-		System.out.println("pb_no: " + pb_no);			
+		// pb_no 변수, 값 출력
+		System.out.println("pb_no: " + pb_no);	
+		System.out.println("------------------------------");
 		
 		return "redirect:OHPhotoDetailView?pb_no=" + pb_no;
 	}
 	// ---------- OHPhotoDeleteExecute ----------
 	@RequestMapping("oh/OHPhotoDeleteExecute")
-	public String OHPhotoDeleteExecute(HttpServletRequest request, Model model) {
+	public String OHPhotoDeleteExecute(HttpServletRequest request, HttpSession session, Model model) {
 		// Console 출력
 		System.out.println("OHPhotoDeleteExecute Controller");
-		// Model
+		System.out.println("------------------------------");
+		
+		// Model - request
 		model.addAttribute("request", request);
+		
 		// Service
 		ohInterfaceService = new OHPhotoDeleteExecuteService(sqlSession);
 		ohInterfaceService.execute(model);		

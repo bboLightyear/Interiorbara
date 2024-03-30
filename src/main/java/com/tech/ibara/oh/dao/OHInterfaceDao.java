@@ -15,10 +15,10 @@ public interface OHInterfaceDao {
 	public int getPostTotalCount(String pb_category, String pb_residence, String pb_room, String pb_style, String pb_skill, 
 			                     String searchingType, String searchingWord);
 	// ---------- OHPhotoWriteExecute ----------
-	public void ohPhotoWriteExecute(String pb_title, String pb_content, 
-									String pb_category, String pb_residence,
-									String pb_room, String pb_style, 
-									String pb_skill);
+	public void ohPhotoWriteExecute(String pb_user, String pb_title, 
+									String pb_content, String pb_category, 
+									String pb_residence, String pb_room, 
+									String pb_style, String pb_skill);
 	public int getRecentPb_no();
 	public void setFileUpload(int pb_no, String changeFile);
 	// ---------- OHPhotoDetailView.jsp ----------

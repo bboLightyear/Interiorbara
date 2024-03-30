@@ -25,8 +25,12 @@ public class OHPhotoEditExecuteService implements OHInterfaceService {
 	@Override
 	public void execute(Model model) {
 		System.out.println("OHPhotoEditExecuteService");
+		System.out.println("------------------------------");
 		
+		// Return the current set of model attributes as a Map.
 		Map<String, Object> map = model.asMap();		
+		
+		// mftRequest
 		MultipartHttpServletRequest mftRequest = (MultipartHttpServletRequest) map.get("mftRequest");		
 		
 		// OHInterfaceDao, SqlSession 연결
@@ -41,6 +45,7 @@ public class OHPhotoEditExecuteService implements OHInterfaceService {
 		String pb_room = mftRequest.getParameter("pb_room");
 		String pb_style = mftRequest.getParameter("pb_style");
 		String pb_skill = mftRequest.getParameter("pb_skill");	
+		
 		// 변수 값 출력
 		System.out.println("pb_no: " + pb_no);	
 		System.out.println("pb_title: " + pb_title);
@@ -49,21 +54,31 @@ public class OHPhotoEditExecuteService implements OHInterfaceService {
 		System.out.println("pb_residence: " + pb_residence);
 		System.out.println("pb_room: " + pb_room);
 		System.out.println("pb_style: " + pb_style);
-		System.out.println("pb_skill: " + pb_skill);		
+		System.out.println("pb_skill: " + pb_skill);	
+		System.out.println("------------------------------");
+		
 		// DB, OH_PHOTO_BOARD - 변경된 내용으로 업데이트
-		// ohPhotoWriteExecute() 함수 실행
+		// ohPBEditUpdate() 함수 실행
 		dao.ohPBEditUpdate(pb_no, pb_title, pb_content, pb_category,
 								pb_residence, pb_room, pb_style, pb_skill);	
+		
 		// 업로드 파일 - 저장할 폴더 경로, path 변수에 저장
+		
 		// 스프링 STS - upload 폴더 경로
 		// 글쓰기 후 이미지가 바로 출력되지 않는 문제가 있다.
-		String path = "C:\\23setspring\\springwork23\\interiorbara\\src\\main\\webapp\\resources\\upload\\oh";
+		String path = "C:\\23setspring\\springwork23\\interiorbara01\\src\\main\\webapp\\resources\\upload\\oh";
+		System.out.println("path: " + path);
+		System.out.println("------------------------------");
+		
 		// 톰캣 server - upload 폴더 경로
 		// String path = "C:\\23setspring\\springwork23\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\interiorbara\\resources\\upload\\oh";
+		
 		// 업로드 파일, List 저장
 		List<MultipartFile> pa_attachList = mftRequest.getFiles("pa_attach");
 		// pa_attachList 값 출력
 		System.out.println("pa_attachList: " + pa_attachList);
+		System.out.println("------------------------------");
+		
 		// pa_attachList, Null 값 체크
 		int checkNum = 1;
 		// pa_attachList 반복문
@@ -81,25 +96,34 @@ public class OHPhotoEditExecuteService implements OHInterfaceService {
 			// paDeleteFileList 반복문
 			for(String f : paDeleteFileList) {
 				File file = new File(path + "\\" + f);
-				System.out.println(path + "\\" + f);
+				System.out.println("삭제할 이미지 파일 경로: " + path + "\\" + f);
+				System.out.println("------------------------------");
+				// file 존재한다면 True				
 				if(file.exists()) {
+					// file 삭제					
 					file.delete();
 					System.out.println("이미지 삭제완료: " + f);
+					System.out.println("------------------------------");
 				} else {
 					System.out.println("이미지 삭제실패: " + f);
+					System.out.println("------------------------------");
 				}
 			}			
+			
 			// DB, OH_PHOTO_ATTACH - 기존 내용 삭제
-			dao.ohPAEditDelete(pb_no);	
+			dao.ohPAEditDelete(pb_no);
+			
 			// 파일 저장
 			for(MultipartFile mf : pa_attachList) {
 				// 원본 파일명
 				String originFile = mf.getOriginalFilename();
 				System.out.println("원본 파일명: " + originFile);
+				System.out.println("------------------------------");
 				// 수정 파일명
 				long longtime = System.currentTimeMillis();
 				String changeFile = longtime + "_" + mf.getOriginalFilename();
 				System.out.println("수정 파일명: " + changeFile);
+				System.out.println("------------------------------");
 				// 경로 변수 + 수정 파일명
 				String pathfile = path + "\\" + changeFile;
 				try {
@@ -107,6 +131,7 @@ public class OHPhotoEditExecuteService implements OHInterfaceService {
 						// upload 폴더 - 변경된 이미지 파일 업로드
 						mf.transferTo(new File(pathfile));
 						System.out.println("다중 파일 업로드 성공");
+						System.out.println("------------------------------");
 						// ohPAEditFileUpload() 함수 실행 -> DB, OH_PHOTO_ATTACH - 변경된 내용 입력
 						dao.ohPAEditFileUpload(Integer.parseInt(pb_no), changeFile);
 					}

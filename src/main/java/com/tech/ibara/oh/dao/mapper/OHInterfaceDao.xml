@@ -162,9 +162,9 @@
 		INSERT INTO 
 		    OH_PHOTO_BOARD
 		VALUES (
-			OH_PHOTO_BOARD_SEQ.NEXTVAL, NULL, #{param1}, #{param2}, SYSDATE, 
+			OH_PHOTO_BOARD_SEQ.NEXTVAL, #{param1}, #{param2}, #{param3}, SYSDATE, 
 		    0, 0, 0, 0, 0, 
-		    #{param3}, #{param4}, #{param5}, #{param6}, #{param7}
+		    #{param4}, #{param5}, #{param6}, #{param7}, #{param8}
 		)
 	</insert>
 	<select id="getRecentPb_no" resultType="Integer">

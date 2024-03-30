@@ -4,9 +4,21 @@
 <!DOCTYPE html>
 <html>
 <head>
+
 	<meta charset="UTF-8">
+
 	<title>OH - OHPhotoEditView.jsp</title>
-	<link rel="stylesheet" href="../resources/css/oh/oh.css?after" />	
+
+	<!-- oh.css -->
+	<link rel="stylesheet" href="../resources/css/oh/oh.css?after" />
+	
+	<!-- https://fontawesome.com/ -->
+	<link  rel="stylesheet"
+	  	   href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"/>
+	  	   
+	<!-- https://jquery.com/ -->		
+	<script src="https://code.jquery.com/jquery-3.7.1.js" ></script>
+
 </head>
 <body>
 

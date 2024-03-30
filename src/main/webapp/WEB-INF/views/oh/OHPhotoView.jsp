@@ -4,15 +4,21 @@
 <!DOCTYPE html>
 <html>
 <head>
+	
 	<meta charset="UTF-8">	
+	
 	<title>OH - OHPhotoView.jsp</title>
+	
 	<!-- oh.css -->
 	<link rel="stylesheet" href="../resources/css/oh/oh.css?after" />
+	
 	<!-- https://fontawesome.com/ -->
 	<link  rel="stylesheet"
 	  	   href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"/>
+	  	   
 	<!-- https://jquery.com/ -->		
 	<script src="https://code.jquery.com/jquery-3.7.1.js" ></script>
+	
 </head>
 <body>
 
@@ -130,7 +136,11 @@
 						
 			<h3>집사진</h3>
 				
-			<button><a href="OHPhotoWriteView">글쓰기</a></button>
+			<!-- jQuery 작성완료
+				     회원: 글쓰기 가능 
+				  비회원: 글쓰기 불가능
+				  -->
+			<button id="toWriteBtn">글쓰기</button> 
 				
 			<hr />				
 				
@@ -304,43 +314,56 @@
 	</div>	
 	
 </body>
-	<!-- HTML Parsing 순서에 따라 body element 아래에 배치 -->
+
 	<script>
-		var keepOrderingBy = "${keepOrderingBy}";
-		console.log("keepOrderingBy: " + keepOrderingBy);
-		$("#orderingBy").val(keepOrderingBy).prop("selected", true);
-		
-		var keepOrderingMethod = "${keepOrderingMethod}";
-		console.log("keepOrderingMethod: " + keepOrderingMethod);
-		$("#orderingMethod").val(keepOrderingMethod).prop("selected", true);
-		
-		var keepPb_category = "${keepPb_category}";
-		console.log("keepPb_category: " + keepPb_category);
-		$("#pb_category").val(keepPb_category).prop("selected", true);
-		
-		var keepPb_residence = "${keepPb_residence}";
-		console.log("keepPb_residence: " + keepPb_residence);
-		$("#pb_residence").val(keepPb_residence).prop("selected", true);
-		
-		var keepPb_room = "${keepPb_room}";
-		console.log("keepPb_room: " + keepPb_room);
-		$("#pb_room").val(keepPb_room).prop("selected", true);
-		
-		var keepPb_style = "${keepPb_style}";
-		console.log("keepPb_style: " + keepPb_style);
-		$("#pb_style").val(keepPb_style).prop("selected", true);
-		
-		var keepPb_skill = "${keepPb_skill}";
-		console.log("keepPb_skill: " + keepPb_skill);
-		$("#pb_skill").val(keepPb_skill).prop("selected", true);
 	
-		var keepSearchingType = "${keepSearchingType}";
-		console.log("keepSearchingType: " + keepSearchingType);
-		$("#searchingType").val(keepSearchingType).prop("selected", true);
+		<!-- HTML Parsing 순서에 따라 body element 아래에 배치 -->
 		
+		$(document).ready(function() {
+			$("#toWriteBtn").click(function() {
+				/* 회원인지 확인 */
+				if("${sessionScope.userId }" != null) {
+					window.location.href = "OHPhotoWriteView";
+				} else {
+					alert("로그인 페이지로 이동");
+				}
+			});
+		});			
+		
+		/* 변수 선언 - (정렬, 필터, 검색) 값 저장 */
+		var keepOrderingBy = "${keepOrderingBy}";		
+		var keepOrderingMethod = "${keepOrderingMethod}";		
+		var keepPb_category = "${keepPb_category}";		
+		var keepPb_residence = "${keepPb_residence}";		
+		var keepPb_room = "${keepPb_room}";
+		var keepPb_style = "${keepPb_style}";
+		var keepPb_skill = "${keepPb_skill}";
+		var keepSearchingType = "${keepSearchingType}";		
 		var keepSearchingWord = "${keepSearchingWord}";
+		
+		/* 콘솔, 값 출력 */
+		console.log("keepOrderingBy: " + keepOrderingBy);
+		console.log("keepOrderingMethod: " + keepOrderingMethod);
+		console.log("keepPb_category: " + keepPb_category);
+		console.log("keepPb_residence: " + keepPb_residence);
+		console.log("keepPb_room: " + keepPb_room);
+		console.log("keepPb_style: " + keepPb_style);
+		console.log("keepPb_skill: " + keepPb_skill);
+		console.log("keepSearchingType: " + keepSearchingType);
 		console.log("keepSearchingWord: " + keepSearchingWord);
-		/* keepSearchingWord 값은  searchingWord에 value 값으로 입력 */
+		
+		/* $(document).ready(function() {}); => 페이지가 로드된 후에 jQuery 실행 */
+		$(document).ready(function() {
+			$("#orderingBy").val(keepOrderingBy).prop("selected", true);
+			$("#orderingMethod").val(keepOrderingMethod).prop("selected", true);
+			$("#pb_category").val(keepPb_category).prop("selected", true);
+			$("#pb_residence").val(keepPb_residence).prop("selected", true);
+			$("#pb_room").val(keepPb_room).prop("selected", true);
+			$("#pb_style").val(keepPb_style).prop("selected", true);
+			$("#pb_skill").val(keepPb_skill).prop("selected", true);
+			$("#searchingType").val(keepSearchingType).prop("selected", true);
+			/* keepSearchingWord 값은  searchingWord에 value 값으로 입력 */
+		});
 		
 		// 처음 페이지로 이동하는 함수
 		function firstPage() {
@@ -392,8 +415,10 @@
 			}); 
 			$("#transPage").after(inputHidden);
 			document.getElementById("pageForm").submit();
-		};				
+		};		
+		
 	</script>		
+	
 </html>
 
 

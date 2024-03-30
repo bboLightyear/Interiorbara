@@ -25,9 +25,15 @@ public class OHPhotoViewService implements OHInterfaceService {
 	@Override
 	public void execute(Model model) {
 		System.out.println("OHPhotoViewService");
+		System.out.println("------------------------------");
 		
+		// Return the current set of model attributes as a Map.
 		Map<String, Object> map = model.asMap();
+		
+		// request
 		HttpServletRequest request = (HttpServletRequest) map.get("request");
+		
+		// ohPageVO
 		OHPageVO ohPageVO = (OHPageVO) map.get("ohPageVO");
 		
 		// OHInterfaceDao, SqlSession 연결
@@ -38,10 +44,12 @@ public class OHPhotoViewService implements OHInterfaceService {
 		// --- sorting 변수 선언, 값 저장 ---
 		String orderingBy = request.getParameter("orderingBy");
 		String orderingMethod = request.getParameter("orderingMethod");
+		
 		// --- sorting 변수 값 출력 ---
 		System.out.println("--- sorting 변수 값 출력 ---");
 		System.out.println("orderingBy: " + orderingBy);
 		System.out.println("orderingMethod: " + orderingMethod);
+		System.out.println("------------------------------");
 		
 		// --- filtering ---
 		
@@ -51,6 +59,7 @@ public class OHPhotoViewService implements OHInterfaceService {
 		String pb_room = request.getParameter("pb_room");
 		String pb_style = request.getParameter("pb_style");
 		String pb_skill = request.getParameter("pb_skill");
+		
 		// --- filtering 변수 값 출력 ---
 		System.out.println("--- filtering 변수 값 출력 ---");
 		System.out.println("pb_category: " + pb_category);
@@ -58,21 +67,25 @@ public class OHPhotoViewService implements OHInterfaceService {
 		System.out.println("pb_room: " + pb_room);
 		System.out.println("pb_style: " + pb_style);
 		System.out.println("pb_skill: " + pb_skill);
+		System.out.println("------------------------------");
 		
 		// --- searching ---
 		
 		// --- searching 변수 값 출력 ---
 		String searchingType = request.getParameter("searchingType");
 		String searchingWord = request.getParameter("searchingWord");
+		
 		// --- searching 변수 값 출력 ---
 		System.out.println("--- searching 변수 값 출력 ---");
 		System.out.println("searchingType: " + searchingType);
 		System.out.println("searchingWord: " + searchingWord);
+		System.out.println("------------------------------");
 		
 		// 정렬기준 - orderingBy, null Check
 		if(orderingBy == null) {
 			orderingBy = "pb_date";
 			System.out.println("orderingBy is null therefore assigned [pb_date] to it");
+			System.out.println("------------------------------");
 		}
 		// 정렬기준 - orderingBy, model 저장, attributeName is keepOrderingBy		
 		model.addAttribute("keepOrderingBy", orderingBy);
@@ -81,6 +94,7 @@ public class OHPhotoViewService implements OHInterfaceService {
 		if(orderingMethod == null) {
 			orderingMethod = "desc";
 			System.out.println("orderingMethod is null therefore assigned [desc] to it");
+			System.out.println("------------------------------");
 		}
 		// 정렬기준 - orderingMethod, model 저장, attributeName is keepOrderingMethod		
 		model.addAttribute("keepOrderingMethod", orderingMethod);		
@@ -89,6 +103,7 @@ public class OHPhotoViewService implements OHInterfaceService {
 		if(pb_category == null) {
 			pb_category = "default";
 			System.out.println("pb_category is null therefore assigned [default] to it");
+			System.out.println("------------------------------");
 		}
 		// 정렬기준 - pb_category, model 저장, attributeName is keepPb_category
 		model.addAttribute("keepPb_category", pb_category);				
@@ -97,6 +112,7 @@ public class OHPhotoViewService implements OHInterfaceService {
 		if(pb_residence == null) {
 			pb_residence = "default";
 			System.out.println("pb_residence is null therefore assigned [default] to it");
+			System.out.println("------------------------------");
 		}
 		// 정렬기준 - pb_residence, model 저장, attributeName is keepPb_residence
 		model.addAttribute("keepPb_residence", pb_residence);			
@@ -105,6 +121,7 @@ public class OHPhotoViewService implements OHInterfaceService {
 		if(pb_room == null) {
 			pb_room = "default";
 			System.out.println("pb_room is null therefore assigned [default] to it");
+			System.out.println("------------------------------");
 		}
 		// 정렬기준 - pb_room, model 저장, attributeName is keepPb_room
 		model.addAttribute("keepPb_room", pb_room);			
@@ -113,6 +130,7 @@ public class OHPhotoViewService implements OHInterfaceService {
 		if(pb_style == null) {
 			pb_style = "default";
 			System.out.println("pb_style is null therefore assigned [default] to it");
+			System.out.println("------------------------------");
 		}
 		// 정렬기준 - pb_style, model 저장, attributeName is keepPb_style
 		model.addAttribute("keepPb_style", pb_style);	
@@ -121,6 +139,7 @@ public class OHPhotoViewService implements OHInterfaceService {
 		if(pb_skill == null) {
 			pb_skill = "default";
 			System.out.println("pb_skill is null therefore assigned [default] to it");
+			System.out.println("------------------------------");
 		}
 		// 정렬기준 - pb_skill, model 저장, attributeName is keepPb_skill
 		model.addAttribute("keepPb_skill", pb_skill);			
@@ -129,6 +148,7 @@ public class OHPhotoViewService implements OHInterfaceService {
 		if(searchingType == null) {
 			searchingType = "default";
 			System.out.println("searchingType is null therefore assigned [default] to it");
+			System.out.println("------------------------------");
 		}
 		// 검색기준 - searchingType, model 저장, attributeName is keepSearchingType
 		model.addAttribute("keepSearchingType", searchingType);
@@ -137,6 +157,7 @@ public class OHPhotoViewService implements OHInterfaceService {
 		if(searchingWord == null || searchingWord.equals("/")) {
 			searchingWord = "";
 			System.out.println("searchingWord is null therefore assigned [\"\"] to it");
+			System.out.println("------------------------------");
 		}
 		// 검색어 - searchingWord, model 저장, attributeName is keepSearchingWord		
 		model.addAttribute("keepSearchingWord", searchingWord);		
@@ -160,14 +181,21 @@ public class OHPhotoViewService implements OHInterfaceService {
 					   						 searchingType, searchingWord);		
 		// 전체 게시글 수, 출력
 		System.out.println("postTotalNum: " + postTotalNum);
+		System.out.println("------------------------------");
+		
+		// ohPageVO 객체, pageAndPostCalculate() 함수 실행
 		ohPageVO.pageAndPostCalculate(postTotalNum);
+		
 		// ohPageVO 객체, 변수들 값 출력
+		
 		// 게시글 - Post
 		System.out.println("--- 게시글 - Post ---");
 		System.out.println("출력할 게시글 수, outputPostCount: " + ohPageVO.getOutputPostCount());
 		System.out.println("전체 게시글 수, postTotalNum: " + ohPageVO.getPostTotalNum());
 		System.out.println("시작 게시글 번호, postStartNum: " + ohPageVO.getPostStartNum());
 		System.out.println("종료 게시글 번호, postEndNum: " + ohPageVO.getPostEndNum());
+		System.out.println("------------------------------");
+		
 		// 페이지 - Page
 		System.out.println("--- 페이지 - Page ---");
 		System.out.println("페이지 그룹당 페이지 수, groupPageCount: " + ohPageVO.getGroupPageCount());
@@ -175,10 +203,14 @@ public class OHPhotoViewService implements OHInterfaceService {
 		System.out.println("현재 페이지 번호, pageSelectedNum: " + ohPageVO.getPageSelectedNum());
 		System.out.println("시작 페이지 번호, pageStartNum: " + ohPageVO.getPageStartNum());
 		System.out.println("종료 페이지 번호, pageEndNum: " + ohPageVO.getPageEndNum());
+		System.out.println("------------------------------");
+		
 		// 시작 게시글 번호, postStartNum
 		int postStartNum = ohPageVO.getPostStartNum();
+		
 		// 종료 게시글 번호, postEndNum		
 		int postEndNum = ohPageVO.getPostEndNum();		
+		
 		// dtoList, 게시판에 나타낼 게시글 담을 변수선언, ohPhotoView() 함수 실행
 		ArrayList<OHPhotoBoard> dtoList = dao.ohPhotoView(postStartNum, postEndNum, 
 														  orderingBy, orderingMethod,														  
@@ -187,6 +219,7 @@ public class OHPhotoViewService implements OHInterfaceService {
 		
 		// model <- dtoList, 게시판에 나타낼 게시글 담을 변수
 		model.addAttribute("ohPhotoView", dtoList);
+		
 		// model <- ohPageVO, Paging 기능에 사용
 		model.addAttribute("ohPageVO", ohPageVO);		
 		
