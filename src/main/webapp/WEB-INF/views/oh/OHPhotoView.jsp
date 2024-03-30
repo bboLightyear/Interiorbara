@@ -10,7 +10,7 @@
 	<title>OH - OHPhotoView.jsp</title>
 	
 	<!-- oh.css -->
-	<link rel="stylesheet" href="../resources/css/oh/oh.css?after" />
+	<link rel="stylesheet" href="../resources/css/oh/photo.css?after" />
 	
 	<!-- https://fontawesome.com/ -->
 	<link  rel="stylesheet"
@@ -258,15 +258,47 @@
 						<div>pa_attach: ${dto.ohPhotoAttach.pa_attach }</div>
 						<div>pb_no: ${dto.ohPhotoAttach.pb_no }</div>
 						<a href="OHPhotoDetailView?pb_no=${dto.pb_no }">
-							<img src="../resources/upload/oh/${dto.ohPhotoAttach.pa_attach }" alt="해당 게시글 대표사진" height="300px" width="300px"/>
+							<img src="../resources/upload/oh/photo/${dto.ohPhotoAttach.pa_attach }" alt="해당 게시글 대표사진" height="300px" width="300px"/>
 						</a>
+						
+						<br />
+						
 						<!-- 좋아요 -->
-						
-						
-						
+					
+						<span class="heart" id="${dto.pb_no }">
+							<i class="fa-solid fa-heart"></i>
+						</span>
+							
 					</div>
 				</c:forEach>
 			</div>
+				
+			
+			
+			
+			
+			<script>
+				$(document).ready(function() {
+					$(".heart").click(function() {
+						// 클릭 => 색상변경
+						$(this).toggleClass("clickColor");
+						
+						var icon = $(this).find("i");
+						
+/* 						if(icon.hasClass("fa-regular")) {
+							// <i> 요소의 클래스 변경 
+							icon.removeClass("fa-regular").addClass("fa-solid");
+						} else {
+							// <i> 요소의 클래스 변경 
+							icon.removeClass("fa-solid").addClass("fa-regular");
+						} */
+					});
+				});
+			</script>				
+	
+	
+			
+			
 			
 			<hr />
 			

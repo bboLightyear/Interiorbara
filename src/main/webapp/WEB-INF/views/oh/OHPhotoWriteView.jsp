@@ -10,7 +10,7 @@
 	<title>OH - PhotoWriteView.jsp</title>
 
 	<!-- oh.css -->
-	<link rel="stylesheet" href="../resources/css/oh/oh.css?after" />
+	<link rel="stylesheet" href="../resources/css/oh/photo.css?after" />
 	
 	<!-- https://fontawesome.com/ -->
 	<link  rel="stylesheet"

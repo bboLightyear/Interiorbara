@@ -77,12 +77,12 @@ public class OHPhotoWriteExecuteService implements OHInterfaceService {
 		
 		// 스프링 STS - upload 폴더 경로
 		// 글쓰기 후 이미지가 바로 출력되지 않는 문제가 있다.
-		String path = "C:\\23setspring\\springwork23\\interiorbara01\\src\\main\\webapp\\resources\\upload\\oh";
+		String path = "C:\\23setspring\\springwork23\\interiorbara01\\src\\main\\webapp\\resources\\upload\\oh\\photo";
 		System.out.println("path: " + path);
 		System.out.println("------------------------------");
 		
 		// 톰캣 server - upload 폴더 경로
-		// String path = "C:\\23setspring\\springwork23\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\interiorbara\\resources\\upload\\oh";
+		// String path = "C:\\23setspring\\springwork23\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\interiorbara\\resources\\upload\\oh\\photo";
 		
 		// 업로드 파일, List 저장
 		List<MultipartFile> pa_attachList = mftRequest.getFiles("pa_attach");
