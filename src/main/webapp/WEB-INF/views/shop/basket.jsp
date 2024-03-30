@@ -4,6 +4,8 @@
 <!DOCTYPE html>
 <html>
 <head>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="../resources/js/shop/basket.js"></script>
 <meta charset="UTF-8">
 <title>Insert title here</title>
 	<style>
@@ -12,43 +14,60 @@
 			margin: auto;
 		}
 		
-		.selectedProductCard {
-			disply: inline-block;
-			width: 300px;
-			height: 50px;
+		.selectedOptionList {
 			background-color: #f0f0f0;
 			margin-top: 5px;
 			margin-bottom: 5px;
 		}
 		
-		.productGroup {
+		.productGroupItem {
 			background-color: #fefee0;
 			padding: 10px;
+		}
+		
+		ul {
+			list-style: none;
 		}
 	</style>
 </head>
 <body>
 	<h3>basket.jsp</h3>
 	<main>
-		<c:forEach items="${products }" var="p">
-			<div class="productGroup">
-				${p.name }
-				<c:forEach items="${baskets }" var="b" varStatus="s">
-					<c:if test="${p.product_id eq b.product_id }">
-						<div class="selectedProductCard">
-							<c:if test="${b.option_set_dto ne null }">
-								${b.option_set_dto.name }: ${b.option_dto.name } /   
+		<ul id="productGroup">
+			<c:forEach items="${products }" var="product">
+				<li class="productGroupItem" data-product-id="${product.product_id }">
+					${product.name }
+					<ul class="selectedOptionGroup">
+						<c:set var="productTotalPrice" value="0"/>
+						<c:forEach items="${baskets }" var="basket" varStatus="status">
+							<c:if test="${product.product_id eq basket.product_id }">
+								<c:set var="optionTotalPrice" value="${basket.product_data_dto.price * basket.quantity }"/>
+								<c:set var="productTotalPrice" value="${productTotalPrice + optionTotalPrice }"/>
+								<li class="selectedOptionList" data-option-id="${basket.option_id }"
+									data-quantity="${basket.quantity }"
+									data-option-price="${basket.product_data_dto.price }"
+									data-option-total-price="${basket.product_data_dto.price * basket.quantity }">
+									<div>
+										<c:if test="${basket.option_set_dto ne null }">
+											${basket.option_set_dto.name }: ${basket.option_dto.name } /   
+										</c:if>
+										<c:if test="${basket.final_option_set_dto.name ne null }">
+											${basket.final_option_set_dto.name }:
+										</c:if>
+										${basket.final_option_dto.name }
+									</div>
+									<button type="button" data-action="sub">&lt;</button>
+									(<span class="optionQuantity">${basket.quantity }</span>)
+									<button type="button" data-action="add">&gt;</button>
+									<span class="optionPriceText">${basket.product_data_dto.price * basket.quantity } 원</span>
+								</li>							
 							</c:if>
-							<c:if test="${b.final_option_set_dto.name ne null }">
-								${b.final_option_set_dto.name }:
-							</c:if>
-							${b.final_option_dto.name } <br />
-							${b.product_data_dto.price }원
-						</div>
-					</c:if>
-				</c:forEach>
-			</div>
-		</c:forEach>
+						</c:forEach>
+					</ul>
+					총 가격: <span class="productTotalPrice">${productTotalPrice } 원</span>
+				</li>
+			</c:forEach>
+		</ul>
 	</main>
 </body>
 </html>

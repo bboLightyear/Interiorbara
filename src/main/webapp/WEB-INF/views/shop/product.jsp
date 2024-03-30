@@ -39,7 +39,7 @@
 			var optionId = select.value;
 			
 			var notContain = true;
-			$(".selectedProductCard").each(function() {
+			$(".selectedOptionListItem").each(function() {
 				if (optionId == $(this).data("optionId")) {
 					alert("이미 추가한 옵션입니다");
 					notContain = false;
@@ -61,7 +61,7 @@
 							+ data.name;
 						
 						var htmlText =
-							'<div class="selectedProductCard" data-option-id="' + data.option_id + '"\
+							'<div class="selectedOptionListItem" data-option-id="' + data.option_id + '"\
 								data-quantity="1" data-option-price="'+ data.product_data_dto.price + '"\
 								data-total-price="'+ data.product_data_dto.price +'">' + 
 								optionText + '<br />\
@@ -86,7 +86,7 @@
 			var optionId = select.value;
 			
 			var notContain = true;
-			$(".selectedProductCard").each(function() {
+			$(".selectedOptionListItem").each(function() {
 				if (optionId == $(this).data("optionId")) {
 					alert("이미 추가한 옵션입니다");
 					notContain = false;
@@ -111,7 +111,7 @@
 							+ data.name;
 						
 						var htmlText =
-							'<div class="selectedProductCard" data-option-id="' + data.option_id + '"\
+							'<div class="selectedOptionListItem" data-option-id="' + data.option_id + '"\
 								data-quantity="1" data-option-price="'+ data.product_data_dto.price + '"\
 								data-total-price="'+ data.product_data_dto.price +'">' + 
 								optionText + '<br />\
@@ -135,7 +135,7 @@
 		
 		function updateTotalPrice() {
 			var totalPrice = 0;
-			$(".selectedProductCard").each(function() {
+			$(".selectedOptionListItem").each(function() {
 				totalPrice += $(this).data("totalPrice");
 			});
 			
@@ -181,7 +181,7 @@
 			var productId = $("main").data("productId");
 
 			var index = 0;
-			$(".selectedProductCard").each(function() {
+			$(".selectedOptionListItem").each(function() {
 				var optionId = $(this).data("optionId");
 				var quantity = $(this).data("quantity");
 				
@@ -208,7 +208,7 @@
 				}
 			});
 			
-			$(".selectedProductCard").each(function() {
+			$(".selectedOptionListItem").each(function() {
 				if ($(this).data("nonOption") != 1) {
 					$(this).remove();
 				}
@@ -235,7 +235,7 @@
 			background-color: #fdfdff;
 		}
 		
-		.selectedProductCard {
+		.selectedOptionListItem {
 			disply: inline-block;
 			width: 300px;
 			background-color: #f0f0f0;
@@ -300,7 +300,7 @@
 				<div id="optionWrap">
 					<c:choose>
 						<c:when test="${nonOption ne null }">
-							<div class="selectedProductCard" data-option-id="${nonOption.option_id }" data-quantity="1" data-non-option="1"
+							<div class="selectedOptionListItem" data-option-id="${nonOption.option_id }" data-quantity="1" data-non-option="1"
 							data-option-price="${nonOption.product_data_dto.price }" data-total-price="${data.product_data_dto.price }">
 								${nonOption.name } <br />
 								<button type="button" onclick="quantity(`sub`)">&lt;</button>(<span id="quantityText">1</span>)
