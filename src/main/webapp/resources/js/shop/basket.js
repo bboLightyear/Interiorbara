@@ -39,9 +39,10 @@ function modifyQuantity() {
 	option.data("optionTotalPrice", optionPrice * quantity);
 	
 	const priceText = $(`.optionPriceText[data-option-id="${optionId}"]`).first();
-	priceText.text(optionPrice * quantity + "원");
+	priceText.text((optionPrice * quantity).toLocaleString());
 	
 	updateProductTotalPrice(productId);
+	updateBasketTotalPrice();
 }
 
 function updateProductTotalPrice(productId) {
@@ -51,5 +52,15 @@ function updateProductTotalPrice(productId) {
 	});
 	
 	const priceText = $(`.productTotalPrice[data-product-id="${productId}"]`).first();
-	priceText.text(productTotalPrice + "원");
+	priceText.text(productTotalPrice.toLocaleString());
+	priceText.data("productTotalPrice", productTotalPrice);
+}
+
+function updateBasketTotalPrice() {
+	var totalPrice = 0;
+	
+	$(`.productTotalPrice`).each(function() {
+		totalPrice += $(this).data("productTotalPrice");
+	});
+	$("#totalSelectedBasketsPrice").text(totalPrice.toLocaleString());
 }
