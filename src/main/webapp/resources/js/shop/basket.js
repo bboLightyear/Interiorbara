@@ -1,7 +1,42 @@
 $(document).ready(function() {
 	$(".quantityBtn").on("click", modifyQuantity);
 	$(".removeBtn").on("click", removeBasket);
+	$("#checkAll").on("click", checkAll);
+	$(".productCheckBox").on("click", checkProduct);
 });
+
+function checkAll() {
+	if ($(this).is(":checked")) {
+		$(".productCheckBox").prop("checked", true);
+	} else {
+		$(".productCheckBox").prop("checked", false);
+	}
+	
+	updateBasketTotalPrice();
+}
+
+function checkProduct() {
+	if (!$(this).is(":checked")) {
+		$("#checkAll").prop("checked", false);
+	} else {
+		updateCheck();
+	}
+	
+	updateBasketTotalPrice();
+}
+
+function updateCheck() {
+	var hasNotChecked = false;
+	$(".productCheckBox").each(function() {
+		if (!$(this).is(":checked")) {
+			hasNotChecked = true;
+		}
+	});
+	
+	if (!hasNotChecked) {
+		$("#checkAll").prop("checked", true);
+	}
+}
 
 function modifyQuantity() {
 	const optionId = $(this).data("optionId");
@@ -89,6 +124,8 @@ function removeBasket() {
 		updateBasketTotalPrice();
 		break;
 	}
+	
+	updateCheck();
 }
 
 function updateProductTotalPrice(productId) {
@@ -106,7 +143,11 @@ function updateBasketTotalPrice() {
 	var totalPrice = 0;
 	
 	$(`.productTotalPrice`).each(function() {
-		totalPrice += $(this).data("productTotalPrice");
+		const productId = $(this).data("productId");
+		const checkbox = $(`.productCheckBox[data-product-id="${productId}"]`).first();
+		if ($(checkbox).is(":checked")) {
+			totalPrice += $(this).data("productTotalPrice");
+		}
 	});
 	$("#totalSelectedBasketsPrice").text(totalPrice.toLocaleString());
 }
