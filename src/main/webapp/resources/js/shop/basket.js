@@ -1,5 +1,6 @@
 $(document).ready(function() {
-	$(".quantityButton").on("click", modifyQuantity);
+	$(".quantityBtn").on("click", modifyQuantity);
+	$(".removeBtn").on("click", removeBasket);
 });
 
 function modifyQuantity() {
@@ -43,6 +44,51 @@ function modifyQuantity() {
 	
 	updateProductTotalPrice(productId);
 	updateBasketTotalPrice();
+}
+
+function removeBasket() {
+	const btnOf = $(this).data("btnOf");
+	
+	var targetId;
+	switch (btnOf) {
+	case "product":
+		targetId = $(this).data("productId");
+		break;
+	case "option":
+		targetId = $(this).data("optionId");
+		break;
+	}
+	
+	$.ajax({
+		type: "post",
+		async: true,
+		url: "basket/removeBasket",
+		data: {
+			"target" : btnOf,
+			"targetId" : targetId
+		},
+		success: function() {
+			
+		}
+	});
+	
+	switch (btnOf) {
+	case "product":
+		$(`.productItem[data-product-id="${targetId}"]`).first().remove();
+		updateBasketTotalPrice();
+		break;
+	case "option":
+		const productId = $(`.selectedOption[data-option-id="${targetId}"]`).first().
+			data("productId");
+		$(`.selectedOption[data-option-id="${targetId}"]`).first().remove();
+		updateProductTotalPrice(productId);
+		const priceText = $(`.productTotalPrice[data-product-id="${productId}"]`).first();
+		if (priceText.data("productTotalPrice") === 0) {
+			$(`.productItem[data-product-id="${productId}"]`).first().remove();
+		}
+		updateBasketTotalPrice();
+		break;
+	}
 }
 
 function updateProductTotalPrice(productId) {

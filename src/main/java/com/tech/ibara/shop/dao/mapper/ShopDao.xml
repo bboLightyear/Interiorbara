@@ -444,6 +444,8 @@
 		END;
 	</insert>
 	
+	<!-- ===================== UPDATE ===================== -->
+	
 	<update id="updateBasketQuantity">
 		UPDATE
 			SHOP_BASKET
@@ -459,4 +461,20 @@
 		WHERE
 			USER_ID = #{param1} AND OPTION_ID = #{param2}
 	</update>
+	
+	<!-- ===================== DELETE ===================== -->
+	
+	<delete id="deleteBasket">
+		DELETE
+			SHOP_BASKET
+		WHERE
+		<choose>
+			<when test="param3 == 'product'">
+				USER_ID = #{param1} AND PRODUCT_ID = #{param2}
+			</when>
+			<when test="param3 == 'option'">
+				USER_ID = #{param1} AND OPTION_ID = #{param2}
+			</when>
+		</choose>
+	</delete>
 </mapper>

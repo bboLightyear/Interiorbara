@@ -55,4 +55,6 @@ public interface ShopDao {
 	public void insertBaskets(List<BasketDto> basketDtoList);
 	
 	public void updateBasketQuantity(int userId, int optionId, String action);
+	
+	public void deleteBasket(int userId, int targetId, String target);
 }
