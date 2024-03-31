@@ -1,31 +1,18 @@
 package com.tech.ibara.csnotice;
 
-import java.io.File;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.tech.ibara.csnotice.dao.QnaBoardIDao;
-import com.tech.ibara.csnotice.dto.QnaDto;
-import com.tech.ibara.csnotice.dto.QnaImgDto;
 import com.tech.ibara.csnotice.dto.QnaReplyDto;
-import com.tech.ibara.csnotice.vo.SearchVO;
 
 @RestController
 public class CsQnaRestController {
@@ -52,6 +39,7 @@ public class CsQnaRestController {
 		System.out.println("rwriter :"+rwriter);
 		System.out.println("rcontent :"+rcontent);
 		System.out.println("rnbstep :"+rnbstep);
+		System.out.println("rnbgroup :"+rnbgroup);
 		System.out.println("rnbindent :"+rnbindent);
 		
 //		String sql="select * from dept";
@@ -67,8 +55,8 @@ public class CsQnaRestController {
 		
 		// 전체 답글 달기
 		dao.qnareply_r(nbno,rnbno,rwriter,rcontent,rnbgroup,rnbstep,rnbindent);
-		dao.qnareply(nbno,rwriter,rcontent);
-		ArrayList<QnaReplyDto> list = dao.replylist(nbno);
+//		dao.qnareply(nbno,rwriter,rcontent);
+		ArrayList<QnaReplyDto> list = dao.replyrlist(rnbno);
 		System.out.println(list.size());
 		return list;
 	}
