@@ -171,6 +171,14 @@
 		WHERE
 			PL_USER = #{param1}
 	</select>
+	<select id="ohPhotoScrapView" resultType="com.tech.ibara.oh.dto.OHPhotoScrap">
+		SELECT
+			*
+		FROM
+			OH_PHOTO_SCRAP
+		WHERE
+			PS_USER = #{param1}
+	</select>
 	
 	<!-- OHPhotoLikeExecute -->
 	
@@ -219,6 +227,54 @@
 		WHERE
 			PB_NO = #{param1}		
 	</select>
+	
+	<!-- OHPhotoScrapExecute -->
+		
+	<select id="scrapCheck" resultType="Integer">
+		SELECT
+			COUNT(*)
+		FROM
+			OH_PHOTO_SCRAP
+		WHERE
+			PS_USER = #{param1} AND PB_NO = #{param2}
+	</select>	
+	<insert id="scrapSave">
+		INSERT INTO
+			OH_PHOTO_SCRAP
+		VALUES (
+			OH_PHOTO_SCRAP_SEQ.NEXTVAL, #{param1}, SYSDATE, #{param2}
+		)
+	</insert>
+	<update id="scrapIncrease">
+		UPDATE
+			OH_PHOTO_BOARD
+		SET
+			PB_SCRAP = PB_SCRAP + 1
+		WHERE
+			PB_NO = #{param1}
+	</update>
+	<delete id="scrapDelete">
+		DELETE FROM 
+			OH_PHOTO_SCRAP
+		WHERE
+			PS_USER = #{param1} AND PB_NO = #{param2}
+	</delete>
+	<update id="scrapDecrease">
+		UPDATE
+			OH_PHOTO_BOARD
+		SET
+			PB_SCRAP = PB_SCRAP - 1
+		WHERE
+			PB_NO = #{param1}	
+	</update>
+	<select id="scrapGetNumber" resultType="Integer">
+		SELECT
+			PB_SCRAP
+		FROM
+			OH_PHOTO_BOARD
+		WHERE
+			PB_NO = #{param1}		
+	</select>	
 	
 	<!-- OHPhotoWriteExecute -->
 	

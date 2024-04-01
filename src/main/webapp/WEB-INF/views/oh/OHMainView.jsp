@@ -44,7 +44,7 @@
 				
 				<!-- 회원, 비회원 구분 후 메세지 출력 -->
 				<c:choose>
-					<c:when test="${sessionScope.userId ne null }">
+					<c:when test="${sessionScope.userId ne null && !empty sessionScope.userId }">
 						<h3>${sessionScope.userId }님 환영합니다! </h3>	
 					</c:when>
 					<c:otherwise>
@@ -94,7 +94,7 @@
 		$(document).ready(function() {
 			$("#toWriteBtn").click(function() {
 				/* 회원인지 확인 */
-				if("${sessionScope.userId }" != null) {
+				if("${sessionScope.userId }" != null && "${sessionScope.userId }" != "") {	
 					window.location.href = "OHPhotoWriteView";
 				} else {
 					alert("로그인 페이지로 이동");

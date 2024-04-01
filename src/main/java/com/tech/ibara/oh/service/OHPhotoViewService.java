@@ -243,17 +243,26 @@ public class OHPhotoViewService implements OHInterfaceService {
 		// OHPhotoScrap 객체 담을 리스트 선언
 		ArrayList<OHPhotoScrap> ohPhotoScrap = null;
 		
-		// 로그인 사용자 => True
-		if(userId != null) {
+		// 로그인 사용자 => True, 좋아요, 스크랩 표시
+		if(userId != null && !userId.equals("")) {
 			// ohPhotoLikeView() 함수 실행
 			ohPhotoLike = dao.ohPhotoLikeView(userId);
+			System.out.println("ohPhotoLikeView() 함수 실행완료");
+			System.out.println("------------------------------");
 			// model <- ohPhotoLike, 로그인 사용자, 게시물 - 좋아요 표시
 			model.addAttribute("ohPhotoLike", ohPhotoLike);
-
+			
 			// ohPhotoScrapView() 함수 실행
 			ohPhotoScrap = dao.ohPhotoScrapView(userId);
+			System.out.println("ohPhotoScrapView() 함수 실행완료");
+			System.out.println("------------------------------");
 			// model <- ohPhotoScrap, 로그인 사용자, 게시물 - 스크랩 표시
 			model.addAttribute("ohPhotoScrap", ohPhotoScrap);			
+		} else {
+			System.out.println("비회원 입니다.");
+			System.out.println("ohPhotoLikeView() 함수 실행불가");
+			System.out.println("ohPhotoScrapView() 함수 실행불가");
+			System.out.println("------------------------------");
 		}
 		
 	}

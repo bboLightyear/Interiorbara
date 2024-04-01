@@ -292,24 +292,26 @@
 						
 						<!-- 스크랩, 이미지 -->
 						<c:set var="scrapLoopFlag" value="false" />
-						<c:forEach items="">
-						
+						<c:forEach items="${ohPhotoScrap }" var="scrap" varStatus="status">
+							<c:if test="${not scrapLoopFlag }">
+								<c:if test="${dto.pb_no eq scrap.pb_no }">
+									<span class="scrapImage clickColor" id="${dto.pb_no }">
+										<i class="fa-solid fa-bookmark"></i>
+									</span>
+									<c:set var="scrapLoopFlag" value="true" />
+								</c:if>
+							</c:if>
 						</c:forEach>
-						
-						
-						
-						<i class="fa-regular fa-bookmark"></i>
-						
-						<i class="fa-solid fa-bookmark"></i>
-						
+						<c:if test="${scrapLoopFlag eq false }">
+							<span class="scrapImage" id="${dto.pb_no }">
+								<i class="fa-regular fa-bookmark"></i>
+							</span>
+						</c:if>
 						<!-- 스크랩, 이미지 End -->
 						
 						<!-- 스크랩, 숫자 -->
-						
+						<span class="scrapNumber" id="${dto.pb_no }">${dto.pb_scrap }</span>
 						<!-- 스크랩, 숫자 End -->
-						
-						 	
-							
 					</div>
 				</c:forEach>
 			</div>
@@ -318,7 +320,7 @@
 				$(document).ready(function() {
 					$(".likeImage").click(function() {
 						/* 회원인지 확인 */						
-						if("${sessionScope.userId }" != null) {		
+						if("${sessionScope.userId }" != null && "${sessionScope.userId }" != "") {		
 							// 사용자 id 값을 가져와 변수에 저장
 							var userId = "${sessionScope.userId }"
 							// userId 변수에 저장된 id 값 출력
@@ -402,6 +404,94 @@
 						}	
 					});
 				});
+				
+				$(document).ready(function() {
+					$(".scrapImage").click(function() {
+						/* 회원인지 확인 */						
+						if("${sessionScope.userId }" != null && "${sessionScope.userId }" != "") {		
+							// 사용자 id 값을 가져와 변수에 저장
+							var userId = "${sessionScope.userId }"
+							// userId 변수에 저장된 id 값 출력
+							console.log("userId: ", userId);
+							// 클릭한 스크랩 요소의 id 값을 가져와 변수에 저장
+							var clickedId = $(this).attr("id");
+							// clickedId 변수에 저장된 id 값 출력
+							console.log("clickedId: ", clickedId);
+							// 클릭 => 스크랩 색상변경
+							$(this).toggleClass("clickColor");
+							// 클릭한 요소의 하위 태그에서 i태그를 찾아서 icon 변수에 저장 
+							var icon = $(this).find("i");
+							// if 조건문, 기본 스크랩 모양 => True
+							if(icon.hasClass("fa-regular")) {
+								// <i> 요소의 클래스 변경 => 스크랩 모양변경 
+								icon.removeClass("fa-regular").addClass("fa-solid");
+								// ajax 요청 보내기
+								$.ajax({
+									url: "OHPhotoScrapExecute",
+									method: "post",
+									dataType: "json",
+									data: {
+										// 전송할 데이터
+										'userId' : userId,
+										'pb_no' : clickedId
+									},
+									success: function(response) {
+						                // 성공적으로 서버로부터 응답을 받았을 때 실행할 코드
+						            	console.log("AJAX 요청 성공");
+						                // 서버에서 받은 게시물의 스크랩 횟수, 변수에 저장
+						                var responseScrapNumber = response.scrapNumber;
+						                // responseScrapNumber 변수, 콘솔 출력
+						            	console.log("서버에서 받은 게시물의 좋아요 횟수: ", responseScrapNumber);
+						            	// [중요] 선택자를 이용해 요소 지정할 때 id, class 순서로 지정한다. 그 반대는 선택하지 못한다.
+						            	var scrapNumberSelector = "#" + clickedId + ".scrapNumber";
+						            	// scrapNumberSelector 변수, 콘솔 출력
+						            	console.log("scrapNumberSelector: ", scrapNumberSelector);
+						            	// 서버에서 받은 게시물의 스크랩 횟수 => 숫자 갱신 
+						                $(scrapNumberSelector).text(responseScrapNumber);
+									},
+									error: function(xhr, status, error) {
+						                // AJAX 요청 실패 시 실행할 코드
+						                console.error("AJAX 요청 실패:", status, error);										
+									}
+								});
+							} else {
+								// <i> 요소의 클래스 변경 => 스크랩 모양변경 
+								icon.removeClass("fa-solid").addClass("fa-regular");
+								// ajax 요청 보내기
+								$.ajax({
+									url: "OHPhotoScrapExecute",
+									method: "post",
+									data: {
+										// 전송할 데이터
+										'userId' : userId,
+										'pb_no' : clickedId
+									},
+									success: function(response) {
+						                // 성공적으로 서버로부터 응답을 받았을 때 실행할 코드
+						            	console.log("AJAX 요청 성공");		
+						                // 서버에서 받은 게시물의 스크랩 횟수, 변수에 저장
+						                var responseScrapNumber = response.scrapNumber;
+						                // responseScrapNumber 변수, 콘솔 출력
+						            	console.log("서버에서 받은 게시물의 좋아요 횟수: ", responseScrapNumber);
+						            	// [중요] 선택자를 이용해 요소 지정할 때 id, class 순서로 지정한다. 그 반대는 선택하지 못한다.
+						            	var scrapNumberSelector = "#" + clickedId + ".scrapNumber";
+						            	// scrapNumberSelector 변수, 콘솔 출력
+						            	console.log("scrapNumberSelector: ", scrapNumberSelector);
+						            	// 서버에서 받은 게시물의 스크랩 횟수 => 숫자 갱신 
+						                $(scrapNumberSelector).text(responseScrapNumber);					                
+									},
+									error: function(xhr, status, error) {
+						                // AJAX 요청 실패 시 실행할 코드
+						                console.error("AJAX 요청 실패:", status, error);										
+									}
+								});								
+							}
+						} else {
+							// 비회원 => 좋아요 누를 경우
+							alert("회원만 가능, 로그인 페이지로 이동");
+						}	
+					});
+				});				
 			</script>				
 	
 	
@@ -462,7 +552,7 @@
 		$(document).ready(function() {
 			$("#toWriteBtn").click(function() {
 				/* 회원인지 확인 */
-				if("${sessionScope.userId }" != null) {
+				if("${sessionScope.userId }" != null && "${sessionScope.userId }" != "") {	
 					window.location.href = "OHPhotoWriteView";
 				} else {
 					alert("로그인 페이지로 이동");

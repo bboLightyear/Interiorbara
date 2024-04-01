@@ -88,13 +88,13 @@ footer {
 	color: #f72828;
 }
 
-.scrap {
+.scrapImage {
 	color: #333;
 	font-size:40px;	
 }
 
-.scrap.clickColor {
-	color: #f4ff1c;
+.scrapImage.clickColor {
+	color: #4fc94f;
 }
 
 /* ----- OHPhotoView.jsp End ----- */

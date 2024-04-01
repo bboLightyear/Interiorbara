@@ -19,6 +19,7 @@ import com.tech.ibara.oh.service.OHPhotoDetailViewService;
 import com.tech.ibara.oh.service.OHPhotoEditExecuteService;
 import com.tech.ibara.oh.service.OHPhotoEditViewService;
 import com.tech.ibara.oh.service.OHPhotoLikeExecuteService;
+import com.tech.ibara.oh.service.OHPhotoScrapExecuteService;
 import com.tech.ibara.oh.service.OHPhotoViewService;
 import com.tech.ibara.oh.service.OHPhotoWriteExecuteService;
 import com.tech.ibara.oh.vo.OHPageVO;
@@ -39,13 +40,18 @@ public class OHController {
 		System.out.println("------------------------------");
 		
 		// 임시 session 내장객체 설정 - 사용자 ID
-		session.setAttribute("userId", "KimGyeongTae");
-		// session - null Check, userID 출력 
-		if(session.getAttribute("userId") != null) {
-			System.out.println("userId: " + session.getAttribute("userId"));
+//		session.setAttribute("userId", "KimGyeongTae");
+		session.setAttribute("userId", "");
+		
+		// session 사용자 아이디, 저장
+		String userId = (String) session.getAttribute("userId");
+		
+		// userId - null Check, 값 출력 
+		if(userId != null && !userId.equals("")) {
+			System.out.println("userId: " + userId);
 			System.out.println("------------------------------");
 		} else {
-			System.out.println("userId: " + session.getAttribute("userId"));
+			System.out.println("userId: " + userId);
 			System.out.println("------------------------------");
 		}		
 		
@@ -90,6 +96,25 @@ public class OHController {
 		ohInterfaceService = new OHPhotoLikeExecuteService(sqlSession);
 		ohInterfaceService.execute(model);			
 	}
+	
+	// ---------- OHPhotoScrapExecute ---------- 	
+	@RequestMapping("oh/OHPhotoScrapExecute")
+	@ResponseBody
+	public void OHPhotoScrapExecute(HttpServletRequest request, HttpServletResponse response, HttpSession session,  Model model) {
+		// Console 출력
+		System.out.println("OHPhotoScrapExecute Controller");
+		System.out.println("------------------------------");	
+		
+		// Model - request
+		model.addAttribute("request", request);		
+		// Model - response		
+		model.addAttribute("response", response);
+		
+		// Service
+		ohInterfaceService = new OHPhotoScrapExecuteService(sqlSession);
+		ohInterfaceService.execute(model);			
+	}	
+	
 	// ---------- OHPhotoWriteView.jsp ---------- 
 	@RequestMapping("oh/OHPhotoWriteView")
 	public String OHPhotoWriteView(HttpServletRequest request, HttpSession session, Model model) {

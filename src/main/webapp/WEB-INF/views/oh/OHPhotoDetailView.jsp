@@ -136,6 +136,11 @@
 			
 			<hr />
 			
+			<!-- 댓글 출력 -->
+			
+			<div contenteditable="true" style="height:50px;width:300px;" ></div>
+			
+			
 		</div>
 			
 		<footer>
@@ -151,7 +156,7 @@
 		$(document).ready(function() {
 			$("#toWriteBtn").click(function() {
 				/* 회원인지 확인 */
-				if("${sessionScope.userId }" != null) {
+				if("${sessionScope.userId }" != null && "${sessionScope.userId }" != "") {
 					window.location.href = "OHPhotoWriteView";
 				} else {
 					alert("로그인 페이지로 이동");
