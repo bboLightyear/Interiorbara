@@ -32,8 +32,9 @@ create table shop_payment_info (
     card_name varchar2(15)
 );
 
-create table user_addr (
+create table shop_user_addr (
     user_addr_id number,
+    default_addr number,
     user_id number,
     name varchar2(30),
     receiver_name varchar2(20),
@@ -59,8 +60,7 @@ create table shop_order_product (
     name varchar2(100),
     price number,
     quantity number,
-    option_text varchar2(100),
-    delivery_fee number
+    option_text varchar2(100)
 );
 
 create table shop_order (

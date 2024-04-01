@@ -19,6 +19,7 @@
 			<label for="checkAll">전체선택</label>
 			<ul id="productGroup">
 			<c:set var="basketTotalPrice" value="0"/>
+			<c:set var="basektTotalDelivery" value="0" />
 			<c:forEach items="${products }" var="product">
 				<li class="productItem" data-product-id="${product.product_id }">
 					<input type="checkbox" class="productCheckBox" data-product-id="${product.product_id }" checked />
@@ -54,17 +55,26 @@
 					</c:forEach>
 					</ul>
 					<c:set var="basketTotalPrice" value="${basketTotalPrice + productTotalPrice }"/>
+					<c:set var="basektTotalDelivery" value="${basektTotalDelivery + product.delivery_fee }" />
 					총 금액: <span class="productTotalPrice" data-product-id="${product.product_id }"
 					data-product-total-price="${productTotalPrice }">
-					<fmt:formatNumber type="number" pattern="#,###" value="${productTotalPrice }"/></span>원
+					<fmt:formatNumber type="number" pattern="#,###" value="${productTotalPrice }"/></span>원 <br />
+					배송비: <span class="deliveryFee" data-delivery-fee="${product.delivery_fee }"
+						data-product-id="${product.product_id }">
+					<fmt:formatNumber type="number" pattern="#,###" value="${product.delivery_fee }"/>
+					</span>원
 				</li>
 			</c:forEach>
 			</ul>
 		</div>
 		<div id="sideWrap">
 			<div>
-				총 금액: <span id="totalSelectedBasketsPrice" data-basket-total-price="${basketTotalPrice }">
-				<fmt:formatNumber type="number" pattern="#,###" value="${basketTotalPrice }"/></span>원
+				총 상품 금액: <span id="totalSelectedBasketsPrice" data-basket-total-price="${basketTotalPrice }">
+				<fmt:formatNumber type="number" pattern="#,###" value="${basketTotalPrice }"/></span>원 <br />
+				총 배송비: <span id="totalDeliveryFee" data-delivery-fee="${basektTotalDelivery }" >
+				<fmt:formatNumber type="number" pattern="#,###" value="${basektTotalDelivery }"/></span>원 <br />
+				총 금액: <span id="totalPurchasePrice" data-total-purchase="${basketTotalPrice + basektTotalDelivery }">
+				<fmt:formatNumber type="number" pattern="#,###" value="${basketTotalPrice + basektTotalDelivery }"/></span>원 <br />
 			</div>
 			<div>
 				<button type="button" id="purchaseBtn">구매하기</button>

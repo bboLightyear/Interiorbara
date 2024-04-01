@@ -295,6 +295,12 @@
 		<section id="summary">
 			productId: ${product.product_id } <br />
 			name: ${product.name } <br />
+			가격: ${product.rep_price } <br />
+			<c:if test="${product.rep_d_price ne null }">
+			할인율: ${product.discount_rate } <br />
+			할인가격: ${product.rep_d_price } <br />
+			</c:if>
+			배송비: ${product.delivery_fee } <br />
 			옵션 <br />
 			<form action="">
 				<div id="optionWrap">

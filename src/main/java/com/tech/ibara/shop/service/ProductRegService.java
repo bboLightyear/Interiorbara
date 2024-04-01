@@ -36,10 +36,18 @@ public class ProductRegService extends SqlSessionBase implements ShopService {
 		int categoryId = mpRequest.getParameter("lv4Category") == null
 				? Integer.parseInt(mpRequest.getParameter("lv3Category"))
 				: Integer.parseInt(mpRequest.getParameter("lv4Category"));
-
+				
+		// delivery fee
+		int deliveryFee = Integer.parseInt(mpRequest.getParameter("deliveryFee"));
+		// discount rate
+		int discountRate = Integer.parseInt(mpRequest.getParameter("discountRate"));
 		// option
 		int optionType = Integer.parseInt(mpRequest.getParameter("optionType"));
+		
+		int repPrice = Integer.parseInt(mpRequest.getParameter("repPrice"));
+		Integer repDPrice = ShopUtil.parseInt(mpRequest.getParameter("repDPrice"));
 
+		
 		switch (optionType) {
 		case 0: {
 			OptionSetDto optionSetDto = new OptionSetDto(null);
@@ -54,7 +62,16 @@ public class ProductRegService extends SqlSessionBase implements ShopService {
 					productDataDto.getProduct_data_id(), mpRequest.getParameter("optionName"));
 			dao.insertOption(optionDto);
 
-			productDto = new ProductDto(sellerId, categoryId, optionSetDto.getOption_set_id(), 1, productName);
+			productDto = new ProductDto(
+					sellerId,
+					categoryId,
+					optionSetDto.getOption_set_id(),
+					1,
+					productName,
+					deliveryFee,
+					discountRate,
+					repPrice,
+					repDPrice);
 			dao.insertProduct(productDto);
 
 			break;
@@ -97,7 +114,16 @@ public class ProductRegService extends SqlSessionBase implements ShopService {
 				++optionNum;
 			}
 
-			productDto = new ProductDto(sellerId, categoryId, optionSetDto.getOption_set_id(), 1, productName);
+			productDto = new ProductDto(
+					sellerId,
+					categoryId,
+					optionSetDto.getOption_set_id(),
+					1,
+					productName,
+					deliveryFee,
+					discountRate,
+					repPrice,
+					repDPrice);
 			dao.insertProduct(productDto);
 
 			break;
@@ -161,7 +187,16 @@ public class ProductRegService extends SqlSessionBase implements ShopService {
 				++setNum;
 			}
 
-			productDto = new ProductDto(sellerId, categoryId, upOptionSetDto.getOption_set_id(), 1, productName);
+			productDto = new ProductDto(
+					sellerId,
+					categoryId,
+					upOptionSetDto.getOption_set_id(),
+					1,
+					productName,
+					deliveryFee,
+					discountRate,
+					repPrice,
+					repDPrice);
 			dao.insertProduct(productDto);
 			break;
 		}

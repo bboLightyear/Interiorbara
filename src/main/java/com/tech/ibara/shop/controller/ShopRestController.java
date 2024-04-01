@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.tech.ibara.shop.dto.CategoryDto;
 import com.tech.ibara.shop.dto.OptionDto;
 import com.tech.ibara.shop.service.BasketAddService;
+import com.tech.ibara.shop.service.BasketMakeOrderService;
 import com.tech.ibara.shop.service.BasketModifyQuantityService;
 import com.tech.ibara.shop.service.BasketRemoveService;
 import com.tech.ibara.shop.service.ProductDataLoadService;
@@ -92,5 +93,17 @@ public class ShopRestController {
 		
 		BasketRemoveService shopService = new BasketRemoveService(sqlSession);
 		shopService.execute(model);
+	}
+	
+	@RequestMapping(method = RequestMethod.POST, value = "/shop/basket/makeOrder")
+	public int makeOrder(HttpServletRequest request, HttpSession session ,Model model) {
+		
+		model.addAttribute("request", request);
+		model.addAttribute("session", session);
+		
+		BasketMakeOrderService shopService = new BasketMakeOrderService(sqlSession);
+		shopService.execute(model);
+		
+		return shopService.getData();
 	}
 }

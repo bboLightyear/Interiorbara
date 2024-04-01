@@ -3,7 +3,37 @@ $(document).ready(function() {
 	$(".removeBtn").on("click", removeBasket);
 	$("#checkAll").on("click", checkAll);
 	$(".productCheckBox").on("click", checkProduct);
+	$("#purchaseBtn").on("click", purchaseChecked);
 });
+
+function purchaseChecked() {
+	var purchaseBaskets = [];
+	var hasChecked = false;
+	$(".productCheckBox").each(function() {
+		if ($(this).is(":checked")) {
+			hasChecked = true;
+			const productId = $(this).data("productId");
+			$(`.selectedOption[data-product-id="${productId}"]`).each(function() {
+				const basketId = $(this).data("basketId");
+				purchaseBaskets.push({"basketId" : basketId});
+			});
+		}
+	});
+	
+	if (!hasChecked) {
+		alert("선택한 상품이 없습니다");
+	} else {
+		$.ajax({
+			type: "POST",
+			url: "basket/makeOrder",
+			data: JSON.stringify(purchaseBaskets),
+			success: function(data) {
+				var url = "order&orderId=" + data;
+				location.href = url;
+			}
+		});
+	}
+}
 
 function checkAll() {
 	if ($(this).is(":checked")) {
@@ -150,4 +180,17 @@ function updateBasketTotalPrice() {
 		}
 	});
 	$("#totalSelectedBasketsPrice").text(totalPrice.toLocaleString());
+	
+	var totalDeliveryFee = 0;
+	
+	$(`.deliveryFee`).each(function() {
+		const productId = $(this).data("productId");
+		const checkbox = $(`.productCheckBox[data-product-id="${productId}"]`).first();
+		if ($(checkbox).is(":checked")) {
+			totalDeliveryFee += $(this).data("deliveryFee");
+		}
+	});
+	$("#totalDeliveryFee").text(totalDeliveryFee.toLocaleString());
+	
+	$("#totalPurchasePrice").text((totalPrice + totalDeliveryFee).toLocaleString());
 }

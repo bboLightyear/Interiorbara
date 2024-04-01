@@ -8,7 +8,16 @@
 	
 	<select id="selectProductsByCategory" resultType="com.tech.ibara.shop.dto.ProductDto">
 		SELECT
-			PRODUCT_ID, SELLER_ID, CATEGORY_ID, OPTION_SET_ID, DETAIL_INFO_ID, NAME
+			PRODUCT_ID,
+			SELLER_ID,
+			CATEGORY_ID,
+			OPTION_SET_ID,
+			DETAIL_INFO_ID,
+			NAME,
+			DELIVERY_FEE,
+			DISCOUNT_RATE,
+			REP_PRICE,
+			REP_D_PRICE
 		FROM
 			SHOP_PRODUCT
 		WHERE
@@ -19,7 +28,16 @@
 	
 	<select id="selectProductsByCategories" resultType="com.tech.ibara.shop.dto.ProductDto">
 		SELECT
-			PRODUCT_ID, SELLER_ID, CATEGORY_ID, OPTION_SET_ID, DETAIL_INFO_ID, NAME
+			PRODUCT_ID,
+			SELLER_ID,
+			CATEGORY_ID,
+			OPTION_SET_ID,
+			DETAIL_INFO_ID,
+			NAME,
+			DELIVERY_FEE,
+			DISCOUNT_RATE,
+			REP_PRICE,
+			REP_D_PRICE
 		FROM
 			SHOP_PRODUCT
 		WHERE
@@ -107,7 +125,16 @@
 	
 	<select id="selectProductById" resultType="com.tech.ibara.shop.dto.ProductDto">
 		SELECT
-			PRODUCT_ID, SELLER_ID, CATEGORY_ID, OPTION_SET_ID, DETAIL_INFO_ID, NAME
+			PRODUCT_ID,
+			SELLER_ID,
+			CATEGORY_ID,
+			OPTION_SET_ID,
+			DETAIL_INFO_ID,
+			NAME,
+			DELIVERY_FEE,
+			DISCOUNT_RATE,
+			REP_PRICE,
+			REP_D_PRICE
 		FROM
 			SHOP_PRODUCT
 		WHERE
@@ -289,6 +316,11 @@
 			USER_ID = #{param1} AND OPTION_ID = #{param2}
 	</select>
 	
+	<select id="selectMinPriceOption" resultType="com.tech.ibara.shop.dto.ProductDataDto"> 
+		SELECT
+			
+	</select>
+	
 	<!-- ===================== INSERT ===================== -->
 	
 	<insert id="insertProductData" parameterType="com.tech.ibara.shop.dto.ProductDataDto"
@@ -343,14 +375,22 @@
 				CATEGORY_ID,
 				OPTION_SET_ID,
 				DETAIL_INFO_ID,
-				NAME)
+				NAME,
+				DELIVERY_FEE,
+				DISCOUNT_RATE,
+				REP_PRICE,
+				REP_D_PRICE)
 		VALUES (
 			SEQ_SHOP_PRODUCT.NEXTVAL,
 			#{seller_id},
 			#{category_id},
 			#{option_set_id},
 			#{detail_info_id},
-			#{name})
+			#{name},
+			${delivery_fee},
+			${discount_rate},
+			${rep_price},
+			${rep_d_price})
 	</insert>
 	
 	<insert id="insertProductImg" parameterType="com.tech.ibara.shop.dto.ProductImgDto">

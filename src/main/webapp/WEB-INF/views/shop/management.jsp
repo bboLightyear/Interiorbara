@@ -76,8 +76,8 @@
 			var htmlText =
 				'<div id="optionField">\
 					이름: <input type="text" name="optionName" required="required" />\
-					가격: <input type="number" name="optionPrice" required="required" />\
-					할인가격: <input type="number" name="optionDPrice" />\
+					가격: <input type="number" name="optionPrice" class="optionPrice" required="required" onchange="updateDPrice()" />\
+					할인가격: <input type="number" name="optionDPrice" class="optionDPrice" />\
 					재고: <input type="number" name="optionStock" required="required" />\
 				</div>';
 			$("#optionField").append(htmlText);
@@ -93,15 +93,15 @@
 					<div id="set1Option1">\
 						옵션1<br />\
 						이름: <input type="text" name="set1Option1Name" required="required" />\
-						가격: <input type="number" name="set1Option1Price" required="required" />\
-						할인가격: <input type="number" name="set1Option1DPrice" />\
+						가격: <input type="number" name="set1Option1Price" class="optionPrice" required="required" onchange="updateDPrice()" />\
+						할인가격: <input type="number" name="set1Option1DPrice" class="optionDPrice" />\
 						재고: <input type="number" name="set1Option1Stock" required="required" />\
 					</div>\
 					<div id="set1Option2">\
 						옵션2<br />\
 						이름: <input type="text" name="set1Option2Name" required="required" />\
-						가격: <input type="number" name="set1Option2Price" required="required" />\
-						할인가격: <input type="number" name="set1Option2DPrice" />\
+						가격: <input type="number" name="set1Option2Price" class="optionPrice" required="required" onchange="updateDPrice()" />\
+						할인가격: <input type="number" name="set1Option2DPrice" class="optionDPrice" />\
 						재고: <input type="number" name="set1Option2Stock" required="required" />\
 					</div>\
 				</div>';
@@ -121,8 +121,8 @@
 				'<div id="set' + setNum + 'Option' + optionCnt + '">\
 					옵션' + optionCnt + '<br />\
 					이름: <input type="text" name="set' + setNum + 'Option' + optionCnt + 'Name" required="required" />\
-					가격: <input type="number" name="set' + setNum + 'Option' + optionCnt + 'Price" required="required" />\
-					할인가격: <input type="number" name="set' + setNum + 'Option' + optionCnt + 'DPrice" />\
+					가격: <input type="number" name="set' + setNum + 'Option' + optionCnt + 'Price" class="optionPrice" required="required" onchange="updateDPrice()" />\
+					할인가격: <input type="number" name="set' + setNum + 'Option' + optionCnt + 'DPrice" class="optionDPrice" />\
 					재고: <input type="number" name="set' + setNum + 'Option' + optionCnt + 'Stock" required="required" />\
 				</div>';
 				
@@ -164,15 +164,15 @@
 								<div id="set1Option1">\
 									옵션1<br />\
 									이름: <input type="text" name="set1Option1Name" required="required" />\
-									가격: <input type="number" name="set1Option1Price" required="required" />\
-									할인가격: <input type="number" name="set1Option1DPrice" />\
+									가격: <input type="number" name="set1Option1Price" class="optionPrice" required="required" onchange="updateDPrice()" />\
+									할인가격: <input type="number" name="set1Option1DPrice" class="optionDPrice" />\
 									재고: <input type="number" name="set1Option1Stock" required="required" />\
 								</div>\
 								<div id="set1Option2">\
 									옵션2<br />\
 									이름: <input type="text" name="set1Option2Name" required="required" />\
-									가격: <input type="number" name="set1Option2Price" required="required" />\
-									할인가격: <input type="number" name="set1Option2DPrice" />\
+									가격: <input type="number" name="set1Option2Price" class="optionPrice" required="required" onchange="updateDPrice()" />\
+									할인가격: <input type="number" name="set1Option2DPrice" class="optionDPrice" />\
 									재고: <input type="number" name="set1Option2Stock" required="required" />\
 								</div>\
 							</div>\
@@ -189,15 +189,15 @@
 								<div id="set2Option1">\
 									옵션1<br />\
 									이름: <input type="text" name="set2Option1Name" required="required" />\
-									가격: <input type="number" name="set2Option1Price" required="required" />\
-									할인가격: <input type="number" name="set2Option1DPrice" />\
+									가격: <input type="number" name="set2Option1Price" class="optionPrice" required="required" onchange="updateDPrice()" />\
+									할인가격: <input type="number" name="set2Option1DPrice" class="optionDPrice" />\
 									재고: <input type="number" name="set2Option1Stock" required="required" />\
 								</div>\
 								<div id="set2Option2">\
 									옵션2<br />\
 									이름: <input type="text" name="set2Option2Name" required="required" />\
-									가격: <input type="number" name="set2Option2Price" required="required" />\
-									할인가격: <input type="number" name="set2Option2DPrice" />\
+									가격: <input type="number" name="set2Option2Price" class="optionPrice" required="required" onchange="updateDPrice()" />\
+									할인가격: <input type="number" name="set2Option2DPrice" class="optionDPrice" />\
 									재고: <input type="number" name="set2Option2Stock" required="required" />\
 								</div>\
 							</div>\
@@ -233,15 +233,15 @@
 						<div id="set' + setCnt + 'Option1">\
 							옵션1<br />\
 							이름: <input type="text" name="set' + setCnt + 'Option1Name" required="required" />\
-							가격: <input type="number" name="set' + setCnt + 'Option1Price" required="required" />\
-							할인가격: <input type="number" name="set' + setCnt + 'Option1DPrice" />\
+							가격: <input type="number" name="set' + setCnt + 'Option1Price" class="optionPrice" required="required" onchange="updateDPrice()" />\
+							할인가격: <input type="number" name="set' + setCnt + 'Option1DPrice" class="optionDPrice" />\
 							재고: <input type="number" name="set' + setCnt + 'Option1Stock" required="required" />\
 						</div>\
 						<div id="set' + setCnt + 'Option2">\
 							옵션2<br />\
 							이름: <input type="text" name="set' + setCnt + 'Option2Name" required="required" />\
-							가격: <input type="number" name="set' + setCnt + 'Option2Price" required="required" />\
-							할인가격: <input type="number" name="set' + setCnt + 'Option2DPrice" />\
+							가격: <input type="number" name="set' + setCnt + 'Option2Price" class="optionPrice" required="required" onchange="updateDPrice()" />\
+							할인가격: <input type="number" name="set' + setCnt + 'Option2DPrice" class="optionDPrice" />\
 							재고: <input type="number" name="set' + setCnt + 'Option2Stock" required="required" />\
 						</div>\
 					</div>\
@@ -261,6 +261,70 @@
 			$("#upSet").children().last().remove();
 			
 			$("#upSet").data("setCnt", --setCnt);
+		}
+		
+		function updateDPrice() {
+			if ($("#discountRate").val().length === 0 || $("#discountRate").val() === 0) {
+				$(".optionDPrice").each(function() {
+					$(this).val("");
+				});
+			} else {
+				const discountRate = (100 - $("#discountRate").val()) * 0.01;
+				$(".optionDPrice").each(function() {
+					const optionPrice = $(this).siblings(".optionPrice").first();
+					if ($(optionPrice).val().length === 0 || $(optionPrice).val() === 0) {
+						$(this).val("");
+					} else {
+						const optionPriceVal = $(optionPrice).val();
+						var result;
+						if (optionPriceVal < 1000) {
+							result = Math.floor(optionPriceVal * discountRate * 0.1) * 10;
+						} else {
+							result = Math.floor(optionPriceVal * discountRate * 0.01) * 100;
+						}
+						
+						$(this).val(result);
+					}
+				})
+			}
+			
+			var isChanged = false;
+			var lowest = Number.MAX_SAFE_INTEGER;
+			var lowestD = 0;
+			$(".optionPrice").each(function() {
+				if (!($(this).val().length === 0) && !($(this).val() === 0)) {
+					if ($(this).val() < lowest) {
+						lowest = $(this).val();
+						isChanged = true;
+						
+						const optionDPrice = $(this).siblings(".optionDPrice").first();
+						if (!($(optionDPrice).val().length === 0) && !($(optionDPrice).val() === 0)) {
+							lowestD = $(optionDPrice).val();
+						} else {
+							$("#repDPrice").val("");
+						}
+					}
+				} else {
+					$("#repPrice").val("");
+					$("#repDPrice").val("");
+				}
+				
+/* 				const optionDPrice = $(this).siblings(".optionDPrice").first();
+				if (!($(optionDPrice).val().length === 0) && !($(optionDPrice).val() === 0)) {
+					lowestD = $(optionDPrice).val();
+				} else {
+					$("#repDPrice").val("");
+				} */
+			});
+			
+			if (isChanged) {
+				$("#repPrice").val(lowest);
+				if (lowestD === 0) {
+					$("#repDPrice").val("");
+				} else {
+					$("#repDPrice").val(lowestD);
+				}
+			}
 		}
 	</script>
 </head>
@@ -282,6 +346,10 @@
 		<br />
 		상품 이미지: <input type="file" name="productImgs" multiple="multiple" required="required" />
 		<br />
+		배송비: <input type="number" name="deliveryFee" required="required"/> <br />
+		할인율: <input type="number" name="discountRate" required="required" id="discountRate" onchange="updateDPrice()"/> <br />
+		대표가격: <input type="number" name="repPrice" id="repPrice" required="required"/> <br />
+		대표할인가격: <input type="number" name="repDPrice" id="repDPrice" required="required"/> <br />
 		옵션: 
 		<input type="radio" name="optionType" value="0" onchange="changeOptionField()" checked/> 없음
 		<input type="radio" name="optionType" value="1" onchange="changeOptionField()"/> 1개
@@ -289,8 +357,8 @@
 		
 		<div id="optionField" >
 			이름: <input type="text" name="optionName" required="required" />
-			가격: <input type="number" name="optionPrice" required="required" />
-			할인가격: <input type="number" name="optionDPrice" />
+			가격: <input type="number" name="optionPrice" required="required" class="optionPrice" onchange="updateDPrice()" />
+			할인가격: <input type="number" name="optionDPrice" class="optionDPrice" />
 			재고: <input type="number" name="optionStock" required="required" />
 		</div>
 		
