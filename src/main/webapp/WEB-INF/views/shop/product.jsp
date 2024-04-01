@@ -39,7 +39,7 @@
 			var optionId = select.value;
 			
 			var notContain = true;
-			$(".selectedProductCard").each(function() {
+			$(".selectedOptionListItem").each(function() {
 				if (optionId == $(this).data("optionId")) {
 					alert("이미 추가한 옵션입니다");
 					notContain = false;
@@ -61,12 +61,12 @@
 							+ data.name;
 						
 						var htmlText =
-							'<div class="selectedProductCard" data-option-id="' + data.option_id + '"\
+							'<div class="selectedOptionListItem" data-option-id="' + data.option_id + '"\
 								data-quantity="1" data-option-price="'+ data.product_data_dto.price + '"\
 								data-total-price="'+ data.product_data_dto.price +'">' + 
 								optionText + '<br />\
-								<button type="button" onclick="quantity(`sub`)"><</button>(<span id="quantityText">1</span>)\
-								<button type="button" onclick="quantity(`add`)">></button>\
+								<button type="button" onclick="quantity(`sub`)">&lt;</button>(<span id="quantityText">1</span>)\
+								<button type="button" onclick="quantity(`add`)">&gt;</button>\
 								<span id="priceText">' + data.product_data_dto.price + '</span>원\
 							</div>';
 							
@@ -86,7 +86,7 @@
 			var optionId = select.value;
 			
 			var notContain = true;
-			$(".selectedProductCard").each(function() {
+			$(".selectedOptionListItem").each(function() {
 				if (optionId == $(this).data("optionId")) {
 					alert("이미 추가한 옵션입니다");
 					notContain = false;
@@ -111,12 +111,12 @@
 							+ data.name;
 						
 						var htmlText =
-							'<div class="selectedProductCard" data-option-id="' + data.option_id + '"\
+							'<div class="selectedOptionListItem" data-option-id="' + data.option_id + '"\
 								data-quantity="1" data-option-price="'+ data.product_data_dto.price + '"\
 								data-total-price="'+ data.product_data_dto.price +'">' + 
 								optionText + '<br />\
-								<button type="button" onclick="quantity(`sub`)"><</button>(<span id="quantityText">1</span>)\
-								<button type="button" onclick="quantity(`add`)">></button>\
+								<button type="button" onclick="quantity(`sub`)">&lt;</button>(<span id="quantityText">1</span>)\
+								<button type="button" onclick="quantity(`add`)">&gt;</button>\
 								<span id="priceText">' + data.product_data_dto.price + '</span>원\
 							</div>';
 							
@@ -135,7 +135,7 @@
 		
 		function updateTotalPrice() {
 			var totalPrice = 0;
-			$(".selectedProductCard").each(function() {
+			$(".selectedOptionListItem").each(function() {
 				totalPrice += $(this).data("totalPrice");
 			});
 			
@@ -181,7 +181,7 @@
 			var productId = $("main").data("productId");
 
 			var index = 0;
-			$(".selectedProductCard").each(function() {
+			$(".selectedOptionListItem").each(function() {
 				var optionId = $(this).data("optionId");
 				var quantity = $(this).data("quantity");
 				
@@ -208,7 +208,11 @@
 				}
 			});
 			
-			$(".selectedProductCard").remove();
+			$(".selectedOptionListItem").each(function() {
+				if ($(this).data("nonOption") != 1) {
+					$(this).remove();
+				}
+			});
 			updateTotalPrice();
 		}
 	</script>
@@ -231,7 +235,7 @@
 			background-color: #fdfdff;
 		}
 		
-		.selectedProductCard {
+		.selectedOptionListItem {
 			disply: inline-block;
 			width: 300px;
 			background-color: #f0f0f0;
@@ -291,14 +295,23 @@
 		<section id="summary">
 			productId: ${product.product_id } <br />
 			name: ${product.name } <br />
+			가격: ${product.rep_price } <br />
+			<c:if test="${product.rep_d_price ne null }">
+			할인율: ${product.discount_rate } <br />
+			할인가격: ${product.rep_d_price } <br />
+			</c:if>
+			배송비: ${product.delivery_fee } <br />
 			옵션 <br />
 			<form action="">
 				<div id="optionWrap">
 					<c:choose>
 						<c:when test="${nonOption ne null }">
-							<div class="selectedProductCard">
+							<div class="selectedOptionListItem" data-option-id="${nonOption.option_id }" data-quantity="1" data-non-option="1"
+							data-option-price="${nonOption.product_data_dto.price }" data-total-price="${data.product_data_dto.price }">
 								${nonOption.name } <br />
-								${nonOption.product_data_dto.price }
+								<button type="button" onclick="quantity(`sub`)">&lt;</button>(<span id="quantityText">1</span>)
+								<button type="button" onclick="quantity(`add`)">&gt;</button>
+								<span id="priceText">${nonOption.product_data_dto.price }</span>원
 							</div>
 						</c:when>
 						

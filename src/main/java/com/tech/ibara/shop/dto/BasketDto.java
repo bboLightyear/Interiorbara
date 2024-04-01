@@ -21,6 +21,8 @@ public class BasketDto {
 
 	private ProductDataDto product_data_dto;
 
+	private ProductDto product_dto;
+
 	public BasketDto() {
 
 	}
@@ -110,6 +112,14 @@ public class BasketDto {
 
 	public void setProduct_data_dto(ProductDataDto product_data_dto) {
 		this.product_data_dto = product_data_dto;
+	}
+
+	public ProductDto getProduct_dto() {
+		return product_dto;
+	}
+
+	public void setProduct_dto(ProductDto product_dto) {
+		this.product_dto = product_dto;
 	}
 
 }

@@ -8,6 +8,8 @@ import com.tech.ibara.shop.dto.CategoryDto;
 import com.tech.ibara.shop.dto.LevelCategoryDto;
 import com.tech.ibara.shop.dto.OptionDto;
 import com.tech.ibara.shop.dto.OptionSetDto;
+import com.tech.ibara.shop.dto.OrderDto;
+import com.tech.ibara.shop.dto.OrderProductDto;
 import com.tech.ibara.shop.dto.ProductDataDto;
 import com.tech.ibara.shop.dto.ProductDto;
 import com.tech.ibara.shop.dto.ProductImgDto;
@@ -43,6 +45,9 @@ public interface ShopDao {
 	public ArrayList<ProductImgDto> selectProductImgsByProduct(int productId);
 	
 	public ArrayList<BasketDto> selectBasketsByUser(int userId);
+	public ArrayList<BasketDto> selectBasketsByIds(ArrayList<Integer> basketIdList);
+	
+	public int selectBasketQuantity(int userId, int optionId);
 	
 	public void insertProductData(ProductDataDto productDataDto);
 	public void insertOptionSet(OptionSetDto optionSetDto);
@@ -50,5 +55,11 @@ public interface ShopDao {
 	public void insertProduct(ProductDto productDto);
 	public void insertProductImg(ProductImgDto productImgDto);
 	public void insertBasket(BasketDto basketDto);
-	public void insertBaskets(List<BasketDto> basketDtoList); 
+	public void insertBaskets(List<BasketDto> basketDtoList);
+	public void insertOrder(OrderDto orderDto);
+	public void insertOrderProduct(OrderProductDto orderProductDto);
+	
+	public void updateBasketQuantity(int userId, int optionId, String action);
+	
+	public void deleteBasket(int userId, int targetId, String target);
 }
