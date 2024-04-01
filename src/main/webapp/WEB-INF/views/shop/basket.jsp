@@ -28,14 +28,24 @@
 					<c:set var="productTotalPrice" value="0"/>
 					<c:forEach items="${baskets }" var="basket" varStatus="status">
 					<c:if test="${product.product_id eq basket.product_id }">
-					<c:set var="optionTotalPrice" value="${basket.product_data_dto.price * basket.quantity }"/>
+					<c:if test="${basket.product_data_dto.discounted_price eq null }">
+						<c:set var="optionTotalPrice" value="${basket.product_data_dto.price * basket.quantity }"/>
+					</c:if>
+					<c:if test="${basket.product_data_dto.discounted_price ne null }">
+						<c:set var="optionTotalPrice" value="${basket.product_data_dto.discounted_price * basket.quantity }"/>
+					</c:if>
 					<c:set var="productTotalPrice" value="${productTotalPrice + optionTotalPrice }"/>
 						<li class="selectedOption" data-basket-id="${basket.basket_id }"
 							data-option-id="${basket.option_id }"
 							data-product-id="${basket.product_id }"
 							data-quantity="${basket.quantity }"
-							data-option-price="${basket.product_data_dto.price }"
-							data-option-total-price="${basket.product_data_dto.price * basket.quantity }">
+							<c:if test="${basket.product_data_dto.discounted_price eq null }">
+								data-option-price="${basket.product_data_dto.price }"
+							</c:if>
+							<c:if test="${basket.product_data_dto.discounted_price ne null }">
+								data-option-price="${basket.product_data_dto.discounted_price }"
+							</c:if>
+							data-option-total-price="${optionTotalPrice }">
 							<div>
 							<c:if test="${basket.option_set_dto ne null }">
 								${basket.option_set_dto.name }: ${basket.option_dto.name } /
@@ -49,7 +59,7 @@
 							(<span class="optionQuantityText" data-option-id="${basket.option_id }">${basket.quantity }</span>)
 							<button type="button" class="quantityBtn" data-action="add" data-option-id="${basket.option_id }">&gt;</button>
 							<span class="optionPriceText" data-option-id="${basket.option_id }">
-							<fmt:formatNumber type="number" pattern="#,###" value="${basket.product_data_dto.price * basket.quantity }"/></span>원
+							<fmt:formatNumber type="number" pattern="#,###" value="${optionTotalPrice }"/></span>원
 						</li>
 					</c:if>
 					</c:forEach>

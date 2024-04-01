@@ -49,7 +49,7 @@ create table shop_orderer_info (
     user_id number,
     name varchar2(30),
     phone_number number,
-    email varchar2(50)
+    email varchar2(100)
 );
 
 create table shop_order_product (
@@ -60,7 +60,7 @@ create table shop_order_product (
     name varchar2(100),
     price number,
     quantity number,
-    option_text varchar2(100)
+    option_text varchar2(200)
 );
 
 create table shop_order (
@@ -68,9 +68,11 @@ create table shop_order (
     user_id number,
     order_state_id number,
     user_addr_id number,
-    order_info_id number,
+    orderer_info_id number,
     payment_info_id number,
     order_date date,
     amount number
 );
 
+create sequence seq_shop_order;
+create sequence seq_order_product;

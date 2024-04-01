@@ -15,7 +15,7 @@ function purchaseChecked() {
 			const productId = $(this).data("productId");
 			$(`.selectedOption[data-product-id="${productId}"]`).each(function() {
 				const basketId = $(this).data("basketId");
-				purchaseBaskets.push({"basketId" : basketId});
+				purchaseBaskets.push(basketId);
 			});
 		}
 	});
