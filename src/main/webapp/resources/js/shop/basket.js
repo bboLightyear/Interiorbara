@@ -28,7 +28,7 @@ function purchaseChecked() {
 			url: "basket/makeOrder",
 			data: JSON.stringify(purchaseBaskets),
 			success: function(data) {
-				var url = "order&orderId=" + data;
+				var url = "order?orderId=" + data;
 				location.href = url;
 			}
 		});

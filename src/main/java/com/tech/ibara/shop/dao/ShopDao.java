@@ -49,6 +49,9 @@ public interface ShopDao {
 	
 	public int selectBasketQuantity(int userId, int optionId);
 	
+	public OrderDto selectOrderById(int orderId);
+	public ArrayList<OrderProductDto> selectOrderProductsByOrder(int orderId);
+	
 	public void insertProductData(ProductDataDto productDataDto);
 	public void insertOptionSet(OptionSetDto optionSetDto);
 	public void insertOption(OptionDto optionDto);

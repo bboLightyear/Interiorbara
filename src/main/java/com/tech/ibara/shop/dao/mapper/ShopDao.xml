@@ -382,6 +382,38 @@
 			USER_ID = #{param1} AND OPTION_ID = #{param2}
 	</select>
 	
+	<select id="selectOrderById" resultType="com.tech.ibara.shop.dto.OrderDto">
+		SELECT
+			ORDER_ID,
+			USER_ID,
+			ORDER_STATE_ID,
+			USER_ADDR_ID,
+			ORDERER_INFO_ID,
+			PAYMENT_INFO_ID,
+			ORDER_DATE,
+			AMOUNT
+		FROM
+			SHOP_ORDER
+		WHERE
+			ORDER_ID = #{param1}
+	</select>
+	
+	<select id="selectOrderProductsByOrder" resultType="com.tech.ibara.shop.dto.OrderProductDto">
+		SELECT
+			ORDER_PRODUCT_ID,
+			ORDER_ID,
+			PRODUCT_ID,
+			OPTION_ID,
+			NAME,
+			PRICE,
+			QUANTITY,
+			OPTION_TEXT
+		FROM
+			SHOP_ORDER_PRODUCT
+		WHERE
+			ORDER_ID = #{param1}
+	</select>
+	
 	<!-- ===================== INSERT ===================== -->
 	
 	<insert id="insertProductData" parameterType="com.tech.ibara.shop.dto.ProductDataDto"
