@@ -7,7 +7,7 @@
 <mapper namespace="com.tech.ibara.modal.dao.mapper.ModalDao">
 
 	 <select id="selectServiceItems" resultType="com.tech.ibara.modal.dto.ModalCheckDto">
-         SELECT M_TYPE, M_PNAME, M_PEXP, M_PPRICE
+         SELECT M_PNAME, M_PEXP, M_PPRICE
    		 FROM MODAL_CHECK
    		 WHERE M_TYPE = #{m_type}
     </select>

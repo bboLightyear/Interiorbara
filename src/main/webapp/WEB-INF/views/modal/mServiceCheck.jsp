@@ -98,7 +98,9 @@ String path=request.getContextPath();
 						<div class="selectedSize"></div>
 						<div class="selectedService">
 							<span id="selectedService"></span>
-							<div>추가:${serviceItems}</div>
+							<div id="checkedItems">
+								
+							</div>
 						</div>
 					</div>
 				</div>
@@ -127,40 +129,7 @@ $(document).ready(function() {
     var serviceCheckModal = $('#serviceCheckModal');
     var selectedItems = {};
     var selectedOption = localStorage.getItem('selectedOption');
-
-    $.ajax({
-        type: "GET",
-        async: true,
-    	url: "<%= path %>/modal/getServiceItems",
-        data: { m_type: selectedOption },
-        success: function(result) {
-            var serviceItems = result;
-            var productCheckbox = $(".productCheckBox");
-            productCheckbox.empty();
-            
-            $.each(serviceItems, function(index, item) {
-                var serviceItem = '<div class="serviceItem">' +
-                                  '<div>' +
-                                  '<input type="checkbox" class="productCheckBox" ' +
-                                  'data-name="' + item.m_pname + '" data-exp="' + item.m_pexp + '" ' +
-                                  'data-price="' + item.m_pprice + '">' +
-                                  '<span>' + item.m_pname + '</span><br/>' +
-                                  '<span>' + item.m_pexp + '</span>' +
-                                  '</div>' +
-                                  '<div>' + item.m_pprice + '만원</div>' +
-                                  '<div>' +
-                                  '<button class="decreaseQuantity">-</button>' +
-                                  '<input type="text" class="quantity" value="0" readonly>' +
-                                  '<button class="increaseQuantity">+</button>' +
-                                  '</div>' +
-                                  '</div>';
-                productCheckbox.append(serviceItem);
-            });
-        },
-        error: function(xhr, status, error) {
-            console.log(error);
-        }
-    });
+    var serviceItems = JSON.parse(localStorage.getItem('serviceItems'));
 
     // 상품 체크박스 클릭 이벤트 처리 (이벤트 위임 사용)
     $(document).on('change', '.productCheckBox', function() {
@@ -176,7 +145,15 @@ $(document).ready(function() {
         } else {
             delete selectedItems[itemName];
         }
+        if ($(this).is(':checked')) {
+        	checkedItems[itemName] = {
 
+            };
+        } else {
+            delete checkedItems[itemName];
+        }
+        
+		
         updateSelectedItems();
         updateTotalPrice();
     });
@@ -215,22 +192,41 @@ $(document).ready(function() {
 
     // 선택한 상품들을 업데이트하는 함수
     function updateSelectedItems() {
-        var selectedItemsDiv = $('#selectedItems');
-        selectedItemsDiv.empty();
+  var selectedItemsDiv = $('#selectedItems');
+  selectedItemsDiv.empty();
 
-        for (var itemName in selectedItems) {
-            if (selectedItems.hasOwnProperty(itemName)) {
-                var item = selectedItems[itemName];
-                var itemPrice = item.price;
-                var itemQuantity = item.quantity;
-                var totalPrice = itemPrice * itemQuantity;
-
-                var itemDiv = $('<div>').text(itemName);
-                var priceDiv = $('<div>').text(totalPrice + '만원');
-                selectedItemsDiv.append(itemDiv).append(priceDiv);
-            }
-        }
+  for (var itemName in selectedItems) {
+    if (selectedItems.hasOwnProperty(itemName)) {
+      var item = selectedItems[itemName];
+      var itemPrice = item.price;
+      var itemQuantity = item.quantity;
+      var totalPrice = itemPrice * itemQuantity;
+      var itemDiv = $('<div>').text(itemName);
+      var priceDiv = $('<div>').text(totalPrice + '만원');
+      selectedItemsDiv.append(itemDiv).append(priceDiv);
     }
+  }
+
+  var checkedItemsDiv = $('#checkedItems');
+  checkedItemsDiv.empty();
+
+  var isFirst = true; // 첫 번째 아이템인지 체크하기 위한 변수
+
+  for (var itemName in checkedItems) {
+    if (checkedItems.hasOwnProperty(itemName)) {
+      var item = checkedItems[itemName];
+      
+      var itemText = itemName;
+      if (isFirst) {
+        itemText = '추가 ' + itemText; // 첫 번째 아이템일 때만 '추가 '를 앞에 붙임
+        isFirst = false; // 첫 번째 아이템 처리 후 false로 설정
+      }
+      
+      var itemDiv = $('<div id="itemText">').text(itemText);
+      checkedItemsDiv.append(itemDiv);
+    }
+  }
+}
 
     // 총 가격을 업데이트하는 함수
     function updateTotalPrice() {
@@ -252,6 +248,7 @@ $(document).ready(function() {
 
     function closeModal(modalId) {
         $(modalId).css('display', 'none');
+        localStorage.clear();
     }
 
     $(document).on('click', '.close', function() {
@@ -259,6 +256,7 @@ $(document).ready(function() {
     });
 
     $(document).on('click', '#SCPrivBtn', function() {
+    	
         var prevModal = serviceCheckModal.attr('data-prev-modal');
         closeModal('#serviceCheckModal');
         openModal('#' + prevModal);

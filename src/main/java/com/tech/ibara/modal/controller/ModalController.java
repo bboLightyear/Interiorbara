@@ -25,9 +25,6 @@ public class ModalController {
 	
 	private ModalService modalService;
 	
-	/*
-	 * @Autowired private SqlSession sqlSession;
-	 */
 	
 	
 	@RequestMapping("/modal/mMain")

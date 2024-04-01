@@ -3,6 +3,9 @@
 <!DOCTYPE html>
 <html>
 <head>
+<%
+String path=request.getContextPath();
+%>
     <title>mStandard.jsp</title>
     <link rel="stylesheet" href="resources/css/modal.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -117,6 +120,7 @@ $(document).ready(function() {
     var decreaseBtn = $('#decreaseSize');
     var increaseBtn = $('#increaseSize');
     var privBtn = $('#sizePrivBtn');
+    var selectedOption = localStorage.getItem('selectedOption');
 
     function openModal(modalId) {
         $(modalId).css('display', 'block');
@@ -143,29 +147,23 @@ $(document).ready(function() {
             sizeInput.val(currentSize + 1);
         }
     });
+    privBtn.click(function() {
+        closeModal('#sizeModal');
+        openModal('#myModal');
+    });
 
     $('#sizeNextBtn').click(function() {
         var selectedSize = $('#sizeInput').val();
         var selectedService = $('#selectedService').text();
+        $('#serviceCheckModal').attr('data-prev-modal', 'sizeModal');
 
-        $('.selectedSize').text(selectedSize + '평');
-        $('.selectedService').text(selectedService);
-
-        $('.selectedSize, .selectedService').show();
-        
-        localStorage.setItem('selectedSize', selectedSize);
+         $('.selectedSize').text(selectedSize + '평');
 
         closeModal('#sizeModal');
         openModal('#serviceCheckModal');
-        $('#serviceCheckModal').attr('data-prev-modal', 'sizeModal');
+   		
     });
-
-    privBtn.click(function() {
-    	
-        closeModal('#sizeModal');
-        openModal('#myModal');
-     
-    });
+    
 });
 </script>
 

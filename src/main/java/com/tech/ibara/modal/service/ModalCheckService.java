@@ -22,23 +22,6 @@ public class ModalCheckService implements ModalService{
 		this.modalDao = modalDao;
 	}
 
-	/*
-	 * @Override public void execute(Model model) {
-	 * System.out.println("ModalCheckService.execute()");
-	 * 
-	 * Map<String, Object> map = model.asMap(); HttpServletRequest request =
-	 * (HttpServletRequest) map.get("request"); ModalDao dao =
-	 * sqlSession.getMapper(ModalDao.class);
-	 * 
-	 * String m_type = request.getParameter("m_type"); String m_pname =
-	 * request.getParameter("m_pname"); String m_pexp =
-	 * request.getParameter("m_pexp"); int m_pprice =
-	 * Integer.parseInt(request.getParameter("m_pprice"));
-	 * 
-	 * List<ModalCheckDto> serviceItems = dao.selectServiceItems(m_type, m_pname,
-	 * m_pexp, m_pprice); model.addAttribute("serviceItems", serviceItems); }
-	 */
-
 	@Override
     public List<ModalCheckDto> getServiceItems(String m_type) {
         return modalDao.selectServiceItems(m_type);
