@@ -104,8 +104,15 @@ function modifyQuantity() {
 	const optionPrice = option.data("optionPrice");
 	option.data("optionTotalPrice", optionPrice * quantity);
 	
+	const optionDPrice = option.data("optionDPrice");
+	option.data("optionTotalDPrice", optionDPrice * quantity);
+	
 	const priceText = $(`.optionPriceText[data-option-id="${optionId}"]`).first();
-	priceText.text((optionPrice * quantity).toLocaleString());
+	if (optionDPrice != 0) {
+		priceText.text((optionDPrice * quantity).toLocaleString());
+	} else {
+		priceText.text((optionPrice * quantity).toLocaleString());		
+	}
 	
 	updateProductTotalPrice(productId);
 	updateBasketTotalPrice();
@@ -160,26 +167,42 @@ function removeBasket() {
 
 function updateProductTotalPrice(productId) {
 	var productTotalPrice = 0;
+	var productTotalDPrice = 0;
 	$(`.selectedOption[data-product-id="${productId}"]`).each(function() {
 		productTotalPrice += $(this).data("optionTotalPrice");
+		productTotalDPrice += $(this).data("optionTotalDPrice");
 	});
 	
 	const priceText = $(`.productTotalPrice[data-product-id="${productId}"]`).first();
-	priceText.text(productTotalPrice.toLocaleString());
+	if (productTotalDPrice != 0) {
+		priceText.text(productTotalDPrice.toLocaleString());
+	} else {
+		priceText.text(productTotalPrice.toLocaleString());
+	}
+	
 	priceText.data("productTotalPrice", productTotalPrice);
+	priceText.data("productTotalDPrice", productTotalDPrice);
 }
 
 function updateBasketTotalPrice() {
 	var totalPrice = 0;
+	var totalDPrice = 0;
 	
 	$(`.productTotalPrice`).each(function() {
 		const productId = $(this).data("productId");
 		const checkbox = $(`.productCheckBox[data-product-id="${productId}"]`).first();
 		if ($(checkbox).is(":checked")) {
 			totalPrice += $(this).data("productTotalPrice");
+			totalDPrice += $(this).data("productTotalDPrice");
 		}
 	});
 	$("#totalSelectedBasketsPrice").text(totalPrice.toLocaleString());
+	if (totalDPrice != 0) {
+		$("#totalSelectedBasketsSubDPrice").text((totalPrice - totalDPrice).toLocaleString());		
+	} else {
+		$("#totalSelectedBasketsSubDPrice").text((0).toLocaleString());
+	}
+	
 	
 	var totalDeliveryFee = 0;
 	
@@ -192,5 +215,9 @@ function updateBasketTotalPrice() {
 	});
 	$("#totalDeliveryFee").text(totalDeliveryFee.toLocaleString());
 	
-	$("#totalPurchasePrice").text((totalPrice + totalDeliveryFee).toLocaleString());
+	if (totalDPrice != 0) {
+		$("#totalPurchasePrice").text((totalDPrice + totalDeliveryFee).toLocaleString());		
+	} else {
+		$("#totalPurchasePrice").text((totalPrice  + totalDeliveryFee).toLocaleString());
+	}
 }
