@@ -320,6 +320,7 @@ public class CsQnaController {
 		//답글에 달린 답글 조회
 		ArrayList<QnaReplyDto> replyrlist=dao.replyrlist(nbno);
 		model.addAttribute("replyrlist",replyrlist);
+		System.out.println("replyrlist"+replyrlist);
 		
 		//답글 갯수 셀렉트
 		int replycnt=dao.replycnt(nbno);

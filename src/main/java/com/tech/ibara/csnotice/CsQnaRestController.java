@@ -60,5 +60,20 @@ public class CsQnaRestController {
 		System.out.println(list.size());
 		return list;
 	}
+	
+	@RequestMapping(method = RequestMethod.POST,value = "/replyview")
+	public ArrayList<QnaReplyDto> replyview(HttpServletRequest request) throws ClassNotFoundException, SQLException {
+		System.out.println("replyview()");
+		
+		QnaBoardIDao dao=sqlSession.getMapper(QnaBoardIDao.class);
+		
+		String rnbno=request.getParameter("rnbno");			
+		
+		System.out.println("rnbno :"+rnbno);
+		
+		ArrayList<QnaReplyDto> list = dao.replyrlist(rnbno);
+		System.out.println(list.size());
+		return list;
+	}
 
 }
