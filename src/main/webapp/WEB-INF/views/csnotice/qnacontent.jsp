@@ -80,17 +80,13 @@
 			<!--답글 달기 버튼을 클릭 시에 아래에 입력 창이 나타나도록 하는 스크립트-->
 			<button onclick="replyform()" data-rnbno="${dto.rnbno }">답글달기</button>
 		</div>
+		
+		<div id="${dto.rnbno }replyrview" style="display: block;">
 
-		<!--답글에 대한 답글 -->
-		<div>
-			<div id="replyview" style="display: block;">
-				<input type="hidden" id="rnbno" name="rnbno" value="${dto.rnbno }" />
-
-				<!-- <button onclick="replyview()" id="replyviewbtn" value="답글보기">답글보기</button> -->
-			</div>
-			<input type="button" onclick="replyview()" id="replyviewbtn"
-				value="답글보기" />
+								
+			<input type="button" onclick="replyrview()" id="${dto.rnbno }replyvbtn" name="${dto.rnbno }replyvbtn" data-rnbno="${dto.rnbno }" value="답글보기"/>
 		</div>
+
 
 		<!--숨겨진 div, id 값을 조회한 답글 번호로 지정하여 위의 스크립트에서 버튼을 각각의 div를 따로 적용-->
 		<div id="${dto.rnbno }replyform" style="display: none;">
@@ -104,8 +100,8 @@
 					id="rnbindent" name="rnbindent" value="${dto.rnbindent }" />
 
 				<textarea rows="6" cols="65" id="rcontent" name="rcontent">&nbsp;</textarea>
-				<input type="text" name="rwriter" id="rwriter" /> <input
-					type="button" value="입력" onclick="reply()" />
+				<input type="text" name="rwriter" id="rwriter" /> 
+				<input type="button" value="입력" onclick="reply()" data-rnbno="${dto.rnbno }" />
 			</div>
 			<button onclick="replyformclose()" data-rnbno="${dto.rnbno }">접기</button>
 		</div>
@@ -113,12 +109,54 @@
 	</c:forEach>
 
 	<script>
+	// 답글보기 버튼 처리
+	function replyrview() {
+		var target = event.target;
+		var rnbno = $(target).data("rnbno");
+		
+		console.log(rnbno);
+		
+		var parent = event.target.parentElement;
+		var replyArea = document.getElementById(rnbno + "replyrview");
+		var replyvbtn = document.getElementById(rnbno + "replyvbtn");
+
+		$.ajax({
+			type : "post",
+			async : true,
+			url : "replyview",
+			data : {
+				"rnbno" : rnbno
+			},
+			success : function(data) {
+				console.log("success");
+				console.log(data);
+
+				var htmlText = "";
+				
+				for (var i = 0; i < data.length; i++) {
+					
+					htmlText += "<p>";
+					console.log(data[i].rnbcontent);
+					htmlText += data[i].rnbcontent;
+					htmlText += "</p>";
+				}
+				
+				// div 못 불러오는 거 확인하는 if문
+				if (replyArea) {
+				    $(replyArea).append(htmlText);
+				} else {
+				    console.error("replyArea is null or undefined");
+				}
+				
+				replyvbtn.remove();
+			}
+		})
+	}
 		// 답글 폼 보이게 하는 스크립트 
 		function replyform() {
 			/* alert("x"); */
 			var target = event.target;
 			var rnbno = $(target).data("rnbno");
-
 			var hiddenDiv = document.getElementById(rnbno + "replyform");
 
 			hiddenDiv.style.display = "block";
@@ -135,103 +173,12 @@
 			hiddenDiv.style.display = "none";
 		}
 
-		// 답글 보기 버튼 클릭 시 답글 출력
-		var replyList = [];
-
-		function replyview() {
-			var parent = event.target.parentElement;
-			var replyArea = document.getElementById("replyview");
-
-			if (replyList.length == 0) {
-				$.ajax({
-					type : "post",
-					async : true,
-					url : "replyview",
-					data : {
-						"rnbno" : $(parent).find("#rnbno").val()
-					},
-					success : function(data) {
-						console.log("success");
-						console.log(data);
-
-						var htmlText = "";
-
-						$(parent).find("#replyviewbtn").val('접기').attr('onclick', 'hideReplyView()'); // 클릭 이벤트를 hideReplyView() 함수로 변경;
-
-						var replyArea = document.getElementById("replyview");
-						replyArea.style.display = "block";
-
-						for (var i = 0; i < data.length; i++) {
-							console.log(data[i].rnbcontent);
-
-							htmlText += "<p>";
-							htmlText += data[i].rnbcontent;
-							htmlText += "</p>";
-						}
-
-						$(replyArea).prepend(htmlText);
-
-						replyList = data;
-						/* displayReplyList(replyList); */
-						console.log(replyList);
-					}
-				});
-			} else {
-				// 이전에 불러온 리스트가 있는 경우에는 저장된 리스트를 화면에 표시
-				displayReplyList(replyList);
-			}
-		}
-
-		// 저장된 리스트를 화면에 표시하는 함수
-		function displayReplyList(list) {
-			// 리스트를 화면에 표시하는 로직 구현
-			
-			console.log('hh');
-			
-			
-			// 화면에 표시될 부모 요소를 선택합니다.
-			var replyContainer = document.getElementById("replyview");
-			var parent = event.target.parentElement;
-
-			// 클릭 이벤트를 hideReplyView() 함수로 변경;
-			$(parent).find("#replyviewbtn").val('접기').attr('onclick', 'hideReplyView()');
-
-			// 이전에 표시된 답글이 있으면 모두 제거합니다.
-			replyContainer.innerHTML = ''; 
-
-			// 각 답글을 화면에 표시합니다.
-			var htmlText = "";
-			
-			for (var i = 0; i < list.length; i++) {
-				console.log(list[i].rnbcontent);
-
-				htmlText += "<p>";
-				htmlText += list[i].rnbcontent;
-				htmlText += "</p>";
-			}
-
-			$(replyContainer).prepend(htmlText);
-			
-			replyContainer.style.display = "block";
-			
-			
-		}
-
-		// 접기 클릭 시에 다시 답글보기 버튼 나오도록 하는 스크립트
-		function hideReplyView() {
-			var replyArea = document.getElementById("replyview");
-			replyArea.style.display = "none"; // div를 숨김
-
-			var replyButton = document.getElementById("replyviewbtn");
-			if (replyButton) {
-				replyButton.value = "답글보기"; // 버튼 텍스트를 다시 "답글보기"로 변경
-				replyButton.setAttribute("onclick", "replyview()"); // 클릭 이벤트를 replyview() 함수로 변경
-			}
-		}
-
 		function reply() {
+			var target = event.target;
+			
+			var rnbno = $(target).data("rnbno");
 			var parent = event.target.parentElement;
-			var replyArea = document.getElementById("replyview");
+			var replyArea = document.getElementById(rnbno + "replyrview");
 
 			$.ajax({
 				type : "post",
@@ -253,20 +200,25 @@
 
 					$(parent).find("#rwriter").val('');
 					$(parent).find("#rcontent").val('');
-					/* $(parent).remove(); */
-					/* $(parent).find("#rcontent").remove(); */
 
-					var htmlText = "<p>";
+					var htmlText = "";
 					var lastIndex = data.length - 1;
+					
+					console.log('lastindex'+lastIndex);
 
 					console.log(data[lastIndex].rnbcontent);
-					htmlText += data[lastIndex].rnbcontent;
-
+					
 					htmlText += "<p>";
+					htmlText += data[lastIndex].rnbcontent;
+					htmlText += "</p>";
 
-					$(replyArea).prepend(htmlText);
-
-					listLoad = true;
+					  // replyArea 요소가 존재하는지 확인
+				    if (replyArea) {
+				        // 생성된 HTML을 replyArea에 추가
+				        $(replyArea).prepend(htmlText);
+				    } else {
+				        console.error("replyArea is null or undefined");
+				    }
 				}
 			})
 		}

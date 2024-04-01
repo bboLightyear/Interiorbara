@@ -42,20 +42,11 @@ public class CsQnaRestController {
 		System.out.println("rnbgroup :"+rnbgroup);
 		System.out.println("rnbindent :"+rnbindent);
 		
-//		String sql="select * from dept";
-//		Class.forName("oracle.jdbc.driver.OracleDriver");
-//		String url="jdbc:oracle:thin:@localhost:1521:xe";
-//		String user="hr";
-//		String pw="123456";
-//		Connection conn=DriverManager.getConnection(url,user,pw);
-//		Statement stmt=conn.createStatement();
-
-		
 		dao.replyShape(rnbgroup,rnbstep);
 		
 		// 전체 답글 달기
 		dao.qnareply_r(nbno,rnbno,rwriter,rcontent,rnbgroup,rnbstep,rnbindent);
-//		dao.qnareply(nbno,rwriter,rcontent);
+
 		ArrayList<QnaReplyDto> list = dao.replyrlist(rnbno);
 		System.out.println(list.size());
 		return list;
