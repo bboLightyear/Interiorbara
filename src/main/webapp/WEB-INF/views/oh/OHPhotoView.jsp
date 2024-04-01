@@ -248,6 +248,8 @@
 				<!-- 전체 <div class="box"> 반복문 사용, 게시물 표현 -->
 				<c:forEach items="${ohPhotoView }" var="dto" varStatus="status">
 					<div class="box">
+						
+						<!-- 기본 내용 출력 -->
 						<div>no: ${dto.no }</div>
 						<div>pb_no: ${dto.pb_no }</div>
 						<div>pb_user: ${dto.pb_user }</div>	
@@ -257,41 +259,147 @@
 						<div>pa_no: ${dto.ohPhotoAttach.pa_no }</div>
 						<div>pa_attach: ${dto.ohPhotoAttach.pa_attach }</div>
 						<div>pb_no: ${dto.ohPhotoAttach.pb_no }</div>
+						
+						<!-- 이미지 클릭 => 게시물 상세보기 --> 
 						<a href="OHPhotoDetailView?pb_no=${dto.pb_no }">
 							<img src="../resources/upload/oh/photo/${dto.ohPhotoAttach.pa_attach }" alt="해당 게시글 대표사진" height="300px" width="300px"/>
 						</a>
 						
 						<br />
 						
-						<!-- 좋아요 -->
-					
-						<span class="heart" id="${dto.pb_no }">
-							<i class="fa-solid fa-heart"></i>
-						</span>
+						<!-- 좋아요, 이미지 -->
+						<c:set var="likeLoopFlag" value="false" />
+						<c:forEach items="${ohPhotoLike }" var="like" varStatus="status">
+							<c:if test="${not likeLoopFlag }">
+								<c:if test="${dto.pb_no eq like.pb_no }">
+									<span class="likeImage clickColor" id="${dto.pb_no }">
+										<i class="fa-solid fa-heart"></i>
+									</span>
+									<c:set var="likeLoopFlag" value="true" />								
+								</c:if>							
+							</c:if>
+						</c:forEach>
+						<c:if test="${likeLoopFlag eq false }">
+							<span class="likeImage" id="${dto.pb_no }">
+								<i class="fa-regular fa-heart"></i>
+							</span>						
+						</c:if>
+						<!-- 좋아요, 이미지 End -->		
+						
+						<!-- 좋아요, 숫자 -->
+						<span class="likeNumber" id="${dto.pb_no }">${dto.pb_like }</span>
+						<!-- 좋아요, 숫자 End -->
+						
+						<!-- 스크랩, 이미지 -->
+						<c:set var="scrapLoopFlag" value="false" />
+						<c:forEach items="">
+						
+						</c:forEach>
+						
+						
+						
+						<i class="fa-regular fa-bookmark"></i>
+						
+						<i class="fa-solid fa-bookmark"></i>
+						
+						<!-- 스크랩, 이미지 End -->
+						
+						<!-- 스크랩, 숫자 -->
+						
+						<!-- 스크랩, 숫자 End -->
+						
+						 	
 							
 					</div>
 				</c:forEach>
 			</div>
-				
-			
-			
-			
 			
 			<script>
 				$(document).ready(function() {
-					$(".heart").click(function() {
-						// 클릭 => 색상변경
-						$(this).toggleClass("clickColor");
-						
-						var icon = $(this).find("i");
-						
-/* 						if(icon.hasClass("fa-regular")) {
-							// <i> 요소의 클래스 변경 
-							icon.removeClass("fa-regular").addClass("fa-solid");
+					$(".likeImage").click(function() {
+						/* 회원인지 확인 */						
+						if("${sessionScope.userId }" != null) {		
+							// 사용자 id 값을 가져와 변수에 저장
+							var userId = "${sessionScope.userId }"
+							// userId 변수에 저장된 id 값 출력
+							console.log("userId: ", userId);
+							// 클릭한 하트 요소의 id 값을 가져와 변수에 저장
+							var clickedId = $(this).attr("id");
+							// clickedId 변수에 저장된 id 값 출력
+							console.log("clickedId: ", clickedId);
+							// 클릭 => 하트 색상변경
+							$(this).toggleClass("clickColor");
+							// 클릭한 요소의 하위 태그에서 i태그를 찾아서 icon 변수에 저장 
+							var icon = $(this).find("i");
+							// if 조건문, 기본 하트 모양 => True
+							if(icon.hasClass("fa-regular")) {
+								// <i> 요소의 클래스 변경 => 하트 모양변경 
+								icon.removeClass("fa-regular").addClass("fa-solid");
+								// ajax 요청 보내기
+								$.ajax({
+									url: "OHPhotoLikeExecute",
+									method: "post",
+									dataType: "json",
+									data: {
+										// 전송할 데이터
+										'userId' : userId,
+										'pb_no' : clickedId
+									},
+									success: function(response) {
+						                // 성공적으로 서버로부터 응답을 받았을 때 실행할 코드
+						            	console.log("AJAX 요청 성공");
+						                // 서버에서 받은 게시물의 좋아요 횟수, 변수에 저장
+						                var responseLikeNumber = response.likeNumber;
+						                // responseLikeNumber 변수, 콘솔 출력
+						            	console.log("서버에서 받은 게시물의 좋아요 횟수: ", responseLikeNumber);
+						            	// [중요] 선택자를 이용해 요소 지정할 때 id, class 순서로 지정한다. 그 반대는 선택하지 못한다.
+						            	var likeNumberSelector = "#" + clickedId + ".likeNumber";
+						            	// likeNumberSelector 변수, 콘솔 출력
+						            	console.log("likeNumberSelector: ", likeNumberSelector);
+						            	// 서버에서 받은 게시물의 좋아요 횟수 => 숫자 갱신 
+						                $(likeNumberSelector).text(responseLikeNumber);
+									},
+									error: function(xhr, status, error) {
+						                // AJAX 요청 실패 시 실행할 코드
+						                console.error("AJAX 요청 실패:", status, error);										
+									}
+								});
+							} else {
+								// <i> 요소의 클래스 변경 => 하트 모양변경 
+								icon.removeClass("fa-solid").addClass("fa-regular");
+								// ajax 요청 보내기
+								$.ajax({
+									url: "OHPhotoLikeExecute",
+									method: "post",
+									data: {
+										// 전송할 데이터
+										'userId' : userId,
+										'pb_no' : clickedId
+									},
+									success: function(response) {
+						                // 성공적으로 서버로부터 응답을 받았을 때 실행할 코드
+						            	console.log("AJAX 요청 성공");		
+						                // 서버에서 받은 게시물의 좋아요 횟수, 변수에 저장
+						                var responseLikeNumber = response.likeNumber;
+						                // responseLikeNumber 변수, 콘솔 출력
+						            	console.log("서버에서 받은 게시물의 좋아요 횟수: ", responseLikeNumber);
+						            	// [중요] 선택자를 이용해 요소 지정할 때 id, class 순서로 지정한다. 그 반대는 선택하지 못한다.
+						            	var likeNumberSelector = "#" + clickedId + ".likeNumber";
+						            	// likeNumberSelector 변수, 콘솔 출력
+						            	console.log("likeNumberSelector: ", likeNumberSelector);
+						            	// 서버에서 받은 게시물의 좋아요 횟수 => 숫자 갱신 
+						                $(likeNumberSelector).text(responseLikeNumber);						                
+									},
+									error: function(xhr, status, error) {
+						                // AJAX 요청 실패 시 실행할 코드
+						                console.error("AJAX 요청 실패:", status, error);										
+									}
+								});								
+							}
 						} else {
-							// <i> 요소의 클래스 변경 
-							icon.removeClass("fa-solid").addClass("fa-regular");
-						} */
+							// 비회원 => 좋아요 누를 경우
+							alert("회원만 가능, 로그인 페이지로 이동");
+						}	
 					});
 				});
 			</script>				

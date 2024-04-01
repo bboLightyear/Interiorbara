@@ -2,6 +2,7 @@ package com.tech.ibara.oh.controller;
 
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.apache.ibatis.session.SqlSession;
@@ -9,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.tech.ibara.oh.service.OHInterfaceService;
@@ -16,6 +18,7 @@ import com.tech.ibara.oh.service.OHPhotoDeleteExecuteService;
 import com.tech.ibara.oh.service.OHPhotoDetailViewService;
 import com.tech.ibara.oh.service.OHPhotoEditExecuteService;
 import com.tech.ibara.oh.service.OHPhotoEditViewService;
+import com.tech.ibara.oh.service.OHPhotoLikeExecuteService;
 import com.tech.ibara.oh.service.OHPhotoViewService;
 import com.tech.ibara.oh.service.OHPhotoWriteExecuteService;
 import com.tech.ibara.oh.vo.OHPageVO;
@@ -61,12 +64,31 @@ public class OHController {
 		model.addAttribute("request", request);
 		// Model - ohPageVO
 		model.addAttribute("ohPageVO", ohPageVO);
+		// Model - session
+		model.addAttribute("session", session);		
 		
 		// Service
 		ohInterfaceService = new OHPhotoViewService(sqlSession);
 		ohInterfaceService.execute(model);	
 
 		return "oh/OHPhotoView";
+	}
+	// ---------- OHPhotoLikeExecute ---------- 	
+	@RequestMapping("oh/OHPhotoLikeExecute")
+	@ResponseBody
+	public void OHPhotoLikeExecute(HttpServletRequest request, HttpServletResponse response, HttpSession session,  Model model) {
+		// Console 출력
+		System.out.println("OHPhotoLikeExecute Controller");
+		System.out.println("------------------------------");	
+		
+		// Model - request
+		model.addAttribute("request", request);		
+		// Model - response		
+		model.addAttribute("response", response);
+		
+		// Service
+		ohInterfaceService = new OHPhotoLikeExecuteService(sqlSession);
+		ohInterfaceService.execute(model);			
 	}
 	// ---------- OHPhotoWriteView.jsp ---------- 
 	@RequestMapping("oh/OHPhotoWriteView")

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Service;
@@ -11,6 +12,8 @@ import org.springframework.ui.Model;
 
 import com.tech.ibara.oh.dao.OHInterfaceDao;
 import com.tech.ibara.oh.dto.OHPhotoBoard;
+import com.tech.ibara.oh.dto.OHPhotoLike;
+import com.tech.ibara.oh.dto.OHPhotoScrap;
 import com.tech.ibara.oh.vo.OHPageVO;
 
 @Service
@@ -35,6 +38,9 @@ public class OHPhotoViewService implements OHInterfaceService {
 		
 		// ohPageVO
 		OHPageVO ohPageVO = (OHPageVO) map.get("ohPageVO");
+		
+		// session
+		HttpSession session = (HttpSession) map.get("session");	
 		
 		// OHInterfaceDao, SqlSession 연결
 		OHInterfaceDao dao = sqlSession.getMapper(OHInterfaceDao.class);
@@ -221,7 +227,34 @@ public class OHPhotoViewService implements OHInterfaceService {
 		model.addAttribute("ohPhotoView", dtoList);
 		
 		// model <- ohPageVO, Paging 기능에 사용
-		model.addAttribute("ohPageVO", ohPageVO);		
+		model.addAttribute("ohPageVO", ohPageVO);	
+		
+		// 로그인 사용자, 게시물 - 좋아요, 스크랩 표시
+		
+		// session 사용자 아이디, 저장
+		String userId = (String) session.getAttribute("userId");
+		// session, 사용자 아이디, 출력
+		System.out.println("userId: " + userId);
+		System.out.println("------------------------------");			
+		
+		// OHPhotoLike 객체 담을 리스트 선언
+		ArrayList<OHPhotoLike> ohPhotoLike = null;
+		
+		// OHPhotoScrap 객체 담을 리스트 선언
+		ArrayList<OHPhotoScrap> ohPhotoScrap = null;
+		
+		// 로그인 사용자 => True
+		if(userId != null) {
+			// ohPhotoLikeView() 함수 실행
+			ohPhotoLike = dao.ohPhotoLikeView(userId);
+			// model <- ohPhotoLike, 로그인 사용자, 게시물 - 좋아요 표시
+			model.addAttribute("ohPhotoLike", ohPhotoLike);
+
+			// ohPhotoScrapView() 함수 실행
+			ohPhotoScrap = dao.ohPhotoScrapView(userId);
+			// model <- ohPhotoScrap, 로그인 사용자, 게시물 - 스크랩 표시
+			model.addAttribute("ohPhotoScrap", ohPhotoScrap);			
+		}
 		
 	}
 	

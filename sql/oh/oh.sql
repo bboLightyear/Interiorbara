@@ -333,6 +333,9 @@ DROP SEQUENCE OH_PHOTO_LIKE_SEQ;
 -- SELECT
 --------------------------------------
 SELECT * FROM OH_PHOTO_LIKE;
+
+SELECT COUNT(*) FROM OH_PHOTO_LIKE WHERE PL_USER = '김경태';
+
 --------------------------------------
 -- INSERT
 --------------------------------------
@@ -340,6 +343,43 @@ INSERT INTO
     OH_PHOTO_LIKE (PL_NO, PL_USER, PL_DATE) 
 VALUES (
     OH_PHOTO_LIKE_SEQ.NEXTVAL, '홍길동', SYSDATE
+);
+--------------------------------------
+--------------------------------------------------------------------------------
+-- TABLE
+-- OH_PHOTO_SCRAP
+-- CREATE
+CREATE TABLE OH_PHOTO_SCRAP (
+    PS_NO NUMBER PRIMARY KEY,
+    PS_USER VARCHAR2(20),
+    PS_DATE DATE,
+    PB_NO NUMBER CONSTRAINT -- 번호(OH_PHOTO_BOARD)     
+                    PS_PB_NO_FK
+                 REFERENCES 
+                    OH_PHOTO_BOARD(PB_NO) 
+                 ON DELETE CASCADE 
+);
+--------------------------------------
+-- SEQUENCE
+--------------------------------------
+-- CREATE
+CREATE SEQUENCE OH_PHOTO_SCRAP_SEQ;
+-- DROP
+DROP SEQUENCE OH_PHOTO_SCRAP_SEQ;
+--------------------------------------
+-- SELECT
+--------------------------------------
+SELECT * FROM OH_PHOTO_SCRAP;
+
+SELECT COUNT(*) FROM OH_PHOTO_SCRAP WHERE PS_USER = '김경태';
+
+--------------------------------------
+-- INSERT
+--------------------------------------
+INSERT INTO 
+    OH_PHOTO_SCRAP (PS_NO, PS_USER, PS_DATE) 
+VALUES (
+    OH_PHOTO_SCRAP_SEQ.NEXTVAL, '홍길동', SYSDATE
 );
 --------------------------------------
 

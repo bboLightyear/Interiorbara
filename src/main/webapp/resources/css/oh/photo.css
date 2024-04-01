@@ -79,17 +79,23 @@ footer {
     */
 }
 
-.heart {
+.likeImage {
 	color: #333;
 	font-size:40px;
-	transition: color 5.1s;
 }
 
-.heart.clickColor {
+.likeImage.clickColor {
 	color: #f72828;
-	transition: color 5.1s;
 }
 
+.scrap {
+	color: #333;
+	font-size:40px;	
+}
+
+.scrap.clickColor {
+	color: #f4ff1c;
+}
 
 /* ----- OHPhotoView.jsp End ----- */
 

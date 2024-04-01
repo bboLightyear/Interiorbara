@@ -4,6 +4,8 @@ import java.util.ArrayList;
 
 import com.tech.ibara.oh.dto.OHPhotoAttach;
 import com.tech.ibara.oh.dto.OHPhotoBoard;
+import com.tech.ibara.oh.dto.OHPhotoLike;
+import com.tech.ibara.oh.dto.OHPhotoScrap;
 
 public interface OHInterfaceDao {
 	
@@ -14,6 +16,15 @@ public interface OHInterfaceDao {
 			  								   String searchingType, String searchingWord);
 	public int getPostTotalCount(String pb_category, String pb_residence, String pb_room, String pb_style, String pb_skill, 
 			                     String searchingType, String searchingWord);
+	public ArrayList<OHPhotoLike> ohPhotoLikeView(String userId);
+	public ArrayList<OHPhotoScrap> ohPhotoScrapView(String userId);
+	// ---------- OHPhotoLikeExecute ----------
+	public int likeCheck(String userId, String pb_no);
+	public void likeSave(String userId, String pb_no);
+	public void likeIncrease(String pb_no);
+	public void likeDelete(String userId, String pb_no);
+	public void likeDecrease(String pb_no);
+	public int likeGetNumber(String pb_no);
 	// ---------- OHPhotoWriteExecute ----------
 	public void ohPhotoWriteExecute(String pb_user, String pb_title, 
 									String pb_content, String pb_category, 

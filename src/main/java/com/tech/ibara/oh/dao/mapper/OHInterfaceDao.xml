@@ -5,7 +5,9 @@
     "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.tech.ibara.oh.dao.OHInterfaceDao">
+
 	<!-- resultMap OHPhotoBoard -->
+	
 	<resultMap type="com.tech.ibara.oh.dto.OHPhotoBoard" id="OHPhotoBoard">
 		<result column="NO" property="no" />
 		<result column="PB_NO" property="pb_no" />
@@ -26,13 +28,17 @@
 		<!-- collection -->
 		<collection property="ohPhotoAttach" resultMap="OHPhotoAttach"/>
 	</resultMap>
+	
 	<!-- resultMap OHPhotoAttach -->
+	
 	<resultMap type="com.tech.ibara.oh.dto.OHPhotoAttach" id="OHPhotoAttach">
 		<result column="PA_NO" property="pa_no" />
 		<result column="PA_ATTACH" property="pa_attach" />
 		<result column="PB_NO" property="pb_no" />
 	</resultMap>	
+	
 	<!-- OHPhotoView.jsp -->
+	
 	<select id="ohPhotoView" resultType="com.tech.ibara.oh.dto.OHPhotoBoard" resultMap="OHPhotoBoard">
 		SELECT
 			*
@@ -157,7 +163,65 @@
 			</choose>													
 		</trim>
 	</select>	
+	<select id="ohPhotoLikeView" resultType="com.tech.ibara.oh.dto.OHPhotoLike">
+		SELECT
+			*
+		FROM
+			OH_PHOTO_LIKE
+		WHERE
+			PL_USER = #{param1}
+	</select>
+	
+	<!-- OHPhotoLikeExecute -->
+	
+	<select id="likeCheck" resultType="Integer">
+		SELECT
+			COUNT(*)
+		FROM
+			OH_PHOTO_LIKE
+		WHERE
+			PL_USER = #{param1} AND PB_NO = #{param2}
+	</select>
+	<insert id="likeSave">
+		INSERT INTO
+			OH_PHOTO_LIKE
+		VALUES (
+			OH_PHOTO_LIKE_SEQ.NEXTVAL, #{param1}, SYSDATE, #{param2}
+		)
+	</insert>
+	<update id="likeIncrease">
+		UPDATE
+			OH_PHOTO_BOARD
+		SET
+			PB_LIKE = PB_LIKE + 1
+		WHERE
+			PB_NO = #{param1}
+	</update>
+	<delete id="likeDelete">
+		DELETE FROM 
+			OH_PHOTO_LIKE
+		WHERE
+			PL_USER = #{param1} AND PB_NO = #{param2}
+	</delete>
+	<update id="likeDecrease">
+		UPDATE
+			OH_PHOTO_BOARD
+		SET
+			PB_LIKE = PB_LIKE - 1
+		WHERE
+			PB_NO = #{param1}	
+	</update>
+	<select id="likeGetNumber" resultType="Integer">
+		SELECT
+			PB_LIKE
+		FROM
+			OH_PHOTO_BOARD
+		WHERE
+			PB_NO = #{param1}		
+	</select>
+	
 	<!-- OHPhotoWriteExecute -->
+	
 	<insert id="ohPhotoWriteExecute">
 		INSERT INTO 
 		    OH_PHOTO_BOARD
@@ -180,7 +244,9 @@
 		    OH_PHOTO_ATTACH_SEQ.NEXTVAL, #{param2}, #{param1} 
 		)
 	</insert>
+	
 	<!-- OHPhotoDetailView -->
+	
 	<update id="updatePb_hit">
 		UPDATE
 			OH_PHOTO_BOARD
@@ -205,7 +271,9 @@
 		WHERE
 			PB_NO = #{param1}		
 	</select>
+	
 	<!-- OHPhotoEditExecute -->
+	
 	<update id="ohPBEditUpdate">
 		UPDATE
 			OH_PHOTO_BOARD
@@ -241,11 +309,14 @@
 		WHERE
 			PB_NO = #{param1}
 	</select>	
+	
 	<!-- OHPhotoDeleteExecute -->	
+	
 	<delete id="ohPBDelete">
 		DELETE FROM 
 			OH_PHOTO_BOARD
 		WHERE
 			PB_NO = #{param1}
 	</delete>	
+	
 </mapper>
