@@ -96,8 +96,8 @@
 
 	<c:forEach items="${replylist }" var="dto">
 		<div>
-			<span><h3>작성자 : ${dto.rnbwriter } &nbsp;&nbsp; 답글 :
-					${dto.rnbcontent }</h3></span>
+			<span><h3>작성자 : ${dto.rnbwriter }&nbsp;&nbsp; 답글 :
+					${dto.rnbcontent }&nbsp;&nbsp; </h3></span>
 
 
 			<!--답글 달기 버튼을 클릭 시에 아래에 입력 창이 나타나도록 하는 스크립트-->
