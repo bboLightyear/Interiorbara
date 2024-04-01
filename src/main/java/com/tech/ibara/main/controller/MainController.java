@@ -11,7 +11,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.tech.ibara.main.service.BizPreviewService;
 import com.tech.ibara.main.service.MainDataService;
+import com.tech.ibara.main.service.NoticePreviewService;
 import com.tech.ibara.main.service.OHPreviewService;
+import com.tech.ibara.main.service.QnAPreviewService;
+import com.tech.ibara.main.service.ShopPreviewService;
 
 @Controller
 public class MainController {
@@ -21,6 +24,9 @@ public class MainController {
 	
 	private MainDataService bizDataService;
 	private MainDataService ohDataService;
+	private MainDataService shopDataService;
+	private MainDataService noticeDataService;
+	private MainDataService qnaDataService;
 
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String main(HttpServletRequest request, Model model) {
@@ -31,6 +37,15 @@ public class MainController {
 		
 		ohDataService=new OHPreviewService(sqlSession);
 		ohDataService.execute(model);
+		
+		shopDataService=new ShopPreviewService(sqlSession);
+		shopDataService.execute(model);
+		
+		noticeDataService=new NoticePreviewService(sqlSession);
+		noticeDataService.execute(model);
+		
+		qnaDataService=new QnAPreviewService(sqlSession);
+		qnaDataService.execute(model);
 		
 		return "main/main";
 	}

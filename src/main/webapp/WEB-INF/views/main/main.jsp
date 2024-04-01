@@ -213,67 +213,38 @@
 					<ul>
 						<li class="main_preview_biz_addr">${biz.biz_addr }</li>
 					</ul>
+					<ul>
+						<li class="main_preview_biz_chat"><a
+							href="https://www.naver.com" class="main_preview_biz_chat_link">채팅
+								바로가기 <i class="far fa-comment-alt"></i>
+						</a></li>
+					</ul>
 				</c:forEach>
-				<ul>
-					<li class="main_preview_biz_chat"><a
-						href="https://www.naver.com" class="main_preview_biz_chat_link">채팅
-							바로가기 <i class="far fa-comment-alt"></i>
-					</a></li>
-					<li class="main_preview_biz_chat"><a
-						href="https://www.naver.com" class="main_preview_biz_chat_link">채팅
-							바로가기 <i class="far fa-comment-alt"></i>
-					</a></li>
-					<li class="main_preview_biz_chat"><a
-						href="https://www.naver.com" class="main_preview_biz_chat_link">채팅
-							바로가기 <i class="far fa-comment-alt"></i>
-					</a></li>
-					<li class="main_preview_biz_chat"><a
-						href="https://www.naver.com" class="main_preview_biz_chat_link">채팅
-							바로가기 <i class="far fa-comment-alt"></i>
-					</a></li>
-				</ul>
 			</div>
 		</div>
 		<div class="main_preview">
-			<h1 class="main_preview_title">인테리어 소품</h1>
+			<h1 class="main_preview_title">우리집 자랑하기</h1>
 			<hr />
 			<div class="main_preview_shop">
-				<ul>
-					<li class="main_preview_shop_img">사진1</li>
-					<li class="main_preview_shop_img">사진1</li>
-					<li class="main_preview_shop_img">사진1</li>
-					<li class="main_preview_shop_img">사진1</li>
-				</ul>
-				<ul>
-					<li class="main_preview_shop_name">이름1</li>
-					<li class="main_preview_shop_name">이름1</li>
-					<li class="main_preview_shop_name">이름1</li>
-					<li class="main_preview_shop_name">이름1</li>
-				</ul>
-				<ul>
-					<li class="main_preview_shop_addr">주소1</li>
-					<li class="main_preview_shop_addr">주소1</li>
-					<li class="main_preview_shop_addr">주소1</li>
-					<li class="main_preview_shop_addr">주소1</li>
-				</ul>
-				<ul>
-					<li class="main_preview_shop_chat"><a
-						href="https://www.naver.com" class="main_preview_shop_chat_link">채팅
-							바로가기 <i class="far fa-comment-alt"></i>
-					</a></li>
-					<li class="main_preview_shop_chat"><a
-						href="https://www.naver.com" class="main_preview_shop_chat_link">채팅
-							바로가기 <i class="far fa-comment-alt"></i>
-					</a></li>
-					<li class="main_preview_shop_chat"><a
-						href="https://www.naver.com" class="main_preview_shop_chat_link">채팅
-							바로가기 <i class="far fa-comment-alt"></i>
-					</a></li>
-					<li class="main_preview_shop_chat"><a
-						href="https://www.naver.com" class="main_preview_shop_chat_link">채팅
-							바로가기 <i class="far fa-comment-alt"></i>
-					</a></li>
-				</ul>
+				<c:forEach items="${shopPreviewList }" var="shop">
+					<ul>
+						<li class="main_preview_shop_img">
+							<img src="resources/upload/main/${shop.shop_img }" alt="#" />
+						</li>
+					</ul>
+					<ul>
+						<li class="main_preview_shop_name">${shop.shop_name }</li>
+					</ul>
+					<ul>
+						<li class="main_preview_shop_price">${shop.shop_price }</li>
+					</ul>
+					<ul>
+						<li class="main_preview_shop_chat"><a
+							href="https://www.naver.com" class="main_preview_shop_chat_link">채팅
+								바로가기 <i class="far fa-comment-alt"></i>
+						</a></li>
+					</ul>
+				</c:forEach>
 			</div>
 		</div>
 		<div class="main_preview">
@@ -290,14 +261,17 @@
 						<li class="main_preview_OH_name">${oh.oh_name }</li>
 					</ul>
 					<ul>
-						<li class="main_preview_OH_addr">${oh.oh_content }</li>
+						<li class="main_preview_OH_content">${oh.oh_content }</li>
 					</ul>
-					<li class="main_preview_OH_chat"><a
-						href="https://www.naver.com" class="main_preview_OH_chat_link">채팅
-							바로가기 <i class="far fa-comment-alt"></i>
-					</a></li>
+					<ul>
+						<li class="main_preview_OH_chat"><a
+							href="https://www.naver.com" class="main_preview_OH_chat_link">채팅
+								바로가기 <i class="far fa-comment-alt"></i>
+						</a></li>
+					</ul>
 				</c:forEach>
 			</div>
+		</div>
 		<div class="main_preview_cs">
 			<div class="main_preview_cs_notice">
 				<h1 class="main_preview_title">공지사항</h1>

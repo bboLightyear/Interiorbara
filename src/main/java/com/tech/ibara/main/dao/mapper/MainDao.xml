@@ -20,10 +20,25 @@
 			)
 		WHERE ROWNUM &lt;= 4
 	</select>
+	<resultMap type="com.tech.ibara.main.dto.ShopPreviewDto" id="shop_temp">
+		<result column="SHOP_NO" property="shop_no" />
+		<result column="SHOP_NAME" property="shop_name" />
+		<result column="SHOP_PRICE" property="shop_price" />
+		<result column="SHOP_IMG" property="shop_img" />
+	</resultMap>
+	<select id="shopPreview" resultType="com.tech.ibara.main.dto.ShopPreviewDto" resultMap="shop_temp">
+		SELECT SHOP_NO, SHOP_NAME, SHOP_PRICE, SHOP_IMG
+		FROM (
+			SELECT SHOP_NO, SHOP_NAME, SHOP_PRICE, SHOP_IMG
+			FROM SHOP_TEMP
+			ORDER BY SHOP_NO DESC
+			)
+		WHERE ROWNUM &lt;= 4
+	</select>
 		<resultMap type="com.tech.ibara.main.dto.OHPreviewDto" id="oh_temp">
 		<result column="OH_NO" property="oh_no" />
 		<result column="OH_NAME" property="oh_name" />
-		<result column="OH_ADDR" property="oh_addr" />
+		<result column="OH_CONTNET" property="oh_content" />
 		<result column="OH_IMG" property="oh_img" />
 	</resultMap>
 	<select id="ohPreview" resultType="com.tech.ibara.main.dto.OHPreviewDto" resultMap="oh_temp">
@@ -34,5 +49,37 @@
 			ORDER BY OH_NO DESC
 			)
 		WHERE ROWNUM &lt;= 4
+	</select>
+	<resultMap type="com.tech.ibara.main.dto.NoticePreviewDto" id="notice_temp">
+		<result column="NOTICE_NO" property="notice_no" />
+		<result column="NOTICE_TITLE" property="notice_title" />
+		<result column="NOTICE_WRITER" property="notice_writer" />
+		<result column="NOTICE_HIT" property="notice_hit" />
+		<result column="NOTICE_DATE" property="notice_date" />
+	</resultMap>
+	<select id="noticePreview" resultType="com.tech.ibara.main.dto.NoticePreviewDto" resultMap="notice_temp">
+		SELECT NOTICE_NO, NOTICE_TITLE, NOTICE_WRITER, NOTICE_HIT, NOTICE_DATE
+		FROM (
+			SELECT NOTICE_NO, NOTICE_TITLE, NOTICE_WRITER, NOTICE_HIT, NOTICE_DATE
+			FROM NOTICE_TEMP
+			ORDER BY NOTICE_NO DESC
+			)
+		WHERE ROWNUM &lt;= 3
+	</select>
+	<resultMap type="com.tech.ibara.main.dto.QnAPreviewDto" id="qna_temp">
+		<result column="QNA_NO" property="qna_no" />
+		<result column="QNA_TITLE" property="qna_title" />
+		<result column="QNA_WRITER" property="qna_writer" />
+		<result column="QNA_HIT" property="qna_hit" />
+		<result column="QNA_DATE" property="qna_date" />
+	</resultMap>
+	<select id="qnaPreview" resultType="com.tech.ibara.main.dto.QnAPreviewDto" resultMap="qna_temp">
+		SELECT QNA_NO, QNA_TITLE, QNA_WRITER, QNA_HIT, QNA_DATE
+		FROM (
+			SELECT QNA_NO, QNA_TITLE, QNA_WRITER, QNA_HIT, QNA_DATE
+			FROM QNA_TEMP
+			ORDER BY QNA_NO DESC
+			)
+		WHERE ROWNUM &lt;= 3
 	</select>
 </mapper>

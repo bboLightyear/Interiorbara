@@ -363,7 +363,7 @@ header {
     background-color: lightgray;
     transform: translateY(-5px);
 }
-.main_preview_shop_addr{
+.main_preview_shop_price{
     margin-left: 40px;
     margin-right: 40px;
     display: inline-block;
@@ -408,7 +408,7 @@ header {
     background-color: lightgray;
     transform: translateY(-5px);
 }
-.main_preview_OH_addr{
+.main_preview_OH_content{
     margin-left: 40px;
     margin-right: 40px;
     display: inline-block;
