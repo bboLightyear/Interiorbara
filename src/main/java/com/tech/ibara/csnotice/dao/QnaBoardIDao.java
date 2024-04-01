@@ -40,5 +40,14 @@ public interface QnaBoardIDao {
 	public void qnareply(String nbno, String qnareply, String qnarewriter);
 
 	public ArrayList<QnaReplyDto> replylist(String nbno);
+
+	public ArrayList<QnaReplyDto> replyrlist(String nbno);
+
+	public Integer replycnt(String nbno);
+
+	public void qnareply_r(String nbno, String rnbno, String rwriter, String rcontent, String rnbgroup, String rnbstep, String rnbindent);
+
+	public void replyShape(String rnbgroup, String rnbstep);
+
 	
 }

@@ -1,6 +1,11 @@
 package com.tech.ibara.csnotice;
 
 import java.io.File;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,6 +17,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
@@ -309,8 +315,16 @@ public class CsQnaController {
 		//답글 셀렉트 해서 출력
 		ArrayList<QnaReplyDto> replylist=dao.replylist(nbno);
 		System.out.println("replylist : "+replylist);
-		
 		model.addAttribute("replylist",replylist);
+		
+		//답글에 달린 답글 조회
+		ArrayList<QnaReplyDto> replyrlist=dao.replyrlist(nbno);
+		model.addAttribute("replyrlist",replyrlist);
+		
+		//답글 갯수 셀렉트
+		int replycnt=dao.replycnt(nbno);
+		System.out.println("replycnt : "+replycnt);
+		model.addAttribute("replycnt",replycnt);
 
 		return "csnotice/qnacontent";
 	}
@@ -369,6 +383,46 @@ public class CsQnaController {
 		// 전체 답글 달기
 		dao.qnareply(nbno,qnareply,qnarewriter);
 
+		
+		return "redirect:qnacontent?nbno="+nbno;
+	}
+
+	@RequestMapping(method = RequestMethod.POST,value = "/qnareply_r")
+	public String qnareply_r(HttpServletRequest request,Model model) throws ClassNotFoundException, SQLException {
+		System.out.println("qnareply()");
+		
+		QnaBoardIDao dao=sqlSession.getMapper(QnaBoardIDao.class);
+		
+		String nbno=request.getParameter("nbno");
+		String rnbno=request.getParameter("rnbno");		
+		String rwriter=request.getParameter("rwriter");		
+		String rcontent=request.getParameter("rcontent");		
+		String rnbstep=request.getParameter("rnbstep");		
+		String rnbgroup=request.getParameter("rnbgroup");		
+		String rnbindent=request.getParameter("rnbindent");		
+		
+		System.out.println("nbno :"+nbno);
+		System.out.println("rnbno :"+rnbno);
+		System.out.println("rwriter :"+rwriter);
+		System.out.println("rcontent :"+rcontent);
+		System.out.println("rnbstep :"+rnbstep);
+		System.out.println("rnbindent :"+rnbindent);
+		
+		String sql="select * from dept";
+		Class.forName("oracle.jdbc.driver.OracleDriver");
+		String url="jdbc:oracle:thin:@localhost:1521:xe";
+		String user="hr";
+		String pw="123456";
+		Connection conn=DriverManager.getConnection(url,user,pw);
+		Statement stmt=conn.createStatement();
+
+		
+//		dao.replyShape(rnbgroup,rnbstep);
+//		
+//		// 전체 답글 달기
+//		dao.qnareply_r(nbno,rnbno,rwriter,rcontent,rnbgroup,rnbstep,rnbindent);
+//		dao.qnareply(nbno,rwriter,rcontent);
+		
 		
 		return "redirect:qnacontent?nbno="+nbno;
 	}
