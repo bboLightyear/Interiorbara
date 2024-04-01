@@ -2,6 +2,9 @@
 <!DOCTYPE html>
 <html>
 <head>
+<%
+String path=request.getContextPath();
+%>
     <title>mMain.jsp</title>
    
     <link rel="stylesheet" href="resources/css/modal.css">
@@ -11,7 +14,7 @@
 <body>
 
 <!-- 모달 창 영역 -->
-<div id="myModal" class="modal">
+<div id="myModal" class="modal" data-prev-modal="">
     <div class="modal_content">
         <div class="modal_leftside">
             <div class=modal_leftside_progress>
@@ -112,6 +115,9 @@ $(document).ready(function() {
     var span = $('.close');
     var openSizeModalBtn = $('.openSizeModal');
     var openServiceCheckModalBtn = $('.openServiceCheckModal');
+    var selectedOption = localStorage.getItem('selectedOption');
+
+   
 
     function openModal(modalId) {
         $(modalId).css('display', 'block');
@@ -119,6 +125,7 @@ $(document).ready(function() {
 
     function closeModal(modalId) {
         $(modalId).css('display', 'none');
+        localStorage.clear();
     }
 
     btn.click(function() {
@@ -148,19 +155,93 @@ $(document).ready(function() {
         updateSelectedService(service);
         localStorage.setItem('selectedService', service);
         localStorage.setItem('selectedOption', option);
-        closeModal('#myModal');
-        openModal('#sizeModal');
+        
+        $.ajax({
+            type: "GET",
+            async: true,
+            url: "<%= path %>/modal/getServiceItems",
+            data: { m_type: option },
+            success: function(result) {
+                var serviceItems = result;
+                var productCheckbox = $(".productCheckBox");
+                productCheckbox.empty();
+                
+                $.each(serviceItems, function(index, item) {
+                    var serviceItem = '<div class="serviceItem">' +
+                                      '<div>' +
+                                      '<input type="checkbox" class="productCheckBox" ' +
+                                      'data-name="' + item.m_pname + '" data-exp="' + item.m_pexp + '" ' +
+                                      'data-price="' + item.m_pprice + '">' +
+                                      '<span>' + item.m_pname + '</span><br/>' +
+                                      '<span>' + item.m_pexp + '</span>' +
+                                      '</div>' +
+                                      '<div>' + item.m_pprice + '만원</div>' +
+                                      '<div>' +
+                                      '<button class="decreaseQuantity">-</button>' +
+                                      '<input type="text" class="quantity" value="0" readonly>' +
+                                      '<button class="increaseQuantity">+</button>' +
+                                      '</div>' +
+                                      '</div>';
+                    productCheckbox.append(serviceItem);
+                });
+                
+                closeModal('#myModal');
+                openModal('#sizeModal');
+            },
+            error: function(xhr, status, error) {
+                console.log(error);
+            }
+    });
     });
 
     openServiceCheckModalBtn.click(function() {
         var service = $(this).data('service');
         var option = $(this).data('option');
+        
         updateSelectedService(service);
-        $('#serviceCheckModal').attr('data-prev-modal', option === 'kitchen' || option === 'bath' ? 'myModal' : 'sizeModal');
-        closeModal('#myModal');
-        openModal('#serviceCheckModal');
+        localStorage.setItem('selectedService', service);
+        localStorage.setItem('selectedOption', option);
+        $('#serviceCheckModal').attr('data-prev-modal', option === 'kitchen' || option === 'bath' ? 'myModal' : 'sizeModal');//의심중
+        $.ajax({
+            type: "GET",
+            async: true,
+            url: "<%= path %>/modal/getServiceItems",
+            data: { m_type: option },
+            success: function(result) {
+                var serviceItems = result;
+                var productCheckbox = $(".productCheckBox");
+                productCheckbox.empty();
+                
+                $.each(serviceItems, function(index, item) {
+                    var serviceItem = '<div class="serviceItem">' +
+                                      '<div>' +
+                                      '<input type="checkbox" class="productCheckBox" ' +
+                                      'data-name="' + item.m_pname + '" data-exp="' + item.m_pexp + '" ' +
+                                      'data-price="' + item.m_pprice + '">' +
+                                      '<span>' + item.m_pname + '</span><br/>' +
+                                      '<span>' + item.m_pexp + '</span>' +
+                                      '</div>' +
+                                      '<div>' + item.m_pprice + '만원</div>' +
+                                      '<div>' +
+                                      '<button class="decreaseQuantity">-</button>' +
+                                      '<input type="text" class="quantity" value="0" readonly>' +
+                                      '<button class="increaseQuantity">+</button>' +
+                                      '</div>' +
+                                      '</div>';
+                    productCheckbox.append(serviceItem);
+                });
+                
+                closeModal('#myModal');
+                openModal('#serviceCheckModal');
+            },
+            error: function(xhr, status, error) {
+                console.log(error);
+            }
+    });
     });
 });
+       
+
      
 </script>
 

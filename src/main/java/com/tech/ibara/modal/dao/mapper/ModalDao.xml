@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.tech.ibara.modal.dao.mapper.ModalDao">
+
+	 <select id="selectServiceItems" resultType="com.tech.ibara.modal.dto.ModalCheckDto">
+         SELECT M_PNAME, M_PEXP, M_PPRICE
+   		 FROM MODAL_CHECK
+   		 WHERE M_TYPE = #{m_type}
+    </select>
+	
+</mapper>
