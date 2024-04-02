@@ -242,7 +242,7 @@ public class CsQnaController {
 		String nbcontent = mftrequest.getParameter("nbcontent");
 		String qnadiv = mftrequest.getParameter("qnadiv");
 
-		String path = "C:\\23setspring\\springwork23\\interiorbara2\\src\\main\\webapp\\resources\\img";
+		String path = "C:\\interiorbara01\\interiorbara01\\src\\main\\webapp\\resources\\upload\\cs";
 //		MultipartRequest req=new MultipartRequest(mftrequest, path,1024*1024*10,"utf-8",new DefaultFileRenamePolicy());
 
 		System.out.println("nbwriter : " + nbwriter);
@@ -257,9 +257,14 @@ public class CsQnaController {
 		QnaBoardIDao dao = sqlSession.getMapper(QnaBoardIDao.class);
 
 		// 최근의 글번호
-		int snbno = dao.selsnbno();
+		Integer snbno = dao.selsnbno();
 		System.out.println("snbno: " + snbno);
 
+		//snbno null 처리
+		if (snbno==null) {
+			snbno=1;
+		}
+		
 		//파일 이름 업로드 당시 밀리초로 변경
 		for (MultipartFile mf : fileList) {
 			String originFile = mf.getOriginalFilename();
@@ -331,15 +336,18 @@ public class CsQnaController {
 	public String qnacontentedit(HttpServletRequest request, Model model) {
 		
 		String nbno=request.getParameter("nbno");
+		System.out.println("nbno: "+nbno);
 		
 		QnaBoardIDao dao = sqlSession.getMapper(QnaBoardIDao.class);
 		
-		QnaDto qna = dao.qnacontentview(nbno);
+		QnaDto qna = dao.qnacontent(nbno);
 		
 		ArrayList<QnaImgDto> qnaimg =dao.qnacontentimgview(nbno);
 		
 		model.addAttribute("qna_content",qna);
 		model.addAttribute("qnaimg",qnaimg);
+
+		System.out.println("nbno: "+nbno);
 		
 		return "csnotice/qnaeditview";
 	}
@@ -364,7 +372,7 @@ public class CsQnaController {
 			
 			dao.qnaeditproc(nbno,nbtitle,nbcontent,qnadiv);
 			
-			String path = "C:\\23setspring\\springwork23\\interiorbara2\\src\\main\\webapp\\resources\\img";
+			String path = "C:\\interiorbara01\\interiorbara01\\src\\main\\webapp\\resources\\upload\\cs";
 						
 			List<MultipartFile> fileList = mftrequest.getFiles("nbfile");
 			System.out.println("fileList : " + fileList);			
@@ -386,7 +394,11 @@ public class CsQnaController {
 					}
 				}
 				//DB 삭제
-				dao.deletefilebefore(nbno);
+				
+				// 파일코드 조회
+				Integer filecode = dao.selfilecode(nbno);
+				
+				dao.deletefilebefore(filecode);
 			}
 			
 			//파일 이름 업로드 당시 밀리초로 변경
@@ -398,9 +410,9 @@ public class CsQnaController {
 				System.out.println("변형된 파일 이름 : " + changeFile);
 				String pathFile = path + "\\" + changeFile;
 				
-				// 최근의 글번호
-				int snbno = dao.selsnbno();
-				System.out.println("snbno: " + snbno);
+				// 파일코드 조회
+				Integer filecode = dao.selfilecode(nbno);
+				System.out.println("filecode: " + filecode);
 				
 				//이미지 업로드
 				try {
@@ -408,7 +420,7 @@ public class CsQnaController {
 						mf.transferTo(new File(pathFile));
 						System.out.println("다중 업로드 성공");
 //					db에 파일 이름 인서트
-						dao.editimg(snbno, changeFile);
+						dao.editimg(filecode, changeFile);
 					}
 				} catch (Exception e) {
 					// TODO: handle exception
@@ -430,7 +442,7 @@ public class CsQnaController {
 		System.out.println("delete : "+nbno);
 		
 		// 글 번호 이용해서 파일코드 조회
-		int filecode=dao.selfilecode(nbno);
+		Integer filecode=dao.selfilecode(nbno);
 		// 파일코드 출력
 		System.out.println("filecode : "+filecode);
 		

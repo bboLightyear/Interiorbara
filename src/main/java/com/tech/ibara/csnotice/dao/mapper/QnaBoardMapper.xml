@@ -93,12 +93,12 @@
 		resultType="com.tech.ibara.csnotice.dto.QnaDto">
 		INSERT INTO
 		CS_NOTICEBOARD(NBNO,NBTITLE,NBCONTENT,NBWRITER,NBHIT,NBDATE,NBGROUP,NBSTEP,NBINDENT,NBFILECODE,NBQNADIV)
-		VALUES(CS_NOTICEBOARD_SEQ.NEXTVAL,#{param2},#{param3},#{param1},0,SYSDATE,0,0,0,#{param4}+1,#{param5})
+		VALUES(CS_NOTICEBOARD_SEQ.NEXTVAL,#{param2},#{param3},#{param1},0,SYSDATE,0,0,0,#{param4},#{param5})
 	</select>
 
 	<select id="imgwrite">
 		INSERT INTO CS_NOTICEBOARD_IMG
-		VALUES(CS_NOTICEBOARD_IMG_SEQ.NEXTVAL,#{param1}+1,#{param2})
+		VALUES(CS_NOTICEBOARD_IMG_SEQ.NEXTVAL,#{param1},#{param2})
 	</select>
 
 	<select id="selsnbno" resultType="Integer">
@@ -130,32 +130,32 @@
 		FROM CS_NOTICEBOARD_IMG
 		WHERE NBNO=#{param1}
 	</select>	
+
+	<select id="selfilecode" resultType="Integer">
+		SELECT NBFILECODE 
+		FROM CS_NOTICEBOARD
+		WHERE NBNO=#{param1}
+	</select>	
 	
 	<delete id="deletefilebefore">
 		DELETE FROM CS_NOTICEBOARD_IMG
-		WHERE NBNO=#{param1}
+		WHERE NBFILECODE=#{param1}
 	</delete>
 	
 	<insert id="editimg">
 		INSERT INTO CS_NOTICEBOARD_IMG
-		VALUES(CS_NOTICEBOARD_IMG_SEQ.NEXTVAL,#{param1}+2,#{param2})
+		VALUES(CS_NOTICEBOARD_IMG_SEQ.NEXTVAL,#{param1},#{param2})
 	</insert>
 
 	<!-- ================================================================================= -->
-	<select id="qnacontentview"
+ 	<select id="qnacontentview"
 		resultType="com.tech.ibara.csnotice.dto.QnaDto">
 		SELECT
 		B.NBNO,B.NBTITLE,B.NBQNADIV,B.NBCONTENT,B.NBWRITER,B.NBHIT,B.NBDATE,B.NBGROUP,B.NBSTEP,B.NBFILECODE,I.FILESRC
 		FROM CS_NOTICEBOARD B LEFT OUTER JOIN CS_NOTICEBOARD_IMG I
 		ON B.NBFILECODE=I.NBFILECODE
 		WHERE B.NBNO=#{param1}
-	</select>
-
-	<!-- <select id="qnacontentimgview" resultType="com.tech.ibara.csnotice.dto.QnaImgDto"> 
-		SELECT B.NBNO,B.NBTITLE,B.NBQNADIV,B.NBCONTENT,B.NBWRITER,B.NBHIT,B.NBDATE,B.NBGROUP,B.NBSTEP,B.NBFILECODE,I.FILESRC 
-		FROM CS_NOTICEBOARD B LEFT OUTER JOIN CS_NOTICEBOARD_IMG I ON B.NBFILECODE=I.NBFILECODE 
-		WHERE B.NBNO=#{param1} </select> -->
-
+	</select> 
 
 	<resultMap type="com.tech.ibara.csnotice.dto.QnaImgDto"
 		id="QnaImgDto">
@@ -192,12 +192,6 @@
 	</select>
 
 	<!-- =================================================================================== -->
-
-	<select id="selfilecode" resultType="Integer">
-		SELECT NBFILECODE
-		FROM CS_NOTICEBOARD
-		WHERE NBNO=#{param1}
-	</select>
 
 	<update id="imgdelete">
 		DELETE FROM CS_NOTICEBOARD_IMG WHERE

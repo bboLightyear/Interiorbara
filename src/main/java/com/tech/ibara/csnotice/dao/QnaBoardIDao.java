@@ -22,6 +22,8 @@ public interface QnaBoardIDao {
 
 	public Integer selsnbno();
 
+	public Integer selfilecode(String nbno);
+
 	public void qnawrite(String nbwrite, String nbtitle, String nbcontent, int snbno, String qnadiv);
 
 	public void imgwrite(int snbno, String changeFile);
@@ -31,8 +33,6 @@ public interface QnaBoardIDao {
 	public QnaDto qnacontent(String nbno);
 
 	public QnaDto qnacontentview(String nbno);
-
-	public int selfilecode(String nbno);
 
 	public void imgdelete(int filecode);
 
@@ -56,7 +56,7 @@ public interface QnaBoardIDao {
 
 	public ArrayList<String> getfileListbefore(String nbno);
 
-	public void deletefilebefore(String nbno);
+	public void deletefilebefore(Integer filecode);
 
 	public void editimg(int snbno, String changeFile);
 
