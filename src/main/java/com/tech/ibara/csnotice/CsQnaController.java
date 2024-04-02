@@ -302,7 +302,9 @@ public class CsQnaController {
 		QnaBoardIDao dao = sqlSession.getMapper(QnaBoardIDao.class);
 
 		String nbno = request.getParameter("nbno");
+		String rnbno = request.getParameter("rnbno");
 		System.out.println(nbno);
+		System.out.println(rnbno);
 		
 		//글 번호로 조회수 올리기
 		dao.uphit(nbno);
@@ -318,9 +320,11 @@ public class CsQnaController {
 		model.addAttribute("replylist",replylist);
 		
 		//답글에 달린 답글 조회
-		ArrayList<QnaReplyDto> replyrlist=dao.replyrlist(nbno);
-		model.addAttribute("replyrlist",replyrlist);
-		System.out.println("replyrlist"+replyrlist);
+		/*
+		 * ArrayList<QnaReplyDto> replyrlist=dao.replyrlist(rnbno);
+		 * model.addAttribute("replyrlist",replyrlist);
+		 * System.out.println("replyrlist"+replyrlist);
+		 */
 		
 		//답글 갯수 셀렉트
 		int replycnt=dao.replycnt(nbno);
@@ -416,14 +420,6 @@ public class CsQnaController {
 		String pw="123456";
 		Connection conn=DriverManager.getConnection(url,user,pw);
 		Statement stmt=conn.createStatement();
-
-		
-//		dao.replyShape(rnbgroup,rnbstep);
-//		
-//		// 전체 답글 달기
-//		dao.qnareply_r(nbno,rnbno,rwriter,rcontent,rnbgroup,rnbstep,rnbindent);
-//		dao.qnareply(nbno,rwriter,rcontent);
-		
 		
 		return "redirect:qnacontent?nbno="+nbno;
 	}
