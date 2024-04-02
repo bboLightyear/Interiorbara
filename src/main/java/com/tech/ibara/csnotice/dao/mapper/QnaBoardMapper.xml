@@ -111,6 +111,11 @@
 		NBNO=#{PARAM1}
 	</update>
 
+	<update id="qnaeditproc">
+		UPDATE CS_NOTICEBOARD SET NBTITLE=#{param2},NBCONTENT=#{param3},NBQNADIV=#{param4} WHERE
+		NBNO=#{param1}
+	</update>
+
 	<select id="qnacontent"
 		resultType="com.tech.ibara.csnotice.dto.QnaDto">
 		SELECT
@@ -119,6 +124,22 @@
 		CS_NOTICEBOARD
 		WHERE NBNO=#{param1}
 	</select>
+	
+	<select id="getfileListbefore" resultType="string">
+		SELECT FILESRC 
+		FROM CS_NOTICEBOARD_IMG
+		WHERE NBNO=#{param1}
+	</select>	
+	
+	<delete id="deletefilebefore">
+		DELETE FROM CS_NOTICEBOARD_IMG
+		WHERE NBNO=#{param1}
+	</delete>
+	
+	<insert id="editimg">
+		INSERT INTO CS_NOTICEBOARD_IMG
+		VALUES(CS_NOTICEBOARD_IMG_SEQ.NEXTVAL,#{param1}+2,#{param2})
+	</insert>
 
 	<!-- ================================================================================= -->
 	<select id="qnacontentview"
@@ -208,6 +229,7 @@
 		NBNO,RNBNO,RNBWRITER,RNBCONTENT,RNBSTEP,RNBGROUP,RNBINDENT
 		FROM CS_QNABOARD_REPLY
 		WHERE RNBGROUP=#{param1} AND RNBSTEP>=1
+		ORDER BY RNBNO ASC
 	</select>
 
 	<select id="replycnt" resultType="Integer">

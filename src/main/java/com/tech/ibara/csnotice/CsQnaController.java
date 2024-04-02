@@ -302,7 +302,9 @@ public class CsQnaController {
 		QnaBoardIDao dao = sqlSession.getMapper(QnaBoardIDao.class);
 
 		String nbno = request.getParameter("nbno");
+		String rnbno = request.getParameter("rnbno");
 		System.out.println(nbno);
+		System.out.println(rnbno);
 		
 		//글 번호로 조회수 올리기
 		dao.uphit(nbno);
@@ -316,10 +318,6 @@ public class CsQnaController {
 		ArrayList<QnaReplyDto> replylist=dao.replylist(nbno);
 		System.out.println("replylist : "+replylist);
 		model.addAttribute("replylist",replylist);
-		
-		//답글에 달린 답글 조회
-		ArrayList<QnaReplyDto> replyrlist=dao.replyrlist(nbno);
-		model.addAttribute("replyrlist",replyrlist);
 		
 		//답글 갯수 셀렉트
 		int replycnt=dao.replycnt(nbno);
@@ -346,6 +344,80 @@ public class CsQnaController {
 		return "csnotice/qnaeditview";
 	}
 	
+	//글 수정
+		@RequestMapping("/qnaeditproc")
+		public String qnaeditproc(MultipartHttpServletRequest mftrequest, Model model) {
+
+			System.out.println("qnaeditproc()controller");
+
+			String nbtitle = mftrequest.getParameter("nbtitle");
+			String nbcontent = mftrequest.getParameter("nbcontent");
+			String qnadiv = mftrequest.getParameter("qnadiv");
+			String nbno = mftrequest.getParameter("nbno");		
+
+			System.out.println("nbtitle : " + nbtitle);
+			System.out.println("nbcontent : " + nbcontent);
+			System.out.println("qnadiv : " + qnadiv);
+			System.out.println("nbno : " + nbno);
+			
+			QnaBoardIDao dao = sqlSession.getMapper(QnaBoardIDao.class);			
+			
+			dao.qnaeditproc(nbno,nbtitle,nbcontent,qnadiv);
+			
+			String path = "C:\\23setspring\\springwork23\\interiorbara2\\src\\main\\webapp\\resources\\img";
+						
+			List<MultipartFile> fileList = mftrequest.getFiles("nbfile");
+			System.out.println("fileList : " + fileList);			
+			
+			// 수정 파일을 올린 경우에만 실행
+			if (fileList!=null) {
+				//이전 파일 조회 
+				ArrayList<String> fileListbefore=dao.getfileListbefore(nbno);
+				
+				//이전 파일 삭제
+				for(String f : fileListbefore) {
+					File file = new File(path + "\\" + f);
+					System.out.println(path + "\\" + f);
+					if(file.exists()) {
+						file.delete();
+						System.out.println("이미지 삭제완료: " + f);
+					} else {
+						System.out.println("이미지 삭제실패: " + f);
+					}
+				}
+				//DB 삭제
+				dao.deletefilebefore(nbno);
+			}
+			
+			//파일 이름 업로드 당시 밀리초로 변경
+			for (MultipartFile mf : fileList) {
+				String originFile = mf.getOriginalFilename();
+				System.out.println("파일이름 : " + originFile);
+				long longtime = System.currentTimeMillis();
+				String changeFile = longtime + "_" + mf.getOriginalFilename();
+				System.out.println("변형된 파일 이름 : " + changeFile);
+				String pathFile = path + "\\" + changeFile;
+				
+				// 최근의 글번호
+				int snbno = dao.selsnbno();
+				System.out.println("snbno: " + snbno);
+				
+				//이미지 업로드
+				try {
+					if (!originFile.equals("")) {
+						mf.transferTo(new File(pathFile));
+						System.out.println("다중 업로드 성공");
+//					db에 파일 이름 인서트
+						dao.editimg(snbno, changeFile);
+					}
+				} catch (Exception e) {
+					// TODO: handle exception
+				}
+			}
+			
+			
+				return "redirect:qnacontent?nbno="+nbno;
+		}
 	
 	@RequestMapping("/qnadelete")
 	public String qnadelete(HttpServletRequest request, Model model) {
@@ -415,14 +487,6 @@ public class CsQnaController {
 		String pw="123456";
 		Connection conn=DriverManager.getConnection(url,user,pw);
 		Statement stmt=conn.createStatement();
-
-		
-//		dao.replyShape(rnbgroup,rnbstep);
-//		
-//		// 전체 답글 달기
-//		dao.qnareply_r(nbno,rnbno,rwriter,rcontent,rnbgroup,rnbstep,rnbindent);
-//		dao.qnareply(nbno,rwriter,rcontent);
-		
 		
 		return "redirect:qnacontent?nbno="+nbno;
 	}
