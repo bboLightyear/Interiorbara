@@ -44,7 +44,11 @@
 		</tr>
 		<tr>
 			<td class="left">파일</td>
-			<td>${qna_content.nbfilecode }</td>
+				<c:forEach items="${imglist } " var="img">
+					<td>
+					<img alt="이미지" src="resources/upload/cs/${img }">		
+					</td>
+				</c:forEach>
 		</tr>
 		<tr>
 			<td colspan="2">

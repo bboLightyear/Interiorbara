@@ -128,7 +128,7 @@
 	<select id="getfileListbefore" resultType="string">
 		SELECT FILESRC 
 		FROM CS_NOTICEBOARD_IMG
-		WHERE NBNO=#{param1}
+		WHERE NBFILECODE=#{param1}
 	</select>	
 
 	<select id="selfilecode" resultType="Integer">
@@ -146,6 +146,12 @@
 		INSERT INTO CS_NOTICEBOARD_IMG
 		VALUES(CS_NOTICEBOARD_IMG_SEQ.NEXTVAL,#{param1},#{param2})
 	</insert>
+	
+	<select id="imglist" resultType="String">
+		SELECT FILESRC 
+		FROM CS_NOTICEBOARD_IMG
+		WHERE NBFILECODE=#{param1}
+	</select>	
 
 	<!-- ================================================================================= -->
  	<select id="qnacontentview"

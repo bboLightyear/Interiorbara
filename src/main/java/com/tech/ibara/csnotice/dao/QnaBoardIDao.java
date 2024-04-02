@@ -1,9 +1,6 @@
 package com.tech.ibara.csnotice.dao;
 
 import java.util.ArrayList;
-import java.util.List;
-
-import org.springframework.web.multipart.MultipartFile;
 
 import com.tech.ibara.csnotice.dto.QnaDto;
 import com.tech.ibara.csnotice.dto.QnaImgDto;
@@ -54,11 +51,13 @@ public interface QnaBoardIDao {
 
 	public void qnaeditproc(String nbno, String nbtitle, String nbcontent, String qnadiv);
 
-	public ArrayList<String> getfileListbefore(String nbno);
+	public ArrayList<String> getfileListbefore(Integer selfilecode);
 
 	public void deletefilebefore(Integer filecode);
 
 	public void editimg(int snbno, String changeFile);
+
+	public ArrayList<String> imglist(Integer selfilecode);
 
 	
 }
