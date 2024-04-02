@@ -40,8 +40,8 @@ public class OHController {
 		System.out.println("------------------------------");
 		
 		// 임시 session 내장객체 설정 - 사용자 ID
-//		session.setAttribute("userId", "KimGyeongTae");
-		session.setAttribute("userId", "");
+		session.setAttribute("userId", "KimGyeongTae");
+//		session.setAttribute("userId", "");
 		
 		// session 사용자 아이디, 저장
 		String userId = (String) session.getAttribute("userId");

@@ -373,6 +373,7 @@
 								$.ajax({
 									url: "OHPhotoLikeExecute",
 									method: "post",
+									dataType: "json",
 									data: {
 										// 전송할 데이터
 										'userId' : userId,
@@ -461,6 +462,7 @@
 								$.ajax({
 									url: "OHPhotoScrapExecute",
 									method: "post",
+									dataType: "json",
 									data: {
 										// 전송할 데이터
 										'userId' : userId,

@@ -137,11 +137,20 @@
 			<hr />
 			
 			<!-- 댓글 출력 -->
+			<div contenteditable="true" data-placeholder="칭찬과 격려의 댓글은 작성자에게 큰 힘이 됩니다."
+				 style="height:100px;
+				 		width:600px;
+				 		background-color:#ffc978;
+				 		" >
+		
+			</div>
 			
-			<div contenteditable="true" style="height:50px;width:300px;" ></div>
+			<button>입력</button>
 			
+			<!-- 댓글 출력 End -->
 			
-		</div>
+		<!-- <div class="contents"> End -->	
+		</div> 
 			
 		<footer>
 			<h1>footer</h1>
