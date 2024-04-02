@@ -29,7 +29,7 @@ public class ProductListService extends SqlSessionBase implements ShopService {
 			categoryId = Integer.parseInt(categoryIdStr);
 		}
 
-		CategoryDto categoryDto = dao.selectCategoryById(categoryId);
+		CategoryDto categoryDto = dao.selectCategory(categoryId);
 		if (categoryDto == null) {
 			return;
 		}

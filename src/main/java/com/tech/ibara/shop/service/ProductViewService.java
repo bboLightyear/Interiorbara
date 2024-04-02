@@ -31,10 +31,10 @@ public class ProductViewService extends SqlSessionBase implements ShopService {
 
 		// category
 		ArrayList<CategoryDto> categories = new ArrayList<CategoryDto>();
-		CategoryDto categoryDto = dao.selectCategoryById(productDto.getCategory_id());
+		CategoryDto categoryDto = dao.selectCategory(productDto.getCategory_id());
 		categories.add(categoryDto);
-		while (categoryDto.getUp_category_id() != null) {
-			categoryDto = dao.selectCategoryById(categoryDto.getUp_category_id());
+		while (categoryDto.getParent_category_id() != null) {
+			categoryDto = dao.selectCategory(categoryDto.getParent_category_id());
 			categories.add(0, categoryDto);
 		}
 

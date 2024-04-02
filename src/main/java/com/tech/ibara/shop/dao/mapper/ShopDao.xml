@@ -49,18 +49,22 @@
 			PRODUCT_ID	
 	</select>
 	
-	<select id="selectCategoriesByUp" resultType="com.tech.ibara.shop.dto.CategoryDto">
+	<select id="selectCategoriesByParent" resultType="com.tech.ibara.shop.dto.CategoryDto">
 		SELECT
-			CATEGORY_ID, UP_CATEGORY_ID, NAME
+			CATEGORY_ID,
+			PARENT_CATEGORY_ID,
+			NAME
 		FROM
 			SHOP_CATEGORY
 		WHERE
-			UP_CATEGORY_ID = #{param1}
+			PARENT_CATEGORY_ID = #{param1}
 	</select>
 	
-	<select id="selectCategoryById" resultType="com.tech.ibara.shop.dto.CategoryDto">
+	<select id="selectCategory" resultType="com.tech.ibara.shop.dto.CategoryDto">
 		SELECT
-			CATEGORY_ID, UP_CATEGORY_ID, NAME
+			CATEGORY_ID,
+			PARENT_CATEGORY_ID,
+			NAME
 		FROM
 			SHOP_CATEGORY
 		WHERE
@@ -183,29 +187,12 @@
 		    OPTION_ID = #{param1}
 	</select>
 	
-	<select id="selectProductDataById" resultType="com.tech.ibara.shop.dto.ProductDataDto">
-		SELECT
-		    PRODUCT_DATA_ID, STOCK, PRICE, DISCOUNTED_PRICE
-		FROM
-		    SHOP_PRODUCT_DATA
-		WHERE
-		    PRODUCT_DATA_ID = #{param1}
-	</select>
-	
-	<resultMap type="com.tech.ibara.shop.dto.ProductDataDto" id="ProductDataDto">
-		<result column="PRODUCT_DATA_ID" property="product_data_id" />
-		<result column="STOCK" property="stock" />
-		<result column="PRICE" property="price" />
-		<result column="DISCOUNTED_PRICE" property="discounted_price" />
-	</resultMap>
-	
 	<resultMap type="com.tech.ibara.shop.dto.OptionDto" id="OptionDto">
 		<result column="OPTION_ID" property="option_id" />
 		<result column="OPTION_SET_ID" property="option_set_id" />
 		<result column="SUB_OPTION_SET_ID" property="sub_option_set_id" />
 		<result column="PRODUCT_DATA_ID" property="product_data_id" />
 		<result column="NAME" property="name" />
-		<collection property="product_data_dto" resultMap="ProductDataDto"></collection>
 	</resultMap>
 	
 	<select id="selectJoinOptionBySet" parameterType="com.tech.ibara.shop.dto.OptionDto" resultMap="OptionDto">
@@ -273,7 +260,6 @@
 		<collection columnPrefix="final_" property="final_option_dto" resultMap="OptionDto"></collection>
 		<collection columnPrefix="firstset_" property="option_set_dto" resultMap="OptionSetDto"></collection>
 		<collection columnPrefix="finalset_" property="final_option_set_dto" resultMap="OptionSetDto"></collection>
-		<collection property="product_data_dto" resultMap="ProductDataDto"></collection>
 	</resultMap>
 	
 	<select id="selectBasketsByUser" parameterType="com.tech.ibara.shop.dto.BasketDto" resultMap="BasketDto">
@@ -331,7 +317,6 @@
 		<collection columnPrefix="firstset_" property="option_set_dto" resultMap="OptionSetDto"></collection>
 		<collection columnPrefix="finalset_" property="final_option_set_dto" resultMap="OptionSetDto"></collection>
 		<collection property="product_dto" resultMap="ProductDto"></collection>
-		<collection property="product_data_dto" resultMap="ProductDataDto"></collection>
 	</resultMap>
 	
 	<select id="selectBasketsByIds" parameterType="com.tech.ibara.shop.dto.BasketDto" resultMap="BasketDto2">
@@ -415,22 +400,7 @@
 	</select>
 	
 	<!-- ===================== INSERT ===================== -->
-	
-	<insert id="insertProductData" parameterType="com.tech.ibara.shop.dto.ProductDataDto"
-		useGeneratedKeys="true" keyColumn="PRODUCT_DATA_ID" keyProperty="product_data_id" >
-		INSERT INTO
-			SHOP_PRODUCT_DATA (
-				PRODUCT_DATA_ID,
-				STOCK,
-				PRICE,
-				DISCOUNTED_PRICE)
-		VALUES (
-			SEQ_SHOP_PRODUCT_DATA.NEXTVAL,
-			#{stock},
-			#{price},
-			#{discounted_price, jdbcType=INTEGER})
-	</insert>
-	
+		
 	<insert id="insertOptionSet" parameterType="com.tech.ibara.shop.dto.OptionSetDto"
 		useGeneratedKeys="true" keyColumn="OPTION_SET_ID" keyProperty="option_set_id" >
 		INSERT INTO
