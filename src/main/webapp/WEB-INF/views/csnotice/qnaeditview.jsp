@@ -11,7 +11,7 @@
 	<h3>qna edit view</h3>
 
 
-	<form action="qnaeditproc" method="post">
+	<form action="qnaeditproc" method="post" enctype="multipart/form-data">
 		<input type="hidden" name="nbno" value="${qna_content.nbno }" />
 		<table>
 			<tr>
