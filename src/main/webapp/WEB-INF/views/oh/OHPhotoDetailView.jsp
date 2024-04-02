@@ -4,9 +4,21 @@
 <!DOCTYPE html>
 <html>
 <head>
+	
 	<meta charset="UTF-8">
+	
 	<title>OH - PhotoDetailView.jsp</title>
-	<link rel="stylesheet" href="../resources/css/oh/oh.css?after" />	
+	
+	<!-- oh.css -->
+	<link rel="stylesheet" href="../resources/css/oh/photo.css?after" />
+	
+	<!-- https://fontawesome.com/ -->
+	<link  rel="stylesheet"
+	  	   href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"/>
+	  	   
+	<!-- https://jquery.com/ -->		
+	<script src="https://code.jquery.com/jquery-3.7.1.js" ></script>
+		
 </head>
 <body>
 	
@@ -89,15 +101,25 @@
 						
 			<h3>집사진 게시글 상세</h3>
 				
-			<button><a href="OHPhotoWriteView">글쓰기</a></button>
-			
-			&nbsp;&nbsp;&nbsp;
-			
-			<button><a href="OHPhotoEditView?pb_no=${pb_dto.pb_no }">수정</a></button>
-			
-			&nbsp;&nbsp;&nbsp;
-			
-			<button><a href="OHPhotoDeleteExecute?pb_no=${pb_dto.pb_no }">삭제</a></button>
+			<!-- jQuery 작성완료
+				     회원: 글쓰기 가능 
+				  비회원: 글쓰기 불가능
+				  -->
+			<button id="toWriteBtn">글쓰기</button> 
+
+			<!-- 해당 게시물 작성자일 경우 => 수정, 삭제 버튼 생성 -->
+			<c:choose>
+				<c:when test="${sessionScope.userId eq pb_dto.pb_user }">
+					<h3>${sessionScope.userId }님 게시글 </h3>
+					<!-- 수정 버튼 -->
+					<button onclick="location.href='OHPhotoEditView?pb_no=${pb_dto.pb_no }'">수정</button>
+					<!-- 삭제 버튼 -->
+					<button onclick="location.href='OHPhotoDeleteExecute?pb_no=${pb_dto.pb_no }'">삭제</button>					
+				</c:when>
+				<c:otherwise>
+					<h3>다른 회원 게시글</h3>				
+				</c:otherwise>
+			</c:choose>				
 				
 			<hr />				
 			
@@ -107,14 +129,28 @@
 					<div>pa_no: ${dto.pa_no }</div>
 					<div>pa_attach: ${dto.pa_attach }</div>
 					<div>pb_no: ${dto.pb_no }</div>
-					<img src="../resources/upload/oh/${dto.pa_attach }" alt="해당 게시글 사진" height="300px" width="300px"/>					
+					<img src="../resources/upload/oh/photo/${dto.pa_attach }" alt="해당 게시글 사진" height="300px" width="300px"/>					
 				</div>
 			</c:forEach>		
 			<!-- 게시물, 이미지 출력 End -->							
 			
 			<hr />
 			
-		</div>
+			<!-- 댓글 출력 -->
+			<div contenteditable="true" data-placeholder="칭찬과 격려의 댓글은 작성자에게 큰 힘이 됩니다."
+				 style="height:100px;
+				 		width:600px;
+				 		background-color:#ffc978;
+				 		" >
+		
+			</div>
+			
+			<button>입력</button>
+			
+			<!-- 댓글 출력 End -->
+			
+		<!-- <div class="contents"> End -->	
+		</div> 
 			
 		<footer>
 			<h1>footer</h1>
@@ -123,4 +159,20 @@
 	</div>	
 		
 </body>
+
+	<script>
+	
+		$(document).ready(function() {
+			$("#toWriteBtn").click(function() {
+				/* 회원인지 확인 */
+				if("${sessionScope.userId }" != null && "${sessionScope.userId }" != "") {
+					window.location.href = "OHPhotoWriteView";
+				} else {
+					alert("로그인 페이지로 이동");
+				}
+			});
+		});	
+		
+	</script>
+
 </html>

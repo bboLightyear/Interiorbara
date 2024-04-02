@@ -4,15 +4,21 @@
 <!DOCTYPE html>
 <html>
 <head>
+	
 	<meta charset="UTF-8">	
+	
 	<title>OH - OHPhotoView.jsp</title>
+	
 	<!-- oh.css -->
-	<link rel="stylesheet" href="../resources/css/oh/oh.css?after" />
+	<link rel="stylesheet" href="../resources/css/oh/photo.css?after" />
+	
 	<!-- https://fontawesome.com/ -->
 	<link  rel="stylesheet"
 	  	   href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"/>
+	  	   
 	<!-- https://jquery.com/ -->		
 	<script src="https://code.jquery.com/jquery-3.7.1.js" ></script>
+	
 </head>
 <body>
 
@@ -130,7 +136,11 @@
 						
 			<h3>집사진</h3>
 				
-			<button><a href="OHPhotoWriteView">글쓰기</a></button>
+			<!-- jQuery 작성완료
+				     회원: 글쓰기 가능 
+				  비회원: 글쓰기 불가능
+				  -->
+			<button id="toWriteBtn">글쓰기</button> 
 				
 			<hr />				
 				
@@ -238,6 +248,8 @@
 				<!-- 전체 <div class="box"> 반복문 사용, 게시물 표현 -->
 				<c:forEach items="${ohPhotoView }" var="dto" varStatus="status">
 					<div class="box">
+						
+						<!-- 기본 내용 출력 -->
 						<div>no: ${dto.no }</div>
 						<div>pb_no: ${dto.pb_no }</div>
 						<div>pb_user: ${dto.pb_user }</div>	
@@ -247,24 +259,256 @@
 						<div>pa_no: ${dto.ohPhotoAttach.pa_no }</div>
 						<div>pa_attach: ${dto.ohPhotoAttach.pa_attach }</div>
 						<div>pb_no: ${dto.ohPhotoAttach.pb_no }</div>
+						
+						<!-- 이미지 클릭 => 게시물 상세보기 --> 
 						<a href="OHPhotoDetailView?pb_no=${dto.pb_no }">
-							<img src="../resources/upload/oh/${dto.ohPhotoAttach.pa_attach }" alt="해당 게시글 대표사진" height="300px" width="300px"/>
+							<img src="../resources/upload/oh/photo/${dto.ohPhotoAttach.pa_attach }" alt="해당 게시글 대표사진" height="300px" width="300px"/>
 						</a>
+						
+						<br />
+						
+						<!-- 좋아요, 이미지 -->
+						<c:set var="likeLoopFlag" value="false" />
+						<c:forEach items="${ohPhotoLike }" var="like" varStatus="status">
+							<c:if test="${not likeLoopFlag }">
+								<c:if test="${dto.pb_no eq like.pb_no }">
+									<span class="likeImage clickColor" id="${dto.pb_no }">
+										<i class="fa-solid fa-heart"></i>
+									</span>
+									<c:set var="likeLoopFlag" value="true" />								
+								</c:if>							
+							</c:if>
+						</c:forEach>
+						<c:if test="${likeLoopFlag eq false }">
+							<span class="likeImage" id="${dto.pb_no }">
+								<i class="fa-regular fa-heart"></i>
+							</span>						
+						</c:if>
+						<!-- 좋아요, 이미지 End -->		
+						
+						<!-- 좋아요, 숫자 -->
+						<span class="likeNumber" id="${dto.pb_no }">${dto.pb_like }</span>
+						<!-- 좋아요, 숫자 End -->
+						
+						<!-- 스크랩, 이미지 -->
+						<c:set var="scrapLoopFlag" value="false" />
+						<c:forEach items="${ohPhotoScrap }" var="scrap" varStatus="status">
+							<c:if test="${not scrapLoopFlag }">
+								<c:if test="${dto.pb_no eq scrap.pb_no }">
+									<span class="scrapImage clickColor" id="${dto.pb_no }">
+										<i class="fa-solid fa-bookmark"></i>
+									</span>
+									<c:set var="scrapLoopFlag" value="true" />
+								</c:if>
+							</c:if>
+						</c:forEach>
+						<c:if test="${scrapLoopFlag eq false }">
+							<span class="scrapImage" id="${dto.pb_no }">
+								<i class="fa-regular fa-bookmark"></i>
+							</span>
+						</c:if>
+						<!-- 스크랩, 이미지 End -->
+						
+						<!-- 스크랩, 숫자 -->
+						<span class="scrapNumber" id="${dto.pb_no }">${dto.pb_scrap }</span>
+						<!-- 스크랩, 숫자 End -->
 					</div>
 				</c:forEach>
 			</div>
 			
+			<script>
+				$(document).ready(function() {
+					$(".likeImage").click(function() {
+						/* 회원인지 확인 */						
+						if("${sessionScope.userId }" != null && "${sessionScope.userId }" != "") {		
+							// 사용자 id 값을 가져와 변수에 저장
+							var userId = "${sessionScope.userId }"
+							// userId 변수에 저장된 id 값 출력
+							console.log("userId: ", userId);
+							// 클릭한 하트 요소의 id 값을 가져와 변수에 저장
+							var clickedId = $(this).attr("id");
+							// clickedId 변수에 저장된 id 값 출력
+							console.log("clickedId: ", clickedId);
+							// 클릭 => 하트 색상변경
+							$(this).toggleClass("clickColor");
+							// 클릭한 요소의 하위 태그에서 i태그를 찾아서 icon 변수에 저장 
+							var icon = $(this).find("i");
+							// if 조건문, 기본 하트 모양 => True
+							if(icon.hasClass("fa-regular")) {
+								// <i> 요소의 클래스 변경 => 하트 모양변경 
+								icon.removeClass("fa-regular").addClass("fa-solid");
+								// ajax 요청 보내기
+								$.ajax({
+									url: "OHPhotoLikeExecute",
+									method: "post",
+									dataType: "json",
+									data: {
+										// 전송할 데이터
+										'userId' : userId,
+										'pb_no' : clickedId
+									},
+									success: function(response) {
+						                // 성공적으로 서버로부터 응답을 받았을 때 실행할 코드
+						            	console.log("AJAX 요청 성공");
+						                // 서버에서 받은 게시물의 좋아요 횟수, 변수에 저장
+						                var responseLikeNumber = response.likeNumber;
+						                // responseLikeNumber 변수, 콘솔 출력
+						            	console.log("서버에서 받은 게시물의 좋아요 횟수: ", responseLikeNumber);
+						            	// [중요] 선택자를 이용해 요소 지정할 때 id, class 순서로 지정한다. 그 반대는 선택하지 못한다.
+						            	var likeNumberSelector = "#" + clickedId + ".likeNumber";
+						            	// likeNumberSelector 변수, 콘솔 출력
+						            	console.log("likeNumberSelector: ", likeNumberSelector);
+						            	// 서버에서 받은 게시물의 좋아요 횟수 => 숫자 갱신 
+						                $(likeNumberSelector).text(responseLikeNumber);
+									},
+									error: function(xhr, status, error) {
+						                // AJAX 요청 실패 시 실행할 코드
+						                console.error("AJAX 요청 실패:", status, error);										
+									}
+								});
+							} else {
+								// <i> 요소의 클래스 변경 => 하트 모양변경 
+								icon.removeClass("fa-solid").addClass("fa-regular");
+								// ajax 요청 보내기
+								$.ajax({
+									url: "OHPhotoLikeExecute",
+									method: "post",
+									dataType: "json",
+									data: {
+										// 전송할 데이터
+										'userId' : userId,
+										'pb_no' : clickedId
+									},
+									success: function(response) {
+						                // 성공적으로 서버로부터 응답을 받았을 때 실행할 코드
+						            	console.log("AJAX 요청 성공");		
+						                // 서버에서 받은 게시물의 좋아요 횟수, 변수에 저장
+						                var responseLikeNumber = response.likeNumber;
+						                // responseLikeNumber 변수, 콘솔 출력
+						            	console.log("서버에서 받은 게시물의 좋아요 횟수: ", responseLikeNumber);
+						            	// [중요] 선택자를 이용해 요소 지정할 때 id, class 순서로 지정한다. 그 반대는 선택하지 못한다.
+						            	var likeNumberSelector = "#" + clickedId + ".likeNumber";
+						            	// likeNumberSelector 변수, 콘솔 출력
+						            	console.log("likeNumberSelector: ", likeNumberSelector);
+						            	// 서버에서 받은 게시물의 좋아요 횟수 => 숫자 갱신 
+						                $(likeNumberSelector).text(responseLikeNumber);						                
+									},
+									error: function(xhr, status, error) {
+						                // AJAX 요청 실패 시 실행할 코드
+						                console.error("AJAX 요청 실패:", status, error);										
+									}
+								});								
+							}
+						} else {
+							// 비회원 => 좋아요 누를 경우
+							alert("회원만 가능, 로그인 페이지로 이동");
+						}	
+					});
+				});
+				
+				$(document).ready(function() {
+					$(".scrapImage").click(function() {
+						/* 회원인지 확인 */						
+						if("${sessionScope.userId }" != null && "${sessionScope.userId }" != "") {		
+							// 사용자 id 값을 가져와 변수에 저장
+							var userId = "${sessionScope.userId }"
+							// userId 변수에 저장된 id 값 출력
+							console.log("userId: ", userId);
+							// 클릭한 스크랩 요소의 id 값을 가져와 변수에 저장
+							var clickedId = $(this).attr("id");
+							// clickedId 변수에 저장된 id 값 출력
+							console.log("clickedId: ", clickedId);
+							// 클릭 => 스크랩 색상변경
+							$(this).toggleClass("clickColor");
+							// 클릭한 요소의 하위 태그에서 i태그를 찾아서 icon 변수에 저장 
+							var icon = $(this).find("i");
+							// if 조건문, 기본 스크랩 모양 => True
+							if(icon.hasClass("fa-regular")) {
+								// <i> 요소의 클래스 변경 => 스크랩 모양변경 
+								icon.removeClass("fa-regular").addClass("fa-solid");
+								// ajax 요청 보내기
+								$.ajax({
+									url: "OHPhotoScrapExecute",
+									method: "post",
+									dataType: "json",
+									data: {
+										// 전송할 데이터
+										'userId' : userId,
+										'pb_no' : clickedId
+									},
+									success: function(response) {
+						                // 성공적으로 서버로부터 응답을 받았을 때 실행할 코드
+						            	console.log("AJAX 요청 성공");
+						                // 서버에서 받은 게시물의 스크랩 횟수, 변수에 저장
+						                var responseScrapNumber = response.scrapNumber;
+						                // responseScrapNumber 변수, 콘솔 출력
+						            	console.log("서버에서 받은 게시물의 좋아요 횟수: ", responseScrapNumber);
+						            	// [중요] 선택자를 이용해 요소 지정할 때 id, class 순서로 지정한다. 그 반대는 선택하지 못한다.
+						            	var scrapNumberSelector = "#" + clickedId + ".scrapNumber";
+						            	// scrapNumberSelector 변수, 콘솔 출력
+						            	console.log("scrapNumberSelector: ", scrapNumberSelector);
+						            	// 서버에서 받은 게시물의 스크랩 횟수 => 숫자 갱신 
+						                $(scrapNumberSelector).text(responseScrapNumber);
+									},
+									error: function(xhr, status, error) {
+						                // AJAX 요청 실패 시 실행할 코드
+						                console.error("AJAX 요청 실패:", status, error);										
+									}
+								});
+							} else {
+								// <i> 요소의 클래스 변경 => 스크랩 모양변경 
+								icon.removeClass("fa-solid").addClass("fa-regular");
+								// ajax 요청 보내기
+								$.ajax({
+									url: "OHPhotoScrapExecute",
+									method: "post",
+									dataType: "json",
+									data: {
+										// 전송할 데이터
+										'userId' : userId,
+										'pb_no' : clickedId
+									},
+									success: function(response) {
+						                // 성공적으로 서버로부터 응답을 받았을 때 실행할 코드
+						            	console.log("AJAX 요청 성공");		
+						                // 서버에서 받은 게시물의 스크랩 횟수, 변수에 저장
+						                var responseScrapNumber = response.scrapNumber;
+						                // responseScrapNumber 변수, 콘솔 출력
+						            	console.log("서버에서 받은 게시물의 좋아요 횟수: ", responseScrapNumber);
+						            	// [중요] 선택자를 이용해 요소 지정할 때 id, class 순서로 지정한다. 그 반대는 선택하지 못한다.
+						            	var scrapNumberSelector = "#" + clickedId + ".scrapNumber";
+						            	// scrapNumberSelector 변수, 콘솔 출력
+						            	console.log("scrapNumberSelector: ", scrapNumberSelector);
+						            	// 서버에서 받은 게시물의 스크랩 횟수 => 숫자 갱신 
+						                $(scrapNumberSelector).text(responseScrapNumber);					                
+									},
+									error: function(xhr, status, error) {
+						                // AJAX 요청 실패 시 실행할 코드
+						                console.error("AJAX 요청 실패:", status, error);										
+									}
+								});								
+							}
+						} else {
+							// 비회원 => 좋아요 누를 경우
+							alert("회원만 가능, 로그인 페이지로 이동");
+						}	
+					});
+				});				
+			</script>				
+	
+	
+			
+			
+			
 			<hr />
 			
 			<!-- Paging -->
-			
-			<form action="OHPhotoView" method="post">
+			<form action="OHPhotoView" id="pageForm" method="post">
 				<c:if test="${ohPageVO.pageSelectedNum > 1 }">
 					<!-- 첫번째 페이지로 이동 -->	                    
-					<a href="#" onclick="toFirstPage()"><i class="fa-solid fa-angles-left"></i></a>
+					<a href="#" onclick="firstPage()" id="firstPage"><i class="fa-solid fa-angles-left"></i></a>
 					<!-- 이전 페이지로 이동 -->
-					<a href="#" onclick="toBeforePage()"><i class="fa-solid fa-circle-chevron-left"></i></a>
-					
+					<a href="#" onclick="beforePage()" id="beforePage"><i class="fa-solid fa-circle-chevron-left"></i></a>
 				</c:if>			
 				<c:forEach begin="${ohPageVO.pageStartNum }" end="${ohPageVO.pageEndNum }" var="i">
 					<c:choose>
@@ -272,21 +516,27 @@
 							<span style="color:red; font-weight:bold;">${i } &nbsp;</span>
 						</c:when>
 						<c:otherwise>
-							<a href="#" onclick="toPage()">${i }</a>&nbsp;
+							<a href="#" onclick="movePage(${i })" >${i }</a>&nbsp;
 						</c:otherwise>
 					</c:choose>
 				</c:forEach>
 				<c:if test="${ohPageVO.pageTotalNum > ohPageVO.pageSelectedNum }">
 					<!-- 다음 페이지로 이동 -->
-					<a href="#" onclick="toNextPage()"><i class="fa-solid fa-arrow-right"></i></a>
+					<a href="#" onclick="nextPage()" id="nextPage"><i class="fa-solid fa-arrow-right"></i></a>
 					<!-- 마지막 페이지로 이동 -->					
-					<a href="#" onclick="toLastPage()"><i class="fa-solid fa-poo"></i></a>					                               					
+					<a href="#" onclick="lastPage()" id="lastPage"><i class="fa-solid fa-poo"></i></a>					                               					
 				</c:if>
-				
-				<input type="hidden" name="orderingBy" value=${orderingBy }) />
-				
-				
-				
+				<!-- hidden, value 전달 -->
+				<input type="hidden" name="orderingBy" value=${keepOrderingBy } />
+				<input type="hidden" name="orderingMethod" value=${keepOrderingMethod } />
+				<input type="hidden" name="pb_category" value=${keepPb_category } />
+				<input type="hidden" name="pb_residence" value=${keepPb_residence } />
+				<input type="hidden" name="pb_room" value=${keepPb_room } />
+				<input type="hidden" name="pb_style" value=${keepPb_style } />
+				<input type="hidden" name="pb_skill" value=${keepPb_skill } />
+				<input type="hidden" name="searchingType" value=${keepSearchingType } />
+				<input type="hidden" name="searchingWord" value=${keepSearchingWord } />
+				<input type="hidden" id="transPage"/>
 			</form>
 		</div>
 		
@@ -296,131 +546,111 @@
 	</div>	
 	
 </body>
-	<!-- HTML Parsing 순서에 따라 body element 아래에 배치 -->
+
 	<script>
-		var keepOrderingBy = "${keepOrderingBy}";
-		console.log("keepOrderingBy: " + keepOrderingBy);
-		$("#orderingBy").val(keepOrderingBy).prop("selected", true);
-		
-		var keepOrderingMethod = "${keepOrderingMethod}";
-		console.log("keepOrderingMethod: " + keepOrderingMethod);
-		$("#orderingMethod").val(keepOrderingMethod).prop("selected", true);
-		
-		var keepPb_category = "${keepPb_category}";
-		console.log("keepPb_category: " + keepPb_category);
-		$("#pb_category").val(keepPb_category).prop("selected", true);
-		
-		var keepPb_residence = "${keepPb_residence}";
-		console.log("keepPb_residence: " + keepPb_residence);
-		$("#pb_residence").val(keepPb_residence).prop("selected", true);
-		
-		var keepPb_room = "${keepPb_room}";
-		console.log("keepPb_room: " + keepPb_room);
-		$("#pb_room").val(keepPb_room).prop("selected", true);
-		
-		var keepPb_style = "${keepPb_style}";
-		console.log("keepPb_style: " + keepPb_style);
-		$("#pb_style").val(keepPb_style).prop("selected", true);
-		
-		var keepPb_skill = "${keepPb_skill}";
-		console.log("keepPb_skill: " + keepPb_skill);
-		$("#pb_skill").val(keepPb_skill).prop("selected", true);
 	
-		var keepSearchingType = "${keepSearchingType}";
-		console.log("keepSearchingType: " + keepSearchingType);
-		$("#searchingType").val(keepSearchingType).prop("selected", true);
+		<!-- HTML Parsing 순서에 따라 body element 아래에 배치 -->
 		
+		$(document).ready(function() {
+			$("#toWriteBtn").click(function() {
+				/* 회원인지 확인 */
+				if("${sessionScope.userId }" != null && "${sessionScope.userId }" != "") {	
+					window.location.href = "OHPhotoWriteView";
+				} else {
+					alert("로그인 페이지로 이동");
+				}
+			});
+		});			
+		
+		/* 변수 선언 - (정렬, 필터, 검색) 값 저장 */
+		var keepOrderingBy = "${keepOrderingBy}";		
+		var keepOrderingMethod = "${keepOrderingMethod}";		
+		var keepPb_category = "${keepPb_category}";		
+		var keepPb_residence = "${keepPb_residence}";		
+		var keepPb_room = "${keepPb_room}";
+		var keepPb_style = "${keepPb_style}";
+		var keepPb_skill = "${keepPb_skill}";
+		var keepSearchingType = "${keepSearchingType}";		
 		var keepSearchingWord = "${keepSearchingWord}";
+		
+		/* 콘솔, 값 출력 */
+		console.log("keepOrderingBy: " + keepOrderingBy);
+		console.log("keepOrderingMethod: " + keepOrderingMethod);
+		console.log("keepPb_category: " + keepPb_category);
+		console.log("keepPb_residence: " + keepPb_residence);
+		console.log("keepPb_room: " + keepPb_room);
+		console.log("keepPb_style: " + keepPb_style);
+		console.log("keepPb_skill: " + keepPb_skill);
+		console.log("keepSearchingType: " + keepSearchingType);
 		console.log("keepSearchingWord: " + keepSearchingWord);
-		/* keepSearchingWord 값은  searchingWord에 value 값으로 입력 */
 		
+		/* $(document).ready(function() {}); => 페이지가 로드된 후에 jQuery 실행 */
+		$(document).ready(function() {
+			$("#orderingBy").val(keepOrderingBy).prop("selected", true);
+			$("#orderingMethod").val(keepOrderingMethod).prop("selected", true);
+			$("#pb_category").val(keepPb_category).prop("selected", true);
+			$("#pb_residence").val(keepPb_residence).prop("selected", true);
+			$("#pb_room").val(keepPb_room).prop("selected", true);
+			$("#pb_style").val(keepPb_style).prop("selected", true);
+			$("#pb_skill").val(keepPb_skill).prop("selected", true);
+			$("#searchingType").val(keepSearchingType).prop("selected", true);
+			/* keepSearchingWord 값은  searchingWord에 value 값으로 입력 */
+		});
 		
-		
-		function toPage() {
-			var target = event.target;
-			console.log($(target).text());
- 			location.href = 'OHPhotoView?orderingBy=' + keepOrderingBy +
-										'&orderingMethod=' + keepOrderingMethod +
-					                    '&pb_category=' + keepPb_category +
-					                    '&pb_residence=' + keepPb_residence +
-					                    '&pb_room=' + keepPb_room +
-					                    '&pb_style=' + keepPb_style +
-					                    '&pb_skill=' + keepPb_skill +
-					                    '&searchingType=' + keepSearchingType +
-					                    '&searchingWord=' + keepSearchingWord +
-	                    				'&pageSelectedNum=' + $(target).text();
-		}				
-		
-		
-		
-		
-		
-		/* 페이지 이동 */
-		function toFirstPage() {
-			location.href = 'OHPhotoView?orderingBy=' + $("#orderingBy" ).val() +
-                   						'&orderingMethod=' + $("#orderingMethod").val() +
-					                    '&pb_category=' + $("#pb_category").val() +
-					                    '&pb_residence=' + $("#pb_residence").val() +
-					                    '&pb_room=' + $("#pb_room").val() +
-					                    '&pb_style=' + $("#pb_style").val() +
-					                    '&pb_skill=' + $("#pb_skill").val() +
-					                    '&searchingType=' + $("#searchingType").val() +
-					                    '&searchingWord=' + $("#searchingWord").val() +
-					                    '&pageSelectedNum=' + '1';					
+		// 처음 페이지로 이동하는 함수
+		function firstPage() {
+				var inputHidden = $('<input>', {
+				type: 'hidden',
+				name: 'pageSelectedNum',
+				value: '1'
+			}); 
+			$("#transPage").after(inputHidden);
+			document.getElementById("pageForm").submit();
+		};				
+		// 이전 페이지로 이동하는 함수
+		function beforePage() {
+				var inputHidden = $('<input>', {
+				type: 'hidden',
+				name: 'pageSelectedNum',
+				value: '${ohPageVO.pageSelectedNum - 1}'
+			}); 
+			$("#transPage").after(inputHidden);
+			document.getElementById("pageForm").submit();
+		};				
+		// 원하는 페이지로 이동하는 함수
+		function movePage(num) {
+			var pageNum = num
+			var inputHidden = $('<input>', {
+				type: 'hidden',
+				name: 'pageSelectedNum',
+				value: pageNum
+			});
+			$("#transPage").after(inputHidden);
+			document.getElementById("pageForm").submit();
 		}
-		function toBeforePage() {
-			location.href = 'OHPhotoView?orderingBy=' + $("#orderingBy" ).val() +
-										'&orderingMethod=' + $("#orderingMethod").val() +
-					                    '&pb_category=' + $("#pb_category").val() +
-					                    '&pb_residence=' + $("#pb_residence").val() +
-					                    '&pb_room=' + $("#pb_room").val() +
-					                    '&pb_style=' + $("#pb_style").val() +
-					                    '&pb_skill=' + $("#pb_skill").val() +
-					                    '&searchingType=' + $("#searchingType").val() +
-					                    '&searchingWord=' + $("#searchingWord").val() +
-	                    				'&pageSelectedNum=' + ${ohPageVO.pageSelectedNum - 1 };
-		}
+		// 다음 페이지로 이동하는 함수
+		function nextPage() {						
+				var inputHidden = $('<input>', {
+				type: 'hidden',
+				name: 'pageSelectedNum',
+				value: '${ohPageVO.pageSelectedNum + 1}'
+			}); 
+			$("#transPage").after(inputHidden);
+			document.getElementById("pageForm").submit();
+		};
+		// 마지막 페이지로 이동하는 함수
+		function lastPage() {
+				var inputHidden = $('<input>', {
+				type: 'hidden',
+				name: 'pageSelectedNum',
+				value: '${ohPageVO.pageTotalNum}'
+			}); 
+			$("#transPage").after(inputHidden);
+			document.getElementById("pageForm").submit();
+		};		
 		
-/* 		function toPage() {
-			var target = event.target;
-			location.href = 'OHPhotoView?orderingBy=' + $("#orderingBy" ).val() +
-										'&orderingMethod=' + $("#orderingMethod").val() +
-					                    '&pb_category=' + $("#pb_category").val() +
-					                    '&pb_residence=' + $("#pb_residence").val() +
-					                    '&pb_room=' + $("#pb_room").val() +
-					                    '&pb_style=' + $("#pb_style").val() +
-					                    '&pb_skill=' + $("#pb_skill").val() +
-					                    '&searchingType=' + $("#searchingType").val() +
-					                    '&searchingWord=' + $("#searchingWord").val() +
-	                    				'&pageSelectedNum=' + $(target).text();
-		}		 */		
-		
-		
-		function toNextPage() {
-			location.href = 'OHPhotoView?orderingBy=' + $("#orderingBy" ).val() +
-										'&orderingMethod=' + $("#orderingMethod").val() +
-					                    '&pb_category=' + $("#pb_category").val() +
-					                    '&pb_residence=' + $("#pb_residence").val() +
-					                    '&pb_room=' + $("#pb_room").val() +
-					                    '&pb_style=' + $("#pb_style").val() +
-					                    '&pb_skill=' + $("#pb_skill").val() +
-					                    '&searchingType=' + $("#searchingType").val() +
-					                    '&searchingWord=' + $("#searchingWord").val() +
-	                    				'&pageSelectedNum=' + ${ohPageVO.pageSelectedNum + 1 };
-		}				
-		function toLastPage() {
-			location.href = 'OHPhotoView?orderingBy=' + $("#orderingBy" ).val() +
-										'&orderingMethod=' + $("#orderingMethod").val() +
-					                    '&pb_category=' + $("#pb_category").val() +
-					                    '&pb_residence=' + $("#pb_residence").val() +
-					                    '&pb_room=' + $("#pb_room").val() +
-					                    '&pb_style=' + $("#pb_style").val() +
-					                    '&pb_skill=' + $("#pb_skill").val() +
-					                    '&searchingType=' + $("#searchingType").val() +
-					                    '&searchingWord=' + $("#searchingWord").val() +
-	                    				'&pageSelectedNum=' + ${ohPageVO.pageTotalNum };
-		}	
 	</script>		
+	
 </html>
 
 

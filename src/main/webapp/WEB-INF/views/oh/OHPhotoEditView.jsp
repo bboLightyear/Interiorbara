@@ -4,9 +4,21 @@
 <!DOCTYPE html>
 <html>
 <head>
+
 	<meta charset="UTF-8">
+
 	<title>OH - OHPhotoEditView.jsp</title>
-	<link rel="stylesheet" href="../resources/css/oh/oh.css?after" />	
+
+	<!-- oh.css -->
+	<link rel="stylesheet" href="../resources/css/oh/photo.css?after" />
+	
+	<!-- https://fontawesome.com/ -->
+	<link  rel="stylesheet"
+	  	   href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"/>
+	  	   
+	<!-- https://jquery.com/ -->		
+	<script src="https://code.jquery.com/jquery-3.7.1.js" ></script>
+
 </head>
 <body>
 
@@ -214,7 +226,7 @@
 					<div>pa_no: ${dto.pa_no }</div>
 					<div>pa_attach: ${dto.pa_attach }</div>
 					<div>pb_no: ${dto.pb_no }</div>
-					<img src="../resources/upload/oh/${dto.pa_attach }" alt="해당 게시글 사진" height="300px" width="300px"/>					
+					<img src="../resources/upload/oh/photo/${dto.pa_attach }" alt="해당 게시글 사진" height="300px" width="300px"/>					
 				</div>
 			</c:forEach>		
 			<!-- 게시물, 이미지 출력 End -->							

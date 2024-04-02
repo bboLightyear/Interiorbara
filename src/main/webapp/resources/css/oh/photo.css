@@ -6,7 +6,8 @@ header {
 	height: 130px;
 	text-align: center;
 }
-/* ----- header ----- */
+/* ----- header End ----- */
+
 
 /* ----- footer ----- */
 footer {
@@ -15,7 +16,8 @@ footer {
 	height: 130px;
 	text-align: center;
 }		
-/* ----- footer ----- */
+/* ----- footer End ----- */
+	
 	
 /* ----- sideBar ----- */
 .sideBar {
@@ -41,14 +43,16 @@ footer {
 .sideBar ul li a:hover {
 
 }		
-/* ----- sideBar ----- */
+/* ----- sideBar End ----- */
+
 
 /* ----- contents ----- */
 .contents {
 	text-align: center;
 	width: 1800px
 }
-/* ----- contents ----- */
+/* ----- contents End ----- */
+
 
 /* ----- OHPhotoView.jsp ----- */
 .OHPhotoViewflexContainer {
@@ -62,22 +66,44 @@ footer {
        /* margin-bottom:30px;	 */	
 }
 .OHPhotoViewflexContainer .box {
-       padding: 5px;
-       margin: 5px;   
-    width: 500px;
-    height: 500px;
-       background-color: #f6f7ad; 		
+	padding: 5px;
+    margin: 5px;   
+	width: 500px;
+    height: 600px;
+   	background-color: #f6f7ad;
+   	 		
 	/* 	        
 	flex-basis: auto;
-       flex-grow: 1;
-       flex-shrink: 1; 
-       */
-}
-/* ----- OHPhotoView.jsp ----- */
-
-
-.clear {
-	clear: both;
+    flex-grow: 1;
+    flex-shrink: 1; 
+    */
 }
 
-		
+.likeImage {
+	color: #333;
+	font-size:40px;
+}
+
+.likeImage.clickColor {
+	color: #f72828;
+}
+
+.scrapImage {
+	color: #333;
+	font-size:40px;	
+}
+
+.scrapImage.clickColor {
+	color: #4fc94f;
+}
+/* ----- OHPhotoView.jsp End ----- */
+
+
+
+
+
+
+
+
+
+

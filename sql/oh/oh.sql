@@ -1,5 +1,5 @@
 --------------------------------------------------------------------------------
--- FLASHBACK TABLE ≈◊¿Ã∫Ì∏Ì TO BEFORE DROP;
+-- FLASHBACK TABLE ÌÖåÏù¥Î∏îÎ™Ö TO BEFORE DROP;
 
 PURGE RECYCLEBIN;
 
@@ -12,21 +12,21 @@ ROLLBACK;
 -- OH_PHOTO_BOARD
 -- CREATE
 CREATE TABLE OH_PHOTO_BOARD (
-    PB_NO		    NUMBER PRIMARY KEY,   -- π¯»£
-    PB_USER		    VARCHAR2(30),         -- ªÁøÎ¿⁄
-    PB_TITLE	    VARCHAR2(50),         -- ¡¶∏Ò
-    PB_CONTENT	    VARCHAR2(200),        -- ≥ªøÎ
-    PB_DATE		    DATE DEFAULT SYSDATE, -- ≥Ø¬•
-    PB_LIKE		    NUMBER DEFAULT 0,     -- ¡¡æ∆ø‰ºˆ
-    PB_SCRAP	    NUMBER DEFAULT 0,     -- Ω∫≈©∑¶ºˆ
-    PB_REPLY	    NUMBER DEFAULT 0,     -- ¥Ò±€ºˆ
-    PB_LINK		    NUMBER DEFAULT 0,     -- ∞¯¿Øºˆ
-    PB_HIT		    NUMBER DEFAULT 0,     -- ¡∂»∏ºˆ
-    PB_CATEGORY	    VARCHAR2(50),         -- #ƒ´≈◊∞Ì∏Æ
-    PB_RESIDENCE    VARCHAR2(30),         -- ¡÷∞≈«¸≈¬
-    PB_ROOM		    VARCHAR2(30),         -- ∞¯∞£
-    PB_STYLE		VARCHAR2(30),         -- Ω∫≈∏¿œ
-    PB_SKILL		VARCHAR2(30)          -- ºø«¡/¿¸πÆ∞°
+    PB_NO		    NUMBER PRIMARY KEY,   -- Î≤àÌò∏
+    PB_USER		    VARCHAR2(30),         -- ÏÇ¨Ïö©Ïûê
+    PB_TITLE	    VARCHAR2(50),         -- Ï†úÎ™©
+    PB_CONTENT	    VARCHAR2(200),        -- ÎÇ¥Ïö©
+    PB_DATE		    DATE DEFAULT SYSDATE, -- ÎÇ†Ïßú
+    PB_LIKE		    NUMBER DEFAULT 0,     -- Ï¢ãÏïÑÏöîÏàò
+    PB_SCRAP	    NUMBER DEFAULT 0,     -- Ïä§ÌÅ¨Îû©Ïàò
+    PB_REPLY	    NUMBER DEFAULT 0,     -- ÎåìÍ∏ÄÏàò
+    PB_LINK		    NUMBER DEFAULT 0,     -- Í≥µÏú†Ïàò
+    PB_HIT		    NUMBER DEFAULT 0,     -- Ï°∞ÌöåÏàò
+    PB_CATEGORY	    VARCHAR2(50),         -- #Ïπ¥ÌÖåÍ≥†Î¶¨
+    PB_RESIDENCE    VARCHAR2(30),         -- Ï£ºÍ±∞ÌòïÌÉú
+    PB_ROOM		    VARCHAR2(30),         -- Í≥µÍ∞Ñ
+    PB_STYLE		VARCHAR2(30),         -- Ïä§ÌÉÄÏùº
+    PB_SKILL		VARCHAR2(30)          -- ÏÖÄÌîÑ/Ï†ÑÎ¨∏Í∞Ä
 );
 
 DROP TABLE OH_PHOTO_BOARD;
@@ -39,6 +39,9 @@ SELECT * FROM OH_PHOTO_BOARD;
 
 SELECT MAX(PB_NO) FROM OH_PHOTO_BOARD;
 
+-- DELETE
+DELETE FROM OH_PHOTO_BOARD;
+
 -- SEQUENCE
 
 CREATE SEQUENCE OH_PHOTO_BOARD_SEQ;
@@ -50,11 +53,18 @@ DROP SEQUENCE OH_PHOTO_BOARD_SEQ;
 INSERT INTO 
     OH_PHOTO_BOARD
 VALUES (
-    OH_PHOTO_BOARD_SEQ.NEXTVAL, '»´±Êµø', '±Êµø¿Ã ¡˝¿⁄∂˚', 'æ»≥Á«œººø‰.. »´±Êµø¿‘¥œ¥Ÿ...', SYSDATE, 
+    OH_PHOTO_BOARD_SEQ.NEXTVAL, 'ÌôçÍ∏∏Îèô', 'Í∏∏ÎèôÏù¥ ÏßëÏûêÎûë', 'ÏïàÎÖïÌïòÏÑ∏Ïöî.. ÌôçÍ∏∏ÎèôÏûÖÎãàÎã§...', SYSDATE, 
     0, 0, 0, 0, 0, 
-    '#±◊≥…', 'æ∆∆ƒ∆Æ', '∞≈Ω«', '∫Û∆º¡ˆ', 'ºø«¡'
+    '#Í∑∏ÎÉ•', 'ÏïÑÌååÌä∏', 'Í±∞Ïã§', 'ÎπàÌã∞ÏßÄ', 'ÏÖÄÌîÑ'
 );
 
+-- UPDATE
+UPDATE
+    OH_PHOTO_BOARD
+SET
+    PB_HIT = PB_HIT + 1
+WHERE
+    PB_NO = 50;
 
 
      
@@ -63,38 +73,44 @@ VALUES (
 -- OH_PHOTO_ATTACH
 -- CREATE
 CREATE TABLE OH_PHOTO_ATTACH (
-    PA_NO       NUMBER PRIMARY KEY, -- π¯»£
-    PA_ATTACH   VARCHAR2(50),       -- ªÁ¡¯√∑∫Œ
-    PB_NO       NUMBER CONSTRAINT   -- π¯»£(OH_PHOTO_BOARD)     
+    PA_NO       NUMBER PRIMARY KEY, -- Î≤àÌò∏
+    PA_ATTACH   VARCHAR2(50),       -- ÏÇ¨ÏßÑÏ≤®Î∂Ä
+    PB_NO       NUMBER CONSTRAINT   -- Î≤àÌò∏(OH_PHOTO_BOARD)     
                            PA_PB_NO_FK
                        REFERENCES 
                            OH_PHOTO_BOARD(PB_NO) 
                        ON DELETE CASCADE 
 );
+--------------------------------------
 -- DROP
 DROP TABLE OH_PHOTO_ATTACH;
 -- DROP PURGE
 DROP TABLE OH_PHOTO_ATTACH PURGE;
-
+--------------------------------------
 -- SEQUENCE
+--------------------------------------
 -- CREATE
 CREATE SEQUENCE OH_PHOTO_ATTACH_SEQ;
 -- DROP
 DROP SEQUENCE OH_PHOTO_ATTACH_SEQ;
-
+--------------------------------------
 -- CONSTRAINT
--- ¡∂»∏
+--------------------------------------
+-- Ï°∞Ìöå
 SELECT * FROM ALL_CONSTRAINTS
 WHERE TABLE_NAME = 'OH_PHOTO_ATTACH';
--- ªË¡¶
+-- ÏÇ≠Ï†ú
 ALTER TABLE OH_PHOTO_ATTACH DROP CONSTRAINT PA_PB_NO_FK;
-
+--------------------------------------
 -- SELECT
--- ≈◊¿Ã∫Ì ¿¸√º ¡∂»∏
+--------------------------------------
+-- ÌÖåÏù¥Î∏î Ï†ÑÏ≤¥ Ï°∞Ìöå
 SELECT * FROM OH_PHOTO_ATTACH;
--- ∞‘Ω√π∞∑Œ ±◊∑Ï, √ππ¯¬∞ ¿ÃπÃ¡ˆ π¯»£¡∂»∏
+--------------------------------------
+-- Í≤åÏãúÎ¨ºÎ°ú Í∑∏Î£π, Ï≤´Î≤àÏß∏ Ïù¥ÎØ∏ÏßÄ Î≤àÌò∏Ï°∞Ìöå
 SELECT MIN(PA_NO) FROM OH_PHOTO_ATTACH GROUP BY PB_NO;
--- ∞¢∞¢ ∞‘Ω√π∞¿« √ππ¯¬∞ ¿ÃπÃ¡ˆ ¡∂»∏
+--------------------------------------
+-- Í∞ÅÍ∞Å Í≤åÏãúÎ¨ºÏùò Ï≤´Î≤àÏß∏ Ïù¥ÎØ∏ÏßÄ Ï°∞Ìöå
 SELECT 
     * 
 FROM 
@@ -111,75 +127,261 @@ WHERE
 ORDER BY 
     PA_NO
 ;
--- ¿ß ∞·∞˙, LEFT OUTER JOIN WITH OH_PHOTO_BOARD
+--------------------------------------
+-- ÏúÑ Í≤∞Í≥º, LEFT OUTER JOIN WITH OH_PHOTO_BOARD
+--------------------------------------
+-- ORACLE
 SELECT 
     * 
 FROM 
     OH_PHOTO_BOARD OH1, (SELECT 
-                            * 
+                             * 
                          FROM 
-                            OH_PHOTO_ATTACH 
+                             OH_PHOTO_ATTACH 
                          WHERE 
-                         PA_NO IN (
-                                   SELECT 
-                                       MIN(PA_NO) 
-                                   FROM 
-                                       OH_PHOTO_ATTACH 
-                                   GROUP BY 
-                                       PB_NO
-                                  ) 
+                             PA_NO IN (
+                                       SELECT 
+                                           MIN(PA_NO) 
+                                       FROM 
+                                           OH_PHOTO_ATTACH 
+                                       GROUP BY 
+                                           PB_NO
+                                      ) 
                          ORDER BY 
-                            PA_NO
+                             PA_NO
                         ) OH2
 WHERE 
     OH1.PB_NO = OH2.PB_NO(+)
+ORDER BY
+    PB_DATE DESC
 ;
-
-
-		SELECT 
-		    * 
-		FROM 
-		    OH_PHOTO_BOARD OH1 
-		LEFT OUTER JOIN 
-			(SELECT 
-                * 
-             FROM 
-                OH_PHOTO_ATTACH 
-             WHERE 
-             PA_NO IN (
-                       SELECT 
-                           MIN(PA_NO) 
-                       FROM 
-                           OH_PHOTO_ATTACH 
-                       GROUP BY 
-                           PB_NO
-                      ) 
-             ORDER BY 
-                PA_NO
-            ) OH2
-		ON
-			OH1.PB_NO = OH2.PB_NO;	
-
-
-
-
-
-
-
-
-
-
+--------------------------------------
+-- ANSI
+SELECT 
+    * 
+FROM 
+    OH_PHOTO_BOARD OH1 
+LEFT OUTER JOIN 
+    (SELECT 
+         * 
+     FROM 
+         OH_PHOTO_ATTACH 
+     WHERE 
+         PA_NO IN (
+                   SELECT 
+                       MIN(PA_NO) 
+                   FROM 
+                       OH_PHOTO_ATTACH 
+                   GROUP BY 
+                       PB_NO
+                  ) 
+     ORDER BY 
+         PA_NO
+    ) OH2
+ON
+    OH1.PB_NO = OH2.PB_NO
+ORDER BY
+    PB_DATE DESC    
+;
+--------------------------------------
+-- version 2
+SELECT
+    ROWNUM, N.*
+FROM
+    (SELECT 
+         * 
+     FROM 
+         OH_PHOTO_BOARD OH1 
+     LEFT OUTER JOIN 
+         (SELECT 
+              * 
+          FROM 
+              OH_PHOTO_ATTACH 
+          WHERE 
+              PA_NO IN (
+                        SELECT 
+                            MIN(PA_NO) 
+                        FROM 
+                            OH_PHOTO_ATTACH 
+                        GROUP BY 
+                            PB_NO
+                       ) 
+          ORDER BY 
+              PA_NO
+         ) OH2
+     ON
+         OH1.PB_NO = OH2.PB_NO
+     ORDER BY
+        PB_DATE DESC
+    ) N
+WHERE
+    ROWNUM BETWEEN 1 AND 3
+;	
+--------------------------------------
+SELECT
+    *
+FROM
+    (SELECT
+         ROWNUM NO, N.*
+     FROM
+         (SELECT 
+              * 
+          FROM 
+              OH_PHOTO_BOARD OH1 
+          LEFT OUTER JOIN 
+              (SELECT 
+                   * 
+               FROM 
+                   OH_PHOTO_ATTACH 
+               WHERE 
+                   PA_NO IN (
+                             SELECT 
+                                 MIN(PA_NO) 
+                             FROM 
+                                 OH_PHOTO_ATTACH 
+                             GROUP BY 
+                                 PB_NO
+                            ) 
+               ORDER BY 
+                   PA_NO
+              ) OH2
+          ON
+              OH1.PB_NO = OH2.PB_NO
+          ORDER BY
+              PB_DATE DESC              
+         ) N
+     WHERE
+        PB_TITLE LIKE '%Î∂ÄÍ∏∞%'   
+    )    
+WHERE
+    NO BETWEEN 1 AND 3
+;	
+--------------------------------------
+SELECT
+    *
+FROM
+    (SELECT
+         ROWNUM NO, N.*
+     FROM
+         (SELECT 
+              * 
+          FROM 
+              OH_PHOTO_BOARD OH1 
+          LEFT OUTER JOIN 
+              (SELECT 
+                   * 
+               FROM 
+                   OH_PHOTO_ATTACH 
+               WHERE 
+                   PA_NO IN (
+                             SELECT 
+                                 MIN(PA_NO) 
+                             FROM 
+                                 OH_PHOTO_ATTACH 
+                             GROUP BY 
+                                 PB_NO
+                            ) 
+               ORDER BY 
+                   PA_NO
+              ) OH2
+          ON
+              OH1.PB_NO = OH2.PB_NO
+         ) N
+     WHERE
+        PB_TITLE LIKE '%Î∂ÄÍ∏∞%'   
+    )    
+WHERE
+    NO BETWEEN 1 AND 3
+ORDER BY
+    PB_DATE DESC
+;	
+--------------------------------------
 -- INSERT
 INSERT INTO 
     OH_PHOTO_ATTACH (PA_NO, PA_ATTACH) 
 VALUES (
-    OH_PHOTO_ATTACH_SEQ.NEXTVAL, '∆ƒ¿œ¿Ã∏ß'
+    OH_PHOTO_ATTACH_SEQ.NEXTVAL, 'ÌååÏùºÏù¥Î¶Ñ'
 );
+--------------------------------------
 -- DELETE
+DELETE FROM OH_PHOTO_ATTACH;
+
 DELETE FROM OH_PHOTO_ATTACH WHERE PA_NO = 1;
+--------------------------------------
+--------------------------------------------------------------------------------
+-- TABLE
+-- OH_PHOTO_LIKE
+-- CREATE
+CREATE TABLE OH_PHOTO_LIKE (
+    PL_NO NUMBER PRIMARY KEY,
+    PL_USER VARCHAR2(20),
+    PL_DATE DATE,
+    PB_NO NUMBER CONSTRAINT -- Î≤àÌò∏(OH_PHOTO_BOARD)     
+                    PL_PB_NO_FK
+                 REFERENCES 
+                    OH_PHOTO_BOARD(PB_NO) 
+                 ON DELETE CASCADE 
+);
+--------------------------------------
+-- SEQUENCE
+--------------------------------------
+-- CREATE
+CREATE SEQUENCE OH_PHOTO_LIKE_SEQ;
+-- DROP
+DROP SEQUENCE OH_PHOTO_LIKE_SEQ;
+--------------------------------------
+-- SELECT
+--------------------------------------
+SELECT * FROM OH_PHOTO_LIKE;
 
+SELECT COUNT(*) FROM OH_PHOTO_LIKE WHERE PL_USER = 'ÍπÄÍ≤ΩÌÉú';
 
+--------------------------------------
+-- INSERT
+--------------------------------------
+INSERT INTO 
+    OH_PHOTO_LIKE (PL_NO, PL_USER, PL_DATE) 
+VALUES (
+    OH_PHOTO_LIKE_SEQ.NEXTVAL, 'ÌôçÍ∏∏Îèô', SYSDATE
+);
+--------------------------------------
+--------------------------------------------------------------------------------
+-- TABLE
+-- OH_PHOTO_SCRAP
+-- CREATE
+CREATE TABLE OH_PHOTO_SCRAP (
+    PS_NO NUMBER PRIMARY KEY,
+    PS_USER VARCHAR2(20),
+    PS_DATE DATE,
+    PB_NO NUMBER CONSTRAINT -- Î≤àÌò∏(OH_PHOTO_BOARD)     
+                    PS_PB_NO_FK
+                 REFERENCES 
+                    OH_PHOTO_BOARD(PB_NO) 
+                 ON DELETE CASCADE 
+);
+--------------------------------------
+-- SEQUENCE
+--------------------------------------
+-- CREATE
+CREATE SEQUENCE OH_PHOTO_SCRAP_SEQ;
+-- DROP
+DROP SEQUENCE OH_PHOTO_SCRAP_SEQ;
+--------------------------------------
+-- SELECT
+--------------------------------------
+SELECT * FROM OH_PHOTO_SCRAP;
 
+SELECT COUNT(*) FROM OH_PHOTO_SCRAP WHERE PS_USER = 'ÍπÄÍ≤ΩÌÉú';
+
+--------------------------------------
+-- INSERT
+--------------------------------------
+INSERT INTO 
+    OH_PHOTO_SCRAP (PS_NO, PS_USER, PS_DATE) 
+VALUES (
+    OH_PHOTO_SCRAP_SEQ.NEXTVAL, 'ÌôçÍ∏∏Îèô', SYSDATE
+);
+--------------------------------------
 
 
 PURGE RECYCLEBIN;
@@ -187,6 +389,8 @@ PURGE RECYCLEBIN;
 COMMIT;
 
 ROLLBACK;
+
+
 
 
 

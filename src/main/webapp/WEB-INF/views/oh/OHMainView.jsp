@@ -4,9 +4,21 @@
 <!DOCTYPE html>
 <html>
 <head>
+
 	<meta charset="UTF-8">
+	
 	<title>OH - OHMainView.jsp</title>
-	<link rel="stylesheet" href="../resources/css/oh/oh.css?after" />	
+	
+	<!-- oh.css -->
+	<link rel="stylesheet" href="../resources/css/oh/photo.css?after" />
+	
+	<!-- https://fontawesome.com/ -->
+	<link  rel="stylesheet"
+	  	   href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"/>
+	  	   
+	<!-- https://jquery.com/ -->		
+	<script src="https://code.jquery.com/jquery-3.7.1.js" ></script>
+	
 </head>
 <body>
 	<div class="container">
@@ -29,12 +41,43 @@
 				<h3>OHMainView.jsp</h3>
 				
 				<h3>우리집 자랑하기</h3>						
-							
-				<button><a href="OHPhotoWriteView">글쓰기</a></button> <br />
+				
+				<!-- 회원, 비회원 구분 후 메세지 출력 -->
+				<c:choose>
+					<c:when test="${sessionScope.userId ne null && !empty sessionScope.userId }">
+						<h3>${sessionScope.userId }님 환영합니다! </h3>	
+					</c:when>
+					<c:otherwise>
+						<h3>비회원님 환영합니다!</h3>					
+					</c:otherwise>
+				</c:choose>
+				
+				<hr />
+				
+				<!-- jQuery 작성완료
+					     회원: 글쓰기 가능 
+					  비회원: 글쓰기 불가능
+					  -->
+				<button id="toWriteBtn">글쓰기</button> 
+				
+				<br />
+				
+				<hr />
+				
 				<button><a href="OHPhotoView">집사진</a></button>
-				<button>집사진 더보기</button> <br />
+				<button><a href="OHPhotoView">집사진 더보기</a></button> 
+				
+				<br />
+				
+				<hr />
+				
 				<button>집영상</button>
-				<button>집영상 더보기</button> <br />
+				<button>집영상 더보기</button> 
+				
+				<br />
+				
+				<hr />
+				
 				<button>#category</button><span>카테고리별로 보고 싶다면 여기!</span>
 								
 		</div>
@@ -45,4 +88,20 @@
 		
 	</div>	
 </body>
+
+	<script>
+	
+		$(document).ready(function() {
+			$("#toWriteBtn").click(function() {
+				/* 회원인지 확인 */
+				if("${sessionScope.userId }" != null && "${sessionScope.userId }" != "") {	
+					window.location.href = "OHPhotoWriteView";
+				} else {
+					alert("로그인 페이지로 이동");
+				}
+			});
+		});
+		
+	</script>
+
 </html>
