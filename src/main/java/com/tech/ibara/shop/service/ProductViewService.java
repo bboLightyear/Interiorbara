@@ -48,6 +48,7 @@ public class ProductViewService extends SqlSessionBase implements ShopService {
 		OptionDto optionDto = null;
 		ArrayList<OptionDto> optionDtoList = null;
 		ArrayList<OptionDto> parentOptionDtoList = null;
+		
 		switch (productDto.getOption_type()) {
 		case "0": {
 			int optionSetId = productDto.getOption1_set_id();
@@ -71,36 +72,15 @@ public class ProductViewService extends SqlSessionBase implements ShopService {
 			int optionSetId = productDto.getOption2_set_id();
 			optionSetDto = dao.selectOptionSet(optionSetId);
 			optionDtoList = dao.selectOptionsByOptionSet(optionSetId);
+			
 			break;
 		}
-		}
-		
-		
-		// option
-		OptionSetDto optionSetDto = dao.selectOptionSetByProduct(productId);
-		int optionSetId = optionSetDto.getOption_set_id();
-
-		OptionDto nonOptionDto = null;
-		OptionSetDto subOptionSetDto = null;
-
-		ArrayList<OptionDto> optionDtoList = null;
-
-		optionDtoList = dao.selectOptionsByOptionSet(optionSetId);
-
-		if (optionDtoList.size() == 1) {
-			nonOptionDto = dao.selectJoinOptionBySet(optionSetId);
-		} else {
-			OptionDto optionDto = optionDtoList.get(0);
-			if (optionDto.getSub_option_set_id() == null) {
-				optionDtoList = dao.selectJoinOptionsBySet(optionSetId);
-			} else {
-				subOptionSetDto = dao.selectOptionSetById(optionDto.getSub_option_set_id());
-			}
 		}
 
 		model.addAttribute("product", productDto);
 		model.addAttribute("categories", categories);
 		model.addAttribute("images", productImgs);
+		
 		model.addAttribute("optionSet", optionSetDto);
 		model.addAttribute("nonOption", nonOptionDto);
 		model.addAttribute("options", optionDtoList);
