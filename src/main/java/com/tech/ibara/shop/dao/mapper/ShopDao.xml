@@ -11,13 +11,22 @@
 			PRODUCT_ID,
 			SELLER_ID,
 			CATEGORY_ID,
-			OPTION_SET_ID,
-			DETAIL_INFO_ID,
 			NAME,
-			DELIVERY_FEE,
-			DISCOUNT_RATE,
 			REP_PRICE,
-			REP_D_PRICE
+			REP_DISCOUNTED_PRICE,
+			IS_DISCOUNTED,
+			DISCOUNT_RATE,
+			DELIVERY_FEE,
+			DELIVERY_TYPE,
+			REF_PRICE,
+			OPTION_TYPE,
+			OPTION1_SET_ID,
+			OPTION2_SET_ID,
+			REG_TIME,
+			HITS,
+			SALES,
+			SCRAPS,
+			REVIEWS
 		FROM
 			SHOP_PRODUCT
 		WHERE
@@ -31,13 +40,22 @@
 			PRODUCT_ID,
 			SELLER_ID,
 			CATEGORY_ID,
-			OPTION_SET_ID,
-			DETAIL_INFO_ID,
 			NAME,
-			DELIVERY_FEE,
-			DISCOUNT_RATE,
 			REP_PRICE,
-			REP_D_PRICE
+			REP_DISCOUNTED_PRICE,
+			IS_DISCOUNTED,
+			DISCOUNT_RATE,
+			DELIVERY_FEE,
+			DELIVERY_TYPE,
+			REF_PRICE,
+			OPTION_TYPE,
+			OPTION1_SET_ID,
+			OPTION2_SET_ID,
+			REG_TIME,
+			HITS,
+			SALES,
+			SCRAPS,
+			REVIEWS
 		FROM
 			SHOP_PRODUCT
 		WHERE
@@ -73,23 +91,26 @@
 	
 	<select id="selectAllSubCategoriesById" resultType="com.tech.ibara.shop.dto.CategoryDto">
 		SELECT
-		    NVL(S4.CATEGORY_ID, NVL(S3.CATEGORY_ID, S2.CATEGORY_ID)) CATEGORY_ID,
-		    NVL(S4.UP_CATEGORY_ID, NVL(S3.UP_CATEGORY_ID, S2.UP_CATEGORY_ID)) UP_CATEGORY_ID,
-		    NVL(S4.NAME, NVL(S3.NAME, S2.NAME)) NAME
+		    NVL(S4.CATEGORY_ID,
+		    	NVL(S3.CATEGORY_ID, S2.CATEGORY_ID)) CATEGORY_ID,
+		    NVL(S4.PARENT_CATEGORY_ID,
+		    	NVL(S3.PARENT_CATEGORY_ID, S2.PARENT_CATEGORY_ID)) PARENT_CATEGORY_ID,
+		    NVL(S4.NAME,
+		    	NVL(S3.NAME, S2.NAME)) NAME
 		FROM
 		    SHOP_CATEGORY S1
 		INNER JOIN
 		    SHOP_CATEGORY S2
 		ON
-		    S1.CATEGORY_ID = S2.UP_CATEGORY_ID
+		    S1.CATEGORY_ID = S2.PARENT_CATEGORY_ID
 		LEFT OUTER JOIN
 		    SHOP_CATEGORY S3
 		ON
-		    S2.CATEGORY_ID = S3.UP_CATEGORY_ID    
+		    S2.CATEGORY_ID = S3.PARENT_CATEGORY_ID    
 		LEFT OUTER JOIN
 		    SHOP_CATEGORY S4
 		ON
-		    S3.CATEGORY_ID = S4.UP_CATEGORY_ID
+		    S3.CATEGORY_ID = S4.PARENT_CATEGORY_ID
 		WHERE
 		    S1.CATEGORY_ID = #{param1}
 		ORDER BY
@@ -102,43 +123,57 @@
 		FROM
 		    SHOP_CATEGORY
 		START WITH
-		    UP_CATEGORY_ID IS NULL
+		    PARENT_CATEGORY_ID IS NULL
 		CONNECT BY
-		    PRIOR CATEGORY_ID = UP_CATEGORY_ID
+		    PRIOR CATEGORY_ID = PARENT_CATEGORY_ID
 	</select>
 	
 	<select id="selectAllLevelCategories" resultType="com.tech.ibara.shop.dto.LevelCategoryDto">
 		SELECT
-		    LEVEL, CATEGORY_ID, UP_CATEGORY_ID, NAME
+		    LEVEL,
+		    CATEGORY_ID,
+		    PARENT_CATEGORY_ID,
+		    NAME
 		FROM
 		    SHOP_CATEGORY
 		START WITH
-		    UP_CATEGORY_ID IS NULL
+		    PARENT_CATEGORY_ID IS NULL
 		CONNECT BY
-		    PRIOR CATEGORY_ID = UP_CATEGORY_ID
+		    PRIOR CATEGORY_ID = PARENT_CATEGORY_ID
 	</select>
 	
 	<select id="selectLv1Categories" resultType="com.tech.ibara.shop.dto.LevelCategoryDto" >
 		SELECT
-		    CATEGORY_ID, UP_CATEGORY_ID, NAME
+		    CATEGORY_ID,
+		    PARENT_CATEGORY_ID,
+		    NAME
 		FROM
 		    SHOP_CATEGORY
 		WHERE
-		    UP_CATEGORY_ID IS NULL
+		    PARENT_CATEGORY_ID IS NULL
 	</select>
 	
-	<select id="selectProductById" resultType="com.tech.ibara.shop.dto.ProductDto">
+	<select id="selectProduct" resultType="com.tech.ibara.shop.dto.ProductDto">
 		SELECT
 			PRODUCT_ID,
 			SELLER_ID,
 			CATEGORY_ID,
-			OPTION_SET_ID,
-			DETAIL_INFO_ID,
 			NAME,
-			DELIVERY_FEE,
-			DISCOUNT_RATE,
 			REP_PRICE,
-			REP_D_PRICE
+			REP_DISCOUNTED_PRICE,
+			IS_DISCOUNTED,
+			DISCOUNT_RATE,
+			DELIVERY_FEE,
+			DELIVERY_TYPE,
+			REF_PRICE,
+			OPTION_TYPE,
+			OPTION1_SET_ID,
+			OPTION2_SET_ID,
+			REG_TIME,
+			HITS,
+			SALES,
+			SCRAPS,
+			REVIEWS
 		FROM
 			SHOP_PRODUCT
 		WHERE
@@ -147,215 +182,86 @@
 	
 	<select id="selectOptionSetByProduct" resultType="com.tech.ibara.shop.dto.OptionSetDto">
 		SELECT
-		    OPTION_SET_ID, NAME
+		    OPTION_SET_ID,
+		    NAME
 		FROM
 		    SHOP_OPTION_SET
 		WHERE
 		    OPTION_SET_ID = (
-		    SELECT
-		        OPTION_SET_ID
-		    FROM
-		        SHOP_PRODUCT
-		    WHERE
-		        PRODUCT_ID = #{param1})
+			    SELECT
+			        OPTION_SET_ID
+			    FROM
+			        SHOP_PRODUCT
+			    WHERE
+			        PRODUCT_ID = #{param1})
 	</select>
 	
-	<select id="selectOptionSetById" resultType="com.tech.ibara.shop.dto.OptionSetDto">
+	<select id="selectOptionSet" resultType="com.tech.ibara.shop.dto.OptionSetDto">
 		SELECT
-		    OPTION_SET_ID, NAME
+		    OPTION_SET_ID,
+		    NAME
 		FROM
 		    SHOP_OPTION_SET
 		WHERE
 		    OPTION_SET_ID = #{param1}
 	</select>
 	
-	<select id="selectOptionsBySet" resultType="com.tech.ibara.shop.dto.OptionDto">
+	<select id="selectOptionsByOptionSet" resultType="com.tech.ibara.shop.dto.OptionDto">
 		SELECT
-		    OPTION_ID, OPTION_SET_ID, SUB_OPTION_SET_ID, PRODUCT_DATA_ID, NAME
+		    OPTION_ID,
+			OPTION_SET_ID,
+			PARENT_OPTION_ID,
+			NAME,
+			STOCK,
+			PRICE,
+			DISCOUNTED_PRICE
 		FROM
 		    SHOP_OPTION
 		WHERE
 		    OPTION_SET_ID = #{param1}
 	</select>
 	
-	<select id="selectOptionById" resultType="com.tech.ibara.shop.dto.OptionDto">
+	<select id="selectOptionByOptionSet" resultType="com.tech.ibara.shop.dto.OptionDto">
 		SELECT
-		    OPTION_ID, OPTION_SET_ID, SUB_OPTION_SET_ID, PRODUCT_DATA_ID, NAME
+		    OPTION_ID,
+			OPTION_SET_ID,
+			PARENT_OPTION_ID,
+			NAME,
+			STOCK,
+			PRICE,
+			DISCOUNTED_PRICE
+		FROM
+		    SHOP_OPTION
+		WHERE
+		    OPTION_SET_ID = #{param1}
+	</select>
+	
+	<select id="selectOption" resultType="com.tech.ibara.shop.dto.OptionDto">
+		SELECT
+		    OPTION_ID,
+			OPTION_SET_ID,
+			PARENT_OPTION_ID,
+			NAME,
+			STOCK,
+			PRICE,
+			DISCOUNTED_PRICE
 		FROM
 		    SHOP_OPTION
 		WHERE
 		    OPTION_ID = #{param1}
 	</select>
 	
-	<resultMap type="com.tech.ibara.shop.dto.OptionDto" id="OptionDto">
-		<result column="OPTION_ID" property="option_id" />
-		<result column="OPTION_SET_ID" property="option_set_id" />
-		<result column="SUB_OPTION_SET_ID" property="sub_option_set_id" />
-		<result column="PRODUCT_DATA_ID" property="product_data_id" />
-		<result column="NAME" property="name" />
-	</resultMap>
-	
-	<select id="selectJoinOptionBySet" parameterType="com.tech.ibara.shop.dto.OptionDto" resultMap="OptionDto">
-		SELECT
-			O.OPTION_ID, O.OPTION_SET_ID, O.NAME, D.STOCK, D.PRICE, D.DISCOUNTED_PRICE
-		FROM
-			SHOP_OPTION O
-		JOIN
-			SHOP_PRODUCT_DATA D
-		ON
-			O.PRODUCT_DATA_ID = D.PRODUCT_DATA_ID
-		WHERE
-			O.OPTION_SET_ID = #{param1}
-	</select>
-	
-	<select id="selectJoinOptionsBySet" parameterType="com.tech.ibara.shop.dto.OptionDto" resultMap="OptionDto">
-		SELECT
-			O.OPTION_ID, O.OPTION_SET_ID, O.NAME, D.STOCK, D.PRICE, D.DISCOUNTED_PRICE
-		FROM
-			SHOP_OPTION O
-		JOIN
-			SHOP_PRODUCT_DATA D
-		ON
-			O.PRODUCT_DATA_ID = D.PRODUCT_DATA_ID
-		WHERE
-			O.OPTION_SET_ID = #{param1}
-	</select>
-	
-	<select id="selectJoinOptionById" parameterType="com.tech.ibara.shop.dto.OptionDto" resultMap="OptionDto">
-		SELECT
-			O.OPTION_ID, O.OPTION_SET_ID, O.NAME, D.STOCK, D.PRICE, D.DISCOUNTED_PRICE
-		FROM
-			SHOP_OPTION O
-		JOIN
-			SHOP_PRODUCT_DATA D
-		ON
-			O.PRODUCT_DATA_ID = D.PRODUCT_DATA_ID
-		WHERE
-			O.OPTION_ID = #{param1}
-	</select>
-	
 	<select id="selectProductImgsByProduct" resultType="com.tech.ibara.shop.dto.ProductImgDto">
 		SELECT
-		    PRODUCT_IMG_ID, PRODUCT_ID, FILE_SRC
+		    PRODUCT_IMG_ID,
+		    PRODUCT_ID,
+		    FILE_SRC
 		FROM
 		    SHOP_PRODUCT_IMG
 		WHERE
 		    PRODUCT_ID = #{param1}
 		ORDER BY
 			PRODUCT_IMG_ID
-	</select>
-	
-	<resultMap type="com.tech.ibara.shop.dto.OptionSetDto" id="OptionSetDto">
-		<result column="OPTION_SET_ID" property="option_set_id" />
-		<result column="NAME" property="name" />
-	</resultMap>
-	
-	<resultMap type="com.tech.ibara.shop.dto.BasketDto" id="BasketDto">
-		<result column="BASKET_ID" property="basket_id" />
-		<result column="USER_ID" property="user_id" />
-		<result column="PRODUCT_ID" property="product_id" />
-		<result column="OPTION_ID" property="option_id" />
-		<result column="QUANTITY" property="quantity" />
-		<collection columnPrefix="first_" property="option_dto" resultMap="OptionDto"></collection>
-		<collection columnPrefix="final_" property="final_option_dto" resultMap="OptionDto"></collection>
-		<collection columnPrefix="firstset_" property="option_set_dto" resultMap="OptionSetDto"></collection>
-		<collection columnPrefix="finalset_" property="final_option_set_dto" resultMap="OptionSetDto"></collection>
-	</resultMap>
-	
-	<select id="selectBasketsByUser" parameterType="com.tech.ibara.shop.dto.BasketDto" resultMap="BasketDto">
-		SELECT
-		    B.BASKET_ID, B.USER_ID, B.PRODUCT_ID, B.OPTION_ID, B.QUANTITY,
-		    S2.NAME FIRSTSET_NAME, O2.NAME FIRST_NAME,
-		    S.NAME FINALSET_NAME, O.NAME FINAL_NAME, D.PRICE, D.DISCOUNTED_PRICE
-		FROM
-		    SHOP_BASKET B
-		JOIN
-		    SHOP_OPTION O
-		ON
-		    B.OPTION_ID = O.OPTION_ID
-		JOIN
-		    SHOP_PRODUCT_DATA D
-		ON
-		    O.PRODUCT_DATA_ID = D.PRODUCT_DATA_ID
-		JOIN
-		    SHOP_OPTION_SET S
-		ON
-		    O.OPTION_SET_ID = S.OPTION_SET_ID
-		LEFT OUTER JOIN
-		    SHOP_OPTION O2
-		ON
-		    S.OPTION_SET_ID = O2.SUB_OPTION_SET_ID
-		LEFT OUTER JOIN
-		    SHOP_OPTION_SET S2
-		ON
-		    O2.OPTION_SET_ID = S2.OPTION_SET_ID
-		WHERE
-			USER_ID = #{param1}
-	</select>
-	
-	<resultMap type="com.tech.ibara.shop.dto.ProductDto" id="ProductDto">
-		<result column="PRODUCT_ID" property="product_id" />
-		<result column="SELLER_ID" property="seller_id" />
-		<result column="CATEGORY_ID" property="category_id" />
-		<result column="OPTION_SET_ID" property="option_set_id" />
-		<result column="DETAIL_INFO_ID" property="detail_info_id" />
-		<result column="NAME" property="name" />
-		<result column="DELIVERY_FEE" property="delivery_fee" />
-		<result column="DISCOUNT_RATE" property="discount_rate" />
-		<result column="REP_PRICE" property="rep_price" />
-		<result column="REP_D_PRICE" property="rep_d_price" />
-	</resultMap>
-	
-	<resultMap type="com.tech.ibara.shop.dto.BasketDto" id="BasketDto2">
-		<result column="BASKET_ID" property="basket_id" />
-		<result column="USER_ID" property="user_id" />
-		<result column="PRODUCT_ID" property="product_id" />
-		<result column="OPTION_ID" property="option_id" />
-		<result column="QUANTITY" property="quantity" />
-		<collection columnPrefix="first_" property="option_dto" resultMap="OptionDto"></collection>
-		<collection columnPrefix="final_" property="final_option_dto" resultMap="OptionDto"></collection>
-		<collection columnPrefix="firstset_" property="option_set_dto" resultMap="OptionSetDto"></collection>
-		<collection columnPrefix="finalset_" property="final_option_set_dto" resultMap="OptionSetDto"></collection>
-		<collection property="product_dto" resultMap="ProductDto"></collection>
-	</resultMap>
-	
-	<select id="selectBasketsByIds" parameterType="com.tech.ibara.shop.dto.BasketDto" resultMap="BasketDto2">
-		SELECT
-		    B.BASKET_ID, B.USER_ID, B.PRODUCT_ID, B.OPTION_ID, B.QUANTITY,
-		    S2.NAME FIRSTSET_NAME, O2.NAME FIRST_NAME,
-		    S.NAME FINALSET_NAME, O.NAME FINAL_NAME, D.PRICE, D.DISCOUNTED_PRICE,
-		    P.DELIVERY_FEE, P.NAME
-		FROM
-		    SHOP_BASKET B
-		JOIN
-		    SHOP_OPTION O
-		ON
-		    B.OPTION_ID = O.OPTION_ID
-		JOIN
-		    SHOP_PRODUCT_DATA D
-		ON
-		    O.PRODUCT_DATA_ID = D.PRODUCT_DATA_ID
-		JOIN
-		    SHOP_OPTION_SET S
-		ON
-		    O.OPTION_SET_ID = S.OPTION_SET_ID
-		LEFT OUTER JOIN
-		    SHOP_OPTION O2
-		ON
-		    S.OPTION_SET_ID = O2.SUB_OPTION_SET_ID
-		LEFT OUTER JOIN
-		    SHOP_OPTION_SET S2
-		ON
-		    O2.OPTION_SET_ID = S2.OPTION_SET_ID
-		JOIN
-			SHOP_PRODUCT P
-		ON
-			P.PRODUCT_ID = B.PRODUCT_ID
-		WHERE
-			BASKET_ID IN
-			<foreach item="item" index="index" collection="list" open="(" separator="," close=")">
-				#{item}
-			</foreach>
 	</select>
 	
 	<select id="selectBasketQuantity" resultType="Integer">
@@ -372,10 +278,19 @@
 			ORDER_ID,
 			USER_ID,
 			ORDER_STATE_ID,
-			USER_ADDR_ID,
-			ORDERER_INFO_ID,
-			PAYMENT_INFO_ID,
+			ADDRESS_NAME,
+			RECEIVER_NAME,
+			RECEIVER_PHONE,
+			ZIPCODE,
+			BIG_ADDRESS,
+			DETAIL_ADDRESS,
+			ORDERER_NAME,
+			ORDERER_PHONE,
+			ORDERER_EMAIL,
+			PAYMENT_TYPE_ID,
 			ORDER_DATE,
+			TOTAL_PRICE,
+			TOTAL_DELIVERY_FEE,
 			AMOUNT
 		FROM
 			SHOP_ORDER
@@ -390,7 +305,8 @@
 			PRODUCT_ID,
 			OPTION_ID,
 			NAME,
-			PRICE,
+			TOTAL_PRICE,
+			TOTAL_DELIVERY_FEE,
 			QUANTITY,
 			OPTION_TEXT
 		FROM
@@ -416,44 +332,59 @@
 		useGeneratedKeys="true" keyColumn="OPTION_ID" keyProperty="option_id" >
 		INSERT INTO
 			SHOP_OPTION (
-				OPTION_ID,
 				OPTION_SET_ID,
-				SUB_OPTION_SET_ID,
-				PRODUCT_DATA_ID,
-				NAME)
+				PARENT_OPTION_ID,
+				NAME,
+				STOCK,
+				PRICE,
+				DISCOUNTED_PRICE)
 		VALUES (
 			SEQ_SHOP_OPTION.NEXTVAL,
 			#{option_set_id},
-			#{sub_option_set_id, jdbcType=INTEGER},
-			#{product_data_id, jdbcType=INTEGER},
-			#{name})
+			#{parent_option_id, jdbcType=INTEGER},
+			#{name},
+			#{stock},
+			#{price},
+			#{discounted_price, jdbcType=INTEGER})
 	</insert>
 	
 	<insert id="insertProduct" parameterType="com.tech.ibara.shop.dto.ProductDto"
 		useGeneratedKeys="true" keyColumn="PRODUCT_ID" keyProperty="product_id" >
 		INSERT INTO
 			SHOP_PRODUCT (
-				PRODUCT_ID,
 				SELLER_ID,
 				CATEGORY_ID,
-				OPTION_SET_ID,
-				DETAIL_INFO_ID,
 				NAME,
-				DELIVERY_FEE,
-				DISCOUNT_RATE,
 				REP_PRICE,
-				REP_D_PRICE)
+				REP_DISCOUNTED_PRICE,
+				IS_DISCOUNTED,
+				DISCOUNT_RATE,
+				DELIVERY_FEE,
+				DELIVERY_TYPE,
+				REF_PRICE,
+				OPTION_TYPE,
+				OPTION1_SET_ID,
+				OPTION2_SET_ID)
 		VALUES (
 			SEQ_SHOP_PRODUCT.NEXTVAL,
 			#{seller_id},
 			#{category_id},
-			#{option_set_id},
-			#{detail_info_id},
 			#{name},
-			${delivery_fee},
-			${discount_rate},
-			${rep_price},
-			${rep_d_price, jdbcType=INTEGER})
+			#{rep_price},
+			#{rep_discounted_price},
+			#{is_discounted},
+			#{discount_rate},
+			#{delivery_fee},
+			#{delivery_type},
+			#{ref_price},
+			#{option_type},
+			#{option1_set_id},
+			#{option2_set_id, jdbcType=INTEGER},
+			SYSDATE,
+			0,
+			0,
+			0,
+			0)
 	</insert>
 	
 	<insert id="insertProductImg" parameterType="com.tech.ibara.shop.dto.ProductImgDto">
@@ -475,33 +406,16 @@
 				USER_ID,
 				PRODUCT_ID,
 				OPTION_ID,
-				QUANTITY)
+				QUANTITY,
+				OPTION_TEXT)
 		VALUES (
 			SEQ_SHOP_BASKET.NEXTVAL,
 			#{user_id},
 			#{product_id},
 			#{option_id},
-			#{quantity})
+			#{quantity},
+			#{option_text})
 	</insert>
-	
-<!-- 	<insert id="insertBaskets" parameterType="list">
-		<foreach collection="list" item="item" index="idx"
-			separator=";" open="DECLARE BEGIN" close="; END;">
-			INSERT INTO
-				SHOP_BASKET (
-					BASKET_ID,
-					USER_ID,
-					PRODUCT_ID,
-					OPTION_ID,
-					QUANTITY)
-			VALUES (
-				SEQ_SHOP_BASKET.NEXTVAL,
-				#{item.user_id},
-				#{item.product_id},
-				#{item.option_id},
-				#{item.quantity})
-		</foreach>
-	</insert> -->
 	
 	<insert id="insertBaskets" parameterType="list">
 		DECLARE
@@ -535,13 +449,15 @@
 						USER_ID,
 						PRODUCT_ID,
 						OPTION_ID,
-						QUANTITY)
+						QUANTITY,
+						OPTION_TEXT)
 				VALUES (
 					SEQ_SHOP_BASKET.NEXTVAL,
 					#{item.user_id},
 					#{item.product_id},
 					#{item.option_id},
-					#{item.quantity});
+					#{item.quantity},
+					#{item.option_text});
 			END IF;
 		</foreach>
 		END;
@@ -554,20 +470,38 @@
 				ORDER_ID,
 				USER_ID,
 				ORDER_STATE_ID,
-				USER_ADDR_ID,
-				ORDERER_INFO_ID,
-				PAYMENT_INFO_ID,
+				ADDRESS_NAME,
+				RECEIVER_NAME,
+				RECEIVER_PHONE,
+				ZIPCODE,
+				BIG_ADDRESS,
+				DETAIL_ADDRESS,
+				ORDERER_NAME,
+				ORDERER_PHONE,
+				ORDERER_EMAIL,
+				PAYMENT_TYPE_ID,
 				ORDER_DATE,
+				TOTAL_PRICE,
+				TOTAL_DELIVERY_FEE,
 				AMOUNT)
 		VALUES (
 			SEQ_SHOP_ORDER.NEXTVAL,
-			#{user_id, jdbcType=INTEGER},
+			#{user_id},
 			#{order_state_id},
-			#{user_addr_id, jdbcType=INTEGER},
-			#{orderer_info_id, jdbcType=INTEGER},
-			#{payment_info_id, jdbcType=INTEGER},
+			#{address_name, jdbcType=VARCHAR},
+			#{receiver_name, jdbcType=VARCHAR},
+			#{receiver_phone, jdbcType=INTEGER},
+			#{zipcode, jdbcType=INTEGER},
+			#{big_address, jdbcType=VARCHAR},
+			#{detail_address, jdbcType=VARCHAR},
+			#{orderer_name, jdbcType=VARCHAR},
+			#{orderer_phone, jdbcType=INTEGER},
+			#{orderer_email, jdbcType=VARCHAR},
+			#{payment_type_id, jdbcType=INTEGER},
 			#{order_date, jdbcType=DATE},
-			#{amount})
+			#{total_price},
+			#{total_delivery_fee},
+			#{amount},)
 	</insert>
 	
 	<insert id="insertOrderProduct" parameterType="com.tech.ibara.shop.dto.OrderProductDto">
@@ -577,8 +511,9 @@
 				ORDER_ID,
 				PRODUCT_ID,
 				OPTION_ID,
-				NAME, 
-				PRICE,
+				NAME,
+				TOTAL_PRICE,
+				TOTAL_DELIVERY_FEE,
 				QUANTITY,
 				OPTION_TEXT)
 		VALUES (
@@ -586,8 +521,9 @@
 			#{order_id},
 			#{product_id},
 			#{option_id},
-			#{name}, 
-			#{price},
+			#{name},
+			#{total_price},
+			#{total_delivery_fee},
 			#{quantity},
 			#{option_text})
 	</insert>

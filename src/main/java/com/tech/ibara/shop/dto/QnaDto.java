@@ -1,92 +1,90 @@
 package com.tech.ibara.shop.dto;
 
-import java.sql.Timestamp;
+import java.util.Date;
 
 public class QnaDto {
 
-	private int QNA_ID;
-	private int PRODUCT_ID;
-	private int USER_ID;
-	private Timestamp Q_REG_TIME;
-	private String Q_CONTENT;
-	private String IS_ANSWERED;
-	private Timestamp A_REG_TIME;
-	private String A_CONTENT;
+	private int qna_id;
+	private int product_id;
+	private int user_id;
+	private Date q_reg_time;
+	private String q_content;
+	private String is_answered;
+	private Date a_reg_time;
+	private String a_content;
 
 	public QnaDto() {
 
 	}
 
-	public QnaDto(int pRODUCT_ID, int uSER_ID, Timestamp q_REG_TIME, String q_CONTENT, String iS_ANSWERED) {
-		PRODUCT_ID = pRODUCT_ID;
-		USER_ID = uSER_ID;
-		Q_REG_TIME = q_REG_TIME;
-		Q_CONTENT = q_CONTENT;
-		IS_ANSWERED = iS_ANSWERED;
+	public QnaDto(int product_id, int user_id, String q_content) {
+		this.product_id = product_id;
+		this.user_id = user_id;
+		this.q_content = q_content;
 	}
 
-	public int getQNA_ID() {
-		return QNA_ID;
+	public int getQna_id() {
+		return qna_id;
 	}
 
-	public void setQNA_ID(int qNA_ID) {
-		QNA_ID = qNA_ID;
+	public void setQna_id(int qna_id) {
+		this.qna_id = qna_id;
 	}
 
-	public int getPRODUCT_ID() {
-		return PRODUCT_ID;
+	public int getProduct_id() {
+		return product_id;
 	}
 
-	public void setPRODUCT_ID(int pRODUCT_ID) {
-		PRODUCT_ID = pRODUCT_ID;
+	public void setProduct_id(int product_id) {
+		this.product_id = product_id;
 	}
 
-	public int getUSER_ID() {
-		return USER_ID;
+	public int getUser_id() {
+		return user_id;
 	}
 
-	public void setUSER_ID(int uSER_ID) {
-		USER_ID = uSER_ID;
+	public void setUser_id(int user_id) {
+		this.user_id = user_id;
 	}
 
-	public Timestamp getQ_REG_TIME() {
-		return Q_REG_TIME;
+	public Date getQ_reg_time() {
+		return q_reg_time;
 	}
 
-	public void setQ_REG_TIME(Timestamp q_REG_TIME) {
-		Q_REG_TIME = q_REG_TIME;
+	public void setQ_reg_time(Date q_reg_time) {
+		this.q_reg_time = q_reg_time;
 	}
 
-	public String getQ_CONTENT() {
-		return Q_CONTENT;
+	public String getQ_content() {
+		return q_content;
 	}
 
-	public void setQ_CONTENT(String q_CONTENT) {
-		Q_CONTENT = q_CONTENT;
+	public void setQ_content(String q_content) {
+		this.q_content = q_content;
 	}
 
-	public String getIS_ANSWERED() {
-		return IS_ANSWERED;
+	public String getIs_answered() {
+		return is_answered;
 	}
 
-	public void setIS_ANSWERED(String iS_ANSWERED) {
-		IS_ANSWERED = iS_ANSWERED;
+	public void setIs_answered(String is_answered) {
+		this.is_answered = is_answered;
 	}
 
-	public Timestamp getA_REG_TIME() {
-		return A_REG_TIME;
+	public Date getA_reg_time() {
+		return a_reg_time;
 	}
 
-	public void setA_REG_TIME(Timestamp a_REG_TIME) {
-		A_REG_TIME = a_REG_TIME;
+	public void setA_reg_time(Date a_reg_time) {
+		this.a_reg_time = a_reg_time;
 	}
 
-	public String getA_CONTENT() {
-		return A_CONTENT;
+	public String getA_content() {
+		return a_content;
 	}
 
-	public void setA_CONTENT(String a_CONTENT) {
-		A_CONTENT = a_CONTENT;
+	public void setA_content(String a_content) {
+		this.a_content = a_content;
 	}
 
 }

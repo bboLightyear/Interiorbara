@@ -27,7 +27,7 @@ public class ProductViewService extends SqlSessionBase implements ShopService {
 
 		int productId = Integer.parseInt(request.getParameter("productId"));
 
-		ProductDto productDto = dao.selectProductById(productId);
+		ProductDto productDto = dao.selectProduct(productId);
 
 		// category
 		ArrayList<CategoryDto> categories = new ArrayList<CategoryDto>();
@@ -41,6 +41,41 @@ public class ProductViewService extends SqlSessionBase implements ShopService {
 		// image
 		ArrayList<ProductImgDto> productImgs = dao.selectProductImgsByProduct(productId);
 
+		
+		// option
+		OptionSetDto optionSetDto = null;
+		OptionSetDto parentOptionSetDto = null;
+		OptionDto optionDto = null;
+		ArrayList<OptionDto> optionDtoList = null;
+		ArrayList<OptionDto> parentOptionDtoList = null;
+		switch (productDto.getOption_type()) {
+		case "0": {
+			int optionSetId = productDto.getOption1_set_id();
+			optionSetDto = dao.selectOptionSet(optionSetId);
+			optionDto = dao.selectOptionByOptionSet(optionSetId);
+			
+			break;
+		}
+		case "1": {
+			int optionSetId = productDto.getOption1_set_id();
+			optionSetDto = dao.selectOptionSet(optionSetId);
+			optionDtoList = dao.selectOptionsByOptionSet(optionSetId);
+
+			break;	
+		}
+		case "2":{
+			int parentOptionSetId = productDto.getOption1_set_id();
+			parentOptionSetDto = dao.selectOptionSet(parentOptionSetId);
+			parentOptionDtoList = dao.selectOptionsByOptionSet(parentOptionSetId);
+			
+			int optionSetId = productDto.getOption2_set_id();
+			optionSetDto = dao.selectOptionSet(optionSetId);
+			optionDtoList = dao.selectOptionsByOptionSet(optionSetId);
+			break;
+		}
+		}
+		
+		
 		// option
 		OptionSetDto optionSetDto = dao.selectOptionSetByProduct(productId);
 		int optionSetId = optionSetDto.getOption_set_id();
@@ -50,7 +85,7 @@ public class ProductViewService extends SqlSessionBase implements ShopService {
 
 		ArrayList<OptionDto> optionDtoList = null;
 
-		optionDtoList = dao.selectOptionsBySet(optionSetId);
+		optionDtoList = dao.selectOptionsByOptionSet(optionSetId);
 
 		if (optionDtoList.size() == 1) {
 			nonOptionDto = dao.selectJoinOptionBySet(optionSetId);

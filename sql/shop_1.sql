@@ -5,7 +5,7 @@ create table shop_product (
     name varchar2(150),
     rep_price number,
     rep_discounted_price number,
-    is_discount varchar2(1),
+    is_discounted varchar2(1),
     discount_rate number,
     delivery_fee number,
     delivery_type varchar2(52),
@@ -13,7 +13,7 @@ create table shop_product (
     option_type varchar2(1),
     option1_set_id number,
     option2_set_id number,
-    reg_time timestamp,
+    reg_time date,
     hits number,
     sales number,
     scraps number,
@@ -64,10 +64,10 @@ create table shop_qna (
     qna_id number,
     product_id number,
     user_id number,
-    q_reg_time timestamp,
+    q_reg_time date,
     q_content varchar2(300),
     is_answered varchar2(1),
-    a_reg_time timestamp,
+    a_reg_time date,
     a_content varchar2(300)
 );
 

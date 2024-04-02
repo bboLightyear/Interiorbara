@@ -1,6 +1,6 @@
 package com.tech.ibara.shop.dto;
 
-import java.sql.Timestamp;
+import java.util.Date;
 
 public class ProductDto {
 
@@ -10,7 +10,7 @@ public class ProductDto {
 	private String name;
 	private int rep_price;
 	private Integer rep_discounted_price;
-	private String is_discount;
+	private String is_discounted;
 	private Integer discount_rate;
 	private Integer delivery_fee;
 	private String delivery_type;
@@ -18,7 +18,7 @@ public class ProductDto {
 	private String option_type;
 	private int option1_set_id;
 	private Integer option2_set_id;
-	private Timestamp reg_time;
+	private Date reg_time;
 	private int hits;
 	private int sales;
 	private int scraps;
@@ -36,7 +36,7 @@ public class ProductDto {
 		this.name = name;
 		this.rep_price = rep_price;
 		this.rep_discounted_price = rep_discounted_price;
-		this.is_discount = is_discount;
+		this.is_discounted = is_discount;
 		this.discount_rate = discount_rate;
 		this.delivery_fee = delivery_fee;
 		this.delivery_type = delivery_type;
@@ -94,12 +94,12 @@ public class ProductDto {
 		this.rep_discounted_price = rep_discounted_price;
 	}
 
-	public String getIs_discount() {
-		return is_discount;
+	public String getIs_discounted() {
+		return is_discounted;
 	}
 
-	public void setIs_discount(String is_discount) {
-		this.is_discount = is_discount;
+	public void setIs_discounted(String is_discounted) {
+		this.is_discounted = is_discounted;
 	}
 
 	public Integer getDiscount_rate() {
@@ -158,11 +158,11 @@ public class ProductDto {
 		this.option2_set_id = option2_set_id;
 	}
 
-	public Timestamp getReg_time() {
+	public Date getReg_time() {
 		return reg_time;
 	}
 
-	public void setReg_time(Timestamp reg_time) {
+	public void setReg_time(Date reg_time) {
 		this.reg_time = reg_time;
 	}
 

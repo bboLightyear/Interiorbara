@@ -28,21 +28,16 @@ public interface ShopDao {
 	
 	public ArrayList<LevelCategoryDto> selectAllLevelCategories();
 	
-	public ProductDto selectProductById(int productId);
+	public ProductDto selectProduct(int productId);
 	
 	public OptionSetDto selectOptionSetByProduct(int productId);
-	public OptionSetDto selectOptionSetById(int optionSetId);
+	public OptionSetDto selectOptionSet(int optionSetId);
 	
-	public ArrayList<OptionDto> selectOptionsBySet(int optionSetId);
-	public OptionDto selectOptionById(int optionId);
-	public OptionDto selectJoinOptionById(int optionId);
-	public OptionDto selectJoinOptionBySet(int optionSetId);
-	public ArrayList<OptionDto> selectJoinOptionsBySet(int optionSetId);
+	public ArrayList<OptionDto> selectOptionsByOptionSet(int optionSetId);
+	public OptionDto selectOptionByOptionSet(int optionSetId);
+	public OptionDto selectOption(int optionId);
 	
 	public ArrayList<ProductImgDto> selectProductImgsByProduct(int productId);
-	
-	public ArrayList<BasketDto> selectBasketsByUser(int userId);
-	public ArrayList<BasketDto> selectBasketsByIds(ArrayList<Integer> basketIdList);
 	
 	public int selectBasketQuantity(int userId, int optionId);
 	
