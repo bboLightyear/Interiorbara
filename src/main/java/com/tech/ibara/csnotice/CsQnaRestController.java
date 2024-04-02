@@ -60,7 +60,7 @@ public class CsQnaRestController {
 		
 		String rnbno=request.getParameter("rnbno");			
 		
-		System.out.println("rnbno :"+rnbno);
+		System.out.println("rest rnbno :"+rnbno);
 		
 		ArrayList<QnaReplyDto> list = dao.replyrlist(rnbno);
 		System.out.println(list.size());

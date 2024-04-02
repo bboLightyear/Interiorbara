@@ -215,7 +215,7 @@
 					  // replyArea 요소가 존재하는지 확인
 				    if (replyArea) {
 				        // 생성된 HTML을 replyArea에 추가
-				        $(replyArea).prepend(htmlText);
+				        $(replyArea).append(htmlText);
 				    } else {
 				        console.error("replyArea is null or undefined");
 				    }
