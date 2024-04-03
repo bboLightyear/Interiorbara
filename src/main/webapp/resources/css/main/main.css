@@ -294,6 +294,10 @@ header {
 .main_preview_wrap{
 	display: inline-block;
 }
+.main_preview_wrap a{
+	text-decoration: none;
+	text-align: left;
+}
 .main_preview{
 	margin-top: 10px;
 	margin-bottom: 10px;
@@ -532,6 +536,11 @@ header {
 	width: 50%;
     text-align: left;
 }
+.main_preview_cs_notice_board{
+	margin: 0;
+	padding: 0;
+	width: 100%;
+}
 .main_preview_cs_notice_category{
     padding-bottom: 15px;
     height: 10px;
@@ -539,6 +548,9 @@ header {
     list-style: none;
     text-decoration: none;
     text-align: center;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
 }
 .main_preview_cs_qna{
     margin: 0;
@@ -554,11 +566,42 @@ header {
     list-style: none;
     text-decoration: none;
     text-align: center;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
 }
 .w10{width: 10%;}
+.w15{width: 15%;}
 .w20{width: 20%;}
-.w39{width: 39%;}
+.w24{width: 24%;}
+.w30{width: 30%;}
 .bb{border-bottom: 1px solid gray;}
+
+
+/* main RWD (반응형웹디자인) */
+  @media (max-width: 1600px) {
+    .main_preview_biz_list:nth-child(n+4) {
+      display: none;
+    }
+    .main_preview_shop_list:nth-child(n+4) {
+      display: none;
+    }
+    .main_preview_OH_list:nth-child(n+4) {
+      display: none;
+    }
+  }
+  @media (max-width: 1199px) {
+    .main_preview_biz_list:nth-child(n+3) {
+      display: none;
+    }
+    .main_preview_shop_list:nth-child(n+3) {
+      display: none;
+    }
+    .main_preview_OH_list:nth-child(n+3) {
+      display: none;
+    }
+  }
+
 /* 푸터 */
 footer {
 	margin: 0;
@@ -569,6 +612,7 @@ footer {
 	transform: translateY(10%);
 	border-top: 1px solid gray;
 	display: flex;
+	background-color: lightblue;
 }
 
 /* 푸터 로고 */
