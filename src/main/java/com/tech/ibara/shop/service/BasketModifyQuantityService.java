@@ -1,5 +1,7 @@
 package com.tech.ibara.shop.service;
 
+import java.util.ArrayList;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -7,10 +9,11 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.ui.Model;
 
 import com.tech.ibara.shop.dao.ShopDao;
+import com.tech.ibara.shop.dto.BasketDto;
 
-public class BasketModifyQuantityService extends SqlSessionBase implements ShopRestService<Integer> {
+public class BasketModifyQuantityService extends SqlSessionBase implements ShopRestService<ArrayList<BasketDto>> {
 
-	private int modifiedQuantity;
+	private ArrayList<BasketDto> basketDtoList;
 	
 	public BasketModifyQuantityService(SqlSession sqlSession) {
 		super(sqlSession);
@@ -27,11 +30,12 @@ public class BasketModifyQuantityService extends SqlSessionBase implements ShopR
 		String action = request.getParameter("action");
 		
 		dao.updateBasketQuantity(userId, optionId, action);
-		modifiedQuantity = dao.selectBasketQuantity(userId, optionId);
+		
+		basketDtoList = dao.selectBasketsByUser(userId);
 	}
 
 	@Override
-	public Integer getData() {
-		return modifiedQuantity;
+	public ArrayList<BasketDto> getData() {
+		return basketDtoList;
 	}
 }
