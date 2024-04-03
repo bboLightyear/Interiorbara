@@ -125,7 +125,7 @@
 		WHERE NBNO=#{param1}
 	</select>
 	
-	<select id="getfileListbefore" resultType="string">
+	<select id="getfileListbefore" resultType="String">
 		SELECT FILESRC 
 		FROM CS_NOTICEBOARD_IMG
 		WHERE NBFILECODE=#{param1}
@@ -147,8 +147,8 @@
 		VALUES(CS_NOTICEBOARD_IMG_SEQ.NEXTVAL,#{param1},#{param2})
 	</insert>
 	
-	<select id="imglist" resultType="String">
-		SELECT FILESRC 
+	<select id="imglist" resultType="com.tech.ibara.csnotice.dto.QnaImgDto">
+		SELECT *
 		FROM CS_NOTICEBOARD_IMG
 		WHERE NBFILECODE=#{param1}
 	</select>	

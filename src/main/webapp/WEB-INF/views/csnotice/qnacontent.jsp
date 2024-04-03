@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -44,18 +45,17 @@
 		</tr>
 		<tr>
 			<td class="left">파일</td>
-				<c:forEach items="${imglist } " var="img">
-					<td>
-					<img alt="이미지" src="resources/upload/cs/${img }">		
-					</td>
-				</c:forEach>
+			
+			<c:forEach items="${imglist}" var="dto">
+				<td>
+					<img src="../resources/upload/cs/${dto.filesrc}" alt="" /> 
+				</td>
+			</c:forEach>
 		</tr>
 		<tr>
-			<td colspan="2">
-				<a href="qnaeditview?nbno=${qna_content.nbno }">수정</a>
-				<a href="qnadelete?nbno=${qna_content.nbno }">삭제</a> 
-				<a href="qnalist">목록으로</a> <br />
-			</td>
+			<td colspan="2"><a href="qnaeditview?nbno=${qna_content.nbno }">수정</a>
+				<a href="qnadelete?nbno=${qna_content.nbno }">삭제</a> <a
+				href="qnalist">목록으로</a> <br /></td>
 		</tr>
 	</table>
 
@@ -86,11 +86,13 @@
 			<!--답글 달기 버튼을 클릭 시에 아래에 입력 창이 나타나도록 하는 스크립트-->
 			<button onclick="replyform()" data-rnbno="${dto.rnbno }">답글달기</button>
 		</div>
-		
+
 		<div id="${dto.rnbno }replyrview" style="display: block;">
 
-								
-			<input type="button" onclick="replyrview()" id="${dto.rnbno }replyvbtn" name="${dto.rnbno }replyvbtn" data-rnbno="${dto.rnbno }" value="답글보기"/>
+
+			<input type="button" onclick="replyrview()"
+				id="${dto.rnbno }replyvbtn" name="${dto.rnbno }replyvbtn"
+				data-rnbno="${dto.rnbno }" value="답글보기" />
 		</div>
 
 
@@ -106,8 +108,9 @@
 					id="rnbindent" name="rnbindent" value="${dto.rnbindent }" />
 
 				<textarea rows="6" cols="65" id="rcontent" name="rcontent">&nbsp;</textarea>
-				<input type="text" name="rwriter" id="rwriter" /> 
-				<input type="button" value="입력" onclick="reply()" data-rnbno="${dto.rnbno }" />
+				<input type="text" name="rwriter" id="rwriter" /> <input
+					type="button" value="입력" onclick="reply()"
+					data-rnbno="${dto.rnbno }" />
 			</div>
 			<button onclick="replyformclose()" data-rnbno="${dto.rnbno }">접기</button>
 		</div>
@@ -115,49 +118,49 @@
 	</c:forEach>
 
 	<script>
-	// 답글보기 버튼 처리
-	function replyrview() {
-		var target = event.target;
-		var rnbno = $(target).data("rnbno");
-		
-		console.log(rnbno);
-		
-		var parent = event.target.parentElement;
-		var replyArea = document.getElementById(rnbno + "replyrview");
-		var replyvbtn = document.getElementById(rnbno + "replyvbtn");
+		// 답글보기 버튼 처리
+		function replyrview() {
+			var target = event.target;
+			var rnbno = $(target).data("rnbno");
 
-		$.ajax({
-			type : "post",
-			async : true,
-			url : "replyview",
-			data : {
-				"rnbno" : rnbno
-			},
-			success : function(data) {
-				console.log("success");
-				console.log(data);
+			console.log(rnbno);
 
-				var htmlText = "";
-				
-				for (var i = 0; i < data.length; i++) {
-					
-					htmlText += "<p>";
-					console.log(data[i].rnbcontent);
-					htmlText += data[i].rnbcontent;
-					htmlText += "</p>";
+			var parent = event.target.parentElement;
+			var replyArea = document.getElementById(rnbno + "replyrview");
+			var replyvbtn = document.getElementById(rnbno + "replyvbtn");
+
+			$.ajax({
+				type : "post",
+				async : true,
+				url : "replyview",
+				data : {
+					"rnbno" : rnbno
+				},
+				success : function(data) {
+					console.log("success");
+					console.log(data);
+
+					var htmlText = "";
+
+					for (var i = 0; i < data.length; i++) {
+
+						htmlText += "<p>";
+						console.log(data[i].rnbcontent);
+						htmlText += data[i].rnbcontent;
+						htmlText += "</p>";
+					}
+
+					// div 못 불러오는 거 확인하는 if문
+					if (replyArea) {
+						$(replyArea).append(htmlText);
+					} else {
+						console.error("replyArea is null or undefined");
+					}
+
+					replyvbtn.remove();
 				}
-				
-				// div 못 불러오는 거 확인하는 if문
-				if (replyArea) {
-				    $(replyArea).append(htmlText);
-				} else {
-				    console.error("replyArea is null or undefined");
-				}
-				
-				replyvbtn.remove();
-			}
-		})
-	}
+			})
+		}
 		// 답글 폼 보이게 하는 스크립트 
 		function replyform() {
 			/* alert("x"); */
@@ -181,7 +184,7 @@
 
 		function reply() {
 			var target = event.target;
-			
+
 			var rnbno = $(target).data("rnbno");
 			var parent = event.target.parentElement;
 			var replyArea = document.getElementById(rnbno + "replyrview");
@@ -209,22 +212,22 @@
 
 					var htmlText = "";
 					var lastIndex = data.length - 1;
-					
-					console.log('lastindex'+lastIndex);
+
+					console.log('lastindex' + lastIndex);
 
 					console.log(data[lastIndex].rnbcontent);
-					
+
 					htmlText += "<p>";
 					htmlText += data[lastIndex].rnbcontent;
 					htmlText += "</p>";
 
-					  // replyArea 요소가 존재하는지 확인
-				    if (replyArea) {
-				        // 생성된 HTML을 replyArea에 추가
-				        $(replyArea).append(htmlText);
-				    } else {
-				        console.error("replyArea is null or undefined");
-				    }
+					// replyArea 요소가 존재하는지 확인
+					if (replyArea) {
+						// 생성된 HTML을 replyArea에 추가
+						$(replyArea).append(htmlText);
+					} else {
+						console.error("replyArea is null or undefined");
+					}
 				}
 			})
 		}

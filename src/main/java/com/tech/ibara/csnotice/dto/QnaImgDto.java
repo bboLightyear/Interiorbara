@@ -14,4 +14,5 @@ public class QnaImgDto {
 	private int nbno;
 	private int nbfilecode;
 	private String filesrc;
+	
 }

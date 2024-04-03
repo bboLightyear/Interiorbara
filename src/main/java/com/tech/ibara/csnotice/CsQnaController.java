@@ -327,9 +327,9 @@ public class CsQnaController {
 		System.out.println("selfilecode :" + selfilecode);
 
 		// 파일코드로 이미지 조회 후 모델에 담아 뷰에 전송
-		ArrayList<String> imglist = dao.imglist(selfilecode);
+		ArrayList<QnaImgDto> imglist = dao.imglist(selfilecode);
 		System.out.println("imglist : " + imglist);
-		model.addAttribute("imglist ", imglist);
+		model.addAttribute("imglist", imglist);
 
 		return "csnotice/qnacontent";
 	}
@@ -382,11 +382,11 @@ public class CsQnaController {
 		// 수정 파일을 올린 경우에만 실행
 		if (fileList != null) {
 			// 이전 파일 조회
-
 			Integer selfilecode = dao.selfilecode(nbno);
 			System.out.println("selfilecode :" + selfilecode);
 
 			ArrayList<String> fileListbefore = dao.getfileListbefore(selfilecode);
+			System.out.println("fileListbefore :"+fileListbefore);
 
 			// 이전 파일 삭제
 			for (String f : fileListbefore) {
@@ -400,11 +400,7 @@ public class CsQnaController {
 				}
 			}
 			// DB 삭제
-
-			// 파일코드 조회
-			Integer filecode = dao.selfilecode(nbno);
-
-			dao.deletefilebefore(filecode);
+			dao.deletefilebefore(selfilecode);
 		}
 
 		// 파일 이름 업로드 당시 밀리초로 변경
@@ -445,18 +441,17 @@ public class CsQnaController {
 		String nbno = request.getParameter("nbno");
 		System.out.println("delete : " + nbno);
 
+		
 		// 글 번호 이용해서 파일코드 조회
-		Integer filecode = dao.selfilecode(nbno);
+		Integer selfilecode = dao.selfilecode(nbno);
 		// 파일코드 출력
-		System.out.println("filecode : " + filecode);
-
-		// 파일코드로 이미지 먼저 삭제
-		dao.imgdelete(filecode);
-		// 글 앞에서 받은 글 번호로 게시글 삭제
-		dao.qnadelete(nbno);
-
-		ArrayList<String> fileListbefore = dao.getfileListbefore(filecode);
-
+		System.out.println("filecode : " + selfilecode);
+		
+		if (selfilecode!=0) {
+		
+		ArrayList<String> fileListbefore = dao.getfileListbefore(selfilecode);
+		System.out.println("fileListbefore :"+fileListbefore);
+		
 		String path = "C:\\interiorbara01\\interiorbara01\\src\\main\\webapp\\resources\\upload\\cs";
 
 		// 이전 파일 삭제
@@ -470,6 +465,12 @@ public class CsQnaController {
 				System.out.println("이미지 삭제실패: " + f);
 			}
 		}
+		}
+		
+		// 파일코드로 이미지 삭제
+		dao.imgdelete(selfilecode);
+		// 글 앞에서 받은 글 번호로 게시글 삭제
+		dao.qnadelete(nbno);
 
 		return "redirect:qnalist";
 	}

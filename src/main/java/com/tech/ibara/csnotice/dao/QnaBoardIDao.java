@@ -57,7 +57,7 @@ public interface QnaBoardIDao {
 
 	public void editimg(int snbno, String changeFile);
 
-	public ArrayList<String> imglist(Integer selfilecode);
+	public ArrayList<QnaImgDto> imglist(Integer selfilecode);
 
 	
 }
