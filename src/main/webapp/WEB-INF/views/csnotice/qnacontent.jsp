@@ -48,7 +48,7 @@
 			
 			<c:forEach items="${imglist}" var="dto">
 				<td>
-					<img src="../resources/upload/cs/${dto.filesrc}" alt="" /> 
+					<img src="../resources/upload/cs/${dto.filesrc}" alt="이미지" /> 
 				</td>
 			</c:forEach>
 		</tr>
