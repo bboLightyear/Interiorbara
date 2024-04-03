@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import com.tech.ibara.oh.dto.OHPhotoAttach;
 import com.tech.ibara.oh.dto.OHPhotoBoard;
 import com.tech.ibara.oh.dto.OHPhotoLike;
+import com.tech.ibara.oh.dto.OHPhotoReply;
 import com.tech.ibara.oh.dto.OHPhotoScrap;
 
 public interface OHInterfaceDao {
@@ -47,7 +48,8 @@ public interface OHInterfaceDao {
 	public void updatePb_hit(String pb_no);
 	public OHPhotoBoard getDtoOHPhotoBoard(String pb_no);
 	public ArrayList<OHPhotoAttach> getDtoOHPhotoAttach(String pa_no);
-	
+	// ---------- OHPhotoReplyView ----------
+	public ArrayList<OHPhotoReply> ohPhotoReplyView(String pb_no);
 	// ---------- OHPhotoEditExecute ----------
 	public void ohPBEditUpdate(String pb_no, String pb_title, 
 							   String pb_content, String pb_category, 

@@ -19,6 +19,7 @@ import com.tech.ibara.oh.service.OHPhotoDetailViewService;
 import com.tech.ibara.oh.service.OHPhotoEditExecuteService;
 import com.tech.ibara.oh.service.OHPhotoEditViewService;
 import com.tech.ibara.oh.service.OHPhotoLikeExecuteService;
+import com.tech.ibara.oh.service.OHPhotoReplyViewService;
 import com.tech.ibara.oh.service.OHPhotoScrapExecuteService;
 import com.tech.ibara.oh.service.OHPhotoViewService;
 import com.tech.ibara.oh.service.OHPhotoWriteExecuteService;
@@ -146,19 +147,40 @@ public class OHController {
 	}
 	// ---------- OHPhotoDetailView.jsp ---------- 
 	@RequestMapping("oh/OHPhotoDetailView")
-	public String OHPhotoDetailView(HttpServletRequest request, HttpSession session, Model model) {
+	public String OHPhotoDetailView(HttpServletRequest request, HttpSession session, Model model, OHPageVO ohPageVO) {
 		// Console 출력
 		System.out.println("OHPhotoDetailView Controller");
 		System.out.println("------------------------------");
 		
 		// Model - request
 		model.addAttribute("request", request);
+		// Model - ohPageVO
+		model.addAttribute("ohPageVO", ohPageVO);
+		// Model - session
+		model.addAttribute("session", session);	
 		
 		// Service
 		ohInterfaceService = new OHPhotoDetailViewService(sqlSession);
 		ohInterfaceService.execute(model);		
 		
 		return "oh/OHPhotoDetailView";
+	}
+	// ---------- OHPhotoReplyView ----------	
+	@RequestMapping("oh/OHPhotoReplyView")
+	@ResponseBody
+	public void OHPhotoReplyView(HttpServletRequest request, HttpServletResponse response, HttpSession session,  Model model) {
+		// Console 출력
+		System.out.println("OHPhotoReplyView Controller");
+		System.out.println("------------------------------");	
+		
+		// Model - request
+		model.addAttribute("request", request);		
+		// Model - response		
+		model.addAttribute("response", response);
+		
+		// Service
+		ohInterfaceService = new OHPhotoReplyViewService(sqlSession);
+		ohInterfaceService.execute(model);		
 	}
 	// ---------- OHPhotoEditView.jsp ----------
 	@RequestMapping("oh/OHPhotoEditView")

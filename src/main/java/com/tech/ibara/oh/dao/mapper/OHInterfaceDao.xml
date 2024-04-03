@@ -328,6 +328,16 @@
 			PB_NO = #{param1}		
 	</select>
 	
+	<!-- OHPhotoReplyView -->
+	<select id="ohPhotoReplyView" resultType="com.tech.ibara.oh.dto.OHPhotoReply">
+		SELECT
+			*
+		FROM
+			OH_PHOTO_REPLY
+		WHERE
+			PB_NO = #{param1}
+	</select>
+	
 	<!-- OHPhotoEditExecute -->
 	
 	<update id="ohPBEditUpdate">

@@ -411,7 +411,7 @@
 						/* 회원인지 확인 */						
 						if("${sessionScope.userId }" != null && "${sessionScope.userId }" != "") {		
 							// 사용자 id 값을 가져와 변수에 저장
-							var userId = "${sessionScope.userId }"
+							var userId = "${sessionScope.userId }";
 							// userId 변수에 저장된 id 값 출력
 							console.log("userId: ", userId);
 							// 클릭한 스크랩 요소의 id 값을 가져와 변수에 저장

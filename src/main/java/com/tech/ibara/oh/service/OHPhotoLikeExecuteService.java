@@ -75,9 +75,11 @@ public class OHPhotoLikeExecuteService implements OHInterfaceService {
 		
 		// 해당 게시글, 최신 좋아요 횟수, 변수 저장
 		int likeNumber = dao.likeGetNumber(pb_no);
+		
 		// 해당 게시글, 최신 좋아요 횟수, 변수 출력
 		System.out.println("likeNumber: " + likeNumber);
 		System.out.println("------------------------------");
+		
 		// JSON 형식으로 응답을 생성
 		response.setContentType("application/json");
 		response.setCharacterEncoding("UTF-8");

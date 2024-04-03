@@ -1,5 +1,6 @@
 @charset "UTF-8";
 
+
 /* ----- header ----- */
 header {
 	border: 1px solid #333;
@@ -19,7 +20,15 @@ footer {
 /* ----- footer End ----- */
 	
 	
-/* ----- sideBar ----- */
+/* ----- Start: contents ----- */
+.contents {
+	text-align: center;
+	width: 1800px;
+}
+/* ----- End: contents ----- */	
+	
+	
+/* ----- Start: sideBar ----- */
 .sideBar {
 	float: left;
 	background-color: powderblue;
@@ -43,18 +52,19 @@ footer {
 .sideBar ul li a:hover {
 
 }		
-/* ----- sideBar End ----- */
+/* ----- End: sideBar ----- */
 
 
-/* ----- contents ----- */
-.contents {
-	text-align: center;
-	width: 1800px
+/* ----- Start: main ----- */
+.main {
+	float: right;
+	width: 1400px;
+	background-color: #f4e1f5;
 }
-/* ----- contents End ----- */
+/* ----- End: main ----- */	
 
 
-/* ----- OHPhotoView.jsp ----- */
+/* ----- Start: OHPhotoView.jsp ----- */
 .OHPhotoViewflexContainer {
        display:flex;
        justify-content: center;
@@ -96,12 +106,16 @@ footer {
 .scrapImage.clickColor {
 	color: #4fc94f;
 }
-/* ----- OHPhotoView.jsp End ----- */
+/* ----- End: OHPhotoView.jsp ----- */
 
 
+/* ----- Start: OHPhotoDetailView.jsp ----- */
 
+/* ----- Start: #inputTextReply ----- */
 
+/* ----- End: #inputTextReply ----- */
 
+/* ----- End: OHPhotoDetailView.jsp ----- */
 
 
 

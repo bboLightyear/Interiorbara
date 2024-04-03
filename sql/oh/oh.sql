@@ -350,14 +350,14 @@ VALUES (
 -- OH_PHOTO_SCRAP
 -- CREATE
 CREATE TABLE OH_PHOTO_SCRAP (
-    PS_NO NUMBER PRIMARY KEY,
+    PS_NO   NUMBER PRIMARY KEY,
     PS_USER VARCHAR2(20),
     PS_DATE DATE,
-    PB_NO NUMBER CONSTRAINT -- 번호(OH_PHOTO_BOARD)     
-                    PS_PB_NO_FK
-                 REFERENCES 
-                    OH_PHOTO_BOARD(PB_NO) 
-                 ON DELETE CASCADE 
+    PB_NO   NUMBER CONSTRAINT -- 번호(OH_PHOTO_BOARD)     
+                       PS_PB_NO_FK
+                   REFERENCES 
+                       OH_PHOTO_BOARD(PB_NO) 
+                   ON DELETE CASCADE 
 );
 --------------------------------------
 -- SEQUENCE
@@ -372,7 +372,6 @@ DROP SEQUENCE OH_PHOTO_SCRAP_SEQ;
 SELECT * FROM OH_PHOTO_SCRAP;
 
 SELECT COUNT(*) FROM OH_PHOTO_SCRAP WHERE PS_USER = '김경태';
-
 --------------------------------------
 -- INSERT
 --------------------------------------
@@ -382,6 +381,51 @@ VALUES (
     OH_PHOTO_SCRAP_SEQ.NEXTVAL, '홍길동', SYSDATE
 );
 --------------------------------------
+--------------------------------------------------------------------------------
+-- TABLE
+-- OH_PHOTO_REPLY
+-- CREATE
+CREATE TABLE OH_PHOTO_REPLY (
+    PR_NO       NUMBER PRIMARY KEY,
+    PR_USER     VARCHAR2(30),
+    PR_CONTENT  VARCHAR2(200),
+    PR_DATE     DATE,
+    PR_GROUP    NUMBER,
+    PR_STEP     NUMBER,
+    PR_INDENT   NUMBER,
+    PB_NO       NUMBER CONSTRAINT -- 번호(OH_PHOTO_BOARD)     
+                       PR_PB_NO_FK
+                       REFERENCES 
+                       OH_PHOTO_BOARD(PB_NO) 
+                       ON DELETE CASCADE 
+);
+--------------------------------------
+-- SEQUENCE
+--------------------------------------
+-- CREATE
+CREATE SEQUENCE OH_PHOTO_REPLY_SEQ;
+-- DROP
+DROP SEQUENCE OH_PHOTO_REPLY_SEQ;
+--------------------------------------
+-- SELECT
+--------------------------------------
+SELECT * FROM OH_PHOTO_REPLY;
+--------------------------------------
+-- INSERT
+--------------------------------------
+INSERT INTO 
+    OH_PHOTO_REPLY (PR_NO, PR_USER, PR_CONTENT, PR_DATE,
+                    PR_GROUP, PR_STEP, PR_INDENT, PB_NO
+                   ) 
+VALUES (
+    OH_PHOTO_REPLY_SEQ.NEXTVAL, '꼬부기', '댓글내용', SYSDATE,
+    0, 0, 0, 118
+);
+--------------------------------------
+
+
+
+
 
 
 PURGE RECYCLEBIN;
