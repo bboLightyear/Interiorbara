@@ -23,7 +23,7 @@ public class ProductDataLoadService extends SqlSessionBase implements ShopRestSe
 
 		int optionId = Integer.parseInt(request.getParameter("optionId"));
 
-		optionDto = dao.selectJoinOptionById(optionId);
+		optionDto = dao.selectOption(optionId);
 	}
 
 	@Override

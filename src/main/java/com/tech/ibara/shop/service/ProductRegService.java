@@ -11,7 +11,6 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import com.tech.ibara.shop.dao.ShopDao;
 import com.tech.ibara.shop.dto.OptionDto;
 import com.tech.ibara.shop.dto.OptionSetDto;
-import com.tech.ibara.shop.dto.ProductDataDto;
 import com.tech.ibara.shop.dto.ProductDto;
 import com.tech.ibara.shop.dto.ProductImgDto;
 import com.tech.ibara.shop.util.ShopUtil;
@@ -39,45 +38,52 @@ public class ProductRegService extends SqlSessionBase implements ShopService {
 				
 		// delivery fee
 		int deliveryFee = Integer.parseInt(mpRequest.getParameter("deliveryFee"));
+		String deliveryType = mpRequest.getParameter("deliveryType");
+		Integer refPrice = ShopUtil.parseInt(mpRequest.getParameter("refPrice"));
 		// discount rate
 		int discountRate = Integer.parseInt(mpRequest.getParameter("discountRate"));
+		String isDiscounted = discountRate == 0 ? "N" : "Y";
 		// option
-		int optionType = Integer.parseInt(mpRequest.getParameter("optionType"));
+		String optionType = mpRequest.getParameter("optionType");
 		
 		int repPrice = Integer.parseInt(mpRequest.getParameter("repPrice"));
 		Integer repDPrice = ShopUtil.parseInt(mpRequest.getParameter("repDPrice"));
 
 		
 		switch (optionType) {
-		case 0: {
+		case "0": {
 			OptionSetDto optionSetDto = new OptionSetDto(null);
 			dao.insertOptionSet(optionSetDto);
-
-			ProductDataDto productDataDto = new ProductDataDto(Integer.parseInt(mpRequest.getParameter("optionStock")),
+			
+			OptionDto optionDto = new OptionDto(
+					optionSetDto.getOption_set_id(),
+					null,
+					mpRequest.getParameter("optionName"),
+					Integer.parseInt(mpRequest.getParameter("optionStock")),
 					Integer.parseInt(mpRequest.getParameter("optionPrice")),
 					ShopUtil.parseInt(mpRequest.getParameter("optionDPrice")));
-			dao.insertProductData(productDataDto);
-
-			OptionDto optionDto = new OptionDto(optionSetDto.getOption_set_id(), null,
-					productDataDto.getProduct_data_id(), mpRequest.getParameter("optionName"));
 			dao.insertOption(optionDto);
 
 			productDto = new ProductDto(
 					sellerId,
 					categoryId,
-					optionSetDto.getOption_set_id(),
-					1,
 					productName,
-					deliveryFee,
-					discountRate,
 					repPrice,
-					repDPrice);
+					repDPrice,
+					isDiscounted,
+					discountRate,
+					deliveryFee,
+					deliveryType,
+					refPrice,
+					optionType,
+					optionSetDto.getOption_set_id(),
+					null);
 			dao.insertProduct(productDto);
 
 			break;
 		}
 
-		case 1: {
+		case "1": {
 			int setNum = 1;
 			int optionNum = 1;
 
@@ -101,14 +107,13 @@ public class ProductRegService extends SqlSessionBase implements ShopService {
 				String optionPriceKey = setKey + optionKey + "Price";
 				String optionDPriceKey = setKey + optionKey + "DPrice";
 
-				ProductDataDto productDataDto = new ProductDataDto(
+				OptionDto optionDto = new OptionDto(
+						optionSetDto.getOption_set_id(),
+						null,
+						optionName,
 						Integer.parseInt(mpRequest.getParameter(optionStockKey)),
 						Integer.parseInt(mpRequest.getParameter(optionPriceKey)),
 						ShopUtil.parseInt(mpRequest.getParameter(optionDPriceKey)));
-				dao.insertProductData(productDataDto);
-
-				OptionDto optionDto = new OptionDto(optionSetDto.getOption_set_id(), null,
-						productDataDto.getProduct_data_id(), optionName);
 				dao.insertOption(optionDto);
 
 				++optionNum;
@@ -117,24 +122,29 @@ public class ProductRegService extends SqlSessionBase implements ShopService {
 			productDto = new ProductDto(
 					sellerId,
 					categoryId,
-					optionSetDto.getOption_set_id(),
-					1,
 					productName,
-					deliveryFee,
-					discountRate,
 					repPrice,
-					repDPrice);
+					repDPrice,
+					isDiscounted,
+					discountRate,
+					deliveryFee,
+					deliveryType,
+					refPrice,
+					optionType,
+					optionSetDto.getOption_set_id(),
+					null);
 			dao.insertProduct(productDto);
 
 			break;
 		}
 
-		case 2: {
-			String upSetName = mpRequest.getParameter("upSetName");
+		case "2": {
+			OptionSetDto parentOptionSetDto = new OptionSetDto(mpRequest.getParameter("upSetName"));
+			dao.insertOptionSet(parentOptionSetDto);
 
-			OptionSetDto upOptionSetDto = new OptionSetDto(upSetName);
-			dao.insertOptionSet(upOptionSetDto);
-
+			OptionSetDto optionSetDto = new OptionSetDto(mpRequest.getParameter("set1Name"));
+			dao.insertOptionSet(optionSetDto);
+			
 			int setNum = 1;
 
 			while (true) {
@@ -148,14 +158,15 @@ public class ProductRegService extends SqlSessionBase implements ShopService {
 				}
 
 				String setKey = String.format("set%d", setNum);
-				String setNameKey = setKey + "Name";
 
-				OptionSetDto optionSetDto = new OptionSetDto(mpRequest.getParameter(setNameKey));
-				dao.insertOptionSet(optionSetDto);
-
-				OptionDto upOptionDto = new OptionDto(upOptionSetDto.getOption_set_id(),
-						optionSetDto.getOption_set_id(), null, upOptionName);
-				dao.insertOption(upOptionDto);
+				OptionDto parentOptionDto = new OptionDto(
+						parentOptionSetDto.getOption_set_id(),
+						null,
+						upOptionName,
+						null,
+						null,
+						null);
+				dao.insertOption(parentOptionDto);
 
 				while (true) {
 					String optionKey = String.format("Option%d", optionNum);
@@ -171,14 +182,13 @@ public class ProductRegService extends SqlSessionBase implements ShopService {
 					String optionPriceKey = setKey + optionKey + "Price";
 					String optionDPriceKey = setKey + optionKey + "DPrice";
 
-					ProductDataDto productDataDto = new ProductDataDto(
+					OptionDto optionDto = new OptionDto(
+							optionSetDto.getOption_set_id(),
+							parentOptionDto.getOption_id(),
+							optionName,
 							Integer.parseInt(mpRequest.getParameter(optionStockKey)),
 							Integer.parseInt(mpRequest.getParameter(optionPriceKey)),
 							ShopUtil.parseInt(mpRequest.getParameter(optionDPriceKey)));
-					dao.insertProductData(productDataDto);
-
-					OptionDto optionDto = new OptionDto(optionSetDto.getOption_set_id(), null,
-							productDataDto.getProduct_data_id(), optionName);
 					dao.insertOption(optionDto);
 
 					++optionNum;
@@ -190,13 +200,17 @@ public class ProductRegService extends SqlSessionBase implements ShopService {
 			productDto = new ProductDto(
 					sellerId,
 					categoryId,
-					upOptionSetDto.getOption_set_id(),
-					1,
 					productName,
-					deliveryFee,
-					discountRate,
 					repPrice,
-					repDPrice);
+					repDPrice,
+					isDiscounted,
+					discountRate,
+					deliveryFee,
+					deliveryType,
+					refPrice,
+					optionType,
+					parentOptionSetDto.getOption_set_id(),
+					optionSetDto.getOption_set_id());
 			dao.insertProduct(productDto);
 			break;
 		}

@@ -326,6 +326,8 @@
 				}
 			}
 		}
+		
+		
 	</script>
 </head>
 <body>
@@ -347,6 +349,14 @@
 		상품 이미지: <input type="file" name="productImgs" multiple="multiple" required="required" />
 		<br />
 		배송비: <input type="number" name="deliveryFee" required="required"/> <br />
+		배송유형:
+		<select name="deliveryType">
+			<option value="무료">무료</option>
+			<option value="착불">착불</option>
+			<option value="개별">개별</option>
+			<option value="기준이상시무료">기준이상시무료</option>
+		</select>
+		배송무료기준금액: <input type="number" name="refPrice" /> <br />
 		할인율: <input type="number" name="discountRate" required="required" id="discountRate" onchange="updateDPrice()"/> <br />
 		대표가격: <input type="number" name="repPrice" id="repPrice" required="required"/> <br />
 		대표할인가격: <input type="number" name="repDPrice" id="repDPrice" required="required"/> <br />

@@ -55,6 +55,9 @@ public class ProductViewService extends SqlSessionBase implements ShopService {
 			optionSetDto = dao.selectOptionSet(optionSetId);
 			optionDto = dao.selectOptionByOptionSet(optionSetId);
 			
+			model.addAttribute("optionSet", optionSetDto);
+			model.addAttribute("option", optionDto);
+			
 			break;
 		}
 		case "1": {
@@ -62,6 +65,9 @@ public class ProductViewService extends SqlSessionBase implements ShopService {
 			optionSetDto = dao.selectOptionSet(optionSetId);
 			optionDtoList = dao.selectOptionsByOptionSet(optionSetId);
 
+			model.addAttribute("optionSet", optionSetDto);
+			model.addAttribute("optionList", optionDtoList);
+			
 			break;	
 		}
 		case "2":{
@@ -73,6 +79,11 @@ public class ProductViewService extends SqlSessionBase implements ShopService {
 			optionSetDto = dao.selectOptionSet(optionSetId);
 			optionDtoList = dao.selectOptionsByOptionSet(optionSetId);
 			
+			model.addAttribute("parentOptionSet", parentOptionSetDto);
+			model.addAttribute("parentOptionList", parentOptionDtoList);
+			model.addAttribute("optionSet", optionSetDto);
+			model.addAttribute("optionList", optionDtoList);
+			
 			break;
 		}
 		}
@@ -80,11 +91,6 @@ public class ProductViewService extends SqlSessionBase implements ShopService {
 		model.addAttribute("product", productDto);
 		model.addAttribute("categories", categories);
 		model.addAttribute("images", productImgs);
-		
-		model.addAttribute("optionSet", optionSetDto);
-		model.addAttribute("nonOption", nonOptionDto);
-		model.addAttribute("options", optionDtoList);
-		model.addAttribute("subOptionSet", subOptionSetDto);
 	}
 
 }

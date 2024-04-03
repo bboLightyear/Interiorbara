@@ -2,6 +2,10 @@
  * 
  */
 
+$(document).ready(function() {
+	updateTotalPrice();
+});
+
 function loadSubOptionSet() {
 	var select = event.target;
 	var optionId = select.value;
@@ -225,6 +229,9 @@ function addBasket() {
 	$(".selectedOptionListItem").each(function() {
 		if ($(this).data("nonOption") != 1) {
 			$(this).remove();
+		} else {
+			$(this).data("quantity", 1);
+			$(this).data("totalPrice", $(this).data("optionPrice"));
 		}
 	});
 	updateTotalPrice();

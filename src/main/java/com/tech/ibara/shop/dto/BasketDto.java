@@ -1,13 +1,21 @@
 package com.tech.ibara.shop.dto;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public class BasketDto {
 
 	private int basket_id;
 	private int user_id;
+	@JsonProperty("productId")
 	private int product_id;
+	@JsonProperty("optionId")
 	private int option_id;
+	@JsonProperty("quantity")
 	private int quantity;
 	private String option_text;
+
+	private OptionDto option;
+	private ProductDto product;
 
 	public BasketDto() {
 
@@ -67,6 +75,22 @@ public class BasketDto {
 
 	public void setOption_text(String option_text) {
 		this.option_text = option_text;
+	}
+
+	public OptionDto getOption() {
+		return option;
+	}
+
+	public void setOption(OptionDto option) {
+		this.option = option;
+	}
+
+	public ProductDto getProduct() {
+		return product;
+	}
+
+	public void setProduct(ProductDto product) {
+		this.product = product;
 	}
 
 }

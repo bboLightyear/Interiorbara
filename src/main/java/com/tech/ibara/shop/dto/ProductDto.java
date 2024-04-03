@@ -11,8 +11,8 @@ public class ProductDto {
 	private int rep_price;
 	private Integer rep_discounted_price;
 	private String is_discounted;
-	private Integer discount_rate;
-	private Integer delivery_fee;
+	private int discount_rate;
+	private int delivery_fee;
 	private String delivery_type;
 	private Integer ref_price;
 	private String option_type;
@@ -29,7 +29,7 @@ public class ProductDto {
 	}
 
 	public ProductDto(int seller_id, int category_id, String name, int rep_price, Integer rep_discounted_price,
-			String is_discount, Integer discount_rate, Integer delivery_fee, String delivery_type, Integer ref_price,
+			String is_discount, int discount_rate, int delivery_fee, String delivery_type, Integer ref_price,
 			String option_type, int option1_set_id, Integer option2_set_id) {
 		this.seller_id = seller_id;
 		this.category_id = category_id;
@@ -102,19 +102,19 @@ public class ProductDto {
 		this.is_discounted = is_discounted;
 	}
 
-	public Integer getDiscount_rate() {
+	public int getDiscount_rate() {
 		return discount_rate;
 	}
 
-	public void setDiscount_rate(Integer discount_rate) {
+	public void setDiscount_rate(int discount_rate) {
 		this.discount_rate = discount_rate;
 	}
 
-	public Integer getDelivery_fee() {
+	public int getDelivery_fee() {
 		return delivery_fee;
 	}
 
-	public void setDelivery_fee(Integer delivery_fee) {
+	public void setDelivery_fee(int delivery_fee) {
 		this.delivery_fee = delivery_fee;
 	}
 

@@ -287,23 +287,145 @@
 		WHERE
 			USER_ID = #{param1} AND OPTION_ID = #{param2}
 	</select>
+		
+	<resultMap type="com.tech.ibara.shop.dto.ProductDto" id="ProductDto">
+		<result column="PRODUCT_ID" property="product_id" />
+		<result column="SELLER_ID" property="seller_id" />
+		<result column="CATEGORY_ID" property="category_id" />
+		<result column="NAME" property="name" />
+		<result column="REP_PRICE" property="rep_price" />
+		<result column="REP_DISCOUNTED_PRICE" property="rep_discounted_price" />
+		<result column="IS_DISCOUNTED" property="is_discounted" />
+		<result column="DISCOUNT_RATE" property="discount_rate" />
+		<result column="DELIVERY_FEE" property="delivery_fee" />
+		<result column="DELIVERY_TYPE" property="delivery_type" />
+		<result column="REF_PRICE" property="ref_price" />
+		<result column="OPTION_TYPE" property="option_type" />
+		<result column="OPTION1_SET_ID" property="option1_set_id" />
+		<result column="OPTION2_SET_ID" property="option2_set_id" />
+		<result column="REG_TIME" property="reg_time" />
+		<result column="HITS" property="hits" />
+		<result column="SALES" property="sales" />
+		<result column="SCRAPS" property="scraps" />
+		<result column="REVIEWS" property="reviews" />
+	</resultMap>
+		
+	<resultMap type="com.tech.ibara.shop.dto.OptionDto" id="OptionDto">
+		<result column="OPTION_ID" property="option_id" />
+		<result column="OPTION_SET_ID" property="option_set_id" />
+		<result column="PARENT_OPTION_ID" property="parent_option_id" />
+		<result column="NAME" property="name" />
+		<result column="STOCK" property="stock" />
+		<result column="PRICE" property="price" />
+		<result column="DISCOUNTED_PRICE" property="discounted_price" />
+	</resultMap>
 	
+	<resultMap type="com.tech.ibara.shop.dto.BasketDto" id="BasketDto">
+		<result column="BASKET_ID" property="basket_id" />
+		<result column="USER_ID" property="user_id" />
+		<result column="PRODUCT_ID" property="product_id" />
+		<result column="OPTION_ID" property="option_id" />
+		<result column="QUANTITY" property="quantity" />
+		<result column="OPTION_TEXT" property="option_text" />
+		<collection property="option" resultMap="OptionDto"></collection>
+		<collection property="product" resultMap="ProductDto"></collection>
+	</resultMap>
 	
-	
-	<select id="selectBasketsByUser" resultType="com.tech.ibara.shop.dto.BasketDto">
+	<select id="selectBasketsByUser" resultType="com.tech.ibara.shop.dto.BasketDto" resultMap="BasketDto">
 		SELECT
-			BASKET_ID,
-			USER_ID,
-			PRODUCT_ID,
-			OPTION_ID,
-			QUANTITY,
-			OPTION_TEXT
+			B.BASKET_ID,
+			B.USER_ID,
+			B.PRODUCT_ID,
+			B.OPTION_ID,
+			B.QUANTITY,
+			B.OPTION_TEXT,
+			O.OPTION_SET_ID,
+			O.PARENT_OPTION_ID,
+			O.NAME,
+			O.STOCK,
+			O.PRICE,
+			O.DISCOUNTED_PRICE,
+			P.SELLER_ID,
+			P.CATEGORY_ID,
+			P.NAME,
+			P.REP_PRICE,
+			P.REP_DISCOUNTED_PRICE,
+			P.IS_DISCOUNTED,
+			P.DISCOUNT_RATE,
+			P.DELIVERY_FEE,
+			P.DELIVERY_TYPE,
+			P.REF_PRICE,
+			P.OPTION_TYPE,
+			P.OPTION1_SET_ID,
+			P.OPTION2_SET_ID,
+			P.REG_TIME,
+			P.HITS,
+			P.SALES,
+			P.SCRAPS,
+			P.REVIEWS
 		FROM
-			SHOP_BASKET
+			SHOP_BASKET B
+		JOIN
+			SHOP_OPTION O
+		ON
+			B.OPTION_ID = O.OPTION_ID
+		JOIN
+			SHOP_PRODUCT P
+		ON
+			B.PRODUCT_ID = P.PRODUCT_ID
 		WHERE
 			USER_ID = #{param1}
 	</select>
 	
+	<select id="selectBaskets" resultType="com.tech.ibara.shop.dto.BasketDto" resultMap="BasketDto">
+		SELECT
+			B.BASKET_ID,
+			B.USER_ID,
+			B.PRODUCT_ID,
+			B.OPTION_ID,
+			B.QUANTITY,
+			B.OPTION_TEXT,
+			O.OPTION_SET_ID,
+			O.PARENT_OPTION_ID,
+			O.NAME,
+			O.STOCK,
+			O.PRICE,
+			O.DISCOUNTED_PRICE,
+			P.SELLER_ID,
+			P.CATEGORY_ID,
+			P.NAME,
+			P.REP_PRICE,
+			P.REP_DISCOUNTED_PRICE,
+			P.IS_DISCOUNTED,
+			P.DISCOUNT_RATE,
+			P.DELIVERY_FEE,
+			P.DELIVERY_TYPE,
+			P.REF_PRICE,
+			P.OPTION_TYPE,
+			P.OPTION1_SET_ID,
+			P.OPTION2_SET_ID,
+			P.REG_TIME,
+			P.HITS,
+			P.SALES,
+			P.SCRAPS,
+			P.REVIEWS
+		FROM
+			SHOP_BASKET B
+		JOIN
+			SHOP_OPTION O
+		ON
+			B.OPTION_ID = O.OPTION_ID
+		JOIN
+			SHOP_PRODUCT P
+		ON
+			B.PRODUCT_ID = P.PRODUCT_ID
+		WHERE
+			BASKET_ID IN
+			<foreach item="item" index="index" collection="list" open="(" separator="," close=")">
+				#{item}
+			</foreach>
+	</select>
+
 	<select id="selectOrderById" resultType="com.tech.ibara.shop.dto.OrderDto">
 		SELECT
 			ORDER_ID,
@@ -539,7 +661,7 @@
 			#{order_date, jdbcType=DATE},
 			#{total_price},
 			#{total_delivery_fee},
-			#{amount},)
+			#{amount})
 	</insert>
 	
 	<insert id="insertOrderProduct" parameterType="com.tech.ibara.shop.dto.OrderProductDto">

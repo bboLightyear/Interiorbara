@@ -6,15 +6,15 @@ public class OptionDto {
 	private int option_set_id;
 	private Integer parent_option_id;
 	private String name;
-	private int stock;
-	private int price;
+	private Integer stock;
+	private Integer price;
 	private Integer discounted_price;
 
 	public OptionDto() {
 
 	}
 
-	public OptionDto(int option_set_id, Integer parent_option_id, String name, int stock, int price,
+	public OptionDto(int option_set_id, Integer parent_option_id, String name, Integer stock, Integer price,
 			Integer discounted_price) {
 		this.option_set_id = option_set_id;
 		this.parent_option_id = parent_option_id;
@@ -56,19 +56,19 @@ public class OptionDto {
 		this.name = name;
 	}
 
-	public int getStock() {
+	public Integer getStock() {
 		return stock;
 	}
 
-	public void setStock(int stock) {
+	public void setStock(Integer stock) {
 		this.stock = stock;
 	}
 
-	public int getPrice() {
+	public Integer getPrice() {
 		return price;
 	}
 
-	public void setPrice(int price) {
+	public void setPrice(Integer price) {
 		this.price = price;
 	}
 

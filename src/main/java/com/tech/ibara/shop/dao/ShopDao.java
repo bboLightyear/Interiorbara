@@ -34,12 +34,15 @@ public interface ShopDao {
 	public OptionSetDto selectOptionSet(int optionSetId);
 	
 	public ArrayList<OptionDto> selectOptionsByOptionSet(int optionSetId);
+	public ArrayList<OptionDto> selectOptionsByParentOption(int optionId);
 	public OptionDto selectOptionByOptionSet(int optionSetId);
 	public OptionDto selectOption(int optionId);
 	
 	public ArrayList<ProductImgDto> selectProductImgsByProduct(int productId);
 	
 	public int selectBasketQuantity(int userId, int optionId);
+	public ArrayList<BasketDto> selectBasketsByUser(int userId);
+	public ArrayList<BasketDto> selectBaskets(ArrayList<Integer> basketIdList);
 	
 	public OrderDto selectOrderById(int orderId);
 	public ArrayList<OrderProductDto> selectOrderProductsByOrder(int orderId);

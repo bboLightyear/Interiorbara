@@ -6,216 +6,8 @@
 <head>
 <meta charset="UTF-8">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="../resources/js/shop/product.js"></script>
 <title>Insert title here</title>
-
-	<script>
-		function loadSubOptionSet() {
-			var select = event.target;
-			var optionId = select.value;
-			
-			$.ajax({
-				type: "get",
-				async: true,
-				url: "loadSubOptionSet",
-				data: {
-					"optionId" : optionId
-				},
-				success: function(data) {
-					$("option", "#finalOptionSet").not(":eq(0)").remove();
-					$("#finalOptionSet").prop("selectedIndex", 0);
-					
-					$.each(data, function (i, option) {
-					    $("#finalOptionSet").append($("<option>", { 
-					        value: option.option_id,
-					        text : option.name + ' ' + option.product_data_dto.price + "원"
-					    }));
-					});
-				}
-			});
-		}
-		
-		function addOneOptionCard() {
-			var select = event.target;
-			var optionId = select.value;
-			
-			var notContain = true;
-			$(".selectedOptionListItem").each(function() {
-				if (optionId == $(this).data("optionId")) {
-					alert("이미 추가한 옵션입니다");
-					notContain = false;
-					return false;
-				}
-			});
-			
-			if (notContain) {
-				$.ajax({
-					type: "get",
-					async: true,
-					url: "loadProductData",
-					data: {
-						"optionId" : optionId
-					},
-					success: function(data) {
-						var optionText = "";
-						optionText = $("#finalOptionSet").find("option:first-child").text() + ": "
-							+ data.name;
-						
-						var htmlText =
-							'<div class="selectedOptionListItem" data-option-id="' + data.option_id + '"\
-								data-quantity="1" data-option-price="'+ data.product_data_dto.price + '"\
-								data-total-price="'+ data.product_data_dto.price +'">' + 
-								optionText + '<br />\
-								<button type="button" onclick="quantity(`sub`)">&lt;</button>(<span id="quantityText">1</span>)\
-								<button type="button" onclick="quantity(`add`)">&gt;</button>\
-								<span id="priceText">' + data.product_data_dto.price + '</span>원\
-							</div>';
-							
-						$("#optionWrap").append(htmlText);
-						
-					
-						updateTotalPrice();
-					}
-				});
-			}
-			
-			$("#finalOptionSet").prop("selectedIndex", 0);
-		}
-		
-		function addTwoOptionCard() {
-			var select = event.target;
-			var optionId = select.value;
-			
-			var notContain = true;
-			$(".selectedOptionListItem").each(function() {
-				if (optionId == $(this).data("optionId")) {
-					alert("이미 추가한 옵션입니다");
-					notContain = false;
-					return false;
-				}
-			});
-			
-			if (notContain) {
-				$.ajax({
-					type: "get",
-					async: true,
-					url: "loadProductData",
-					data: {
-						"optionId" : optionId
-					},
-					success: function(data) {
-						var optionText = "";
-
-						optionText = $("#optionSet").find("option:first-child").text() + ": " +
-							$("#optionSet option:selected").text() +' / ' +
-							$("#finalOptionSet").find("option:first-child").text() + ": "
-							+ data.name;
-						
-						var htmlText =
-							'<div class="selectedOptionListItem" data-option-id="' + data.option_id + '"\
-								data-quantity="1" data-option-price="'+ data.product_data_dto.price + '"\
-								data-total-price="'+ data.product_data_dto.price +'">' + 
-								optionText + '<br />\
-								<button type="button" onclick="quantity(`sub`)">&lt;</button>(<span id="quantityText">1</span>)\
-								<button type="button" onclick="quantity(`add`)">&gt;</button>\
-								<span id="priceText">' + data.product_data_dto.price + '</span>원\
-							</div>';
-							
-						$("#optionWrap").append(htmlText);
-
-						$("#optionSet").prop("selectedIndex", 0);
-						
-						updateTotalPrice();
-					}
-				});
-			}
-			
-			$("option", "#finalOptionSet").not(":eq(0)").remove();
-			$("#finalOptionSet").prop("selectedIndex", 0);
-		}
-		
-		function updateTotalPrice() {
-			var totalPrice = 0;
-			$(".selectedOptionListItem").each(function() {
-				totalPrice += $(this).data("totalPrice");
-			});
-			
-			$("#totalPrice").data("totalPrice", totalPrice);
-			$("#totalPrice").text(totalPrice);
-		}
-		
-		function quantity(operation) {
-			var target = event.target;
-			var parent = target.parentElement;
-			
-			var quantity = $(parent).data("quantity");
-			var price = $(parent).data("optionPrice");
-			
-			switch (operation) {
-			case "add":
-				++quantity;
-				break;
-			case "sub":
-				if (quantity == 1) {
-					alert("1개 이상 가능");
-					return;
-				} else {
-					--quantity;
-				}
-				break;
-			}
-			
-			$(parent).data("quantity", quantity);
-			
-			var totalPrice = price * quantity;
-			
-			$(parent).data("totalPrice", totalPrice);
-			$(parent).find("#priceText").text(totalPrice);
-			$(parent).find("#quantityText").text(quantity);
-			
-			updateTotalPrice();
-		}
-		
-		function addBasket() {
-			var data = [];
-
-			var productId = $("main").data("productId");
-
-			var index = 0;
-			$(".selectedOptionListItem").each(function() {
-				var optionId = $(this).data("optionId");
-				var quantity = $(this).data("quantity");
-				
-				data.push({
-						"productId" : productId,
-						"optionId" : optionId,
-						"quantity" : quantity
-				});
-				
-				++index;
-			});
-			
-			if (index == 0) {
-				return;
-			}
-			
-			$.ajax({
-				type: "post",
-				async: true,
-				url: "addBasket",
-				data: JSON.stringify(data),
-				success: function() {
-					alert("장바구니에 담기 완료");
-				}
-			});
-			
-			$(".selectedOptionListItem").each(function() {
-				if ($(this).data("nonOption") != 1) {
-					$(this).remove();
-				}
-			});
-			updateTotalPrice();
-		}
-	</script>
 	<style>
 		
 		main {
@@ -268,7 +60,7 @@
 	<h4>userId: <%= session.getAttribute("userId") %></h4>
 	<a href="basket">장바구니</a>
 	<br />
-	<main data-product-id="${product.product_id }">
+	<main data-product-id="${product.product_id }" data-is-discounted="${product.is_discounted }">
 		<div>
 			<c:forEach items="${categories }" var="cat" varStatus="s">
 				<a href="list?categoryId=${cat.category_id }">${cat.name }</a>
@@ -296,46 +88,46 @@
 			productId: ${product.product_id } <br />
 			name: ${product.name } <br />
 			가격: ${product.rep_price } <br />
-			<c:if test="${product.rep_d_price ne null }">
+			<c:if test="${product.rep_discounted_price ne null }">
 			할인율: ${product.discount_rate } <br />
-			할인가격: ${product.rep_d_price } <br />
+			할인가격: ${product.rep_discounted_price } <br />
 			</c:if>
 			배송비: ${product.delivery_fee } <br />
 			옵션 <br />
 			<form action="">
 				<div id="optionWrap">
 					<c:choose>
-						<c:when test="${nonOption ne null }">
-							<div class="selectedOptionListItem" data-option-id="${nonOption.option_id }" data-quantity="1" data-non-option="1"
-							data-option-price="${nonOption.product_data_dto.price }" data-total-price="${data.product_data_dto.price }">
-								${nonOption.name } <br />
+						<c:when test="${product.option_type eq '0' }">
+							<div class="selectedOptionListItem" data-option-id="${option.option_id }" data-quantity="1" data-non-option="1"
+								data-option-price="${option.price }" data-total-price="${option.price }">
+								${option.name } <br />
 								<button type="button" onclick="quantity(`sub`)">&lt;</button>(<span id="quantityText">1</span>)
 								<button type="button" onclick="quantity(`add`)">&gt;</button>
-								<span id="priceText">${nonOption.product_data_dto.price }</span>원
+								<span id="priceText">${option.price }</span>원
 							</div>
 						</c:when>
-						
-						<c:when test="${subOptionSet ne null }">
-							<select name="optionSet" id="optionSet" onchange="loadSubOptionSet()">
+
+						<c:when test="${product.option_type eq '1' }">
+							<select name="finalOptionSet" id="finalOptionSet" onchange="addOneOptionCard()">
 								<option selected disabled>${optionSet.name }</option>
-								<c:forEach items="${options }" var="o">
-									<option value="${o.option_id }">${o.name }</option>
+								<c:forEach items="${optionList }" var="option">
+									<option value="${option.option_id }">${option.name } (${option.price }원)</option>
+								</c:forEach>
+							</select>
+						</c:when>
+						
+						<c:when test="${product.option_type eq '2' }">
+							<select name="optionSet" id="optionSet" onchange="loadSubOptionSet()">
+								<option selected disabled>${parentOptionSet.name }</option>
+								<c:forEach items="${parentOptionList }" var="parentOption">
+									<option value="${parentOption.option_id }">${parentOption.name }</option>
 								</c:forEach>
 							</select>
 							<select name="finalOptionSet" id="finalOptionSet" onchange="addTwoOptionCard()">
-								<option selected disabled>${subOptionSet.name }</option>
+								<option selected disabled>${optionSet.name }</option>
 								<!-- ajax -->
 							</select>
 						</c:when>
-						
-						<c:otherwise>
-							<select name="finalOptionSet" id="finalOptionSet" onchange="addOneOptionCard()">
-								<option selected disabled>${optionSet.name }</option>
-								<c:forEach items="${options }" var="o">
-									<option value="${o.option_id }">${o.name } (${o.product_data_dto.price }원)</option>
-								</c:forEach>
-							</select>
-						</c:otherwise>
 					</c:choose>
 					
 					<!-- ajax -->

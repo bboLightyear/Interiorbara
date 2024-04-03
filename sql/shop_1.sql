@@ -1,3 +1,20 @@
+create sequence seq_shop_product;
+create sequence seq_shop_option_set;
+create sequence seq_shop_option;
+create sequence seq_shop_product_img;
+create sequence seq_shop_detail_image;
+create sequence seq_shop_attribute;
+create sequence seq_shop_qna;
+create sequence seq_shop_review;
+create sequence seq_shop_user;
+create sequence seq_shop_seller;
+create sequence seq_shop_basket;
+create sequence seq_shop_order;
+create sequence seq_shop_order_product;
+create sequence seq_shop_user_address;
+create sequence seq_shop_orderer_info;
+
+
 create table shop_product (
     product_id number,
     seller_id number,

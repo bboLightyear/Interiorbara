@@ -30,26 +30,21 @@
 							<c:set var="productTotalDPrice" value="0"/>
 							<c:forEach items="${baskets }" var="basket" varStatus="status">
 								<c:if test="${product.product_id eq basket.product_id }">
-									<c:set var="optionTotalPrice" value="${basket.product_data_dto.price * basket.quantity }"/>
-									<c:set var="optionTotalDPrice" value="${basket.product_data_dto.discounted_price != null ? basket.product_data_dto.discounted_price * basket.quantity : 0 }"/>
+									<c:set var="optionTotalPrice" value="${basket.option.price * basket.quantity }"/>
+									<c:set var="optionTotalDPrice" value="${basket.option.discounted_price != null ? basket.option.discounted_price * basket.quantity : 0 }"/>
 									<c:set var="productTotalPrice" value="${productTotalPrice + optionTotalPrice }"/>
 									<c:set var="productTotalDPrice" value="${productTotalDPrice + optionTotalDPrice }"/>
 									<li class="selectedOption" data-basket-id="${basket.basket_id }"
 										data-option-id="${basket.option_id }"
 										data-product-id="${basket.product_id }"
 										data-quantity="${basket.quantity }"
-										data-option-price="${basket.product_data_dto.price }"
-										data-option-d-price="${basket.product_data_dto.discounted_price != null ? basket.product_data_dto.discounted_price : 0 }"
+										data-option-price="${basket.option.price }"
+										data-option-d-price="${basket.option.discounted_price != null ? basket.option.discounted_price : 0 }"
 										data-option-total-price="${optionTotalPrice }"
 										data-option-total-d-price="${optionTotalDPrice }">
 										<div>
-										<c:if test="${basket.option_set_dto ne null }">
-											${basket.option_set_dto.name }: ${basket.option_dto.name } /
-										</c:if>
-										<c:if test="${basket.final_option_set_dto.name ne null }">
-											${basket.final_option_set_dto.name }:
-										</c:if>
-											${basket.final_option_dto.name } <button class="removeBtn" data-btn-of="option" data-option-id="${basket.option_id }">X</button>
+										${basket.option_text }
+										<button class="removeBtn" data-btn-of="option" data-option-id="${basket.option_id }">X</button>
 										</div>
 										<button type="button" class="quantityBtn" data-action="sub" data-option-id="${basket.option_id }">&lt;</button>
 										(<span class="optionQuantityText" data-option-id="${basket.option_id }">${basket.quantity }</span>)

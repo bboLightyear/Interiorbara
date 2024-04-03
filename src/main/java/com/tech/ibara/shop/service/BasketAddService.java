@@ -13,6 +13,9 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.tech.ibara.shop.dao.ShopDao;
 import com.tech.ibara.shop.dto.BasketDto;
+import com.tech.ibara.shop.dto.OptionDto;
+import com.tech.ibara.shop.dto.OptionSetDto;
+import com.tech.ibara.shop.dto.ProductDto;
 
 public class BasketAddService extends SqlSessionBase implements ShopService {
 
@@ -43,6 +46,36 @@ public class BasketAddService extends SqlSessionBase implements ShopService {
 			
 			for (BasketDto basketDto : basketDtoList) {
 				basketDto.setUser_id(userId);
+				String optionText = "";
+				
+				ProductDto productDto = dao.selectProduct(basketDto.getProduct_id());
+				switch (productDto.getOption_type()) {
+				case "0":{
+					OptionDto optionDto = dao.selectOption(basketDto.getOption_id());
+					optionText = optionDto.getName();
+					break;
+				}
+				case "1":{
+					OptionDto optionDto = dao.selectOption(basketDto.getOption_id());
+					OptionSetDto optionSetDto = dao.selectOptionSet(optionDto.getOption_set_id());
+					
+					optionText = optionSetDto.getName() + ": " + optionDto.getName();
+					break;
+				}					
+				case "2":{
+					OptionDto optionDto = dao.selectOption(basketDto.getOption_id());
+					OptionSetDto optionSetDto = dao.selectOptionSet(optionDto.getOption_set_id());
+					OptionDto parentOptionDto = dao.selectOption(optionDto.getParent_option_id());
+					OptionSetDto parentOptionSetDto = dao.selectOptionSet(parentOptionDto.getOption_set_id());
+					
+					optionText = parentOptionSetDto.getName() + ": " + parentOptionDto.getName() + " / " +
+					optionSetDto.getName() + ": " + optionDto.getName();
+					break;
+				}
+				}
+				
+				
+				basketDto.setOption_text(optionText);
 			}
 			
 			dao.insertBaskets(basketDtoList);

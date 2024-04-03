@@ -164,13 +164,13 @@
 			주문상품  ${fn:length(orderProductList) }건
 			<hr />
 			<ul>
-				<c:forEach items="${orderProductList }" var="op">				
+				<c:forEach items="${orderProductList }" var="orderProduct">				
 					<li>
 						<div class="orderProduct">
-							상품명: ${op.name } <br />
-							${op.option_text } <br />
-							총 가격: <span><fmt:formatNumber type="number" pattern="#,###" value="${op.price * op.quantity }"/></span>원 <br />
-							수량: ${op.quantity } <br />
+							상품명: ${orderProduct.name } <br />
+							${orderProduct.option_text } <br />
+							총 가격: <span><fmt:formatNumber type="number" pattern="#,###" value="${orderProduct.total_price }"/></span>원 <br />
+							수량: ${orderProduct.quantity } <br />
 						</div>
 					</li>
 				</c:forEach>
@@ -185,6 +185,8 @@
 			
 		</div>
 		<div id="side">
+			총 상품금액: <span><fmt:formatNumber type="number" pattern="#,###" value="${order.total_price }"/></span>원 <br />
+			총 배송비: <span><fmt:formatNumber type="number" pattern="#,###" value="${order.total_delivery_fee }"/></span>원 <br />
 			결제금액: <span><fmt:formatNumber type="number" pattern="#,###" value="${order.amount }"/></span>원 <br />
 			<button id="purchase">결제하기</button>
 		</div>
