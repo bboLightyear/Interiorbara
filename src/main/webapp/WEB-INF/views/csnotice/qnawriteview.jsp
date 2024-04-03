@@ -9,12 +9,13 @@
 </head>
 <body>
 	<h3>qnawriteview</h3>
+	<p>userId: <%= session.getAttribute("userId") %></p>
 
 	<form action="qnawrite" method="post" enctype="multipart/form-data">
 		<table>
 			<tr>
-				<td class="">이름</td>
-				<td><input type="text" name="nbwriter" value="" /></td>
+				<td class="">이름 : <%=session.getAttribute("userId")%> </td>
+				<td><input type="hidden" name="nbwriter" value="<%=session.getAttribute("userId")%>"/></td>
 			</tr>
 			<tr>
 				<td>분류</td>
