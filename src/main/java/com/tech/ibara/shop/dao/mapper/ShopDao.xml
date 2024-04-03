@@ -221,6 +221,21 @@
 		    OPTION_SET_ID = #{param1}
 	</select>
 	
+	<select id="selectOptionsByParentOption" resultType="com.tech.ibara.shop.dto.OptionDto">
+		SELECT
+		    OPTION_ID,
+			OPTION_SET_ID,
+			PARENT_OPTION_ID,
+			NAME,
+			STOCK,
+			PRICE,
+			DISCOUNTED_PRICE
+		FROM
+		    SHOP_OPTION
+		WHERE
+		    PARENT_OPTION_ID = #{param1}
+	</select>
+	
 	<select id="selectOptionByOptionSet" resultType="com.tech.ibara.shop.dto.OptionDto">
 		SELECT
 		    OPTION_ID,
@@ -271,6 +286,22 @@
 			SHOP_BASKET
 		WHERE
 			USER_ID = #{param1} AND OPTION_ID = #{param2}
+	</select>
+	
+	
+	
+	<select id="selectBasketsByUser" resultType="com.tech.ibara.shop.dto.BasketDto">
+		SELECT
+			BASKET_ID,
+			USER_ID,
+			PRODUCT_ID,
+			OPTION_ID,
+			QUANTITY,
+			OPTION_TEXT
+		FROM
+			SHOP_BASKET
+		WHERE
+			USER_ID = #{param1}
 	</select>
 	
 	<select id="selectOrderById" resultType="com.tech.ibara.shop.dto.OrderDto">
@@ -332,6 +363,7 @@
 		useGeneratedKeys="true" keyColumn="OPTION_ID" keyProperty="option_id" >
 		INSERT INTO
 			SHOP_OPTION (
+				OPTION_ID,
 				OPTION_SET_ID,
 				PARENT_OPTION_ID,
 				NAME,
@@ -343,8 +375,8 @@
 			#{option_set_id},
 			#{parent_option_id, jdbcType=INTEGER},
 			#{name},
-			#{stock},
-			#{price},
+			#{stock, jdbcType=INTEGER},
+			#{price, jdbcType=INTEGER},
 			#{discounted_price, jdbcType=INTEGER})
 	</insert>
 	
@@ -352,6 +384,7 @@
 		useGeneratedKeys="true" keyColumn="PRODUCT_ID" keyProperty="product_id" >
 		INSERT INTO
 			SHOP_PRODUCT (
+				PRODUCT_ID,
 				SELLER_ID,
 				CATEGORY_ID,
 				NAME,
@@ -364,7 +397,12 @@
 				REF_PRICE,
 				OPTION_TYPE,
 				OPTION1_SET_ID,
-				OPTION2_SET_ID)
+				OPTION2_SET_ID,
+				REG_TIME,
+				HITS,
+				SALES,
+				SCRAPS,
+				REVIEWS)
 		VALUES (
 			SEQ_SHOP_PRODUCT.NEXTVAL,
 			#{seller_id},
@@ -376,7 +414,7 @@
 			#{discount_rate},
 			#{delivery_fee},
 			#{delivery_type},
-			#{ref_price},
+			#{ref_price, jdbcType=INTEGER},
 			#{option_type},
 			#{option1_set_id},
 			#{option2_set_id, jdbcType=INTEGER},
