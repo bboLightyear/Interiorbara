@@ -9,7 +9,7 @@ String path=request.getContextPath();
     <title>mStandard.jsp</title>
     <link rel="stylesheet" href="resources/css/modal.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-</head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script></head>
 <body>
 
 
@@ -120,8 +120,7 @@ $(document).ready(function() {
     var decreaseBtn = $('#decreaseSize');
     var increaseBtn = $('#increaseSize');
     var privBtn = $('#sizePrivBtn');
-    var selectedOption = localStorage.getItem('selectedOption');
-
+   
     function openModal(modalId) {
         $(modalId).css('display', 'block');
     }
@@ -154,10 +153,8 @@ $(document).ready(function() {
 
     $('#sizeNextBtn').click(function() {
         var selectedSize = $('#sizeInput').val();
-        var selectedService = $('#selectedService').text();
+        $('.selectedSize').text(selectedSize + '평');
         $('#serviceCheckModal').attr('data-prev-modal', 'sizeModal');
-
-         $('.selectedSize').text(selectedSize + '평');
 
         closeModal('#sizeModal');
         openModal('#serviceCheckModal');
