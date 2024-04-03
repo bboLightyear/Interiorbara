@@ -232,6 +232,8 @@ function addBasket() {
 		} else {
 			$(this).data("quantity", 1);
 			$(this).data("totalPrice", $(this).data("optionPrice"));
+			$(this).find("#quantityText").text(1);
+			$(this).find("#priceText").text($(this).data("optionPrice"));
 		}
 	});
 	updateTotalPrice();
