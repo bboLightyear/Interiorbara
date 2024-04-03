@@ -33,10 +33,6 @@
 		<beans:property name="prefix" value="/WEB-INF/views/" />
 		<beans:property name="suffix" value=".jsp" />
 	</beans:bean>
-	 <!-- Main CSS mapping -->
-   <resources mapping="/mainCSS/**" location="/resources/css/main/" />
-   <!-- Main Image view Mapping -->
-   <resources mapping="/mainImagesOH/**" location="/resources/upload/oh/"/>
 	
 
 	<context:component-scan

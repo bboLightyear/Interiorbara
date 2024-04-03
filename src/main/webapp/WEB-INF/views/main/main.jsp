@@ -199,7 +199,7 @@
 		</div>
 		<div class="main_preview_wrap">
 			<div class="main_preview">
-				<h1 class="main_preview_title">입점 업체 보기</h1>
+				<h1 class="main_preview_title"><a href="biz/magazine/bizMgzList">입점 업체 보기</a></h1>
 				<hr />
 				<div class="main_preview_biz">
 					<c:forEach items="${bizPreviewList }" var="biz">
@@ -226,7 +226,7 @@
 				</div>
 			</div>
 			<div class="main_preview">
-				<h1 class="main_preview_title">소품 샵</h1>
+				<h1 class="main_preview_title"><a href="shop/list">소품 샵</a></h1>
 				<hr />
 				<div class="main_preview_shop">
 					<c:forEach items="${shopPreviewList }" var="shop">
@@ -253,7 +253,7 @@
 				</div>
 			</div>
 			<div class="main_preview">
-				<h1 class="main_preview_title">우리집 자랑하기</h1>
+				<h1 class="main_preview_title"><a href="oh/OHMainView">우리집 자랑하기</a></h1>
 				<hr />
 				<div class="main_preview_OH">
 					<c:forEach items="${ohPreviewList }" var="oh">
@@ -281,51 +281,52 @@
 			</div>
 			<div class="main_preview_cs">
 				<div class="main_preview_cs_notice">
-					<h1 class="main_preview_title">공지사항</h1>
+					<h1 class="main_preview_title"><a href="noticelist">공지사항</a></h1>
 					<hr>
 					<div class="main_preview_cs_notice_board">
 						<ul>
 							<li class="main_preview_cs_notice_category w10 bb">번호</li>
-							<li class="main_preview_cs_notice_category w39 bb">제목</li>
+							<li class="main_preview_cs_notice_category w30 bb">제목</li>
 							<li class="main_preview_cs_notice_category w20 bb">작성자</li>
-							<li class="main_preview_cs_notice_category w10 bb">조회수</li>
-							<li class="main_preview_cs_notice_category w20 bb">작성일</li>
+							<li class="main_preview_cs_notice_category w15 bb">조회수</li>
+							<li class="main_preview_cs_notice_category w24 bb">작성일</li>
 						</ul>
 						<c:forEach items="${noticePreviewList }" var="notice">
 							<ul>
 								<li class="main_preview_cs_notice_category w10">${notice.notice_no }</li>
-								<li class="main_preview_cs_notice_category w39">${notice.notice_title }</li>
+								<li class="main_preview_cs_notice_category w30">${notice.notice_title }</li>
 								<li class="main_preview_cs_notice_category w20">${notice.notice_writer }</li>
-								<li class="main_preview_cs_notice_category w10">${notice.notice_hit }</li>
-								<li class="main_preview_cs_notice_category w20">${notice.notice_date }</li>
+								<li class="main_preview_cs_notice_category w15">${notice.notice_hit }</li>
+								<li class="main_preview_cs_notice_category w24">${notice.notice_date }</li>
 							</ul>
 						</c:forEach>
 					</div>
 				</div>
 				<div class="main_preview_cs_qna">
-					<h1 class="main_preview_title">QnA</h1>
+					<h1 class="main_preview_title"><a href="qnalist">QnA</a></h1>
 					<hr>
 					<div class="main_preview_cs_qna_board">
 						<ul>
 							<li class="main_preview_cs_qna_category w10 bb">번호</li>
-							<li class="main_preview_cs_qna_category w39 bb">제목</li>
+							<li class="main_preview_cs_qna_category w30 bb">제목</li>
 							<li class="main_preview_cs_qna_category w20 bb">작성자</li>
-							<li class="main_preview_cs_qna_category w10 bb">조회수</li>
-							<li class="main_preview_cs_qna_category w20 bb">작성일</li>
+							<li class="main_preview_cs_qna_category w15 bb">조회수</li>
+							<li class="main_preview_cs_qna_category w24 bb">작성일</li>
 						</ul>
 						<c:forEach items="${qnaPreviewList }" var="qna">
 							<ul>
 								<li class="main_preview_cs_qna_category w10">${qna.qna_no }</li>
-								<li class="main_preview_cs_qna_category w39">${qna.qna_title }</li>
+								<li class="main_preview_cs_qna_category w30">${qna.qna_title }</li>
 								<li class="main_preview_cs_qna_category w20">${qna.qna_writer }</li>
-								<li class="main_preview_cs_qna_category w10">${qna.qna_hit }</li>
-								<li class="main_preview_cs_qna_category w20">${qna.qna_date }</li>
+								<li class="main_preview_cs_qna_category w15">${qna.qna_hit }</li>
+								<li class="main_preview_cs_qna_category w24">${qna.qna_date }</li>
 							</ul>
 						</c:forEach>
 					</div>
 				</div>
 			</div>
 		</div>
+		<script src="mainRWD/mainRWD.js"></script>
 		<hr />
 	</div>
 	<br />
