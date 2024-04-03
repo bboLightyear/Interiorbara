@@ -85,6 +85,7 @@
 			</div>
 		</section>
 		<section id="summary">
+			판매자: ${product.seller.nickname } <br />
 			productId: ${product.product_id } <br />
 			name: ${product.name } <br />
 			가격: ${product.rep_price } <br />
@@ -92,7 +93,22 @@
 			할인율: ${product.discount_rate } <br />
 			할인가격: ${product.rep_discounted_price } <br />
 			</c:if>
-			배송비: ${product.delivery_fee } <br />
+			배송비: 
+			<c:choose>
+				<c:when test="${product.delivery_type eq 'free' }">
+					무료배송
+				</c:when>
+				<c:when test="${product.delivery_type eq 'arrival' }">
+					착불 ${product.delivery_fee }원
+				</c:when>
+				<c:when test="${product.delivery_type eq 'each' }">
+					${product.delivery_fee }원
+				</c:when>
+				<c:when test="${product.delivery_type eq 'over' }">
+					${product.delivery_fee }원, ${product.ref_price }원 이상 무료배송
+				</c:when>
+			</c:choose>
+			<br />
 			옵션 <br />
 			<form action="">
 				<div id="optionWrap">

@@ -763,5 +763,7 @@ insert into shop_category values (51401, 51400, '잠금고정·방범용품');
 insert into shop_category values (51402, 51400, '안전가드·안전테이프');
 insert into shop_category values (51403, 51400, '소화기·재난용품');
 
+insert into shop_seller values (1, '침대전문가', '침대사세요');
+
 
 commit;
