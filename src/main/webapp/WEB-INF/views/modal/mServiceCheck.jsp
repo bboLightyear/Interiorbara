@@ -82,7 +82,7 @@ String path=request.getContextPath();
 				</div>
 				</div>
 				
-				<div class="serviceCheckModal_center_footer">
+				<div class="modal_center_footer">
 					<button id="SCPrivBtn">이전</button>
 					<button id="SCNextBtn">다음</button>	
 						
@@ -98,9 +98,11 @@ String path=request.getContextPath();
 						<div class="selectedSize"></div>
 						<div class="selectedService">
 							<span id="selectedService"></span>
-							<div id="checkedItems">
-								
-							</div>
+							
+								<div class="checkedItems" id="checkedItems">
+									<!-- 선택한 상품들을 동적으로 생성 -->
+								</div>
+							
 						</div>
 					</div>
 				</div>
@@ -111,12 +113,14 @@ String path=request.getContextPath();
 						<span id="selectedService"></span>	
 						</div>												
 					</div>
-					<div id="selectedItems">
-						<!-- 선택한 상품들을 동적으로 생성 -->
-					</div>
+					
+						<div class="selectedItems" id="selectedItems">
+							<!-- 선택한 상품들을 동적으로 생성 -->
+						</div>
+					
 					<div class="totalPrice">
 						<div>합계</div>
-						<div id="totalPriceValue">만원</div>
+						<div class="totalPriceValue">0 만원</div>
 					</div>
 				</div>
 			</div>
@@ -125,11 +129,11 @@ String path=request.getContextPath();
 
 <!-- 이전버튼했을때 사이즈나 서비스입력이 업데이트 되게 만들어야함 -->
 <script>
+
 $(document).ready(function() {
     var serviceCheckModal = $('#serviceCheckModal');
-    var selectedItems = {};
-    var selectedOption = localStorage.getItem('selectedOption');
-    var serviceItems = JSON.parse(localStorage.getItem('serviceItems'));
+    
+   
 
     // 상품 체크박스 클릭 이벤트 처리 (이벤트 위임 사용)
     $(document).on('change', '.productCheckBox', function() {
@@ -142,14 +146,9 @@ $(document).ready(function() {
                 price: itemPrice,
                 quantity: itemQuantity
             };
+            checkedItems[itemName] = {};
         } else {
             delete selectedItems[itemName];
-        }
-        if ($(this).is(':checked')) {
-        	checkedItems[itemName] = {
-
-            };
-        } else {
             delete checkedItems[itemName];
         }
         
@@ -190,43 +189,41 @@ $(document).ready(function() {
         }
     });
 
-    // 선택한 상품들을 업데이트하는 함수
+ // 선택한 상품들을 업데이트하는 함수
     function updateSelectedItems() {
-  var selectedItemsDiv = $('#selectedItems');
-  selectedItemsDiv.empty();
+        var selectedItemsDiv = $('.selectedItems');
+        selectedItemsDiv.empty();
 
-  for (var itemName in selectedItems) {
-    if (selectedItems.hasOwnProperty(itemName)) {
-      var item = selectedItems[itemName];
-      var itemPrice = item.price;
-      var itemQuantity = item.quantity;
-      var totalPrice = itemPrice * itemQuantity;
-      var itemDiv = $('<div>').text(itemName);
-      var priceDiv = $('<div>').text(totalPrice + '만원');
-      selectedItemsDiv.append(itemDiv).append(priceDiv);
+        for (var itemName in selectedItems) {
+            if (selectedItems.hasOwnProperty(itemName)) {
+                var item = selectedItems[itemName];
+                var itemPrice = item.price;
+                var itemQuantity = item.quantity;
+                var totalPrice = itemPrice * itemQuantity;
+                var itemDiv = $('<div>').text(itemName);
+                var priceDiv = $('<div>').text(totalPrice + '만원');
+                selectedItemsDiv.append(itemDiv).append(priceDiv);
+            }
+        }
+
+        var checkedItemsDiv = $('.checkedItems');
+        checkedItemsDiv.empty();
+
+        var isFirst = true;
+
+        for (var itemName in checkedItems) {
+            if (checkedItems.hasOwnProperty(itemName)) {
+                var itemText = itemName;
+                if (isFirst) {
+                    itemText = '추가 ' + itemText;
+                    isFirst = false;
+                }
+                
+                var itemDiv = $('<div id="itemText">').text(itemText);
+                checkedItemsDiv.append(itemDiv);
+            }
+        }
     }
-  }
-
-  var checkedItemsDiv = $('#checkedItems');
-  checkedItemsDiv.empty();
-
-  var isFirst = true; // 첫 번째 아이템인지 체크하기 위한 변수
-
-  for (var itemName in checkedItems) {
-    if (checkedItems.hasOwnProperty(itemName)) {
-      var item = checkedItems[itemName];
-      
-      var itemText = itemName;
-      if (isFirst) {
-        itemText = '추가 ' + itemText; // 첫 번째 아이템일 때만 '추가 '를 앞에 붙임
-        isFirst = false; // 첫 번째 아이템 처리 후 false로 설정
-      }
-      
-      var itemDiv = $('<div id="itemText">').text(itemText);
-      checkedItemsDiv.append(itemDiv);
-    }
-  }
-}
 
     // 총 가격을 업데이트하는 함수
     function updateTotalPrice() {
@@ -239,16 +236,27 @@ $(document).ready(function() {
                 totalPrice += itemPrice * itemQuantity;
             }
         }
-        $('#totalPriceValue').text(totalPrice + ' 만원');
+        $('.totalPriceValue').text(totalPrice + ' 만원');
     }
 
+    $(document).on('click', '#SCNextBtn', function() {
+    	
+     // 선택한 item 정보를 sessionStorage에 저장
+        sessionStorage.setItem('selectedItems', JSON.stringify(selectedItems));
+        sessionStorage.setItem('checkedItems', JSON.stringify(checkedItems));
+        updateSelectedItems();
+        updateTotalPrice(); 
+       // console.log(selectedItems);
+        closeModal('#serviceCheckModal');
+        openModal('#askModal');
+    });
     function openModal(modalId) {
         $(modalId).css('display', 'block');
     }
 
     function closeModal(modalId) {
         $(modalId).css('display', 'none');
-        localStorage.clear();
+        
     }
 
     $(document).on('click', '.close', function() {
@@ -261,6 +269,7 @@ $(document).ready(function() {
         closeModal('#serviceCheckModal');
         openModal('#' + prevModal);
     });
+	
 });
 </script>
 

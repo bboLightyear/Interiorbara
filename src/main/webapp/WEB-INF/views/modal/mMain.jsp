@@ -9,6 +9,7 @@ String path=request.getContextPath();
    
     <link rel="stylesheet" href="resources/css/modal.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
    
 </head> 
 <body>
@@ -107,6 +108,7 @@ String path=request.getContextPath();
 
 <jsp:include page="mSize.jsp" />
 <jsp:include page="mServiceCheck.jsp" />
+<jsp:include page="mAsk.jsp" />
 
 <script>
 $(document).ready(function() {
@@ -115,7 +117,7 @@ $(document).ready(function() {
     var span = $('.close');
     var openSizeModalBtn = $('.openSizeModal');
     var openServiceCheckModalBtn = $('.openServiceCheckModal');
-    var selectedOption = localStorage.getItem('selectedOption');
+  
 
    
 
@@ -125,7 +127,7 @@ $(document).ready(function() {
 
     function closeModal(modalId) {
         $(modalId).css('display', 'none');
-        localStorage.clear();
+       
     }
 
     btn.click(function() {
@@ -134,17 +136,19 @@ $(document).ready(function() {
 
     span.click(function() {
         closeModal('#myModal');
+       
     });
 
     $(window).click(function(event) {
         if (event.target == modal[0]) {
             closeModal('#myModal');
+            
         }
     });
 
     function updateSelectedService(service) {
-        $('#selectedService').text(service);
         $('.selectedService span').text(service);
+      	$('#selectedService').text(service);
         $('.selectedService').show();
     }
     
@@ -153,9 +157,7 @@ $(document).ready(function() {
         var service = $(this).data('service');
         var option = $(this).data('option');
         updateSelectedService(service);
-        localStorage.setItem('selectedService', service);
-        localStorage.setItem('selectedOption', option);
-        
+      
         $.ajax({
             type: "GET",
             async: true,
@@ -199,8 +201,7 @@ $(document).ready(function() {
         var option = $(this).data('option');
         
         updateSelectedService(service);
-        localStorage.setItem('selectedService', service);
-        localStorage.setItem('selectedOption', option);
+       
         $('#serviceCheckModal').attr('data-prev-modal', option === 'kitchen' || option === 'bath' ? 'myModal' : 'sizeModal');//의심중
         $.ajax({
             type: "GET",
@@ -209,6 +210,7 @@ $(document).ready(function() {
             data: { m_type: option },
             success: function(result) {
                 var serviceItems = result;
+                
                 var productCheckbox = $(".productCheckBox");
                 productCheckbox.empty();
                 

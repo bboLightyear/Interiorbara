@@ -403,11 +403,47 @@ a {
     cursor: pointer;
 }
 
+/* -------------mAsk------------------ */
+#sample5_address{
+	border: none;
+	outline: none;
+	width: 400px;
+}
+#sample5_address2{
+	border-radius: 8px;
+	background: #555;
+	color: #fff;
+	border: none;
+	cursor: pointer;
+}
 
-
-
-
-
+.item6,
+.item7,
+.item8{
+    flex:1 auto;
+    display: flex;
+    background: #fff;
+    border: 0;
+    align-items: center;
+    box-shadow: none;
+    outline: 0;
+    padding: 10px;
+    margin:7px;
+    color: #1f222b;
+    border-radius: 8px;
+    text-align: center;
+    
+    justify-content: space-between;
+    
+}
+.addr{
+	display: flex;
+	border: 1px solid #e5e7ee;	
+	border-radius: 8px;
+	justify-content: space-between;
+	padding: 8px;
+	width: 450px;
+}
 
 
 
