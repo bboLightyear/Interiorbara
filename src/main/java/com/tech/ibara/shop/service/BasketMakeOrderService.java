@@ -15,6 +15,7 @@ import com.tech.ibara.shop.dao.ShopDao;
 import com.tech.ibara.shop.dto.BasketDto;
 import com.tech.ibara.shop.dto.OrderDto;
 import com.tech.ibara.shop.dto.OrderProductDto;
+import com.tech.ibara.shop.dto.ProductDto;
 
 public class BasketMakeOrderService extends SqlSessionBase implements ShopRestService<Integer> {
 
@@ -45,56 +46,63 @@ public class BasketMakeOrderService extends SqlSessionBase implements ShopRestSe
 			ObjectMapper mapper = new ObjectMapper();
 			ArrayList<Integer> basketIdList = mapper.readValue(json, new TypeReference<ArrayList<Integer>>() {});
 			
-			ArrayList<BasketDto> basketDtoList = dao.selectBasketsByIds(basketIdList);
+			ArrayList<BasketDto> basketDtoList = dao.selectBaskets(basketIdList);
 			if (basketDtoList.size() == 0) {
 				orderId = -1;
 				return;
 			}
 			
 			ArrayList<Integer> productIdList = new ArrayList<Integer>();
+			int totalPrice = 0;
+			int deliveryFee = 0;
 			int amount = 0;
-			for (BasketDto b : basketDtoList) {
-				if (!productIdList.contains(b.getProduct_id())) {
-					productIdList.add(b.getProduct_id());
-					amount += b.getProduct_dto().getDelivery_fee();
+			for (BasketDto basketDto : basketDtoList) {
+				if (!productIdList.contains(basketDto.getProduct_id())) {
+					productIdList.add(basketDto.getProduct_id());
+					deliveryFee += basketDto.getProduct().getDelivery_fee();
 				}
-				if (b.getProduct_data_dto().getDiscounted_price() != null) {
-					amount += b.getProduct_data_dto().getDiscounted_price() * b.getQuantity();
+				if (basketDto.getProduct().getIs_discounted().equals("Y")) {
+					totalPrice += basketDto.getOption().getDiscounted_price() * basketDto.getQuantity();
 				} else {
-					amount += b.getProduct_data_dto().getPrice() * b.getQuantity();
+					totalPrice += basketDto.getOption().getPrice() * basketDto.getQuantity();
 				} 
 			}
 			
-			OrderDto orderDto = new OrderDto(userId, 1, null, null, null, null, amount);
+			amount = deliveryFee + totalPrice;
+			
+			OrderDto orderDto = new OrderDto(
+					userId,
+					1,
+					null,
+					null,
+					null,
+					null,
+					null,
+					null,
+					null,
+					null,
+					null,
+					totalPrice,
+					deliveryFee,
+					amount);
 			
 			
 			dao.insertOrder(orderDto);
 			orderId = orderDto.getOrder_id();
-			for (BasketDto b : basketDtoList) {
-				int price = b.getProduct_data_dto().getDiscounted_price() != null ?
-						b.getProduct_data_dto().getDiscounted_price() : 
-						b.getProduct_data_dto().getPrice();
-				
-				String optionText = "";
-				
-				if (b.getOption_set_dto() != null) {
-					optionText += b.getOption_set_dto().getName() + ": " + b.getOption_dto().getName() + " / ";
-				}
-				
-				if (b.getFinal_option_set_dto() != null) {
-					optionText += b.getFinal_option_set_dto().getName() + ": ";
-				}
-				
-				optionText += b.getFinal_option_dto().getName();
+			for (BasketDto basketDto : basketDtoList) {
+				int price = (basketDto.getProduct().getIs_discounted().equals("Y") ?
+						basketDto.getOption().getDiscounted_price() :
+						basketDto.getOption().getPrice()) * basketDto.getQuantity();
 						
 				dao.insertOrderProduct(new OrderProductDto(
 						orderId,
-						b.getProduct_id(),
-						b.getOption_id(),
-						b.getProduct_dto().getName(),
+						basketDto.getProduct_id(),
+						basketDto.getOption_id(),
+						basketDto.getProduct().getName(),
 						price,
-						b.getQuantity(),
-						optionText));
+						basketDto.getProduct().getDelivery_fee(),
+						basketDto.getQuantity(),
+						basketDto.getOption_text()));
 			}
 
 			

@@ -27,49 +27,70 @@ public class ProductViewService extends SqlSessionBase implements ShopService {
 
 		int productId = Integer.parseInt(request.getParameter("productId"));
 
-		ProductDto productDto = dao.selectProductById(productId);
+		ProductDto productDto = dao.selectProduct(productId);
 
 		// category
 		ArrayList<CategoryDto> categories = new ArrayList<CategoryDto>();
-		CategoryDto categoryDto = dao.selectCategoryById(productDto.getCategory_id());
+		CategoryDto categoryDto = dao.selectCategory(productDto.getCategory_id());
 		categories.add(categoryDto);
-		while (categoryDto.getUp_category_id() != null) {
-			categoryDto = dao.selectCategoryById(categoryDto.getUp_category_id());
+		while (categoryDto.getParent_category_id() != null) {
+			categoryDto = dao.selectCategory(categoryDto.getParent_category_id());
 			categories.add(0, categoryDto);
 		}
 
 		// image
 		ArrayList<ProductImgDto> productImgs = dao.selectProductImgsByProduct(productId);
 
+		
 		// option
-		OptionSetDto optionSetDto = dao.selectOptionSetByProduct(productId);
-		int optionSetId = optionSetDto.getOption_set_id();
-
-		OptionDto nonOptionDto = null;
-		OptionSetDto subOptionSetDto = null;
-
+		OptionSetDto optionSetDto = null;
+		OptionSetDto parentOptionSetDto = null;
+		OptionDto optionDto = null;
 		ArrayList<OptionDto> optionDtoList = null;
+		ArrayList<OptionDto> parentOptionDtoList = null;
+		
+		switch (productDto.getOption_type()) {
+		case "0": {
+			int optionSetId = productDto.getOption1_set_id();
+			optionSetDto = dao.selectOptionSet(optionSetId);
+			optionDto = dao.selectOptionByOptionSet(optionSetId);
+			
+			model.addAttribute("optionSet", optionSetDto);
+			model.addAttribute("option", optionDto);
+			
+			break;
+		}
+		case "1": {
+			int optionSetId = productDto.getOption1_set_id();
+			optionSetDto = dao.selectOptionSet(optionSetId);
+			optionDtoList = dao.selectOptionsByOptionSet(optionSetId);
 
-		optionDtoList = dao.selectOptionsBySet(optionSetId);
-
-		if (optionDtoList.size() == 1) {
-			nonOptionDto = dao.selectJoinOptionBySet(optionSetId);
-		} else {
-			OptionDto optionDto = optionDtoList.get(0);
-			if (optionDto.getSub_option_set_id() == null) {
-				optionDtoList = dao.selectJoinOptionsBySet(optionSetId);
-			} else {
-				subOptionSetDto = dao.selectOptionSetById(optionDto.getSub_option_set_id());
-			}
+			model.addAttribute("optionSet", optionSetDto);
+			model.addAttribute("optionList", optionDtoList);
+			
+			break;	
+		}
+		case "2":{
+			int parentOptionSetId = productDto.getOption1_set_id();
+			parentOptionSetDto = dao.selectOptionSet(parentOptionSetId);
+			parentOptionDtoList = dao.selectOptionsByOptionSet(parentOptionSetId);
+			
+			int optionSetId = productDto.getOption2_set_id();
+			optionSetDto = dao.selectOptionSet(optionSetId);
+			optionDtoList = dao.selectOptionsByOptionSet(optionSetId);
+			
+			model.addAttribute("parentOptionSet", parentOptionSetDto);
+			model.addAttribute("parentOptionList", parentOptionDtoList);
+			model.addAttribute("optionSet", optionSetDto);
+			model.addAttribute("optionList", optionDtoList);
+			
+			break;
+		}
 		}
 
 		model.addAttribute("product", productDto);
 		model.addAttribute("categories", categories);
 		model.addAttribute("images", productImgs);
-		model.addAttribute("optionSet", optionSetDto);
-		model.addAttribute("nonOption", nonOptionDto);
-		model.addAttribute("options", optionDtoList);
-		model.addAttribute("subOptionSet", subOptionSetDto);
 	}
 
 }

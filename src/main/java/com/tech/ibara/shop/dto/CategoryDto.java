@@ -3,7 +3,7 @@ package com.tech.ibara.shop.dto;
 public class CategoryDto {
 
 	private int category_id;
-	private Integer up_category_id;
+	private Integer parent_category_id;
 	private String name;
 
 	public CategoryDto() {
@@ -18,12 +18,12 @@ public class CategoryDto {
 		this.category_id = category_id;
 	}
 
-	public Integer getUp_category_id() {
-		return up_category_id;
+	public Integer getParent_category_id() {
+		return parent_category_id;
 	}
 
-	public void setUp_category_id(Integer up_category_id) {
-		this.up_category_id = up_category_id;
+	public void setParent_category_id(Integer parent_category_id) {
+		this.parent_category_id = parent_category_id;
 	}
 
 	public String getName() {

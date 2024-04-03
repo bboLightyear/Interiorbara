@@ -33,7 +33,7 @@ public class BasketViewService extends SqlSessionBase implements ShopService {
 			int productId = b.getProduct_id();
 			if (!productIds.contains(productId)) {
 				productIds.add(productId);
-				productDtoList.add(dao.selectProductById(productId));
+				productDtoList.add(dao.selectProduct(productId));
 			}
 		}
 		

@@ -18,73 +18,68 @@
 			<input type="checkbox" id="checkAll" checked />
 			<label for="checkAll">전체선택</label>
 			<ul id="productGroup">
-			<c:set var="basketTotalPrice" value="0"/>
-			<c:set var="basektTotalDelivery" value="0" />
-			<c:forEach items="${products }" var="product">
-				<li class="productItem" data-product-id="${product.product_id }">
-					<input type="checkbox" class="productCheckBox" data-product-id="${product.product_id }" checked />
-					${product.name } <button class="removeBtn" data-btn-of="product" data-product-id="${product.product_id }">X</button>
-					<ul class="selectedOptionGroup">
-					<c:set var="productTotalPrice" value="0"/>
-					<c:forEach items="${baskets }" var="basket" varStatus="status">
-					<c:if test="${product.product_id eq basket.product_id }">
-					<c:if test="${basket.product_data_dto.discounted_price eq null }">
-						<c:set var="optionTotalPrice" value="${basket.product_data_dto.price * basket.quantity }"/>
-					</c:if>
-					<c:if test="${basket.product_data_dto.discounted_price ne null }">
-						<c:set var="optionTotalPrice" value="${basket.product_data_dto.discounted_price * basket.quantity }"/>
-					</c:if>
-					<c:set var="productTotalPrice" value="${productTotalPrice + optionTotalPrice }"/>
-						<li class="selectedOption" data-basket-id="${basket.basket_id }"
-							data-option-id="${basket.option_id }"
-							data-product-id="${basket.product_id }"
-							data-quantity="${basket.quantity }"
-							<c:if test="${basket.product_data_dto.discounted_price eq null }">
-								data-option-price="${basket.product_data_dto.price }"
-							</c:if>
-							<c:if test="${basket.product_data_dto.discounted_price ne null }">
-								data-option-price="${basket.product_data_dto.discounted_price }"
-							</c:if>
-							data-option-total-price="${optionTotalPrice }">
-							<div>
-							<c:if test="${basket.option_set_dto ne null }">
-								${basket.option_set_dto.name }: ${basket.option_dto.name } /
-							</c:if>
-							<c:if test="${basket.final_option_set_dto.name ne null }">
-								${basket.final_option_set_dto.name }:
-							</c:if>
-								${basket.final_option_dto.name } <button class="removeBtn" data-btn-of="option" data-option-id="${basket.option_id }">X</button>
-							</div>
-							<button type="button" class="quantityBtn" data-action="sub" data-option-id="${basket.option_id }">&lt;</button>
-							(<span class="optionQuantityText" data-option-id="${basket.option_id }">${basket.quantity }</span>)
-							<button type="button" class="quantityBtn" data-action="add" data-option-id="${basket.option_id }">&gt;</button>
-							<span class="optionPriceText" data-option-id="${basket.option_id }">
-							<fmt:formatNumber type="number" pattern="#,###" value="${optionTotalPrice }"/></span>원
-						</li>
-					</c:if>
-					</c:forEach>
-					</ul>
-					<c:set var="basketTotalPrice" value="${basketTotalPrice + productTotalPrice }"/>
-					<c:set var="basektTotalDelivery" value="${basektTotalDelivery + product.delivery_fee }" />
-					총 금액: <span class="productTotalPrice" data-product-id="${product.product_id }"
-					data-product-total-price="${productTotalPrice }">
-					<fmt:formatNumber type="number" pattern="#,###" value="${productTotalPrice }"/></span>원 <br />
-					배송비: <span class="deliveryFee" data-delivery-fee="${product.delivery_fee }"
-						data-product-id="${product.product_id }">
-					<fmt:formatNumber type="number" pattern="#,###" value="${product.delivery_fee }"/>
-					</span>원
-				</li>
-			</c:forEach>
+				<c:set var="basketTotalPrice" value="0"/>
+				<c:set var="basketTotalDPrice" value="0"/>
+				<c:set var="basektTotalDelivery" value="0" />
+				<c:forEach items="${products }" var="product">
+					<li class="productItem" data-product-id="${product.product_id }">
+						<input type="checkbox" class="productCheckBox" data-product-id="${product.product_id }" checked />
+						${product.name } <button class="removeBtn" data-btn-of="product" data-product-id="${product.product_id }">X</button>
+						<ul class="selectedOptionGroup">
+							<c:set var="productTotalPrice" value="0"/>
+							<c:set var="productTotalDPrice" value="0"/>
+							<c:forEach items="${baskets }" var="basket" varStatus="status">
+								<c:if test="${product.product_id eq basket.product_id }">
+									<c:set var="optionTotalPrice" value="${basket.option.price * basket.quantity }"/>
+									<c:set var="optionTotalDPrice" value="${basket.option.discounted_price != null ? basket.option.discounted_price * basket.quantity : 0 }"/>
+									<c:set var="productTotalPrice" value="${productTotalPrice + optionTotalPrice }"/>
+									<c:set var="productTotalDPrice" value="${productTotalDPrice + optionTotalDPrice }"/>
+									<li class="selectedOption" data-basket-id="${basket.basket_id }"
+										data-option-id="${basket.option_id }"
+										data-product-id="${basket.product_id }"
+										data-quantity="${basket.quantity }"
+										data-option-price="${basket.option.price }"
+										data-option-d-price="${basket.option.discounted_price != null ? basket.option.discounted_price : 0 }"
+										data-option-total-price="${optionTotalPrice }"
+										data-option-total-d-price="${optionTotalDPrice }">
+										<div>
+										${basket.option_text }
+										<button class="removeBtn" data-btn-of="option" data-option-id="${basket.option_id }">X</button>
+										</div>
+										<button type="button" class="quantityBtn" data-action="sub" data-option-id="${basket.option_id }">&lt;</button>
+										(<span class="optionQuantityText" data-option-id="${basket.option_id }">${basket.quantity }</span>)
+										<button type="button" class="quantityBtn" data-action="add" data-option-id="${basket.option_id }">&gt;</button>
+										
+										<span class="optionPriceText" data-option-id="${basket.option_id }">
+										<fmt:formatNumber type="number" pattern="#,###" value="${optionTotalDPrice != 0 ? optionTotalDPrice : optionTotalPrice }"/></span>원
+									</li>
+								</c:if>
+							</c:forEach>
+						</ul>
+						<c:set var="basketTotalPrice" value="${basketTotalPrice + productTotalPrice }"/>
+						<c:set var="basketTotalDPrice" value="${basketTotalDPrice + productTotalDPrice }"/>
+						<c:set var="basektTotalDelivery" value="${basektTotalDelivery + product.delivery_fee }" />
+						총 금액: <span class="productTotalPrice" data-product-id="${product.product_id }"
+						data-product-total-price="${productTotalPrice }"
+						data-product-total-d-price="${productTotalDPrice }">
+						<fmt:formatNumber type="number" pattern="#,###" value="${productTotalDPrice != 0 ? productTotalDPrice : productTotalPrice }"/></span>원 <br />
+						배송비: <span class="deliveryFee" data-delivery-fee="${product.delivery_fee }"
+							data-product-id="${product.product_id }">
+						<fmt:formatNumber type="number" pattern="#,###" value="${product.delivery_fee }"/></span>원
+					</li>
+				</c:forEach>
 			</ul>
 		</div>
 		<div id="sideWrap">
 			<div>
-				총 상품 금액: <span id="totalSelectedBasketsPrice" data-basket-total-price="${basketTotalPrice }">
+				총 상품 금액: <span id="totalSelectedBasketsPrice">
 				<fmt:formatNumber type="number" pattern="#,###" value="${basketTotalPrice }"/></span>원 <br />
 				총 배송비: <span id="totalDeliveryFee" data-delivery-fee="${basektTotalDelivery }" >
 				<fmt:formatNumber type="number" pattern="#,###" value="${basektTotalDelivery }"/></span>원 <br />
-				총 금액: <span id="totalPurchasePrice" data-total-purchase="${basketTotalPrice + basektTotalDelivery }">
-				<fmt:formatNumber type="number" pattern="#,###" value="${basketTotalPrice + basektTotalDelivery }"/></span>원 <br />
+				총 할인금액: <span id="totalSelectedBasketsSubDPrice">
+				<fmt:formatNumber type="number" pattern="#,###" value="${basketTotalDPrice != 0 ? basketTotalPrice - basketTotalDPrice : 0 }"/></span>원 <br />
+				결제금액: <span id="totalPurchasePrice">
+				<fmt:formatNumber type="number" pattern="#,###" value="${basketTotalDPrice != 0 ? basketTotalDPrice + basektTotalDelivery : basketTotalPrice + basektTotalDelivery }"/></span>원 <br />
 			</div>
 			<div>
 				<button type="button" id="purchaseBtn">구매하기</button>

@@ -12,26 +12,21 @@ public class BasketDto {
 	private int option_id;
 	@JsonProperty("quantity")
 	private int quantity;
+	private String option_text;
 
-	private OptionDto option_dto;
-	private OptionDto final_option_dto;
-
-	private OptionSetDto option_set_dto;
-	private OptionSetDto final_option_set_dto;
-
-	private ProductDataDto product_data_dto;
-
-	private ProductDto product_dto;
+	private OptionDto option;
+	private ProductDto product;
 
 	public BasketDto() {
 
 	}
 
-	public BasketDto(int user_id, int product_id, int option_id, int quantity) {
+	public BasketDto(int user_id, int product_id, int option_id, int quantity, String option_text) {
 		this.user_id = user_id;
 		this.product_id = product_id;
 		this.option_id = option_id;
 		this.quantity = quantity;
+		this.option_text = option_text;
 	}
 
 	public int getBasket_id() {
@@ -74,52 +69,28 @@ public class BasketDto {
 		this.quantity = quantity;
 	}
 
-	public OptionDto getOption_dto() {
-		return option_dto;
+	public String getOption_text() {
+		return option_text;
 	}
 
-	public void setOption_dto(OptionDto option_dto) {
-		this.option_dto = option_dto;
+	public void setOption_text(String option_text) {
+		this.option_text = option_text;
 	}
 
-	public OptionDto getFinal_option_dto() {
-		return final_option_dto;
+	public OptionDto getOption() {
+		return option;
 	}
 
-	public void setFinal_option_dto(OptionDto final_option_dto) {
-		this.final_option_dto = final_option_dto;
+	public void setOption(OptionDto option) {
+		this.option = option;
 	}
 
-	public OptionSetDto getOption_set_dto() {
-		return option_set_dto;
+	public ProductDto getProduct() {
+		return product;
 	}
 
-	public void setOption_set_dto(OptionSetDto option_set_dto) {
-		this.option_set_dto = option_set_dto;
-	}
-
-	public OptionSetDto getFinal_option_set_dto() {
-		return final_option_set_dto;
-	}
-
-	public void setFinal_option_set_dto(OptionSetDto final_option_set_dto) {
-		this.final_option_set_dto = final_option_set_dto;
-	}
-
-	public ProductDataDto getProduct_data_dto() {
-		return product_data_dto;
-	}
-
-	public void setProduct_data_dto(ProductDataDto product_data_dto) {
-		this.product_data_dto = product_data_dto;
-	}
-
-	public ProductDto getProduct_dto() {
-		return product_dto;
-	}
-
-	public void setProduct_dto(ProductDto product_dto) {
-		this.product_dto = product_dto;
+	public void setProduct(ProductDto product) {
+		this.product = product;
 	}
 
 }

@@ -9,7 +9,6 @@ import org.springframework.ui.Model;
 
 import com.tech.ibara.shop.dao.ShopDao;
 import com.tech.ibara.shop.dto.OptionDto;
-import com.tech.ibara.shop.dto.OptionSetDto;
 
 public class ProductSubOptionSetService extends SqlSessionBase implements ShopRestService<ArrayList<OptionDto>> {
 
@@ -26,9 +25,7 @@ public class ProductSubOptionSetService extends SqlSessionBase implements ShopRe
 
 		int optionId = Integer.parseInt(request.getParameter("optionId"));
 
-		OptionDto optionDto = dao.selectOptionById(optionId);
-		OptionSetDto subOptionSetDto = dao.selectOptionSetById(optionDto.getSub_option_set_id());
-		optionDtoList = dao.selectJoinOptionsBySet(subOptionSetDto.getOption_set_id());
+		optionDtoList = dao.selectOptionsByParentOption(optionId);
 	}
 
 	@Override

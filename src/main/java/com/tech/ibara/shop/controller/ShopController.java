@@ -12,6 +12,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.tech.ibara.shop.service.BasketViewService;
 import com.tech.ibara.shop.service.ManagementViewService;
+import com.tech.ibara.shop.service.OrderViewService;
 import com.tech.ibara.shop.service.ProductListService;
 import com.tech.ibara.shop.service.ProductRegService;
 import com.tech.ibara.shop.service.ProductViewService;
@@ -77,5 +78,17 @@ public class ShopController {
 		shopService.execute(model);
 		
 		return "redirect:/shop/management";
+	}
+	
+	@RequestMapping("/shop/order")
+	public String orderView(HttpServletRequest request, HttpSession session, Model model) {
+		
+		model.addAttribute("request", request);
+		model.addAttribute("session", session);
+		
+		shopService = new OrderViewService(sqlSession);
+		shopService.execute(model);
+		
+		return "shop/order";
 	}
 }

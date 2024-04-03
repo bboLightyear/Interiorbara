@@ -7,21 +7,23 @@ public class OrderProductDto {
 	private int product_id;
 	private int option_id;
 	private String name;
-	private int price;
+	private int total_price;
+	private int total_delivery_fee;
 	private int quantity;
 	private String option_text;
 
 	public OrderProductDto() {
+
 	}
 
-	public OrderProductDto(int order_id, int product_id, int option_id, String name, int price, int quantity,
-			String option_text) {
-		super();
+	public OrderProductDto(int order_id, int product_id, int option_id, String name, int total_price,
+			int total_delivery_fee, int quantity, String option_text) {
 		this.order_id = order_id;
 		this.product_id = product_id;
 		this.option_id = option_id;
 		this.name = name;
-		this.price = price;
+		this.total_price = total_price;
+		this.total_delivery_fee = total_delivery_fee;
 		this.quantity = quantity;
 		this.option_text = option_text;
 	}
@@ -66,12 +68,20 @@ public class OrderProductDto {
 		this.name = name;
 	}
 
-	public int getPrice() {
-		return price;
+	public int getTotal_price() {
+		return total_price;
 	}
 
-	public void setPrice(int price) {
-		this.price = price;
+	public void setTotal_price(int total_price) {
+		this.total_price = total_price;
+	}
+
+	public int getTotal_delivery_fee() {
+		return total_delivery_fee;
+	}
+
+	public void setTotal_delivery_fee(int total_delivery_fee) {
+		this.total_delivery_fee = total_delivery_fee;
 	}
 
 	public int getQuantity() {
