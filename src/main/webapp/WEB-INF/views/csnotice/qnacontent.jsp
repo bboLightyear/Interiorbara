@@ -1,3 +1,4 @@
+<%@page import="com.tech.ibara.csnotice.dto.QnaDto"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -11,7 +12,14 @@
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 </head>
 
+
 <body>
+ 	<%-- <%session.setAttribute("userId",null);%> --%> 
+ 	<%session.setAttribute("userId","cus");%>   
+	
+	<p> <%= session.getAttribute("userId") %></p>
+	<% System.out.println("userId 값 : "+session.getAttribute("userId")); %>
+	
 	<h3>qna content</h3>
 
 	<table>
@@ -53,14 +61,37 @@
 			</c:forEach>
 		</tr>
 		<tr>
-			<td colspan="2"><a href="qnaeditview?nbno=${qna_content.nbno }">수정</a>
-				<a href="qnadelete?nbno=${qna_content.nbno }">삭제</a> <a
-				href="qnalist">목록으로</a> <br /></td>
+			<td>
+				<%
+			    // qna_content에 담긴 nbwriter 출력하기
+				QnaDto qna_content = (QnaDto) request.getAttribute("qna_content");
+			    String nbwriter = qna_content.getNbwriter();
+			    System.out.println("nbwriter 값: " + nbwriter);
+			    
+			    String userId=(String)session.getAttribute("userId");
+			    
+				if( userId.equals(nbwriter)){ %>
+				<a href="qnaeditview?nbno=${qna_content.nbno }">수정</a>
+				<a href="qnadelete?nbno=${qna_content.nbno }">삭제</a> 
+				<a href="qnalist">목록으로</a> <br />
+				<% }else{
+				%>
+				<a href="qnalist">목록으로</a> <br />
+				<% 
+				}%>
+				
+			</td>
 		</tr>
 	</table>
 
 	<hr />
 
+	<%
+	if(session.getAttribute("userId")==null){
+		
+	}else{
+	%>
+	
 	<form action="qnareply?nbno=${qna_content.nbno }" method="post">
 		<table border="1px">
 			<tr>
@@ -69,11 +100,12 @@
 			</tr>
 			<tr>
 				<td><textarea rows="6" cols="65" name="qnareply"></textarea></td>
-				<td><input type="text" name="qnarewriter" /></td>
+				<td><input type="hidden" name="qnarewriter" value="<%=session.getAttribute("userId") %>"/><%=session.getAttribute("userId") %></td>
 				<td><input type="submit" value="답변" /></td>
 			</tr>
 		</table>
 	</form>
+	<% } %>
 	<hr />
 	<h3>답글 ${replycnt}개</h3>
 
@@ -84,7 +116,13 @@
 					${dto.rnbcontent }&nbsp;&nbsp;</h3></span>
 
 			<!--답글 달기 버튼을 클릭 시에 아래에 입력 창이 나타나도록 하는 스크립트-->
+			<%
+			if(session.getAttribute("userId")==null){
+				
+			}else{
+			%>
 			<button onclick="replyform()" data-rnbno="${dto.rnbno }">답글달기</button>
+			<% } %>
 		</div>
 
 		<div id="${dto.rnbno }replyrview" style="display: block;">
@@ -108,9 +146,8 @@
 					id="rnbindent" name="rnbindent" value="${dto.rnbindent }" />
 
 				<textarea rows="6" cols="65" id="rcontent" name="rcontent">&nbsp;</textarea>
-				<input type="text" name="rwriter" id="rwriter" /> <input
-					type="button" value="입력" onclick="reply()"
-					data-rnbno="${dto.rnbno }" />
+				<input type="hidden" name="rwriter" id="rwriter" value="<%=session.getAttribute("userId") %>"/> 
+				<input type="button" value="입력" onclick="reply()" data-rnbno="${dto.rnbno }" />
 			</div>
 			<button onclick="replyformclose()" data-rnbno="${dto.rnbno }">접기</button>
 		</div>
