@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.tech.ibara.shop.dto.BasketDto;
 import com.tech.ibara.shop.dto.CategoryDto;
 import com.tech.ibara.shop.dto.OptionDto;
 import com.tech.ibara.shop.service.BasketAddService;
@@ -74,7 +75,7 @@ public class ShopRestController {
 	}
 	
 	@RequestMapping(method = RequestMethod.POST, value = "/shop/basket/modifyQuantity")
-	public int basketModifyQuantity(HttpServletRequest request, HttpSession session ,Model model) {
+	public ArrayList<BasketDto> basketModifyQuantity(HttpServletRequest request, HttpSession session ,Model model) {
 		
 		model.addAttribute("request", request);
 		model.addAttribute("session", session);
@@ -86,13 +87,15 @@ public class ShopRestController {
 	}
 	
 	@RequestMapping(method = RequestMethod.POST, value = "/shop/basket/removeBasket")
-	public void removeBasket(HttpServletRequest request, HttpSession session ,Model model) {
+	public ArrayList<BasketDto> removeBasket(HttpServletRequest request, HttpSession session ,Model model) {
 		
 		model.addAttribute("request", request);
 		model.addAttribute("session", session);
 		
 		BasketRemoveService shopService = new BasketRemoveService(sqlSession);
 		shopService.execute(model);
+		
+		return shopService.getData();
 	}
 	
 	@RequestMapping(method = RequestMethod.POST, value = "/shop/basket/makeOrder")

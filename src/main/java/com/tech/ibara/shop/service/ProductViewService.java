@@ -27,7 +27,7 @@ public class ProductViewService extends SqlSessionBase implements ShopService {
 
 		int productId = Integer.parseInt(request.getParameter("productId"));
 
-		ProductDto productDto = dao.selectProduct(productId);
+		ProductDto productDto = dao.selectProductJoinSeller(productId);
 
 		// category
 		ArrayList<CategoryDto> categories = new ArrayList<CategoryDto>();
