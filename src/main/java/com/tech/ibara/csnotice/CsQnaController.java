@@ -113,12 +113,12 @@ public class CsQnaController {
 		System.out.println("qnaeditproc()controller");
 		
 		model.addAttribute("mftrequest",mftrequest);
-		String nbno = mftrequest.getParameter("nbno");
+		String qbno = mftrequest.getParameter("qbno");
 		
 		csQnaService = new CsQnaEditProcService(sqlSession);
 		csQnaService.execute(model);
 
-		return "redirect:qnacontent?nbno=" + nbno;
+		return "redirect:qnacontent?qbno=" + qbno;
 	}//qnaeditproc
 	
 	
@@ -142,12 +142,12 @@ public class CsQnaController {
 		System.out.println("qnareply()");
 		
 		model.addAttribute("request",request);
-		String nbno = request.getParameter("nbno");
+		String qbno = request.getParameter("qbno");
 		
 		csQnaService = new CsQnaReplyService(sqlSession);
 		csQnaService.execute(model);
 		
-		return "redirect:qnacontent?nbno=" + nbno;
+		return "redirect:qnacontent?qbno=" + qbno;
 	}//qnareply
 	
 	

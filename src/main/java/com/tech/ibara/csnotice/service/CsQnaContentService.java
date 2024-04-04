@@ -31,31 +31,31 @@ public class CsQnaContentService implements CsQnaService {
 		
 		QnaBoardIDao dao = sqlSession.getMapper(QnaBoardIDao.class);
 
-		String nbno = request.getParameter("nbno");
-		String rnbno = request.getParameter("rnbno");
-		System.out.println(nbno);
-		System.out.println(rnbno);
+		String qbno = request.getParameter("qbno");
+		String rqbno = request.getParameter("rqbno");
+		System.out.println(qbno);
+		System.out.println(rqbno);
 
 		// 글 번호로 조회수 올리기
-		dao.uphit(nbno);
+		dao.uphit(qbno);
 
 		// 콘탠트 조회 후 dto에 담기
-		QnaDto dto = dao.qnacontent(nbno);
+		QnaDto dto = dao.qnacontent(qbno);
 		// model에 담아서 뷰단에 보내줌
 		model.addAttribute("qna_content", dto);
 
 		// 답글 셀렉트 해서 출력
-		ArrayList<QnaReplyDto> replylist = dao.replylist(nbno);
+		ArrayList<QnaReplyDto> replylist = dao.replylist(qbno);
 		System.out.println("replylist : " + replylist);
 		model.addAttribute("replylist", replylist);
 
 		// 답글 갯수 셀렉트
-		int replycnt = dao.replycnt(nbno);
+		int replycnt = dao.replycnt(qbno);
 		System.out.println("replycnt : " + replycnt);
 		model.addAttribute("replycnt", replycnt);
 
 		// 이미지 출력을 위한 파일코드 검색
-		Integer selfilecode = dao.selfilecode(nbno);
+		Integer selfilecode = dao.selfilecode(qbno);
 		System.out.println("selfilecode :" + selfilecode);
 
 		// 파일코드로 이미지 조회 후 모델에 담아 뷰에 전송
