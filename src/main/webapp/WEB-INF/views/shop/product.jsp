@@ -53,6 +53,10 @@
 		#imageRepresent {
 			width: 100%;
 		}
+		
+		.clear {
+			clear: both;
+		}
 	</style>
 </head>
 <body>
@@ -161,6 +165,143 @@
 			</form>
 			<br />
 			총 금액 : <span id="totalPrice" data-total-price="0">0원</span>
+		</section>
+		
+		<script>
+			$(document).ready(function() {
+				$(".goToBtn").on("click", changeScroll);
+				
+			});
+			
+			function changeScroll() {
+				const target = event.target;
+				const to = $(target).data("to");
+				
+				var position = $("#" + to).offset();
+				console.log(position);
+				
+				$(window).scrollTop(position.top);
+			}
+		</script>
+		
+		<div class="clear"></div>
+		
+		<button class="goToBtn" data-to="detailInfo">상세정보</button>
+		<button class="goToBtn" data-to="review">리뷰</button>
+		<button class="goToBtn" data-to="qna">문의</button>
+		
+		<section id="detailInfo">
+			<h1>상세정보</h1>
+			<h1>a</h1>
+			<h1>a</h1>
+			<h1>a</h1>
+			<h1>a</h1>
+			<h1>a</h1>
+			<h1>a</h1>
+			<h1>a</h1>
+			<h1>a</h1>
+			<h1>a</h1>
+			<h1>a</h1>
+			<h1>a</h1>
+			<h1>a</h1>
+			<h1>a</h1>
+			<h1>a</h1>
+			<h1>a</h1>
+			<h1>a</h1>
+			<h1>a</h1>
+			<h1>a</h1>
+			<h1>a</h1>
+			<h1>a</h1>
+			<h1>a</h1>
+			<h1>a</h1>
+			<h1>a</h1>
+			<h1>a</h1>
+			<h1>a</h1>
+			<h1>a</h1>
+			<h1>a</h1>
+			<h1>a</h1>
+			<h1>a</h1>
+			<h1>a</h1>
+			<h1>a</h1>
+			<h1>a</h1>
+			<h1>a</h1>
+			<h1>a</h1>
+		</section>
+		
+		<section id="review">
+			<h1>리뷰</h1>
+			<h1>a</h1>
+			<h1>a</h1>
+			<h1>a</h1>
+			<h1>a</h1>
+			<h1>a</h1>
+			<h1>a</h1>
+			<h1>a</h1>
+			<h1>a</h1>
+			<h1>a</h1>
+			<h1>a</h1>
+			<h1>a</h1>
+			<h1>a</h1>
+			<h1>a</h1>
+			<h1>a</h1>
+			<h1>a</h1>
+			<h1>a</h1>
+			<h1>a</h1>
+			<h1>a</h1>
+			<h1>a</h1>
+			<h1>a</h1>
+			<h1>a</h1>
+			<h1>a</h1>
+			<h1>a</h1>
+			<h1>a</h1>
+			<h1>a</h1>
+			<h1>a</h1>
+			<h1>a</h1>
+			<h1>a</h1>
+			<h1>a</h1>
+			<h1>a</h1>
+			<h1>a</h1>
+			<h1>a</h1>
+			<h1>a</h1>
+			<h1>a</h1>
+		</section>
+		
+		<section id="qna">
+			<h1>문의</h1>
+			<h1>a</h1>
+			<h1>a</h1>
+			<h1>a</h1>
+			<h1>a</h1>
+			<h1>a</h1>
+			<h1>a</h1>
+			<h1>a</h1>
+			<h1>a</h1>
+			<h1>a</h1>
+			<h1>a</h1>
+			<h1>a</h1>
+			<h1>a</h1>
+			<h1>a</h1>
+			<h1>a</h1>
+			<h1>a</h1>
+			<h1>a</h1>
+			<h1>a</h1>
+			<h1>a</h1>
+			<h1>a</h1>
+			<h1>a</h1>
+			<h1>a</h1>
+			<h1>a</h1>
+			<h1>a</h1>
+			<h1>a</h1>
+			<h1>a</h1>
+			<h1>a</h1>
+			<h1>a</h1>
+			<h1>a</h1>
+			<h1>a</h1>
+			<h1>a</h1>
+			<h1>a</h1>
+			<h1>a</h1>
+			<h1>a</h1>
+			<h1>a</h1>
 		</section>
 	</main>
 </body>
