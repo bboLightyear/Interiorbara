@@ -75,7 +75,7 @@ INSERT INTO
 		CS_NOTICEBOARD(NBNO,NBTITLE,NBCONTENT,NBWRITER,NBHIT,NBDATE,NBGROUP,NBSTEP,NBINDENT,NBFILECODE,NBQNADIV)
 		VALUES(CS_QNABOARD_SEQ.NEXTVAL,'공지사항입니다5(제목)','공지사항입니다5(내용)','admin',0,SYSDATE,0,0,0,null,'ss');
         
-        
+        commit;
 --------------------
 --select
 SELECT ROWNUM, n.*
