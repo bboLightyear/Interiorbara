@@ -1,13 +1,11 @@
 package com.tech.ibara.csnotice.service;
 
 import java.util.ArrayList;
-import java.util.Map;
-import javax.servlet.http.HttpServletRequest;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.ui.Model;
-import com.tech.ibara.csnotice.dao.QnaBoardIDao;
-import com.tech.ibara.csnotice.dto.QnaDto;
-import com.tech.ibara.csnotice.vo.SearchVO;
+
+import com.tech.ibara.csnotice.dao.CsHomeIDao;
+import com.tech.ibara.csnotice.dto.NoticeDto;
 
 public class CsHomeQnaNoticeService implements CsHomeService {
 
@@ -20,6 +18,12 @@ public class CsHomeQnaNoticeService implements CsHomeService {
 	@Override
 	public void execute(Model model) {
 
+		CsHomeIDao dao = sqlSession.getMapper(CsHomeIDao.class);
 		
+		ArrayList<NoticeDto> noticelist=dao.cshomenoticelist();
+		
+		System.out.println("noticelist"+noticelist);
+		
+		model.addAttribute("noticelist",noticelist);
 	}
 }

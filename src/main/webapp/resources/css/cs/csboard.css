@@ -191,10 +191,11 @@ header {
 	text-decoration: none;
 }
 .cs_home_notice_ul{/*공지사할 ul*/
+ 	margin-top: 20px; 
 	width: 427px;
 	height: 204px;
 	list-style: none;
- 	margin: 0;
+ 	/* margin: 0; */
 	padding: 0; 
 	display: block;
 }

@@ -41,8 +41,7 @@
 	</sql>
 
 
-	<select id="qnalist"
-		resultType="com.tech.ibara.csnotice.dto.QnaDto">
+	<select id="qnalist" resultType="com.tech.ibara.csnotice.dto.QnaDto">
 		SELECT
 		QBNO,QBWRITER,QBTITLE,QBCONTENT,QBDATE,QBHIT,QBGROUP,QBSTEP,QBINDENT,QBQNADIV
 		FROM (SELECT ROWNUM NUM,N.*

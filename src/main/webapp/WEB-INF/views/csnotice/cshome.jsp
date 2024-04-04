@@ -75,26 +75,12 @@
 		</div>
 		
 		<ul class="cs_home_notice_ul">
-			<li class="cs_home_notice_li"> 
+			<c:forEach items="${noticelist}" var="dto">
+				<li class="cs_home_notice_li">
 				<span class="cs_home_notice_li_icon">📣</span>
-				<a href="" class="cs_home_notice_li_contnet">안녕</a>
-			</li>
-			<li class="cs_home_notice_li"> 
-					<span class="cs_home_notice_li_icon">📣</span>
-				<a href="" class="cs_home_notice_li_contnet">안녕</a>
-			</li>
-			<li class="cs_home_notice_li"> 
-				<span class="cs_home_notice_li_icon">📣</span>
-				<a href="" class="cs_home_notice_li_contnet">안녕</a>
-			</li>
-			<li class="cs_home_notice_li"> 
-				<span class="cs_home_notice_li_icon">📣</span>
-				<a href="" class="cs_home_notice_li_contnet">안녕</a>
-			</li>
-			<li class="cs_home_notice_li"> 
-				<span class="cs_home_notice_li_icon">📣</span>
-				<a href="" class="cs_home_notice_li_contnet">안녕</a>
-			</li>
+				<a href="" class="cs_home_notice_li_contnet">${dto.nbtitle }</a>
+				</li>
+			</c:forEach>
 	
 		</ul>
 		

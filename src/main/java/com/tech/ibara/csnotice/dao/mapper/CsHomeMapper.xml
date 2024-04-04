@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.tech.ibara.csnotice.dao.CsHomeIDao">
+	
+	<select id="cshomenoticelist" resultType="com.tech.ibara.csnotice.dto.NoticeDto">
+		SELECT NBTITLE
+		FROM (
+			SELECT ROWNUM, N.*
+			FROM (
+		    	SELECT *
+		    	FROM CS_NOTICEBOARD
+		    	ORDER BY NBHIT DESC
+			) N
+		)
+		WHERE ROWNUM &lt;= 5
+	</select>
+</mapper>

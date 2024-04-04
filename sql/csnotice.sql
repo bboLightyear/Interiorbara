@@ -73,4 +73,38 @@ create SEQUENCE cs_qnaboard_reply_seq;
 --insert
 INSERT INTO
 		CS_NOTICEBOARD(NBNO,NBTITLE,NBCONTENT,NBWRITER,NBHIT,NBDATE,NBGROUP,NBSTEP,NBINDENT,NBFILECODE,NBQNADIV)
-		VALUES(CS_QNABOARD_SEQ.NEXTVAL,'공지사항입니다1(제목)','공지사항입니다1(내용)','admin',0,SYSDATE,0,0,0,#{param4},#{param5})
+		VALUES(CS_QNABOARD_SEQ.NEXTVAL,'공지사항입니다5(제목)','공지사항입니다5(내용)','admin',0,SYSDATE,0,0,0,null,'ss');
+        
+        
+--------------------
+--select
+SELECT ROWNUM, n.*
+FROM (
+    SELECT *
+    FROM cs_noticeboard
+    ORDER BY nbhit DESC
+) n
+WHERE ROWNUM <= 5;
+
+	SELECT * FROM CS_NOTICEBOARD
+    	ORDER BY NBHIT DESC
+    	FETCH FIRST 5 ROWS ONLY;
+
+		SELECT NBTITLE
+		FROM (
+			SELECT ROWNUM, N.*
+			FROM (
+		    	SELECT *
+		    	FROM CS_NOTICEBOARD
+		    	ORDER BY NBHIT DESC
+			) N
+		)
+		WHERE ROWNUM <= 5;
+
+	SELECT ROWNUM, n.nbtitle
+		FROM (
+		    SELECT *
+		    FROM CS_NOTICEBOARD
+		    ORDER BY NBHIT DESC
+		) N
+		WHERE ROWNUM <  =        5;
