@@ -41,11 +41,9 @@ public class OHPhotoReplyViewService implements OHInterfaceService {
 		OHInterfaceDao dao = sqlSession.getMapper(OHInterfaceDao.class);
 		
 		// --- 변수 선언, 값 저장 ---		
-		String userId = request.getParameter("userId");
 		String pb_no = request.getParameter("pb_no");
 		
 		// --- 변수, 값 출력 ---		
-		System.out.println("userId: " + userId);
 		System.out.println("pb_no: " + pb_no);
 		System.out.println("------------------------------");		
 		

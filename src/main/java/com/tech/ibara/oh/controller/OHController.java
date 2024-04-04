@@ -20,6 +20,7 @@ import com.tech.ibara.oh.service.OHPhotoEditExecuteService;
 import com.tech.ibara.oh.service.OHPhotoEditViewService;
 import com.tech.ibara.oh.service.OHPhotoLikeExecuteService;
 import com.tech.ibara.oh.service.OHPhotoReplyViewService;
+import com.tech.ibara.oh.service.OHPhotoReplyWriteExecuteService;
 import com.tech.ibara.oh.service.OHPhotoScrapExecuteService;
 import com.tech.ibara.oh.service.OHPhotoViewService;
 import com.tech.ibara.oh.service.OHPhotoWriteExecuteService;
@@ -182,6 +183,21 @@ public class OHController {
 		ohInterfaceService = new OHPhotoReplyViewService(sqlSession);
 		ohInterfaceService.execute(model);		
 	}
+	// ---------- OHPhotoReplyWriteExecute ----------
+	@RequestMapping("oh/OHPhotoReplyWriteExecute")
+	@ResponseBody
+	public void OHPhotoReplyWriteExecute(HttpServletRequest request, HttpServletResponse response, HttpSession session,  Model model) {
+		// Console 출력
+		System.out.println("OHPhotoReplyWriteExecute Controller");
+		System.out.println("------------------------------");	
+		
+		// Model - request
+		model.addAttribute("request", request);		
+		
+		// Service
+		ohInterfaceService = new OHPhotoReplyWriteExecuteService(sqlSession);
+		ohInterfaceService.execute(model);		
+	}	
 	// ---------- OHPhotoEditView.jsp ----------
 	@RequestMapping("oh/OHPhotoEditView")
 	public String OHPhotoEditView(HttpServletRequest request, HttpSession session, Model model) {

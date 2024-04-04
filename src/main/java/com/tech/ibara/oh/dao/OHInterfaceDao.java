@@ -48,8 +48,13 @@ public interface OHInterfaceDao {
 	public void updatePb_hit(String pb_no);
 	public OHPhotoBoard getDtoOHPhotoBoard(String pb_no);
 	public ArrayList<OHPhotoAttach> getDtoOHPhotoAttach(String pa_no);
+	
 	// ---------- OHPhotoReplyView ----------
 	public ArrayList<OHPhotoReply> ohPhotoReplyView(String pb_no);
+	
+	// ---------- OHPhotoReplyWriteExecute ----------
+	public void ohPhotoReplyWriteExecute(String userId,String pr_content,String pb_no);
+	
 	// ---------- OHPhotoEditExecute ----------
 	public void ohPBEditUpdate(String pb_no, String pb_title, 
 							   String pb_content, String pb_category, 
