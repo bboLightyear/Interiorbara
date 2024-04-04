@@ -25,12 +25,12 @@ function loadSubOptionSet() {
 				if ($("main").data("isDiscounted") === "N") {
 					$("#finalOptionSet").append($("<option>", { 
 				        value: option.option_id,
-				        text : option.name + ' ' + option.price + "원"
+				        text : option.name + ' ' + option.price.toLocaleString() + "원"
 				    }));
 				} else {
 					$("#finalOptionSet").append($("<option>", { 
 				        value: option.option_id,
-				        text : option.name + ' ' + option.discounted_price + "원"
+				        text : option.name + ' ' + option.discounted_price.toLocaleString() + "원"
 				    }));
 				}
 			});
@@ -78,7 +78,7 @@ function addOneOptionCard() {
 						optionText + '<br />\
 						<button type="button" onclick="quantity(`sub`)">&lt;</button>(<span id="quantityText">1</span>)\
 						<button type="button" onclick="quantity(`add`)">&gt;</button>\
-						<span id="priceText">' + price + '</span>원\
+						<span id="priceText">' + price.toLocaleString() + '원</span>\
 					</div>';
 					
 				$("#optionWrap").append(htmlText);
@@ -135,7 +135,7 @@ function addTwoOptionCard() {
 						optionText + '<br />\
 						<button type="button" onclick="quantity(`sub`)">&lt;</button>(<span id="quantityText">1</span>)\
 						<button type="button" onclick="quantity(`add`)">&gt;</button>\
-						<span id="priceText">' + price + '</span>원\
+						<span id="priceText">' + price.toLocaleString() + '원</span>\
 					</div>';
 					
 				$("#optionWrap").append(htmlText);
@@ -158,7 +158,7 @@ function updateTotalPrice() {
 	});
 	
 	$("#totalPrice").data("totalPrice", totalPrice);
-	$("#totalPrice").text(totalPrice);
+	$("#totalPrice").text(totalPrice.toLocaleString() + "원");
 }
 
 function quantity(operation) {
@@ -187,8 +187,8 @@ function quantity(operation) {
 	var totalPrice = price * quantity;
 	
 	$(parent).data("totalPrice", totalPrice);
-	$(parent).find("#priceText").text(totalPrice);
-	$(parent).find("#quantityText").text(quantity);
+	$(parent).find("#priceText").text(totalPrice.toLocaleString() + "원");
+	$(parent).find("#quantityText").text(quantity.toLocaleString());
 	
 	updateTotalPrice();
 }
@@ -233,7 +233,7 @@ function addBasket() {
 			$(this).data("quantity", 1);
 			$(this).data("totalPrice", $(this).data("optionPrice"));
 			$(this).find("#quantityText").text(1);
-			$(this).find("#priceText").text($(this).data("optionPrice"));
+			$(this).find("#priceText").text($(this).data("optionPrice").toLocaleString()  + "원");
 		}
 	});
 	updateTotalPrice();

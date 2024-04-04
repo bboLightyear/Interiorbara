@@ -355,7 +355,7 @@
 		<result column="OPTION_ID" property="option_id" />
 		<result column="OPTION_SET_ID" property="option_set_id" />
 		<result column="PARENT_OPTION_ID" property="parent_option_id" />
-		<result column="NAME" property="name" />
+		<result column="OPTION_NAME" property="name" />
 		<result column="STOCK" property="stock" />
 		<result column="PRICE" property="price" />
 		<result column="DISCOUNTED_PRICE" property="discounted_price" />
@@ -382,7 +382,7 @@
 			B.OPTION_TEXT,
 			O.OPTION_SET_ID,
 			O.PARENT_OPTION_ID,
-			O.NAME,
+			O.NAME OPTION_NAME,
 			O.STOCK,
 			O.PRICE,
 			O.DISCOUNTED_PRICE,
@@ -428,7 +428,7 @@
 			B.OPTION_TEXT,
 			O.OPTION_SET_ID,
 			O.PARENT_OPTION_ID,
-			O.NAME,
+			O.NAME OPTION_NAME,
 			O.STOCK,
 			O.PRICE,
 			O.DISCOUNTED_PRICE,

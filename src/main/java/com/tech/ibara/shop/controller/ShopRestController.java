@@ -87,13 +87,15 @@ public class ShopRestController {
 	}
 	
 	@RequestMapping(method = RequestMethod.POST, value = "/shop/basket/removeBasket")
-	public void removeBasket(HttpServletRequest request, HttpSession session ,Model model) {
+	public ArrayList<BasketDto> removeBasket(HttpServletRequest request, HttpSession session ,Model model) {
 		
 		model.addAttribute("request", request);
 		model.addAttribute("session", session);
 		
 		BasketRemoveService shopService = new BasketRemoveService(sqlSession);
 		shopService.execute(model);
+		
+		return shopService.getData();
 	}
 	
 	@RequestMapping(method = RequestMethod.POST, value = "/shop/basket/makeOrder")
