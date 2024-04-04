@@ -23,8 +23,8 @@ create sequence cs_noticeboard_img_seq;
 
 
 create table cs_noticeboard_reply(
-nbno number primary key,
-rnbno number,
+nbno number ,
+rnbno number primary key,
 rnbwriter varchar2(50),
 rnbcontent varchar2(50),
 rnbstep number,
@@ -58,8 +58,8 @@ filesrc varchar2(50)
 create sequence cs_qnaboard_img_seq;
 
 create table cs_qnaboard_reply(
-qbno number primary key,
-rqbno number,
+qbno number,
+rqbno number primary key,
 rqbwriter varchar2(50),
 rqbcontent varchar2(50),
 rqbstep number,
@@ -69,4 +69,8 @@ rqbindent number
 create SEQUENCE cs_qnaboard_reply_seq;
 
 
-
+--------------------
+--insert
+INSERT INTO
+		CS_NOTICEBOARD(NBNO,NBTITLE,NBCONTENT,NBWRITER,NBHIT,NBDATE,NBGROUP,NBSTEP,NBINDENT,NBFILECODE,NBQNADIV)
+		VALUES(CS_QNABOARD_SEQ.NEXTVAL,'공지사항입니다1(제목)','공지사항입니다1(내용)','admin',0,SYSDATE,0,0,0,#{param4},#{param5})

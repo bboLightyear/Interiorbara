@@ -15,12 +15,6 @@ public class CsChatController {
 	@Autowired
 	private SqlSession sqlSession;
 	
-	@RequestMapping("/cshome")
-	public String cshome() {
-		
-		return "csnotice/cshome";
-	}
-	
 	@RequestMapping("/chat")
 	public String chat() {
 		
