@@ -14,21 +14,20 @@
     <script defer src="${path}/resources/js/my/my_script_nickname.js"></script>	
 </head>
 <body>
-<h3>mypageinfoedit.jsp</h3>
+<h3>interiorinfoedit.jsp</h3>
 	<div class="mypage_category">
-        <div class="mypage_category_list list_1"><a href="mypagemain">프로필</a></div>
-	    <div class="mypage_category_list list_2">나의쇼핑</div>
-	    <div class="mypage_category_list list_3"><a href="mypagecompanysignup">업체신청</a></div> <br>
+        <div class="mypage_category_list list_1"><a href="interiormain">프로필</a></div>
+	    <div class="mypage_category_list list_2">견적</div> <br />
     </div>
     <div class="mypage_category">
-        <div class="mypage_category_list list_1_1"><a href="mypagemain">모두보기</a></div>
-	    <div class="mypage_category_list list_1_2">내사진</div>
-        <div class="mypage_category_list list_1_3">내동영상</div>
-        <div class="mypage_category_list list_1_4">회원정보수정</div>
-        <div class="mypage_category_list list_1_5"><a href="mypagepasswordedit">비밀번호변경</a></div>
+        <div class="mypage_category_list list_1_1"><a href="interiormain">모두보기</a></div>
+	    <div class="mypage_category_list list_1_2">내시공사례</div>
+        <div class="mypage_category_list list_1_3">질문과답변</div>
+        <div class="mypage_category_list list_1_4"><a href="interiorinfoedit">회원정보수정</a></div>
+        <div class="mypage_category_list list_1_5"><a href="interiorpasswordedit">비밀번호변경</a></div>
     </div>
     
-    <form action="profile" method="POST" name="myPageFrm" id="profileFrm" enctype="multipart/form-data">
+    <form action="inteprofile" method="POST" name="myPageFrm" id="profileFrm" enctype="multipart/form-data">
     	<input type="hidden" name="memno" value="${loginUserDto.memno} " />
 	    <div class="profile-image-area">
 	        <%-- 프로필 이미지가 없으면 기본 이미지 --%>
@@ -47,7 +46,7 @@
 	        <button>변경하기</button> 
 	    </div>
 	</form>
-	<form action="modify" id="modify" method="post">    
+	<form action="intemodify" id="modify" method="post">    
 	    <div class="myPage-row">
 	        <label>이메일</label>
 	        <p><input type="text" name="email" id="email" value="${loginUserDto.email}" readonly /></p>	        

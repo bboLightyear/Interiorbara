@@ -8,13 +8,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>회원가입</title>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script> -->
     <link rel="stylesheet" href="${path}/resources/css/my/my_style.css" />
-    <script src="${path}/resources/js/my/my_script.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <script defer src="${path}/resources/js/my/my_script_pwd.js"></script> 
+    <script defer src="${path}/resources/js/my/my_script_nickname.js"></script>
 </head>
 <body>
     <h3>회원가입</h3>
-
 	<form id="myjoin" action="join" method="post">
 	    <table align="center">
         <tr>
@@ -36,7 +37,9 @@
         </tr>
         <tr>
             <td>
-                <input type="text" id="pw1" name="pw1" placeholder="영문숫자특수문자를 포함한 8자리 이상" required>
+                <input type="password" id="pw1" name="pw1" size="46" placeholder="영문숫자특수문자를 포함한 8자리 이상" required>
+                <span id="togglePwd1"><i class="fa-solid fa-eye"></i></span> <br />
+                <span id="pw1Result"></span>
             </td>
         </tr>
         <tr>
@@ -44,8 +47,10 @@
         </tr>
         <tr>
             <td>
-            	<input type="text" id="pw2" name="pw2" required><br />
-            	<span id="pwResult"></span>
+            	<input type="password" id="pw2" name="pw2" size="46" required>
+            	<span id="togglePwd2"><i class="fa-solid fa-eye"></i></span>
+            	<br />            	
+            	<span id="pw2Result"></span>
             </td>
         </tr>
         <tr>
@@ -53,7 +58,7 @@
         </tr>
         <tr>
             <td>
-            	<input type="text" id="nickname" name="nickname" placeholder="2~15자 사이의 한글영문숫자" required>
+            	<input type="text" id="nickname" name="nickname" height="2em" size="50" placeholder="2~15자 사이의 한글영문숫자" required> <br />
             	<span id="nicknameResult"></span>
             </td>
         </tr>
@@ -68,5 +73,6 @@
 	<c:out value="${joinmsg }" default=""/> <br />
 
 	<span id="fs10px">이미 아이디가 있으신가요?&nbsp;&nbsp;&nbsp;&nbsp;<a href="loginform">로그인</a></span>
+     
 </body>
 </html>
