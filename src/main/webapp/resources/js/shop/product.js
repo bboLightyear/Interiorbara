@@ -6,7 +6,169 @@ $(document).ready(function() {
 	$("#qnaModalClose").on("click", closeQnaModal);
 	
 	$(".goToBtn").on("click", changeScroll);
+	$(".reviewStar").on("mouseenter", changeMousePointer);
+	$(".reviewStar").on("mouseleave", changeMouseNormal);
+	
+	$("#reviewScoreWrap").on("mouseleave", hoveringScoreLeave);
+	
+	$("#star1").on("mouseenter", starScore1);
+	$("#star2").on("mouseenter", starScore2);
+	$("#star3").on("mouseenter", starScore3);
+	$("#star4").on("mouseenter", starScore4);
+	$("#star5").on("mouseenter", starScore5);
+	
+	$("#star1").on("mouseleave", noStarScore);
+	$("#star2").on("mouseleave", noStarScore);
+	$("#star3").on("mouseleave", noStarScore);
+	$("#star4").on("mouseleave", noStarScore);
+	$("#star5").on("mouseleave", noStarScore);
+	
+	$("#star1").on("click", setStarScore1);
+	$("#star2").on("click", setStarScore2);
+	$("#star3").on("click", setStarScore3);
+	$("#star4").on("click", setStarScore4);
+	$("#star5").on("click", setStarScore5);
 });
+
+var lastColor1 = "#b1b8c0";
+var lastColor2 = "#b1b8c0";
+var lastColor3 = "#b1b8c0";
+var lastColor4 = "#b1b8c0";
+var lastColor5 = "#b1b8c0";
+
+function setStarScore1() {
+	$("#star1").css("color", "#1e90ff");
+	$("#star2").css("color", "#b1b8c0");
+	$("#star3").css("color", "#b1b8c0");
+	$("#star4").css("color", "#b1b8c0");
+	$("#star5").css("color", "#b1b8c0");
+	
+	lastColor1 = "#1e90ff";
+	lastColor2 = "#b1b8c0";
+	lastColor3 = "#b1b8c0";
+	lastColor4 = "#b1b8c0";
+	lastColor5 = "#b1b8c0";
+}
+
+function setStarScore2() {
+	$("#star1").css("color", "#1e90ff");
+	$("#star2").css("color", "#1e90ff");
+	$("#star3").css("color", "#b1b8c0");
+	$("#star4").css("color", "#b1b8c0");
+	$("#star5").css("color", "#b1b8c0");
+	
+	lastColor1 = "#1e90ff";
+	lastColor2 = "#1e90ff";
+	lastColor3 = "#b1b8c0";
+	lastColor4 = "#b1b8c0";
+	lastColor5 = "#b1b8c0";
+}
+
+function setStarScore3() {
+	$("#star1").css("color", "#1e90ff");
+	$("#star2").css("color", "#1e90ff");
+	$("#star3").css("color", "#1e90ff");
+	$("#star4").css("color", "#b1b8c0");
+	$("#star5").css("color", "#b1b8c0");
+	
+	lastColor1 = "#1e90ff";
+	lastColor2 = "#1e90ff";
+	lastColor3 = "#1e90ff";
+	lastColor4 = "#b1b8c0";
+	lastColor5 = "#b1b8c0";
+}
+
+function setStarScore4() {
+	$("#star1").css("color", "#1e90ff");
+	$("#star2").css("color", "#1e90ff");
+	$("#star3").css("color", "#1e90ff");
+	$("#star4").css("color", "#1e90ff");
+	$("#star5").css("color", "#b1b8c0");
+	
+	lastColor1 = "#1e90ff";
+	lastColor2 = "#1e90ff";
+	lastColor3 = "#1e90ff";
+	lastColor4 = "#1e90ff";
+	lastColor5 = "#b1b8c0";
+}
+
+function setStarScore5() {
+	$("#star1").css("color", "#1e90ff");
+	$("#star2").css("color", "#1e90ff");
+	$("#star3").css("color", "#1e90ff");
+	$("#star4").css("color", "#1e90ff");
+	$("#star5").css("color", "#1e90ff");
+	
+	lastColor1 = "#1e90ff";
+	lastColor2 = "#1e90ff";
+	lastColor3 = "#1e90ff";
+	lastColor4 = "#1e90ff";
+	lastColor5 = "#1e90ff";
+}
+
+function starScore1() {
+	$("#star1").css("color", "#e2f0fe");
+	$("#star2").css("color", "#b1b8c0");
+	$("#star3").css("color", "#b1b8c0");
+	$("#star4").css("color", "#b1b8c0");
+	$("#star5").css("color", "#b1b8c0");
+}
+
+function starScore2() {
+	$("#star1").css("color", "#e2f0fe");
+	$("#star2").css("color", "#e2f0fe");
+	$("#star3").css("color", "#b1b8c0");
+	$("#star4").css("color", "#b1b8c0");
+	$("#star5").css("color", "#b1b8c0");
+}
+
+function starScore3() {
+	$("#star1").css("color", "#e2f0fe");
+	$("#star2").css("color", "#e2f0fe");
+	$("#star3").css("color", "#e2f0fe");
+	$("#star4").css("color", "#b1b8c0");
+	$("#star5").css("color", "#b1b8c0");
+}
+
+function starScore4() {
+	$("#star1").css("color", "#e2f0fe");
+	$("#star2").css("color", "#e2f0fe");
+	$("#star3").css("color", "#e2f0fe");
+	$("#star4").css("color", "#e2f0fe");
+	$("#star5").css("color", "#b1b8c0");
+}
+
+function starScore5() {
+	$("#star1").css("color", "#e2f0fe");
+	$("#star2").css("color", "#e2f0fe");
+	$("#star3").css("color", "#e2f0fe");
+	$("#star4").css("color", "#e2f0fe");
+	$("#star5").css("color", "#e2f0fe");
+}
+
+function hoveringScoreLeave() {
+	$("#star1").css("color", lastColor1);
+	$("#star2").css("color", lastColor2);
+	$("#star3").css("color", lastColor3);
+	$("#star4").css("color", lastColor4);
+	$("#star5").css("color", lastColor5);
+}
+
+function noStarScore() {
+	$("#star1").css("color", "#b1b8c0");
+	$("#star2").css("color", "#b1b8c0");
+	$("#star3").css("color", "#b1b8c0");
+	$("#star4").css("color", "#b1b8c0");
+	$("#star5").css("color", "#b1b8c0");
+}
+
+function changeMousePointer() {
+	$(".reviewStar").css("cursor", "pointer");
+}
+
+function changeMouseNormal() {
+	$(".reviewStar").css("cursor", "default");
+}
 
 function changeScroll() {
 	const target = event.target;

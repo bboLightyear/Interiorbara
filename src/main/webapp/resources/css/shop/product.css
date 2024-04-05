@@ -99,3 +99,16 @@ section#summary {
 	text-align: center;
 	margin: 0;
 }
+
+.reviewStar {
+	font-size: 35px;
+	color: #b1b8c0;
+}
+
+#reviewScoreWrap {
+	font-size: 0px;
+	display: inline-block;
+}
+.reviewScore {
+	display: none;
+}

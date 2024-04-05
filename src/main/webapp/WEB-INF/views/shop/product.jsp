@@ -140,9 +140,39 @@
 					</span>
 					<div class="clear"></div>
 					<h3 class="modalTitle">리뷰쓰기</h3>
-					별점평가
-					<br />
-					
+					<form action="product/regReview" method="post" enctype="multipart/form-data">
+						별점평가 <br />
+						<div id="reviewScoreWrap">
+							<input type="radio" id="point1" name="reviewScore" class="reviewScore" />
+							<label for="point1">
+								<i id="star1" class="fa-solid fa-star reviewStar"></i>
+							</label>
+							<input type="radio" id="point2" name="reviewScore" class="reviewScore" />
+							<label for="point2">
+								<i id="star2" class="fa-solid fa-star reviewStar"></i>
+							</label>
+							<input type="radio" id="point3" name="reviewScore" class="reviewScore" />
+							<label for="point3">
+								<i id="star3" class="fa-solid fa-star reviewStar"></i>
+							</label>
+							<input type="radio" id="point4" name="reviewScore" class="reviewScore" />
+							<label for="point4">
+								<i id="star4" class="fa-solid fa-star reviewStar"></i>
+							</label>
+							<input type="radio" id="point5" name="reviewScore" class="reviewScore" />
+							<label for="point5">
+								<i id="star5" class="fa-solid fa-star reviewStar"></i>
+							</label>
+						</div>
+						<br />
+						사진 첨부 (선택)<br />
+						<input type="file" name="reviewImage" accept="image/*" />
+						<br />
+						리뷰 작성 <br />
+						<textarea name="reviewContent" id="" cols="30" rows="10" required="required"></textarea>
+						<br />
+						<input type="submit" value="등록하기" />
+					</form>
 				</div>
 			</div>
 		</section>
@@ -157,6 +187,12 @@
 					</span>
 					<div class="clear"></div>
 					<h3 class="modalTitle">문의하기</h3>
+					<form action="product/regQna" method="post">
+						문의 작성 <br />
+						<textarea name="reviewContent" id="" cols="30" rows="10" required="required"></textarea>
+						<br />
+						<input type="submit" value="등록하기" />
+					</form>
 				</div>
 			</div>
 		</section>
