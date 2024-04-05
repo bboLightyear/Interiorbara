@@ -23,8 +23,8 @@
         </tr>
         <tr>
             <td>
-                <input type="text" id="user_email" name="user_email" required><span id="middle">@</span>
-                <input type="text" id="email_address" name="email_address" list="user_email_address">
+                <input type="text" id="user_email" name="user_email" style="padding:10px;" size="20" required> <span id="middle">@</span>
+                <input type="text" id="email_address" name="email_address" style="padding:10px;" size="19" list="user_email_address">
                     <datalist id="user_email_address">
                         <option value="naver.com"></option>
                         <option value="gmail.com"></option>
@@ -37,7 +37,7 @@
         </tr>
         <tr>
             <td>
-                <input type="password" id="pw1" name="pw1" size="46" placeholder="영문숫자특수문자를 포함한 8자리 이상" required>
+                <input type="password" id="pw1" name="pw1" style="padding:10px;" size="46" placeholder="영문숫자특수문자를 포함한 8자리 이상" required>
                 <span id="togglePwd1"><i class="fa-solid fa-eye"></i></span> <br />
                 <span id="pw1Result"></span>
             </td>
@@ -47,7 +47,7 @@
         </tr>
         <tr>
             <td>
-            	<input type="password" id="pw2" name="pw2" size="46" required>
+            	<input type="password" id="pw2" name="pw2" style="padding:10px;" size="46" required>
             	<span id="togglePwd2"><i class="fa-solid fa-eye"></i></span>
             	<br />            	
             	<span id="pw2Result"></span>
@@ -58,7 +58,7 @@
         </tr>
         <tr>
             <td>
-            	<input type="text" id="nickname" name="nickname" height="2em" size="50" placeholder="2~15자 사이의 한글영문숫자" required> <br />
+            	<input type="text" id="nickname" name="nickname" height="2em" style="padding:10px;" size="50" placeholder="2~15자 사이의 한글영문숫자" required> <br />
             	<span id="nicknameResult"></span>
             </td>
         </tr>
