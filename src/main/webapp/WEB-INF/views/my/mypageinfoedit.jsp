@@ -50,22 +50,22 @@
 	<form action="modify" id="modify" method="post">    
 	    <div class="myPage-row">
 	        <label>이메일</label>
-	        <p><input type="text" name="email" id="email" value="${loginUserDto.email}" readonly /></p>	        
+	        <p><input type="text" name="email" id="email" style="padding:10px;" value="${loginUserDto.email}" readonly /></p>	        
 	    </div>
 	    
 	    <div class="myPage-row">
 	        <label for="nickname">닉네임<br /></label>
-	        <p><input type="text" name="nickname" id="nickname" value="${loginUserDto.nickname}" /> <br />
+	        <p><input type="text" name="nickname" id="nickname" style="padding:10px;" value="${loginUserDto.nickname}" /> <br />
 	        <span id="nicknameResult"></span></p>
 	    </div>
 	    <div class="myPage-row">
 	        <label for="phone">휴대폰번호<br /></label>
-	        <p><input type="number" name="phone" id="phone" value="${loginUserDto.phone}" /><br />
+	        <p><input type="number" name="phone" id="phone" style="padding:10px;" value="${loginUserDto.phone}" /><br />
 	        <span id="phoneResult"></span></p>
 	    </div>
 	    <div class="myPage-row">
 	        <label for="birth">생년월일<br /></label>
-	        <p><input type="number" name="birth" id="birth" value="${loginUserDto.birth}" /><br />
+	        <p><input type="number" name="birth" id="birth" style="padding:10px;" value="${loginUserDto.birth}" /><br />
 	        <span id="birthResult"></span>
 	        </p>
 	    </div>

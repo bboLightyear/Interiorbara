@@ -9,13 +9,18 @@
 <title>Insert title here</title>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 <script defer src="${path}/resources/js/my/my_script_pwd.js"></script>
+<style>
+
+</style>
 </head>
 <body>
 <h3>passwordReset.jsp</h3>
 
 	<form action="passReset" method="post">
-		<input type="email" id="email" name="email" required />	
-		<input type="submit" value="이메일인증하기" />
+		<div class="myPage-row">
+			<input type="email" id="email" name="email" style="padding:10px;" size="35" required />	
+			<input type="submit" value="이메일인증하기" style="padding:10px;" />
+		</div>
 	</form>
 	<c:out value="${msg }" default=""/>	
 
@@ -25,13 +30,13 @@
 		<input type="hidden" name="nickname" id="nickname" value="${nickname}" />	
 		<div class="myPage-row">
 	        <label for="pw1">새 비밀번호<br /></label>
-	        <p><input type="password" name="pw1" id="pw1" required />
+	        <p><input type="password" name="pw1" id="pw1" style="padding:10px;" size="35" required />
 	        <span id="togglePwd1"><i class="fa-solid fa-eye"></i></span> <br />
 	        <span id="pw1Result"></p>
 	    </div>
 	    <div class="myPage-row">
 	        <label for="pw2">새 비밀번호 확인<br /></label>
-	        <p><input type="password" name="pw2" id="pw2" required />
+	        <p><input type="password" name="pw2" id="pw2" style="padding:10px;" size="35" required />
 	        <span id="togglePwd2"><i class="fa-solid fa-eye"></i></span> <br />
 	        <span id="pw2Result"></p>
 	    </div>

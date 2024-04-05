@@ -33,20 +33,20 @@
 		<input type="hidden" name="mypwd" id="mypwd" value="${mypwd }" />
 	    <div class="myPage-row">
 	        <label for="inputpwd">현재비밀번호</label>
-	        <p><input type="text" name="inputpwd" id="inputpwd" required /> <br />
+	        <p><input type="text" name="inputpwd" id="inputpwd" style="padding:10px;" size="35" required /> <br />
 	        <%-- <c:out value="${returnmsg }" default=""/> --%>
 	        <span id="pwdMatchResule"></span></p>
 	    </div>
    	    
 	    <div class="myPage-row">
 	        <label for="pw1">새 비밀번호<br /></label>
-	        <p><input type="password" name="pw1" id="pw1" required />
+	        <p><input type="password" name="pw1" id="pw1" style="padding:10px;" size="35" required />
 	        <span id="togglePwd1"><i class="fa-solid fa-eye"></i></span> <br />
 	        <span id="pw1Result"></p>
 	    </div>
 	    <div class="myPage-row">
 	        <label for="pw2">새 비밀번호 확인<br /></label>
-	        <p><input type="password" name="pw2" id="pw2" required />
+	        <p><input type="password" name="pw2" id="pw2" style="padding:10px;" size="35" required />
 	        <span id="togglePwd2"><i class="fa-solid fa-eye"></i></span> <br />
 	        <span id="pw2Result"></p>
 	    </div>
