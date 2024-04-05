@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.tech.ibara.oh.service.OHInterfaceService;
+import com.tech.ibara.oh.service.OHMainViewService;
 import com.tech.ibara.oh.service.OHPhotoDeleteExecuteService;
 import com.tech.ibara.oh.service.OHPhotoDetailViewService;
 import com.tech.ibara.oh.service.OHPhotoEditExecuteService;
@@ -37,12 +38,12 @@ public class OHController {
 	// ---------- OHMainView.jsp ---------- 
 	@RequestMapping("oh/OHMainView")
 	public String OHMainView(HttpServletRequest request, HttpSession session,  Model model) {
-		// Console 출력
-		System.out.println("OHMainView Controller");
-		System.out.println("------------------------------");
 		
 		// 임시 session 내장객체 설정 - 사용자 ID
 		session.setAttribute("userId", "KimGyeongTae");
+//		session.setAttribute("userId", "Tom");
+//		session.setAttribute("userId", "Bob");
+//		session.setAttribute("userId", "Sam");
 //		session.setAttribute("userId", "");
 		
 		// session 사용자 아이디, 저장
@@ -57,7 +58,16 @@ public class OHController {
 			System.out.println("------------------------------");
 		}		
 		
-		// MVC2 Model 
+		// Console 출력
+		System.out.println("OHMainView Controller");
+		System.out.println("------------------------------");
+		
+		// Model - request
+		model.addAttribute("request", request);		
+		
+		// Service
+		ohInterfaceService = new OHMainViewService(sqlSession);
+		ohInterfaceService.execute(model);	
 		
 		return "oh/OHMainView";
 	}

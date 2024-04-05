@@ -37,6 +37,42 @@
 		<result column="PB_NO" property="pb_no" />
 	</resultMap>	
 	
+	<!-- OHMainView.jsp -->
+	
+	<select id="ohMainPhotoView" resultType="com.tech.ibara.oh.dto.OHPhotoBoard" resultMap="OHPhotoBoard">
+		SELECT
+		    ROWNUM, N.*
+		FROM
+		    (SELECT 
+		         * 
+		     FROM 
+		         OH_PHOTO_BOARD OH1 
+		     LEFT OUTER JOIN 
+		         (SELECT 
+		              * 
+		          FROM 
+		              OH_PHOTO_ATTACH 
+		          WHERE 
+		              PA_NO IN (
+		                        SELECT 
+		                            MIN(PA_NO) 
+		                        FROM 
+		                            OH_PHOTO_ATTACH 
+		                        GROUP BY 
+		                            PB_NO
+		                       ) 
+		          ORDER BY 
+		              PA_NO
+		         ) OH2
+		     ON
+		         OH1.PB_NO = OH2.PB_NO
+		     ORDER BY
+		        PB_DATE DESC
+		    ) N
+		WHERE
+		    ROWNUM BETWEEN 1 AND #{param1}	
+	</select>
+	
 	<!-- OHPhotoView.jsp -->
 	
 	<select id="ohPhotoView" resultType="com.tech.ibara.oh.dto.OHPhotoBoard" resultMap="OHPhotoBoard">

@@ -9,7 +9,7 @@
 	
 	<title>OH - OHPhotoView.jsp</title>
 	
-	<!-- oh.css -->
+	<!-- photo.css -->
 	<link rel="stylesheet" href="../resources/css/oh/photo.css?after" />
 	
 	<!-- https://fontawesome.com/ -->
@@ -23,7 +23,6 @@
 <body>
 
 	<!-- 데이터 표시 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-	<h3>OHPhotoDetailView.jsp</h3>
 	<table border="1">
 		<tr>
 			<th colspan="16">OHPhotoBoard</th>
@@ -114,8 +113,19 @@
 			<td>${ohPageVO.pageEndNum }</td>
 		</tr>							
 	</table>
-	
 	<!-- 데이터 표시 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->	
+
+	<h3>OHMainView.jsp</h3>
+
+	<!-- 회원, 비회원 구분 후 메세지 출력 -->
+	<c:choose>
+		<c:when test="${sessionScope.userId ne null && !empty sessionScope.userId }">
+			<h3>${sessionScope.userId }님</h3>	
+		</c:when>
+		<c:otherwise>
+			<h3>비회원님</h3>					
+		</c:otherwise>
+	</c:choose>
 
 	<div class="container">
 		
@@ -129,415 +139,240 @@
 				<ul >
 					<li><a href="OHMainView">우리집 자랑하기</a></li>
 					<li><a href="OHPhotoView">집사진</a></li>
-					<li><a href="">집영상</a></li>
-					<li><a href="">#category</a></li>
+					<li><a href="#">집영상</a></li>
+					<li><a href="#">#category</a></li>
 				</ul>
 			</div>							
 						
-			<h3>집사진</h3>
-				
-			<!-- jQuery 작성완료
-				     회원: 글쓰기 가능 
-				  비회원: 글쓰기 불가능
-				  -->
-			<button id="toWriteBtn">글쓰기</button> 
-				
-			<hr />				
-				
-			<form action="OHPhotoView" method="post">
-				
-				<!-- sorting -->
-				<label for="orderingBy">정렬기준</label>
-				<select name="orderingBy" id="orderingBy">
-					<option value="pb_date">날짜</option>
-					<option value="pb_like">좋아요</option>
-					<option value="pb_hit">조회수</option>
-				</select>
-				<label for="orderingMethod">정렬방식</label>
-				<select name="orderingMethod" id="orderingMethod">
-					<option value="desc">내림차순</option>
-					<option value="asc">오름차순</option>
-				</select>
-				<!-- sorting End -->
-				
-				<hr />				
-				
-				<!-- filtering -->
-				<label for="pb_category">#category</label>
-				<select name="pb_category" id="pb_category">
-					<option value="default">전체</option>
-					<option value="#그냥">#그냥</option>
-					<option value="#내돈내산">#내돈내산</option>
-				</select>				
-				<label for="pb_residence">주거형태</label>
-				<select name="pb_residence" id="pb_residence">
-					<option value="default">전체</option>
-					<option value="원룸&오피스텔">원룸&amp;오피스텔</option>
-					<option value="아파트">아파트</option>
-					<option value="빌라&연립">빌라&amp;연립</option>
-					<option value="단독주택">단독주택</option>
-					<option value="사무공간">사무공간</option>
-					<option value="상업공간">상업공간</option>
-					<option value="기타">기타</option>
-				</select>				
-				<label for="pb_room">공간</label>
-				<select name="pb_room" id="pb_room">
-					<option value="default">전체</option>
-					<option value="원룸">원룸</option>
-					<option value="거실">거실</option>
-					<option value="침실">침실</option>
-					<option value="주방">주방</option>
-					<option value="욕실">욕실</option>
-					<option value="아이방">아이방</option>
-					<option value="드레스룸">드레스룸</option>
-					<option value="서재&작업실">서재&amp;작업실</option>
-					<option value="베란다">베란다</option>
-					<option value="사무공간">사무공간</option>
-					<option value="상업공간">상업공간</option>
-					<option value="가구&소품">가구&amp;소품</option>
-					<option value="현관">현관</option>
-					<option value="외관&기타">외관&amp;기타</option>
-				</select>								
-				<label for="pb_style">스타일</label>
-				<select name="pb_style" id="pb_style">
-					<option value="default">전체</option>
-					<option value="모던">모던</option>
-					<option value="북유럽">북유럽</option>
-					<option value="빈티지">빈티지</option>
-					<option value="내추럴">내추럴</option>
-					<option value="프로방스&로맨틱">프로방스&amp;로맨틱</option>
-					<option value="클래식&앤틱">클래식&amp;앤틱</option>
-					<option value="한국&아시아">한국&amp;아시아</option>
-					<option value="유니크">유니크</option>
-				</select>								
-				<label for="pb_skill">셀프/전문가</label>
-				<select name="pb_skill" id="pb_skill">
-					<option value="default">전체</option>
-					<option value="셀프">셀프</option>
-					<option value="전문가">전문가</option>
-				</select>								
-				<!-- filtering End -->
-				
-				<hr />					
-				
-				<!-- searching -->					
-				<!-- 검색기준 - select element -->
-				<label for="searchingType">검색기준</label>
-				<select name="searchingType" id="searchingType">
-					<option value="default">전체</option>
-					<option value="pb_title">제목</option>
-					<option value="pb_content">내용</option>
-				</select>					
-				<!-- 검색어 - input element -->		
-				<input type="text" name="searchingWord" id="searchingWord" value="${keepSearchingWord }" placeholder="검색어를 입력하세요." />
-				<!-- searching End -->
-				
-				<input type="submit" value="검색" />
-			
-				<hr />
-				
-				검색된 게시글 : ${ohPageVO.postTotalNum }개
-				<br />
-				현재 페이지  ${ohPageVO.pageSelectedNum } / 전체 페이지 ${ohPageVO.pageTotalNum }
-			
-				<hr />
-			
-			</form>
-			
-			<div class="OHPhotoViewflexContainer">				
-				<!-- 전체 <div class="box"> 반복문 사용, 게시물 표현 -->
-				<c:forEach items="${ohPhotoView }" var="dto" varStatus="status">
-					<div class="box">
+			<div id="OHPhotoView-main">
 						
-						<!-- 기본 내용 출력 -->
-						<div>no: ${dto.no }</div>
-						<div>pb_no: ${dto.pb_no }</div>
-						<div>pb_user: ${dto.pb_user }</div>	
-						<div>pb_title: ${dto.pb_title }</div>	
-						<div>pb_content: ${dto.pb_content }</div>
-						<div>pb_category: ${dto.pb_category }</div>
-						<div>pa_no: ${dto.ohPhotoAttach.pa_no }</div>
-						<div>pa_attach: ${dto.ohPhotoAttach.pa_attach }</div>
-						<div>pb_no: ${dto.ohPhotoAttach.pb_no }</div>
+				<div id="OHPhotoView-main-1">		
+					<div id="OHPhotoView-title">집사진</div>					
+					<!-- jQuery 작성완료
+						     회원: 글쓰기 가능 
+						  비회원: 글쓰기 불가능
+						  -->
+					<button id="OHPhotoView-toWriteButton">글쓰기</button> 
+				</div>
 						
-						<!-- 이미지 클릭 => 게시물 상세보기 --> 
-						<a href="OHPhotoDetailView?pb_no=${dto.pb_no }">
-							<img src="../resources/upload/oh/photo/${dto.ohPhotoAttach.pa_attach }" alt="해당 게시글 대표사진" height="300px" width="300px"/>
-						</a>
+				<div>
+					<form action="OHPhotoView" method="post">
 						
+						<!-- sorting -->
+						<label for="orderingBy">정렬기준</label>
+						<select name="orderingBy" id="orderingBy">
+							<option value="pb_date">날짜</option>
+							<option value="pb_like">좋아요</option>
+							<option value="pb_hit">조회수</option>
+						</select>
+						<label for="orderingMethod">정렬방식</label>
+						<select name="orderingMethod" id="orderingMethod">
+							<option value="desc">내림차순</option>
+							<option value="asc">오름차순</option>
+						</select>
+						<!-- sorting End -->
+						
+						<hr />				
+						
+						<!-- filtering -->
+						<label for="pb_category">#category</label>
+						<select name="pb_category" id="pb_category">
+							<option value="default">전체</option>
+							<option value="#그냥">#그냥</option>
+							<option value="#내돈내산">#내돈내산</option>
+						</select>				
+						<label for="pb_residence">주거형태</label>
+						<select name="pb_residence" id="pb_residence">
+							<option value="default">전체</option>
+							<option value="원룸&오피스텔">원룸&amp;오피스텔</option>
+							<option value="아파트">아파트</option>
+							<option value="빌라&연립">빌라&amp;연립</option>
+							<option value="단독주택">단독주택</option>
+							<option value="사무공간">사무공간</option>
+							<option value="상업공간">상업공간</option>
+							<option value="기타">기타</option>
+						</select>				
+						<label for="pb_room">공간</label>
+						<select name="pb_room" id="pb_room">
+							<option value="default">전체</option>
+							<option value="원룸">원룸</option>
+							<option value="거실">거실</option>
+							<option value="침실">침실</option>
+							<option value="주방">주방</option>
+							<option value="욕실">욕실</option>
+							<option value="아이방">아이방</option>
+							<option value="드레스룸">드레스룸</option>
+							<option value="서재&작업실">서재&amp;작업실</option>
+							<option value="베란다">베란다</option>
+							<option value="사무공간">사무공간</option>
+							<option value="상업공간">상업공간</option>
+							<option value="가구&소품">가구&amp;소품</option>
+							<option value="현관">현관</option>
+							<option value="외관&기타">외관&amp;기타</option>
+						</select>								
+						<label for="pb_style">스타일</label>
+						<select name="pb_style" id="pb_style">
+							<option value="default">전체</option>
+							<option value="모던">모던</option>
+							<option value="북유럽">북유럽</option>
+							<option value="빈티지">빈티지</option>
+							<option value="내추럴">내추럴</option>
+							<option value="프로방스&로맨틱">프로방스&amp;로맨틱</option>
+							<option value="클래식&앤틱">클래식&amp;앤틱</option>
+							<option value="한국&아시아">한국&amp;아시아</option>
+							<option value="유니크">유니크</option>
+						</select>								
+						<label for="pb_skill">셀프/전문가</label>
+						<select name="pb_skill" id="pb_skill">
+							<option value="default">전체</option>
+							<option value="셀프">셀프</option>
+							<option value="전문가">전문가</option>
+						</select>								
+						<!-- filtering End -->
+						
+						<hr />					
+						
+						<!-- searching -->					
+						<!-- 검색기준 - select element -->
+						<label for="searchingType">검색기준</label>
+						<select name="searchingType" id="searchingType">
+							<option value="default">전체</option>
+							<option value="pb_title">제목</option>
+							<option value="pb_content">내용</option>
+						</select>					
+						<!-- 검색어 - input element -->		
+						<input type="text" name="searchingWord" id="searchingWord" value="${keepSearchingWord }" placeholder="검색어를 입력하세요." />
+						<!-- searching End -->
+						
+						<input type="submit" value="검색" />
+					
+						<hr />
+						
+						검색된 게시글 : ${ohPageVO.postTotalNum }개
 						<br />
-						
-						<!-- 좋아요, 이미지 -->
-						<c:set var="likeLoopFlag" value="false" />
-						<c:forEach items="${ohPhotoLike }" var="like" varStatus="status">
-							<c:if test="${not likeLoopFlag }">
-								<c:if test="${dto.pb_no eq like.pb_no }">
-									<span class="likeImage clickColor" id="${dto.pb_no }">
-										<i class="fa-solid fa-heart"></i>
-									</span>
-									<c:set var="likeLoopFlag" value="true" />								
-								</c:if>							
-							</c:if>
-						</c:forEach>
-						<c:if test="${likeLoopFlag eq false }">
-							<span class="likeImage" id="${dto.pb_no }">
-								<i class="fa-regular fa-heart"></i>
-							</span>						
-						</c:if>
-						<!-- 좋아요, 이미지 End -->		
-						
-						<!-- 좋아요, 숫자 -->
-						<span class="likeNumber" id="${dto.pb_no }">${dto.pb_like }</span>
-						<!-- 좋아요, 숫자 End -->
-						
-						<!-- 스크랩, 이미지 -->
-						<c:set var="scrapLoopFlag" value="false" />
-						<c:forEach items="${ohPhotoScrap }" var="scrap" varStatus="status">
-							<c:if test="${not scrapLoopFlag }">
-								<c:if test="${dto.pb_no eq scrap.pb_no }">
-									<span class="scrapImage clickColor" id="${dto.pb_no }">
-										<i class="fa-solid fa-bookmark"></i>
-									</span>
-									<c:set var="scrapLoopFlag" value="true" />
+						현재 페이지  ${ohPageVO.pageSelectedNum } / 전체 페이지 ${ohPageVO.pageTotalNum }
+					
+						<hr />
+					
+					</form>
+				</div>
+				
+				
+				
+				
+				<div class="OHPhotoViewflexContainer">				
+					<!-- 전체 <div class="box"> 반복문 사용, 게시물 표현 -->
+					<c:forEach items="${ohPhotoView }" var="dto" varStatus="status">
+						<div class="box">
+							
+							<!-- 기본 내용 출력 -->
+							<div>no: ${dto.no }</div>
+							<div>pb_no: ${dto.pb_no }</div>
+							<div>pb_user: ${dto.pb_user }</div>	
+							<div>pb_title: ${dto.pb_title }</div>	
+							<div>pb_content: ${dto.pb_content }</div>
+							<div>pb_category: ${dto.pb_category }</div>
+							<div>pa_no: ${dto.ohPhotoAttach.pa_no }</div>
+							<div>pa_attach: ${dto.ohPhotoAttach.pa_attach }</div>
+							<div>pb_no: ${dto.ohPhotoAttach.pb_no }</div>
+							
+							<!-- 이미지 클릭 => 게시물 상세보기 --> 
+							<a href="OHPhotoDetailView?pb_no=${dto.pb_no }">
+								<img src="../resources/upload/oh/photo/${dto.ohPhotoAttach.pa_attach }" alt="해당 게시글 대표사진" height="300px" width="300px"/>
+							</a>
+							
+							<br />
+							
+							<!-- 좋아요, 이미지 -->
+							<c:set var="likeLoopFlag" value="false" />
+							<c:forEach items="${ohPhotoLike }" var="like" varStatus="status">
+								<c:if test="${not likeLoopFlag }">
+									<c:if test="${dto.pb_no eq like.pb_no }">
+										<span class="likeImage clickColor" id="${dto.pb_no }">
+											<i class="fa-solid fa-heart"></i>
+										</span>
+										<c:set var="likeLoopFlag" value="true" />								
+									</c:if>							
 								</c:if>
+							</c:forEach>
+							<c:if test="${likeLoopFlag eq false }">
+								<span class="likeImage" id="${dto.pb_no }">
+									<i class="fa-regular fa-heart"></i>
+								</span>						
 							</c:if>
-						</c:forEach>
-						<c:if test="${scrapLoopFlag eq false }">
-							<span class="scrapImage" id="${dto.pb_no }">
-								<i class="fa-regular fa-bookmark"></i>
-							</span>
-						</c:if>
-						<!-- 스크랩, 이미지 End -->
-						
-						<!-- 스크랩, 숫자 -->
-						<span class="scrapNumber" id="${dto.pb_no }">${dto.pb_scrap }</span>
-						<!-- 스크랩, 숫자 End -->
-					</div>
-				</c:forEach>
+							<!-- 좋아요, 이미지 End -->		
+							
+							<!-- 좋아요, 숫자 -->
+							<span class="likeNumber" id="${dto.pb_no }">${dto.pb_like }</span>
+							<!-- 좋아요, 숫자 End -->
+							
+							<!-- 스크랩, 이미지 -->
+							<c:set var="scrapLoopFlag" value="false" />
+							<c:forEach items="${ohPhotoScrap }" var="scrap" varStatus="status">
+								<c:if test="${not scrapLoopFlag }">
+									<c:if test="${dto.pb_no eq scrap.pb_no }">
+										<span class="scrapImage clickColor" id="${dto.pb_no }">
+											<i class="fa-solid fa-bookmark"></i>
+										</span>
+										<c:set var="scrapLoopFlag" value="true" />
+									</c:if>
+								</c:if>
+							</c:forEach>
+							<c:if test="${scrapLoopFlag eq false }">
+								<span class="scrapImage" id="${dto.pb_no }">
+									<i class="fa-regular fa-bookmark"></i>
+								</span>
+							</c:if>
+							<!-- 스크랩, 이미지 End -->
+							
+							<!-- 스크랩, 숫자 -->
+							<span class="scrapNumber" id="${dto.pb_no }">${dto.pb_scrap }</span>
+							<!-- 스크랩, 숫자 End -->
+						</div>
+					</c:forEach>
+				</div>
+				
+				<hr />
+				
+				<!-- Paging -->
+				<form action="OHPhotoView" id="pageForm" method="post">
+					<c:if test="${ohPageVO.pageSelectedNum > 1 }">
+						<!-- 첫번째 페이지로 이동 -->	                    
+						<a href="#" onclick="firstPage()" id="firstPage"><i class="fa-solid fa-angles-left"></i></a>
+						<!-- 이전 페이지로 이동 -->
+						<a href="#" onclick="beforePage()" id="beforePage"><i class="fa-solid fa-circle-chevron-left"></i></a>
+					</c:if>			
+					<c:forEach begin="${ohPageVO.pageStartNum }" end="${ohPageVO.pageEndNum }" var="i">
+						<c:choose>
+							<c:when test="${i eq ohPageVO.pageSelectedNum }">
+								<span style="color:red; font-weight:bold;">${i } &nbsp;</span>
+							</c:when>
+							<c:otherwise>
+								<a href="#" onclick="movePage(${i })" >${i }</a>&nbsp;
+							</c:otherwise>
+						</c:choose>
+					</c:forEach>
+					<c:if test="${ohPageVO.pageTotalNum > ohPageVO.pageSelectedNum }">
+						<!-- 다음 페이지로 이동 -->
+						<a href="#" onclick="nextPage()" id="nextPage"><i class="fa-solid fa-arrow-right"></i></a>
+						<!-- 마지막 페이지로 이동 -->					
+						<a href="#" onclick="lastPage()" id="lastPage"><i class="fa-solid fa-poo"></i></a>					                               					
+					</c:if>
+					<!-- hidden, value 전달 -->
+					<input type="hidden" name="orderingBy" value=${keepOrderingBy } />
+					<input type="hidden" name="orderingMethod" value=${keepOrderingMethod } />
+					<input type="hidden" name="pb_category" value=${keepPb_category } />
+					<input type="hidden" name="pb_residence" value=${keepPb_residence } />
+					<input type="hidden" name="pb_room" value=${keepPb_room } />
+					<input type="hidden" name="pb_style" value=${keepPb_style } />
+					<input type="hidden" name="pb_skill" value=${keepPb_skill } />
+					<input type="hidden" name="searchingType" value=${keepSearchingType } />
+					<input type="hidden" name="searchingWord" value=${keepSearchingWord } />
+					<input type="hidden" id="transPage"/>
+				</form>
+			
 			</div>
 			
-			<script>
-				$(document).ready(function() {
-					$(".likeImage").click(function() {
-						/* 회원인지 확인 */						
-						if("${sessionScope.userId }" != null && "${sessionScope.userId }" != "") {		
-							// 사용자 id 값을 가져와 변수에 저장
-							var userId = "${sessionScope.userId }"
-							// userId 변수에 저장된 id 값 출력
-							console.log("userId: ", userId);
-							// 클릭한 하트 요소의 id 값을 가져와 변수에 저장
-							var clickedId = $(this).attr("id");
-							// clickedId 변수에 저장된 id 값 출력
-							console.log("clickedId: ", clickedId);
-							// 클릭 => 하트 색상변경
-							$(this).toggleClass("clickColor");
-							// 클릭한 요소의 하위 태그에서 i태그를 찾아서 icon 변수에 저장 
-							var icon = $(this).find("i");
-							// if 조건문, 기본 하트 모양 => True
-							if(icon.hasClass("fa-regular")) {
-								// <i> 요소의 클래스 변경 => 하트 모양변경 
-								icon.removeClass("fa-regular").addClass("fa-solid");
-								// ajax 요청 보내기
-								$.ajax({
-									url: "OHPhotoLikeExecute",
-									method: "post",
-									dataType: "json",
-									data: {
-										// 전송할 데이터
-										'userId' : userId,
-										'pb_no' : clickedId
-									},
-									success: function(response) {
-						                // 성공적으로 서버로부터 응답을 받았을 때 실행할 코드
-						            	console.log("AJAX 요청 성공");
-						                // 서버에서 받은 게시물의 좋아요 횟수, 변수에 저장
-						                var responseLikeNumber = response.likeNumber;
-						                // responseLikeNumber 변수, 콘솔 출력
-						            	console.log("서버에서 받은 게시물의 좋아요 횟수: ", responseLikeNumber);
-						            	// [중요] 선택자를 이용해 요소 지정할 때 id, class 순서로 지정한다. 그 반대는 선택하지 못한다.
-						            	var likeNumberSelector = "#" + clickedId + ".likeNumber";
-						            	// likeNumberSelector 변수, 콘솔 출력
-						            	console.log("likeNumberSelector: ", likeNumberSelector);
-						            	// 서버에서 받은 게시물의 좋아요 횟수 => 숫자 갱신 
-						                $(likeNumberSelector).text(responseLikeNumber);
-									},
-									error: function(xhr, status, error) {
-						                // AJAX 요청 실패 시 실행할 코드
-						                console.error("AJAX 요청 실패:", status, error);										
-									}
-								});
-							} else {
-								// <i> 요소의 클래스 변경 => 하트 모양변경 
-								icon.removeClass("fa-solid").addClass("fa-regular");
-								// ajax 요청 보내기
-								$.ajax({
-									url: "OHPhotoLikeExecute",
-									method: "post",
-									dataType: "json",
-									data: {
-										// 전송할 데이터
-										'userId' : userId,
-										'pb_no' : clickedId
-									},
-									success: function(response) {
-						                // 성공적으로 서버로부터 응답을 받았을 때 실행할 코드
-						            	console.log("AJAX 요청 성공");		
-						                // 서버에서 받은 게시물의 좋아요 횟수, 변수에 저장
-						                var responseLikeNumber = response.likeNumber;
-						                // responseLikeNumber 변수, 콘솔 출력
-						            	console.log("서버에서 받은 게시물의 좋아요 횟수: ", responseLikeNumber);
-						            	// [중요] 선택자를 이용해 요소 지정할 때 id, class 순서로 지정한다. 그 반대는 선택하지 못한다.
-						            	var likeNumberSelector = "#" + clickedId + ".likeNumber";
-						            	// likeNumberSelector 변수, 콘솔 출력
-						            	console.log("likeNumberSelector: ", likeNumberSelector);
-						            	// 서버에서 받은 게시물의 좋아요 횟수 => 숫자 갱신 
-						                $(likeNumberSelector).text(responseLikeNumber);						                
-									},
-									error: function(xhr, status, error) {
-						                // AJAX 요청 실패 시 실행할 코드
-						                console.error("AJAX 요청 실패:", status, error);										
-									}
-								});								
-							}
-						} else {
-							// 비회원 => 좋아요 누를 경우
-							alert("회원만 가능, 로그인 페이지로 이동");
-						}	
-					});
-				});
-				
-				$(document).ready(function() {
-					$(".scrapImage").click(function() {
-						/* 회원인지 확인 */						
-						if("${sessionScope.userId }" != null && "${sessionScope.userId }" != "") {		
-							// 사용자 id 값을 가져와 변수에 저장
-							var userId = "${sessionScope.userId }";
-							// userId 변수에 저장된 id 값 출력
-							console.log("userId: ", userId);
-							// 클릭한 스크랩 요소의 id 값을 가져와 변수에 저장
-							var clickedId = $(this).attr("id");
-							// clickedId 변수에 저장된 id 값 출력
-							console.log("clickedId: ", clickedId);
-							// 클릭 => 스크랩 색상변경
-							$(this).toggleClass("clickColor");
-							// 클릭한 요소의 하위 태그에서 i태그를 찾아서 icon 변수에 저장 
-							var icon = $(this).find("i");
-							// if 조건문, 기본 스크랩 모양 => True
-							if(icon.hasClass("fa-regular")) {
-								// <i> 요소의 클래스 변경 => 스크랩 모양변경 
-								icon.removeClass("fa-regular").addClass("fa-solid");
-								// ajax 요청 보내기
-								$.ajax({
-									url: "OHPhotoScrapExecute",
-									method: "post",
-									dataType: "json",
-									data: {
-										// 전송할 데이터
-										'userId' : userId,
-										'pb_no' : clickedId
-									},
-									success: function(response) {
-						                // 성공적으로 서버로부터 응답을 받았을 때 실행할 코드
-						            	console.log("AJAX 요청 성공");
-						                // 서버에서 받은 게시물의 스크랩 횟수, 변수에 저장
-						                var responseScrapNumber = response.scrapNumber;
-						                // responseScrapNumber 변수, 콘솔 출력
-						            	console.log("서버에서 받은 게시물의 좋아요 횟수: ", responseScrapNumber);
-						            	// [중요] 선택자를 이용해 요소 지정할 때 id, class 순서로 지정한다. 그 반대는 선택하지 못한다.
-						            	var scrapNumberSelector = "#" + clickedId + ".scrapNumber";
-						            	// scrapNumberSelector 변수, 콘솔 출력
-						            	console.log("scrapNumberSelector: ", scrapNumberSelector);
-						            	// 서버에서 받은 게시물의 스크랩 횟수 => 숫자 갱신 
-						                $(scrapNumberSelector).text(responseScrapNumber);
-									},
-									error: function(xhr, status, error) {
-						                // AJAX 요청 실패 시 실행할 코드
-						                console.error("AJAX 요청 실패:", status, error);										
-									}
-								});
-							} else {
-								// <i> 요소의 클래스 변경 => 스크랩 모양변경 
-								icon.removeClass("fa-solid").addClass("fa-regular");
-								// ajax 요청 보내기
-								$.ajax({
-									url: "OHPhotoScrapExecute",
-									method: "post",
-									dataType: "json",
-									data: {
-										// 전송할 데이터
-										'userId' : userId,
-										'pb_no' : clickedId
-									},
-									success: function(response) {
-						                // 성공적으로 서버로부터 응답을 받았을 때 실행할 코드
-						            	console.log("AJAX 요청 성공");		
-						                // 서버에서 받은 게시물의 스크랩 횟수, 변수에 저장
-						                var responseScrapNumber = response.scrapNumber;
-						                // responseScrapNumber 변수, 콘솔 출력
-						            	console.log("서버에서 받은 게시물의 좋아요 횟수: ", responseScrapNumber);
-						            	// [중요] 선택자를 이용해 요소 지정할 때 id, class 순서로 지정한다. 그 반대는 선택하지 못한다.
-						            	var scrapNumberSelector = "#" + clickedId + ".scrapNumber";
-						            	// scrapNumberSelector 변수, 콘솔 출력
-						            	console.log("scrapNumberSelector: ", scrapNumberSelector);
-						            	// 서버에서 받은 게시물의 스크랩 횟수 => 숫자 갱신 
-						                $(scrapNumberSelector).text(responseScrapNumber);					                
-									},
-									error: function(xhr, status, error) {
-						                // AJAX 요청 실패 시 실행할 코드
-						                console.error("AJAX 요청 실패:", status, error);										
-									}
-								});								
-							}
-						} else {
-							// 비회원 => 좋아요 누를 경우
-							alert("회원만 가능, 로그인 페이지로 이동");
-						}	
-					});
-				});				
-			</script>				
-	
-	
-			
-			
-			
-			<hr />
-			
-			<!-- Paging -->
-			<form action="OHPhotoView" id="pageForm" method="post">
-				<c:if test="${ohPageVO.pageSelectedNum > 1 }">
-					<!-- 첫번째 페이지로 이동 -->	                    
-					<a href="#" onclick="firstPage()" id="firstPage"><i class="fa-solid fa-angles-left"></i></a>
-					<!-- 이전 페이지로 이동 -->
-					<a href="#" onclick="beforePage()" id="beforePage"><i class="fa-solid fa-circle-chevron-left"></i></a>
-				</c:if>			
-				<c:forEach begin="${ohPageVO.pageStartNum }" end="${ohPageVO.pageEndNum }" var="i">
-					<c:choose>
-						<c:when test="${i eq ohPageVO.pageSelectedNum }">
-							<span style="color:red; font-weight:bold;">${i } &nbsp;</span>
-						</c:when>
-						<c:otherwise>
-							<a href="#" onclick="movePage(${i })" >${i }</a>&nbsp;
-						</c:otherwise>
-					</c:choose>
-				</c:forEach>
-				<c:if test="${ohPageVO.pageTotalNum > ohPageVO.pageSelectedNum }">
-					<!-- 다음 페이지로 이동 -->
-					<a href="#" onclick="nextPage()" id="nextPage"><i class="fa-solid fa-arrow-right"></i></a>
-					<!-- 마지막 페이지로 이동 -->					
-					<a href="#" onclick="lastPage()" id="lastPage"><i class="fa-solid fa-poo"></i></a>					                               					
-				</c:if>
-				<!-- hidden, value 전달 -->
-				<input type="hidden" name="orderingBy" value=${keepOrderingBy } />
-				<input type="hidden" name="orderingMethod" value=${keepOrderingMethod } />
-				<input type="hidden" name="pb_category" value=${keepPb_category } />
-				<input type="hidden" name="pb_residence" value=${keepPb_residence } />
-				<input type="hidden" name="pb_room" value=${keepPb_room } />
-				<input type="hidden" name="pb_style" value=${keepPb_style } />
-				<input type="hidden" name="pb_skill" value=${keepPb_skill } />
-				<input type="hidden" name="searchingType" value=${keepSearchingType } />
-				<input type="hidden" name="searchingWord" value=${keepSearchingWord } />
-				<input type="hidden" id="transPage"/>
-			</form>
 		</div>
 		
 		<footer>
@@ -552,7 +387,7 @@
 		<!-- HTML Parsing 순서에 따라 body element 아래에 배치 -->
 		
 		$(document).ready(function() {
-			$("#toWriteBtn").click(function() {
+			$("#OHPhotoView-toWriteButton").click(function() {
 				/* 회원인지 확인 */
 				if("${sessionScope.userId }" != null && "${sessionScope.userId }" != "") {	
 					window.location.href = "OHPhotoWriteView";
@@ -649,7 +484,188 @@
 			document.getElementById("pageForm").submit();
 		};		
 		
-	</script>		
+		$(document).ready(function() {
+			$(".likeImage").click(function() {
+				/* 회원인지 확인 */						
+				if("${sessionScope.userId }" != null && "${sessionScope.userId }" != "") {		
+					// 사용자 id 값을 가져와 변수에 저장
+					var userId = "${sessionScope.userId }"
+					// userId 변수에 저장된 id 값 출력
+					console.log("userId: ", userId);
+					// 클릭한 하트 요소의 id 값을 가져와 변수에 저장
+					var clickedId = $(this).attr("id");
+					// clickedId 변수에 저장된 id 값 출력
+					console.log("clickedId: ", clickedId);
+					// 클릭 => 하트 색상변경
+					$(this).toggleClass("clickColor");
+					// 클릭한 요소의 하위 태그에서 i태그를 찾아서 icon 변수에 저장 
+					var icon = $(this).find("i");
+					// if 조건문, 기본 하트 모양 => True
+					if(icon.hasClass("fa-regular")) {
+						// <i> 요소의 클래스 변경 => 하트 모양변경 
+						icon.removeClass("fa-regular").addClass("fa-solid");
+						// ajax 요청 보내기
+						$.ajax({
+							url: "OHPhotoLikeExecute",
+							method: "post",
+							dataType: "json",
+							data: {
+								// 전송할 데이터
+								'userId' : userId,
+								'pb_no' : clickedId
+							},
+							success: function(response) {
+				                // 성공적으로 서버로부터 응답을 받았을 때 실행할 코드
+				            	console.log("AJAX 요청 성공");
+				                // 서버에서 받은 게시물의 좋아요 횟수, 변수에 저장
+				                var responseLikeNumber = response.likeNumber;
+				                // responseLikeNumber 변수, 콘솔 출력
+				            	console.log("서버에서 받은 게시물의 좋아요 횟수: ", responseLikeNumber);
+				            	// [중요] 선택자를 이용해 요소 지정할 때 id, class 순서로 지정한다. 그 반대는 선택하지 못한다.
+				            	var likeNumberSelector = "#" + clickedId + ".likeNumber";
+				            	// likeNumberSelector 변수, 콘솔 출력
+				            	console.log("likeNumberSelector: ", likeNumberSelector);
+				            	// 서버에서 받은 게시물의 좋아요 횟수 => 숫자 갱신 
+				                $(likeNumberSelector).text(responseLikeNumber);
+							},
+							error: function(xhr, status, error) {
+				                // AJAX 요청 실패 시 실행할 코드
+				                console.error("AJAX 요청 실패:", status, error);										
+							}
+						});
+					} else {
+						// <i> 요소의 클래스 변경 => 하트 모양변경 
+						icon.removeClass("fa-solid").addClass("fa-regular");
+						// ajax 요청 보내기
+						$.ajax({
+							url: "OHPhotoLikeExecute",
+							method: "post",
+							dataType: "json",
+							data: {
+								// 전송할 데이터
+								'userId' : userId,
+								'pb_no' : clickedId
+							},
+							success: function(response) {
+				                // 성공적으로 서버로부터 응답을 받았을 때 실행할 코드
+				            	console.log("AJAX 요청 성공");		
+				                // 서버에서 받은 게시물의 좋아요 횟수, 변수에 저장
+				                var responseLikeNumber = response.likeNumber;
+				                // responseLikeNumber 변수, 콘솔 출력
+				            	console.log("서버에서 받은 게시물의 좋아요 횟수: ", responseLikeNumber);
+				            	// [중요] 선택자를 이용해 요소 지정할 때 id, class 순서로 지정한다. 그 반대는 선택하지 못한다.
+				            	var likeNumberSelector = "#" + clickedId + ".likeNumber";
+				            	// likeNumberSelector 변수, 콘솔 출력
+				            	console.log("likeNumberSelector: ", likeNumberSelector);
+				            	// 서버에서 받은 게시물의 좋아요 횟수 => 숫자 갱신 
+				                $(likeNumberSelector).text(responseLikeNumber);						                
+							},
+							error: function(xhr, status, error) {
+				                // AJAX 요청 실패 시 실행할 코드
+				                console.error("AJAX 요청 실패:", status, error);										
+							}
+						});								
+					}
+				} else {
+					// 비회원 => 좋아요 누를 경우
+					alert("회원만 가능, 로그인 페이지로 이동");
+				}	
+			});
+		});
+		
+		$(document).ready(function() {
+			$(".scrapImage").click(function() {
+				/* 회원인지 확인 */						
+				if("${sessionScope.userId }" != null && "${sessionScope.userId }" != "") {		
+					// 사용자 id 값을 가져와 변수에 저장
+					var userId = "${sessionScope.userId }";
+					// userId 변수에 저장된 id 값 출력
+					console.log("userId: ", userId);
+					// 클릭한 스크랩 요소의 id 값을 가져와 변수에 저장
+					var clickedId = $(this).attr("id");
+					// clickedId 변수에 저장된 id 값 출력
+					console.log("clickedId: ", clickedId);
+					// 클릭 => 스크랩 색상변경
+					$(this).toggleClass("clickColor");
+					// 클릭한 요소의 하위 태그에서 i태그를 찾아서 icon 변수에 저장 
+					var icon = $(this).find("i");
+					// if 조건문, 기본 스크랩 모양 => True
+					if(icon.hasClass("fa-regular")) {
+						// <i> 요소의 클래스 변경 => 스크랩 모양변경 
+						icon.removeClass("fa-regular").addClass("fa-solid");
+						// ajax 요청 보내기
+						$.ajax({
+							url: "OHPhotoScrapExecute",
+							method: "post",
+							dataType: "json",
+							data: {
+								// 전송할 데이터
+								'userId' : userId,
+								'pb_no' : clickedId
+							},
+							success: function(response) {
+				                // 성공적으로 서버로부터 응답을 받았을 때 실행할 코드
+				            	console.log("AJAX 요청 성공");
+				                // 서버에서 받은 게시물의 스크랩 횟수, 변수에 저장
+				                var responseScrapNumber = response.scrapNumber;
+				                // responseScrapNumber 변수, 콘솔 출력
+				            	console.log("서버에서 받은 게시물의 좋아요 횟수: ", responseScrapNumber);
+				            	// [중요] 선택자를 이용해 요소 지정할 때 id, class 순서로 지정한다. 그 반대는 선택하지 못한다.
+				            	var scrapNumberSelector = "#" + clickedId + ".scrapNumber";
+				            	// scrapNumberSelector 변수, 콘솔 출력
+				            	console.log("scrapNumberSelector: ", scrapNumberSelector);
+				            	// 서버에서 받은 게시물의 스크랩 횟수 => 숫자 갱신 
+				                $(scrapNumberSelector).text(responseScrapNumber);
+							},
+							error: function(xhr, status, error) {
+				                // AJAX 요청 실패 시 실행할 코드
+				                console.error("AJAX 요청 실패:", status, error);										
+							}
+						});
+					} else {
+						// <i> 요소의 클래스 변경 => 스크랩 모양변경 
+						icon.removeClass("fa-solid").addClass("fa-regular");
+						// ajax 요청 보내기
+						$.ajax({
+							url: "OHPhotoScrapExecute",
+							method: "post",
+							dataType: "json",
+							data: {
+								// 전송할 데이터
+								'userId' : userId,
+								'pb_no' : clickedId
+							},
+							success: function(response) {
+				                // 성공적으로 서버로부터 응답을 받았을 때 실행할 코드
+				            	console.log("AJAX 요청 성공");		
+				                // 서버에서 받은 게시물의 스크랩 횟수, 변수에 저장
+				                var responseScrapNumber = response.scrapNumber;
+				                // responseScrapNumber 변수, 콘솔 출력
+				            	console.log("서버에서 받은 게시물의 좋아요 횟수: ", responseScrapNumber);
+				            	// [중요] 선택자를 이용해 요소 지정할 때 id, class 순서로 지정한다. 그 반대는 선택하지 못한다.
+				            	var scrapNumberSelector = "#" + clickedId + ".scrapNumber";
+				            	// scrapNumberSelector 변수, 콘솔 출력
+				            	console.log("scrapNumberSelector: ", scrapNumberSelector);
+				            	// 서버에서 받은 게시물의 스크랩 횟수 => 숫자 갱신 
+				                $(scrapNumberSelector).text(responseScrapNumber);					                
+							},
+							error: function(xhr, status, error) {
+				                // AJAX 요청 실패 시 실행할 코드
+				                console.error("AJAX 요청 실패:", status, error);										
+							}
+						});								
+					}
+				} else {
+					// 비회원 => 좋아요 누를 경우
+					alert("회원만 가능, 로그인 페이지로 이동");
+				}	
+			});
+		});		
+				
+				
+				
+	</script>			
+	
 	
 </html>
 

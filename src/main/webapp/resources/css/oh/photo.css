@@ -1,70 +1,136 @@
 @charset "UTF-8";
 
+/* ---------------------------------------------------------------- */
+/* ----- Start: 공통부분 ----- */
+/* ---------------------------------------------------------------- */
 
-/* ----- header ----- */
+/* ----- Start: 모든 요소 기본적용 ----- */	
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+/* ----- End: 모든 요소 기본적용 ----- */
+
+/* ----- Start: .container ----- */	
+/* 
+			header
+			
+			footer
+			
+			.contents
+				.sideBar
+				#각 페이지 Main 범위 
+*/ 
+/* ----- End: .container ----- */	
+
+/* ---------------------------------------------------------------- */
+
+/* ----- Start: header ----- */
 header {
 	border: 1px solid #333;
-	height: 130px;
 	text-align: center;
 }
-/* ----- header End ----- */
+/* ----- End: header ----- */
 
+/* ---------------------------------------------------------------- */
 
-/* ----- footer ----- */
+/* ----- Start: footer ----- */
 footer {
-	clear: both;
 	border: 1px solid #333;
-	height: 130px;
 	text-align: center;
 }		
-/* ----- footer End ----- */
+/* ----- End: footer ----- */
 	
+/* ---------------------------------------------------------------- */		
 	
-/* ----- Start: contents ----- */
+/* ----- Start: .contents ----- */
 .contents {
-	text-align: center;
-	width: 1800px;
+ 	display: flex;
+    justify-content: center;
+    align-items: center;	 
 }
-/* ----- End: contents ----- */	
+/* ----- End: .contents ----- */	
 	
+/* ---------------------------------------------------------------- */	
 	
-/* ----- Start: sideBar ----- */
+/* ----- Start: .sideBar ----- */
 .sideBar {
-	float: left;
 	background-color: powderblue;
-	padding: 20px;
-	margin: auto;
-	height: 800px;
-	width: 200px
+	margin: 10px;
+	position: fixed;
+    left: 10px;
+    top: 50%;
+    transform: translate(0, -50%);
 }		
 .sideBar ul {
 	text-align: center;
+	margin: 0px;
 	padding: 0px;
 }
 .sideBar ul li {
+	margin: 10px 0px 10px 0px;
+    line-height: 30px;
+    height: 30px;
+    width: 150px;
 	list-style-type: none;
-	background-color: #FF6347;
-	border: 1px solid #333;
 }		
 .sideBar ul li a {
 	text-decoration: none;
+	color: #333;
 }
 .sideBar ul li a:hover {
 
 }		
-/* ----- End: sideBar ----- */
+/* ----- End: .sideBar ----- */
 
+/* ---------------------------------------------------------------- */
+/* ----- End: 공통부분 ----- */
+/* ---------------------------------------------------------------- */
 
-/* ----- Start: main ----- */
-.main {
-	float: right;
-	width: 1400px;
+/* ---------------------------------------------------------------- */
+/* ----- Start: OHPhotoView.jsp ----- */
+/* ---------------------------------------------------------------- */
+
+/* ----- Start: #OHPhotoView-main ----- */
+#OHPhotoView-main {
+	position: relative;
 	background-color: #f4e1f5;
 }
-/* ----- End: main ----- */	
+/* ----- End: #OHPhotoView-main ----- */	
+
+/* ----- Start: #OHPhotoView-main-1 ----- */
+#OHPhotoView-main-1 {
+	position: relative;
+	text-align: center;
+	background-color: darkcyan;
+	height: 100px;
+}
+#OHPhotoView-title {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+    transform: translate(-50%, -50%);  
+	font-size: 50px;
+    font-weight: bold;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    display: inline-block;
+}
+#OHPhotoView-toWriteButton {
+    position: absolute;
+    right: 0%;
+    top: 50%;
+    transform: translate(0, -50%);    
+    width: 80px;
+    height: 50px;
+   	background-color: powderblue;
+   	border: none;
+    border-radius: 10px;
+    margin-right: 10px;
+}
+/* ----- End: #OHPhotoView-main-1 ----- */
 
 
-/* ----- Start: OHPhotoView.jsp ----- */
 .OHPhotoViewflexContainer {
        display:flex;
        justify-content: center;
@@ -73,20 +139,14 @@ footer {
        flex-wrap: wrap;
        background-color:#adbbf7;
        border:1px solid #222;
-       /* margin-bottom:30px;	 */	
 }
+
 .OHPhotoViewflexContainer .box {
 	padding: 5px;
     margin: 5px;   
 	width: 500px;
     height: 600px;
    	background-color: #f6f7ad;
-   	 		
-	/* 	        
-	flex-basis: auto;
-    flex-grow: 1;
-    flex-shrink: 1; 
-    */
 }
 
 .likeImage {
@@ -106,14 +166,18 @@ footer {
 .scrapImage.clickColor {
 	color: #4fc94f;
 }
+
+/* ---------------------------------------------------------------- */
 /* ----- End: OHPhotoView.jsp ----- */
-
-
+/* ---------------------------------------------------------------- */
 /* ----- Start: OHPhotoDetailView.jsp ----- */
+/* ---------------------------------------------------------------- */
 
 /* ----- Start: #inputTextReply ----- */
 
 /* ----- End: #inputTextReply ----- */
+
+/* ---------------------------------------------------------------- */
 
 /* Start: 댓글 출력 영역 */
 
@@ -318,8 +382,9 @@ footer {
 
 /* End: 댓글 출력 영역 */
 
+/* ---------------------------------------------------------------- */
 /* ----- End: OHPhotoDetailView.jsp ----- */
-
+/* ---------------------------------------------------------------- */
 
 
 

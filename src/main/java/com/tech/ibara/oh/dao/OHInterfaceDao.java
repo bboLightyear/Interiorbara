@@ -10,6 +10,9 @@ import com.tech.ibara.oh.dto.OHPhotoScrap;
 
 public interface OHInterfaceDao {
 	
+	// ---------- OHMainView.jsp ----------
+	public ArrayList<OHPhotoBoard> ohMainPhotoView(int number);
+	
 	// ---------- OHPhotoView.jsp ---------- 
 	public ArrayList<OHPhotoBoard> ohPhotoView(int postStartNum, int postEndNum,
 											   String orderingBy, String orderingMethod,	
