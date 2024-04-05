@@ -136,9 +136,8 @@ header {
 	cursor: pointer;
 }
 
-.body,html{
+body,html{
 	width: 100%;
-	
 }
 .body_section {
 	width: 80%;
@@ -151,15 +150,17 @@ header {
 /*헤더*/
 
 /*바디*/
-.section1{
+.cs_home_section1{
 	
 	width: 850px;
 	height: 380px;
 	margin : 0 auto;
 }
 .cs_wrap_all {/*바디 전체 감싸는 랩*/
-	height: 100vh;
+	height: auto;
 	width: 100%;
+    display: flex;
+    flex-direction: column; /* 요소들을 세로로 배치할 때 */
 }
 
 .cs_wrap_content {/*바디 공지사항 고객센터 감싸는 랩*/
@@ -291,7 +292,106 @@ header {
     border: 1px solid rgb(218, 221, 224);
 }
 
+/*아래 qna섹션*/
 
+/*qna 제목div*/
+.cs_home_qnaboard_head{
+	width: 850px;
+	margin : 0 auto;
+}
+/*제목 속 h2*/
+.cs_home_qnaboard_head_h2{
+	margin: 0;
+}
+/*제목 속 a태그*/
+.cs_home_qnaboard_head_h2_a1{
+	text-decoration: none;
+	color: black;
+}
+/*제목 속 a태그*/
+.cs_home_qnaboard_head_h2_a2{
+	text-decoration: none;
+	color: gray;
+	font-size: 15px;
+}
+/*qna 위 여백*/
+.cs_home_white_space{
+	width: 100%;
+	height: 30px;
+}
+.cs_home_wrap_qnaboard{
+	width: 100%;
+	height: max-700px;
+    display: flex;
+    flex-direction: column; /* 요소들을 세로로 배치할 때 */
+}
+.cs_home_qnaboard_nav_wrap{
+	width: 100%;
+	height: 80px;
+	
+}
+/*qna 위의 네비 바*/
+.cs_home_qnaboard_nav{
+	width: 95%;
+	height: 38px;
+	padding: 20px 24px 0;
+	text-align: center;
+}
+/*네비 속 라벨*/
+.cs_home_qnaboard_nav_label{
+	height: 38px;
+	border: 1px solid gray;
+	border-radius : 40px;
+	line-height: 0px;
+	margin-right: 10px;
+	padding-left: 15px;
+	padding-right: 15px;
+}
+/*네비 속 a태그*/
+.cs_home_qnaboard_nav_label_a{
+	text-decoration: none;
+	color: gray;
+}
+
+.cs_home_section2{
+	
+	flex: 1; /* 나머지 공간을 차지하도록 설정 */
+	width: 850px;
+	display: flex;
+	margin : 0 auto;
+	flex-direction: column;
+}
+.cs_home_qna_ul_wrap{
+	width: 850px;
+    display: flex;
+    flex-direction: column; /* 요소들을 세로로 배치할 때 */
+}
+.cs_home_qna_ul{
+	margin-top: 20px; 
+	width: 850px;
+	height: auto;
+	list-style: none;
+ 	/* margin: 0; */
+	padding: 0; 
+	display: block;
+}
+.cs_home_qna_li{
+	width: 820px;
+	height: 28px;
+	margin: 0 0 16px;
+	padding: 0 0 0 30px;
+	vertical-align: center;
+	line-height: 28px;
+}
+.cs_home_qna_li_icon{/*공지사항 아이콘*/
+	width: 28px;
+	height: 28px;
+	display: inline-flex;
+}
+.cs_home_qna_li_contnet{/*공지사항 내용*/
+	text-decoration: none;
+	color:black;
+}
 
 /*바디*/
 

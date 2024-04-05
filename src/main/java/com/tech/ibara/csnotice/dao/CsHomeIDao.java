@@ -12,5 +12,7 @@ import com.tech.ibara.csnotice.dto.QnaReplyDto;
 public interface CsHomeIDao {
 
 	public ArrayList<NoticeDto> cshomenoticelist();
+
+	public ArrayList<QnaDto> cshomeqnalist(String qnadiv, int i);
 	
 }

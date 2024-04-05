@@ -59,9 +59,11 @@ public class CsQnaContentService implements CsQnaService {
 		System.out.println("selfilecode :" + selfilecode);
 
 		// 파일코드로 이미지 조회 후 모델에 담아 뷰에 전송
-		ArrayList<QnaImgDto> imglist = dao.imglist(selfilecode);
-		System.out.println("imglist : " + imglist);
-		model.addAttribute("imglist", imglist);
+		if (selfilecode!=null) {
+			ArrayList<QnaImgDto> imglist = dao.imglist(selfilecode);
+			System.out.println("imglist : " + imglist);
+			model.addAttribute("imglist", imglist);			
+		}
 
 	}
 }

@@ -75,7 +75,13 @@ INSERT INTO
 		CS_NOTICEBOARD(NBNO,NBTITLE,NBCONTENT,NBWRITER,NBHIT,NBDATE,NBGROUP,NBSTEP,NBINDENT,NBFILECODE,NBQNADIV)
 		VALUES(CS_QNABOARD_SEQ.NEXTVAL,'공지사항입니다5(제목)','공지사항입니다5(내용)','admin',0,SYSDATE,0,0,0,null,'ss');
         
+INSERT INTO
+		CS_QNABOARD(QBNO,QBTITLE,QBCONTENT,QBWRITER,QBHIT,QBDATE,QBGROUP,QBSTEP,QBINDENT,QBFILECODE,QBQNADIV)
+		VALUES(CS_QNABOARD_SEQ.NEXTVAL,'pf','회원정보/로그인','cus',0,SYSDATE,0,0,0,null,'pf');        
+        
         commit;
+        
+        delete from cs_qnaboard;
 --------------------
 --select
 SELECT ROWNUM, n.*
@@ -108,3 +114,28 @@ WHERE ROWNUM <= 5;
 		    ORDER BY NBHIT DESC
 		) N
 		WHERE ROWNUM <  =        5;
+        
+        
+        SELECT QBTITLE
+		FROM (
+			SELECT ROWNUM, N.*
+			FROM (
+		    	SELECT *
+		    	FROM CS_QNABOARD
+		    	ORDER BY QBHIT DESC
+			) N
+		)
+		WHERE ROWNUM <= 15 AND QBQNADIV= '';
+        
+        SELECT QBTITLE,QBNO
+		FROM (
+			SELECT ROWNUM, N.*
+			FROM (
+		    	SELECT *
+		    	FROM CS_QNABOARD
+		    	ORDER BY QBHIT DESC
+			) N
+		)
+		WHERE ROWNUM <= 15 
+    
+        

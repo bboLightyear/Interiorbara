@@ -29,6 +29,8 @@ public class CsHomeController {
 	public String cshome(HttpServletRequest request, Model model) {
 		System.out.println("cshome()controller");
 		
+		model.addAttribute("request",request);
+		
 		csHomeService= new CsHomeQnaNoticeService(sqlSession);
 		csHomeService.execute(model);
 		
