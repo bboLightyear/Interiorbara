@@ -105,11 +105,14 @@
 	<update id="completedSeller">
 		UPDATE MY_MEMBER_INFO SET MEMTYPE='SELLER' WHERE MEMNO = #{param1}
 	</update>
-	<delete id="deleteInterior">
+	<!-- <delete id="deleteInterior">
 		DELETE FROM MY_INTERIOR WHERE MEMNO=#{param1}
 	</delete>
 	<delete id="deleteSeller">
 		DELETE FROM MY_SELLER WHERE MEMNO=#{param1}
+	</delete> -->
+	<delete id="deleteDemandWithdrawal">
+		DELETE FROM MY_WITHDRAWAL WHERE MEMNO=#{param1}
 	</delete>
 	
 	

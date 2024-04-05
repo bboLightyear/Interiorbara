@@ -32,10 +32,9 @@ public class SignUpService implements SService{
 		System.out.println("interiorNum : "+interiorNum);
 		System.out.println("sellerNum : "+sellerNum);
 		//프로젝트이기에 숫자10개 인지만 확인하고 자세한 유효성검사를 진행하지 않습니다.
-		if(memno==null) {
+		if(memno.equals("")) {
 			return "memno null";
-		}
-				
+		}				
 		if(memtype.equals("INTERIOR")) {
 			return "memtype interior error";
 		}else if(memtype.equals("SELLER")) {

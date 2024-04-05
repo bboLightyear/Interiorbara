@@ -24,6 +24,4 @@ public class MemberListService implements VService{
 		ArrayList<MyMemberInfoDto> mdto=mdao.getMemberInfoList();
 		model.addAttribute("list",mdto);
 	}
-	
-
 }

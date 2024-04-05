@@ -9,11 +9,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.tech.ibara.my.dao.MyDao;
 import com.tech.ibara.my.dto.MyMemberInfoDto;
 import com.tech.ibara.my.service.AllowCheckWithdrawalService;
+import com.tech.ibara.my.service.CancelWithdrawalService;
 import com.tech.ibara.my.service.DemandWithdrawalInsertService;
 import com.tech.ibara.my.service.DemandWithdrawalMemberService;
 import com.tech.ibara.my.service.EmailCheckService;
@@ -21,7 +21,6 @@ import com.tech.ibara.my.service.JoinService;
 import com.tech.ibara.my.service.LoginService;
 import com.tech.ibara.my.service.MemberListService;
 import com.tech.ibara.my.service.MyModifyService;
-import com.tech.ibara.my.service.MyPageService;
 import com.tech.ibara.my.service.MyPasswordEditService;
 import com.tech.ibara.my.service.MyPasswordService;
 import com.tech.ibara.my.service.MyProfileUpdateService;
@@ -29,7 +28,6 @@ import com.tech.ibara.my.service.PassResetService;
 import com.tech.ibara.my.service.SService;
 import com.tech.ibara.my.service.SignUpService;
 import com.tech.ibara.my.service.VService;
-import com.tech.ibara.my.service.WithdrawalCompletedService;
 
 @Controller
 public class MyController {
@@ -150,9 +148,14 @@ public class MyController {
 	public String mypagepasswordedit(HttpServletRequest request,Model model) {
 		System.out.println("mypagepasswordedit()");
 		model.addAttribute("request",request);
-		vservice=new MyPasswordService(sqlSession,session);
-		vservice.execute(model);		
-		return "my/mypagepasswordedit";
+		sservice=new MyPasswordService(sqlSession,session);
+		String str=sservice.execute(model);
+		if(str.equals("not login")) {
+			model.addAttribute("msg","로그인정보가 없습니다. 로그인해주세요");
+			return "my/loginform";
+		}else {
+			return "my/mypagepasswordedit";
+		}
 	}
 	@RequestMapping(method=RequestMethod.POST,value="my/passedit")
 	public String passedit(HttpServletRequest request,Model model) {
@@ -167,8 +170,7 @@ public class MyController {
 		}else {
 			model.addAttribute("msg","비밀번호 변경 오류");
 			return "my/mypagepasswordedit";	
-		}
-		
+		}		
 	}	
 	
 	@RequestMapping("my/passwordReset")
@@ -213,26 +215,25 @@ public class MyController {
 			return "my/loginform";
 		}else {
 			model.addAttribute("msg","비밀번호 변경 오류");
-			return "my/loginform";	
+			return "my/passwordReset";
 		}		
 	}
 	
-	@RequestMapping("my/nonmember")
-	public String nonmember() {
-		System.out.println("nonmember()");
-		return "my/nonmember";
-	}
-	
-	@RequestMapping("my/nonmemberEstimateSearch")
-	public String nonmemberEstimateSearch(HttpServletRequest request,Model model) {
-		System.out.println("nonmemberEstimateSearch()");
-		return "my/nonmemberEstimateSearch";
-	}
-	@RequestMapping("my/nonmemberOrderSearch")
-	public String nonmemberOrderSearch(HttpServletRequest request,Model model) {
-		System.out.println("nonmemberOrderSearch()");
-		return "my/nonmemberOrderSearch";
-	}
+//	@RequestMapping("my/nonmember")
+//	public String nonmember() {
+//		System.out.println("nonmember()");
+//		return "my/nonmember";
+//	}	
+//	@RequestMapping("my/nonmemberEstimateSearch")
+//	public String nonmemberEstimateSearch(HttpServletRequest request,Model model) {
+//		System.out.println("nonmemberEstimateSearch()");
+//		return "my/nonmemberEstimateSearch";
+//	}
+//	@RequestMapping("my/nonmemberOrderSearch")
+//	public String nonmemberOrderSearch(HttpServletRequest request,Model model) {
+//		System.out.println("nonmemberOrderSearch()");
+//		return "my/nonmemberOrderSearch";
+//	}
 	@RequestMapping("my/withdrawal")
 	public String withdrawal(HttpServletRequest request,Model model) {
 		System.out.println("withdrawal()");
@@ -247,6 +248,15 @@ public class MyController {
 		vservice.execute(model);
 		return "my/withdrawal";
 	}
+	@RequestMapping("my/cancelwithdrawal")
+	public String cancelwithdrawal(HttpServletRequest request,Model model) {
+		System.out.println("cancelwithdrawal()");
+		model.addAttribute("request",request);
+		vservice=new CancelWithdrawalService(sqlSession);
+		vservice.execute(model);		
+		return "my/withdrawal";
+	}
+	
 	@RequestMapping("my/mypagecompanysignup")
 	public String mypagecompanysignup() {
 		System.out.println("mypagecompanysignup()");
@@ -294,7 +304,127 @@ public class MyController {
 		}	
 		return "my/mypagecompanysignup";
 	}
-		
+	
+	@RequestMapping("my/interiormain")
+	public String interiormain(HttpServletRequest request,Model model) {
+		System.out.println("interiormain()");
+		return "my/interiormain";
+	}		
+	@RequestMapping("my/interiorinfoedit")
+	public String interiorinfoedit(HttpServletRequest request,Model model) {
+		System.out.println("interiorinfoedit()");
+		return "my/interiorinfoedit";
+	}
+	@RequestMapping("my/inteprofile")
+	public String updateinteprofile(HttpServletRequest request,Model model) {
+		System.out.println("updateinteprofile()");
+		model.addAttribute("request",request);
+		vservice =new MyProfileUpdateService(sqlSession,session);
+		vservice.execute(model);
+		return "my/interiorinfoedit";
+	}
+	@RequestMapping(method=RequestMethod.POST,value="my/intemodify")
+	public String intemodify(HttpServletRequest request,Model model) {
+		System.out.println("intemodify()");
+		model.addAttribute("request",request);
+		vservice =new MyModifyService(sqlSession,session);
+		vservice.execute(model);
+		return "my/interiorinfoedit";
+	}
+	
+	@RequestMapping("my/interiorpasswordedit")
+	public String interiorpasswordedit(HttpServletRequest request,Model model) {
+		System.out.println("interiorpasswordedit()");
+		model.addAttribute("request",request);
+		sservice=new MyPasswordService(sqlSession,session);
+		String str=sservice.execute(model);
+		if(str.equals("not login")) {
+			model.addAttribute("msg","로그인정보가 없습니다. 로그인해주세요");
+			return "my/loginform";
+		}else {		
+			return "my/interiorpasswordedit";
+		}
+	}
+	@RequestMapping(method=RequestMethod.POST,value="my/intepassedit")
+	public String intepassedit(HttpServletRequest request,Model model) {
+		System.out.println("intepassedit()");
+		model.addAttribute("request",request);
+		sservice =new MyPasswordEditService(sqlSession);
+		String str=sservice.execute(model);
+		if(str.equals("password reset success")) {
+			session.invalidate();
+			model.addAttribute("msg","비밀번호가 변경되었습니다. 다시 로그인해주세요");
+			return "my/loginform";
+		}else {
+			model.addAttribute("msg","비밀번호 변경 오류");
+			return "my/interiorpasswordedit";
+		}		
+	}	
+	
+	@RequestMapping("my/sellermain")
+	public String sellermain(HttpServletRequest request,Model model) {
+		System.out.println("sellermain()");
+		return "my/sellermain";
+	}		
+	@RequestMapping("my/sellerinfoedit")
+	public String sellerinfoedit(HttpServletRequest request,Model model) {
+		System.out.println("sellerinfoedit()");
+		return "my/sellerinfoedit";
+	}
+	@RequestMapping("my/sellerprofile")
+	public String updatesellerprofile(HttpServletRequest request,Model model) {
+		System.out.println("updatesellerprofile()");
+		model.addAttribute("request",request);
+		vservice =new MyProfileUpdateService(sqlSession,session);
+		vservice.execute(model);
+		return "my/sellerinfoedit";
+	}
+	@RequestMapping(method=RequestMethod.POST,value="my/sellermodify")
+	public String sellermodify(HttpServletRequest request,Model model) {
+		System.out.println("sellermodify()");
+		model.addAttribute("request",request);
+		vservice =new MyModifyService(sqlSession,session);
+		vservice.execute(model);
+		return "my/sellerinfoedit";
+	}
+	@RequestMapping("my/sellerpasswordedit")
+	public String sellerpasswordedit(HttpServletRequest request,Model model) {
+		System.out.println("sellerpasswordedit()");
+		model.addAttribute("request",request);
+		sservice=new MyPasswordService(sqlSession,session);
+		String str=sservice.execute(model);
+		if(str.equals("not login")) {
+			model.addAttribute("msg","로그인정보가 없습니다. 로그인해주세요");
+			return "my/loginform";
+		}else {		
+			return "my/sellerpasswordedit";
+		}
+	}
+	@RequestMapping(method=RequestMethod.POST,value="my/sellerpassedit")
+	public String sellerpassedit(HttpServletRequest request,Model model) {
+		System.out.println("sellerpassedit()");
+		model.addAttribute("request",request);
+		sservice =new MyPasswordEditService(sqlSession);
+		String str=sservice.execute(model);
+		if(str.equals("password reset success")) {
+			session.invalidate();
+			model.addAttribute("msg","비밀번호가 변경되었습니다. 다시 로그인해주세요");
+			return "my/loginform";
+		}else {
+			model.addAttribute("msg","비밀번호 변경 오류");
+			return "my/sellerpasswordedit";	
+		}
+	}
+			
+	@RequestMapping("my/admin_memberlist")
+	public String memberlist(HttpServletRequest request,Model model) {
+		System.out.println("admin_memberlist()");
+		model.addAttribute("request",request);
+		vservice=new MemberListService(sqlSession);
+		vservice.execute(model);
+		return "my/admin_memberlist";
+	}
+	
 	@RequestMapping("my/admin_demandwithdrawal")
 	public String admin_demandwithdrawal(HttpServletRequest request,Model model) {
 		System.out.println("admin_demandwithdrawal()");
@@ -312,15 +442,5 @@ public class MyController {
 		vservice.execute(model);		
 		return "redirect:admin_demandwithdrawal";
 	}
-	@RequestMapping("my/admin_memberlist")
-	public String memberlist(HttpServletRequest request,Model model) {
-		System.out.println("admin_memberlist()");
-		model.addAttribute("request",request);
-		vservice=new MemberListService(sqlSession);
-		vservice.execute(model);
-		return "my/admin_memberlist";
-	}
-
-	
 	
 }

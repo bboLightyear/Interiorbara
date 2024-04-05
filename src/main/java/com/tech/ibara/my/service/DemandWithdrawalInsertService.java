@@ -25,7 +25,7 @@ public class DemandWithdrawalInsertService implements VService {
 		String memno=request.getParameter("memno");
 		System.out.println("memno : "+memno);
 		String reason=request.getParameter("withdrawalCheck");
-		System.out.println("withdrawalCheck : "+reason);
+		System.out.println("withdrawal reason : "+reason);
 		MyDao mdao=sqlSession.getMapper(MyDao.class);
 		int memnoDupl=mdao.memnoDuplCheck(memno);
 		if(memtype.equals("ADMIN")) {

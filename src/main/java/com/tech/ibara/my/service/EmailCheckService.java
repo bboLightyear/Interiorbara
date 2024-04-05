@@ -36,6 +36,7 @@ public class EmailCheckService implements SService {
 			}else {
 				System.out.println("비밀번호변경 메일 인증 성공");
 				model.addAttribute("nickname",nickname);
+				model.addAttribute("msg","비밀번호변경 메일 인증 성공");
 				return "my/passwordReset";
 			}
 		}

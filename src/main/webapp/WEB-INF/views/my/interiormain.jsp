@@ -55,30 +55,36 @@
 </style>
 </head>
 <body>
-<h3>mypagemain.jsp</h3>
+<h3>interiormain.jsp</h3>
 	<div class="mypage_category">
         <div class="mypage_category_list list_1">프로필</div>
-	    <div class="mypage_category_list list_2">나의쇼핑</div>
-	    <div class="mypage_category_list list_3"><a href="mypagecompanysignup">업체신청</a></div> <br>
+	    <div class="mypage_category_list list_2">견적</div> <br />
     </div>
     <div class="mypage_category">
         <div class="mypage_category_list list_1_1">모두보기</div>
-	    <div class="mypage_category_list list_1_2">내사진</div>
-        <div class="mypage_category_list list_1_3">내동영상</div>
-        <div class="mypage_category_list list_1_4"><a href="mypageinfoedit">회원정보수정</a></div>
-        <div class="mypage_category_list list_1_5"><a href="mypagepasswordedit">비밀번호변경</a></div>
+	    <div class="mypage_category_list list_1_2">내시공사례</div>
+        <div class="mypage_category_list list_1_3">질문과답변</div>
+        <div class="mypage_category_list list_1_4"><a href="interiorinfoedit">회원정보수정</a></div>
+        <div class="mypage_category_list list_1_5"><a href="interiorpasswordedit">비밀번호변경</a></div>
     </div>
     
     <div>
     	<ul class="board">
-    		<li class="fl tc box w150" style="background: gray;">
-    			<img class="profile" src="../resources/upload/my/${loginUserDto.profileimg}" alt="">
+    		<li class="fl tc box w150" style="background: white;">
+    			<c:if test="${empty loginUserDto.profileimg}" >
+	            <img class="profile" src="../resources/img/my/user.png" id="profileimg">
+	        </c:if>
+	        <%-- 프로필 이미지가 있으면 있는 이미지 --%>
+	        <c:if test="${!empty loginUserDto.profileimg}" >
+	            <img class="profile" src="../resources/upload/my/${loginUserDto.profileimg}" id="profileimg">
+	        </c:if>	
+    			<%-- <img class="profile" src="../resources/upload/my/${loginUserDto.profileimg}" alt=""> --%>
     		</li>
     	</ul>
         <ul class="board">
         	<li class="fl tc w150">${loginUserDto.nickname}님</li>
         </ul>
-       	<ul class="board">
+       	<!-- <ul class="board">
        		<li class="fl tc w80"><a href="#"><img class="w50" src="../resources/img/my/bookmark.png" alt="" /></a></li>
        		<li class="fl tc w80"><a href="#"><img class="w50" src="../resources/img/my/heart.png" alt="" /></a></li>        		
        	</ul>
@@ -89,7 +95,7 @@
        	<ul class="board">
        		<li class="fl tc w80">0</li>
        		<li class="fl tc w80">0</li>
-       	</ul>
+       	</ul> -->
     </div>
 </body>
 </html>

@@ -41,8 +41,10 @@ public interface MyDao {
 	public int countCheckSeller(String sellerNum);
 	public void completedInterior(String memno);
 	public void completedSeller(String memno);
-	public void deleteInterior(String memno);
-	public void deleteSeller(String memno);
+//	public void deleteInterior(String memno);
+//	public void deleteSeller(String memno);
+	public void deleteDemandWithdrawal(String memno);
+	
 	
 	
 }

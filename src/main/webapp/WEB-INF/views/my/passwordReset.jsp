@@ -19,7 +19,6 @@
 	</form>
 	<c:out value="${msg }" default=""/>	
 
-
 	<c:if test="${nickname !=null }">
 	<h3>${nickname }님 변경하실 비밀번호를 입력해주세요</h3>
 	<form action="passeditMC" id="passeditMC" method="post">

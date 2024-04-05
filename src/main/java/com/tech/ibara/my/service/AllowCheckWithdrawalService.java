@@ -27,11 +27,11 @@ public class AllowCheckWithdrawalService implements VService{
 		String memtype=mdao.getMemtype(memno);
 		System.out.println(memno+"번 회원의 현재 멤버타입 은 "+memtype);
 		if(yesno.equals("N")) {
-			if(memtype.equals("INTERIOR")) {
-				mdao.deleteInterior(memno);				
-			}else if(memtype.equals("SELLER")) {
-				mdao.deleteSeller(memno);
-			}			
+//			if(memtype.equals("INTERIOR")) {
+//				mdao.deleteInterior(memno);				
+//			}else if(memtype.equals("SELLER")) {
+//				mdao.deleteSeller(memno);
+//			}			
 			mdao.allowWithdrawal("Y",memno);
 			mdao.completedWithdrawal(memno);
 		}else {

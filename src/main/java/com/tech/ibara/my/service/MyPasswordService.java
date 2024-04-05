@@ -11,7 +11,7 @@ import org.springframework.ui.Model;
 import com.tech.ibara.my.dto.MyMemberInfoDto;
 import com.tech.ibara.my.util.CryptoUtil;
 
-public class MyPasswordService implements VService{
+public class MyPasswordService implements SService{
 	private SqlSession sqlSession;
 	private HttpSession session;
 	public MyPasswordService(SqlSession sqlSession,HttpSession session) {
@@ -20,12 +20,15 @@ public class MyPasswordService implements VService{
 		
 	}
 	@Override
-	public void execute(Model model) {
+	public String execute(Model model) {
 		System.out.println("MyPasswordService()");
 		Map<String, Object> map=model.asMap();
 		HttpServletRequest request=(HttpServletRequest) map.get("request");
 //		session=request.getSession();
 		MyMemberInfoDto memdto = (MyMemberInfoDto) session.getAttribute("loginUserDto");
+		if(memdto==null) {
+			return "not login";
+		}
 		String shpwd=memdto.getShpwd();
 		String bcpwd=memdto.getBcpwd();
 		String decpwd="";
@@ -37,5 +40,6 @@ public class MyPasswordService implements VService{
 		}
 		System.out.println("decpwd : "+decpwd);
 		model.addAttribute("mypwd",decpwd);
+		return "login";
 	}
 }

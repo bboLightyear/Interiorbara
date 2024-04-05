@@ -16,7 +16,7 @@
     </form>
     <a href="passwordReset">비밀번호 재설정</a><br />
     <a href="joinform">회원가입</a><br />
-    <a href="nonmember">비회원 견적 및 주문 조회하기</a>
+    <!-- <a href="nonmember">비회원 견적 및 주문 조회하기</a> -->
 <hr />
 <c:out value="${msg }" default="" />
 
