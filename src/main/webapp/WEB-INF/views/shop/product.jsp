@@ -8,59 +8,11 @@
 <meta charset="UTF-8">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script src="../resources/js/shop/product.js"></script>
+<link  rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"/>
+<link rel="stylesheet" href="../resources/css/shop/product.css" />
 <title>Insert title here</title>
-	<style>
-		
-		main {
-			width: 800px;
-			margin: auto;
-		}
-		
-		section#imageView {
-			float: left;
-			width: 50%;
-			background-color: #fffdfd;
-		}
-		
-		section#summary {
-			float: right;
-			width: 50%;
-			background-color: #fdfdff;
-		}
-		
-		.selectedOptionListItem {
-			disply: inline-block;
-			width: 300px;
-			background-color: #f0f0f0;
-			margin-top: 5px;
-			margin-bottom: 5px;
-		}
-		
-		#imageSideBar {
-			float: left;
-			width: 10%;
-		}
-		
-		.imageList {
-			width: 100%;
-		}
-		
-		#imageMain {
-			float: right;
-			width:90%;
-		}
-		
-		#imageRepresent {
-			width: 100%;
-		}
-		
-		.clear {
-			clear: both;
-		}
-	</style>
 </head>
-<body>
-	
+<body id="top">
 	<h3>product.jsp</h3>
 	<h4>userId: <%= session.getAttribute("userId") %></h4>
 	<a href="basket">장바구니</a>
@@ -167,142 +119,48 @@
 			총 금액 : <span id="totalPrice" data-total-price="0">0원</span>
 		</section>
 		
-		<script>
-			$(document).ready(function() {
-				$(".goToBtn").on("click", changeScroll);
-				
-			});
-			
-			function changeScroll() {
-				const target = event.target;
-				const to = $(target).data("to");
-				
-				var position = $("#" + to).offset();
-				console.log(position);
-				
-				$(window).scrollTop(position.top);
-			}
-		</script>
-		
 		<div class="clear"></div>
 		
 		<button class="goToBtn" data-to="detailInfo">상세정보</button>
 		<button class="goToBtn" data-to="review">리뷰</button>
 		<button class="goToBtn" data-to="qna">문의</button>
-		
+		<button class="goToBtn" id="topBtn" data-to="top">↑</button>
+			
 		<section id="detailInfo">
 			<h1>상세정보</h1>
-			<h1>a</h1>
-			<h1>a</h1>
-			<h1>a</h1>
-			<h1>a</h1>
-			<h1>a</h1>
-			<h1>a</h1>
-			<h1>a</h1>
-			<h1>a</h1>
-			<h1>a</h1>
-			<h1>a</h1>
-			<h1>a</h1>
-			<h1>a</h1>
-			<h1>a</h1>
-			<h1>a</h1>
-			<h1>a</h1>
-			<h1>a</h1>
-			<h1>a</h1>
-			<h1>a</h1>
-			<h1>a</h1>
-			<h1>a</h1>
-			<h1>a</h1>
-			<h1>a</h1>
-			<h1>a</h1>
-			<h1>a</h1>
-			<h1>a</h1>
-			<h1>a</h1>
-			<h1>a</h1>
-			<h1>a</h1>
-			<h1>a</h1>
-			<h1>a</h1>
-			<h1>a</h1>
-			<h1>a</h1>
-			<h1>a</h1>
-			<h1>a</h1>
 		</section>
 		
 		<section id="review">
 			<h1>리뷰</h1>
-			<h1>a</h1>
-			<h1>a</h1>
-			<h1>a</h1>
-			<h1>a</h1>
-			<h1>a</h1>
-			<h1>a</h1>
-			<h1>a</h1>
-			<h1>a</h1>
-			<h1>a</h1>
-			<h1>a</h1>
-			<h1>a</h1>
-			<h1>a</h1>
-			<h1>a</h1>
-			<h1>a</h1>
-			<h1>a</h1>
-			<h1>a</h1>
-			<h1>a</h1>
-			<h1>a</h1>
-			<h1>a</h1>
-			<h1>a</h1>
-			<h1>a</h1>
-			<h1>a</h1>
-			<h1>a</h1>
-			<h1>a</h1>
-			<h1>a</h1>
-			<h1>a</h1>
-			<h1>a</h1>
-			<h1>a</h1>
-			<h1>a</h1>
-			<h1>a</h1>
-			<h1>a</h1>
-			<h1>a</h1>
-			<h1>a</h1>
-			<h1>a</h1>
+			<button id="writeReviewBtn">리뷰쓰기</button>
+			<div class="modal" id="reviewModal">
+				<div class="modalContent">
+					<span class="closeModal" id="reviewModalClose">
+						<i class="fa-solid fa-x"></i>
+					</span>
+					<div class="clear"></div>
+					<h3 class="modalTitle">리뷰쓰기</h3>
+					별점평가
+					<br />
+					
+				</div>
+			</div>
 		</section>
 		
 		<section id="qna">
 			<h1>문의</h1>
-			<h1>a</h1>
-			<h1>a</h1>
-			<h1>a</h1>
-			<h1>a</h1>
-			<h1>a</h1>
-			<h1>a</h1>
-			<h1>a</h1>
-			<h1>a</h1>
-			<h1>a</h1>
-			<h1>a</h1>
-			<h1>a</h1>
-			<h1>a</h1>
-			<h1>a</h1>
-			<h1>a</h1>
-			<h1>a</h1>
-			<h1>a</h1>
-			<h1>a</h1>
-			<h1>a</h1>
-			<h1>a</h1>
-			<h1>a</h1>
-			<h1>a</h1>
-			<h1>a</h1>
-			<h1>a</h1>
-			<h1>a</h1>
-			<h1>a</h1>
-			<h1>a</h1>
-			<h1>a</h1>
-			<h1>a</h1>
-			<h1>a</h1>
-			<h1>a</h1>
-			<h1>a</h1>
-			<h1>a</h1>
-			<h1>a</h1>
-			<h1>a</h1>
+			<button id="writeQnaBtn">문의하기</button>
+			<div class="modal" id="qnaModal">
+				<div class="modalContent">
+					<span class="closeModal" id="qnaModalClose">
+						<i class="fa-solid fa-x"></i>
+					</span>
+					<div class="clear"></div>
+					<h3 class="modalTitle">문의하기</h3>
+				</div>
+			</div>
 		</section>
+
 	</main>
 </body>
 </html>

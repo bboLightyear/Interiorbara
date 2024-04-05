@@ -1,10 +1,46 @@
-/**
- * 
- */
-
 $(document).ready(function() {
 	updateTotalPrice();
+	$("#writeReviewBtn").on("click", openReviewModal);
+	$("#writeQnaBtn").on("click", openQnaModal);
+	$("#reviewModalClose").on("click", closeReviewModal);
+	$("#qnaModalClose").on("click", closeQnaModal);
+	
+	$(".goToBtn").on("click", changeScroll);
 });
+
+function changeScroll() {
+	const target = event.target;
+	const to = $(target).data("to");
+	
+	var position = $("#" + to).offset();
+	console.log(position);
+	
+	$(window).scrollTop(position.top);
+}
+
+function openReviewModal() {
+	$("#reviewModal").css("display", "block");
+	$("body").css("overflow", "hidden");
+	$("body").css("height", "100%");
+}
+
+function openQnaModal() {
+	$("#qnaModal").css("display", "block");
+	$("body").css("overflow", "hidden");
+	$("body").css("height", "100%");
+}
+
+function closeReviewModal() {
+	$("#reviewModal").css("display", "none");
+	$("body").css("overflow", "auto");
+	$("body").css("height", "auto");
+}
+
+function closeQnaModal() {
+	$("#qnaModal").css("display", "none");
+	$("body").css("overflow", "auto");
+	$("body").css("height", "auto");
+}
 
 function loadSubOptionSet() {
 	var select = event.target;
