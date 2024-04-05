@@ -26,12 +26,12 @@ public class CsQnaDeleteService implements CsQnaService {
 		
 		QnaBoardIDao dao = sqlSession.getMapper(QnaBoardIDao.class);
 
-		String nbno = request.getParameter("nbno");
-		System.out.println("delete : " + nbno);
+		String qbno = request.getParameter("qbno");
+		System.out.println("delete : " + qbno);
 
 		
 		// 글 번호 이용해서 파일코드 조회
-		Integer selfilecode = dao.selfilecode(nbno);
+		Integer selfilecode = dao.selfilecode(qbno);
 		// 파일코드 출력
 		System.out.println("filecode : " + selfilecode);
 		
@@ -58,7 +58,7 @@ public class CsQnaDeleteService implements CsQnaService {
 		// 파일코드로 이미지 삭제
 		dao.imgdelete(selfilecode);
 		// 글 앞에서 받은 글 번호로 게시글 삭제
-		dao.qnadelete(nbno);
+		dao.qnadelete(qbno);
 
 	}
 }

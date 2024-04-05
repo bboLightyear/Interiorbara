@@ -12,12 +12,12 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class QnaReplyDto {
-	private int qbno;
-	private int rqbno;
-	private String rqbwriter;
-	private String rqbcontent;
-	private int rqbstep;
-	private int rqbgroup;
-	private int rqbindent;
+public class NoticeReplyDto {
+	private int nbno;
+	private int rnbno;
+	private String rnbwriter;
+	private String rnbcontent;
+	private int rnbstep;
+	private int rnbgroup;
+	private int rnbindent;
 }

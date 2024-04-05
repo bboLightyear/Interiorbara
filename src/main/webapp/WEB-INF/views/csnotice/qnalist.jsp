@@ -5,10 +5,8 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<link rel="stylesheet" type="text/css"
-	href="resources/css/noticelist.css" /> 
-<link rel="stylesheet"
-	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+<link rel="stylesheet" type="text/css" href="resources/css/noticelist.css" /> 
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
 <style>
 .fa-solid {
 	color: #333;
@@ -97,12 +95,12 @@
 			</tr>
 			<c:forEach items="${list }" var="dto">
 				<tr class="">
-					<td class="">${dto.nbno }</td>
-					<td class=""><a href="qnacontent?nbno=${dto.nbno }">${dto.nbtitle }</a>
+					<td class="">${dto.qbno }</td>
+					<td class=""><a href="qnacontent?qbno=${dto.qbno }">${dto.qbtitle }</a>
 					</td>
-					<td class="">${dto.nbwriter }</td>
-					<td class="">${dto.nbdate }</td>
-					<td class="">${dto.nbhit }</td>
+					<td class="">${dto.qbwriter }</td>
+					<td class="">${dto.qbdate }</td>
+					<td class="">${dto.qbhit }</td>
 				</tr>
 			</c:forEach>
 		</table>

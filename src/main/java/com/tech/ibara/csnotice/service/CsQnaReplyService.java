@@ -26,11 +26,11 @@ public class CsQnaReplyService implements CsQnaService {
 
 		QnaBoardIDao dao = sqlSession.getMapper(QnaBoardIDao.class);
 
-		String nbno = request.getParameter("nbno");
+		String qbno = request.getParameter("qbno");
 		String qnareply = request.getParameter("qnareply");
 		String qnarewriter = request.getParameter("qnarewriter");
 
 		// 전체 답글 달기
-		dao.qnareply(nbno, qnareply, qnarewriter);
+		dao.qnareply(qbno, qnareply, qnarewriter);
 	}
 }

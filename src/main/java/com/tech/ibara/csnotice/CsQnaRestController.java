@@ -26,28 +26,28 @@ public class CsQnaRestController {
 		
 		QnaBoardIDao dao=sqlSession.getMapper(QnaBoardIDao.class);
 		
-		String nbno=request.getParameter("nbno");
-		String rnbno=request.getParameter("rnbno");		
+		String qbno=request.getParameter("qbno");
+		String rqbno=request.getParameter("rqbno");		
 		String rwriter=request.getParameter("rwriter");		
 		String rcontent=request.getParameter("rcontent");		
-		String rnbstep=request.getParameter("rnbstep");		
-		String rnbgroup=request.getParameter("rnbgroup");		
-		String rnbindent=request.getParameter("rnbindent");		
+		String rqbstep=request.getParameter("rqbstep");		
+		String rqbgroup=request.getParameter("rqbgroup");		
+		String rqbindent=request.getParameter("rqbindent");		
 		
-		System.out.println("nbno :"+nbno);
-		System.out.println("rnbno :"+rnbno);
+		System.out.println("qbno :"+qbno);
+		System.out.println("rqbno :"+rqbno);
 		System.out.println("rwriter :"+rwriter);
 		System.out.println("rcontent :"+rcontent);
-		System.out.println("rnbstep :"+rnbstep);
-		System.out.println("rnbgroup :"+rnbgroup);
-		System.out.println("rnbindent :"+rnbindent);
+		System.out.println("rqbstep :"+rqbstep);
+		System.out.println("rqbgroup :"+rqbgroup);
+		System.out.println("rqbindent :"+rqbindent);
 		
-		dao.replyShape(rnbgroup,rnbstep);
+		dao.replyShape(rqbgroup,rqbstep);
 		
 		// 전체 답글 달기
-		dao.qnareply_r(nbno,rnbno,rwriter,rcontent,rnbgroup,rnbstep,rnbindent);
+		dao.qnareply_r(qbno,rqbno,rwriter,rcontent,rqbgroup,rqbstep,rqbindent);
 
-		ArrayList<QnaReplyDto> list = dao.replyrlist(rnbno);
+		ArrayList<QnaReplyDto> list = dao.replyrlist(rqbno);
 		System.out.println(list.size());
 		return list;
 	}
@@ -58,11 +58,11 @@ public class CsQnaRestController {
 		
 		QnaBoardIDao dao=sqlSession.getMapper(QnaBoardIDao.class);
 		
-		String rnbno=request.getParameter("rnbno");			
+		String rqbno=request.getParameter("rqbno");			
 		
-		System.out.println("rest rnbno :"+rnbno);
+		System.out.println("rest rqbno :"+rqbno);
 		
-		ArrayList<QnaReplyDto> list = dao.replyrlist(rnbno);
+		ArrayList<QnaReplyDto> list = dao.replyrlist(rqbno);
 		System.out.println(list.size());
 		return list;
 	}

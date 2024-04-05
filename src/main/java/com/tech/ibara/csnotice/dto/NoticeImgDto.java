@@ -9,10 +9,10 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class QnaImgDto {
+public class NoticeImgDto {
 	
-	private int qbno;
-	private int qbfilecode;
+	private int nbno;
+	private int nbfilecode;
 	private String filesrc;
 	
 }

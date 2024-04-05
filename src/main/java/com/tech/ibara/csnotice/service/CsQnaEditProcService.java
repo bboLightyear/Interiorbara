@@ -30,29 +30,29 @@ public class CsQnaEditProcService implements CsQnaService {
 		Map<String, Object> map =model.asMap();
 		MultipartHttpServletRequest mftrequest=(MultipartHttpServletRequest) map.get("mftrequest");
 		
-		String nbtitle = mftrequest.getParameter("nbtitle");
-		String nbcontent = mftrequest.getParameter("nbcontent");
+		String qbtitle = mftrequest.getParameter("qbtitle");
+		String qbcontent = mftrequest.getParameter("qbcontent");
 		String qnadiv = mftrequest.getParameter("qnadiv");
-		String nbno = mftrequest.getParameter("nbno");
+		String qbno = mftrequest.getParameter("qbno");
 
-		System.out.println("nbtitle : " + nbtitle);
-		System.out.println("nbcontent : " + nbcontent);
+		System.out.println("qbtitle : " + qbtitle);
+		System.out.println("qbcontent : " + qbcontent);
 		System.out.println("qnadiv : " + qnadiv);
-		System.out.println("nbno : " + nbno);
+		System.out.println("qbno : " + qbno);
 
 		QnaBoardIDao dao = sqlSession.getMapper(QnaBoardIDao.class);
 
-		dao.qnaeditproc(nbno, nbtitle, nbcontent, qnadiv);
+		dao.qnaeditproc(qbno, qbtitle, qbcontent, qnadiv);
 
 		String path = "C:\\interiorbara01\\interiorbara01\\src\\main\\webapp\\resources\\upload\\cs";
 
-		List<MultipartFile> fileList = mftrequest.getFiles("nbfile");
+		List<MultipartFile> fileList = mftrequest.getFiles("qbfile");
 		System.out.println("fileList : " + fileList);
 
 		// 수정 파일을 올린 경우에만 실행
 		if (fileList != null) {
 			// 이전 파일 조회
-			Integer selfilecode = dao.selfilecode(nbno);
+			Integer selfilecode = dao.selfilecode(qbno);
 			System.out.println("selfilecode :" + selfilecode);
 
 			ArrayList<String> fileListbefore = dao.getfileListbefore(selfilecode);
@@ -83,7 +83,7 @@ public class CsQnaEditProcService implements CsQnaService {
 			String pathFile = path + "\\" + changeFile;
 
 			// 파일코드 조회
-			Integer filecode = dao.selfilecode(nbno);
+			Integer filecode = dao.selfilecode(qbno);
 			System.out.println("filecode: " + filecode);
 
 			// 이미지 업로드

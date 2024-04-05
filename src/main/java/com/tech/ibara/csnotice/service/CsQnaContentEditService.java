@@ -29,19 +29,19 @@ public class CsQnaContentEditService implements CsQnaService {
 		Map<String, Object> map=model.asMap();
 		HttpServletRequest request=(HttpServletRequest) map.get("request");
 	
-		String nbno = request.getParameter("nbno");
-		System.out.println("nbno: " + nbno);
+		String qbno = request.getParameter("qbno");
+		System.out.println("qbno: " + qbno);
 
 		QnaBoardIDao dao = sqlSession.getMapper(QnaBoardIDao.class);
 
-		QnaDto qna = dao.qnacontent(nbno);
+		QnaDto qna = dao.qnacontent(qbno);
 
-		ArrayList<QnaImgDto> qnaimg = dao.qnacontentimgview(nbno);
+		ArrayList<QnaImgDto> qnaimg = dao.qnacontentimgview(qbno);
 
 		model.addAttribute("qna_content", qna);
 		model.addAttribute("qnaimg", qnaimg);
 
-		System.out.println("nbno: " + nbno);
+		System.out.println("qbno: " + qbno);
 
 	}
 }
