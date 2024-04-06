@@ -17,10 +17,6 @@
 	table {
 		text-align: left;
 	}	
-    #inputbox{
-    	text-align:left;
-    	margin-top: 50px;
-    }
     #btn{
     	padding: 10px;
     	width: 405px;
@@ -28,6 +24,7 @@
     }
     #btn:hover{
 		background-color: #1e90ff;
+		cursor: pointer;
 	}    
     a {
 		text-decoration: none;
@@ -37,7 +34,18 @@
 	#fs12px {
 		font-size: 12px;
 	}
-	
+	.password{
+		position: relative;
+	}
+	.password i{
+		cursor: pointer;
+		position: absolute;
+		left: 90%;
+		top: 20%;
+	}
+	.password i:hover{
+		color: #b1b8c0;
+	}
     </style>
 </head>
 <body>
@@ -49,8 +57,8 @@
     			</td>
     		</tr>
     		<tr>
-    			<td>
-    				<input type="password" name="pw" id="pw" style="padding:10px;" size="46" placeholder="비밀번호" required>
+    			<td class="password">
+    				<input type="password" name="pw" id="pw" style="padding:10px;" size="50" placeholder="비밀번호" required>
     				<span id="togglePwd"><i class="fa-solid fa-eye"></i></span>	<br />
     				<span id="pwResult"></span><br />
     			</td>
@@ -63,7 +71,7 @@
     	</table>
     </form>
     <c:out value="${msg }" default="" /> <br />
-    <span id="fs12px"><a href="passwordReset">비밀번호재설정</a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="joinform">회원가입</a><br /></span>
+    <span id="fs12px"><a href="passwordReset">비밀번호재설정</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="joinform">회원가입</a><br /></span>
     <!-- <a href="nonmember">비회원 견적 및 주문 조회하기</a> -->
 
 </body>

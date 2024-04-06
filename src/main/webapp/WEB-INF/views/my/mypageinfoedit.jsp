@@ -29,7 +29,8 @@
     </div>
     
     <form action="profile" method="POST" name="myPageFrm" id="profileFrm" enctype="multipart/form-data">
-    	<input type="hidden" name="memno" value="${loginUserDto.memno} " />
+    	<input type="hidden" name="memno" id="memno" value="${loginUserDto.memno} " />
+    	<input type="hidden" name="myimg" id="myimg" value="${loginUserDto.profileimg} }"  />
 	    <div class="profile-image-area">
 	        <%-- 프로필 이미지가 없으면 기본 이미지 --%>
 	        <c:if test="${empty loginUserDto.profileimg}" >

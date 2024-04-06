@@ -19,6 +19,7 @@ body {
 }
 #btnstyle:hover{
 	background-color: #1e90ff;
+	cursor: pointer;
 }
 
 a {
@@ -34,7 +35,18 @@ a {
 #line1 {
 	border-top: 1px solid black;
 }
-
+.password{
+	position: relative;
+}
+.password i{
+	cursor: pointer;
+	position: absolute;
+	left: 90%;
+	top: 25%;
+}
+.password i:hover{
+	color: #b1b8c0;
+}
 /* 
 .width97 {
 	width: 97%;

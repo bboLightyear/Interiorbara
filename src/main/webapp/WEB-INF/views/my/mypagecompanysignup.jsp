@@ -16,8 +16,17 @@
 	body{
 		text-align: center;
 	}
+	label{
+		font-size: 1.2em;
+	}
 	button{
+		background-color: #e2f0fe;
+		width: 100px;
 		padding: 10px;
+	}
+	button:hover{
+		background-color: #1e90ff;
+		cursor: pointer;
 	}
 	</style>
 </head>

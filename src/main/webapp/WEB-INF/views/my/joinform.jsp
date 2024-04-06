@@ -36,8 +36,8 @@
             <th><label for="pw1">비밀번호</label></th>
         </tr>
         <tr>
-            <td>
-                <input type="password" id="pw1" name="pw1" style="padding:10px;" size="46" placeholder="영문숫자특수문자를 포함한 8자리 이상" required>
+            <td class="password">
+                <input type="password" id="pw1" name="pw1" style="padding:10px;" size="50" placeholder="영문숫자특수문자를 포함한 8자리 이상" required>
                 <span id="togglePwd1"><i class="fa-solid fa-eye"></i></span> <br />
                 <span id="pw1Result"></span>
             </td>
@@ -46,8 +46,8 @@
             <th><label for="pw2">비밀번호확인</label></th>
         </tr>
         <tr>
-            <td>
-            	<input type="password" id="pw2" name="pw2" style="padding:10px;" size="46" required>
+            <td class="password">
+            	<input type="password" id="pw2" name="pw2" style="padding:10px;" size="50" required>
             	<span id="togglePwd2"><i class="fa-solid fa-eye"></i></span>
             	<br />            	
             	<span id="pw2Result"></span>
@@ -58,7 +58,7 @@
         </tr>
         <tr>
             <td>
-            	<input type="text" id="nickname" name="nickname" height="2em" style="padding:10px;" size="50" placeholder="2~15자 사이의 한글영문숫자" required> <br />
+            	<input type="text" id="nickname" name="nickname" style="padding:10px;" size="50" placeholder="2~15자 사이의 한글영문숫자" required> <br />
             	<span id="nicknameResult"></span>
             </td>
         </tr>

@@ -11,9 +11,11 @@ function checkPw() {
 	if (!reg.test(pw1.value)) {
 		pw1Result.innerHTML = "영문숫자특수문자를 포함한 8자리 이상"
 		pw1Result.style.color = "lightcoral"
+		return false;
 	} else {
 		pw1Result.innerHTML = "안전한비밀번호입니다."
 		pw1Result.style.color = "lightseagreen"
+		return false;
 	}
 }
 
@@ -21,6 +23,7 @@ function comparePw() {
 	if (pw1.value != pw2.value) {
 		pw2Result.innerHTML = "비밀번호 불일치"
 		pw2Result.style.color = "lightcoral"
+		return false;
 	} else {
 		pw2Result.innerHTML = ""
 	}

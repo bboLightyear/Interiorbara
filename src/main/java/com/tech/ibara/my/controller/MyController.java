@@ -21,6 +21,7 @@ import com.tech.ibara.my.service.JoinService;
 import com.tech.ibara.my.service.LoginService;
 import com.tech.ibara.my.service.MemberListService;
 import com.tech.ibara.my.service.MyModifyService;
+import com.tech.ibara.my.service.MyPageService;
 import com.tech.ibara.my.service.MyPasswordEditService;
 import com.tech.ibara.my.service.MyPasswordService;
 import com.tech.ibara.my.service.MyProfileUpdateService;
@@ -105,12 +106,14 @@ public class MyController {
 		System.out.println("adminmain()");
 		return "my/adminmain";
 	}
-	
-//	@RequestMapping("main/main")
-//	public String main() {
-//		System.out.println("main()");
-//		return "main/main";
-//	}
+	@RequestMapping("my/mypage")
+	public String mypage(HttpServletRequest request,Model model) {
+		System.out.println("mypage()");
+		model.addAttribute("request",request);
+		sservice = new MyPageService(sqlSession,session);
+		String str=sservice.execute(model);
+		return str;
+	}	
 	@RequestMapping("my/logout")
 	public String logout(HttpServletRequest request) {
 		System.out.println("logout()");
@@ -163,7 +166,10 @@ public class MyController {
 		model.addAttribute("request",request);
 		sservice =new MyPasswordEditService(sqlSession);
 		String str=sservice.execute(model);
-		if(str.equals("password reset success")) {
+		if(str.equals("password not match")) {
+			model.addAttribute("msg","현재비밀번호를 다시 확인해주세요.");
+			return "my/mypagepasswordedit";
+		}else if(str.equals("password reset success")) {
 			session.invalidate();
 			model.addAttribute("msg","비밀번호가 변경되었습니다. 다시 로그인해주세요");
 			return "my/loginform";
@@ -351,7 +357,10 @@ public class MyController {
 		model.addAttribute("request",request);
 		sservice =new MyPasswordEditService(sqlSession);
 		String str=sservice.execute(model);
-		if(str.equals("password reset success")) {
+		if(str.equals("password not match")) {
+			model.addAttribute("msg","현재비밀번호를 다시 확인해주세요.");
+			return "my/interiorpasswordedit";
+		}else if(str.equals("password reset success")) {
 			session.invalidate();
 			model.addAttribute("msg","비밀번호가 변경되었습니다. 다시 로그인해주세요");
 			return "my/loginform";
@@ -406,7 +415,10 @@ public class MyController {
 		model.addAttribute("request",request);
 		sservice =new MyPasswordEditService(sqlSession);
 		String str=sservice.execute(model);
-		if(str.equals("password reset success")) {
+		if(str.equals("password not match")) {
+			model.addAttribute("msg","현재비밀번호를 다시 확인해주세요.");
+			return "my/sellerpasswordedit";
+		}else if(str.equals("password reset success")) {
 			session.invalidate();
 			model.addAttribute("msg","비밀번호가 변경되었습니다. 다시 로그인해주세요");
 			return "my/loginform";

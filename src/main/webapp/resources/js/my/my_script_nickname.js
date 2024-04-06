@@ -8,8 +8,10 @@ function checkNickname() {
 	if (!regNickName.test(nickname.value)) {
 		nicknameResult.innerHTML = "한글영문숫자포함2~15자리로입력해주세요"
 		nicknameResult.style.color = "lightcoral"
+		return false;
 	} else {
 		nicknameResult.innerHTML = "";
 		nicknameResult.style.color = "lightseagreen";
+		return false;
 	}
 }

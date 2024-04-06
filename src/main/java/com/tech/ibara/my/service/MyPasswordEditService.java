@@ -23,10 +23,13 @@ public class MyPasswordEditService implements SService{
 		System.out.println("MyPasswordEditService()");
 		Map<String, Object> map=model.asMap();
 		HttpServletRequest request=(HttpServletRequest) map.get("request");
-		
 		String nickname=request.getParameter("nickname");
+		String mypwd=request.getParameter("mypwd");
+		String inputpwd=request.getParameter("inputpwd");
 		String pw=request.getParameter("pw1");
-
+		if(!mypwd.equals(inputpwd)) {
+			return "password not match";
+		}
 		String shpwd="";
 		String bcpwd="";
 		try {
