@@ -6,8 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link rel="stylesheet" type="text/css"
-	href="resources/css/cs/csboard.css" />
+<link rel="stylesheet" type="text/css" href="resources/css/cs/csboard.css" />
 </head>
 <!-- 헤더 -->
 <header>

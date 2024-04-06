@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<link rel="stylesheet" type="text/css" href="resources/css/noticelist.css" /> 
+<link rel="stylesheet" type="text/css" href="resources/css/cs/csboard.css" /> 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
 <style>
 .fa-solid {
@@ -19,16 +19,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<h3>qnalist</h3>
-
-	<%
-	if (session.getAttribute("userId") == null) {
-		 session.setAttribute("userId", "cus");
-		/* session.removeAttribute("userId"); */
-	}
-	%>
-	<p>userId: <%= session.getAttribute("userId") %></p>
-
 	<!-- 헤더 -->
 	<header>
 		<!-- header_top : 헤더 윗부분 -->
@@ -67,8 +57,18 @@
 			<div class="header_category_list list_5">고객센터</div>
 		</div>
 	</header>
+	
+		<h3>qnalist</h3>
 
-	<br>
+	<%
+	if (session.getAttribute("userId") == null) {
+		 session.setAttribute("userId", "cus");
+		/* session.removeAttribute("userId"); */
+	}
+	%>
+	<p>userId: <%= session.getAttribute("userId") %></p>
+	
+	
 	<form action="qnalist" method="post">
 		<div>
 			<select name="qnadiv">
@@ -84,6 +84,7 @@
 			<input type="text" name="sk" value="${searchKeyword }" /> 
 			<input type="submit" value="검색" />
 		</div>
+	</form>
 
 		<table class="" border="1px">
 			<tr class="">
@@ -96,8 +97,7 @@
 			<c:forEach items="${list }" var="dto">
 				<tr class="">
 					<td class="">${dto.qbno }</td>
-					<td class=""><a href="qnacontent?qbno=${dto.qbno }">${dto.qbtitle }</a>
-					</td>
+					<td class=""><a href="qnacontent?qbno=${dto.qbno }">${dto.qbtitle }</a></td>
 					<td class="">${dto.qbwriter }</td>
 					<td class="">${dto.qbdate }</td>
 					<td class="">${dto.qbhit }</td>
@@ -108,47 +108,45 @@
 		<!--로그인 안 한 상태로는 글 쓰기 버튼 안 보이게 처리-->
 		<% if(session.getAttribute("userId") == null){ %>
 		<% } else {%>
-		<a href="qnawriteview">글쓰기</a>
+		<a href="qnawriteview">글쓰기</a><br/>
 		<% } %>
 		
-		<hr />
+		
 		<c:if test="${searchVo.page>1 }">
-			<a href="qnalist?page=1&sk=${searchKeyword}&all=${all==true?'all':''}
-					&qq=${qq==true?'qq':''}&oh=${oh==true?'oh':''}&biz=${biz==true?'biz':''}&qf=${qf==true?'pf':''}&sh=${sh==true?'sh':''}">
-					<i class="fa-solid fa-angles-left"></i></a>
-			<a href="qnalist?page=${searchVo.page-1 }&sk=${searchKeyword}&all=${all==true?'all':''}
-					&qq=${qq==true?'qq':''}&oh=${oh==true?'oh':''}&biz=${biz==true?'biz':''}&qf=${qf==true?'pf':''}&sh=${sh==true?'sh':''}">
-					<i class="fa-solid fa-circle-chevron-left"></i></a>
+			<a href="qnalist?page=1&sk=${searchKeyword}&all=${all==true?'all':''}&qq=${qq==true?'qq':''}&oh=${oh==true?'oh':''}&biz=${biz==true?'biz':''}&qf=${qf==true?'pf':''}&sh=${sh==true?'sh':''}">
+					<!-- <i class="fa-solid fa-angles-left"></i> -->
+					처음으로</a>
+			<a href="qnalist?page=${searchVo.page-1 }&sk=${searchKeyword}&all=${all==true?'all':''}&qq=${qq==true?'qq':''}&oh=${oh==true?'oh':''}&biz=${biz==true?'biz':''}&qf=${qf==true?'pf':''}&sh=${sh==true?'sh':''}">
+					<!-- <i class="fa-solid fa-circle-chevron-left"></i> -->
+					이전</a>
 		</c:if>
 
-		<c:forEach begin="${searchVo.pageStart }" end="${searchVo.pageEnd }"
-			var="i">
+		<c:forEach begin="${searchVo.pageStart }" end="${searchVo.pageEnd }" var="i">
 			<c:choose>
+			
 				<c:when test="${i eq searchVo.page }">
 					<span style="color: gold; font-weight: bold;">${i } &nbsp;</span>
 				</c:when>
+				
 				<c:otherwise>
-					<a href="qnalist?page=${i }&sk=${searchKeyword}&all=${all==true?'all':''}
-					&qq=${qq==true?'qq':''}&oh=${oh==true?'oh':''}&biz=${biz==true?'biz':''}&qf=${qf==true?'pf':''}&sh=${sh==true?'sh':''}"
-						style="text-decoration: none;">${i }</a> &nbsp;
-			</c:otherwise>
+					<a href="qnalist?page=${i }&sk=${searchKeyword}&all=${all==true?'all':''} &qq=${qq==true?'qq':''}&oh=${oh==true?'oh':''}&biz=${biz==true?'biz':''}&qf=${qf==true?'pf':''}&sh=${sh==true?'sh':''}">${i }</a> &nbsp;
+				</c:otherwise>
+			
 			</c:choose>
 		</c:forEach>
 
 		<c:if test="${searchVo.page < searchVo.totPage}">
-			<a href="qnalist?page=${searchVo.page+1 }&sk=${searchKeyword}&all=${all==true?'all':''}
-					&qq=${qq==true?'qq':''}&oh=${oh==true?'oh':''}&biz=${biz==true?'biz':''}&qf=${qf==true?'pf':''}&sh=${sh==true?'sh':''}">
-					<i class="fa-solid fa-circle-chevron-right"></i>
-			</a>
+			<a href="qnalist?page=${searchVo.page+1 }&sk=${searchKeyword}&all=${all==true?'all':''}&qq=${qq==true?'qq':''}&oh=${oh==true?'oh':''}&biz=${biz==true?'biz':''}&qf=${qf==true?'pf':''}&sh=${sh==true?'sh':''}">
+					<!-- <i class="fa-solid fa-circle-chevron-right"></i> -->
+					다음</a>
 			
-			<a href="qnalist?page=${searchVo.totPage }&sk=${searchKeyword}&all=${all==true?'all':''}
-					&qq=${qq==true?'qq':''}&oh=${oh==true?'oh':''}&biz=${biz==true?'biz':''}&qf=${qf==true?'pf':''}&sh=${sh==true?'sh':''}">
-					<i class="fa-solid fa-angles-right"></i>
-			</a>
+			<a href="qnalist?page=${searchVo.totPage }&sk=${searchKeyword}&all=${all==true?'all':''}&qq=${qq==true?'qq':''}&oh=${oh==true?'oh':''}&biz=${biz==true?'biz':''}&qf=${qf==true?'pf':''}&sh=${sh==true?'sh':''}">
+					<!-- <i class="fa-solid fa-angles-right"></i> -->
+					끝으로</a>
 		</c:if>
-
-
-	</form>
+	
+	
+	
 	<!-- 푸터 -->
 	<footer>
 		<!-- 푸터 로고 -->

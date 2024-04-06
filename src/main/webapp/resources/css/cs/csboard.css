@@ -321,7 +321,8 @@ body,html{
 }
 .cs_home_wrap_qnaboard{
 	width: 100%;
-	height: max-700px;
+	max-height: 700px;
+	min-height: 170px;
     display: flex;
     flex-direction: column; /* 요소들을 세로로 배치할 때 */
 }
@@ -368,8 +369,8 @@ body,html{
 }
 .cs_home_qna_ul{
 	margin-top: 20px; 
-	width: 850px;
 	height: auto;
+	min-height:87px;
 	list-style: none;
  	/* margin: 0; */
 	padding: 0; 
