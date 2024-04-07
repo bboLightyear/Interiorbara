@@ -57,8 +57,6 @@
 			<div class="header_category_list list_5">고객센터</div>
 		</div>
 	</header>
-	
-		<h3>qnalist</h3>
 
 	<%
 	if (session.getAttribute("userId") == null) {
@@ -66,84 +64,114 @@
 		/* session.removeAttribute("userId"); */
 	}
 	%>
-	<p>userId: <%= session.getAttribute("userId") %></p>
+	<p style="margin: 0;">userId: <%= session.getAttribute("userId") %></p>
 	
+	<div class="cs_qnaboard_whitespace"> <!--여백--></div>
 	
-	<form action="qnalist" method="post">
-		<div>
-			<select name="qnadiv">
-			
-				<option value="all" ${all eq 'true' ? 'selected' : ''}>전체</option>
-				<option value="qq" ${qq eq 'true' ? 'selected' : ''}>퀵견적</option>
-				<option value="oh" ${oh eq 'true' ? 'selected' : ''}>우리집 자랑하기</option>
-				<option value="biz" ${biz eq 'true' ? 'selected' : ''}>업체 관련</option>
-				<option value="pf" ${pf eq 'true' ? 'selected' : ''}>로그인/회원정보</option>
-				<option value="sh" ${sh eq 'true' ? 'selected' : ''}>소품샵</option>
-				
-			</select> 
-			<input type="text" name="sk" value="${searchKeyword }" /> 
-			<input type="submit" value="검색" />
+	<section class="cs_list_section1">
+		<div class="cs_list_head">
+			<h3 class="cs_list_head_h">QnA</h3>
 		</div>
-	</form>
+	</section>
 
-		<table class="" border="1px">
-			<tr class="">
-				<td class="">NO</td>
-				<td class="">제목</td>
-				<td class="">이름</td>
-				<td class="">날짜</td>
-				<td class="">조회수</td>
-			</tr>
-			<c:forEach items="${list }" var="dto">
+	
+	<section class="cs_list_section2">
+	<div class="cs_list_wrap_board">
+		<div class="cs_list_serch_bar">
+			<form action="qnalist" method="post">
+<!-- 				<div> -->
+					<select name="qnadiv">
+					
+						<option value="all" ${all eq 'true' ? 'selected' : ''}>전체</option>
+						<option value="qq" ${qq eq 'true' ? 'selected' : ''}>퀵견적</option>
+						<option value="oh" ${oh eq 'true' ? 'selected' : ''}>우리집 자랑하기</option>
+						<option value="biz" ${biz eq 'true' ? 'selected' : ''}>업체 관련</option>
+						<option value="pf" ${pf eq 'true' ? 'selected' : ''}>로그인/회원정보</option>
+						<option value="sh" ${sh eq 'true' ? 'selected' : ''}>소품샵</option>
+						
+					</select> 
+					<input type="text" name="sk" value="${searchKeyword }" /> 
+					<input type="submit" value="검색" />
+<!-- 				</div> -->
+			</form>
+		</div>
+		
+		<div class="cs_qnaboard_whitespace"> <!--여백--></div>
+	
+		<div class="">
+			<table class="">
 				<tr class="">
-					<td class="">${dto.qbno }</td>
-					<td class=""><a href="qnacontent?qbno=${dto.qbno }">${dto.qbtitle }</a></td>
-					<td class="">${dto.qbwriter }</td>
-					<td class="">${dto.qbdate }</td>
-					<td class="">${dto.qbhit }</td>
+					<td class="">NO</td>
+					<td class="">제목</td>
+					<td class="">이름</td>
+					<td class="">날짜</td>
+					<td class="">조회수</td>
 				</tr>
-			</c:forEach>
-		</table>
+				<c:forEach items="${list }" var="dto">
+					<tr class="">
+						<td class="">${dto.qbno }</td>
+						<td class=""><a href="qnacontent?qbno=${dto.qbno }">${dto.qbtitle }</a></td>
+						<td class="">${dto.qbwriter }</td>
+						<td class="">${dto.qbdate }</td>
+						<td class="">${dto.qbhit }</td>
+					</tr>
+				</c:forEach>
+			</table>
+		</div>
 		
-		<!--로그인 안 한 상태로는 글 쓰기 버튼 안 보이게 처리-->
-		<% if(session.getAttribute("userId") == null){ %>
-		<% } else {%>
-		<a href="qnawriteview">글쓰기</a><br/>
-		<% } %>
-		
-		
-		<c:if test="${searchVo.page>1 }">
-			<a href="qnalist?page=1&sk=${searchKeyword}&all=${all==true?'all':''}&qq=${qq==true?'qq':''}&oh=${oh==true?'oh':''}&biz=${biz==true?'biz':''}&qf=${qf==true?'pf':''}&sh=${sh==true?'sh':''}">
-					<!-- <i class="fa-solid fa-angles-left"></i> -->
-					처음으로</a>
-			<a href="qnalist?page=${searchVo.page-1 }&sk=${searchKeyword}&all=${all==true?'all':''}&qq=${qq==true?'qq':''}&oh=${oh==true?'oh':''}&biz=${biz==true?'biz':''}&qf=${qf==true?'pf':''}&sh=${sh==true?'sh':''}">
-					<!-- <i class="fa-solid fa-circle-chevron-left"></i> -->
-					이전</a>
-		</c:if>
+		<div class="cs_list_wrap_writebtn">
+			<div class="cs_list_writebtn_loc">
+				<% if(session.getAttribute("userId") == null){ %>
+				<% } else {%>
+					<!--로그인 안 한 상태로는 글 쓰기 버튼 안 보이게 처리-->
+				<div class="cs_list_writebtn">
+					<a href="qnawriteview" class="cs_list_writebtn_a">글쓰기</a>
+				</div>
+				<% } %>
+			</div>
+		</div>
 
-		<c:forEach begin="${searchVo.pageStart }" end="${searchVo.pageEnd }" var="i">
-			<c:choose>
-			
-				<c:when test="${i eq searchVo.page }">
-					<span style="color: gold; font-weight: bold;">${i } &nbsp;</span>
-				</c:when>
-				
-				<c:otherwise>
-					<a href="qnalist?page=${i }&sk=${searchKeyword}&all=${all==true?'all':''} &qq=${qq==true?'qq':''}&oh=${oh==true?'oh':''}&biz=${biz==true?'biz':''}&qf=${qf==true?'pf':''}&sh=${sh==true?'sh':''}">${i }</a> &nbsp;
-				</c:otherwise>
-			
-			</c:choose>
-		</c:forEach>
+	</div>
+	</section>
+		
+		
+		
+		<div class="cs_qnaboard_whitespace"> <!--여백--></div>
+		
+		<section class="cs_list_section3">
+			<div class="cs_list_wrap_pagenum">
 
-		<c:if test="${searchVo.page < searchVo.totPage}">
-			<a href="qnalist?page=${searchVo.page+1 }&sk=${searchKeyword}&all=${all==true?'all':''}&qq=${qq==true?'qq':''}&oh=${oh==true?'oh':''}&biz=${biz==true?'biz':''}&qf=${qf==true?'pf':''}&sh=${sh==true?'sh':''}">
-					<!-- <i class="fa-solid fa-circle-chevron-right"></i> -->
-					다음</a>
-			
-			<a href="qnalist?page=${searchVo.totPage }&sk=${searchKeyword}&all=${all==true?'all':''}&qq=${qq==true?'qq':''}&oh=${oh==true?'oh':''}&biz=${biz==true?'biz':''}&qf=${qf==true?'pf':''}&sh=${sh==true?'sh':''}">
-					<!-- <i class="fa-solid fa-angles-right"></i> -->
-					끝으로</a>
-		</c:if>
+					<a href="qnalist?page=1&sk=${searchKeyword}&all=${all==true?'all':''}&qq=${qq==true?'qq':''}&oh=${oh==true?'oh':''}&biz=${biz==true?'biz':''}&qf=${qf==true?'pf':''}&sh=${sh==true?'sh':''}">
+							<!-- <i class="fa-solid fa-angles-left"></i> -->
+							처음으로</a>
+					<a href="qnalist?page=${searchVo.page-1 }&sk=${searchKeyword}&all=${all==true?'all':''}&qq=${qq==true?'qq':''}&oh=${oh==true?'oh':''}&biz=${biz==true?'biz':''}&qf=${qf==true?'pf':''}&sh=${sh==true?'sh':''}">
+							<!-- <i class="fa-solid fa-circle-chevron-left"></i> -->
+							이전</a>
+
+		
+				<c:forEach begin="${searchVo.pageStart }" end="${searchVo.pageEnd }" var="i">
+					<c:choose>
+					
+						<c:when test="${i eq searchVo.page }">
+							<span style="color: gold; font-weight: bold;">${i } &nbsp;</span>
+						</c:when>
+						
+						<c:otherwise>
+							<a href="qnalist?page=${i }&sk=${searchKeyword}&all=${all==true?'all':''} &qq=${qq==true?'qq':''}&oh=${oh==true?'oh':''}&biz=${biz==true?'biz':''}&qf=${qf==true?'pf':''}&sh=${sh==true?'sh':''}">${i }</a> &nbsp;
+						</c:otherwise>
+					
+					</c:choose>
+				</c:forEach>
+		
+					<a href="qnalist?page=${searchVo.page+1 }&sk=${searchKeyword}&all=${all==true?'all':''}&qq=${qq==true?'qq':''}&oh=${oh==true?'oh':''}&biz=${biz==true?'biz':''}&qf=${qf==true?'pf':''}&sh=${sh==true?'sh':''}">
+							<!-- <i class="fa-solid fa-circle-chevron-right"></i> -->
+							다음</a>
+					
+					<a href="qnalist?page=${searchVo.totPage }&sk=${searchKeyword}&all=${all==true?'all':''}&qq=${qq==true?'qq':''}&oh=${oh==true?'oh':''}&biz=${biz==true?'biz':''}&qf=${qf==true?'pf':''}&sh=${sh==true?'sh':''}">
+							<!-- <i class="fa-solid fa-angles-right"></i> -->
+							끝으로</a>
+			</div>
+		</section>
 	
 	
 	

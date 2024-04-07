@@ -149,7 +149,7 @@ body,html{
 }
 /*헤더*/
 
-/*바디*/
+/*cshome바디*/
 .cs_home_section1{
 	
 	width: 850px;
@@ -321,7 +321,7 @@ body,html{
 }
 .cs_home_wrap_qnaboard{
 	width: 100%;
-	max-height: 700px;
+/* 	max-height: 700px; */
 	min-height: 170px;
     display: flex;
     flex-direction: column; /* 요소들을 세로로 배치할 때 */
@@ -392,9 +392,88 @@ body,html{
 .cs_home_qna_li_contnet{/*공지사항 내용*/
 	text-decoration: none;
 	color:black;
+}/*cshome바디*/
+
+/* qnalist바디 */
+.cs_qnaboard_whitespace{
+	width: 100%;
+	height: 30px;
+}
+.cs_list_section1{
+	width: 100%;
+	height: 50px;
+	justify-content: center;
+	display: flex;
+}
+.cs_list_head{
+	width: 850px;
+	height: 100%;
+    display: flex;
+    padding-left: 30px;
+    align-items: center;
+}
+.cs_list_head_h{
+	margin: 0;
+}
+.cs_list_section2{
+	width: 100%;
+	height: auto;
+	min-height: 465px;
+	justify-content: center;
+	display: flex;
+}
+.cs_list_serch_bar{
+	width: 100%;
+	height: 60px;
+	display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.cs_list_wrap_writebtn{
+	width: 100%;
+	height: 60px;
+	display: flex;
+    align-items: center;
+    justify-content: right;
+}
+.cs_list_writebtn_loc{
+	width: 30%;
+	display: flex;
+    justify-content: center;
+}
+.cs_list_writebtn{
+	width: 80px; 
+    height: 38px;
+    border: 1px solid gray;
+    border-radius: 40px;
+    align-items: center;
+    padding-left: 10px;
+    padding-right: 10px;
+	justify-content: center;
+    display: flex;
+}
+.cs_list_writebtn_a{
+	text-decoration: none;
+	color: gray;
+}
+.cs_list_wrap_board{
+	width: 850px;
+}
+.cs_list_section3{
+	width: 100%;
+	height: 50px;
+	justify-content: center;
+	display: flex;
+}
+.cs_list_wrap_pagenum{
+	width: 850px;
+	height: 100%;
+    display: flex;
+	justify-content: center;
 }
 
-/*바디*/
+
+/* qnalist바디 */
 
 /*푸터*/
 footer {
