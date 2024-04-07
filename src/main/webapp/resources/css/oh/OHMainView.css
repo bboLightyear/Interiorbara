@@ -8,6 +8,7 @@
 #OHMainView-main {
 	position: relative;
 	background-color: #f4e1f5;
+	width: 1480px;
 }
 /* ----- End: #OHMainView-main ----- */	
 
@@ -81,7 +82,6 @@
 }
 #OHMainView-flexContainer {
 	display:flex;
-	justify-content: center;
 	align-content: center;
 	flex-direction: row;
 	flex-wrap: wrap;
