@@ -52,6 +52,8 @@ public class MyProfileUpdateService implements VService {
 					session.removeAttribute("loginUserDto");
 					session.setAttribute("loginUserDto",memdto);
 				}
+			}else {//파일을 선택 안할시에는 삭제할지 고민중
+				
 			}
 		} catch (Exception e) {
 			// TODO Auto-generated catch block

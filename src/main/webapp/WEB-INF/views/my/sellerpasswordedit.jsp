@@ -50,11 +50,11 @@
 <body>
 <h3>sellerpasswordedit.jsp</h3>
 	<div class="mypage_category">
-        <div class="mypage_category_list list_1"><a href="sellermain">프로필</a></div>
+        <div class="mypage_category_list list_1"><a href="mypage">프로필</a></div>
 	    <div class="mypage_category_list list_2">판매리스트</div> <br />
     </div>
     <div class="mypage_category">
-        <div class="mypage_category_list list_1_1"><a href="sellermain">모두보기</a></div>
+        <div class="mypage_category_list list_1_1"><a href="mypage">모두보기</a></div>
 	    <div class="mypage_category_list list_1_2"><a href="sellerinfoedit">회원정보수정</a></div>
         <div class="mypage_category_list list_1_3"><a href="sellerpasswordedit">비밀번호변경</a></div>
     </div>

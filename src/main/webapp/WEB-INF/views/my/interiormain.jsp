@@ -33,6 +33,9 @@
         font-family: sans-serif;
         cursor: pointer;
     }
+    #mypage_profile{
+    	padding-left: 25%;
+    }
 	.box {
 	    width: 150px;
 	    height: 150px; 
@@ -42,9 +45,13 @@
 	.profile {
 	    width: 100%;
 	    height: 100%;
+	    background-color:#f9fafb;
 	    object-fit: cover;
 	}
-	ul li {list-style:none; }
+	ul li {
+		list-style:none;
+		margin-bottom: 15%;
+	 }
 	.fl {float:left; }
 	.tc {text-align:center; }
 	.board {width: 160px; }
@@ -68,9 +75,9 @@
         <div class="mypage_category_list list_1_5"><a href="interiorpasswordedit">비밀번호변경</a></div>
     </div>
     
-    <div>
+    <div id="mypage_profile">
     	<ul class="board">
-    		<li class="fl tc box w150" style="background: white;">
+    		<li class="fl tc box w150">
     			<c:if test="${empty loginUserDto.profileimg}" >
 	            <img class="profile" src="../resources/img/my/user.png" id="profileimg">
 	        </c:if>

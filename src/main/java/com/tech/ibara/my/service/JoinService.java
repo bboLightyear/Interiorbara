@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
+import java.util.regex.Pattern;
 
 import javax.mail.Address;
 import javax.mail.Authenticator;
@@ -42,12 +43,23 @@ public class JoinService implements SService {
       String user_email=request.getParameter("user_email");
       String email_address=request.getParameter("email_address");
       String pw=request.getParameter("pw1");
+      String pw2=request.getParameter("pw2");
       String nickname=request.getParameter("nickname");
       String email=user_email+"@"+email_address;
       System.out.println("email : "+email);
       System.out.println("pw1 : "+pw);
       System.out.println("nickname : "+nickname);
       
+      boolean nnbool=Pattern.matches("^(?=.*[a-z0-9가-힣])[a-z0-9ㄱ-힣]{2,15}$", nickname);
+      System.out.println("nnbool : "+nnbool);
+      if(!nnbool) {
+    	  return "nn check";
+      }
+      boolean pwbool=Pattern.matches("^(?=.*[A-Za-z])(?=.*\\d)(?=.*[$@$!%*#?&])[A-Za-z\\d$@$!%*#?&]{8,}$", pw);
+      if(!pwbool) {
+    	  return "pw check";
+      }     
+
       String shpwd="";
       String bcpwd="";
       //암호화 처리

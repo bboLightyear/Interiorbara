@@ -23,6 +23,7 @@ import com.tech.ibara.my.service.MemberListService;
 import com.tech.ibara.my.service.MyModifyService;
 import com.tech.ibara.my.service.MyPageService;
 import com.tech.ibara.my.service.MyPasswordEditService;
+import com.tech.ibara.my.service.MyPasswordMCEditService;
 import com.tech.ibara.my.service.MyPasswordService;
 import com.tech.ibara.my.service.MyProfileUpdateService;
 import com.tech.ibara.my.service.PassResetService;
@@ -52,11 +53,19 @@ public class MyController {
 		model.addAttribute("request",request);
 		sservice=new JoinService(sqlSession);
 		String str=sservice.execute(model);
-		if(str.equals("emaildupl")) {
+		if(str.equals("pw not match")) {
+			model.addAttribute("joinmsg","비밀번호가 같지 않습니다.");
+			return "my/joinform";
+		}else if(str.equals("pw check")) {
+			model.addAttribute("joinmsg","비밀번호가 유효하지 않습니다.");
+			return "my/joinform";
+		}else if(str.equals("nn check")) {
+			model.addAttribute("joinmsg","닉네임이 유효하지 않습니다.");
+			return "my/joinform";
+		}else if(str.equals("emaildupl")) {
 			model.addAttribute("joinmsg","이미 가입된 이메일입니다");
 			return "my/joinform";
-		}
-		if(str.equals("nndupl")) {
+		}else if(str.equals("nndupl")) {
 			model.addAttribute("joinmsg","이미 가입된 닉네임입니다");
 			return "my/joinform";
 		}
@@ -143,8 +152,27 @@ public class MyController {
 	public String modify(HttpServletRequest request,Model model) {
 		System.out.println("modify()");
 		model.addAttribute("request",request);
-		vservice =new MyModifyService(sqlSession,session);
-		vservice.execute(model);
+		sservice =new MyModifyService(sqlSession,session);
+		String str=sservice.execute(model);
+		if(str.equals("nndupl")) {
+			model.addAttribute("msg","이미 사용중인 닉네임입니다");
+			return "my/mypageinfoedit";
+		}else if(str.equals("nn check")) {
+			model.addAttribute("msg","닉네임이 유효하지 않습니다.");
+			return "my/mypageinfoedit";
+		}else if(str.equals("phone check")){
+			model.addAttribute("msg","휴대폰번호를 다시 확인해주세요");
+			return "my/mypageinfoedit";			
+		}else if(str.equals("birth check")){
+			model.addAttribute("msg","생일을 다시 확인해주세요");
+			return "my/mypageinfoedit";			
+		}else if(str.equals("modify")) {
+			model.addAttribute("msg","회원정보가 변경되었습니다");
+			return "my/mypageinfoedit";
+		}else if(str.equals("modify error")) {
+			model.addAttribute("msg","회원정보변경 ERROR 다시 시도해주세요");
+			return "my/mypageinfoedit";
+		}
 		return "my/mypageinfoedit";
 	}
 	@RequestMapping("my/mypagepasswordedit")
@@ -163,11 +191,22 @@ public class MyController {
 	@RequestMapping(method=RequestMethod.POST,value="my/passedit")
 	public String passedit(HttpServletRequest request,Model model) {
 		System.out.println("passedit()");
+		String mypwd=request.getParameter("mypwd");
 		model.addAttribute("request",request);
 		sservice =new MyPasswordEditService(sqlSession);
 		String str=sservice.execute(model);
+		System.out.println("return msg : "+str);
 		if(str.equals("password not match")) {
 			model.addAttribute("msg","현재비밀번호를 다시 확인해주세요.");
+			model.addAttribute("mypwd",mypwd);
+			return "my/mypagepasswordedit";
+		}else if(str.equals("pw check")) {
+			model.addAttribute("msg","새비밀번호가 유효하지 않습니다.");
+			model.addAttribute("mypwd",mypwd);
+			return "my/mypagepasswordedit";
+		}else if(str.equals("pw not match")) {
+			model.addAttribute("msg","새비밀번호가 일치하지않습니다.");
+			model.addAttribute("mypwd",mypwd);
 			return "my/mypagepasswordedit";
 		}else if(str.equals("password reset success")) {
 			session.invalidate();
@@ -175,6 +214,7 @@ public class MyController {
 			return "my/loginform";
 		}else {
 			model.addAttribute("msg","비밀번호 변경 오류");
+			model.addAttribute("mypwd",mypwd);
 			return "my/mypagepasswordedit";	
 		}		
 	}	
@@ -212,17 +252,29 @@ public class MyController {
 	@RequestMapping(method=RequestMethod.POST,value="my/passeditMC")
 	public String passeditMC(HttpServletRequest request,Model model) {
 		System.out.println("passeditMC()");
+		String nickname=request.getParameter("nickname");
 		model.addAttribute("request",request);
-		sservice =new MyPasswordEditService(sqlSession);
+		sservice =new MyPasswordMCEditService(sqlSession);
 		String str=sservice.execute(model);
-		if(str.equals("password reset success")) {
+		System.out.println("return msg : "+str);
+		if(str.equals("pw check")) {
+			model.addAttribute("msg","새비밀번호가 유효하지 않습니다.");
+			model.addAttribute("nickname",nickname);
+			return "my/passwordReset";
+		}else if(str.equals("pw not match")) {
+			model.addAttribute("msg","새비밀번호가 일치하지않습니다.");
+			model.addAttribute("nickname",nickname);
+			return "my/passwordReset";
+		}else if(str.equals("password reset success")) {
 			session.invalidate();
 			model.addAttribute("msg","비밀번호가 변경되었습니다. 다시 로그인해주세요");
 			return "my/loginform";
 		}else {
 			model.addAttribute("msg","비밀번호 변경 오류");
-			return "my/passwordReset";
-		}		
+			model.addAttribute("nickname",nickname);
+			return "my/passwordReset";	
+		}
+				
 	}
 	
 //	@RequestMapping("my/nonmember")
@@ -333,8 +385,27 @@ public class MyController {
 	public String intemodify(HttpServletRequest request,Model model) {
 		System.out.println("intemodify()");
 		model.addAttribute("request",request);
-		vservice =new MyModifyService(sqlSession,session);
-		vservice.execute(model);
+		sservice =new MyModifyService(sqlSession,session);
+		String str=sservice.execute(model);
+		if(str.equals("nndupl")) {
+			model.addAttribute("msg","이미 사용중인 닉네임입니다");
+			return "my/interiorinfoedit";
+		}else if(str.equals("nn check")) {
+			model.addAttribute("msg","닉네임이 유효하지 않습니다.");
+			return "my/interiorinfoedit";
+		}else if(str.equals("phone check")){
+			model.addAttribute("msg","휴대폰번호를 다시 확인해주세요");
+			return "my/interiorinfoedit";			
+		}else if(str.equals("birth check")){
+			model.addAttribute("msg","생일을 다시 확인해주세요");
+			return "my/interiorinfoedit";		
+		}else if(str.equals("modify")) {
+			model.addAttribute("msg","회원정보가 변경되었습니다");
+			return "my/interiorinfoedit";
+		}else if(str.equals("modify error")) {
+			model.addAttribute("msg","회원정보변경 ERROR 다시 시도해주세요");
+			return "my/interiorinfoedit";
+		}
 		return "my/interiorinfoedit";
 	}
 	
@@ -392,8 +463,27 @@ public class MyController {
 	public String sellermodify(HttpServletRequest request,Model model) {
 		System.out.println("sellermodify()");
 		model.addAttribute("request",request);
-		vservice =new MyModifyService(sqlSession,session);
-		vservice.execute(model);
+		sservice =new MyModifyService(sqlSession,session);
+		String str=sservice.execute(model);
+		if(str.equals("nndupl")) {
+			model.addAttribute("msg","이미 사용중인 닉네임입니다");
+			return "my/sellerinfoedit";
+		}else if(str.equals("nn check")) {
+			model.addAttribute("msg","닉네임이 유효하지 않습니다.");
+			return "my/sellerinfoedit";
+		}else if(str.equals("phone check")){
+			model.addAttribute("msg","휴대폰번호를 다시 확인해주세요");
+			return "my/sellerinfoedit";			
+		}else if(str.equals("birth check")){
+			model.addAttribute("msg","생일을 다시 확인해주세요");
+			return "my/sellerinfoedit";			
+		}else if(str.equals("modify")) {
+			model.addAttribute("msg","회원정보가 변경되었습니다");
+			return "my/sellerinfoedit";
+		}else if(str.equals("modify error")) {
+			model.addAttribute("msg","회원정보변경 ERROR 다시 시도해주세요");
+			return "my/sellerinfoedit";
+		}
 		return "my/sellerinfoedit";
 	}
 	@RequestMapping("my/sellerpasswordedit")

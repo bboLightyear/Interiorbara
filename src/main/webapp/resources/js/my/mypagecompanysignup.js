@@ -4,8 +4,6 @@ function oninputNum(target){
 	.replace(/[^0-9]/g,'')
 //	.replace(/([0-9]{3})([0-9]{2})([0-9]{5})/g, "$1-$2-$3")
 }
-var inteFlag=-1;
-var sellerFlag=-1;
 var regNum= /^([0-9]{3})([0-9]{2})([0-9]{5})$/;
 var interior = document.getElementById("interior")
 var interiorResult = document.getElementById("interiorResult")

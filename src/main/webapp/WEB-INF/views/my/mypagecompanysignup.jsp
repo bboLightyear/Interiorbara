@@ -33,13 +33,13 @@
 <body>
 <h3>mypagecompanysignup.jsp</h3>
 	<div class="mypage_category">
-        <div class="mypage_category_list list_1"><a href="mypagemain">프로필</a></div>
+        <div class="mypage_category_list list_1"><a href="mypage">프로필</a></div>
 	    <div class="mypage_category_list list_2">나의쇼핑</div>
 	    <div class="mypage_category_list list_3">업체신청</div> <br>
 	    
     </div>
     <div class="mypage_category">
-        <div class="mypage_category_list list_1_1"><a href="mypagemain">모두보기</a></div>
+        <div class="mypage_category_list list_1_1"><a href="mypage">모두보기</a></div>
 	    <div class="mypage_category_list list_1_2">내사진</div>
         <div class="mypage_category_list list_1_3">내동영상</div>
         <div class="mypage_category_list list_1_4"><a href="mypageinfoedit">회원정보수정</a></div>

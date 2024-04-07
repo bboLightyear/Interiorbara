@@ -14,7 +14,7 @@
 <body>
 	<h3>admin_memberlist.jsp</h3>
 	<div class="mypage_category">
-		<div class="mypage_category_list list_1"><a href="adminmain">메인</a></div>
+		<div class="mypage_category_list list_1"><a href="mypage">메인</a></div>
 		<div class="mypage_category_list list_2">회원관리</div>
 		<div class="mypage_category_list list_3">업체신청관리</div>
 		<div class="mypage_category_list list_4">신고게시판</div>

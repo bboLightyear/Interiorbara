@@ -26,6 +26,7 @@ function comparePw() {
 		return false;
 	} else {
 		pw2Result.innerHTML = ""
+		return true;
 	}
 }
 
