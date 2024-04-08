@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -98,26 +99,30 @@
 		
 		<div class="cs_qnaboard_whitespace"> <!--여백--></div>
 	
-		<div class="">
-			<table class="">
+<!-- 		<div class=""> -->
+			<table class="cs_list_table">
+			<thead class="cs_list_table_thead">
 				<tr class="">
-					<td class="">NO</td>
-					<td class="">제목</td>
-					<td class="">이름</td>
-					<td class="">날짜</td>
-					<td class="">조회수</td>
+					<th class="cs_list_table_th">NO</th>
+					<th class="cs_list_table_th">제목</th>
+					<th class="cs_list_table_th">이름</th>
+					<th class="cs_list_table_th">날짜</th>
+					<th class="cs_list_table_th">조회수</th>
 				</tr>
+			</thead>
+			<tbody class="cs_list_table_tbody">
 				<c:forEach items="${list }" var="dto">
 					<tr class="">
 						<td class="">${dto.qbno }</td>
-						<td class=""><a href="qnacontent?qbno=${dto.qbno }">${dto.qbtitle }</a></td>
+						<td class=""><a href="qnacontent?qbno=${dto.qbno }" class="cs_list_table_title">${dto.qbtitle }</a></td>
 						<td class="">${dto.qbwriter }</td>
-						<td class="">${dto.qbdate }</td>
+						<td class=""><fmt:formatDate value="${dto.qbdate}" pattern="yy/MM/dd" /></td>
 						<td class="">${dto.qbhit }</td>
 					</tr>
 				</c:forEach>
+			</tbody>
 			</table>
-		</div>
+<!-- 		</div> -->
 		
 		<div class="cs_list_wrap_writebtn">
 			<div class="cs_list_writebtn_loc">
@@ -141,35 +146,35 @@
 		<section class="cs_list_section3">
 			<div class="cs_list_wrap_pagenum">
 
-					<a href="qnalist?page=1&sk=${searchKeyword}&all=${all==true?'all':''}&qq=${qq==true?'qq':''}&oh=${oh==true?'oh':''}&biz=${biz==true?'biz':''}&qf=${qf==true?'pf':''}&sh=${sh==true?'sh':''}">
+					<a class="cs_list_writebtn_a" href="qnalist?page=1&sk=${searchKeyword}&all=${all==true?'all':''}&qq=${qq==true?'qq':''}&oh=${oh==true?'oh':''}&biz=${biz==true?'biz':''}&qf=${qf==true?'pf':''}&sh=${sh==true?'sh':''}">
 							<!-- <i class="fa-solid fa-angles-left"></i> -->
-							처음으로</a>
-					<a href="qnalist?page=${searchVo.page-1 }&sk=${searchKeyword}&all=${all==true?'all':''}&qq=${qq==true?'qq':''}&oh=${oh==true?'oh':''}&biz=${biz==true?'biz':''}&qf=${qf==true?'pf':''}&sh=${sh==true?'sh':''}">
+							 << 처음으로</a>
+					<a class="cs_list_writebtn_a" href="qnalist?page=${searchVo.page-1 }&sk=${searchKeyword}&all=${all==true?'all':''}&qq=${qq==true?'qq':''}&oh=${oh==true?'oh':''}&biz=${biz==true?'biz':''}&qf=${qf==true?'pf':''}&sh=${sh==true?'sh':''}">
 							<!-- <i class="fa-solid fa-circle-chevron-left"></i> -->
-							이전</a>
+							&nbsp;이전</a>
 
 		
 				<c:forEach begin="${searchVo.pageStart }" end="${searchVo.pageEnd }" var="i">
 					<c:choose>
 					
 						<c:when test="${i eq searchVo.page }">
-							<span style="color: gold; font-weight: bold;">${i } &nbsp;</span>
+							<span style="color: lightskyblue; font-weight: bold;">&nbsp;${i }&nbsp;</span>
 						</c:when>
 						
 						<c:otherwise>
-							<a href="qnalist?page=${i }&sk=${searchKeyword}&all=${all==true?'all':''} &qq=${qq==true?'qq':''}&oh=${oh==true?'oh':''}&biz=${biz==true?'biz':''}&qf=${qf==true?'pf':''}&sh=${sh==true?'sh':''}">${i }</a> &nbsp;
+							<a class="cs_list_writebtn_a" href="qnalist?page=${i }&sk=${searchKeyword}&all=${all==true?'all':''} &qq=${qq==true?'qq':''}&oh=${oh==true?'oh':''}&biz=${biz==true?'biz':''}&qf=${qf==true?'pf':''}&sh=${sh==true?'sh':''}">${i }</a> &nbsp;
 						</c:otherwise>
 					
 					</c:choose>
 				</c:forEach>
 		
-					<a href="qnalist?page=${searchVo.page+1 }&sk=${searchKeyword}&all=${all==true?'all':''}&qq=${qq==true?'qq':''}&oh=${oh==true?'oh':''}&biz=${biz==true?'biz':''}&qf=${qf==true?'pf':''}&sh=${sh==true?'sh':''}">
+					<a class="cs_list_writebtn_a" href="qnalist?page=${searchVo.page+1 }&sk=${searchKeyword}&all=${all==true?'all':''}&qq=${qq==true?'qq':''}&oh=${oh==true?'oh':''}&biz=${biz==true?'biz':''}&qf=${qf==true?'pf':''}&sh=${sh==true?'sh':''}">
 							<!-- <i class="fa-solid fa-circle-chevron-right"></i> -->
-							다음</a>
+							다음&nbsp;</a>
 					
-					<a href="qnalist?page=${searchVo.totPage }&sk=${searchKeyword}&all=${all==true?'all':''}&qq=${qq==true?'qq':''}&oh=${oh==true?'oh':''}&biz=${biz==true?'biz':''}&qf=${qf==true?'pf':''}&sh=${sh==true?'sh':''}">
+					<a class="cs_list_writebtn_a" href="qnalist?page=${searchVo.totPage }&sk=${searchKeyword}&all=${all==true?'all':''}&qq=${qq==true?'qq':''}&oh=${oh==true?'oh':''}&biz=${biz==true?'biz':''}&qf=${qf==true?'pf':''}&sh=${sh==true?'sh':''}">
 							<!-- <i class="fa-solid fa-angles-right"></i> -->
-							끝으로</a>
+							끝으로 >></a>
 			</div>
 		</section>
 	
