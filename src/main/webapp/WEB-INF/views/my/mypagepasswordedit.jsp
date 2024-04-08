@@ -48,7 +48,7 @@
 		.password i:hover{
 			color: #b1b8c0;
 		}
-	</style>   
+	</style>
 </head>
 <body>
 <h3>mypagepasswordedit.jsp</h3>

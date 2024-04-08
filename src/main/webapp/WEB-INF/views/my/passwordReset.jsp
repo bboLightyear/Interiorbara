@@ -56,7 +56,7 @@ label{
 <h3>passwordReset.jsp</h3>
 	<form action="passReset" id="resetForm" method="post">
 		<div align="center">
-			<input type="email" id="email" name="email" style="padding:10px;" size="35" required />	
+			<input type="email" id="email" name="email" style="padding:10px;" size="35" placeholder="email address" required />	
 			<input id="smbtn" type="submit" value="이메일인증하기" style="padding:10px;" />
 		</div>
 	</form>

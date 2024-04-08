@@ -26,6 +26,7 @@ import com.tech.ibara.my.service.MyPasswordEditService;
 import com.tech.ibara.my.service.MyPasswordMCEditService;
 import com.tech.ibara.my.service.MyPasswordService;
 import com.tech.ibara.my.service.MyProfileUpdateService;
+import com.tech.ibara.my.service.NonmemberEstimateSearchService;
 import com.tech.ibara.my.service.PassResetService;
 import com.tech.ibara.my.service.SService;
 import com.tech.ibara.my.service.SignUpService;
@@ -188,6 +189,7 @@ public class MyController {
 			return "my/mypagepasswordedit";
 		}
 	}
+			
 	@RequestMapping(method=RequestMethod.POST,value="my/passedit")
 	public String passedit(HttpServletRequest request,Model model) {
 		System.out.println("passedit()");
@@ -277,16 +279,22 @@ public class MyController {
 				
 	}
 	
-//	@RequestMapping("my/nonmember")
-//	public String nonmember() {
-//		System.out.println("nonmember()");
-//		return "my/nonmember";
-//	}	
-//	@RequestMapping("my/nonmemberEstimateSearch")
-//	public String nonmemberEstimateSearch(HttpServletRequest request,Model model) {
-//		System.out.println("nonmemberEstimateSearch()");
-//		return "my/nonmemberEstimateSearch";
-//	}
+	@RequestMapping("my/nonmember")
+	public String nonmember() {
+		System.out.println("nonmember()");
+		return "my/nonmember";
+	}	
+	@RequestMapping("my/nonmemberEstimateSearch")
+	public String nonmemberEstimateSearch(HttpServletRequest request,Model model) {
+		System.out.println("nonmemberEstimateSearch()");
+		model.addAttribute("request",request);
+		sservice = new NonmemberEstimateSearchService(sqlSession);
+		String str=sservice.execute(model);
+		if(str.equals("phoneNull")) {
+			model.addAttribute("msg","등록되지 않은 폰번호입니다.");
+		}
+		return "my/nonmemberEstimateSearch";
+	}
 //	@RequestMapping("my/nonmemberOrderSearch")
 //	public String nonmemberOrderSearch(HttpServletRequest request,Model model) {
 //		System.out.println("nonmemberOrderSearch()");
