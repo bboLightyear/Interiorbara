@@ -17,6 +17,9 @@
 	table {
 		text-align: left;
 	}	
+	td{
+		height: 70px;
+	}
     #btn{
     	padding: 10px;
     	width: 405px;
@@ -41,11 +44,12 @@
 		cursor: pointer;
 		position: absolute;
 		left: 90%;
-		top: 20%;
+		top: 17px;
 	}
 	.password i:hover{
 		color: #b1b8c0;
 	}
+	
     </style>
 </head>
 <body>

@@ -10,16 +10,16 @@
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <link rel="stylesheet" href="${path}/resources/css/my/mypageinfoedit.css" />
-<script defer src="${path}/resources/js/my/mychart.js"></script>
+<script defer src="${path}/resources/js/my/myadminchart.js"></script>
 </head>
 <body>
 	<h3>adminmain.jsp</h3>
 	<div class="mypage_category">
 		<div class="mypage_category_list list_1"><a href="#">메인</a>	</div>
 		<div class="mypage_category_list list_2"><a href="admin_memberlist">회원관리</a></div>
-		<div class="mypage_category_list list_3">업체신청관리</div>
-		<div class="mypage_category_list list_4">신고게시판</div>
-		<div class="mypage_category_list list_5">컨텐츠관리</div>
+		<!-- <div class="mypage_category_list list_3">업체신청관리</div> -->
+		<div class="mypage_category_list list_3">신고게시판</div>
+		<div class="mypage_category_list list_4">컨텐츠관리</div>
 	</div>
 
 	<div class="container">

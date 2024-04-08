@@ -49,22 +49,22 @@
 		<form action="sellermodify" id="modify" method="post">    
 		    <div class="myPage-row">
 		        <label>이메일</label>
-		        <p><input type="text" name="email" id="email" style="padding:10px;" value="${loginUserDto.email}" readonly /></p>	        
+		        <p><input type="text" name="email" id="email" style="padding:10px;width:220px;" value="${loginUserDto.email}" readonly /></p>	        
 		    </div>
 		    
 		    <div class="myPage-row">
 		        <label for="nickname">닉네임<br /></label>
-		        <p><input type="text" name="nickname" id="nickname" style="padding:10px;" value="${loginUserDto.nickname}" /> <br />
+		        <p><input type="text" name="nickname" id="nickname" style="padding:10px;width:220px;" value="${loginUserDto.nickname}" /> <br />
 		        <span id="nicknameResult"></span></p>
 		    </div>
 		    <div class="myPage-row">
 		        <label for="phone">휴대폰번호<br /></label>
-		        <p><input type="number" name="phone" id="phone" style="padding:10px;" value="${loginUserDto.phone}" /><br />
+		        <p><input type="number" name="phone" id="phone" style="padding:10px;width:220px;" value="${loginUserDto.phone}" /><br />
 		        <span id="phoneResult"></span></p>
 		    </div>
 		    <div class="myPage-row">
 		        <label for="birth">생년월일<br /></label>
-		        <p><input type="number" name="birth" id="birth" style="padding:10px;" value="${loginUserDto.birth}" /><br />
+		        <p><input type="number" name="birth" id="birth" style="padding:10px;width:220px;" value="${loginUserDto.birth}" /><br />
 		        <span id="birthResult"></span>
 		        </p>
 		    </div>
@@ -73,19 +73,19 @@
 		        <p>
 		        	<c:choose>
 		        		<c:when test="${loginUserDto.gender eq 'm' }">
-		        			<input type="radio" name="gender" value="m" checked/>남
-		        			<input type="radio" name="gender" value="fm" />여
-			        		<input type="radio" name="gender" value="notCheck" />선택하지않음
+		        			<input type="radio" name="gender" style="width:23px;" value="m" checked/>남
+		        			<input type="radio" name="gender" style="width:23px;" value="fm" />여
+			        		<input type="radio" name="gender" style="width:23px;" value="notCheck" />선택하지않음
 		        		</c:when>
 		        		<c:when test="${loginUserDto.gender eq 'fm' }">
-		        			<input type="radio" name="gender" value="m" />남
-		        			<input type="radio" name="gender" value="fm" checked/>여
-			        		<input type="radio" name="gender" value="notCheck" />선택하지않음
+		        			<input type="radio" name="gender" style="width:23px;" value="m" />남
+		        			<input type="radio" name="gender" style="width:23px;" value="fm" checked/>여
+			        		<input type="radio" name="gender" style="width:23px;" value="notCheck" />선택하지않음
 		        		</c:when>
 		        		<c:otherwise>
-		        			<input type="radio" name="gender" value="m" />남
-		        			<input type="radio" name="gender" value="fm" />여
-			        		<input type="radio" name="gender" value="notCheck" checked/>선택하지않음	        		
+		        			<input type="radio" name="gender" style="width:23px;" value="m" />남
+		        			<input type="radio" name="gender" style="width:23px;" value="fm" />여
+			        		<input type="radio" name="gender" style="width:23px;" value="notCheck" checked/>선택하지않음	        		
 		        		</c:otherwise>        	
 		        	</c:choose>		        		        
 		        </p>

@@ -21,6 +21,9 @@
 			text-align: left;
 			margin-top: 30px; 
 		}
+		th,td {
+			line-height: 2.5em;
+		}
 		label{
 			padding: 5px;
 		}
@@ -40,7 +43,7 @@
 			cursor:pointer;
 			position: absolute;
 			left: 90%;
-			top: 20%;
+			top: 14px;
 		}
 		.password i:hover{
 			color: #b1b8c0;

@@ -36,7 +36,7 @@ public class MyModifyService implements SService{
 		System.out.println("phone : "+phone);
 		System.out.println("birth : "+birth);
 		System.out.println("gender : "+gender);
-		
+				
 		boolean nnbool=Pattern.matches("^(?=.*[a-z0-9가-힣])[a-z0-9ㄱ-힣]{2,15}$", nickname);
 		boolean phonebool=Pattern.matches("^(010)-?[0-9]{3,4}-?[0-9]{4}$", phone);
 		boolean birthbool=Pattern.matches("^(19|20)\\d{2}(0[1-9]|1[0-2])(0[1-9]|[12]\\d|3[01])$", birth);
@@ -56,11 +56,13 @@ public class MyModifyService implements SService{
 		}				
 		
 		MyDao mdao=sqlSession.getMapper(MyDao.class);
-		
-		int nnCheckResult=mdao.countCheck("2",nickname);
-		if(nnCheckResult!=0) {
-			return "nndupl";
-		}
+		String mynickname = mdao.getMemberNickname(email);
+		if(!mynickname.equals(nickname)) {
+			int nnCheckResult=mdao.countCheck("2",nickname);
+			if(nnCheckResult!=0) {
+				return "nndupl";
+			}
+		}		
 		
 		int result = mdao.modifyMyMemberInfo(nickname,phone,birth,gender,email);
 		if(result==1) {
@@ -72,5 +74,4 @@ public class MyModifyService implements SService{
 			return "modify error";
 		}
 	}
-
 }

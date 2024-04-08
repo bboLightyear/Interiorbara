@@ -7,6 +7,8 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<script defer src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script defer src="${path}/resources/js/my/mysellerchart.js"></script>
 <style>
 	.mypage_category {
     	margin: 0;
@@ -33,9 +35,9 @@
         font-family: sans-serif;
         cursor: pointer;
     }
-    #mypage_profile{
+    /* #mypage_profile{
     	padding-left: 25%;
-    }
+    } */
 	.box {
 	    width: 150px;
 	    height: 150px; 
@@ -59,6 +61,25 @@
 	.w70 {width:70px; }
 	.w80 {width:80px; }
 	.w150 {width:150px; }
+	.flex-container{
+		/* display: inline-flex;
+		margin: auto; */
+		display: flex;
+		justify-content : center;
+		margin-top: 10px;		
+	}
+	.container{
+		padding-left:10%;
+		width: fit-content;
+        height: fit-content;
+	}
+/* 	.row{
+		width: fit-content;
+        height: fit-content; 
+	} */ 
+	#myChart{
+		width: 450px;		
+	}
 </style>
 </head>
 <body>
@@ -72,7 +93,7 @@
 	    <div class="mypage_category_list list_1_2"><a href="sellerinfoedit">회원정보수정</a></div>
         <div class="mypage_category_list list_1_3"><a href="sellerpasswordedit">비밀번호변경</a></div>
     </div>
-    
+    <div class="flex-container">
     <div id="mypage_profile">
     	<ul class="board">
     		<li class="fl tc box w150">
@@ -89,18 +110,19 @@
         <ul class="board">
         	<li class="fl tc w150">${loginUserDto.nickname}님</li>
         </ul>
-       	<!-- <ul class="board">
-       		<li class="fl tc w80"><a href="#"><img class="w50" src="../resources/img/my/bookmark.png" alt="" /></a></li>
-       		<li class="fl tc w80"><a href="#"><img class="w50" src="../resources/img/my/heart.png" alt="" /></a></li>        		
-       	</ul>
-       	<ul class="board">
-       		<li class="fl tc w80"><a href="#">북마크</a></li>
-       		<li class="fl tc w80"><a href="#">좋아요</a></li>
-       	</ul>
-       	<ul class="board">
-       		<li class="fl tc w80">0</li>
-       		<li class="fl tc w80">0</li>
-       	</ul> -->
     </div>
+    <div class="container">
+		<div class="row">
+			<div class="col-md-6">
+				<canvas id="myChart"></canvas>
+			</div>
+			<%-- <div class="col-md-6">
+				<canvas id="myChart2"></canvas>
+			</div> --%>
+		</div>
+	</div>    
+    </div>
+    
+    
 </body>
 </html>
