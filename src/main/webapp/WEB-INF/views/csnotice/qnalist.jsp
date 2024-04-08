@@ -74,6 +74,8 @@
 			<h3 class="cs_list_head_h">QnA</h3>
 		</div>
 	</section>
+	
+	<div class="cs_qnaboard_whitespace"> <!--여백--></div>
 
 	
 	<section class="cs_list_section2">
@@ -124,6 +126,7 @@
 			</table>
 <!-- 		</div> -->
 		
+<div class="cs_qnaboard_whitespace"> <!--여백--></div>
 		<div class="cs_list_wrap_writebtn">
 			<div class="cs_list_writebtn_loc">
 				<% if(session.getAttribute("userId") == null){ %>

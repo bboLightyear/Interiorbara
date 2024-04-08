@@ -3,6 +3,7 @@
    pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -63,31 +64,49 @@
 </header>
 
 <body>
-    <%-- <%session.setAttribute("userId",null);%> --%> 
-    <%session.setAttribute("userId","cus");%>   
+   <%-- <%session.setAttribute("userId",null);%> --%> 
+   <%session.setAttribute("userId","cus");%>   
    
-   <p> <%= session.getAttribute("userId") %></p>
+   <p style="margin: 0">userId 값 :<%= session.getAttribute("userId") %></p>
    <% System.out.println("userId 값 : "+session.getAttribute("userId")); %>
    
-   <h3>qna content</h3>
+   	<div class="cs_qnaboard_whitespace"> <!--여백--></div>
+   	
+   	<section class="cs_content_section1">
+		<div class="cs_content_head">
+			<h2 class="cs_list_head_h">${qna_content.qbwriter }</h2>
+			
+			<div class="cs_list_head_wrap_span">
+			
+				<div class="cs_list_head_span">
+					<span>조회수 : ${qna_content.qbhit }&nbsp;</span>
+					<span>${qna_content.qbqnadiv } &nbsp;</span>
+					<span><fmt:formatDate value="${qna_content.qbdate}" pattern="yy/MM/dd" />&nbsp;</span>
+				</div>
+				
+				<div>
+					<%
+		             // qna_content에 담긴 qbwriter 출력하기
+		           	QnaDto qna_content = (QnaDto) request.getAttribute("qna_content");
+		            String qbwriter = qna_content.getQbwriter();
+		            System.out.println("qbwriter 값: " + qbwriter);
+		             
+		            String userId=(String)session.getAttribute("userId");
+		             
+		            if( userId.equals(qbwriter)){ %>
+		            <a href="qnaeditview?qbno=${qna_content.qbno }">수정</a>
+		            <a href="qnadelete?qbno=${qna_content.qbno }">삭제</a> 
+		            <% }else{
+		            %>
+		            <% 
+		            }%>
+	            </div>
+	            
+			</div>
+		</div>
+	</section>
 
    <table>
-      <tr>
-         <td class="left">번호</td>
-         <td>${qna_content.qbno }</td>
-      </tr>
-      <tr>
-         <td class="left">조회수</td>
-         <td>${qna_content.qbhit }</td>
-      </tr>
-      <tr>
-         <td class="left">글분류</td>
-         <td>${qna_content.qbqnadiv }</td>
-      </tr>
-      <tr>
-         <td class="left">작성자</td>
-         <td>${qna_content.qbwriter }</td>
-      </tr>
       <tr>
          <td class="left">제목</td>
          <td>${qna_content.qbtitle }</td>
@@ -97,10 +116,6 @@
          <td>${qna_content.qbcontent }</td>
       </tr>
       <tr>
-         <td class="left">날짜</td>
-         <td>${qna_content.qbdate }</td>
-      </tr>
-      <tr>
          <td class="left">파일</td>
          
          <c:forEach items="${imglist}" var="dto">
@@ -108,28 +123,6 @@
                <img src="../resources/upload/cs/${dto.filesrc}" alt="이미지" /> 
             </td>
          </c:forEach>
-      </tr>
-      <tr>
-         <td>
-            <%
-             // qna_content에 담긴 qbwriter 출력하기
-           	QnaDto qna_content = (QnaDto) request.getAttribute("qna_content");
-            String qbwriter = qna_content.getQbwriter();
-            System.out.println("qbwriter 값: " + qbwriter);
-             
-            String userId=(String)session.getAttribute("userId");
-             
-            if( userId.equals(qbwriter)){ %>
-            <a href="qnaeditview?qbno=${qna_content.qbno }">수정</a>
-            <a href="qnadelete?qbno=${qna_content.qbno }">삭제</a> 
-            <a href="qnalist">목록으로</a> <br />
-            <% }else{
-            %>
-            <a href="qnalist">목록으로</a> <br />
-            <% 
-            }%>
-            
-         </td>
       </tr>
    </table>
 

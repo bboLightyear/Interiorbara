@@ -503,10 +503,31 @@ body,html{
 	height: 100%;
     display: flex;
 	justify-content: center;
+}/* qnalist바디 */
+
+/*qnacontent바디*/
+.cs_content_section1{
+	width: 100%;
+	height: 100px;
+	justify-content: center;
+	display: flex;
 }
-
-
-/* qnalist바디 */
+.cs_content_head{
+	width: 850px;
+	height: 100%;
+    padding-left: 30px;
+    display: flex;
+    flex-direction: column;
+    /* align-items: center; */
+ 	/* text-align: center; */
+ 	justify-content: center;
+}
+.cs_list_head_h{
+	margin: 0;
+}
+.cs_list_head_p{
+	margin: 0;	
+}
 
 /*푸터*/
 footer {
