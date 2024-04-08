@@ -26,7 +26,6 @@
     transform: translate(-50%, -50%);  
 	font-size: 50px;
     font-weight: bold;
-    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
     display: inline-block;
 }
 #OHMainView-toWriteButtton {
@@ -187,7 +186,8 @@
 	background-color: crimson;
     height: 100px;
 }
-#OHMainView-toOHVideoViewButton {
+/* 집영상 */
+/* #OHMainView-toOHVideoViewButton {
     position: absolute;
     left: 0%;
     top: 50%;
@@ -210,7 +210,7 @@
    	border: none;
     border-radius: 10px;
     margin-right: 10px;	
-} 
+}  */
 /* ----- End: #OHMainView-main-4 ----- */
 
 /* ----- Start: #OHMainView-main-5 ----- */

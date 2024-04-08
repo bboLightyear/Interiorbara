@@ -11,6 +11,8 @@
 
 	<!-- oh.css -->
 	<link rel="stylesheet" href="../resources/css/oh/photo.css?after" />
+	<!-- OHPhotoWriteView.css -->
+	<link rel="stylesheet" href="../resources/css/oh/OHPhotoWriteView.css?after" />		
 	
 	<!-- https://fontawesome.com/ -->
 	<link  rel="stylesheet"
@@ -81,22 +83,17 @@
 	
 	<!-- 데이터 표시 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
 
-	<!-- 	
-		<div class="contents" id="abb" data-abc="111">
-		<div class="list" data-abc="111">
-		<div class="list" data-abc="654">
-		<div class="list" data-abc="56">
-		<div class="list" data-abc="1171">
-		<div class="list" data-abc="11761">
-		<script>
-			var list = document.getElementsByClass("list");
-			for (list f)
-				f.dataset.abc;
-			var el = document.getElementById("abb");
-			var aa = el.dataset.abc;
-			console.log(aa);
-		</script>	 
-	-->
+	<h3>OHPhotoEditView.jsp</h3>
+
+	<!-- 회원, 비회원 구분 후 메세지 출력 -->
+	<c:choose>
+		<c:when test="${sessionScope.userId ne null && !empty sessionScope.userId }">
+			<h3>${sessionScope.userId }님</h3>	
+		</c:when>
+		<c:otherwise>
+			<h3>비회원님</h3>					
+		</c:otherwise>
+	</c:choose>	
 
 	<div class="container">
 	
@@ -104,19 +101,22 @@
 			<h1>header</h1>
 		</header>
 		
+		
+		
 		<div class="contents">
 		
 			<div class="sideBar">
 				<ul >
 					<li><a href="OHMainView">우리집 자랑하기</a></li>
 					<li><a href="OHPhotoView">집사진</a></li>
-					<li><a href="">집영상</a></li>
+					<!-- 집영상 -->
+					<!-- <li><a href="">집영상</a></li> -->
 					<li><a href="">#category</a></li>
 				</ul>
 			</div>
-				<h3>OHPhotoEditView.jsp</h3>
+
 				
-				<h3>글수정</h3>			
+			<h3>글수정</h3>			
 					
 			<hr />			
 			
@@ -234,6 +234,11 @@
 			<hr />			
 									
 		</div>
+		
+		
+		
+		
+		
 		
 		<footer>
 			<h1>footer</h1>

@@ -111,7 +111,8 @@
 				<ul >
 					<li><a href="OHMainView">우리집 자랑하기</a></li>
 					<li><a href="OHPhotoView">집사진</a></li>
-					<li><a href="#">집영상</a></li>
+					<!-- 집영상 -->
+					<!-- <li><a href="#">집영상</a></li> -->
 					<li><a href="#">#category</a></li>
 				</ul>
 			</div>
@@ -163,11 +164,13 @@
 					</div>				
 				</div>
 				
-				
+				<!-- 집영상 -->
+				<!-- 				
 				<div id="OHMainView-main-4">
 					<button id="OHMainView-toOHVideoViewButton">집영상</button>
 					<button id="OHMainView-toMoreOHVideoViewButton">더보기</button> 
-				</div>
+				</div>  
+				-->
 				
 				<div id="OHMainView-main-5">
 					<button id="OHMainView-toCategoryView">#category</button>
