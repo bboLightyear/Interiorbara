@@ -11,8 +11,8 @@
 
 	<!-- oh.css -->
 	<link rel="stylesheet" href="../resources/css/oh/photo.css?after" />
-	<!-- OHPhotoWriteView.css -->
-	<link rel="stylesheet" href="../resources/css/oh/OHPhotoWriteView.css?after" />		
+	<!-- OHPhotoEditView.css -->
+	<link rel="stylesheet" href="../resources/css/oh/OHPhotoEditView.css?after" />		
 	
 	<!-- https://fontawesome.com/ -->
 	<link  rel="stylesheet"
@@ -25,7 +25,6 @@
 <body>
 
 	<!-- 데이터 표시 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-	<h3>OHPhotoDetailView.jsp</h3>
 	<table border="1">
 		<tr>
 			<th colspan="15">OHPhotoBoard</th>
@@ -101,8 +100,6 @@
 			<h1>header</h1>
 		</header>
 		
-		
-		
 		<div class="contents">
 		
 			<div class="sideBar">
@@ -115,130 +112,149 @@
 				</ul>
 			</div>
 
+			<div id="OHPhotoEditView-main">
+		
+				<div id="OHPhotoEditView-main-1">
 				
-			<h3>글수정</h3>			
+					<div id="OHPhotoEditView-title">글수정</div>
+				
+				</div>					
+				
+				<div id="OHPhotoEditView-main-2">
+
+					<button id="OHPhotoEditView-photoBoardButton">집사진</button> 
 					
-			<hr />			
+                    <!-- 집영상 -->
+					<!-- <button id="OHPhotoEditView-videoBoardButton">집영상</button> -->				    
+
+                </div>				
 			
-			<button>집사진</button> 
+                <div id="OHPhotoEditView-main-3">			
 			
-			<br />
-			
-			<button>집영상</button>
-			
-			<form action="OHPhotoEditExecute" method="post" enctype="multipart/form-data">
-				<!-- hidden, pb_no, pa_dto 값 전달 -->
-				<input type="hidden" name="pb_no" value="${pb_dto.pb_no }" /> 
+					<form action="OHPhotoEditExecute" method="post" enctype="multipart/form-data">
+					
+						<!-- hidden, pb_no, pa_dto 값 전달 -->
+						<input type="hidden" name="pb_no" value="${pb_dto.pb_no }" /> 
 				
-				<input type="submit" value="수정하기" />
+                        <div id="OHPhotoEditView-main-sector1">
+
+						    <input id="OHPhotoEditView-editPostButton" type="submit" value="수정하기" />
+                            
+                            <!-- <a href="OHPhotoDetailView?pb_no=${pb_dto.pb_no }">취소하기</a> -->
+						    <button id="OHPhotoEditView-cancelPostButton">취소하기</button>
+
+                        </div>					
 				
-				&nbsp;&nbsp;&nbsp;
+						<div id="OHPhotoEditView-main-sector2">
+						
+							<div id="OHPhotoEditView-main-sector2-1">
+
+                                <div id="sector2-1-layer1">
+								    <input id="OHPhotoEditView-fileUploadInput" type="file" name="pa_attach" multiple />
+                                </div>				
+
+                                <!-- 게시물, 이미지 출력 Start -->
+                                <div id="sector2-1-layer2">
+                            		<c:forEach items="${pa_dto }" var="dto">    
+	                                    <div class="sector2-1-layer2-uploadImage">
+	                                        <div id="uploadImage-numberLable">번호</div>
+	                                        <div id="uploadImage-number">999</div>
+	                                        <div id="uploadImage-nameLable">파일명</div>
+	                                        <div id="uploadImage-name">${dto.pa_attach }</div>
+											<img id="uploadImage-Image" src="../resources/upload/oh/photo/${dto.pa_attach }" alt="해당 게시글 사진" />                                       					
+	                                    </div>
+                            		</c:forEach>		                                           
+                                </div>
+                                <!-- 게시물, 이미지 출력 End -->                                
+
+							</div>				
 				
-				<button><a href="OHPhotoDetailView?pb_no=${pb_dto.pb_no }">취소하기</a></button>				
-				
-				<hr />
-				
-				<input type="file" name="pa_attach" multiple />
-				
-				<hr />
-				
-				<table>
-					<tr>
-						<td>제목</td>
-						<td>
-							<input type="text" name="pb_title" value="${pb_dto.pb_title }" />
-						</td>
-					</tr>
-					<tr>
-						<td>내용</td>
-						<td>
-							<textarea name="pb_content" rows="10" cols="30" >${pb_dto.pb_content }</textarea>
-						</td>
-					</tr>					
-				</table>
-				
-				<label for="pb_category">#category</label>
-				<select name="pb_category" id="pb_category">
-					<option value=""  >선택</option>
-					<option value="#그냥" <c:if test="${pb_dto.pb_category eq '#그냥'}">selected</c:if>>#그냥</option>
-					<option value="#내돈내산" <c:if test="${pb_dto.pb_category eq '#내돈내산'}">selected</c:if>>#내돈내산</option>
-				</select>				
-				
-				<label for="pb_residence">주거형태</label>
-				<select name="pb_residence" id="pb_residence">
-					<option value="">선택</option>
-					<option value="원룸&오피스텔" <c:if test="${pb_dto.pb_residence eq '원룸&오피스텔'}">selected</c:if>>원룸&amp;오피스텔</option>
-					<option value="아파트" <c:if test="${pb_dto.pb_residence eq '아파트'}">selected</c:if>>아파트</option>
-					<option value="빌라&연립" <c:if test="${pb_dto.pb_residence eq '빌라&연립'}">selected</c:if>>빌라&amp;연립</option>
-					<option value="단독주택" <c:if test="${pb_dto.pb_residence eq '단독주택'}">selected</c:if>>단독주택</option>
-					<option value="사무공간" <c:if test="${pb_dto.pb_residence eq '사무공간'}">selected</c:if>>사무공간</option>
-					<option value="상업공간" <c:if test="${pb_dto.pb_residence eq '상업공간'}">selected</c:if>>상업공간</option>
-					<option value="기타" <c:if test="${pb_dto.pb_residence eq '기타'}">selected</c:if>>기타</option>
-				</select>					
-				
-				<label for="pb_room">공간</label>
-				<select name="pb_room" id="pb_room">
-					<option value="">선택</option>
-					<option value="원룸" <c:if test="${pb_dto.pb_room eq '원룸'}">selected</c:if>>원룸</option>
-					<option value="거실" <c:if test="${pb_dto.pb_room eq '거실'}">selected</c:if>>거실</option>
-					<option value="침실" <c:if test="${pb_dto.pb_room eq '침실'}">selected</c:if>>침실</option>
-					<option value="주방" <c:if test="${pb_dto.pb_room eq '주방'}">selected</c:if>>주방</option>
-					<option value="욕실" <c:if test="${pb_dto.pb_room eq '욕실'}">selected</c:if>>욕실</option>
-					<option value="아이방" <c:if test="${pb_dto.pb_room eq '아이방'}">selected</c:if>>아이방</option>
-					<option value="드레스룸" <c:if test="${pb_dto.pb_room eq '드레스룸'}">selected</c:if>>드레스룸</option>
-					<option value="서재&작업실" <c:if test="${pb_dto.pb_room eq '서재&작업실'}">selected</c:if>>서재&amp;작업실</option>
-					<option value="베란다" <c:if test="${pb_dto.pb_room eq '베란다'}">selected</c:if>>베란다</option>
-					<option value="사무공간" <c:if test="${pb_dto.pb_room eq '사무공간'}">selected</c:if>>사무공간</option>
-					<option value="상업공간" <c:if test="${pb_dto.pb_room eq '상업공간'}">selected</c:if>>상업공간</option>
-					<option value="가구&소품" <c:if test="${pb_dto.pb_room eq '가구&소품'}">selected</c:if>>가구&amp;소품</option>
-					<option value="현관" <c:if test="${pb_dto.pb_room eq '현관'}">selected</c:if>>현관</option>
-					<option value="외관&기타" <c:if test="${pb_dto.pb_room eq '외관&기타'}">selected</c:if>>외관&amp;기타</option>
-				</select>					
-				
-				<label for="pb_style">스타일</label>
-				<select name="pb_style" id="pb_style">
-					<option value="">선택</option>
-					<option value="모던" <c:if test="${pb_dto.pb_style eq '모던'}">selected</c:if>>모던</option>
-					<option value="북유럽" <c:if test="${pb_dto.pb_style eq '북유럽'}">selected</c:if>>북유럽</option>
-					<option value="빈티지" <c:if test="${pb_dto.pb_style eq '빈티지'}">selected</c:if>>빈티지</option>
-					<option value="내추럴" <c:if test="${pb_dto.pb_style eq '내추럴'}">selected</c:if>>내추럴</option>
-					<option value="프로방스&로맨틱" <c:if test="${pb_dto.pb_style eq '프로방스&로맨틱'}">selected</c:if>>프로방스&amp;로맨틱</option>
-					<option value="클래식&앤틱" <c:if test="${pb_dto.pb_style eq '클래식&앤틱'}">selected</c:if>>클래식&amp;앤틱</option>
-					<option value="한국&아시아" <c:if test="${pb_dto.pb_style eq '한국&아시아'}">selected</c:if>>한국&amp;아시아</option>
-					<option value="유니크" <c:if test="${pb_dto.pb_style eq '유니크'}">selected</c:if>>유니크</option>
-				</select>					
-				
-				<label for="pb_skill">셀프/전문가</label>
-				<select name="pb_skill" id="pb_skill">
-					<option value="">선택</option>
-					<option value="셀프" <c:if test="${pb_dto.pb_skill eq '셀프'}">selected</c:if>>셀프</option>
-					<option value="전문가" <c:if test="${pb_dto.pb_skill eq '전문가'}">selected</c:if>>전문가</option>
-				</select>	
-				
-			</form>	
-			
-			
-			<hr />				
-			
-			<!-- 게시물, 이미지 출력 Start -->
-			<c:forEach items="${pa_dto }" var="dto">			
-				<div>
-					<div>pa_no: ${dto.pa_no }</div>
-					<div>pa_attach: ${dto.pa_attach }</div>
-					<div>pb_no: ${dto.pb_no }</div>
-					<img src="../resources/upload/oh/photo/${dto.pa_attach }" alt="해당 게시글 사진" height="300px" width="300px"/>					
-				</div>
-			</c:forEach>		
-			<!-- 게시물, 이미지 출력 End -->							
-			
-			<hr />			
-									
-		</div>
-		
-		
-		
-		
-		
+                            <div id="OHPhotoEditView-main-sector2-2">
+
+                                <div id="sector2-2-layer1">
+                                    <input id="layer1-title" type="text" name="pb_title" value="${pb_dto.pb_title }" placeholder="제목을 입력하세요." />
+                                </div>
+
+                                <div id="sector2-2-layer2">
+                                    <textarea id="layer2-content" name="pb_content" rows="10" cols="30" placeholder="내용을 입력하세요." >${pb_dto.pb_content }</textarea>
+                                </div>	   				
+						
+                                <div id="sector2-2-layer3">
+                        
+                                    <div id="layer3-pb_category-Lable">
+                                        #category
+                                    </div>
+                                    <select name="pb_category" id="layer3-pb_category">
+                                        <option value=""  >선택</option>
+                                        <option value="#그냥" <c:if test="${pb_dto.pb_category eq '#그냥'}">selected</c:if>>#그냥</option>
+                                        <option value="#내돈내산" <c:if test="${pb_dto.pb_category eq '#내돈내산'}">selected</c:if>>#내돈내산</option>
+                                    </select>				
+                                    
+                                    <div id="layer3-pb_residence-Lable">
+										주거형태
+                                    </div>
+                                    <select name="pb_residence" id="layer3-pb_residence">
+                                        <option value="">선택</option>
+                                        <option value="원룸&오피스텔" <c:if test="${pb_dto.pb_residence eq '원룸&오피스텔'}">selected</c:if>>원룸&amp;오피스텔</option>
+                                        <option value="아파트" <c:if test="${pb_dto.pb_residence eq '아파트'}">selected</c:if>>아파트</option>
+                                        <option value="빌라&연립" <c:if test="${pb_dto.pb_residence eq '빌라&연립'}">selected</c:if>>빌라&amp;연립</option>
+                                        <option value="단독주택" <c:if test="${pb_dto.pb_residence eq '단독주택'}">selected</c:if>>단독주택</option>
+                                        <option value="사무공간" <c:if test="${pb_dto.pb_residence eq '사무공간'}">selected</c:if>>사무공간</option>
+                                        <option value="상업공간" <c:if test="${pb_dto.pb_residence eq '상업공간'}">selected</c:if>>상업공간</option>
+                                        <option value="기타" <c:if test="${pb_dto.pb_residence eq '기타'}">selected</c:if>>기타</option>
+                                    </select>					
+                                    
+                                    <div id="layer3-pb_room-Lable">
+										공간
+                                    </div>
+                                    <select name="pb_room" id="layer3-pb_room">
+                                        <option value="">선택</option>
+                                        <option value="원룸" <c:if test="${pb_dto.pb_room eq '원룸'}">selected</c:if>>원룸</option>
+                                        <option value="거실" <c:if test="${pb_dto.pb_room eq '거실'}">selected</c:if>>거실</option>
+                                        <option value="침실" <c:if test="${pb_dto.pb_room eq '침실'}">selected</c:if>>침실</option>
+                                        <option value="주방" <c:if test="${pb_dto.pb_room eq '주방'}">selected</c:if>>주방</option>
+                                        <option value="욕실" <c:if test="${pb_dto.pb_room eq '욕실'}">selected</c:if>>욕실</option>
+                                        <option value="아이방" <c:if test="${pb_dto.pb_room eq '아이방'}">selected</c:if>>아이방</option>
+                                        <option value="드레스룸" <c:if test="${pb_dto.pb_room eq '드레스룸'}">selected</c:if>>드레스룸</option>
+                                        <option value="서재&작업실" <c:if test="${pb_dto.pb_room eq '서재&작업실'}">selected</c:if>>서재&amp;작업실</option>
+                                        <option value="베란다" <c:if test="${pb_dto.pb_room eq '베란다'}">selected</c:if>>베란다</option>
+                                        <option value="사무공간" <c:if test="${pb_dto.pb_room eq '사무공간'}">selected</c:if>>사무공간</option>
+                                        <option value="상업공간" <c:if test="${pb_dto.pb_room eq '상업공간'}">selected</c:if>>상업공간</option>
+                                        <option value="가구&소품" <c:if test="${pb_dto.pb_room eq '가구&소품'}">selected</c:if>>가구&amp;소품</option>
+                                        <option value="현관" <c:if test="${pb_dto.pb_room eq '현관'}">selected</c:if>>현관</option>
+                                        <option value="외관&기타" <c:if test="${pb_dto.pb_room eq '외관&기타'}">selected</c:if>>외관&amp;기타</option>
+                                    </select>					
+                                    
+                                    <div id="layer3-pb_style-Lable">
+										스타일
+                                    </div>
+                                    <select name="pb_style" id="layer3-pb_style">
+                                        <option value="">선택</option>
+                                        <option value="모던" <c:if test="${pb_dto.pb_style eq '모던'}">selected</c:if>>모던</option>
+                                        <option value="북유럽" <c:if test="${pb_dto.pb_style eq '북유럽'}">selected</c:if>>북유럽</option>
+                                        <option value="빈티지" <c:if test="${pb_dto.pb_style eq '빈티지'}">selected</c:if>>빈티지</option>
+                                        <option value="내추럴" <c:if test="${pb_dto.pb_style eq '내추럴'}">selected</c:if>>내추럴</option>
+                                        <option value="프로방스&로맨틱" <c:if test="${pb_dto.pb_style eq '프로방스&로맨틱'}">selected</c:if>>프로방스&amp;로맨틱</option>
+                                        <option value="클래식&앤틱" <c:if test="${pb_dto.pb_style eq '클래식&앤틱'}">selected</c:if>>클래식&amp;앤틱</option>
+                                        <option value="한국&아시아" <c:if test="${pb_dto.pb_style eq '한국&아시아'}">selected</c:if>>한국&amp;아시아</option>
+                                        <option value="유니크" <c:if test="${pb_dto.pb_style eq '유니크'}">selected</c:if>>유니크</option>
+                                    </select>					
+
+                                    <div id="layer3-pb_skill-Lable">
+										셀프/전문가
+                                    </div>                                    
+                                    <select name="pb_skill" id="layer3-pb_skill">
+                                        <option value="">선택</option>
+                                        <option value="셀프" <c:if test="${pb_dto.pb_skill eq '셀프'}">selected</c:if>>셀프</option>
+                                        <option value="전문가" <c:if test="${pb_dto.pb_skill eq '전문가'}">selected</c:if>>전문가</option>
+                                    </select>						
+                                </div>
+                            </div>
+                        </div>
+					</form>	
+                </div>
+            </div>
+		</div>							
 		
 		<footer>
 			<h1>footer</h1>
