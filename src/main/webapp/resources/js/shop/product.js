@@ -32,6 +32,77 @@ $(document).ready(function() {
 	setReviewBar();
 });
 
+function changeQnaPage(pageNum) {
+	const productId = $("main").data("productId");
+	
+	$.ajax({
+		type: "get",
+		async: true,
+		url: "product/changeQnaPage",
+		data: {
+			"productId" : productId,
+			"pageNum" : pageNum
+		},
+		success: function(data) {
+			$("#qnaGroup").empty();
+			
+			const qnaPageVO = data["qnaPageVO"];
+			const qnas = data["qnas"];
+			
+			var htmlText = "";
+			
+			for (var i = 0; i < qnas.length; ++i) {
+				htmlText +=
+					`<li class="qnaItem">
+						qna_id: ${qnas[i].qna_id} <br />
+						user_id: ${qnas[i].user_id} <br />
+						q_content: ${qnas[i].q_content} <br />
+					</li>`;				
+			}
+			
+			$("#qnaGroup").append(htmlText);
+			
+			
+			$("#qnaPageButtonWrap").empty();
+			
+			htmlText = "";
+			
+			if (qnaPageVO.groupPageCount < qnaPageVO.pageEndNum) {
+				htmlText +=
+					`<table class="qnaPageArrowsTable">
+						<tr>
+							<td onclick="changeQnaPage(1)"><i class="fa-solid fa-angles-left"></i></td>
+							<td onclick="changeQnaPage(${qnaPageVO.pageStartNum - 1})"><i class="fa-solid fa-angle-left"></i></td>
+						</tr>
+					</table>`;
+			}
+	
+			htmlText +=
+				`<table class="qnaPageButtonTable">
+					<tr>`;
+			for (var i = qnaPageVO.pageStartNum; i < qnaPageVO.pageEndNum + 1; ++i) {
+				htmlText += `<td onclick="changeQnaPage(${i})">${i}</td>`;
+			}
+			
+			htmlText +=
+					`</tr>
+				</table>`;
+			
+			if (qnaPageVO.pageTotalNum > qnaPageVO.pageEndNum) {
+				htmlText +=
+					`<table class="qnaPageArrowsTable" >
+						<tr>
+							<td onclick="changeQnaPage(${qnaPageVO.pageEndNum + 1})"><i class="fa-solid fa-angle-right"></i></td>
+							<td onclick="changeQnaPage(${qnaPageVO.pageTotalNum})"><i class="fa-solid fa-angles-right"></i></td>
+						</tr>
+					</table>`;
+			}
+			
+			$("#qnaPageButtonWrap").append(htmlText);
+		}
+	});
+}
+
 function changeReviewPage(pageNum) {
 	const productId = $("main").data("productId");
 	
@@ -46,7 +117,7 @@ function changeReviewPage(pageNum) {
 		success: function(data) {
 			$("#reviewGroup").empty();
 			
-			const pageVO = data["pageVO"];
+			const reviewPageVO = data["reviewPageVO"];
 			const reviews = data["reviews"];
 			
 			var htmlText = "";
@@ -80,12 +151,12 @@ function changeReviewPage(pageNum) {
 			
 			htmlText = "";
 			
-			if (pageVO.groupPageCount < pageVO.pageEndNum) {
+			if (reviewPageVO.groupPageCount < reviewPageVO.pageEndNum) {
 				htmlText +=
 					`<table class="pageArrowsTable">
 						<tr>
 							<td onclick="changeReviewPage(1)"><i class="fa-solid fa-angles-left"></i></td>
-							<td onclick="changeReviewPage(${pageVO.pageStartNum - 1})"><i class="fa-solid fa-angle-left"></i></td>
+							<td onclick="changeReviewPage(${reviewPageVO.pageStartNum - 1})"><i class="fa-solid fa-angle-left"></i></td>
 						</tr>
 					</table>`;
 			}
@@ -93,7 +164,7 @@ function changeReviewPage(pageNum) {
 			htmlText +=
 				`<table class="pageButtonTable">
 					<tr>`;
-			for (var i = pageVO.pageStartNum; i < pageVO.pageEndNum + 1; ++i) {
+			for (var i = reviewPageVO.pageStartNum; i < reviewPageVO.pageEndNum + 1; ++i) {
 				htmlText += `<td onclick="changeReviewPage(${i})">${i}</td>`;
 			}
 			
@@ -101,12 +172,12 @@ function changeReviewPage(pageNum) {
 					`</tr>
 				</table>`;
 			
-			if (pageVO.pageTotalNum > pageVO.pageEndNum) {
+			if (reviewPageVO.pageTotalNum > reviewPageVO.pageEndNum) {
 				htmlText +=
 					`<table class="pageArrowsTable" >
 						<tr>
-							<td onclick="changeReviewPage(${pageVO.pageEndNum + 1})"><i class="fa-solid fa-angle-right"></i></td>
-							<td onclick="changeReviewPage(${pageVO.pageTotalNum})"><i class="fa-solid fa-angles-right"></i></td>
+							<td onclick="changeReviewPage(${reviewPageVO.pageEndNum + 1})"><i class="fa-solid fa-angle-right"></i></td>
+							<td onclick="changeReviewPage(${reviewPageVO.pageTotalNum})"><i class="fa-solid fa-angles-right"></i></td>
 						</tr>
 					</table>`;
 			}
@@ -287,7 +358,7 @@ function openQnaModal() {
 }
 
 function closeReviewModal() {
-	if (confirm("aaaa")) {
+	if (confirm("작성된 내용은 저장되지 않습니다.\n닫으시겠습니까?")) {
 		resetReviewInputs();
 		$("#reviewModal").css("display", "none");
 		$("body").css("overflow", "auto");
@@ -306,7 +377,7 @@ function resetReviewInputs() {
 }
 
 function closeQnaModal() {
-	if (confirm("aaaa")) {
+	if (confirm("작성된 내용은 저장되지 않습니다.\n닫으시겠습니까?")) {
 		$("#qnaModal").css("display", "none");
 		$("body").css("overflow", "auto");
 		$("body").css("height", "auto");

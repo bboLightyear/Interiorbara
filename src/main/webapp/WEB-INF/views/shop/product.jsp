@@ -128,6 +128,12 @@
 			
 		<section id="detailInfo">
 			<h1>상세정보</h1>
+			<div id="detailImgWrap">
+				<c:forEach items="${detailImgs }" var="detailImg">
+					<img src="../resources/upload/shop/${detailImg.file_src }" alt="gg"
+						class="detailImg" />
+				</c:forEach>
+			</div>
 		</section>
 		
 		<section id="review">
@@ -185,11 +191,11 @@
 				</ul>
 				
 				<div id="pageButtonWrap">				
-					<c:if test="${pageVO.groupPageCount < pageVO.pageEndNum }">
+					<c:if test="${reviewPageVO.groupPageCount < reviewPageVO.pageEndNum }">
 						<table class="pageArrowsTable">
 							<tr>
 								<td onclick="changeReviewPage(1)"><i class="fa-solid fa-angles-left"></i></td>
-								<td onclick="changeReviewPage(${pageVO.pageStartNum - 1})"><i class="fa-solid fa-angle-left"></i></td>
+								<td onclick="changeReviewPage(${reviewPageVO.pageStartNum - 1})"><i class="fa-solid fa-angle-left"></i></td>
 							</tr>
 						</table>
 					</c:if>
@@ -197,17 +203,17 @@
 					
 					<table class="pageButtonTable">
 						<tr>
-							<c:forEach begin="${pageVO.pageStartNum }" end="${pageVO.pageEndNum }" var="pageNum">
+							<c:forEach begin="${reviewPageVO.pageStartNum }" end="${reviewPageVO.pageEndNum }" var="pageNum">
 								<td onclick="changeReviewPage(${pageNum })">${pageNum }</td>
 							</c:forEach>
 						</tr>
 					</table>
 					
-					<c:if test="${pageVO.pageTotalNum > pageVO.pageEndNum }">
+					<c:if test="${reviewPageVO.pageTotalNum > reviewPageVO.pageEndNum }">
 						<table class="pageArrowsTable" >
 							<tr>
-								<td onclick="changeReviewPage(${pageVO.pageEndNum + 1 })"><i class="fa-solid fa-angle-right"></i></td>
-								<td onclick="changeReviewPage(${pageVO.pageTotalNum })"><i class="fa-solid fa-angles-right"></i></td>
+								<td onclick="changeReviewPage(${reviewPageVO.pageEndNum + 1 })"><i class="fa-solid fa-angle-right"></i></td>
+								<td onclick="changeReviewPage(${reviewPageVO.pageTotalNum })"><i class="fa-solid fa-angles-right"></i></td>
 							</tr>
 						</table>
 					</c:if>
@@ -262,6 +268,48 @@
 		<section id="qna">
 			<h1>문의</h1>
 			<button id="writeQnaBtn">문의하기</button>
+			문의 개수: ${qnaTotalCnt } <br />
+			<div>
+				<ul id="qnaGroup">
+					<c:forEach items="${qnas }" var="qna">
+						<li class="qnaItem">
+							qna_id: ${qna.qna_id } <br />
+							user_id: ${qna.user_id } <br />
+							q_content: ${qna.q_content } <br />
+						</li>
+					</c:forEach>
+				</ul>
+				
+				<div id="qnaPageButtonWrap">				
+					<c:if test="${qnaPageVO.groupPageCount < qnaPageVO.pageEndNum }">
+						<table class="qnaPageArrowsTable">
+							<tr>
+								<td onclick="changeQnaPage(1)"><i class="fa-solid fa-angles-left"></i></td>
+								<td onclick="changeQnaPage(${qnaPageVO.pageStartNum - 1})"><i class="fa-solid fa-angle-left"></i></td>
+							</tr>
+						</table>
+					</c:if>
+		
+					
+					<table class="qnaPageButtonTable">
+						<tr>
+							<c:forEach begin="${qnaPageVO.pageStartNum }" end="${qnaPageVO.pageEndNum }" var="pageNum">
+								<td onclick="changeQnaPage(${pageNum })">${pageNum }</td>
+							</c:forEach>
+						</tr>
+					</table>
+					
+					<c:if test="${qnaPageVO.pageTotalNum > qnaPageVO.pageEndNum }">
+						<table class="qnaPageArrowsTable" >
+							<tr>
+								<td onclick="changeQnaPage(${qnaPageVO.pageEndNum + 1 })"><i class="fa-solid fa-angle-right"></i></td>
+								<td onclick="changeQnaPage(${qnaPageVO.pageTotalNum })"><i class="fa-solid fa-angles-right"></i></td>
+							</tr>
+						</table>
+					</c:if>
+				</div>
+			</div>
+			
 			<div class="modal" id="qnaModal">
 				<div class="modalContent">
 					<span class="closeModal" id="qnaModalClose">
@@ -270,8 +318,9 @@
 					<div class="clear"></div>
 					<h3 class="modalTitle">문의하기</h3>
 					<form action="product/regQna" method="post">
+						<input type="hidden" name="productId" value="${product.product_id }" />
 						문의 작성 <br />
-						<textarea name="reviewContent" id="" cols="30" rows="10" required="required"></textarea>
+						<textarea name="qnaContent" id="" cols="30" rows="10" required="required"></textarea>
 						<br />
 						<input type="submit" value="등록하기" />
 					</form>

@@ -10,14 +10,14 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.ui.Model;
 
 import com.tech.ibara.shop.dao.ShopDao;
-import com.tech.ibara.shop.dto.ReviewDto;
+import com.tech.ibara.shop.dto.QnaDto;
 import com.tech.ibara.shop.vo.PageVO;
 
-public class ReviewPageChangeService extends SqlSessionBase implements ShopRestService<Map<String, Object>> {
+public class QnaPageChangeService extends SqlSessionBase implements ShopRestService<Map<String, Object>> {
 
 	private Map<String, Object> data;
 	
-	public ReviewPageChangeService(SqlSession sqlSession) {
+	public QnaPageChangeService(SqlSession sqlSession) {
 		super(sqlSession);
 	}
 
@@ -29,16 +29,16 @@ public class ReviewPageChangeService extends SqlSessionBase implements ShopRestS
 		int productId = Integer.parseInt(request.getParameter("productId"));
 		int pageNum = Integer.parseInt(request.getParameter("pageNum"));;
 		
-		PageVO reviewPageVO = new PageVO();
-		reviewPageVO.setPageSelectedNum(pageNum);
-		reviewPageVO.pageAndPostCalculate(dao.selectReviewsCount(productId));
-		ArrayList<ReviewDto>reviewDtoList = dao.selectReviewsPageByProduct(
-				productId, reviewPageVO.getPostStartNum(), reviewPageVO.getPostEndNum());
+		PageVO qnaPageVO = new PageVO();
+		qnaPageVO.setPageSelectedNum(pageNum);
+		qnaPageVO.pageAndPostCalculate(dao.selectQnasCount(productId));
+		ArrayList<QnaDto>qnaDtoList = dao.selectQnasPageByProduct(
+				productId, qnaPageVO.getPostStartNum(), qnaPageVO.getPostEndNum());
 		
 		data = new HashMap<String, Object>();
 		
-		data.put("reviewPageVO", reviewPageVO);
-		data.put("reviews", reviewDtoList);
+		data.put("qnaPageVO", qnaPageVO);
+		data.put("qnas", qnaDtoList);
 	}
 
 	@Override

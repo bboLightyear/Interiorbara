@@ -559,6 +559,53 @@
 			PRODUCT_ID = #{param1}
 	</select>
 	
+	<select id="selectQnasPageByProduct" resultType="com.tech.ibara.shop.dto.QnaDto">
+		SELECT
+			*
+		FROM (
+			SELECT
+				ROWNUM N, Q.*
+			FROM (
+				SELECT
+					QNA_ID,
+					PRODUCT_ID,
+					USER_ID,
+					Q_REG_TIME,
+					Q_CONTENT,
+					IS_ANSWERED,
+					A_REG_TIME,
+					A_CONTENT
+				FROM
+					SHOP_QNA
+				WHERE
+					PRODUCT_ID = #{param1}
+				ORDER BY
+					Q_REG_TIME DESC) Q )
+		WHERE
+			N BETWEEN #{param2} AND #{param3}
+		
+	</select>
+	
+	<select id="selectQnasCount" resultType="Integer">
+		SELECT
+			COUNT(*)
+		FROM
+			SHOP_QNA
+		WHERE
+			PRODUCT_ID = #{param1}
+	</select>
+	
+	<select id="selectDetailImgsByProduct" resultType="com.tech.ibara.shop.dto.DetailImgDto">
+		SELECT
+			DETAIL_IMG_ID,
+			PRODUCT_ID,
+			FILE_SRC
+		FROM
+			SHOP_DETAIL_IMG
+		WHERE
+			PRODUCT_ID = #{param1}
+	</select>
+	
 	<!-- ===================== INSERT ===================== -->
 		
 	<insert id="insertOptionSet" parameterType="com.tech.ibara.shop.dto.OptionSetDto"
@@ -799,6 +846,40 @@
 			SYSDATE)
 	</insert>
 	
+	<insert id="insertQna" parameterType="com.tech.ibara.shop.dto.QnaDto" >
+		INSERT INTO
+			SHOP_QNA (
+				QNA_ID,
+				PRODUCT_ID,
+				USER_ID,
+				Q_REG_TIME,
+				Q_CONTENT,
+				IS_ANSWERED,
+				A_REG_TIME,
+				A_CONTENT)
+		VALUES (
+			SEQ_SHOP_QNA.NEXTVAL,
+			#{product_id},
+			#{user_id},
+			SYSDATE,
+			#{q_content},
+			'N',
+			NULL,
+			NULL)
+	</insert>
+	
+	<insert id="insertDetailImg" parameterType="com.tech.ibara.shop.dto.DetailImgDto" >
+		INSERT INTO
+			SHOP_DETAIL_IMG (
+				DETAIL_IMG_ID,
+				PRODUCT_ID,
+				FILE_SRC)
+		VALUES (
+			SEQ_SHOP_DETAIL_IMG.NEXTVAL,
+			#{product_id},
+			#{file_src})
+	</insert>
+	
 	<!-- ===================== UPDATE ===================== -->
 	
 	<update id="updateBasketQuantity">
@@ -837,6 +918,17 @@
 		</choose>
 		WHERE
 			PRODUCT_ID = #{param1}
+	</update>
+	
+	<update id="updateWriteQnaAnswer">
+		UPDATE
+			SHOP_QNA
+		SET
+			IS_ANSWERED = "Y",
+			A_REG_TIME = SYSDATE,
+			A_CONTENT = #{param2}
+		WHERE
+			QNA_ID = #{param1}
 	</update>
 	
 	<!-- ===================== DELETE ===================== -->

@@ -16,6 +16,7 @@ import com.tech.ibara.shop.service.OrderViewService;
 import com.tech.ibara.shop.service.ProductListService;
 import com.tech.ibara.shop.service.ProductRegService;
 import com.tech.ibara.shop.service.ProductViewService;
+import com.tech.ibara.shop.service.QnaRegService;
 import com.tech.ibara.shop.service.ReviewRegService;
 import com.tech.ibara.shop.service.ShopService;
 
@@ -103,6 +104,20 @@ public class ShopController {
 		shopService.execute(model);
 		
 		int productId = Integer.parseInt(mpRequest.getParameter("productId"));
+		
+		return String.format("redirect:/shop/product?productId=%d", productId);
+	}
+	
+	@RequestMapping("/shop/product/regQna")
+	public String regQna(HttpServletRequest request, HttpSession session, Model model) {
+		
+		model.addAttribute("request", request);
+		model.addAttribute("session", session);
+		
+		shopService = new QnaRegService(sqlSession);
+		shopService.execute(model);
+		
+		int productId = Integer.parseInt(request.getParameter("productId"));
 		
 		return String.format("redirect:/shop/product?productId=%d", productId);
 	}

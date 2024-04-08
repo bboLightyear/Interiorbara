@@ -9,10 +9,12 @@ import org.springframework.ui.Model;
 
 import com.tech.ibara.shop.dao.ShopDao;
 import com.tech.ibara.shop.dto.CategoryDto;
+import com.tech.ibara.shop.dto.DetailImgDto;
 import com.tech.ibara.shop.dto.OptionDto;
 import com.tech.ibara.shop.dto.OptionSetDto;
 import com.tech.ibara.shop.dto.ProductDto;
 import com.tech.ibara.shop.dto.ProductImgDto;
+import com.tech.ibara.shop.dto.QnaDto;
 import com.tech.ibara.shop.dto.ReviewDto;
 import com.tech.ibara.shop.vo.PageVO;
 
@@ -29,6 +31,8 @@ public class ProductViewService extends SqlSessionBase implements ShopService {
 
 		int productId = Integer.parseInt(request.getParameter("productId"));
 
+		dao.updateProductIncreaseOne(productId, "hits");
+		
 		ProductDto productDto = dao.selectProductJoinSeller(productId);
 
 		// category
@@ -90,6 +94,9 @@ public class ProductViewService extends SqlSessionBase implements ShopService {
 		}
 		}
 		
+		// detail Imgs
+		ArrayList<DetailImgDto> detailImgDtoList = dao.selectDetailImgsByProduct(productId);
+		
 		// reviews
 		ArrayList<ReviewDto> reviewDtoList = dao.selectReviewsByProduct(productId);
 		
@@ -112,12 +119,19 @@ public class ProductViewService extends SqlSessionBase implements ShopService {
 			reviewRatio[i] = String.format("%.2f", (float) reviewScoreCnt[i] / reviewTotalCnt * 100);
 		}
 		
-		PageVO pageVO = new PageVO();
-		pageVO.pageAndPostCalculate(reviewTotalCnt);
+		PageVO reviewPageVO = new PageVO();
+		reviewPageVO.pageAndPostCalculate(reviewTotalCnt);
 		ArrayList<ReviewDto> reviewPageList = dao.selectReviewsPageByProduct(
-				productId, pageVO.getPostStartNum(), pageVO.getPostEndNum());
+				productId, reviewPageVO.getPostStartNum(), reviewPageVO.getPostEndNum());
 		
-		dao.updateProductIncreaseOne(productId, "hits");
+		
+		// qnas
+		int qnaTotalCnt = dao.selectQnasCount(productId);
+		PageVO qnaPageVO = new PageVO();
+		qnaPageVO.pageAndPostCalculate(qnaTotalCnt);
+		ArrayList<QnaDto> qnaDtoList = dao.selectQnasPageByProduct(
+				productId, qnaPageVO.getPostStartNum(), qnaPageVO.getPostEndNum());
+		
 		
 
 		model.addAttribute("reviewTotalCnt", reviewTotalCnt);
@@ -126,10 +140,16 @@ public class ProductViewService extends SqlSessionBase implements ShopService {
 		model.addAttribute("reviewScoreCnt", reviewScoreCnt);
 		model.addAttribute("reviewRatio", reviewRatio);
 		
+		model.addAttribute("qnaTotalCnt", qnaTotalCnt);
 		
+		model.addAttribute("detailImgs", detailImgDtoList);
 		
-		model.addAttribute("pageVO", pageVO);
+		model.addAttribute("reviewPageVO", reviewPageVO);
+		model.addAttribute("qnaPageVO", qnaPageVO);
+		
 		model.addAttribute("reviews", reviewPageList);
+		model.addAttribute("qnas", qnaDtoList);
+		
 		model.addAttribute("product", productDto);
 		model.addAttribute("categories", categories);
 		model.addAttribute("images", productImgs);

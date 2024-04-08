@@ -62,11 +62,12 @@
 		}
 		
 		const payMethod = $("input[name='payMethod']:checked").val();
+		const merchantUid = $("#content").data("orderId");
 		
 		IMP.request_pay({
 			pg : "nice.iamport02m",
 			pay_method : payMethod,
-			merchant_uid : "10",
+			merchant_uid : merchantUid,
 			name : "침대1",
 			amount : 100,
 			buyer_email : "user1@naver.com",
@@ -80,8 +81,6 @@
 		});
 	}
 
-	
-	
 	function sample6_execDaumPostcode() {
 		new daum.Postcode({
 			oncomplete : function(data) {
@@ -140,7 +139,7 @@
 	
 	<div id="wrap">
 		<c:if test="${result ne -1 }">
-		<div id="content">
+		<div id="content" data-order-id="${order.order_id }">
 			<h3>주문/결제</h3>
 			주문자
 			<hr />

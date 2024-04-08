@@ -26,6 +26,7 @@
 		</span>
 		<br />
 		상품 이미지: <input type="file" name="productImgs" multiple="multiple" required="required" />
+		상세정보 이미지: <input type="file" name="detailImgs" multiple="multiple" required="required" />
 		<br />
 		배송유형:
 		<select name="deliveryType">

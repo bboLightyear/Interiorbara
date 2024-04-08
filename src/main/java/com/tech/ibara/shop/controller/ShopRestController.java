@@ -16,13 +16,13 @@ import org.springframework.web.bind.annotation.RestController;
 import com.tech.ibara.shop.dto.BasketDto;
 import com.tech.ibara.shop.dto.CategoryDto;
 import com.tech.ibara.shop.dto.OptionDto;
-import com.tech.ibara.shop.dto.ReviewDto;
 import com.tech.ibara.shop.service.BasketAddService;
 import com.tech.ibara.shop.service.BasketMakeOrderService;
 import com.tech.ibara.shop.service.BasketModifyQuantityService;
 import com.tech.ibara.shop.service.BasketRemoveService;
 import com.tech.ibara.shop.service.ProductDataLoadService;
 import com.tech.ibara.shop.service.ProductSubOptionSetService;
+import com.tech.ibara.shop.service.QnaPageChangeService;
 import com.tech.ibara.shop.service.ReviewPageChangeService;
 import com.tech.ibara.shop.service.SubCategoryLoadService;
 
@@ -119,6 +119,28 @@ public class ShopRestController {
 		model.addAttribute("request", request);
 		
 		ReviewPageChangeService shopService = new ReviewPageChangeService(sqlSession);
+		shopService.execute(model);
+		
+		return shopService.getData();
+	}
+	
+	@RequestMapping(method = RequestMethod.GET, value = "/shop/product/changeQnaPage")
+	public Map<String, Object> changeQnaPage(HttpServletRequest request, Model model) {
+		
+		model.addAttribute("request", request);
+		
+		QnaPageChangeService shopService = new QnaPageChangeService(sqlSession);
+		shopService.execute(model);
+		
+		return shopService.getData();
+	}
+	
+	@RequestMapping(method = RequestMethod.POST, value = "/shop/order/portoneWebhook")
+	public Map<String, Object> portoneWebhook(HttpServletRequest request, Model model) {
+		
+		model.addAttribute("request", request);
+		
+		QnaPageChangeService shopService = new QnaPageChangeService(sqlSession);
 		shopService.execute(model);
 		
 		return shopService.getData();

@@ -2,7 +2,7 @@ create sequence seq_shop_product;
 create sequence seq_shop_option_set;
 create sequence seq_shop_option;
 create sequence seq_shop_product_img;
-create sequence seq_shop_detail_image;
+create sequence seq_shop_detail_img;
 create sequence seq_shop_attribute;
 create sequence seq_shop_qna;
 create sequence seq_shop_review;
@@ -64,8 +64,8 @@ create table shop_product_img (
     file_src varchar2(100)
 );
 
-create table shop_detail_image (
-    detail_image_id number,
+create table shop_detail_img (
+    detail_img_id number,
     product_id number,
     file_src varchar2(100)
 );
@@ -179,9 +179,10 @@ create table shop_orderer_info (
     email varchar2(100)
 );
 
+insert into shop_detail_img values (seq_shop_detail_img.nextval, 42, 'A_3.gif');
+insert into shop_detail_img values (seq_shop_detail_img.nextval, 42, 'D_5.jpg');
 
-
-
+commit;
 
 
 
