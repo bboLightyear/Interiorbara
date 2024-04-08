@@ -12,6 +12,7 @@ import com.tech.ibara.shop.dto.OrderDto;
 import com.tech.ibara.shop.dto.OrderProductDto;
 import com.tech.ibara.shop.dto.ProductDto;
 import com.tech.ibara.shop.dto.ProductImgDto;
+import com.tech.ibara.shop.dto.ReviewDto;
 
 public interface ShopDao {
 
@@ -48,6 +49,11 @@ public interface ShopDao {
 	public OrderDto selectOrderById(int orderId);
 	public ArrayList<OrderProductDto> selectOrderProductsByOrder(int orderId);
 	
+	public ArrayList<ReviewDto> selectReviewsByProduct(int productId);
+	public ArrayList<ReviewDto> selectReviewsPageByProduct(int productId, int reviewStart, int reviewEnd);
+	
+	public int selectReviewsCount(int productId);
+	
 	public void insertOptionSet(OptionSetDto optionSetDto);
 	public void insertOption(OptionDto optionDto);
 	public void insertProduct(ProductDto productDto);
@@ -56,8 +62,10 @@ public interface ShopDao {
 	public void insertBaskets(List<BasketDto> basketDtoList);
 	public void insertOrder(OrderDto orderDto);
 	public void insertOrderProduct(OrderProductDto orderProductDto);
+	public void insertReview(ReviewDto reviewDto);
 	
 	public void updateBasketQuantity(int userId, int optionId, String action);
+	public void updateProductIncreaseOne(int productId, String target);
 	
 	public void deleteBasket(int userId, int targetId, String target);
 }

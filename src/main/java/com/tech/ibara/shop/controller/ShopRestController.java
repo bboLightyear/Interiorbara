@@ -1,6 +1,7 @@
 package com.tech.ibara.shop.controller;
 
 import java.util.ArrayList;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -15,12 +16,14 @@ import org.springframework.web.bind.annotation.RestController;
 import com.tech.ibara.shop.dto.BasketDto;
 import com.tech.ibara.shop.dto.CategoryDto;
 import com.tech.ibara.shop.dto.OptionDto;
+import com.tech.ibara.shop.dto.ReviewDto;
 import com.tech.ibara.shop.service.BasketAddService;
 import com.tech.ibara.shop.service.BasketMakeOrderService;
 import com.tech.ibara.shop.service.BasketModifyQuantityService;
 import com.tech.ibara.shop.service.BasketRemoveService;
 import com.tech.ibara.shop.service.ProductDataLoadService;
 import com.tech.ibara.shop.service.ProductSubOptionSetService;
+import com.tech.ibara.shop.service.ReviewPageChangeService;
 import com.tech.ibara.shop.service.SubCategoryLoadService;
 
 @RestController
@@ -65,7 +68,7 @@ public class ShopRestController {
 	}
 	
 	@RequestMapping(method = RequestMethod.POST, value = "/shop/addBasket")
-	public void addBasket(HttpServletRequest request, HttpSession session ,Model model) {
+	public void addBasket(HttpServletRequest request, HttpSession session, Model model) {
 		
 		model.addAttribute("request", request);
 		model.addAttribute("session", session);
@@ -75,7 +78,7 @@ public class ShopRestController {
 	}
 	
 	@RequestMapping(method = RequestMethod.POST, value = "/shop/basket/modifyQuantity")
-	public ArrayList<BasketDto> basketModifyQuantity(HttpServletRequest request, HttpSession session ,Model model) {
+	public ArrayList<BasketDto> basketModifyQuantity(HttpServletRequest request, HttpSession session, Model model) {
 		
 		model.addAttribute("request", request);
 		model.addAttribute("session", session);
@@ -87,7 +90,7 @@ public class ShopRestController {
 	}
 	
 	@RequestMapping(method = RequestMethod.POST, value = "/shop/basket/removeBasket")
-	public ArrayList<BasketDto> removeBasket(HttpServletRequest request, HttpSession session ,Model model) {
+	public ArrayList<BasketDto> removeBasket(HttpServletRequest request, HttpSession session, Model model) {
 		
 		model.addAttribute("request", request);
 		model.addAttribute("session", session);
@@ -99,12 +102,23 @@ public class ShopRestController {
 	}
 	
 	@RequestMapping(method = RequestMethod.POST, value = "/shop/basket/makeOrder")
-	public int makeOrder(HttpServletRequest request, HttpSession session ,Model model) {
+	public int makeOrder(HttpServletRequest request, HttpSession session, Model model) {
 		
 		model.addAttribute("request", request);
 		model.addAttribute("session", session);
 		
 		BasketMakeOrderService shopService = new BasketMakeOrderService(sqlSession);
+		shopService.execute(model);
+		
+		return shopService.getData();
+	}
+	
+	@RequestMapping(method = RequestMethod.GET, value = "/shop/product/changeReviewPage")
+	public Map<String, Object> changeReviewPage(HttpServletRequest request, Model model) {
+		
+		model.addAttribute("request", request);
+		
+		ReviewPageChangeService shopService = new ReviewPageChangeService(sqlSession);
 		shopService.execute(model);
 		
 		return shopService.getData();

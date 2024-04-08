@@ -28,7 +28,101 @@ $(document).ready(function() {
 	$("#star3").on("click", setStarScore3);
 	$("#star4").on("click", setStarScore4);
 	$("#star5").on("click", setStarScore5);
+	
+	setReviewBar();
 });
+
+function changeReviewPage(pageNum) {
+	const productId = $("main").data("productId");
+	
+	$.ajax({
+		type: "get",
+		async: true,
+		url: "product/changeReviewPage",
+		data: {
+			"productId" : productId,
+			"pageNum" : pageNum
+		},
+		success: function(data) {
+			$("#reviewGroup").empty();
+			
+			const pageVO = data["pageVO"];
+			const reviews = data["reviews"];
+			
+			var htmlText = "";
+			
+			for (var i = 0; i < reviews.length; ++i) {
+			
+				htmlText +=
+					`<li class="reviewItem">
+						review_id: ${reviews[i].review_id} <br />
+						user_id: ${reviews[i].user_id} <br />
+						score: ${reviews[i].score} <br />`;
+				
+				if (reviews[i].file_src != null) {
+					htmlText +=
+						`<div>
+							<img src="../resources/upload/shop/${reviews[i].file_src}" alt="d"
+								class="reviewImages" />
+						</div>`;
+				}
+				
+				htmlText +=
+						`content: ${reviews[i].content }
+					</li>`;
+				
+			}
+			
+			$("#reviewGroup").append(htmlText);
+			
+			
+			$("#pageButtonWrap").empty();
+			
+			htmlText = "";
+			
+			if (pageVO.groupPageCount < pageVO.pageEndNum) {
+				htmlText +=
+					`<table class="pageArrowsTable">
+						<tr>
+							<td onclick="changeReviewPage(1)"><i class="fa-solid fa-angles-left"></i></td>
+							<td onclick="changeReviewPage(${pageVO.pageStartNum - 1})"><i class="fa-solid fa-angle-left"></i></td>
+						</tr>
+					</table>`;
+			}
+	
+			htmlText +=
+				`<table class="pageButtonTable">
+					<tr>`;
+			for (var i = pageVO.pageStartNum; i < pageVO.pageEndNum + 1; ++i) {
+				htmlText += `<td onclick="changeReviewPage(${i})">${i}</td>`;
+			}
+			
+			htmlText +=
+					`</tr>
+				</table>`;
+			
+			if (pageVO.pageTotalNum > pageVO.pageEndNum) {
+				htmlText +=
+					`<table class="pageArrowsTable" >
+						<tr>
+							<td onclick="changeReviewPage(${pageVO.pageEndNum + 1})"><i class="fa-solid fa-angle-right"></i></td>
+							<td onclick="changeReviewPage(${pageVO.pageTotalNum})"><i class="fa-solid fa-angles-right"></i></td>
+						</tr>
+					</table>`;
+			}
+			
+			$("#pageButtonWrap").append(htmlText);
+		}
+	});
+}
+
+function setReviewBar() {
+	$("#reviewScore5Bar").css("width", $("#reviewScore5Bar").data("ratio") + "%");
+	$("#reviewScore4Bar").css("width", $("#reviewScore4Bar").data("ratio") + "%");
+	$("#reviewScore3Bar").css("width", $("#reviewScore3Bar").data("ratio") + "%");
+	$("#reviewScore2Bar").css("width", $("#reviewScore2Bar").data("ratio") + "%");
+	$("#reviewScore1Bar").css("width", $("#reviewScore1Bar").data("ratio") + "%");
+}
 
 var lastColor1 = "#b1b8c0";
 var lastColor2 = "#b1b8c0";
@@ -193,15 +287,30 @@ function openQnaModal() {
 }
 
 function closeReviewModal() {
-	$("#reviewModal").css("display", "none");
-	$("body").css("overflow", "auto");
-	$("body").css("height", "auto");
+	if (confirm("aaaa")) {
+		resetReviewInputs();
+		$("#reviewModal").css("display", "none");
+		$("body").css("overflow", "auto");
+		$("body").css("height", "auto");
+	}
+}
+
+function resetReviewInputs() {
+	noStarScore();
+	lastColor1 = "#b1b8c0";
+	lastColor2 = "#b1b8c0";
+	lastColor3 = "#b1b8c0";
+	lastColor4 = "#b1b8c0";
+	lastColor5 = "#b1b8c0";
+	$("#reviewForm").get(0).reset();
 }
 
 function closeQnaModal() {
-	$("#qnaModal").css("display", "none");
-	$("body").css("overflow", "auto");
-	$("body").css("height", "auto");
+	if (confirm("aaaa")) {
+		$("#qnaModal").css("display", "none");
+		$("body").css("overflow", "auto");
+		$("body").css("height", "auto");
+	}
 }
 
 function loadSubOptionSet() {

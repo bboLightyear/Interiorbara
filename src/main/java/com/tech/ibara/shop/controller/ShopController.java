@@ -16,6 +16,7 @@ import com.tech.ibara.shop.service.OrderViewService;
 import com.tech.ibara.shop.service.ProductListService;
 import com.tech.ibara.shop.service.ProductRegService;
 import com.tech.ibara.shop.service.ProductViewService;
+import com.tech.ibara.shop.service.ReviewRegService;
 import com.tech.ibara.shop.service.ShopService;
 
 @Controller
@@ -90,5 +91,19 @@ public class ShopController {
 		shopService.execute(model);
 		
 		return "shop/order";
+	}
+	
+	@RequestMapping("/shop/product/regReview")
+	public String regReview(MultipartHttpServletRequest mpRequest, HttpSession session, Model model) {
+		
+		model.addAttribute("mpRequest", mpRequest);
+		model.addAttribute("session", session);
+		
+		shopService = new ReviewRegService(sqlSession);
+		shopService.execute(model);
+		
+		int productId = Integer.parseInt(mpRequest.getParameter("productId"));
+		
+		return String.format("redirect:/shop/product?productId=%d", productId);
 	}
 }

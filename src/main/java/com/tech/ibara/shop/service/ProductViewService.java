@@ -13,6 +13,8 @@ import com.tech.ibara.shop.dto.OptionDto;
 import com.tech.ibara.shop.dto.OptionSetDto;
 import com.tech.ibara.shop.dto.ProductDto;
 import com.tech.ibara.shop.dto.ProductImgDto;
+import com.tech.ibara.shop.dto.ReviewDto;
+import com.tech.ibara.shop.vo.PageVO;
 
 public class ProductViewService extends SqlSessionBase implements ShopService {
 
@@ -87,7 +89,47 @@ public class ProductViewService extends SqlSessionBase implements ShopService {
 			break;
 		}
 		}
+		
+		// reviews
+		ArrayList<ReviewDto> reviewDtoList = dao.selectReviewsByProduct(productId);
+		
+		int reviewTotalCnt = 0, reviewTotalScore = 0;
+		float reviewAvgScore = 0f;
+		int[] reviewScoreCnt = { 0, 0, 0, 0, 0 };
+		String[] reviewRatio = { "", "", "", "", "" };
+		
+		reviewTotalCnt = reviewDtoList.size();
+		for (ReviewDto reviewDto : reviewDtoList) {
+			int score = reviewDto.getScore();
+			
+			reviewTotalScore += score;
+			
+			++reviewScoreCnt[score - 1];
+		}
+		
+		reviewAvgScore = (float) reviewTotalScore / reviewTotalCnt;
+		for (int i = 0; i < 5; ++i) {
+			reviewRatio[i] = String.format("%.2f", (float) reviewScoreCnt[i] / reviewTotalCnt * 100);
+		}
+		
+		PageVO pageVO = new PageVO();
+		pageVO.pageAndPostCalculate(reviewTotalCnt);
+		ArrayList<ReviewDto> reviewPageList = dao.selectReviewsPageByProduct(
+				productId, pageVO.getPostStartNum(), pageVO.getPostEndNum());
+		
+		dao.updateProductIncreaseOne(productId, "hits");
+		
 
+		model.addAttribute("reviewTotalCnt", reviewTotalCnt);
+		model.addAttribute("reviewTotalScore", reviewTotalScore);
+		model.addAttribute("reviewAvgScore", String.format("%.1f", reviewAvgScore));
+		model.addAttribute("reviewScoreCnt", reviewScoreCnt);
+		model.addAttribute("reviewRatio", reviewRatio);
+		
+		
+		
+		model.addAttribute("pageVO", pageVO);
+		model.addAttribute("reviews", reviewPageList);
 		model.addAttribute("product", productDto);
 		model.addAttribute("categories", categories);
 		model.addAttribute("images", productImgs);

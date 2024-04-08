@@ -112,3 +112,29 @@ section#summary {
 .reviewScore {
 	display: none;
 }
+
+.reviewScoreBack {
+	background-color: lightgray;
+	display: inline-block;
+	height: 5px;
+	width: 200px;
+	font-size: 0;
+}
+
+.reviewScoreBar {
+	background-color: #1e90ff;
+	position: relative;
+	display: inline-block;
+	height: 100%;
+	width: 0;
+	left: 0;
+	top: 0;
+}
+
+.reviewImages {
+	width: 100px;
+}
+
+#pageButtonWrap td:hover {
+	cursor: pointer;
+}

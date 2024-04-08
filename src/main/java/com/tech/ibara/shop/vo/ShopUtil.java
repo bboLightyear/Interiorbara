@@ -1,4 +1,4 @@
-package com.tech.ibara.shop.util;
+package com.tech.ibara.shop.vo;
 
 public class ShopUtil {
 

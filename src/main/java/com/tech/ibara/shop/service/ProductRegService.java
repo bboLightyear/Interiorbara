@@ -13,7 +13,7 @@ import com.tech.ibara.shop.dto.OptionDto;
 import com.tech.ibara.shop.dto.OptionSetDto;
 import com.tech.ibara.shop.dto.ProductDto;
 import com.tech.ibara.shop.dto.ProductImgDto;
-import com.tech.ibara.shop.util.ShopUtil;
+import com.tech.ibara.shop.vo.ShopUtil;
 
 public class ProductRegService extends SqlSessionBase implements ShopService {
 

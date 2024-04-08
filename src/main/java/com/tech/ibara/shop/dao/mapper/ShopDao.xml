@@ -509,6 +509,56 @@
 			ORDER_ID = #{param1}
 	</select>
 	
+	<select id="selectReviewsByProduct" resultType="com.tech.ibara.shop.dto.ReviewDto">
+		SELECT
+			REVIEW_ID,
+			PRODUCT_ID,
+			USER_ID,
+			SCORE,
+			FILE_SRC,
+			CONTENT,
+			REG_DATE
+		FROM
+			SHOP_REVIEW
+		WHERE
+			PRODUCT_ID = #{param1}
+	</select>
+	
+	<select id="selectReviewsPageByProduct" resultType="com.tech.ibara.shop.dto.ReviewDto">
+		SELECT
+			*
+		FROM (
+			SELECT
+				ROWNUM N, R.*
+			FROM (
+				SELECT
+					REVIEW_ID,
+					PRODUCT_ID,
+					USER_ID,
+					SCORE,
+					FILE_SRC,
+					CONTENT,
+					REG_DATE
+				FROM
+					SHOP_REVIEW
+				WHERE
+					PRODUCT_ID = #{param1}
+				ORDER BY
+					REG_DATE DESC) R )
+		WHERE
+			N BETWEEN #{param2} AND #{param3}
+		
+	</select>
+	
+	<select id="selectReviewsCount" resultType="Integer">
+		SELECT
+			COUNT(*)
+		FROM
+			SHOP_REVIEW
+		WHERE
+			PRODUCT_ID = #{param1}
+	</select>
+	
 	<!-- ===================== INSERT ===================== -->
 		
 	<insert id="insertOptionSet" parameterType="com.tech.ibara.shop.dto.OptionSetDto"
@@ -595,7 +645,7 @@
 				PRODUCT_ID,
 				FILE_SRC)
 		VALUES (
-			SEQ_PRODUCT_IMG.NEXTVAL,
+			SEQ_SHOP_PRODUCT_IMG.NEXTVAL,
 			#{product_id},
 			#{file_src})
 	</insert>
@@ -718,7 +768,7 @@
 				QUANTITY,
 				OPTION_TEXT)
 		VALUES (
-			SEQ_ORDER_PRODUCT.NEXTVAL,
+			SEQ_SHOP_ORDER_PRODUCT.NEXTVAL,
 			#{order_id},
 			#{product_id},
 			#{option_id},
@@ -727,6 +777,26 @@
 			#{total_delivery_fee},
 			#{quantity},
 			#{option_text})
+	</insert>
+	
+	<insert id="insertReview" parameterType="com.tech.ibara.shop.dto.ReviewDto">
+		INSERT INTO
+			SHOP_REVIEW (
+				REVIEW_ID,
+				PRODUCT_ID,
+				USER_ID,
+				SCORE,
+				FILE_SRC,
+				CONTENT,
+				REG_DATE)
+		VALUES (
+			SEQ_SHOP_REVIEW.NEXTVAL,
+			#{product_id},
+			#{user_id},
+			#{score},
+			#{file_src, jdbcType=VARCHAR},
+			#{content},
+			SYSDATE)
 	</insert>
 	
 	<!-- ===================== UPDATE ===================== -->
@@ -745,6 +815,28 @@
 		</choose>
 		WHERE
 			USER_ID = #{param1} AND OPTION_ID = #{param2}
+	</update>
+	
+	<update id="updateProductIncreaseOne">
+		UPDATE
+			SHOP_PRODUCT
+		SET
+		<choose>
+			<when test="param2 == 'hits'">
+				HITS = HITS + 1
+			</when>
+			<when test="param2 == 'reviews'">
+				REVIEWS = REVIEWS + 1
+			</when>
+			<when test="param2 == 'scraps'">
+				SCRAPS = SCRAPS + 1
+			</when>
+			<when test="param2 == 'sales'">
+				SALES = SALES + 1
+			</when>
+		</choose>
+		WHERE
+			PRODUCT_ID = #{param1}
 	</update>
 	
 	<!-- ===================== DELETE ===================== -->
