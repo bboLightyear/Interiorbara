@@ -14,7 +14,7 @@ String path=request.getContextPath();
 
 
 <!-- 평수 선택 모달 창 영역 -->
-<div id="sizeModal" class="modal" data-prev-modal="">
+<div class="sizeModal" id="modal" data-prev-modal="">
     <div class="modal_content">
         <div class="modal_leftside">
             <div class=modal_leftside_progress>
@@ -34,21 +34,13 @@ String path=request.getContextPath();
                             <span>추가질문</span>
                         </div>
                     </li>
-                    <li data-step-name="biz" class="">
-                        <div>
-                            <span>업체추천</span>
-                        </div>
-                    </li>
+                    
                     <li data-step-name="info" class="">
                         <div>
                             <span>정보입력</span>
                         </div>
                     </li>
-                    <li data-step-name="date" class="">
-                        <div>
-                            <span>날짜선택</span>
-                        </div>
-                    </li>
+                 
                     <li data-step-name="complete" class="">
                         <div>
                             <span>견적완료</span>
@@ -114,7 +106,7 @@ String path=request.getContextPath();
 
 <script>
 $(document).ready(function() {
-    var sizeModal = $('#sizeModal');
+    var sizeModal = $('.sizeModal');
     var closeSizeModalBtn = $('.close');
     var sizeInput = $('#sizeInput');
     var decreaseBtn = $('#decreaseSize');
@@ -130,7 +122,7 @@ $(document).ready(function() {
     }
 
     closeSizeModalBtn.click(function() {
-        closeModal('#sizeModal');
+        closeModal('.sizeModal');
     });
 
     decreaseBtn.click(function() {
@@ -147,17 +139,17 @@ $(document).ready(function() {
         }
     });
     privBtn.click(function() {
-        closeModal('#sizeModal');
-        openModal('#myModal');
+        closeModal('.sizeModal');
+        openModal('.myModal');
     });
 
     $('#sizeNextBtn').click(function() {
         var selectedSize = $('#sizeInput').val();
         $('.selectedSize').text(selectedSize + '평');
-        $('#serviceCheckModal').attr('data-prev-modal', 'sizeModal');
+        $('.serviceCheckModal').attr('data-prev-modal', 'sizeModal');
 
-        closeModal('#sizeModal');
-        openModal('#serviceCheckModal');
+        closeModal('.sizeModal');
+        openModal('.serviceCheckModal');
    		
     });
     
