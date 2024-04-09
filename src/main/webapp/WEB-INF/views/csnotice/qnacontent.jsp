@@ -1,16 +1,20 @@
 <%@page import="com.tech.ibara.csnotice.dto.QnaDto"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-   pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<c:set var="path" value="${pageContext.request.contextPath}" />
+
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-<link rel="stylesheet" type="text/css" href="resources/css/cs/csboard.css" /> 
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<link rel="stylesheet" type="text/css"
+	href="resources/css/cs/csboard.css" />
 </head>
 <header>
 	<!-- header_top : 헤더 윗부분 -->
@@ -64,27 +68,41 @@
 </header>
 
 <body>
-   <%-- <%session.setAttribute("userId",null);%> --%> 
-   <%session.setAttribute("userId","cus");%>   
-   
-   <p style="margin: 0">userId 값 :<%= session.getAttribute("userId") %></p>
-   <% System.out.println("userId 값 : "+session.getAttribute("userId")); %>
-   
-   	<div class="cs_qnaboard_whitespace"> <!--여백--></div>
-   	
-   	<section class="cs_content_section1">
+	<%-- <%session.setAttribute("userId",null);%> --%>
+	<%
+		session.setAttribute("userId", "cus");
+	%>
+
+	<p style="margin: 0">
+		userId 값 :<%=session.getAttribute("userId")%></p>
+	<%
+		System.out.println("userId 값 : " + session.getAttribute("userId"));
+	%>
+
+	<div class="cs_qnaboard_whitespace">
+		<!--여백-->
+	</div>
+
+	<section class="cs_content_section1">
 		<div class="cs_content_head">
-			<h2 class="cs_list_head_h">${qna_content.qbwriter }</h2>
-			
+			<h3 class="cs_list_head_h">◼ ${qna_content.qbtitle }</h3>
+
+
 			<div class="cs_list_head_wrap_span">
-			
-				<div class="cs_list_head_span">
-					<span>조회수 : ${qna_content.qbhit }&nbsp;</span>
-					<span>${qna_content.qbqnadiv } &nbsp;</span>
-					<span><fmt:formatDate value="${qna_content.qbdate}" pattern="yy/MM/dd" />&nbsp;</span>
-				</div>
-				
-				<div>
+				<span>작성자 : ${qna_content.qbwriter }&nbsp;</span> 
+				<span>조회수 : ${qna_content.qbhit }&nbsp;</span> 
+				<span>${qna_content.qbqnadiv } &nbsp;</span> 
+				<span>
+					<fmt:formatDate value="${qna_content.qbdate}" pattern="yy/MM/dd" />&nbsp;
+				</span>
+			</div>
+
+		</div>
+	</section>
+	<div class="cs_qnaboard_whitespace">
+		<!--여백-->
+	</div>
+	<%-- 				<div>
 					<%
 		             // qna_content에 담긴 qbwriter 출력하기
 		           	QnaDto qna_content = (QnaDto) request.getAttribute("qna_content");
@@ -100,226 +118,229 @@
 		            %>
 		            <% 
 		            }%>
-	            </div>
-	            
-			</div>
+	            </div> --%>
+
+	<section class="cs_content_section2">
+
+		<div class="cs_content_section2_content">
+			<p style="margin: 0">${qna_content.qbcontent }</p>
+		</div>
+
+		<div class="cs_qnaboard_whitespace">
+			<!--여백-->
+		</div>
+
+		<div class="cs_content_section2_img">
+			<c:forEach items="${imglist}" var="dto">
+				<span><img src="${path }/resources/upload/cs/${dto.filesrc}" alt="${dto.filesrc}" /></span>
+			</c:forEach>
 		</div>
 	</section>
 
-   <table>
-      <tr>
-         <td class="left">제목</td>
-         <td>${qna_content.qbtitle }</td>
-      </tr>
-      <tr>
-         <td class="left">내용</td>
-         <td>${qna_content.qbcontent }</td>
-      </tr>
-      <tr>
-         <td class="left">파일</td>
-         
-         <c:forEach items="${imglist}" var="dto">
-            <td>
-               <img src="../resources/upload/cs/${dto.filesrc}" alt="이미지" /> 
-            </td>
-         </c:forEach>
-      </tr>
-   </table>
+	<div class="cs_qnaboard_whitespace">
+		<!--여백-->
+	</div>
 
-   <hr />
+	<%
+		if (session.getAttribute("userId") == null) {
 
-   <%
-   if(session.getAttribute("userId")==null){
-      
-   }else{
-   %>
-   
-   <form action="qnareply?qbno=${qna_content.qbno }" method="post">
-      <table border="1px">
-         <tr>
-            <td class="">답글 달기</td>
-            <td class="">작성자</td>
-         </tr>
-         <tr>
-            <td><textarea rows="6" cols="65" name="qnareply"></textarea></td>
-            <td><input type="hidden" name="qnarewriter" value="<%=session.getAttribute("userId") %>"/><%=session.getAttribute("userId") %></td>
-            <td><input type="submit" value="답변" /></td>
-         </tr>
-      </table>
-   </form>
-   <% } %>
-   <hr />
-   <h3>답글 ${replycnt}개</h3>
+	} else {
+	%>
+	<section class="cs_content_section3">
 
-   <!--전체 글에 대한 답글 조회  -->
-   <c:forEach items="${replylist }" var="dto">
-      <div>
-         <span><h3>작성자 : ${dto.rqbwriter }&nbsp;&nbsp; 답글 :
-               ${dto.rqbcontent }&nbsp;&nbsp;</h3></span>
+		<div class="cs_content_section3_rcnt">
+			<h3 style="margin: 0">답글 ${replycnt}개</h3>
+		</div>
 
-         <!--답글 달기 버튼을 클릭 시에 아래에 입력 창이 나타나도록 하는 스크립트-->
-         <%
-         if(session.getAttribute("userId")==null){
-            
-         }else{
-         %>
-         <button onclick="replyform()" data-rqbno="${dto.rqbno }">답글달기</button>
-         <% } %>
-      </div>
+		<form action="qnareply?qbno=${qna_content.qbno }" method="post">
+			<div class="cs_content_section3_replyform">
+				<span><%=session.getAttribute("userId")%></span>
 
-      <div id="${dto.rqbno }replyrview" style="display: block;">
+				<div>
+					<textarea class="cs_content_section3_replyform_textarea" name="qnareply"></textarea>
+				</div>
+
+				<input type="hidden" name="qnarewriter" value="<%=session.getAttribute("userId")%>" /> 
+				<input type="submit" value="답변" />
+			</div>
+		</form>
+	</section>
+	<%
+		}
+	%>
 
 
-         <input type="button" onclick="replyrview()"
-            id="${dto.rqbno }replyvbtn" name="${dto.rqbno }replyvbtn"
-            data-rqbno="${dto.rqbno }" value="답글보기" />
-      </div>
+	<section class="cs_content_section4">
+		<!--전체 글에 대한 답글 조회  -->
+		<c:forEach items="${replylist }" var="dto">
+			<div class="cs_content_section4_wrap_rreply">
+				<div>
+					<span><h3>작성자 : ${dto.rqbwriter }&nbsp;&nbsp; 답글 :
+							${dto.rqbcontent }&nbsp;&nbsp;</h3></span>
+	
+					<!--답글 달기 버튼을 클릭 시에 아래에 입력 창이 나타나도록 하는 스크립트-->
+					<%
+						if (session.getAttribute("userId") == null) {
+	
+					} else {
+					%>
+					<button onclick="replyform()" data-rqbno="${dto.rqbno }">답글달기</button>
+					<%
+						}
+					%>
+				</div>
+	
+				<div id="${dto.rqbno }replyrview" style="display: block;">
+				
+					<input type="button" onclick="replyrview()" id="${dto.rqbno }replyvbtn" name="${dto.rqbno }replyvbtn"
+						data-rqbno="${dto.rqbno }" value="답글보기" />
+				</div>
+	
+	
+				<!--숨겨진 div, id 값을 조회한 답글 번호로 지정하여 위의 스크립트에서 버튼을 각각의 div를 따로 적용-->
+				<div id="${dto.rqbno }replyform" style="display: none;">
+					<div>
+						<input type="hidden" id="rqbno" name="rqbno" value="${dto.rqbno }" />
+						<input type="hidden" id="qbno" name="qbno" value="${dto.qbno }" />
+						<input type="hidden" id="rqbstep" name="rqbstep" value="${dto.rqbstep }" /> 
+						<input type="hidden" id="rqbgroup" name="rqbgroup" value="${dto.rqbgroup }" /> 
+						<input type="hidden" id="rqbindent" name="rqbindent" value="${dto.rqbindent }" />
+						<textarea rows="6" cols="65" id="rcontent" name="rcontent">&nbsp;</textarea>
+						<input type="hidden" name="rwriter" id="rwriter" value="<%=session.getAttribute("userId")%>" /> 
+						<input type="button" value="입력" onclick="reply()" data-rqbno="${dto.rqbno }" />
+						
+					</div>
+					<button onclick="replyformclose()" data-rqbno="${dto.rqbno }">접기</button>
+				</div>
+			</div>
+		</c:forEach>
+	</section>
 
+	<script>
+		var viewbtn = false;
 
-      <!--숨겨진 div, id 값을 조회한 답글 번호로 지정하여 위의 스크립트에서 버튼을 각각의 div를 따로 적용-->
-      <div id="${dto.rqbno }replyform" style="display: none;">
-         <div>
+		// 답글보기 버튼 처리
+		function replyrview() {
+			var target = event.target;
+			var rqbno = $(target).data("rqbno");
 
-            <input type="hidden" id="rqbno" name="rqbno" value="${dto.rqbno }" />
-            <input type="hidden" id="qbno" name="qbno" value="${dto.qbno }" />
-            <input type="hidden" id="rqbstep" name="rqbstep" value="${dto.rqbstep }" /> 
-            <input type="hidden" id="rqbgroup" name="rqbgroup" value="${dto.rqbgroup }" /> 
-            <input type="hidden" id="rqbindent" name="rqbindent" value="${dto.rqbindent }" />
+			console.log(rqbno);
 
-            <textarea rows="6" cols="65" id="rcontent" name="rcontent">&nbsp;</textarea>
-            <input type="hidden" name="rwriter" id="rwriter" value="<%=session.getAttribute("userId") %>"/> 
-            <input type="button" value="입력" onclick="reply()" data-rqbno="${dto.rqbno }" />
-         </div>
-         <button onclick="replyformclose()" data-rqbno="${dto.rqbno }">접기</button>
-      </div>
+			var parent = event.target.parentElement;
+			var replyArea = document.getElementById(rqbno + "replyrview");
+			var replyvbtn = document.getElementById(rqbno + "replyvbtn");
 
-   </c:forEach>
+			$.ajax({
+				type : "post",
+				async : true,
+				url : "replyview",
+				data : {
+					"rqbno" : rqbno
+				},
+				success : function(data) {
+					console.log("success");
+					console.log(data);
 
-   <script>
-   var viewbtn=false;
-   
-      // 답글보기 버튼 처리
-      function replyrview() {
-         var target = event.target;
-         var rqbno = $(target).data("rqbno");
+					viewbtn = true;
 
-         console.log(rqbno);
-   
-         var parent = event.target.parentElement;
-         var replyArea = document.getElementById(rqbno + "replyrview");
-         var replyvbtn = document.getElementById(rqbno + "replyvbtn");
+					var htmlText = "";
 
-         $.ajax({
-            type : "post",
-            async : true,
-            url : "replyview",
-            data : {
-               "rqbno" : rqbno
-            },
-            success : function(data) {
-               console.log("success");
-               console.log(data);
-               
-               viewbtn=true;
-               
-               var htmlText = "";
+					for (var i = 0; i < data.length; i++) {
 
-               for (var i = 0; i < data.length; i++) {
+						htmlText += "<p>";
+						console.log(data[i].rqbcontent);
+						htmlText += data[i].rqbcontent;
+						htmlText += "</p>";
+					}
 
-                  htmlText += "<p>";
-                  console.log(data[i].rqbcontent);
-                  htmlText += data[i].rqbcontent;
-                  htmlText += "</p>";
-               }
+					// div 못 불러오는 거 확인하는 if문
+					if (replyArea) {
+						$(replyArea).append(htmlText);
+					} else {
+						console.error("replyArea is null or undefined");
+					}
 
-               // div 못 불러오는 거 확인하는 if문
-               if (replyArea) {
-                  $(replyArea).append(htmlText);
-               } else {
-                  console.error("replyArea is null or undefined");
-               }
+					replyvbtn.remove();
+				}
+			})
+		}
+		// 답글 폼 보이게 하는 스크립트 
+		function replyform() {
+			/* alert("x"); */
+			var target = event.target;
+			var rqbno = $(target).data("rqbno");
+			var hiddenDiv = document.getElementById(rqbno + "replyform");
 
-               replyvbtn.remove();
-            }
-         })
-      }
-      // 답글 폼 보이게 하는 스크립트 
-      function replyform() {
-         /* alert("x"); */
-         var target = event.target;
-         var rqbno = $(target).data("rqbno");
-         var hiddenDiv = document.getElementById(rqbno + "replyform");
+			hiddenDiv.style.display = "block";
+		}
 
-         hiddenDiv.style.display = "block";
-      }
+		// 답글 폼 닫는 스크립트
+		function replyformclose() {
+			/* alert("x"); */
+			var target = event.target;
+			var rqbno = $(target).data("rqbno");
 
-      // 답글 폼 닫는 스크립트
-      function replyformclose() {
-         /* alert("x"); */
-         var target = event.target;
-         var rqbno = $(target).data("rqbno");
+			var hiddenDiv = document.getElementById(rqbno + "replyform");
 
-         var hiddenDiv = document.getElementById(rqbno + "replyform");
+			hiddenDiv.style.display = "none";
+		}
 
-         hiddenDiv.style.display = "none";
-      }
+		function reply() {
+			var target = event.target;
 
-      function reply() {
-         var target = event.target;
+			var rqbno = $(target).data("rqbno");
+			var parent = event.target.parentElement;
+			var replyArea = document.getElementById(rqbno + "replyrview");
 
-         var rqbno = $(target).data("rqbno");
-         var parent = event.target.parentElement;
-         var replyArea = document.getElementById(rqbno + "replyrview");
+			$.ajax({
+				type : "post",
+				async : true,
+				url : "reply",
+				data : {
+					"rqbno" : $(parent).find("#rqbno").val(),
+					"qbno" : $(parent).find("#qbno").val(),
+					"rqbstep" : $(parent).find("#rqbstep").val(),
+					"rqbgroup" : $(parent).find("#rqbgroup").val(),
+					"rqbindent" : $(parent).find("#rqbindent").val(),
+					"rcontent" : $(parent).find("#rcontent").val(),
+					"rwriter" : $(parent).find("#rwriter").val()
 
-         $.ajax({
-            type : "post",
-            async : true,
-            url : "reply",
-            data : {
-               "rqbno" : $(parent).find("#rqbno").val(),
-               "qbno" : $(parent).find("#qbno").val(),
-               "rqbstep" : $(parent).find("#rqbstep").val(),
-               "rqbgroup" : $(parent).find("#rqbgroup").val(),
-               "rqbindent" : $(parent).find("#rqbindent").val(),
-               "rcontent" : $(parent).find("#rcontent").val(),
-               "rwriter" : $(parent).find("#rwriter").val()
+				},
+				success : function(data) {
+					console.log("success");
+					console.log(data);
 
-            },
-            success : function(data) {
-               console.log("success");
-               console.log(data);
+					$(parent).find("#rwriter").val('');
+					$(parent).find("#rcontent").val('');
 
-               $(parent).find("#rwriter").val('');
-               $(parent).find("#rcontent").val('');
+					var htmlText = "";
+					var lastIndex = data.length - 1;
 
-               var htmlText = "";
-               var lastIndex = data.length - 1;
+					console.log('lastindex' + lastIndex);
 
-               console.log('lastindex' + lastIndex);
+					console.log(data[lastIndex].rqbcontent);
 
-               console.log(data[lastIndex].rqbcontent);
+					console.log(viewbtn);
 
-               console.log(viewbtn);
-               
-               if (viewbtn==true) {   
-                  
-               htmlText += "<p>";
-               htmlText += data[lastIndex].rqbcontent;
-               htmlText += "</p>";
+					if (viewbtn == true) {
 
-               // replyArea 요소가 존재하는지 확인
-               if (replyArea) {
-                  // 생성된 HTML을 replyArea에 추가
-                  $(replyArea).append(htmlText);
-               } else {
-                  console.error("replyArea is null or undefined");
-               }
-               
-               }
-            }
-         })
-      }
-   </script>
+						htmlText += "<p>";
+						htmlText += data[lastIndex].rqbcontent;
+						htmlText += "</p>";
+
+						// replyArea 요소가 존재하는지 확인
+						if (replyArea) {
+							// 생성된 HTML을 replyArea에 추가
+							$(replyArea).append(htmlText);
+						} else {
+							console.error("replyArea is null or undefined");
+						}
+
+					}
+				}
+			})
+		}
+	</script>
 </body>
 <footer>
 	<!-- 푸터 로고 -->

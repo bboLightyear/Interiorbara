@@ -481,6 +481,12 @@ body,html{
 	justify-content: center;
     display: flex;
 }
+.cs_list_writebtn:hover {
+    border-color: lightskyblue; /* 마우스를 올렸을 때 링크 텍스트의 색을 빨간색으로 변경 */
+}
+ .cs_list_writebtn:hover .cs_list_writebtn_a {
+    color: lightskyblue;
+  }
 .cs_list_writebtn_a{
 	text-decoration: none;
 	color: gray;
@@ -508,9 +514,14 @@ body,html{
 /*qnacontent바디*/
 .cs_content_section1{
 	width: 100%;
-	height: 100px;
+	height: 70px;
 	justify-content: center;
 	display: flex;
+	margin-top: 20px;
+}
+.cs_list_head_wrap_span{
+	margin-top: 5px;
+	margin-left: 5px;
 }
 .cs_content_head{
 	width: 850px;
@@ -528,7 +539,83 @@ body,html{
 .cs_list_head_p{
 	margin: 0;	
 }
-
+.cs_content_section2{
+	width: 100%;
+	height: auto;
+	justify-content: center;
+	display: flex;
+	flex-direction: column;
+    align-items: center;
+}
+.cs_content_section2_title{
+	width: 850px;
+	height: 30px;;
+    padding-left: 30px;
+    display: flex;
+    flex-direction: column;
+ 	justify-content: center;
+}
+.cs_content_section2_content{
+	width: 850px;
+	height: auto;
+    padding-left: 30px;
+    display: flex;
+    flex-direction: column;
+ 	justify-content: center;
+}
+.cs_content_section3{
+	width: 100%;
+	height: auto;
+	justify-content: center;
+	display: flex;
+	flex-direction: column;
+    align-items: center;
+    margin-top: 70px;
+}
+.cs_content_section3_rcnt{
+	width: 850px;
+	height: 50px;
+    display: flex;
+    flex-direction: column;
+ 	justify-content: center;
+}
+.cs_content_section3 form {
+	margin-top: 25px;
+	display: flex; /* 폼 내부 요소들을 가로로 배치하기 위해 Flexbox를 사용합니다. */
+	flex-direction: row; /* 요소들을 가로로 배치합니다. */
+	align-items: center; /* 요소들을 수직 중앙 정렬합니다. */
+}
+.cs_content_section3_replyform{
+	width: 850px;
+	height: 100%;
+    display: flex;
+ 	justify-content: center;
+ 	flex: 1; /* 폼 요소들이 유연하게 확장되도록 설정합니다. */
+	flex-direction: row; /* 내부 요소들을 세로로 배치합니다. */
+	align-items: center; /* 내부 요소들을 수직 중앙 정렬합니다. */
+}
+.cs_content_section3_replyform_textarea{
+	width: 700px;
+	height: auto;
+}
+.cs_content_section4{
+	width: 100%;
+	height: auto;
+	justify-content: center;
+	display: flex;
+	flex-direction: column;
+    align-items: center;
+    margin-top: 70px;
+}
+.cs_content_section4_wrap_rreply{
+	width: 850px;
+	height: 100%;
+    display: flex;
+ 	justify-content: center;
+ 	flex: 1; /* 폼 요소들이 유연하게 확장되도록 설정합니다. */
+	flex-direction: row; /* 내부 요소들을 세로로 배치합니다. */
+	align-items: center; /* 내부 요소들을 수직 중앙 정렬합니다. */
+}
 /*푸터*/
 footer {
 	margin: 0;

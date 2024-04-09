@@ -132,7 +132,7 @@
 				<% if(session.getAttribute("userId") == null){ %>
 				<% } else {%>
 					<!--로그인 안 한 상태로는 글 쓰기 버튼 안 보이게 처리-->
-				<div class="cs_list_writebtn">
+				<div class="cs_list_writebtn" onclick="linkwritebtn()">
 					<a href="qnawriteview" class="cs_list_writebtn_a">글쓰기</a>
 				</div>
 				<% } %>
@@ -142,6 +142,13 @@
 	</div>
 	</section>
 		
+		
+<script> //글쓰기 div 영역 클릭 시에도 작동 하도록 설정
+function linkwritebtn() {
+	  var link = document.querySelector('.cs_list_writebtn a').href;
+	  window.location.href = link;	
+}
+</script>
 		
 		
 		<div class="cs_qnaboard_whitespace"> <!--여백--></div>
