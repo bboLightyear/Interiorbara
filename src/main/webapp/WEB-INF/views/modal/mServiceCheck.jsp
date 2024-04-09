@@ -16,7 +16,7 @@ String path=request.getContextPath();
 <body>
 
 <!-- 평수 선택 모달 창 영역 -->
-<div id="serviceCheckModal" class="modal" data-prev-modal="">
+<div class="serviceCheckModal" id="modal" data-prev-modal="">
     <div class="modal_content">
         <div class="modal_leftside">
             <div class=modal_leftside_progress>
@@ -36,21 +36,13 @@ String path=request.getContextPath();
                             <span>추가질문</span>
                         </div>
                     </li>
-                    <li data-step-name="biz" class="">
-                        <div>
-                            <span>업체추천</span>
-                        </div>
-                    </li>
+                    
                     <li data-step-name="info" class="">
                         <div>
                             <span>정보입력</span>
                         </div>
                     </li>
-                    <li data-step-name="date" class="">
-                        <div>
-                            <span>날짜선택</span>
-                        </div>
-                    </li>
+                    
                     <li data-step-name="complete" class="">
                         <div>
                             <span>견적완료</span>
@@ -98,7 +90,7 @@ String path=request.getContextPath();
 						<div class="selectedSize"></div>
 						<div class="selectedService">
 							<span id="selectedService"></span>
-							
+								<div>추가 :</div>
 								<div class="checkedItems" id="checkedItems">
 									<!-- 선택한 상품들을 동적으로 생성 -->
 								</div>
@@ -131,7 +123,7 @@ String path=request.getContextPath();
 <script>
 
 $(document).ready(function() {
-    var serviceCheckModal = $('#serviceCheckModal');
+    var serviceCheckModal = $('.serviceCheckModal');
     
    
 
@@ -215,7 +207,7 @@ $(document).ready(function() {
             if (checkedItems.hasOwnProperty(itemName)) {
                 var itemText = itemName;
                 if (isFirst) {
-                    itemText = '추가 ' + itemText;
+                    itemText =itemText;
                     isFirst = false;
                 }
                 
@@ -247,8 +239,8 @@ $(document).ready(function() {
         updateSelectedItems();
         updateTotalPrice(); 
        // console.log(selectedItems);
-        closeModal('#serviceCheckModal');
-        openModal('#askModal');
+        closeModal('.serviceCheckModal');
+        openModal('.askModal');
     });
     function openModal(modalId) {
         $(modalId).css('display', 'block');
@@ -260,14 +252,14 @@ $(document).ready(function() {
     }
 
     $(document).on('click', '.close', function() {
-        closeModal('#serviceCheckModal');
+        closeModal('.serviceCheckModal');
     });
 
     $(document).on('click', '#SCPrivBtn', function() {
     	
         var prevModal = serviceCheckModal.attr('data-prev-modal');
-        closeModal('#serviceCheckModal');
-        openModal('#' + prevModal);
+        closeModal('.serviceCheckModal');
+        openModal('.' + prevModal);
     });
 	
 });

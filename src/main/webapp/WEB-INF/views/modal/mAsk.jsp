@@ -14,13 +14,13 @@ String path=request.getContextPath();
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     
     <!-- 주소api -->
-	<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+	<script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 	<script src="//dapi.kakao.com/v2/maps/sdk.js?appkey=4efcfe1bb89f6b2d141d4e7298e8efee&libraries=services"></script>
 </head>
 <body>
 
 <!-- 평수 선택 모달 창 영역 -->
-<div id="askModal" class="modal" data-prev-modal="">
+<div class="askModal" id="modal" data-prev-modal="">
     <div class="modal_content">
         <div class="modal_leftside">
             <div class=modal_leftside_progress>
@@ -40,21 +40,13 @@ String path=request.getContextPath();
                             <span>추가질문</span>
                         </div>
                     </li>
-                    <li data-step-name="biz" class="">
-                        <div>
-                            <span>업체추천</span>
-                        </div>
-                    </li>
+                   
                     <li data-step-name="info" class="">
                         <div>
                             <span>정보입력</span>
                         </div>
                     </li>
-                    <li data-step-name="date" class="">
-                        <div>
-                            <span>날짜선택</span>
-                        </div>
-                    </li>
+                    
                     <li data-step-name="complete" class="">
                         <div>
                             <span>견적완료</span>
@@ -104,8 +96,9 @@ String path=request.getContextPath();
                     </div>
                     <div class="item8">
                     	<div class="addr">
-                        	<input type="text" id="sample5_address" placeholder="시공하실 주소를 입력해주세요" >
-							<input type="button" id="sample5_address2" onclick="sample5_execDaumPostcode()" value="주소 검색"><br>
+                    		<label for="sample5_address"></label>
+                        	<input type="text" id="sample5_address1" placeholder="시공하실 주소를 입력해주세요" >
+							<input type="button" class="sample5_address2" onclick="sample5_execDaumPostcode()" value="주소 검색"><br>
 						</div>
                     </div>
                     <div class="item9">  
@@ -139,7 +132,8 @@ String path=request.getContextPath();
                     </div> 
                     <div class="item11">
                     	<div class="request">
-                        	<textarea placeholder="추가로 요청하실 사항이 있으시면 적어주세요!" class="request_ta" cols="60" rows="3"></textarea>
+                    		<label for="request_id"></label>
+                        	<textarea placeholder="추가로 요청하실 사항이 있으시면 적어주세요!" class="request_ta" id="request_id" cols="60" rows="3"></textarea>
 						</div>
                     </div>                               
                 </div>
@@ -166,15 +160,7 @@ String path=request.getContextPath();
 							<div class="checkedItems" id="checkedItems">
 									<!-- 선택한 상품들을 동적으로 생성 -->
 							</div>						
-						</div>
-						<div class="questionAsk" id="questionAsk">
-								<div>시공공간종류: <span id="place_result"></span></div>
-							    <div>시공환경: <span id="circs_result"></span></div>
-							    <div>시공주소: <span id="addr_result"></span></div>
-							    <div>희망시공일자: <span id="wantdate_result"></span></div>
-							    <div>희망상담시간: <span id="wanttime_result"></span></div>
-							    <div>추가요청사항: <span id="request_result"></span></div>
-							</div>
+						</div>						
 					</div>
 				</div>
 				<div class="modal_rightside_footer">
@@ -200,87 +186,110 @@ String path=request.getContextPath();
 <script>
 var selectedItems = {};
 var checkedItems = {};
-$(document).ready(function() {
-				var askModal = $('#askModal');
-				
-				function openModal(modalId) {
-					$(modalId).css('display', 'block');	
+
+	 function sample5_execDaumPostcode() {
+		new daum.Postcode({
+			oncomplete : function(data) {
+				var addr = data.address; // 최종 주소 변수
+				// 주소 정보를 해당 필드에 넣는다.
+				document.getElementById("sample5_address").value = addr;
+				// 주소로 상세 정보를 검색
+
+			}
+		});
+		new daum.Postcode({
+			onclose : function(state) {
+				//state는 우편번호 찾기 화면이 어떻게 닫혔는지에 대한 상태 변수 이며, 상세 설명은 아래 목록에서 확인하실 수 있습니다.
+				if (state === 'FORCE_CLOSE') {
+					//사용자가 브라우저 닫기 버튼을 통해 팝업창을 닫았을 경우, 실행될 코드를 작성하는 부분입니다.
 
 				}
+			}
+		});
+	} 
+	$(document).ready(function() {
+		var askModal = $('.askModal');
 
-				function closeModal(modalId) {
-					$(modalId).css('display', 'none');
+		function openModal(modalId) {
+			$(modalId).css('display', 'block');
+
+		}
+
+		function closeModal(modalId) {
+			$(modalId).css('display', 'none');
+		}
+
+		$(document).on('click', '.close', function() {
+			closeModal('.askModal');
+		});
+
+		$(document).on('click', '#askPrivBtn', function() {
+			closeModal('.askModal');
+			openModal('.serviceCheckModal');
+		});
+
+		$(document).on('click', '#askNextBtn', function() {
+
+			closeModal('.askModal');
+			openModal('.infoModal');
+		});
+
+		// 시공공간종류 선택 시
+		$(".place_s").change(function() {
+			var selectedPlace = $(this).val();
+			$(".place_result").text(selectedPlace);
+		});
+
+		// 시공환경 선택 시
+		$(".circs_s").change(function() {
+			var selectedCircs = $(this).val();
+			$(".circs_result").text(selectedCircs);
+		});
+
+		// 시공주소 입력 시
+		$("#sample5_address1").on("input", function() {
+			var enteredAddr = $(this).val();
+			$(".addr_result").text(enteredAddr);
+		});
+		// 주소 검색 버튼 클릭 시
+		$(".sample5_address2").click(function() {
+
+			new daum.Postcode({
+				oncomplete : function(data) {
+					var addr = data.address;
+					$("#sample5_address1").val(addr);
+					$(".addr_result").text(addr);
+				},
+				onclose : function(state) {
+					if (state === 'FORCE_CLOSE') {
+						// 주소 검색창이 닫힐 때 실행되는 콜백 함수
+						// 선택된 주소가 입력 필드에 유지되도록 함
+						var selectedAddr = $("#sample5_address1").val();
+						$(".addr_result").text(selectedAddr);
+					}
 				}
+			}).open();
+		});
 
-				$(document).on('click', '.close', function() {
-					closeModal('#askModal');
-				});
+		// 희망시공일자 선택 시
+		$(".wantdate_s").change(function() {
+			var selectedWantdate = $(this).val();
+			$(".wantdate_result").text(selectedWantdate);
+		});
 
-				$(document).on('click', '#askPrivBtn', function() {
-					closeModal('#askModal');
-					openModal('#serviceCheckModal');
-				});
-				
-				$(document).on('click', '#askNextBtn', function() {
-					closeModal('#askModal');
-					openModal('#serviceCheckModal');
-				});
-				
-				// 시공공간종류 선택 시
-			    $(".place_s").change(function() {
-			        var selectedPlace = $(this).val();
-			        $("#place_result").text(selectedPlace);
-			    });
+		// 희망상담시간 선택 시
+		$(".wanttime_s").change(function() {
+			var selectedWanttime = $(this).val();
+			$(".wanttime_result").text(selectedWanttime);
+		});
 
-			    // 시공환경 선택 시
-			    $(".circs_s").change(function() {
-			        var selectedCircs = $(this).val();
-			        $("#circs_result").text(selectedCircs);
-			    });
+		// 추가요청사항 입력 시
+		$(".request_ta").on("input", function() {
+			var enteredRequest = $(this).val();
+			$(".request_result").text(enteredRequest);
+		});
 
-			    // 시공주소 입력 시
-			    $("#sample5_address").on("input", function() {
-			        var enteredAddr = $(this).val();
-			        $("#addr_result").text(enteredAddr);
-			    });
-			 // 주소 검색 버튼 클릭 시
-			    $("#sample5_address2").click(function() {
-			        new daum.Postcode({
-			            oncomplete: function(data) {
-			                var addr = data.address;
-			                $("#sample5_address").val(addr);
-			                $("#addr_result").text(addr);
-			            },
-			            onclose: function(state) {
-			                if (state === 'FORCE_CLOSE') {
-			                    // 주소 검색창이 닫힐 때 실행되는 콜백 함수
-			                    // 선택된 주소가 입력 필드에 유지되도록 함
-			                    var selectedAddr = $("#sample5_address").val();
-			                    $("#addr_result").text(selectedAddr);
-			                }
-			            }
-			        }).open();
-			    });
-
-			    // 희망시공일자 선택 시
-			    $(".wantdate_s").change(function() {
-			        var selectedWantdate = $(this).val();
-			        $("#wantdate_result").text(selectedWantdate);
-			    });
-
-			    // 희망상담시간 선택 시
-			    $(".wanttime_s").change(function() {
-			        var selectedWanttime = $(this).val();
-			        $("#wanttime_result").text(selectedWanttime);
-			    });
-
-			    // 추가요청사항 입력 시
-			    $(".request_ta").on("input", function() {
-			        var enteredRequest = $(this).val();
-			        $("#request_result").text(enteredRequest);
-			    });
-				
-			});
+	});
 </script>
 
 </body>

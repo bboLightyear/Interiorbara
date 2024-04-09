@@ -15,7 +15,7 @@ String path=request.getContextPath();
 <body>
 
 <!-- 모달 창 영역 -->
-<div id="myModal" class="modal" data-prev-modal="">
+<div class="myModal" id="modal" data-prev-modal="">
     <div class="modal_content">
         <div class="modal_leftside">
             <div class=modal_leftside_progress>
@@ -35,21 +35,13 @@ String path=request.getContextPath();
                             <span>추가질문</span>
                         </div>
                     </li>
-                    <li data-step-name="biz" class="">
-                        <div>
-                            <span>업체추천</span>
-                        </div>
-                    </li>
+                 
                     <li data-step-name="info" class="">
                         <div>
                             <span>정보입력</span>
                         </div>
                     </li>
-                    <li data-step-name="date" class="">
-                        <div>
-                            <span>날짜선택</span>
-                        </div>
-                    </li>
+                   
                     <li data-step-name="complete" class="">
                         <div>
                             <span>견적완료</span>
@@ -109,11 +101,13 @@ String path=request.getContextPath();
 <jsp:include page="mSize.jsp" />
 <jsp:include page="mServiceCheck.jsp" />
 <jsp:include page="mAsk.jsp" />
+<jsp:include page="mInfo.jsp" />
+<jsp:include page="mComplete.jsp" />
 
 <script>
 $(document).ready(function() {
-    var modal = $('#myModal');
-    var btn = $('#openModal');
+    var modal = $('.myModal');
+    var btn = $('.openModal');
     var span = $('.close');
     var openSizeModalBtn = $('.openSizeModal');
     var openServiceCheckModalBtn = $('.openServiceCheckModal');
@@ -131,17 +125,17 @@ $(document).ready(function() {
     }
 
     btn.click(function() {
-        openModal('#myModal');
+        openModal('.myModal');
     });
 
     span.click(function() {
-        closeModal('#myModal');
+        closeModal('.myModal');
        
     });
 
     $(window).click(function(event) {
         if (event.target == modal[0]) {
-            closeModal('#myModal');
+            closeModal('.myModal');
             
         }
     });
@@ -187,8 +181,8 @@ $(document).ready(function() {
                     productCheckbox.append(serviceItem);
                 });
                 
-                closeModal('#myModal');
-                openModal('#sizeModal');
+                closeModal('.myModal');
+                openModal('.sizeModal');
             },
             error: function(xhr, status, error) {
                 console.log(error);
@@ -202,7 +196,7 @@ $(document).ready(function() {
         
         updateSelectedService(service);
        
-        $('#serviceCheckModal').attr('data-prev-modal', option === 'kitchen' || option === 'bath' ? 'myModal' : 'sizeModal');//의심중
+        $('.serviceCheckModal').attr('data-prev-modal', option === 'kitchen' || option === 'bath' ? 'myModal' : 'sizeModal');//의심중
         $.ajax({
             type: "GET",
             async: true,
@@ -233,8 +227,8 @@ $(document).ready(function() {
                     productCheckbox.append(serviceItem);
                 });
                 
-                closeModal('#myModal');
-                openModal('#serviceCheckModal');
+                closeModal('.myModal');
+                openModal('.serviceCheckModal');
             },
             error: function(xhr, status, error) {
                 console.log(error);
