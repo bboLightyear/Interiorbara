@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.tech.ibara.my.dao.MyDao">
+	<sql id="includeWhere">
+		<choose>
+			<when test="param1==1">
+				WHERE MEMNO = #{param2}			
+			</when>
+			<when test="param1==2">
+				WHERE NICKNAME = #{param2}			
+			</when>
+			<when test="param1==3">
+				WHERE EMAIL = #{param2}
+			</when>
+			<otherwise></otherwise>
+		</choose>	
+	</sql> 
+	<insert id="join">
+		INSERT INTO MY_MEMBER_INFO (MEMNO,NICKNAME,SHPWD,BCPWD,EMAIL,
+		MAILCHECK,JOINDATE,MEMTYPE) VALUES(MEMNO_SEQ.NEXTVAL,#{param1},
+		#{param2},#{param3},#{param4},0,SYSTIMESTAMP,'NOTMAILCHECK')
+	</insert>
+	<select id="countCheck" resultType="Integer">
+		SELECT COUNT(*) FROM MY_MEMBER_INFO <include refid="includeWhere" />
+	</select>	
+	
+	<select id="getMemberEmail" resultType="string">
+		SELECT EMAIL FROM MY_MEMBER_INFO WHERE NICKNAME = #{param1}
+	</select>
+	<select id="getMemberNickname" resultType="string">
+		SELECT NICKNAME FROM MY_MEMBER_INFO WHERE EMAIL = #{param1}
+	</select>	
+	
+	<update id="setMemberEmailChecked">
+		UPDATE MY_MEMBER_INFO SET MAILCHECK = 1, MEMTYPE='PERSON' WHERE NICKNAME = #{param1}
+	</update>	
+	
+	<select id="getMemberInfo" resultType="com.tech.ibara.my.dto.MyMemberInfoDto">
+		SELECT MEMNO,NICKNAME,SHPWD,BCPWD,EMAIL,MAILCHECK,BIRTH,GENDER,
+		PHONE,JOINDATE,MEMTYPE,PROFILEIMG FROM MY_MEMBER_INFO <include refid="includeWhere" />
+	</select>
+
+	<update id="updateProfileimg">
+		UPDATE MY_MEMBER_INFO SET PROFILEIMG = #{param1} WHERE MEMNO = #{param2}
+	</update>
+	<update id="modifyMyMemberInfo">
+		UPDATE MY_MEMBER_INFO SET NICKNAME=#{param1},PHONE=#{param2},
+		BIRTH=#{param3},GENDER=#{param4} WHERE EMAIL=#{param5}
+	</update>
+	<insert id="insertMyWithdrawal">
+		INSERT INTO MY_WITHDRAWAL VALUES(WDNO_SEQ.NEXTVAL,#{param1},SYSTIMESTAMP,#{param2},'N')
+	</insert>
+	
+	<update id="updatePassword">
+		UPDATE MY_MEMBER_INFO SET SHPWD=#{param1}, BCPWD=#{param2}  WHERE NICKNAME = #{param3}
+	</update>
+	<select id="getmailcheckNum" resultType="Integer">
+		SELECT MAILCHECK FROM MY_MEMBER_INFO WHERE NICKNAME = #{param1}
+	</select>
+	<select id="getDemandWithdrawalMember" resultType="com.tech.ibara.my.dto.MyWithdrawalDto">
+		SELECT WDNO,MEMNO,WDDATE,REASON,YESNO FROM MY_WITHDRAWAL ORDER BY WDNO DESC
+	</select>
+	<select id="memnoDuplCheck" resultType="Integer">
+		SELECT COUNT(*) FROM MY_WITHDRAWAL WHERE MEMNO=#{param1}
+	</select>
+	<select id="yesnoCheck" resultType="string">
+		SELECT YESNO FROM MY_WITHDRAWAL WHERE MEMNO=#{param1}
+	</select>
+	<update id="allowWithdrawal">
+		UPDATE MY_WITHDRAWAL SET YESNO=#{param1} WHERE MEMNO=#{param2}	
+	</update>
+	<select id="getMemtype" resultType="string">
+		SELECT MEMTYPE FROM MY_MEMBER_INFO WHERE MEMNO=#{param1}
+	</select>
+	<update id="completedWithdrawal">
+		UPDATE MY_MEMBER_INFO SET MEMTYPE='WITHDRAWAL' WHERE MEMNO = #{param1}
+	</update>
+	<update id="cancelWithdrawal">
+		UPDATE MY_MEMBER_INFO SET MEMTYPE='PERSON' WHERE MEMNO = #{param1}
+	</update>
+	
+	<select id="getMemberInfoList" resultType="com.tech.ibara.my.dto.MyMemberInfoDto">
+		SELECT MEMNO,NICKNAME,SHPWD,BCPWD,EMAIL,MAILCHECK,BIRTH,GENDER,
+		PHONE,JOINDATE,MEMTYPE,PROFILEIMG FROM MY_MEMBER_INFO ORDER BY MEMNO
+	</select>
+	<insert id="insertInterior">
+		INSERT INTO MY_INTERIOR VALUES(INTENO_SEQ.NEXTVAL,#{param1},#{param2})
+	</insert>
+	<insert id="insertSeller">
+		INSERT INTO MY_SELLER VALUES(SELLERNO_SEQ.NEXTVAL,#{param1},#{param2})
+	</insert>
+	<select id="countCheckInterior" resultType="Integer">
+		SELECT COUNT(*) FROM MY_INTERIOR WHERE INTERIORNUM=#{param1}
+	</select>
+		
+	<select id="countCheckSeller" resultType="Integer">
+		SELECT COUNT(*) FROM MY_SELLER WHERE SELLERNUM=#{param1}
+	</select>
+	<update id="completedInterior">
+		UPDATE MY_MEMBER_INFO SET MEMTYPE='INTERIOR' WHERE MEMNO = #{param1}
+	</update>
+	<update id="completedSeller">
+		UPDATE MY_MEMBER_INFO SET MEMTYPE='SELLER' WHERE MEMNO = #{param1}
+	</update>
+	<!-- <delete id="deleteInterior">
+		DELETE FROM MY_INTERIOR WHERE MEMNO=#{param1}
+	</delete>
+	<delete id="deleteSeller">
+		DELETE FROM MY_SELLER WHERE MEMNO=#{param1}
+	</delete> -->
+	<delete id="deleteDemandWithdrawal">
+		DELETE FROM MY_WITHDRAWAL WHERE MEMNO=#{param1}
+	</delete>
+	
+	
+	
+	
+	
+			
+</mapper>

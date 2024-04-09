@@ -180,6 +180,67 @@
 			PRODUCT_ID = #{param1}
 	</select>
 	
+	<resultMap type="com.tech.ibara.shop.dto.SellerDto" id="SellerDto">
+		<result column="SELLER_ID" property="seller_id" />
+		<result column="NICKNAME" property="nickname" />
+		<result column="INTRODUCE" property="introduce" />
+	</resultMap>
+	
+	<resultMap type="com.tech.ibara.shop.dto.ProductDto" id="ProductDto">
+		<result column="PRODUCT_ID" property="product_id" />
+		<result column="SELLER_ID" property="seller_id" />
+		<result column="CATEGORY_ID" property="category_id" />
+		<result column="NAME" property="name" />
+		<result column="REP_PRICE" property="rep_price" />
+		<result column="REP_DISCOUNTED_PRICE" property="rep_discounted_price" />
+		<result column="IS_DISCOUNTED" property="is_discounted" />
+		<result column="DISCOUNT_RATE" property="discount_rate" />
+		<result column="DELIVERY_FEE" property="delivery_fee" />
+		<result column="DELIVERY_TYPE" property="delivery_type" />
+		<result column="REF_PRICE" property="ref_price" />
+		<result column="OPTION_TYPE" property="option_type" />
+		<result column="OPTION1_SET_ID" property="option1_set_id" />
+		<result column="OPTION2_SET_ID" property="option2_set_id" />
+		<result column="REG_TIME" property="reg_time" />
+		<result column="HITS" property="hits" />
+		<result column="SALES" property="sales" />
+		<result column="SCRAPS" property="scraps" />
+		<result column="REVIEWS" property="reviews" />
+		<collection property="seller" resultMap="SellerDto"></collection>
+	</resultMap>
+	
+	<select id="selectProductJoinSeller" resultType="com.tech.ibara.shop.dto.ProductDto" resultMap="ProductDto">
+		SELECT
+			P.PRODUCT_ID,
+			P.SELLER_ID,
+			P.CATEGORY_ID,
+			P.NAME,
+			P.REP_PRICE,
+			P.REP_DISCOUNTED_PRICE,
+			P.IS_DISCOUNTED,
+			P.DISCOUNT_RATE,
+			P.DELIVERY_FEE,
+			P.DELIVERY_TYPE,
+			P.REF_PRICE,
+			P.OPTION_TYPE,
+			P.OPTION1_SET_ID,
+			P.OPTION2_SET_ID,
+			P.REG_TIME,
+			P.HITS,
+			P.SALES,
+			P.SCRAPS,
+			P.REVIEWS,
+			S.NICKNAME
+		FROM
+			SHOP_PRODUCT P
+		JOIN
+			SHOP_SELLER S
+		ON
+			P.SELLER_ID = S.SELLER_ID
+		WHERE
+			PRODUCT_ID = #{param1}
+	</select>
+	
 	<select id="selectOptionSetByProduct" resultType="com.tech.ibara.shop.dto.OptionSetDto">
 		SELECT
 		    OPTION_SET_ID,
@@ -288,33 +349,13 @@
 			USER_ID = #{param1} AND OPTION_ID = #{param2}
 	</select>
 		
-	<resultMap type="com.tech.ibara.shop.dto.ProductDto" id="ProductDto">
-		<result column="PRODUCT_ID" property="product_id" />
-		<result column="SELLER_ID" property="seller_id" />
-		<result column="CATEGORY_ID" property="category_id" />
-		<result column="NAME" property="name" />
-		<result column="REP_PRICE" property="rep_price" />
-		<result column="REP_DISCOUNTED_PRICE" property="rep_discounted_price" />
-		<result column="IS_DISCOUNTED" property="is_discounted" />
-		<result column="DISCOUNT_RATE" property="discount_rate" />
-		<result column="DELIVERY_FEE" property="delivery_fee" />
-		<result column="DELIVERY_TYPE" property="delivery_type" />
-		<result column="REF_PRICE" property="ref_price" />
-		<result column="OPTION_TYPE" property="option_type" />
-		<result column="OPTION1_SET_ID" property="option1_set_id" />
-		<result column="OPTION2_SET_ID" property="option2_set_id" />
-		<result column="REG_TIME" property="reg_time" />
-		<result column="HITS" property="hits" />
-		<result column="SALES" property="sales" />
-		<result column="SCRAPS" property="scraps" />
-		<result column="REVIEWS" property="reviews" />
-	</resultMap>
+
 		
 	<resultMap type="com.tech.ibara.shop.dto.OptionDto" id="OptionDto">
 		<result column="OPTION_ID" property="option_id" />
 		<result column="OPTION_SET_ID" property="option_set_id" />
 		<result column="PARENT_OPTION_ID" property="parent_option_id" />
-		<result column="NAME" property="name" />
+		<result column="OPTION_NAME" property="name" />
 		<result column="STOCK" property="stock" />
 		<result column="PRICE" property="price" />
 		<result column="DISCOUNTED_PRICE" property="discounted_price" />
@@ -341,7 +382,7 @@
 			B.OPTION_TEXT,
 			O.OPTION_SET_ID,
 			O.PARENT_OPTION_ID,
-			O.NAME,
+			O.NAME OPTION_NAME,
 			O.STOCK,
 			O.PRICE,
 			O.DISCOUNTED_PRICE,
@@ -387,7 +428,7 @@
 			B.OPTION_TEXT,
 			O.OPTION_SET_ID,
 			O.PARENT_OPTION_ID,
-			O.NAME,
+			O.NAME OPTION_NAME,
 			O.STOCK,
 			O.PRICE,
 			O.DISCOUNTED_PRICE,

@@ -1,3 +1,7 @@
+
+
+
+
 const profileimg = document.getElementById("profileimg"); // img 태그
 const deleteimg = document.getElementById("deleteimg"); // x 버튼
 const imgInput = document.getElementById("imgInput"); // input 태그
@@ -92,7 +96,7 @@ if(imgInput != null){ // 화면에 imageInput이 있을 경우
     deleteimg.addEventListener("click", () =>{
 
         // 프로필 이미지를 기본 이미지로 변경
-        profileimg.setAttribute("src", "/resources/img/my/user.png");
+        profileimg.setAttribute("src", "../resources/img/my/user.png");
 
         imgInput.value = ""; // input type="file"의 value 삭제
 

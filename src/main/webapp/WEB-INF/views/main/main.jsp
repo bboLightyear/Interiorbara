@@ -49,7 +49,7 @@
 			<div></div>
 		</div>
 		<!-- header_bottom : 헤더 아랫부분 -->
-		<div class="header_bottom">
+		<div id="header_bottom" class="header_bottom">
 			<!-- header_category_icon : 카테고리 아이콘 -->
 			<div class="header_category_icon">
 				<i class="fas fa-bars"></i>
@@ -178,21 +178,18 @@
 				<span>퀵견적</span>
 			</button>
 			<jsp:include page="../modal/mMain.jsp" />
-			<button onclick="location.href='shop/list'"
-				class="category_button category_2">
+			<button onclick="location.href='shop/list'" id="category_button" class="category_button category_2">
 				<span>소품 샵</span>
 			</button>
-			<button class="category_button category_3" onclick="location.href='biz/magazine/bizMgzList'" >
+			<button onclick="location.href='biz/magazine/bizMgzList'" id="category_button" class="category_button category_3">
 				<span>업체 <br> 둘러보기
 				</span>
 			</button>
-			<button onclick="location.href='oh/OHMainView'"
-				class="category_button category_4">
+			<button onclick="location.href='oh/OHMainView'" id="category_button" class="category_button category_4">
 				<span>우리 집 <br> 자랑하기
 				</span>
 			</button>
-			<button onclick="location.href='cshome'"
-				class="category_button category_5">
+			<button onclick="location.href='cshome'" id="category_button" class="category_button category_5">
 				<span>고객센터</span>
 			</button>
 			<br />
@@ -326,7 +323,53 @@
 				</div>
 			</div>
 		</div>
-		<script src="mainRWD/mainRWD.js"></script>
+        <div id="main_left_side_bar" class="main_left_side_bar">
+            <button id="openModal" class="side_bar_button button_1">
+				<span>퀵견적</span>
+			</button>
+			<jsp:include page="../modal/mMain.jsp" />
+			<button onclick="location.href='shop/list'"	class="side_bar_button button_2">
+				<span>소품 샵</span>
+			</button>
+			<button class="side_bar_button button_3" onclick="location.href='biz/magazine/bizMgzList'" >
+				<span>업체 <br> 둘러보기
+				</span>
+			</button>
+			<button onclick="location.href='oh/OHMainView'"	class="side_bar_button button_4">
+				<span>우리 집 <br> 자랑하기
+				</span>
+			</button>
+			<button onclick="location.href='cshome'" class="side_bar_button button_5">
+				<span>고객센터</span>
+			</button>
+        </div>
+
+        <script>
+        window.addEventListener('scroll', function() {
+            var scrollHeight = window.scrollY;
+            var headerBottom = document.getElementById('header_bottom');
+            var mainLeftSideBar = document.getElementById('main_left_side_bar');
+
+            if(scrollHeight > 10) {
+                headerBottom.style.visibility = 'hidden';
+                headerBottom.style.opacity ='0';
+            } else {
+                headerBottom.style.visibility = 'visible';
+                headerBottom.style.opacity ='1';
+            }
+            
+            if(scrollHeight > 650) {
+                mainLeftSideBar.style.visibility = 'visible';
+                mainLeftSideBar.style.opacity = '1';
+            } else {
+                mainLeftSideBar.style.visibility = 'hidden';
+                mainLeftSideBar.style.opacity = '0';
+            }
+        });
+        </script>
+        <script>
+            var side_bar
+        </script>
 		<hr />
 	</div>
 	<br />

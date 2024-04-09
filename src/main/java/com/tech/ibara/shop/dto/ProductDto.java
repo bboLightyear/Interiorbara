@@ -24,6 +24,8 @@ public class ProductDto {
 	private int scraps;
 	private int reviews;
 
+	private SellerDto seller;
+
 	public ProductDto() {
 
 	}
@@ -196,6 +198,14 @@ public class ProductDto {
 
 	public void setReviews(int reviews) {
 		this.reviews = reviews;
+	}
+
+	public SellerDto getSeller() {
+		return seller;
+	}
+
+	public void setSeller(SellerDto seller) {
+		this.seller = seller;
 	}
 
 }

@@ -29,6 +29,7 @@ public interface ShopDao {
 	public ArrayList<LevelCategoryDto> selectAllLevelCategories();
 	
 	public ProductDto selectProduct(int productId);
+	public ProductDto selectProductJoinSeller(int productId);
 	
 	public OptionSetDto selectOptionSetByProduct(int productId);
 	public OptionSetDto selectOptionSet(int optionSetId);

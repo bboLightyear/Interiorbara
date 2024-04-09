@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.tech.ibara.csnotice.dao.CsHomeIDao">
+	
+	<select id="cshomenoticelist" resultType="com.tech.ibara.csnotice.dto.NoticeDto">
+		SELECT NBTITLE
+		FROM (
+			SELECT ROWNUM, N.*
+			FROM (
+		    	SELECT *
+		    	FROM CS_NOTICEBOARD
+		    	ORDER BY NBHIT DESC
+			) N
+		)
+		WHERE ROWNUM &lt;= 5
+	</select>
+	
+	
+	<sql id="cshomeqnalistinclude">
+		<choose>
+			<when test="param2==1"> <!--전체일때-->
+			
+			</when>
+			<when test="param2==2"> <!--퀵견적 -->
+				AND QBQNADIV='qq'
+			</when>
+			<when test="param2==3"> <!-- 우리집 -->
+				AND QBQNADIV='oh'
+			</when>
+			<when test="param2==4"> <!--업체 -->
+				AND QBQNADIV='biz'
+			</when>
+			<when test="param2==5"> <!-- 소품샵 -->
+				AND QBQNADIV='sh'
+			</when>
+			<when test="param2==6"> <!--로그인,회우너정보-->
+				AND QBQNADIV='pf'
+			</when>
+		</choose>
+	</sql>
+	
+ 	<select id="cshomeqnalist" resultType="com.tech.ibara.csnotice.dto.QnaDto">
+		SELECT QBTITLE,QBNO
+		FROM (
+			SELECT ROWNUM, N.*
+			FROM (
+		    	SELECT *
+		    	FROM CS_QNABOARD
+		    	ORDER BY QBHIT DESC
+			) N
+		)
+		WHERE ROWNUM &lt;= 15 <include refid="cshomeqnalistinclude" />
+	</select>
+
+</mapper>

@@ -16,7 +16,7 @@ create sequence seq_shop_product;
 commit;
 
 select
-    category_id
+    category_id OPTION_NAME
 from (
     select
         category_id

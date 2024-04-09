@@ -13,17 +13,16 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 public class QnaDto {
-	private int nbno;
-	private String nbtitle;
-	private String nbcontent;
-	private String nbqnadiv;
-	private String nbwriter;
-	private int nbhit;
-	private Date nbdate;
-	private int nbgroup;
-	private int nbstep;
-	private int nbindent;
-	private String nbfilecode;
+	private int qbno;
+	private String qbtitle;
+	private String qbcontent;
+	private String qbqnadiv;
+	private String qbwriter;
+	private int qbhit;
+	private Date qbdate;
+	private int qbgroup;
+	private int qbstep;
+	private int qbindent;
+	private String qbfilecode;
 	private QnaImgDto qnaImgDto;
-
 }
