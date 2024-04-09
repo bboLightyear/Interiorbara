@@ -29,8 +29,8 @@
     </div>
     <div id="mypageedit" align="center">
     	<form action="inteprofile" method="POST" name="myPageFrm" id="profileFrm" enctype="multipart/form-data">
-	    	<input type="hidden" name="memno" id="memno" value="${loginUserDto.memno} " />
-	    	<input type="hidden" name="myimg" id="myimg" value="${loginUserDto.profileimg} }"  />
+	    	<input type="hidden" name="memno" id="memno" value="${loginUserDto.memno}" />
+	    	<input type="hidden" name="myimg" id="myimg" value="${loginUserDto.profileimg}"  />
 		    <div class="profile-image-area">
 		        <%-- 프로필 이미지가 없으면 기본 이미지 --%>
 		        <c:if test="${empty loginUserDto.profileimg}" >
@@ -49,6 +49,7 @@
 		    </div>
 		</form>
 		<form action="intemodify" id="modify" method="post">    
+		    <input type="hidden" name="memno" id="memno" value="${loginUserDto.memno}" />
 		    <div class="myPage-row">
 		        <label>이메일</label>
 		        <p><input type="text" name="email" id="email" style="padding:10px;width:220px;" value="${loginUserDto.email}" readonly /></p>	        

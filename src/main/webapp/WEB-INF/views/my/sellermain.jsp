@@ -110,6 +110,7 @@
         <ul class="board">
         	<li class="fl tc w150">${loginUserDto.nickname}님</li>
         </ul>
+        판매자회원번호 ${loginUserDto.mysellerdto.sellerno}번 님
     </div>
     <div class="container">
 		<div class="row">

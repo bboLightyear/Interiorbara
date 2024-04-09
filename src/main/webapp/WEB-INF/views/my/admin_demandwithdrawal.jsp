@@ -31,12 +31,12 @@ th{
 		<div class="mypage_category_list list_1"><a href="mypage">메인</a></div>
 		<div class="mypage_category_list list_2"><a href="admin_memberlist">회원관리</a></div>
 		<!-- <div class="mypage_category_list list_3">업체신청관리</div> -->
-		<div class="mypage_category_list list_3">신고게시판</div>
+		<div class="mypage_category_list list_3"><a href="admin_report">신고게시판</a></div>
 		<div class="mypage_category_list list_4">컨텐츠관리</div>
 	</div>
 	<div class="mypage_category">
         <div class="mypage_category_list list_2_1"><a href="admin_memberlist">회원리스트</a></div>
-	    <div class="mypage_category_list list_2_2">탈퇴신청회원리스트</div>
+	    <div class="mypage_category_list list_2_2"><a href="#">탈퇴신청회원리스트</a></div>
     </div>
 	<!-- <form action="allowCheckWithdrawal" method="post"> -->
 		<table align="center">

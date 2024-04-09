@@ -113,7 +113,7 @@
         <ul class="board">
         	<li class="fl tc w150">${loginUserDto.nickname}님</li>
         </ul>
-        인테리어 업체번호 ${loginInteDto.inteno }번님
+        인테리어 업체번호 ${loginUserDto.myinteriordto.inteno }번님
     </div>
     
     <div class="container">

@@ -25,12 +25,16 @@ public class MyModifyService implements SService{
 		System.out.println("MyModifyService()");
 		Map<String, Object> map=model.asMap();
 		HttpServletRequest request=(HttpServletRequest) map.get("request");
+		String memtype=(String) map.get("memtype");
+		System.out.println("memtype : "+memtype );
 //		session=request.getSession();
+		String memno=request.getParameter("memno");
 		String email=request.getParameter("email");
 		String nickname=request.getParameter("nickname");
 		String phone=request.getParameter("phone");
 		String birth=request.getParameter("birth");
 		String gender=request.getParameter("gender");
+		System.out.println("memno : "+memno);
 		System.out.println("email : "+email);
 		System.out.println("nickname : "+nickname);
 		System.out.println("phone : "+phone);
@@ -65,8 +69,17 @@ public class MyModifyService implements SService{
 		}		
 		
 		int result = mdao.modifyMyMemberInfo(nickname,phone,birth,gender,email);
+		
+		MyMemberInfoDto memdto;
+		int intmemno=Integer.parseInt(memno);
 		if(result==1) {
-			MyMemberInfoDto memdto=mdao.getMemberInfo("2",nickname);
+			if(memtype.equals("INTERIOR")) {
+				memdto=mdao.getInteriorMember(intmemno);
+			}else if(memtype.equals("SELLER")) {
+				memdto=mdao.getSellerMember(intmemno);
+			}else {			
+				memdto=mdao.getMemberInfo("2",nickname);
+			}
 			session.removeAttribute("loginUserDto");
 			session.setAttribute("loginUserDto",memdto);
 			return "modify";

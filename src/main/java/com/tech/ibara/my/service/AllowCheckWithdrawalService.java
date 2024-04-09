@@ -23,7 +23,7 @@ public class AllowCheckWithdrawalService implements VService{
 		HttpServletRequest request=(HttpServletRequest) map.get("request");
 		String memno=request.getParameter("memno");
 		MyDao mdao=sqlSession.getMapper(MyDao.class);
-		String yesno=mdao.yesnoCheck(memno);
+		String yesno=mdao.yesnoCheck_Withdrawal(memno);
 		String memtype=mdao.getMemtype(memno);
 		System.out.println(memno+"번 회원의 현재 멤버타입 은 "+memtype);
 		if(yesno.equals("N")) {

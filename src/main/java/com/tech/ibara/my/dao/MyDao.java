@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import com.tech.ibara.my.dto.MyInteriorDto;
 import com.tech.ibara.my.dto.MyMemberInfoDto;
 import com.tech.ibara.my.dto.MyNonMemberDto;
+import com.tech.ibara.my.dto.MyReportDto;
 import com.tech.ibara.my.dto.MySellerDto;
 import com.tech.ibara.my.dto.MyWithdrawalDto;
 
@@ -32,7 +33,7 @@ public interface MyDao {
 	public int getmailcheckNum(String nickname);
 	public ArrayList<MyWithdrawalDto> getDemandWithdrawalMember();
 	public int memnoDuplCheck(String memno);
-	public String yesnoCheck (String memno);
+	public String yesnoCheck_Withdrawal (String memno);
 	public String getMemtype(String memno);
 	public void allowWithdrawal(String yn,String memno);
 	public void completedWithdrawal(String memno);
@@ -49,7 +50,10 @@ public interface MyDao {
 	public void deleteDemandWithdrawal(String memno);
 	public int countCheckNonmember(String phone);
 	public MyNonMemberDto getNonmember(String phone);
-	public MyInteriorDto getInterior(int memno);
-	public MySellerDto getSeller(int memno);
-	
+//	public MyInteriorDto getInterior(int memno);
+//	public MySellerDto getSeller(int memno);
+	public MyMemberInfoDto getInteriorMember(int memno);
+	public MyMemberInfoDto getSellerMember(int memno);
+	public ArrayList<MyReportDto> getReportList();
+	public String yesnoCheck_Report (String reno);
 }

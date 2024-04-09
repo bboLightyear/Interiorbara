@@ -66,7 +66,7 @@
 	<select id="memnoDuplCheck" resultType="Integer">
 		SELECT COUNT(*) FROM MY_WITHDRAWAL WHERE MEMNO=#{param1}
 	</select>
-	<select id="yesnoCheck" resultType="string">
+	<select id="yesnoCheck_Withdrawal" resultType="string">
 		SELECT YESNO FROM MY_WITHDRAWAL WHERE MEMNO=#{param1}
 	</select>
 	<update id="allowWithdrawal">
@@ -120,13 +120,85 @@
 	<select id="getNonmember" resultType="com.tech.ibara.my.dto.MyNonMemberDto">
 		SELECT ESTINO,NAME,PHONE,EMAIL,PW FROM MY_NONMEMBER WHERE PHONE=#{param1} 
 	</select>
-	<select id="getInterior" resultType="com.tech.ibara.my.dto.MyInteriorDto">
+	<!-- <select id="getInterior" resultType="com.tech.ibara.my.dto.MyInteriorDto">
 		SELECT INTENO,MEMNO,INTERIORNUM FROM MY_INTERIOR WHERE MEMNO=#{param1}
 	</select>
 	<select id="getSeller" resultType="com.tech.ibara.my.dto.MySellerDto">
 		SELECT SELLERNO,MEMNO,SELLERNUM FROM MY_SELLER WHERE MEMNO=#{param1}
+	</select> -->
+	<resultMap type="com.tech.ibara.my.dto.MyInteriorDto" id="MyInteriorDto">
+		<result column="INTENO" property="inteno"/>
+		<result column="MEMNO" property="memno"/>
+		<result column="INTERIORNUM" property="interiornum"/>
+	</resultMap>
+	<resultMap type="com.tech.ibara.my.dto.MySellerDto" id="MySellerDto">
+		<result column="SELLERNO" property="sellerno"/>
+		<result column="MEMNO" property="memno"/>
+		<result column="SELLERNUM" property="sellernum"/>
+	</resultMap>
+	<resultMap type="com.tech.ibara.my.dto.MyMemberInfoDto" id="MyMemberInfoDtoI">
+		<result column="MEMNO" property="memno"/>
+		<result column="NICKNAME" property="nickname"/>
+		<result column="SHPWD" property="shpwd"/>
+		<result column="BCPWD" property="bcpwd"/>
+		<result column="EMAIL" property="email"/>
+		<result column="MAILCHECK" property="mailcheck"/>
+		<result column="BIRTH" property="birth"/>
+		<result column="GENDER" property="gender"/>
+		<result column="PHONE" property="phone"/>
+		<result column="JOINDATE" property="joindate"/>
+		<result column="MEMTYPE" property="memtype"/>
+		<result column="PROFILEIMG" property="profileimg"/>
+		<collection property="myinteriordto" resultMap="MyInteriorDto"></collection>
+	</resultMap>
+	<resultMap type="com.tech.ibara.my.dto.MyMemberInfoDto" id="MyMemberInfoDtoS">
+		<result column="MEMNO" property="memno"/>
+		<result column="NICKNAME" property="nickname"/>
+		<result column="SHPWD" property="shpwd"/>
+		<result column="BCPWD" property="bcpwd"/>
+		<result column="EMAIL" property="email"/>
+		<result column="MAILCHECK" property="mailcheck"/>
+		<result column="BIRTH" property="birth"/>
+		<result column="GENDER" property="gender"/>
+		<result column="PHONE" property="phone"/>
+		<result column="JOINDATE" property="joindate"/>
+		<result column="MEMTYPE" property="memtype"/>
+		<result column="PROFILEIMG" property="profileimg"/>
+		<collection property="mysellerdto" resultMap="MySellerDto"></collection>
+	</resultMap>
+	<select id="getInteriorMember" resultType="com.tech.ibara.my.dto.MyMemberInfoDto" resultMap="MyMemberInfoDtoI">
+		SELECT M.MEMNO,NICKNAME,SHPWD,BCPWD,EMAIL,MAILCHECK,BIRTH,GENDER,PHONE,
+		JOINDATE,MEMTYPE,PROFILEIMG,INTENO,INTERIORNUM FROM MY_MEMBER_INFO M JOIN
+		MY_INTERIOR I ON M.MEMNO=I.MEMNO WHERE M.MEMNO=#{param1}
 	</select>
-	
-	
-			
+	<select id="getSellerMember" resultType="com.tech.ibara.my.dto.MyMemberInfoDto" resultMap="MyMemberInfoDtoS">
+		SELECT M.MEMNO,NICKNAME,SHPWD,BCPWD,EMAIL,MAILCHECK,BIRTH,GENDER,PHONE,
+		JOINDATE,MEMTYPE,PROFILEIMG,SELLERNO,SELLERNUM FROM MY_MEMBER_INFO M JOIN 
+		MY_SELLER S ON M.MEMNO=S.MEMNO WHERE S.MEMNO=#{param1}
+	</select>
+	<resultMap type="com.tech.ibara.my.dto.BizRvReportedDto" id="BizRvReportedDto">
+		<result column="BRR_NO" property="brr_no"/>
+		<result column="BRR_CONTENT" property="brr_content"/>
+		<result column="BRR_WRITER" property="brr_writer"/>
+		<result column="BR_NO" property="br_no"/>
+	</resultMap>
+	<resultMap type="com.tech.ibara.my.dto.MyReportDto" id="MyReportDto">
+		<result column="RENO" property="reno"/>
+		<result column="TARGETNO" property="targetno"/>
+		<result column="TARGETTYPE" property="targettype"/>
+		<result column="MEMNO" property="memno"/>
+		<result column="TARGETMEMNO" property="targetmemno"/>
+		<result column="CAUSE" property="cause"/>
+		<result column="REDATE" property="redate"/>
+		<result column="YESNO" property="yesno"/>
+		<collection property="bizRvReportedDto" resultMap="BizRvReportedDto"></collection>
+	</resultMap>
+	<select id="getReportList" resultType="com.tech.ibara.my.dto.MyReportDto" resultMap="MyReportDto">
+		SELECT MY.RENO,MY.TARGETNO,MY.TARGETTYPE,MY.MEMNO,MY.TARGETMEMNO,MY.CAUSE,MY.REDATE,
+		MY.YESNO,BIZ.BRR_CONTENT,BIZ.BRR_WRITER FROM MY_REPORT MY 
+		JOIN BIZ_RV_REPORTED BIZ ON MY.TARGETNO=BIZ.BR_NO
+	</select>
+	<select id="yesnoCheck_Report" resultType="string">
+		SELECT YESNO FROM MY_REPORT WHERE RENO=#{param1}
+	</select>
 </mapper>

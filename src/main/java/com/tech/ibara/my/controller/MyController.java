@@ -15,6 +15,7 @@ import com.tech.ibara.my.dto.MyInteriorDto;
 import com.tech.ibara.my.dto.MyMemberInfoDto;
 import com.tech.ibara.my.dto.MySellerDto;
 import com.tech.ibara.my.service.AllowCheckWithdrawalService;
+import com.tech.ibara.my.service.BlindCheckService;
 import com.tech.ibara.my.service.CancelWithdrawalService;
 import com.tech.ibara.my.service.DemandWithdrawalInsertService;
 import com.tech.ibara.my.service.DemandWithdrawalMemberService;
@@ -111,12 +112,10 @@ public class MyController {
 		MyMemberInfoDto memdto=mdao.getMemberInfo("2",userNickname);
 //		session=request.getSession();
 		if(memdto.getMemtype().equals("INTERIOR")) {
-			MyInteriorDto idto=mdao.getInterior(memdto.getMemno());
-			session.setAttribute("loginInteDto", idto);
+			memdto=mdao.getInteriorMember(memdto.getMemno());
 		}else if(memdto.getMemtype().equals("SELLER")) {
-			MySellerDto sdto=mdao.getSeller(memdto.getMemno());
-			session.setAttribute("loginSellerDto", sdto);
-		}
+			memdto=mdao.getSellerMember(memdto.getMemno());
+		}		
 		session.setAttribute("loginUserDto",memdto);
 		
 		return "redirect:/";
@@ -129,8 +128,8 @@ public class MyController {
 	@RequestMapping("my/mypage")
 	public String mypage(HttpServletRequest request,Model model) {
 		System.out.println("mypage()");
-		model.addAttribute("request",request);
-		sservice = new MyPageService(sqlSession,session);
+//		model.addAttribute("request",request);
+		sservice = new MyPageService(session);
 		String str=sservice.execute(model);
 		return str;
 	}	
@@ -395,6 +394,7 @@ public class MyController {
 	public String updateinteprofile(HttpServletRequest request,Model model) {
 		System.out.println("updateinteprofile()");
 		model.addAttribute("request",request);
+		model.addAttribute("memtype","INTERIOR");
 		vservice =new MyProfileUpdateService(sqlSession,session);
 		vservice.execute(model);
 		return "my/interiorinfoedit";
@@ -403,6 +403,7 @@ public class MyController {
 	public String intemodify(HttpServletRequest request,Model model) {
 		System.out.println("intemodify()");
 		model.addAttribute("request",request);
+		model.addAttribute("memtype","INTERIOR");		
 		sservice =new MyModifyService(sqlSession,session);
 		String str=sservice.execute(model);
 		if(str.equals("nndupl")) {
@@ -485,6 +486,7 @@ public class MyController {
 	public String updatesellerprofile(HttpServletRequest request,Model model) {
 		System.out.println("updatesellerprofile()");
 		model.addAttribute("request",request);
+		model.addAttribute("memtype","SELLER");
 		vservice =new MyProfileUpdateService(sqlSession,session);
 		vservice.execute(model);
 		return "my/sellerinfoedit";
@@ -493,6 +495,7 @@ public class MyController {
 	public String sellermodify(HttpServletRequest request,Model model) {
 		System.out.println("sellermodify()");
 		model.addAttribute("request",request);
+		model.addAttribute("memtype","SELLER");
 		sservice =new MyModifyService(sqlSession,session);
 		String str=sservice.execute(model);
 		if(str.equals("nndupl")) {
@@ -593,6 +596,14 @@ public class MyController {
 		vservice=new ReportService(sqlSession);
 		vservice.execute(model);
 		return "my/admin_report";
+	}
+	@RequestMapping("my/blindCheck")
+	public String blindCheck(HttpServletRequest request,Model model) {
+		System.out.println("blindCheck()");
+		model.addAttribute("request",request);
+		vservice =new BlindCheckService(sqlSession);
+		vservice.execute(model);
+		return "redirect:blindCheck";
 	}
 	
 }
