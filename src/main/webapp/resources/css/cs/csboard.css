@@ -579,6 +579,9 @@ body,html{
     flex-direction: column;
  	justify-content: center;
 }
+.cs_content_section3_rcnt_span{
+	color: lightskyblue;
+}
 .cs_content_section3 form {
 	margin-top: 25px;
 	display: flex; /* 폼 내부 요소들을 가로로 배치하기 위해 Flexbox를 사용합니다. */
@@ -608,13 +611,21 @@ body,html{
     margin-top: 70px;
 }
 .cs_content_section4_wrap_rreply{
-	width: 850px;
+	width: 750px;
 	height: 100%;
     display: flex;
  	justify-content: center;
  	flex: 1; /* 폼 요소들이 유연하게 확장되도록 설정합니다. */
 	flex-direction: row; /* 내부 요소들을 세로로 배치합니다. */
-	align-items: center; /* 내부 요소들을 수직 중앙 정렬합니다. */
+	/* align-items: center; */ /* 내부 요소들을 수직 중앙 정렬합니다. */
+}
+.cs_content_section4_wrap_rreply_ni{
+	width: 750px;
+	height: 30px;
+}
+.cs_content_section4_wrap_rreply_content{
+	width: 750px;
+	height: 30px;
 }
 /*푸터*/
 footer {

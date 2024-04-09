@@ -85,7 +85,17 @@
 
 	<section class="cs_content_section1">
 		<div class="cs_content_head">
-			<h3 class="cs_list_head_h">◼ ${qna_content.qbtitle }</h3>
+			                            <!-- 게시글 작성자 프로필 이미지 -->         
+			<h3 class="cs_list_head_h">
+            <%-- 프로필 이미지가 없으면 기본 이미지 --%>
+            <c:if test="${empty loginUserDto.profileimg}" >
+              <img src="${path }/resources/img/my/user.png" id="OHMainView-photoProfileImage" style="width: 25px; height: 25px;">
+              </c:if>
+              <%-- 프로필 이미지가 있으면 있는 이미지 --%>
+              <c:if test="${!empty loginUserDto.profileimg}" >
+              <img src="${path }/resources/upload/my/${loginUserDto.profileimg}" id="OHMainView-photoProfileImage">
+              </c:if>   
+			 ${qna_content.qbtitle }</h3>
 
 
 			<div class="cs_list_head_wrap_span">
@@ -149,7 +159,7 @@
 	<section class="cs_content_section3">
 
 		<div class="cs_content_section3_rcnt">
-			<h3 style="margin: 0">답글 ${replycnt}개</h3>
+			<h3 style="margin: 0">답글 <span class="cs_content_section3_rcnt_span">${replycnt}</span>개</h3>
 		</div>
 
 		<form action="qnareply?qbno=${qna_content.qbno }" method="post">
@@ -175,25 +185,35 @@
 		<c:forEach items="${replylist }" var="dto">
 			<div class="cs_content_section4_wrap_rreply">
 				<div>
-					<span><h3>작성자 : ${dto.rqbwriter }&nbsp;&nbsp; 답글 :
-							${dto.rqbcontent }&nbsp;&nbsp;</h3></span>
+					<div class="cs_content_section4_wrap_rreply_ni">
+						<c:if test="${empty loginUserDto.profileimg}" >
+				        	<img src="${path }/resources/img/my/user.png" id="OHMainView-photoProfileImage" style="width: 30px; height: 30px;">
+				            </c:if>
+				            <%-- 프로필 이미지가 있으면 있는 이미지 --%>
+				            <c:if test="${!empty loginUserDto.profileimg}" >
+				           	<img src="${path }/resources/upload/my/${loginUserDto.profileimg}" id="OHMainView-photoProfileImage">
+				        </c:if> ${dto.rqbwriter }</div>
+					<div class="cs_content_section4_wrap_rreply_content">${dto.rqbcontent }</div>
 	
 					<!--답글 달기 버튼을 클릭 시에 아래에 입력 창이 나타나도록 하는 스크립트-->
 					<%
 						if (session.getAttribute("userId") == null) {
-	
+					%>
+					<div>
+					<%
 					} else {
 					%>
+					<div>
 					<button onclick="replyform()" data-rqbno="${dto.rqbno }">답글달기</button>
 					<%
 						}
 					%>
-				</div>
 	
-				<div id="${dto.rqbno }replyrview" style="display: block;">
-				
-					<input type="button" onclick="replyrview()" id="${dto.rqbno }replyvbtn" name="${dto.rqbno }replyvbtn"
-						data-rqbno="${dto.rqbno }" value="답글보기" />
+					<div id="${dto.rqbno }replyrview"> 
+						<input type="button" onclick="replyrview()" id="${dto.rqbno }replyvbtn" name="${dto.rqbno }replyvbtn"
+							data-rqbno="${dto.rqbno }" value="답글보기" />
+					</div>
+					</div>
 				</div>
 	
 	
@@ -205,10 +225,10 @@
 						<input type="hidden" id="rqbstep" name="rqbstep" value="${dto.rqbstep }" /> 
 						<input type="hidden" id="rqbgroup" name="rqbgroup" value="${dto.rqbgroup }" /> 
 						<input type="hidden" id="rqbindent" name="rqbindent" value="${dto.rqbindent }" />
-						<textarea rows="6" cols="65" id="rcontent" name="rcontent">&nbsp;</textarea>
 						<input type="hidden" name="rwriter" id="rwriter" value="<%=session.getAttribute("userId")%>" /> 
+
+						<textarea rows="6" cols="65" id="rcontent" name="rcontent">&nbsp;</textarea>
 						<input type="button" value="입력" onclick="reply()" data-rqbno="${dto.rqbno }" />
-						
 					</div>
 					<button onclick="replyformclose()" data-rqbno="${dto.rqbno }">접기</button>
 				</div>
