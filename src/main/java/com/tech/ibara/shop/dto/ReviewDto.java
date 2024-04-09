@@ -16,14 +16,13 @@ public class ReviewDto {
 
 	}
 
-	public ReviewDto(int product_id, int user_id, int score, String file_src, String content, Date reg_date) {
+	public ReviewDto(int product_id, int user_id, int score, String file_src, String content) {
 		super();
 		this.product_id = product_id;
 		this.user_id = user_id;
 		this.score = score;
 		this.file_src = file_src;
 		this.content = content;
-		this.reg_date = reg_date;
 	}
 
 	public int getReview_id() {

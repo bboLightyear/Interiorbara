@@ -1,26 +1,26 @@
 package com.tech.ibara.shop.dto;
 
-public class DetailImageDto {
+public class DetailImgDto {
 
-	private int detail_image_id;
+	private int detail_img_id;
 	private int product_id;
 	private String file_src;
 
-	public DetailImageDto() {
+	public DetailImgDto() {
 
 	}
 
-	public DetailImageDto(int product_id, String file_src) {
+	public DetailImgDto(int product_id, String file_src) {
 		this.product_id = product_id;
 		this.file_src = file_src;
 	}
 
-	public int getDetail_image_id() {
-		return detail_image_id;
+	public int getDetail_img_id() {
+		return detail_img_id;
 	}
 
-	public void setDetail_image_id(int detail_image_id) {
-		this.detail_image_id = detail_image_id;
+	public void setDetail_img_id(int detail_img_id) {
+		this.detail_img_id = detail_img_id;
 	}
 
 	public int getProduct_id() {
