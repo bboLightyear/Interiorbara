@@ -77,5 +77,7 @@ public interface ShopDao {
 	public void updateBasketQuantity(int userId, int optionId, String action);
 	public void updateProductIncreaseOne(int productId, String target);
 	
+	public void updateCompleteOrder(OrderDto orderDto);
+	
 	public void deleteBasket(int userId, int targetId, String target);
 }

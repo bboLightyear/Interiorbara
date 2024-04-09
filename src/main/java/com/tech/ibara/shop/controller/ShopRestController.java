@@ -20,6 +20,7 @@ import com.tech.ibara.shop.service.BasketAddService;
 import com.tech.ibara.shop.service.BasketMakeOrderService;
 import com.tech.ibara.shop.service.BasketModifyQuantityService;
 import com.tech.ibara.shop.service.BasketRemoveService;
+import com.tech.ibara.shop.service.OrderCompleteService;
 import com.tech.ibara.shop.service.ProductDataLoadService;
 import com.tech.ibara.shop.service.ProductSubOptionSetService;
 import com.tech.ibara.shop.service.QnaPageChangeService;
@@ -135,14 +136,13 @@ public class ShopRestController {
 		return shopService.getData();
 	}
 	
-	@RequestMapping(method = RequestMethod.POST, value = "/shop/order/portoneWebhook")
-	public Map<String, Object> portoneWebhook(HttpServletRequest request, Model model) {
+	@RequestMapping(method = RequestMethod.POST, value = "/shop/order/complete")
+	public void orderComplete(HttpServletRequest request, HttpSession session, Model model) {
 		
 		model.addAttribute("request", request);
+		model.addAttribute("session", session);
 		
-		QnaPageChangeService shopService = new QnaPageChangeService(sqlSession);
+		OrderCompleteService shopService = new OrderCompleteService(sqlSession);
 		shopService.execute(model);
-		
-		return shopService.getData();
 	}
 }

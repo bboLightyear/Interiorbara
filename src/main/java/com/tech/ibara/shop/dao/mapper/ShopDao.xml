@@ -481,7 +481,7 @@
 			ORDERER_NAME,
 			ORDERER_PHONE,
 			ORDERER_EMAIL,
-			PAYMENT_TYPE_ID,
+			PAYMENT_TYPE,
 			ORDER_DATE,
 			TOTAL_PRICE,
 			TOTAL_DELIVERY_FEE,
@@ -777,7 +777,7 @@
 				ORDERER_NAME,
 				ORDERER_PHONE,
 				ORDERER_EMAIL,
-				PAYMENT_TYPE_ID,
+				PAYMENT_TYPE,
 				ORDER_DATE,
 				TOTAL_PRICE,
 				TOTAL_DELIVERY_FEE,
@@ -795,7 +795,7 @@
 			#{orderer_name, jdbcType=VARCHAR},
 			#{orderer_phone, jdbcType=INTEGER},
 			#{orderer_email, jdbcType=VARCHAR},
-			#{payment_type_id, jdbcType=INTEGER},
+			#{payment_type, jdbcType=VARCHAR},
 			#{order_date, jdbcType=DATE},
 			#{total_price},
 			#{total_delivery_fee},
@@ -929,6 +929,26 @@
 			A_CONTENT = #{param2}
 		WHERE
 			QNA_ID = #{param1}
+	</update>
+	
+	<update id="updateCompleteOrder" parameterType="com.tech.ibara.shop.dto.OrderDto">
+		UPDATE
+			SHOP_ORDER
+		SET
+			ORDER_STATE_ID = 3,
+			ADDRESS_NAME = #{address_name},
+			RECEIVER_NAME = #{receiver_name},
+			RECEIVER_PHONE = #{receiver_phone},
+			ZIPCODE = #{zipcode},
+			BIG_ADDRESS = #{big_address},
+			DETAIL_ADDRESS = #{detail_address},
+			ORDERER_NAME = #{orderer_name},
+			ORDERER_PHONE = #{orderer_phone},
+			ORDERER_EMAIL = #{orderer_email},
+			PAYMENT_TYPE = #{payment_type},
+			ORDER_DATE = SYSDATE
+		WHERE
+			USER_ID = #{user_id} AND ORDER_ID = #{order_id}
 	</update>
 	
 	<!-- ===================== DELETE ===================== -->
