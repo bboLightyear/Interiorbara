@@ -173,8 +173,8 @@
 			showSlide(0);
 		</script>
 		<br />
-		<div id="category_button" class="category_button_wrap">
-			<button id="openModal category_button" class="category_button category_1">
+		<div class="category_button_wrap">
+			<button  class="openModal category_button category_1">
 				<span>퀵견적</span>
 			</button>
 			<jsp:include page="../modal/mMain.jsp" />
