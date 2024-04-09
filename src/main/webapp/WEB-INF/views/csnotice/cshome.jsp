@@ -6,8 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link rel="stylesheet" type="text/css"
-	href="resources/css/cs/csboard.css" />
+<link rel="stylesheet" type="text/css" href="resources/css/cs/csboard.css" />
 </head>
 <!-- 헤더 -->
 <header>
@@ -120,7 +119,7 @@
 			<div class="cs_home_qnaboard_head">
 				<h2 class="cs_home_qnaboard_head_h2">
 					<a href="qnalist" class="cs_home_qnaboard_head_h2_a1">QnA</a>
-					<a href="" class="cs_home_qnaboard_head_h2_a2">더보기</a>
+					<a href="qnalist" class="cs_home_qnaboard_head_h2_a2">더보기</a>
 				</h2>
 			</div><!--cs_home_wrap_qnaboard-->
 
