@@ -11,6 +11,8 @@
 	
 	<!-- oh.css -->
 	<link rel="stylesheet" href="../resources/css/oh/photo.css?after" />
+	<!-- OHPhotoDetailView.css -->
+	<link rel="stylesheet" href="../resources/css/oh/OHPhotoDetailView.css?after" />		
 	
 	<!-- https://fontawesome.com/ -->
 	<link  rel="stylesheet"
@@ -23,7 +25,6 @@
 <body>
 	
 	<!-- 데이터 표시 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-	<h3>OHPhotoDetailView.jsp</h3>
 	<table border="1">
 		<tr>
 			<th colspan="15">OHPhotoBoard</th>
@@ -80,7 +81,18 @@
 	</table>
 	
 	<!-- 데이터 표시 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-	
+
+	<h3>OHPhotoDetailView.jsp</h3>
+
+	<!-- 회원, 비회원 구분 후 메세지 출력 -->
+	<c:choose>
+		<c:when test="${sessionScope.userId ne null && !empty sessionScope.userId }">
+			<h3>${sessionScope.userId }님</h3>	
+		</c:when>
+		<c:otherwise>
+			<h3>비회원님</h3>					
+		</c:otherwise>
+	</c:choose>		
 
 	<div class="container">
 	
@@ -94,13 +106,17 @@
 				<ul >
 					<li><a href="OHMainView">우리집 자랑하기</a></li>
 					<li><a href="OHPhotoView">집사진</a></li>
-					<li><a href="">집영상</a></li>
-					<li><a href="">#category</a></li>
+					<!-- 집영상 -->
+					<!-- <li><a href="">집영상</a></li> -->
+					<li><a href="#">#category</a></li>
 				</ul>
 			</div>							
 						
-			<div class="main">
-				<h3>집사진 게시글 상세</h3>
+			<div id="OHPhotoDetailView-main">
+				
+				<div>
+				
+					<h3>집사진 게시글 상세</h3>
 					
 				<!-- jQuery 작성완료
 					     회원: 글쓰기 가능 
@@ -111,15 +127,12 @@
 				<!-- 해당 게시물 작성자일 경우 => 수정, 삭제 버튼 생성 -->
 				<c:choose>
 					<c:when test="${sessionScope.userId eq pb_dto.pb_user }">
-						<h3>${sessionScope.userId }님 게시글 </h3>
 						<!-- 수정 버튼 -->
 						<button onclick="location.href='OHPhotoEditView?pb_no=${pb_dto.pb_no }'">수정</button>
 						<!-- 삭제 버튼 -->
 						<button onclick="location.href='OHPhotoDeleteExecute?pb_no=${pb_dto.pb_no }'">삭제</button>					
 					</c:when>
-					<c:otherwise>
-						<h3>다른 회원 게시글</h3>				
-					</c:otherwise>
+					<c:otherwise>		</c:otherwise>
 				</c:choose>				
 					
 				<hr />				
