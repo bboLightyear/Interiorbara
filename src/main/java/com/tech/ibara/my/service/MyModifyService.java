@@ -1,6 +1,7 @@
 package com.tech.ibara.my.service;
 
 import java.util.Map;
+import java.util.regex.Pattern;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -11,7 +12,7 @@ import org.springframework.ui.Model;
 import com.tech.ibara.my.dao.MyDao;
 import com.tech.ibara.my.dto.MyMemberInfoDto;
 
-public class MyModifyService implements VService{
+public class MyModifyService implements SService{
 	private SqlSession sqlSession;
 	private HttpSession session;
 	public MyModifyService(SqlSession sqlSession,HttpSession session) {
@@ -20,7 +21,7 @@ public class MyModifyService implements VService{
 	}
 
 	@Override
-	public void execute(Model model) {
+	public String execute(Model model) {
 		System.out.println("MyModifyService()");
 		Map<String, Object> map=model.asMap();
 		HttpServletRequest request=(HttpServletRequest) map.get("request");
@@ -35,15 +36,42 @@ public class MyModifyService implements VService{
 		System.out.println("phone : "+phone);
 		System.out.println("birth : "+birth);
 		System.out.println("gender : "+gender);
-		MyDao mdao=sqlSession.getMapper(MyDao.class);
-		int result = mdao.modifyMyMemberInfo(nickname,phone,birth,gender,email);
+				
+		boolean nnbool=Pattern.matches("^(?=.*[a-z0-9가-힣])[a-z0-9ㄱ-힣]{2,15}$", nickname);
+		boolean phonebool=Pattern.matches("^(010)-?[0-9]{3,4}-?[0-9]{4}$", phone);
+		boolean birthbool=Pattern.matches("^(19|20)\\d{2}(0[1-9]|1[0-2])(0[1-9]|[12]\\d|3[01])$", birth);
+		if(!nnbool) {
+			return "nn check";
+		}
 		
+		if(phone.length()!=0) {
+			if(!phonebool) {
+				return "phone check";			
+			}
+		}
+		if(birth.length()!=0) {
+			if(!birthbool) {
+				return "birth check";
+			}
+		}				
+		
+		MyDao mdao=sqlSession.getMapper(MyDao.class);
+		String mynickname = mdao.getMemberNickname(email);
+		if(!mynickname.equals(nickname)) {
+			int nnCheckResult=mdao.countCheck("2",nickname);
+			if(nnCheckResult!=0) {
+				return "nndupl";
+			}
+		}		
+		
+		int result = mdao.modifyMyMemberInfo(nickname,phone,birth,gender,email);
 		if(result==1) {
 			MyMemberInfoDto memdto=mdao.getMemberInfo("2",nickname);
 			session.removeAttribute("loginUserDto");
 			session.setAttribute("loginUserDto",memdto);
-			model.addAttribute("msg","회원정보가 변경되었습니다.");
+			return "modify";
+		}else {
+			return "modify error";
 		}
 	}
-
 }

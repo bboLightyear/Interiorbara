@@ -38,24 +38,27 @@ public class MyProfileUpdateService implements VService {
 		System.out.println("오리진 파일 이름 : "+originFile);
 		long longtime=System.currentTimeMillis();
 		String changeFile=longtime+"_"+originFile;
-		System.out.println("변환된 파일 이름 : "+changeFile);						
+		System.out.println("변환된 파일 이름 : "+changeFile);	
 		
 		String pathfile=path+"\\"+changeFile;
+		int result=0;
+		MyDao mdao=sqlSession.getMapper(MyDao.class);
 		try {
 			if(!originFile.equals("")) {
-				file.transferTo(new File(pathfile));
-				MyDao mdao=sqlSession.getMapper(MyDao.class);
-				int result = mdao.updateProfileimg(changeFile,memno);
-				System.out.println("updateprofileimg result : "+result);
-				if(result==1) {
-					MyMemberInfoDto memdto=mdao.getMemberInfo("1",memno);
-					session.removeAttribute("loginUserDto");
-					session.setAttribute("loginUserDto",memdto);
-				}
+				file.transferTo(new File(pathfile));				
+				result = mdao.updateProfileimg(changeFile,memno);
+			}else {//선택한 파일이 없으면 프로필사진을 삭제
+				result = mdao.updateProfileimg(originFile, memno);
 			}
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		}
+		System.out.println("updateprofileimg result : "+result);
+		if(result==1) {
+			MyMemberInfoDto memdto=mdao.getMemberInfo("1",memno);
+			session.removeAttribute("loginUserDto");
+			session.setAttribute("loginUserDto",memdto);
 		}
 			
 	}		

@@ -114,9 +114,18 @@
 	<delete id="deleteDemandWithdrawal">
 		DELETE FROM MY_WITHDRAWAL WHERE MEMNO=#{param1}
 	</delete>
-	
-	
-	
+	<select id="countCheckNonmember" resultType="Integer">
+		SELECT COUNT(*) FROM MY_NONMEMBER WHERE PHONE=#{param1}
+	</select>	
+	<select id="getNonmember" resultType="com.tech.ibara.my.dto.MyNonMemberDto">
+		SELECT ESTINO,NAME,PHONE,EMAIL,PW FROM MY_NONMEMBER WHERE PHONE=#{param1} 
+	</select>
+	<select id="getInterior" resultType="com.tech.ibara.my.dto.MyInteriorDto">
+		SELECT INTENO,MEMNO,INTERIORNUM FROM MY_INTERIOR WHERE MEMNO=#{param1}
+	</select>
+	<select id="getSeller" resultType="com.tech.ibara.my.dto.MySellerDto">
+		SELECT SELLERNO,MEMNO,SELLERNUM FROM MY_SELLER WHERE MEMNO=#{param1}
+	</select>
 	
 	
 			

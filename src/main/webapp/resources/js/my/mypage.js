@@ -1,7 +1,3 @@
-
-
-
-
 const profileimg = document.getElementById("profileimg"); // img 태그
 const deleteimg = document.getElementById("deleteimg"); // x 버튼
 const imgInput = document.getElementById("imgInput"); // input 태그
@@ -12,31 +8,37 @@ let initCheck; // 초기 프로필 이미지 상태를 저장하는 변수
 let deleteCheck = -1;
 // 프로필 이미지가 새로 업로드되거나 삭제되었음을 나타내는 변수
 // -1 == 초기값, 0 == 프로필 삭제(x버튼), 1 == 새 업로드 이미지
-
-let originalimg; // 초기 프로필 이미지 파일 경로 저장
+var myimg=document.getElementById("myimg");
+let originalimg=profileimg.getAttribute("src"); // 초기 프로필 이미지 파일 경로 저장
 
 if(imgInput != null){ // 화면에 imageInput이 있을 경우
 
     // 프로필 이미지가 출력되는 img 태그의 src 속성을 저장
-    originalimg = profileimg.getAttribute("src");
+    //originalimg = profileimg.getAttribute("src");
+    
 
     // 회원 프로필 화면 진입 시 
     // 현재 회원의 프로필 이미지 상태를 확인
-    if(originalimg == "/resources/img/my/user.png"){
-        // 기본 이미지인 경우
-        initCheck = false;
-
+//    if(originalimg == "../resources/img/my/user.png"){
+//        // 기본 이미지인 경우
+//        initCheck = false;
+//
+//    } else {
+//        initCheck = true;
+//    }
+	if(myimg.value != null ){
+		initCheck = true;
     } else {
-        initCheck = true;
+    	initCheck = false;
     }
-
+	
     // change 이벤트 : 값이 변했을 때
     // - input type="file", "checkbox", "radio"에서 많이 사용
     // - text/number 형식 사용 가능
     //  -> 이때 input값 입력 후 포커스를 잃었을 때
     //     이전 값과 다르면 change 이벤트 발생
 
-    imgInput.addEventListener("change", e => {
+    imgInput.addEventListener("change", e=> {
 
         // 2MB로 최대 크기 제한
         const maxSize = 1 * 1024 * 1024 * 2; // 파일의 최대 크기 지정(바이트 단위)

@@ -11,5 +11,5 @@ function checkNickname() {
 	} else {
 		nicknameResult.innerHTML = "";
 		nicknameResult.style.color = "lightseagreen";
-	}
+	}	
 }

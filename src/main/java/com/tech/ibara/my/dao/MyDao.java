@@ -2,7 +2,10 @@ package com.tech.ibara.my.dao;
 
 import java.util.ArrayList;
 
+import com.tech.ibara.my.dto.MyInteriorDto;
 import com.tech.ibara.my.dto.MyMemberInfoDto;
+import com.tech.ibara.my.dto.MyNonMemberDto;
+import com.tech.ibara.my.dto.MySellerDto;
 import com.tech.ibara.my.dto.MyWithdrawalDto;
 
 public interface MyDao {
@@ -44,7 +47,9 @@ public interface MyDao {
 //	public void deleteInterior(String memno);
 //	public void deleteSeller(String memno);
 	public void deleteDemandWithdrawal(String memno);
-	
-	
+	public int countCheckNonmember(String phone);
+	public MyNonMemberDto getNonmember(String phone);
+	public MyInteriorDto getInterior(int memno);
+	public MySellerDto getSeller(int memno);
 	
 }

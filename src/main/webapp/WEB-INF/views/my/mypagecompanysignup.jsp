@@ -12,17 +12,34 @@
 	<link rel="stylesheet" href="${path}/resources/css/my/mypageinfoedit.css" />
 	<script defer src="${path}/resources/js/my/jquery-3.7.1.min.js"></script>
 	<script defer src="${path }/resources/js/my/mypagecompanysignup.js"></script>
+	<style>
+	body{
+		text-align: center;
+	}
+	label{
+		font-size: 1.2em;
+	}
+	button{
+		background-color: #e2f0fe;
+		width: 100px;
+		padding: 10px;
+	}
+	button:hover{
+		background-color: #1e90ff;
+		cursor: pointer;
+	}
+	</style>
 </head>
 <body>
 <h3>mypagecompanysignup.jsp</h3>
 	<div class="mypage_category">
-        <div class="mypage_category_list list_1"><a href="mypagemain">프로필</a></div>
+        <div class="mypage_category_list list_1"><a href="mypage">프로필</a></div>
 	    <div class="mypage_category_list list_2">나의쇼핑</div>
 	    <div class="mypage_category_list list_3">업체신청</div> <br>
 	    
     </div>
     <div class="mypage_category">
-        <div class="mypage_category_list list_1_1"><a href="mypagemain">모두보기</a></div>
+        <div class="mypage_category_list list_1_1"><a href="mypage">모두보기</a></div>
 	    <div class="mypage_category_list list_1_2">내사진</div>
         <div class="mypage_category_list list_1_3">내동영상</div>
         <div class="mypage_category_list list_1_4"><a href="mypageinfoedit">회원정보수정</a></div>
@@ -32,16 +49,16 @@
     <input type="hidden" name="memno" id="memno" value="${loginUserDto.memno}" />
     <input type="hidden" name="memtype" id="memtype" value="${loginUserDto.memtype}"/>
     	<c:out value="${errorMsg}" default="" />
-    	<h4>인테리어업체 신청하기</h4>
+    	<h3>인테리어업체 신청하기</h3>
     	<label for="interior">사업자등록번호 </label>
-    	<input type="text" name="interior" id="interior" placeholder="10자리 숫자만 입력해주세요" oninput="oninputNum(this)"/>
+    	<input type="text" name="interior" id="interior" style="padding:10px;" size="35" placeholder="10자리 숫자만 입력해주세요" oninput="oninputNum(this)"/>
     	<button>신청</button> <br />
     	<span id="interiorResult"></span> <br />
     	<c:out value="${inteResultMsg}" default="" />
     	<br /><br />   	
-    	<h4>판매업체 신청하기</h4>
+    	<h3>판매업체 신청하기</h3>
     	<label for="seller">사업자등록번호</label>
-    	<input type="text" name="seller" id="seller" placeholder="10자리 숫자만 입력해주세요" oninput="oninputNum(this)" />
+    	<input type="text" name="seller" id="seller" style="padding:10px;" size="35" placeholder="10자리 숫자만 입력해주세요" oninput="oninputNum(this)" />
     	<button>신청</button> <br />
     	<span id="sellerResult"></span> <br />
     	<c:out value="${sellerResultMsg}" default="" />    	 
