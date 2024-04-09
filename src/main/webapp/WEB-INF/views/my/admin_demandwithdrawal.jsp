@@ -20,13 +20,16 @@ th, td{
 	height: 30px;
 	border-bottom: 1px solid gray;
 }
+th{
+	background-color: #e2f0fe;
+}
 </style>
 </head>
 <body>
 	<h3>admin_demandwithdrawal.jsp</h3>
 	<div class="mypage_category">
 		<div class="mypage_category_list list_1"><a href="mypage">메인</a></div>
-		<div class="mypage_category_list list_2"><a href="admin_memberlist"></a>회원관리</div>
+		<div class="mypage_category_list list_2"><a href="admin_memberlist">회원관리</a></div>
 		<!-- <div class="mypage_category_list list_3">업체신청관리</div> -->
 		<div class="mypage_category_list list_3">신고게시판</div>
 		<div class="mypage_category_list list_4">컨텐츠관리</div>

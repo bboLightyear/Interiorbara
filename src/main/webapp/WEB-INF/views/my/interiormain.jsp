@@ -86,11 +86,11 @@
 <body>
 <h3>interiormain.jsp</h3>
 	<div class="mypage_category">
-        <div class="mypage_category_list list_1">프로필</div>
+        <div class="mypage_category_list list_1"><a href="#">프로필</a></div>
 	    <div class="mypage_category_list list_2">견적</div> <br />
     </div>
     <div class="mypage_category">
-        <div class="mypage_category_list list_1_1">모두보기</div>
+        <div class="mypage_category_list list_1_1"><a href="#">모두보기</a></div>
 	    <div class="mypage_category_list list_1_2">내시공사례</div>
         <div class="mypage_category_list list_1_3">질문과답변</div>
         <div class="mypage_category_list list_1_4"><a href="interiorinfoedit">회원정보수정</a></div>
@@ -113,6 +113,7 @@
         <ul class="board">
         	<li class="fl tc w150">${loginUserDto.nickname}님</li>
         </ul>
+        인테리어 업체번호 ${loginInteDto.inteno }번님
     </div>
     
     <div class="container">

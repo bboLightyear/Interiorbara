@@ -19,8 +19,8 @@ public class DemandWithdrawalMemberService implements VService{
 	}
 	@Override
 	public void execute(Model model) {
-		Map<String, Object> map = model.asMap();
-		HttpServletRequest request = (HttpServletRequest) map.get("request");
+//		Map<String, Object> map = model.asMap();
+//		HttpServletRequest request = (HttpServletRequest) map.get("request");
 		MyDao mdao=sqlSession.getMapper(MyDao.class);
 		ArrayList<MyWithdrawalDto> wdto=mdao.getDemandWithdrawalMember();
 		model.addAttribute("wdto",wdto);

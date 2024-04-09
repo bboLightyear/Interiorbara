@@ -11,7 +11,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.tech.ibara.my.dao.MyDao;
+import com.tech.ibara.my.dto.MyInteriorDto;
 import com.tech.ibara.my.dto.MyMemberInfoDto;
+import com.tech.ibara.my.dto.MySellerDto;
 import com.tech.ibara.my.service.AllowCheckWithdrawalService;
 import com.tech.ibara.my.service.CancelWithdrawalService;
 import com.tech.ibara.my.service.DemandWithdrawalInsertService;
@@ -28,6 +30,7 @@ import com.tech.ibara.my.service.MyPasswordService;
 import com.tech.ibara.my.service.MyProfileUpdateService;
 import com.tech.ibara.my.service.NonmemberEstimateSearchService;
 import com.tech.ibara.my.service.PassResetService;
+import com.tech.ibara.my.service.ReportService;
 import com.tech.ibara.my.service.SService;
 import com.tech.ibara.my.service.SignUpService;
 import com.tech.ibara.my.service.VService;
@@ -105,10 +108,17 @@ public class MyController {
 			return "my/loginform";
 		}
 		MyDao mdao=sqlSession.getMapper(MyDao.class);
-		MyMemberInfoDto memdto2=mdao.getMemberInfo("2",userNickname);
-		session=request.getSession();
-//		session.setAttribute("sessionNickname", userNickname);
-		session.setAttribute("loginUserDto",memdto2 );
+		MyMemberInfoDto memdto=mdao.getMemberInfo("2",userNickname);
+//		session=request.getSession();
+		if(memdto.getMemtype().equals("INTERIOR")) {
+			MyInteriorDto idto=mdao.getInterior(memdto.getMemno());
+			session.setAttribute("loginInteDto", idto);
+		}else if(memdto.getMemtype().equals("SELLER")) {
+			MySellerDto sdto=mdao.getSeller(memdto.getMemno());
+			session.setAttribute("loginSellerDto", sdto);
+		}
+		session.setAttribute("loginUserDto",memdto);
+		
 		return "redirect:/";
 	}
 	@RequestMapping("my/adminmain")
@@ -433,11 +443,22 @@ public class MyController {
 	@RequestMapping(method=RequestMethod.POST,value="my/intepassedit")
 	public String intepassedit(HttpServletRequest request,Model model) {
 		System.out.println("intepassedit()");
+		String mypwd=request.getParameter("mypwd");
 		model.addAttribute("request",request);
 		sservice =new MyPasswordEditService(sqlSession);
 		String str=sservice.execute(model);
+		System.out.println("return msg : "+str);
 		if(str.equals("password not match")) {
 			model.addAttribute("msg","현재비밀번호를 다시 확인해주세요.");
+			model.addAttribute("mypwd",mypwd);
+			return "my/interiorpasswordedit";
+		}else if(str.equals("pw check")) {
+			model.addAttribute("msg","새비밀번호가 유효하지 않습니다.");
+			model.addAttribute("mypwd",mypwd);
+			return "my/interiorpasswordedit";
+		}else if(str.equals("pw not match")) {
+			model.addAttribute("msg","새비밀번호가 일치하지않습니다.");
+			model.addAttribute("mypwd",mypwd);
 			return "my/interiorpasswordedit";
 		}else if(str.equals("password reset success")) {
 			session.invalidate();
@@ -445,6 +466,7 @@ public class MyController {
 			return "my/loginform";
 		}else {
 			model.addAttribute("msg","비밀번호 변경 오류");
+			model.addAttribute("mypwd",mypwd);			
 			return "my/interiorpasswordedit";
 		}		
 	}	
@@ -510,11 +532,22 @@ public class MyController {
 	@RequestMapping(method=RequestMethod.POST,value="my/sellerpassedit")
 	public String sellerpassedit(HttpServletRequest request,Model model) {
 		System.out.println("sellerpassedit()");
+		String mypwd=request.getParameter("mypwd");
 		model.addAttribute("request",request);
 		sservice =new MyPasswordEditService(sqlSession);
 		String str=sservice.execute(model);
+		System.out.println("return msg : "+str);
 		if(str.equals("password not match")) {
 			model.addAttribute("msg","현재비밀번호를 다시 확인해주세요.");
+			model.addAttribute("mypwd",mypwd);
+			return "my/sellerpasswordedit";
+		}else if(str.equals("pw check")) {
+			model.addAttribute("msg","새비밀번호가 유효하지 않습니다.");
+			model.addAttribute("mypwd",mypwd);
+			return "my/sellerpasswordedit";
+		}else if(str.equals("pw not match")) {
+			model.addAttribute("msg","새비밀번호가 일치하지않습니다.");
+			model.addAttribute("mypwd",mypwd);
 			return "my/sellerpasswordedit";
 		}else if(str.equals("password reset success")) {
 			session.invalidate();
@@ -522,14 +555,15 @@ public class MyController {
 			return "my/loginform";
 		}else {
 			model.addAttribute("msg","비밀번호 변경 오류");
+			model.addAttribute("mypwd",mypwd);
 			return "my/sellerpasswordedit";	
-		}
+		}		
 	}
 			
 	@RequestMapping("my/admin_memberlist")
 	public String memberlist(HttpServletRequest request,Model model) {
 		System.out.println("admin_memberlist()");
-		model.addAttribute("request",request);
+//		model.addAttribute("request",request);
 		vservice=new MemberListService(sqlSession);
 		vservice.execute(model);
 		return "my/admin_memberlist";
@@ -538,7 +572,7 @@ public class MyController {
 	@RequestMapping("my/admin_demandwithdrawal")
 	public String admin_demandwithdrawal(HttpServletRequest request,Model model) {
 		System.out.println("admin_demandwithdrawal()");
-		model.addAttribute("request",request);
+//		model.addAttribute("request",request);
 		vservice=new DemandWithdrawalMemberService(sqlSession);
 		vservice.execute(model);
 		return "my/admin_demandwithdrawal";
@@ -551,6 +585,14 @@ public class MyController {
 		vservice = new AllowCheckWithdrawalService(sqlSession);
 		vservice.execute(model);		
 		return "redirect:admin_demandwithdrawal";
+	}
+	@RequestMapping("my/admin_report")
+	public String admin_report(HttpServletRequest request,Model model) {
+		System.out.println("admin_report()");
+//		model.addAttribute("request",request);
+		vservice=new ReportService(sqlSession);
+		vservice.execute(model);
+		return "my/admin_report";
 	}
 	
 }

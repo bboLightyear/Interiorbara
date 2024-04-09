@@ -37,7 +37,7 @@ public class MyPasswordEditService implements SService{
 		}else if(!pwbool) {
 	    	return "pw check";
 	    }else if(!pw.equals(pw2)) {
-	    	  return "pw not match";    	  
+	    	return "pw not match";    	  
 	    }   
 		String shpwd="";
 		String bcpwd="";

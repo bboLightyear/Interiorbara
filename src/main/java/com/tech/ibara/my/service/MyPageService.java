@@ -24,6 +24,10 @@ public class MyPageService implements SService {
 		Map<String, Object> map = model.asMap();
 		HttpServletRequest request = (HttpServletRequest) map.get("request");
 		MyMemberInfoDto mdto= (MyMemberInfoDto) session.getAttribute("loginUserDto");
+		if(mdto==null) {
+			model.addAttribute("msg","로그인정보가없습니다 로그인해주세요");
+			return "my/loginform";
+		}
 		String memtype=mdto.getMemtype();
 		System.out.println("loginUser의 memtype은 : "+memtype);
 		if(memtype.equals("ADMIN")) {
