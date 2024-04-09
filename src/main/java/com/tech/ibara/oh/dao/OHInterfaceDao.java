@@ -5,9 +5,13 @@ import java.util.ArrayList;
 import com.tech.ibara.oh.dto.OHPhotoAttach;
 import com.tech.ibara.oh.dto.OHPhotoBoard;
 import com.tech.ibara.oh.dto.OHPhotoLike;
+import com.tech.ibara.oh.dto.OHPhotoReply;
 import com.tech.ibara.oh.dto.OHPhotoScrap;
 
 public interface OHInterfaceDao {
+	
+	// ---------- OHMainView.jsp ----------
+	public ArrayList<OHPhotoBoard> ohMainPhotoView(int number);
 	
 	// ---------- OHPhotoView.jsp ---------- 
 	public ArrayList<OHPhotoBoard> ohPhotoView(int postStartNum, int postEndNum,
@@ -47,6 +51,12 @@ public interface OHInterfaceDao {
 	public void updatePb_hit(String pb_no);
 	public OHPhotoBoard getDtoOHPhotoBoard(String pb_no);
 	public ArrayList<OHPhotoAttach> getDtoOHPhotoAttach(String pa_no);
+	
+	// ---------- OHPhotoReplyView ----------
+	public ArrayList<OHPhotoReply> ohPhotoReplyView(String pb_no);
+	
+	// ---------- OHPhotoReplyWriteExecute ----------
+	public void ohPhotoReplyWriteExecute(String userId,String pr_content,String pb_no);
 	
 	// ---------- OHPhotoEditExecute ----------
 	public void ohPBEditUpdate(String pb_no, String pb_title, 

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Service;
@@ -12,6 +13,7 @@ import org.springframework.ui.Model;
 import com.tech.ibara.oh.dao.OHInterfaceDao;
 import com.tech.ibara.oh.dto.OHPhotoAttach;
 import com.tech.ibara.oh.dto.OHPhotoBoard;
+import com.tech.ibara.oh.vo.OHPageVO;
 
 @Service
 public class OHPhotoDetailViewService implements OHInterfaceService {
@@ -33,6 +35,12 @@ public class OHPhotoDetailViewService implements OHInterfaceService {
 		// request
 		HttpServletRequest request = (HttpServletRequest) map.get("request");		
 	
+		// ohPageVO
+		OHPageVO ohPageVO = (OHPageVO) map.get("ohPageVO");
+		
+		// session
+		HttpSession session = (HttpSession) map.get("session");		
+		
 		// OHInterfaceDao, SqlSession 연결
 		OHInterfaceDao dao = sqlSession.getMapper(OHInterfaceDao.class);		
 		
@@ -55,7 +63,7 @@ public class OHPhotoDetailViewService implements OHInterfaceService {
 		ArrayList<OHPhotoAttach> pa_dto = dao.getDtoOHPhotoAttach(pb_no);
 		
 		// model 값 전달
-		model.addAttribute("pa_dto", pa_dto);		
+		model.addAttribute("pa_dto", pa_dto);
 		
 	}
 

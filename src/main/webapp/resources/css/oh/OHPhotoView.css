@@ -1,0 +1,598 @@
+@charset "UTF-8";
+
+/* ---------------------------------------------------------------- */
+/* ----- Start: OHPhotoView.jsp ----- */
+/* ---------------------------------------------------------------- */
+
+/* ----- Start: #OHPhotoView-main ----- */
+#OHPhotoView-main {
+	position: relative;
+	background-color: #f4e1f5;
+    width: 1480px; 
+}
+/* ----- End: #OHPhotoView-main ----- */	
+
+/* ----- Start: #OHPhotoView-main-1 ----- */
+#OHPhotoView-main-1 {
+	position: relative;
+	text-align: center;
+	background-color: darkcyan;
+	height: 100px;
+}
+#OHPhotoView-title {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+    transform: translate(-50%, -50%);  
+	font-size: 50px;
+    font-weight: bold;
+    display: inline-block;
+}
+#OHPhotoView-toWriteButton {
+    position: absolute;
+    right: 0%;
+    top: 50%;
+    transform: translate(0, -50%);    
+    width: 80px;
+    height: 50px;
+   	background-color: powderblue;
+   	border: none;
+    border-radius: 10px;
+    margin-right: 10px;
+}
+/* ----- End: #OHPhotoView-main-1 ----- */
+
+/* ----- Start: #OHPhotoView-main-2 ----- */
+#OHPhotoView-main-2 {
+	position: relative;
+	background-color: lightslategray;
+}
+/* ----- Start: #OHPhotoView-main-2-sorting ----- */
+#OHPhotoView-main-2-sorting {
+	position: relative;
+	background-color: lightcyan;
+    height: 50px;
+}
+#OHPhotoView-main-2-sorting-title {
+	position: absolute;
+    width: 100px;
+    height: 50px;
+    line-height: 50px;
+    text-align: center;
+    background-color: lightsalmon;
+    font-weight: bold;
+}
+#OHPhotoView-main-2-sorting-orderingBy-lable {
+    position: absolute;
+    left: 100px;
+    height: 50px;
+    line-height: 50px;
+    width: 100px;
+    text-align: right;
+    background-color: lightgoldenrodyellow;
+}
+#OHPhotoView-main-2-sorting-orderingBy {
+    position: absolute;    
+    top: 50%;
+    transform: translate(0, -50%);
+    text-align: center;
+    left: 210px;
+    width: 100px;
+    height: 40px;
+    background-color: lightgoldenrodyellow;
+    -o-appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    border-radius: 10px;
+}
+#OHPhotoView-main-2-sorting-orderingMethod-lable {
+    position: absolute;
+    left: 310px;
+    height: 50px;
+    line-height: 50px;
+    width: 100px;
+    text-align: right;
+    background-color: lightgoldenrodyellow;
+}
+#OHPhotoView-main-2-sorting-orderingMethod {
+    position: absolute;    
+    top: 50%;
+    transform: translate(0, -50%);
+    text-align: center;
+    left: 420px;
+    width: 100px;
+    height: 40px;
+    background-color: lightgoldenrodyellow;
+    -o-appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    border-radius: 10px;	
+}
+/* ----- End: #OHPhotoView-main-2-sorting ----- */
+/* ----- Start: #OHPhotoView-main-2-filtering ----- */
+#OHPhotoView-main-2-filtering {
+	position: relative;
+	background-color: lightgreen;
+    height: 50px;    
+}
+#OHPhotoView-main-2-filtering-title {
+	position: absolute;
+    width: 100px;
+    height: 50px;
+    line-height: 50px;
+    text-align: center;
+    background-color: lightskyblue;
+    font-weight: bold;    
+}
+#OHPhotoView-main-2-filtering-pb_category-lable {
+    position: absolute;
+    left: 100px;
+    height: 50px;
+    line-height: 50px;
+    width: 100px;
+    text-align: right;
+    background-color: lightpink;    
+}
+#OHPhotoView-main-2-filtering-pb_category {
+    position: absolute;    
+    top: 50%;
+    transform: translate(0, -50%);
+    text-align: center;
+    left: 210px;
+    width: 100px;
+    height: 40px;
+    background-color: lightpink;
+    -o-appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    border-radius: 10px;    
+}
+#OHPhotoView-main-2-filtering-pb_residence-lable {
+    position: absolute;
+    left: 310px;
+    height: 50px;
+    line-height: 50px;
+    width: 100px;
+    text-align: right;
+    background-color: lightpink;
+}
+#OHPhotoView-main-2-filtering-pb_residence {
+    position: absolute;    
+    top: 50%;
+    transform: translate(0, -50%);
+    text-align: center;
+    left: 420px;
+    width: 100px;
+    height: 40px;
+    background-color: lightpink;
+    -o-appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    border-radius: 10px;	
+}
+#OHPhotoView-main-2-filtering-pb_room-lable {
+    position: absolute;
+    left: 520px;
+    height: 50px;
+    line-height: 50px;
+    width: 100px;
+    text-align: right;
+    background-color: lightpink;
+}
+#OHPhotoView-main-2-filtering-pb_room {
+    position: absolute;    
+    top: 50%;
+    transform: translate(0, -50%);
+    text-align: center;
+    left: 630px;
+    width: 100px;
+    height: 40px;
+    background-color: lightpink;
+    -o-appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    border-radius: 10px;	
+}
+#OHPhotoView-main-2-filtering-pb_style-lable {
+    position: absolute;
+    left: 730px;
+    height: 50px;
+    line-height: 50px;
+    width: 100px;
+    text-align: right;
+    background-color: lightpink;
+}
+#OHPhotoView-main-2-filtering-pb_style {
+    position: absolute;    
+    top: 50%;
+    transform: translate(0, -50%);
+    text-align: center;
+    left: 840px;
+    width: 100px;
+    height: 40px;
+    background-color: lightpink;
+    -o-appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    border-radius: 10px;	
+}
+#OHPhotoView-main-2-filtering-pb_skill-lable {
+    position: absolute;
+    left: 940px;
+    height: 50px;
+    line-height: 50px;
+    width: 100px;
+    text-align: right;
+    background-color: lightpink;
+}
+#OHPhotoView-main-2-filtering-pb_skill {
+    position: absolute;    
+    top: 50%;
+    transform: translate(0, -50%);
+    text-align: center;
+    left: 1050px;
+    width: 100px;
+    height: 40px;
+    background-color: lightpink;
+    -o-appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    border-radius: 10px;	
+}
+/* ----- End: #OHPhotoView-main-2-filtering ----- */
+/* ----- Start: #OHPhotoView-main-2-searching ----- */
+#OHPhotoView-main-2-searching {
+	position: relative;
+	background-color: lightgrey;
+    height: 50px;     
+}
+#OHPhotoView-main-2-searching-title {
+	position: absolute;
+    width: 100px;
+    height: 50px;
+    line-height: 50px;
+    text-align: center;
+    background-color: lightcoral;
+    font-weight: bold;      
+}
+#OHPhotoView-main-2-searching-searchingType-lable {
+    position: absolute;
+    left: 100px;
+    height: 50px;
+    line-height: 50px;
+    width: 100px;
+    text-align: right;
+    background-color: lightblue;      
+}
+#OHPhotoView-main-2-searching-searchingType {
+    position: absolute;    
+    top: 50%;
+    transform: translate(0, -50%);
+    text-align: center;
+    left: 210px;
+    width: 100px;
+    height: 40px;
+    background-color: lightblue;
+    -o-appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    border-radius: 10px;    
+}
+#OHPhotoView-main-2-searching-searchingWord {
+    position: absolute;
+    top: 50%;
+    transform: translate(0, -50%);
+    left: 350px;
+    width: 300px;
+    height: 40px;
+    line-height: 40px;
+    border: 1px solid #333;
+    border-radius: 10px;
+    padding: 10px;
+}
+#OHPhotoView-main-2-searching-searchingButton {
+    position: absolute;
+    top: 50%;
+    transform: translate(0, -50%);
+    left: 690px;
+    width: 80px;
+    height: 40px;
+    background-color: powderblue;
+    border: none;
+    border-radius: 10px;
+}
+/* ----- End: #OHPhotoView-main-2-searching ----- */
+/* ----- End: #OHPhotoView-main-2-paging ----- */
+#OHPhotoView-main-2-paging {
+	position: relative;
+	background-color: darkorange;
+    height: 150px;    
+}
+#OHPhotoView-main-2-paging-postCount {
+    position: relative;
+    height: 50%;
+    background-color: #f4e1f5;
+}
+#OHPhotoView-main-2-paging-postCount-lable {
+    background-color: antiquewhite;
+    position: absolute;
+    left: 30px;
+    top: 50%;
+    transform: translate(0, -50%);
+    width: 150px;
+    height: 50px;
+    line-height: 50px;
+}
+#OHPhotoView-main-2-paging-postCount-number {
+    background-color: aquamarine;
+    position: absolute;
+    left: 180px;
+    top: 50%;
+    transform: translate(0, -50%);
+    width: 150px;
+    height: 50px;
+    line-height: 50px;    
+
+}
+#OHPhotoView-main-2-paging-pageCount {
+    position: relative;
+    height: 50%;
+    background-color: darkkhaki; 
+}
+#OHPhotoView-main-2-paging-pageCount-selectedPage {
+    background-color: antiquewhite;
+    position: absolute;
+    left: 30px;
+    top: 50%;
+    transform: translate(0, -50%);
+    width: 150px;
+    height: 50px;
+    line-height: 50px;
+}
+#OHPhotoView-main-2-paging-pageCount-selectedPage-number {
+    background-color: aquamarine;
+    position: absolute;
+    left: 180px;
+    top: 50%;
+    transform: translate(0, -50%);
+    width: 50px;
+    height: 50px;
+    line-height: 50px;  
+}
+#OHPhotoView-main-2-paging-pageCount-separator {
+    background-color: aliceblue;
+    position: absolute;
+    left: 240px;
+    top: 50%;
+    transform: translate(0, -50%);
+    width: 30px;
+    height: 50px;
+    line-height: 50px; 
+    text-align: center; 
+}
+#OHPhotoView-main-2-paging-pageCount-allPage {
+    background-color: antiquewhite;
+    position: absolute;
+    left: 280px;
+    top: 50%;
+    transform: translate(0, -50%);
+    width: 150px;
+    height: 50px;
+    line-height: 50px;    
+}
+#OHPhotoView-main-2-paging-pageCount-allPage-number {
+    background-color: aquamarine;
+    position: absolute;
+    left: 430px;
+    top: 50%;
+    transform: translate(0, -50%);
+    width: 50px;
+    height: 50px;
+    line-height: 50px;  
+}
+/* ----- End: #OHPhotoView-main-2-paging ----- */
+/* ----- End: #OHPhotoView-main-2 ----- */
+
+/* ----- Start: #OHPhotoView-main-3 ----- */
+#OHPhotoView-main-3 {
+    position: relative;
+    margin-top: 50px; 
+    margin-bottom: 50px;  
+}
+.OHPhotoView-flexContainer {
+	display:flex;
+	align-content: center;
+	flex-direction: row;
+	flex-wrap: wrap;
+	background-color:#f6f7ad;      
+}
+.OHPhotoView-box {
+    position: relative;
+    margin-right: 10px;
+    margin-left: 10px;
+	width: 350px;
+    height: 700px;
+   	background-color: aquamarine;    
+}
+.OHPhotoView-boxLayer-1{
+    position: relative;
+    width: 350px;
+    height: 120px;
+    background-color: #f3cf82;
+}
+#OHPhotoView-photoProfileImage {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background-color: crimson;
+}
+#OHMainView-photoUserName {
+    position: absolute;
+    left: 70px;
+    background-color: blueviolet;
+    width: 150px;
+    height: 60px;
+    line-height: 60px;
+    text-align: center;
+}
+#OHMainView-photoTitle {
+    position: absolute;
+    top: 60px;
+    width: 350px;
+    height: 60px;
+    line-height: 60px;
+    text-align: center;
+}
+.OHPhotoView-boxLayer-2{
+    margin-top: 10px;
+    margin-bottom: 10px;
+    position: relative;
+    width: 350px;
+    height: 350px;
+}
+#OHPhotoView-photoImage {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    border-radius: 5%;        
+}
+.OHPhotoView-boxLayer-3 {
+    position: relative;    
+    width: 350px;
+    height: 200px;
+    background-color: burlywood;
+
+}
+.OHPhotoView-likeImage {
+    position: absolute;
+    left: 20px;
+    width: 40px;
+    height: 40px;
+    color: #333;
+}
+.OHPhotoView-likeImage.clickColor {
+    color: #f72828;
+}
+.OHPhotoView-likeNumber {
+    position: absolute;
+    left: 70px;
+    width: 50px;
+    height: 40px;
+    line-height: 40px; 
+    text-align: center;   
+}
+.OHPhotoView-scrapImage {
+    position: absolute;
+    left: 130px;
+    width: 40px;
+    height: 40px;
+	color: #333;
+}
+.OHPhotoView-scrapImage.clickColor {
+	color: #4fc94f;
+}
+.OHPhotoView-scrapNumber {
+    position: absolute;
+    left: 180px;
+    width: 50px;
+    height: 40px;
+    line-height: 40px; 
+    text-align: center;   
+}
+.OHPhotoView-replyImage {
+    position: absolute;
+    left: 240px;
+    width: 40px;
+    height: 40px;
+}
+.OHPhotoView-replyNumber {
+    position: absolute;
+    left: 290px;
+    width: 50px;
+    height: 40px;
+    line-height: 40px; 
+    text-align: center;   
+}
+#OHPhotoView-photoHit {
+    position: absolute;
+    top: 60px;
+    left: 20px;
+    width: 80px;
+    height: 40px;
+    line-height: 40px; 
+}
+#OHPhotoView-photoHitCount {
+    position: absolute;
+    top: 60px;
+    left: 100px;
+    width: 80px;
+    height: 40px;
+    line-height: 40px;
+}
+#OHPhotoView-photoCategory {
+    position: absolute;
+    top: 100px;
+    left: 20px;
+    width: 80px;
+    height: 40px;
+    line-height: 40px;    
+}
+#OHPhotoView-photoContent {
+    position: absolute;
+    top: 140px;
+    left: 20px;
+    width: 330px;
+    height: 60px;
+    line-height: 60px; 
+    padding: 0px 20px 0px 0px;     
+}
+/* ----- End: #OHPhotoView-main-3 ----- */
+
+/* ----- Start: #OHPhotoView-main-4 ----- */
+#OHPhotoView-main-4 {
+    position: relative;
+    font-size: 30px;
+    height: 100px;
+    line-height: 100px;
+    text-align: center;
+}
+#OHPhotoView-main-4 a {
+    /* 기본 상태 */
+    margin-left: 10px;
+    margin-right: 10px;
+    text-decoration: none;
+}
+#OHPhotoView-main-4 a:link {
+    /* href 속성이 명시된 상태 */
+    color: olive
+}
+#OHPhotoView-main-4 a:visited {
+    /* 링크를 클릭해본 상태 */
+    color: brown;
+}
+#OHPhotoView-main-4 a:hover, a:focus {
+    /* 링크 위에 마우스 포인터가 위치한 상태 */
+    /* 링크 위에 키보드 포커스가 위치한 상태 */
+    text-decoration: underline;
+    color: coral;
+}
+#OHPhotoView-main-4 a:active {
+    /* 링크 위에 마우스 포인터를 두고 좌측 버튼을 계속 클릭하고 있는 상태 */
+    color: orange;
+}
+/* ----- End: #OHPhotoView-main-4 ----- */
+
+/* ---------------------------------------------------------------- */
+/* ----- End: OHPhotoView.jsp ----- */
+/* ---------------------------------------------------------------- */

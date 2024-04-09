@@ -1,0 +1,245 @@
+@charset "UTF-8";
+
+/* ---------------------------------------------------------------- */
+/* ----- Start: OHMainView.jsp ----- */
+/* ---------------------------------------------------------------- */
+
+/* ----- Start: #OHMainView-main ----- */
+#OHMainView-main {
+	position: relative;
+	background-color: #f4e1f5;
+	width: 1480px;
+}
+/* ----- End: #OHMainView-main ----- */	
+
+/* ----- Start: #OHMainView-main-1 ----- */
+#OHMainView-main-1 {
+	position: relative;
+	text-align: center;
+	background-color: darkcyan;
+	height: 100px;
+}
+#OHMainView-title {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+    transform: translate(-50%, -50%);  
+	font-size: 50px;
+    font-weight: bold;
+    display: inline-block;
+}
+#OHMainView-toWriteButtton {
+    position: absolute;
+    right: 0%;
+    top: 50%;
+    transform: translate(0, -50%);    
+    width: 80px;
+    height: 50px;
+   	background-color: powderblue;
+   	border: none;
+    border-radius: 10px;
+    margin-right: 10px;
+}
+/* ----- End: #OHMainView-main-1 ----- */
+
+/* ----- Start: #OHMainView-main-2 ----- */
+#OHMainView-main-2 {
+	position: relative;
+	text-align: center;
+	background-color: coral;
+    height: 100px;
+}
+#OHMainView-toOHPhotoViewButton {
+    position: absolute;
+    left: 0%;
+    top: 50%;
+    transform: translate(0, -50%);    
+    width: 80px;
+    height: 50px;
+   	background-color: powderblue;
+   	border: none;
+    border-radius: 10px;
+    margin-left: 10px;	
+}
+#OHMainView-toMoreOHPhotoViewButton {
+    position: absolute;
+    right: 0%;
+    top: 50%;
+    transform: translate(0, -50%);    
+    width: 80px;
+    height: 50px;
+   	background-color: powderblue;
+   	border: none;
+    border-radius: 10px;
+    margin-right: 10px;	
+}
+/* ----- End: #OHMainView-main-2 ----- */
+
+/* ----- Start: #OHMainView-main-3 ----- */
+#OHMainView-main-3 {
+	position: relative;
+}
+#OHMainView-flexContainer {
+	display:flex;
+	align-content: center;
+	flex-direction: row;
+	flex-wrap: wrap;
+	background-color:#f6f7ad;
+}
+.OHMainView-box {
+    position: relative;
+    margin-right: 10px;
+    margin-left: 10px;
+	width: 350px;
+    height: 500px;
+   	background-color: aquamarine;
+}
+#OHMainView-photoImage {
+    position: relative;
+    width: 350px;
+    height: 350px;
+    border-radius: 5%;
+}
+.OHMainView-boxLayer {
+    position: relative;
+}
+#OHMainView-photoTitle {
+    margin-top: 10px;
+    position: absolute;
+    width: 350px;
+    height: 50px;
+    line-height: 50px;
+    text-align: center;
+    background-color: chocolate;
+
+}
+#OHMainView-photoProfileImage {
+    margin-top: 10px;
+    position: absolute;
+    top: 60px;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background-color: antiquewhite;
+}
+#OHMainView-photoUserName {
+    margin-top: 10px;
+    position: absolute;
+    top: 60px;
+    left: 70px;
+    background-color: blueviolet;
+    width: 150px;
+    height: 60px;
+    line-height: 60px;
+    text-align: center;
+}
+#OHMainView-photoHit {
+    margin-top: 10px;
+    position: absolute;
+    top: 60px;
+    left: 230px;
+    width: 60px;
+    height: 30px;
+    line-height: 30px;
+    text-align: center;
+    background-color: hotpink;
+}
+#OHMainView-photoHitCount {
+    margin-top: 10px;
+    position: absolute;
+    top: 60px;
+    left: 290px;
+    width: 60px;
+    height: 30px;
+    line-height: 30px;
+    text-align: center;
+    background-color: lightgreen;  
+}
+#OHMainView-photoScrap {
+    margin-top: 10px;
+    position: absolute;
+    top: 90px;
+    left: 230px;
+    width: 60px;
+    height: 30px;
+    line-height: 30px;
+    text-align: center;
+    background-color: beige;    
+}
+#OHMainView-photoScrapCount {
+    margin-top: 10px;
+    position: absolute;
+    top: 90px;
+    left: 290px;
+    width: 60px;
+    height: 30px;
+    line-height: 30px;
+    text-align: center;
+    background-color: lightsalmon;  
+}
+/* ----- End: #OHMainView-main-3 ----- */
+
+/* ----- Start: #OHMainView-main-4 ----- */
+#OHMainView-main-4 {
+	position: relative;
+	text-align: center;
+	background-color: crimson;
+    height: 100px;
+}
+/* 집영상 */
+/* #OHMainView-toOHVideoViewButton {
+    position: absolute;
+    left: 0%;
+    top: 50%;
+    transform: translate(0, -50%);    
+    width: 80px;
+    height: 50px;
+   	background-color: powderblue;
+   	border: none;
+    border-radius: 10px;
+    margin-left: 10px;	
+}
+#OHMainView-toMoreOHVideoViewButton {
+    position: absolute;
+    right: 0%;
+    top: 50%;
+    transform: translate(0, -50%);    
+    width: 80px;
+    height: 50px;
+   	background-color: powderblue;
+   	border: none;
+    border-radius: 10px;
+    margin-right: 10px;	
+}  */
+/* ----- End: #OHMainView-main-4 ----- */
+
+/* ----- Start: #OHMainView-main-5 ----- */
+#OHMainView-main-5 {
+	position: relative;
+	text-align: center;
+	background-color: coral;
+    height: 100px;
+}
+#OHMainView-toCategoryView {
+    position: absolute;
+    left: 0%;
+    top: 50%;
+    transform: translate(0, -50%);    
+    width: 150px;
+    height: 50px;
+   	background-color: powderblue;
+   	border: none;
+    border-radius: 10px;
+    margin-left: 10px;	
+}
+#OHMainView-toCategoryText {
+    position: absolute;
+    left: 20%;
+    top: 50%;
+    transform: translate(0, -50%);    
+}
+/* ----- End: #OHMainView-main-5 ----- */
+
+/* ---------------------------------------------------------------- */
+/* ----- End: OHMainView.jsp ----- */
+/* ---------------------------------------------------------------- */

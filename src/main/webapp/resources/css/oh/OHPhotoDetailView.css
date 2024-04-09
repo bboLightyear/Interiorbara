@@ -1,0 +1,233 @@
+@charset "UTF-8";
+
+/* ---------------------------------------------------------------- */
+/* ----- Start: OHPhotoDetailView.jsp ----- */
+/* ---------------------------------------------------------------- */
+
+
+
+
+
+
+
+
+
+
+
+
+/* ----- Start: #inputTextReply ----- */
+
+/* ----- End: #inputTextReply ----- */
+
+/* ---------------------------------------------------------------- */
+
+/* Start: 댓글 출력 영역 */
+
+#contentReply {
+	display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin: 5px;
+	padding: 5px;
+}
+
+.reply-container {
+	box-sizing: border-box;
+	border: solid 0px black;
+	background-color: #d6d4d5;
+	margin: 0px 0px 5px 0px;
+	padding: 0px 0px 0px 0px;
+	width: 700px;
+	height: 100px;
+	position: relative;	
+}
+
+.reply-profileImage {
+	text-align: center;
+	line-height: 30px;
+	box-sizing: border-box;
+	border: solid 0px black;
+	background-color: #f593c4;
+	margin: 0px 5px 0px 0px;
+	padding: 0px 0px 0px 0px;
+	width: 30px;
+	height: 30px;
+	font-size: 3px;
+	display: inline-block;
+	position: absolute;
+	top: 0px;
+	bottom: auto;
+	left: 0px;
+	right: auto;	
+}
+
+.reply-userName {
+	text-align: center;
+	line-height: 30px;
+	box-sizing: border-box;
+	border: solid 0px black;
+	background-color: #7af5f3;
+	margin: 0px 5px 0px 0px;
+	padding: 0px 0px 0px 0px;
+	width: 80px;
+	height: 30px;
+	font-size: 10px;
+	text-align: center;
+	display: inline-block;
+	position: absolute;
+	top: auto;
+	bottom: auto;
+	left: 35px;
+	right: auto;	
+}
+
+.reply-checkMyReply {
+	text-align: center;
+	line-height: 30px;
+	box-sizing: border-box;        
+	border: solid 0px black;
+	background-color: #7df76f;
+	margin: 0px 5px 0px 0px;
+	padding: 0px 0px 0px 0px;
+	width: 60px;
+	height: 30px;
+	font-size: 10px;
+	text-align: center;
+	display: inline-block;
+	position: absolute;
+	top: auto;
+	bottom: auto;
+	left: 120px;
+	right: auto;	
+}
+
+.reply-content {
+	text-align: center;
+	line-height: 40px;
+	box-sizing: border-box;         
+	border: solid 0px black;
+	background-color: #faed64;
+	margin: 5px 0px 0px 0px;
+	padding: 0px 0px 0px 0px;
+	width: 690px;
+	height: 40px;
+	font-size: 10px;
+	text-align: center;
+	display: inline-block;
+	position: absolute;
+	top: 30px;
+	bottom: auto;
+	left: 5px;
+	right: auto;	
+}
+
+.reply-writtenTime {
+	text-align: center;
+	line-height: 20px;
+	box-sizing: border-box;         
+	border: solid 0px black;
+	background-color: #f28950;
+	margin: 5px 5px 0px 0px;
+	padding: 0px 0px 0px 0px;
+	width: 100px;
+	height: 20px;
+	font-size: 5px;
+	text-align: center;
+	display: inline-block;
+	position: absolute;
+	top: 75px;
+	bottom: auto;
+	left: 0px;
+	right: auto;	
+}
+
+.reply-likeButton {
+	text-align: center;
+	line-height: 20px;
+	box-sizing: border-box;         
+	border: solid 0px black;
+	background-color: #bef75c;
+	margin: 5px 5px 0px 0px;
+	padding: 0px 0px 0px 0px;
+	width: 20px;
+	height: 20px;
+	font-size: 3px;
+	text-align: center;
+	display: inline-block;
+	position: absolute;
+	top: 75px;
+	bottom: auto;
+	left: 105px;
+	right: auto;	
+}
+
+.reply-likeHit {
+	text-align: center;
+	line-height: 20px;
+	box-sizing: border-box;         
+	border: solid 0px black;        
+	background-color: #558ffa;
+	margin: 5px 5px 0px 0px;
+	padding: 0px 0px 0px 0px;
+	width: 40px;
+	height: 20px;
+	font-size: 3px;
+	text-align: center;
+	display: inline-block;
+	position: absolute;
+	top: 75px;
+	bottom: auto;
+	left: 130px;
+	right: auto;  	
+}
+
+.reply-replyToReplyButton {
+	text-align: center;
+	line-height: 20px;
+	box-sizing: border-box;         
+	border: solid 0px black;
+	background-color: #e36639;
+	margin: 5px 5px 0px 0px;
+	padding: 0px 0px 0px 0px;
+	width: 40px;
+	height: 20px;
+	font-size: 5px;
+	text-align: center;
+	display: inline-block;
+	position: absolute;
+	top: 75px;
+	bottom: auto;
+	left: 175px;
+	right: auto;	
+}
+
+.reply-deleteOrComplaintButton {
+	text-align: center;
+	line-height: 20px;
+	box-sizing: border-box;         
+	border: solid 0px black;
+	background-color: #b8f54e;
+	margin: 5px 5px 0px 0px;
+	padding: 0px 0px 0px 0px;
+	width: 80px;
+	height: 20px;
+	font-size: 5px;
+	text-align: center;
+	display: inline-block;
+	position: absolute;
+	top: 75px;
+	bottom: auto;
+	left: 220px;
+	right: auto;	
+}
+
+/* End: 댓글 출력 영역 */
+
+/* ---------------------------------------------------------------- */
+/* ----- End: OHPhotoDetailView.jsp ----- */
+/* ---------------------------------------------------------------- */
+
+
+
+

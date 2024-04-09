@@ -1,0 +1,377 @@
+@charset "UTF-8";
+
+/* ---------------------------------------------------------------- */
+/* ----- Start: OHPhotoEditView.jsp ----- */
+/* ---------------------------------------------------------------- */
+
+/* ----- Start: #OHPhotoEditView-main ----- */
+#OHPhotoEditView-main {
+	position: relative;
+	background-color: #f4e1f5;
+    width: 1480px;     
+}
+/* ----- End: #OHPhotoEditView-main ----- */
+
+/* ----- Start: #OHPhotoEditView-main-1 ----- */
+#OHPhotoEditView-main-1 {
+	position: relative;
+	text-align: center;
+	background-color: darkcyan;
+	height: 100px;
+}
+#OHPhotoEditView-title {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+    transform: translate(-50%, -50%);  
+	font-size: 50px;
+    font-weight: bold;
+}
+/* ----- End: #OHPhotoEditView-main-1 ----- */
+
+/* ----- Start: #OHPhotoEditView-main-2 ----- */
+#OHPhotoEditView-main-2 {
+	position: relative;
+	background-color: lightslategray; 
+    text-align: center;
+    height: 100px;
+    margin-top: 50px;   
+    border-top: 3px solid skyblue;
+    border-bottom: 3px solid skyblue;
+}
+#OHPhotoEditView-photoBoardButton {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);     
+    width: 80px;
+    height: 50px;
+   	background-color: powderblue;
+   	border: none;
+    border-radius: 10px;
+}
+/* 집영상 */
+/* #OHPhotoEditView-videoBoardButton {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);     
+    width: 80px;
+    height: 50px;
+   	background-color: powderblue;
+   	border: none;
+    border-radius: 10px;
+} */
+/* ----- End: #OHPhotoEditView-main-2 ----- */
+
+/* ----- End: #OHPhotoEditView-main-3 ----- */
+#OHPhotoEditView-main-3 {
+    position: relative;
+	background-color: bisque;
+    text-align: center;
+}
+#OHPhotoEditView-main-sector1 {
+    position: relative;
+    margin-top: 50px;
+	background-color: khaki; 
+    text-align: center; 
+    height: 50px;   
+}
+#OHPhotoEditView-editPostButton {
+    position: absolute;
+    top: 50%;
+    left: 45%;
+    transform: translate(-50%, -50%);     
+    width: 80px;
+    height: 50px;
+   	background-color: powderblue;
+   	border: none;
+    border-radius: 10px;
+}
+#OHPhotoEditView-cancelPostButton {
+    position: absolute;
+    top: 50%;
+    left: 55%;
+    transform: translate(-50%, -50%);     
+    width: 80px;
+    height: 50px;
+   	background-color: powderblue;
+   	border: none;
+    border-radius: 10px;
+}
+#OHPhotoEditView-main-sector2 {
+    display: flex;
+    align-content: center;
+    justify-content: center;
+    flex-direction: row;
+    flex-wrap: wrap;
+    background-color: crimson;
+    margin-top: 50px;
+}
+#OHPhotoEditView-main-sector2-1 {
+    position: relative;
+    margin: 0px 0px 0px 0px;
+    padding: 0px 0px 0px 0px;
+	background-color: cornflowerblue;
+    width: 650px;
+    display: inline-block;
+    margin-right: 50px;
+}
+#sector2-1-layer1 {
+    position: relative;
+    width: 650px;
+    height: 200px;
+    background-color: cadetblue;
+}
+#OHPhotoEditView-fileUploadInput {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);     
+}
+#sector2-1-layer2 {
+    display: flex;
+    justify-content: space-evenly;
+    align-content: center;
+    flex-direction: row;
+    flex-wrap: wrap;
+    width: 650px;
+    background-color: dimgray;    
+}
+.sector2-1-layer2-uploadImage {
+    position: relative;
+    margin-top: 10px;
+    width: 300px;
+    height: 420px;
+}
+#uploadImage-numberLable {
+    position: absolute;
+    top: 0px;
+    left: 50%;
+    transform: translate(-50%, 0%); 
+    width: 100%;
+    height: 30px;
+    line-height: 30px;
+    background-color: azure;    
+}
+#uploadImage-number {
+    position: absolute;
+    top: 30px;
+    left: 50%;
+    transform: translate(-50%, 0%); 
+    width: 100%;
+    height: 30px;
+    line-height: 30px;
+    background-color: azure;        
+}
+#uploadImage-nameLable {
+    position: absolute;
+    top: 60px;
+    left: 50%;
+    transform: translate(-50%, 0%); 
+    width: 100%;
+    height: 30px;
+    line-height: 30px;
+    background-color: azure;    
+}
+#uploadImage-name {
+    position: absolute;
+    top: 90px;
+    left: 50%;
+    transform: translate(-50%, 0%); 
+    width: 100%;
+    height: 30px;
+    line-height: 30px;
+    background-color: azure;   
+}
+#uploadImage-Image {
+    position: absolute;
+    top: 120px;
+    left: 50%;
+    transform: translate(-50%, 0%);
+    width: 300px;
+    height: 300px;
+    border-radius: 10px;
+}
+#OHPhotoEditView-main-sector2-2 {
+    position: relative;
+    margin: 0px 0px 0px 0px;
+    padding: 0px 0px 0px 0px;
+	background-color: darkorange;
+    width: 650px;
+    height: 700px;
+    display: inline-block;    
+}
+#sector2-2-layer1 {
+    position: relative;
+    background-color: cadetblue;
+    width: 650px;
+    height: 100px;
+}
+#layer1-title {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 500px;
+    height: 50px;
+    line-height: 50px;
+    border: 1px solid #333;
+    border-radius: 10px;
+    padding: 10px;
+}
+#sector2-2-layer2 {
+    position: relative;
+    background-color: lightseagreen;
+    width: 650px;
+    height: 200px;    
+}
+#layer2-content {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 500px;
+    height: 200px;
+    line-height: 50px;
+    border: 1px solid #333;
+    border-radius: 10px;
+    padding: 10px;
+}
+#sector2-2-layer3 {
+    position: relative;
+    background-color: lightgreen;
+    width: 650px;
+    height: 300px;
+}
+#layer3-pb_category-Lable {
+    position: absolute;
+    top: 50px;
+    left: 25px;
+    height: 50px;
+    line-height: 50px;
+    width: 100px;
+    text-align: center;
+    background-color: lightpink;
+}
+#layer3-pb_category {
+    position: absolute;    
+    top: 100px;
+    left: 25px;
+    height: 50px;
+    line-height: 50px;
+    width: 100px;
+    text-align: center;
+    background-color: lightpink;
+    border-radius: 10px;    
+    -o-appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+}
+#layer3-pb_residence-Lable {
+    position: absolute;
+    top: 50px;
+    left: 150px;
+    height: 50px;
+    line-height: 50px;
+    width: 100px;
+    text-align: center;
+    background-color: lightslategray;    
+}
+#layer3-pb_residence {
+    position: absolute;    
+    top: 100px;
+    left: 150px;
+    height: 50px;
+    line-height: 50px;
+    width: 100px;
+    text-align: center;
+    background-color: lightslategray;
+    border-radius: 10px;    
+    -o-appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+}
+#layer3-pb_room-Lable {
+    position: absolute;
+    top: 50px;
+    left: 275px;
+    height: 50px;
+    line-height: 50px;
+    width: 100px;
+    text-align: center;
+    background-color: lightyellow; 
+}
+#layer3-pb_room {
+    position: absolute;    
+    top: 100px;
+    left: 275px;
+    height: 50px;
+    line-height: 50px;
+    width: 100px;
+    text-align: center;
+    background-color: lightyellow;
+    border-radius: 10px;    
+    -o-appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+}
+#layer3-pb_style-Lable {
+    position: absolute;
+    top: 50px;
+    left: 400px;
+    height: 50px;
+    line-height: 50px;
+    width: 100px;
+    text-align: center;
+    background-color: lightskyblue; 
+}
+#layer3-pb_style {
+    position: absolute;    
+    top: 100px;
+    left: 400px;
+    height: 50px;
+    line-height: 50px;
+    width: 100px;
+    text-align: center;
+    background-color: lightskyblue;
+    border-radius: 10px;    
+    -o-appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+}
+#layer3-pb_skill-Lable {
+    position: absolute;
+    top: 50px;
+    left: 525px;
+    height: 50px;
+    line-height: 50px;
+    width: 100px;
+    text-align: center;
+    background-color: lightcoral; 
+}
+#layer3-pb_skill {
+    position: absolute;    
+    top: 100px;
+    left: 525px;
+    height: 50px;
+    line-height: 50px;
+    width: 100px;
+    text-align: center;
+    background-color: lightcoral;
+    border-radius: 10px;    
+    -o-appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+}
+/* ----- End: #OHPhotoEditView-main-3 ----- */
+
+/* ---------------------------------------------------------------- */
+/* ----- End: OHPhotoEditView.jsp ----- */
+/* ---------------------------------------------------------------- */
+
