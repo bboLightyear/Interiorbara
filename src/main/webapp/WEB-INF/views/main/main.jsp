@@ -55,7 +55,7 @@
 				<i class="fas fa-bars"></i>
 			</div>
 			<!-- header_category_list : 카테고리 / list_1~5 : list에 각각 들어갈 내용 -->
-			<div class="header_category_list list_1">퀵견적</div>
+			<div class="openModal header_category_list list_1">퀵견적</div>
 			<div class="header_category_list list_2">업체 둘러보기</div>
 			<div class="header_category_list list_3">소품샵</div>
 			<div class="header_category_list list_4">우리 집 자랑하기</div>
@@ -324,10 +324,10 @@
 			</div>
 		</div>
         <div id="main_left_side_bar" class="main_left_side_bar">
-            <button id="openModal" class="side_bar_button button_1">
+            <button  class="openModal side_bar_button button_1">
 				<span>퀵견적</span>
 			</button>
-			<jsp:include page="../modal/mMain.jsp" />
+			
 			<button onclick="location.href='shop/list'"	class="side_bar_button button_2">
 				<span>소품 샵</span>
 			</button>
