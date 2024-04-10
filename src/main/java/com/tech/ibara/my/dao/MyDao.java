@@ -55,5 +55,14 @@ public interface MyDao {
 	public MyMemberInfoDto getInteriorMember(int memno);
 	public MyMemberInfoDto getSellerMember(int memno);
 	public ArrayList<MyReportDto> getReportList();
-	public String yesnoCheck_Report (String reno);
+//	public String yesnoCheck_Report (String reno);
+	public void allowBlind(String yn,String reno);
+	public MyReportDto getReportRv(String reno);
+	public void blindReview(int br_no);
+	public void saveReview(String br_content,String br_writer,int br_no);
+	public int countLikePhotoBoard(int memno);
+	public int countLikePhotoReply(int memno);
+	public int countScrapPhotoBoard(int memno);
+	public int countBizBmark(int memno);
+	
 }

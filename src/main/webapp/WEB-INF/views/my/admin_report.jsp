@@ -11,9 +11,10 @@
 <link rel="stylesheet" href="${path}/resources/css/my/mypageinfoedit.css" />
 <style>
 table{
-	width: 60%;
+	width: 70%;
 	text-align: center;
 	margin-top: 30px;
+	font-size: 15px;
 }
 th, td{
 	height: 30px;
@@ -54,12 +55,12 @@ th{
 			<c:choose>
 				<c:when test="${reportdto.yesno eq 'N'}">
 					<td>
-						<a href="blindCheck?reno=${reportdto.reno }">승인하기</a>
+						<a href="blindCheck?reno=${reportdto.reno}">승인하기</a>
 					</td>
 				</c:when>
 				<c:otherwise>
 					<td>
-						<a href="blindCheck?reno=${reportdto.reno }">취소하기</a>
+						<a href="blindCheck?reno=${reportdto.reno}">취소하기</a>
 					</td>
 				</c:otherwise>
 			</c:choose>			

@@ -22,6 +22,7 @@ import com.tech.ibara.my.service.DemandWithdrawalMemberService;
 import com.tech.ibara.my.service.EmailCheckService;
 import com.tech.ibara.my.service.JoinService;
 import com.tech.ibara.my.service.LoginService;
+import com.tech.ibara.my.service.MemberInfoPageService;
 import com.tech.ibara.my.service.MemberListService;
 import com.tech.ibara.my.service.MyModifyService;
 import com.tech.ibara.my.service.MyPageService;
@@ -29,10 +30,12 @@ import com.tech.ibara.my.service.MyPasswordEditService;
 import com.tech.ibara.my.service.MyPasswordMCEditService;
 import com.tech.ibara.my.service.MyPasswordService;
 import com.tech.ibara.my.service.MyProfileUpdateService;
+import com.tech.ibara.my.service.MypageMainService;
 import com.tech.ibara.my.service.NonmemberEstimateSearchService;
 import com.tech.ibara.my.service.PassResetService;
 import com.tech.ibara.my.service.ReportService;
 import com.tech.ibara.my.service.SService;
+import com.tech.ibara.my.service.SellerSaleService;
 import com.tech.ibara.my.service.SignUpService;
 import com.tech.ibara.my.service.VService;
 
@@ -128,10 +131,25 @@ public class MyController {
 	@RequestMapping("my/mypage")
 	public String mypage(HttpServletRequest request,Model model) {
 		System.out.println("mypage()");
-//		model.addAttribute("request",request);
-		sservice = new MyPageService(session);
-		String str=sservice.execute(model);
-		return str;
+		MyMemberInfoDto mdto= (MyMemberInfoDto) session.getAttribute("loginUserDto");
+		String nickname=mdto.getNickname();
+		System.out.println("로그인유저닉넴 : "+nickname);
+		String memtype=mdto.getMemtype();
+		System.out.println("loginUser의 memtype은 : "+memtype);		
+		if(mdto==null) {
+			model.addAttribute("msg","로그인 정보가 없습니다. 로그인해주세요");
+			return "my/loginform";
+		}else if(memtype.equals("ADMIN")) {
+			return "my/adminmain";
+		}else if(memtype.equals("INTERIOR")) {
+			return "my/interiormain";
+		}else if(memtype.equals("SELLER")) {
+			return "my/sellermain";
+		}else {
+			vservice=new MypageMainService(sqlSession,session);
+			vservice.execute(model);
+			return "my/mypagemain";
+		}
 	}	
 	@RequestMapping("my/logout")
 	public String logout(HttpServletRequest request) {
@@ -143,6 +161,8 @@ public class MyController {
 	@RequestMapping("my/mypagemain")
 	public String mypagemain(HttpServletRequest request,Model model) {
 		System.out.println("mypagemain()");
+		vservice=new MypageMainService(sqlSession,session);
+		vservice.execute(model);
 		return "my/mypagemain";
 	}
 	@RequestMapping("my/mypageinfoedit")
@@ -162,6 +182,7 @@ public class MyController {
 	public String modify(HttpServletRequest request,Model model) {
 		System.out.println("modify()");
 		model.addAttribute("request",request);
+		model.addAttribute("memtype","PERSON");
 		sservice =new MyModifyService(sqlSession,session);
 		String str=sservice.execute(model);
 		if(str.equals("nndupl")) {
@@ -284,10 +305,8 @@ public class MyController {
 			model.addAttribute("msg","비밀번호 변경 오류");
 			model.addAttribute("nickname",nickname);
 			return "my/passwordReset";	
-		}
-				
-	}
-	
+		}				
+	}	
 	@RequestMapping("my/nonmember")
 	public String nonmember() {
 		System.out.println("nonmember()");
@@ -603,7 +622,51 @@ public class MyController {
 		model.addAttribute("request",request);
 		vservice =new BlindCheckService(sqlSession);
 		vservice.execute(model);
-		return "redirect:blindCheck";
+		return "redirect:admin_report";
 	}
+	@RequestMapping("my/memberinfopage")
+	public String memberinfopage(HttpServletRequest request,Model model) {
+		System.out.println("memberinfopage()");
+		model.addAttribute("request",request);
+		vservice=new MemberInfoPageService(sqlSession);
+		vservice.execute(model);
+		return "my/memberinfopage";
+	}
+	@RequestMapping("my/sellersale")
+	public String sellersale(Model model) {
+		System.out.println("sellersale()");
+		vservice = new SellerSaleService(sqlSession);
+		vservice.execute(model);
+		return "my/sellersale";
+	}
+	@RequestMapping("my/sellersalelist")
+	public String sellersalelist(Model model) {
+		System.out.println("sellersalelist()");
+		return "my/sellersalelist";
+	}
+	@RequestMapping("my/interiorestimate")
+	public String estimate(Model model) {
+		System.out.println("estimate()");
+		return "my/interiorestimate";
+	}
+	@RequestMapping("my/myshopping")
+	public String myshopping(Model model) {
+		System.out.println("myshopping()");
+		return "my/myshopping";
+	}
+	@RequestMapping("my/mylike")
+	public String mylike(HttpServletRequest request,Model model) {
+		System.out.println("mylike()");
+		//jsp에서 memno 보냈음.
+		return "my/mylike";
+	}
+	@RequestMapping("my/myscrap")
+	public String myscrap(HttpServletRequest request,Model model) {
+		System.out.println("myscrap()");
+		//jsp에서 memno 보냈음.
+		return "my/myscrap";
+	}
+	
+	
 	
 }

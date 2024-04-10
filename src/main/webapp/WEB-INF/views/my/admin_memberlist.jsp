@@ -15,6 +15,7 @@ table{
 	width: 60%;
 	text-align: center;
 	margin-top: 30px;
+	font-size: 15px;
 }
 th, td{
 	height: 30px;
@@ -49,7 +50,7 @@ th{
 			</tr>			
 			<c:forEach items="${list }" var="mdto">
 			<tr>
-				<td>${mdto.memno }</td>
+				<td><a href="memberinfopage?memno=${mdto.memno}">${mdto.memno }</a></td>
 				<td>${mdto.nickname }</td>
 				<td>${mdto.email }</td>
 				<td><fmt:formatDate value="${mdto.joindate }" type="both" dateStyle="short" pattern="YY-MM-dd"/></td>

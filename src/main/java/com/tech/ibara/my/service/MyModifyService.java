@@ -61,15 +61,20 @@ public class MyModifyService implements SService{
 		
 		MyDao mdao=sqlSession.getMapper(MyDao.class);
 		String mynickname = mdao.getMemberNickname(email);
+			
 		if(!mynickname.equals(nickname)) {
 			int nnCheckResult=mdao.countCheck("2",nickname);
 			if(nnCheckResult!=0) {
 				return "nndupl";
 			}
-		}		
-		
-		int result = mdao.modifyMyMemberInfo(nickname,phone,birth,gender,email);
-		
+		}
+		int result=0;
+		if(!mynickname.equals("admin")) {
+			result = mdao.modifyMyMemberInfo(nickname,phone,birth,gender,email);
+		}else {
+			result = mdao.modifyMyMemberInfo("admin",phone,birth,gender,email);
+		}
+			
 		MyMemberInfoDto memdto;
 		int intmemno=Integer.parseInt(memno);
 		if(result==1) {
@@ -78,7 +83,7 @@ public class MyModifyService implements SService{
 			}else if(memtype.equals("SELLER")) {
 				memdto=mdao.getSellerMember(intmemno);
 			}else {			
-				memdto=mdao.getMemberInfo("2",nickname);
+				memdto=mdao.getMemberInfo("3",email);
 			}
 			session.removeAttribute("loginUserDto");
 			session.setAttribute("loginUserDto",memdto);

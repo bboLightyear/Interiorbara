@@ -198,7 +198,35 @@
 		MY.YESNO,BIZ.BRR_CONTENT,BIZ.BRR_WRITER FROM MY_REPORT MY 
 		JOIN BIZ_RV_REPORTED BIZ ON MY.TARGETNO=BIZ.BR_NO
 	</select>
-	<select id="yesnoCheck_Report" resultType="string">
+	<!-- <select id="yesnoCheck_Report" resultType="string">
 		SELECT YESNO FROM MY_REPORT WHERE RENO=#{param1}
+	</select> -->
+	<update id="allowBlind">
+		UPDATE MY_REPORT SET YESNO=#{param1} WHERE RENO=#{param2}	
+	</update>
+	<select id="getReportRv" resultType="com.tech.ibara.my.dto.MyReportDto" resultMap="MyReportDto">
+		SELECT MY.RENO,MY.TARGETNO,MY.TARGETTYPE,MY.MEMNO,MY.TARGETMEMNO,MY.CAUSE,MY.REDATE,
+		MY.YESNO,BIZ.BRR_CONTENT,BIZ.BRR_WRITER,BIZ.BR_NO FROM MY_REPORT MY 
+		JOIN BIZ_RV_REPORTED BIZ ON MY.TARGETNO=BIZ.BR_NO WHERE RENO=#{param1}
 	</select>
+	<update id="blindReview">
+		UPDATE BIZ_RV SET BR_CONTENT='신고로인해 블라인드처리된 글입니다',BR_WRITER='비공개' WHERE BR_NO=#{param1}
+	</update>
+	<update id="saveReview">
+		UPDATE BIZ_RV SET BR_CONTENT=#{param1},BR_WRITER=#{param2} WHERE BR_NO=#{param3}
+	</update>
+	<select id="countLikePhotoBoard" resultType="Integer">
+		SELECT COUNT(*) FROM OH_PHOTO_LIKE WHERE MEMNO=#{param1}
+	</select>
+	<select id="countLikePhotoReply" resultType="Integer">
+		SELECT COUNT(*) FROM OH_PHOTO_REPLY_LIKE WHERE MEMNO=#{param1}
+	</select>
+	<select id="countScrapPhotoBoard" resultType="Integer">
+		SELECT COUNT(*) FROM OH_PHOTO_SCRAP WHERE MEMNO=#{param1}
+	</select>
+	<select id="countBizBmark" resultType="Integer">
+		SELECT COUNT(*) FROM BIZ_HOME_BMARK WHERE USER_IDNO=#{param1}
+	</select>
+	
+	
 </mapper>

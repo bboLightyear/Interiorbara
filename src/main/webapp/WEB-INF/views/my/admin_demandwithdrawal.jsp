@@ -15,6 +15,7 @@ table{
 	width: 60%;
 	text-align: center;
 	margin-top: 30px;
+	font-size: 15px;
 }
 th, td{
 	height: 30px;

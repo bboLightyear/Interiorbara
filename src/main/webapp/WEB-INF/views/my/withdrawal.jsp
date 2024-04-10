@@ -85,7 +85,7 @@ p{
 	</div>	
 	<div class="form">
 	<form action="demandwithdrawal" method="post">
-		<p><h3>${loginUserDto.nickname }님</h3></h3></p> <br />
+		<p><h3>${loginUserDto.nickname}님</h3></h3></p> <br />
 		<p>탈퇴하려는 이유가 무엇인가요?(하나만 선택해주세요)</p> <br />
 		<input type="radio" name="withdrawalCheck" class="radio_align" value="이용빈도 낮음" />이용빈도 낮음 <br />
 		<input type="radio" name="withdrawalCheck" class="radio_align" value="재가입" />재가입 <br />
