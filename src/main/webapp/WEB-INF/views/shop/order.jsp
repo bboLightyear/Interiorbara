@@ -63,7 +63,10 @@
 		
 		const payMethod = $("input[name='payMethod']:checked").val();
 		const merchantUid = $("#content").data("orderId");
-		const orderName = $("#side").data("orderName") + " 외 " + $("#side").data("productCnt") + "건";
+		let orderName = $("#side").data("orderName");;
+		if ($("#side").data("productCnt") > 0){
+			orderName += " 외 " + $("#side").data("productCnt") + "건";
+		}
 		const orderAmount = $("#side").data("orderAmount");
 		
 		IMP.request_pay({
@@ -73,14 +76,10 @@
 			name : orderName,
 			amount : 100,
 			buyer_name : $("#ordererName").val()
-/* 			buyer_email : "user1@naver.com",
-			buyer_name : "유저일",
-			buyer_tel : "010-6416-4164",
-			buyer_addr : "서울특별시 구로구",
-			buyer_postcode : "123456", */
+			/* notice_url: "https://1260-211-197-18-247.ngrok-free.app/ibara/shop/order/verify" */
 		}, function(rsp) {
 			// callback
-			//rsp.imp_uid 값으로 결제 단건조회 API를 호출하여 결제결과를 판단합니다.
+			
 			if (rsp.success) {
 				$.ajax({
 					type: "post",

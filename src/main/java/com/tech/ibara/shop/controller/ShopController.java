@@ -35,7 +35,7 @@ public class ShopController {
 		
 		shopService = new ProductListService(sqlSession);
 		shopService.execute(model);
-
+		
 		return "shop/list";
 	}
 	
