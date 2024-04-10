@@ -11,9 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.tech.ibara.my.dao.MyDao;
-import com.tech.ibara.my.dto.MyInteriorDto;
 import com.tech.ibara.my.dto.MyMemberInfoDto;
-import com.tech.ibara.my.dto.MySellerDto;
 import com.tech.ibara.my.service.AllowCheckWithdrawalService;
 import com.tech.ibara.my.service.BlindCheckService;
 import com.tech.ibara.my.service.CancelWithdrawalService;
@@ -25,7 +23,6 @@ import com.tech.ibara.my.service.LoginService;
 import com.tech.ibara.my.service.MemberInfoPageService;
 import com.tech.ibara.my.service.MemberListService;
 import com.tech.ibara.my.service.MyModifyService;
-import com.tech.ibara.my.service.MyPageService;
 import com.tech.ibara.my.service.MyPasswordEditService;
 import com.tech.ibara.my.service.MyPasswordMCEditService;
 import com.tech.ibara.my.service.MyPasswordService;
