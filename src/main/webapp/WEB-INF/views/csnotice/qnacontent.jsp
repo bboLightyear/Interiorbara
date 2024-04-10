@@ -86,7 +86,7 @@
 	<section class="cs_content_section1">
 		<div class="cs_content_head">
 			                            <!-- 게시글 작성자 프로필 이미지 -->         
-			<h3 class="cs_list_head_h">
+			<div class="cs_list_head_wrap_h">
             <%-- 프로필 이미지가 없으면 기본 이미지 --%>
             <c:if test="${empty loginUserDto.profileimg}" >
               <img src="${path }/resources/img/my/user.png" id="OHMainView-photoProfileImage" style="width: 25px; height: 25px;">
@@ -95,7 +95,7 @@
               <c:if test="${!empty loginUserDto.profileimg}" >
               <img src="${path }/resources/upload/my/${loginUserDto.profileimg}" id="OHMainView-photoProfileImage">
               </c:if>   
-			 ${qna_content.qbtitle }</h3>
+			 <h3 class="cs_list_head_h">${qna_content.qbtitle }</h3></div>
 
 
 			<div class="cs_list_head_wrap_span">
@@ -112,23 +112,6 @@
 	<div class="cs_qnaboard_whitespace">
 		<!--여백-->
 	</div>
-	<%-- 				<div>
-					<%
-		             // qna_content에 담긴 qbwriter 출력하기
-		           	QnaDto qna_content = (QnaDto) request.getAttribute("qna_content");
-		            String qbwriter = qna_content.getQbwriter();
-		            System.out.println("qbwriter 값: " + qbwriter);
-		             
-		            String userId=(String)session.getAttribute("userId");
-		             
-		            if( userId.equals(qbwriter)){ %>
-		            <a href="qnaeditview?qbno=${qna_content.qbno }">수정</a>
-		            <a href="qnadelete?qbno=${qna_content.qbno }">삭제</a> 
-		            <% }else{
-		            %>
-		            <% 
-		            }%>
-	            </div> --%>
 
 	<section class="cs_content_section2">
 
@@ -140,9 +123,9 @@
 			<!--여백-->
 		</div>
 
-		<div class="cs_content_section2_img">
+		<div class="cs_content_section2_wrap_img">
 			<c:forEach items="${imglist}" var="dto">
-				<span><img src="${path }/resources/upload/cs/${dto.filesrc}" alt="${dto.filesrc}" /></span>
+				<span><img src="${path }/resources/upload/cs/${dto.filesrc}" alt="${dto.filesrc}" class="cs_content_section2_img"/></span>
 			</c:forEach>
 		</div>
 	</section>
@@ -164,14 +147,22 @@
 
 		<form action="qnareply?qbno=${qna_content.qbno }" method="post">
 			<div class="cs_content_section3_replyform">
-				<span><%=session.getAttribute("userId")%></span>
+				<span>
+					
+	           		<c:if test="${empty loginUserDto.profileimg}" >
+	              	<img src="${path }/resources/img/my/user.png" id="OHMainView-photoProfileImage" style="width: 35px; height: 35px;">
+	              	</c:if>
+	              	
+	              	<c:if test="${!empty loginUserDto.profileimg}" >
+	              	<img src="${path }/resources/upload/my/${loginUserDto.profileimg}" id="OHMainView-photoProfileImage">
+	              	</c:if>   
+				</span>
 
-				<div>
+				<div class="cs_content_section3_replyform_ti">
 					<textarea class="cs_content_section3_replyform_textarea" name="qnareply"></textarea>
+					<input type="hidden" name="qnarewriter" value="<%=session.getAttribute("userId")%>" /> 
+					<input class="reply_input_btn" type="submit" value="답변" />
 				</div>
-
-				<input type="hidden" name="qnarewriter" value="<%=session.getAttribute("userId")%>" /> 
-				<input type="submit" value="답변" />
 			</div>
 		</form>
 	</section>
@@ -179,12 +170,11 @@
 		}
 	%>
 
-
 	<section class="cs_content_section4">
 		<!--전체 글에 대한 답글 조회  -->
 		<c:forEach items="${replylist }" var="dto">
 			<div class="cs_content_section4_wrap_rreply">
-				<div>
+				<div class="cs_content_section4_wrap_rreply_c">
 					<div class="cs_content_section4_wrap_rreply_ni">
 						<c:if test="${empty loginUserDto.profileimg}" >
 				        	<img src="${path }/resources/img/my/user.png" id="OHMainView-photoProfileImage" style="width: 30px; height: 30px;">
@@ -192,46 +182,49 @@
 				            <%-- 프로필 이미지가 있으면 있는 이미지 --%>
 				            <c:if test="${!empty loginUserDto.profileimg}" >
 				           	<img src="${path }/resources/upload/my/${loginUserDto.profileimg}" id="OHMainView-photoProfileImage">
-				        </c:if> ${dto.rqbwriter }</div>
+				        </c:if> <h4 class="cs_content_section4_wrap_rreply_ni_h4">${dto.rqbwriter }</h4></div>
 					<div class="cs_content_section4_wrap_rreply_content">${dto.rqbcontent }</div>
 	
 					<!--답글 달기 버튼을 클릭 시에 아래에 입력 창이 나타나도록 하는 스크립트-->
 					<%
 						if (session.getAttribute("userId") == null) {
 					%>
-					<div>
+					<div class="cs_content_section4_wrap_rreply_btn">
 					<%
 					} else {
 					%>
-					<div>
-					<button onclick="replyform()" data-rqbno="${dto.rqbno }">답글달기</button>
+					<div class="cs_content_section4_wrap_rreply_wrap_btn">
+					
+					<button  class="cs_content_section4_wrap_rreply_btn" onclick="replyform()" data-rqbno="${dto.rqbno }">답글달기</button>
 					<%
 						}
 					%>
 	
-					<div id="${dto.rqbno }replyrview"> 
-						<input type="button" onclick="replyrview()" id="${dto.rqbno }replyvbtn" name="${dto.rqbno }replyvbtn"
-							data-rqbno="${dto.rqbno }" value="답글보기" />
+					<input class="cs_content_section4_wrap_rreply_btn" type="button" onclick="replyrview()" id="${dto.rqbno }replyvbtn" name="${dto.rqbno }replyvbtn" data-rqbno="${dto.rqbno }" value="답글보기" />
+					
 					</div>
-					</div>
-				</div>
+					<!-- </div> -->
 	
-	
-				<!--숨겨진 div, id 값을 조회한 답글 번호로 지정하여 위의 스크립트에서 버튼을 각각의 div를 따로 적용-->
-				<div id="${dto.rqbno }replyform" style="display: none;">
-					<div>
-						<input type="hidden" id="rqbno" name="rqbno" value="${dto.rqbno }" />
-						<input type="hidden" id="qbno" name="qbno" value="${dto.qbno }" />
-						<input type="hidden" id="rqbstep" name="rqbstep" value="${dto.rqbstep }" /> 
-						<input type="hidden" id="rqbgroup" name="rqbgroup" value="${dto.rqbgroup }" /> 
-						<input type="hidden" id="rqbindent" name="rqbindent" value="${dto.rqbindent }" />
-						<input type="hidden" name="rwriter" id="rwriter" value="<%=session.getAttribute("userId")%>" /> 
-
-						<textarea rows="6" cols="65" id="rcontent" name="rcontent">&nbsp;</textarea>
-						<input type="button" value="입력" onclick="reply()" data-rqbno="${dto.rqbno }" />
+					<div class="cs_content_section4_replyrview">
+						<div id="${dto.rqbno }replyrview"> </div>
+		
+						<!--숨겨진 div, id 값을 조회한 답글 번호로 지정하여 위의 스크립트에서 버튼을 각각의 div를 따로 적용-->
+						<div id="${dto.rqbno }replyform" style="display: none;">
+							<div>
+								<input type="hidden" id="rqbno" name="rqbno" value="${dto.rqbno }" />
+								<input type="hidden" id="qbno" name="qbno" value="${dto.qbno }" />
+								<input type="hidden" id="rqbstep" name="rqbstep" value="${dto.rqbstep }" /> 
+								<input type="hidden" id="rqbgroup" name="rqbgroup" value="${dto.rqbgroup }" /> 
+								<input type="hidden" id="rqbindent" name="rqbindent" value="${dto.rqbindent }" />
+								<input type="hidden" name="rwriter" id="rwriter" value="<%=session.getAttribute("userId")%>" /> 
+		
+								<textarea rows="6" cols="65" id="rcontent" name="rcontent">&nbsp;</textarea>
+								<input class="reply_input_btn" type="button" value="입력" onclick="reply()" data-rqbno="${dto.rqbno }" />
+							</div>
+							<button class="cs_content_section4_wrap_rreply_btn" onclick="replyformclose()" data-rqbno="${dto.rqbno }">접기</button>
+						</div>
 					</div>
-					<button onclick="replyformclose()" data-rqbno="${dto.rqbno }">접기</button>
-				</div>
+				
 			</div>
 		</c:forEach>
 	</section>
@@ -267,10 +260,29 @@
 
 					for (var i = 0; i < data.length; i++) {
 
-						htmlText += "<p>";
 						console.log(data[i].rqbcontent);
+						
+						
+						htmlText += "<div class='cs_content_section4_wrap_replyrview'>";
+						
+						
+						htmlText += "<div class='cs_content_section4_replyrview_rni'>";
+						htmlText += "<c:if test='${empty loginUserDto.profileimg}' > "+
+						"<img src='${path }/resources/img/my/user.png' id='OHMainView-photoProfileImage' style='width: 30px; height: 30px;'> "+
+						"</c:if> "+
+			            "<c:if test='${!empty loginUserDto.profileimg}'> "+
+			           	"<img src='${path }/resources/upload/my/${loginUserDto.profileimg}' id='OHMainView-photoProfileImage'> "+
+			        	"</c:if>";
+						
+						htmlText += "<h4 class='cs_content_section4_wrap_rreply_ni_h4'>";
+						htmlText += data[i].rqbwriter;
+						htmlText += "</h4>";
+						htmlText += "</div>";
+		
+						htmlText += "<p>";
 						htmlText += data[i].rqbcontent;
 						htmlText += "</p>";
+						htmlText += "</div>";
 					}
 
 					// div 못 불러오는 거 확인하는 if문
