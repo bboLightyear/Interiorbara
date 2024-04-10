@@ -49,9 +49,7 @@ public class OrderCompleteService extends SqlSessionBase implements ShopService 
 		orderDto.setDetail_address(detailAddress);
 		orderDto.setPayment_type(paymentType);
 		
-		dao.updateCompleteOrder(orderDto);
-		
-		
+		dao.updateCompleteOrder(orderDto);		
 	}
 
 }

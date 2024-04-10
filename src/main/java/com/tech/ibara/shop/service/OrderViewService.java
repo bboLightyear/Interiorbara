@@ -8,6 +8,7 @@ import javax.servlet.http.HttpSession;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.ui.Model;
 
+import com.tech.ibara.shop.api.PortOneAPI;
 import com.tech.ibara.shop.dao.ShopDao;
 import com.tech.ibara.shop.dto.OrderDto;
 import com.tech.ibara.shop.dto.OrderProductDto;
@@ -40,6 +41,8 @@ public class OrderViewService extends SqlSessionBase implements ShopService {
 		}
 		
 		ArrayList<OrderProductDto> orderProductDtoList = dao.selectOrderProductsByOrder(orderId);
+		
+		PortOneAPI.getInstance().prepare(orderId, orderDto.getAmount());
 		
 		model.addAttribute("order", orderDto);
 		model.addAttribute("orderProductList", orderProductDtoList);

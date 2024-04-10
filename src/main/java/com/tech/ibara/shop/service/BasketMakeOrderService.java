@@ -2,6 +2,8 @@ package com.tech.ibara.shop.service;
 
 import java.io.BufferedReader;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -15,6 +17,7 @@ import com.tech.ibara.shop.dao.ShopDao;
 import com.tech.ibara.shop.dto.BasketDto;
 import com.tech.ibara.shop.dto.OrderDto;
 import com.tech.ibara.shop.dto.OrderProductDto;
+import com.tech.ibara.shop.dto.ProductDto;
 
 public class BasketMakeOrderService extends SqlSessionBase implements ShopRestService<Integer> {
 
@@ -51,20 +54,53 @@ public class BasketMakeOrderService extends SqlSessionBase implements ShopRestSe
 				return;
 			}
 			
-			ArrayList<Integer> productIdList = new ArrayList<Integer>();
 			int totalPrice = 0;
 			int deliveryFee = 0;
 			int amount = 0;
+			
+			Map<Integer, ProductDto> productMap = new HashMap<Integer, ProductDto>();
 			for (BasketDto basketDto : basketDtoList) {
-				if (!productIdList.contains(basketDto.getProduct_id())) {
-					productIdList.add(basketDto.getProduct_id());
-					deliveryFee += basketDto.getProduct().getDelivery_fee();
+				if (!productMap.containsKey(basketDto.getProduct_id())) {
+					productMap.put(basketDto.getProduct_id(), basketDto.getProduct());
 				}
-				if (basketDto.getProduct().getIs_discounted().equals("Y")) {
-					totalPrice += basketDto.getOption().getDiscounted_price() * basketDto.getQuantity();
-				} else {
-					totalPrice += basketDto.getOption().getPrice() * basketDto.getQuantity();
-				} 
+			}
+			
+			for (ProductDto productDto : productMap.values()) {
+				int productTotalPrice = 0;
+				int productTotalDeliveryFee = 0;
+				
+				for (BasketDto basketDto : basketDtoList) {
+					if (productDto.getProduct_id() == basketDto.getProduct_id()) {
+						if (productDto.getIs_discounted() == "Y") {
+							productTotalPrice += basketDto.getOption().getDiscounted_price() * basketDto.getQuantity();
+						} else {
+							productTotalPrice += basketDto.getOption().getPrice() * basketDto.getQuantity();
+						}
+						
+						productTotalDeliveryFee += productDto.getDelivery_fee();
+					}
+				}
+				
+				totalPrice += productTotalPrice;
+				
+				switch (productDto.getDelivery_type()) {
+				case "free":
+					
+					break;
+					
+				case "each":
+					deliveryFee += productTotalDeliveryFee;
+					break;
+					
+				case "over":
+					if (productTotalPrice < productDto.getRef_price()) {
+						deliveryFee += productTotalDeliveryFee;
+					}
+					break;
+					
+				case "arrival":
+					break;
+				}
 			}
 			
 			amount = deliveryFee + totalPrice;

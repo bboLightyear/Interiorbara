@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.apache.ibatis.session.SqlSession;
@@ -21,6 +22,7 @@ import com.tech.ibara.shop.service.BasketMakeOrderService;
 import com.tech.ibara.shop.service.BasketModifyQuantityService;
 import com.tech.ibara.shop.service.BasketRemoveService;
 import com.tech.ibara.shop.service.OrderCompleteService;
+import com.tech.ibara.shop.service.OrderVerifyService;
 import com.tech.ibara.shop.service.ProductDataLoadService;
 import com.tech.ibara.shop.service.ProductSubOptionSetService;
 import com.tech.ibara.shop.service.QnaPageChangeService;
@@ -143,6 +145,16 @@ public class ShopRestController {
 		model.addAttribute("session", session);
 		
 		OrderCompleteService shopService = new OrderCompleteService(sqlSession);
+		shopService.execute(model);
+	}
+	
+	@RequestMapping(method = RequestMethod.POST, value = "/shop/order/verify")
+	public void orderVerify(HttpServletRequest request, HttpServletResponse response, Model model) {
+		
+		model.addAttribute("request", request);
+		model.addAttribute("response", response);
+		
+		OrderVerifyService shopService = new OrderVerifyService(sqlSession);
 		shopService.execute(model);
 	}
 }
