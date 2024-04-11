@@ -55,10 +55,15 @@ public class JoinService implements SService {
       if(!nnbool) {
     	  return "nn check";
       }
-      boolean pwbool=Pattern.matches("^(?=.*[A-Za-z])(?=.*\\d)(?=.*[$@$!%*#?&])[A-Za-z\\d$@$!%*#?&]{8,}$", pw);
-      if(!pwbool) {
-    	  return "pw check";
-      }     
+      
+      if(!pw.equals(pw2)) {
+    	  return "pw not match";
+      }else {
+    	  boolean pwbool=Pattern.matches("^(?=.*[A-Za-z])(?=.*\\d)(?=.*[$@$!%*#?&])[A-Za-z\\d$@$!%*#?&]{8,}$", pw);
+    	  if(!pwbool) {
+    		  return "pw check";
+    	  }
+      }
 
       String shpwd="";
       String bcpwd="";
@@ -91,8 +96,11 @@ public class JoinService implements SService {
     	  return "emaildupl";
       }else if(nnCheckResult==1) {//이미 존재하는 닉네임, 가입 불가
     	  return "nndupl";
+      }else {
+    	  return "error";
       }
-      return "error";      
+      
+         
 	}    
    
    private void emailSendAction(String nickname) {

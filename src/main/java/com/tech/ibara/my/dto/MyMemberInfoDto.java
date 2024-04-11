@@ -25,6 +25,7 @@ public class MyMemberInfoDto {
 	
 	private MyInteriorDto myinteriordto;
 	private MySellerDto mysellerdto;
+	
 	public MyMemberInfoDto(int memno, String nickname, String shpwd, String bcpwd, String email, int mailcheck,
 			String birth, String gender, String phone, Date joindate, String memtype, String profileimg) {
 		super();

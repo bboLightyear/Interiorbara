@@ -21,11 +21,11 @@ public class MypageMainService implements VService{
 		MyMemberInfoDto mdto=(MyMemberInfoDto) session.getAttribute("loginUserDto");
 		int memno=mdto.getMemno();
 		int likePB= mdao.countLikePhotoBoard(memno);
-		int likePR= mdao.countLikePhotoReply(memno);
+//		int likePR= mdao.countLikePhotoReply(memno);
 		int scrapPB= mdao.countScrapPhotoBoard(memno);
 		int bmarkbiz=mdao.countBizBmark(memno);
 		
-		int mylike=likePB+likePR;
+		int mylike=likePB;
 		int myscrap=scrapPB+bmarkbiz;
 		
 		System.out.println("mylike : "+mylike);

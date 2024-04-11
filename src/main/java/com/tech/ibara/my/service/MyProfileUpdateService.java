@@ -70,6 +70,6 @@ public class MyProfileUpdateService implements VService {
 			session.removeAttribute("loginUserDto");
 			session.setAttribute("loginUserDto",memdto);
 		}		
-	}		
+	}
 		
 }

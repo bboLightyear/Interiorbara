@@ -115,10 +115,10 @@
 		DELETE FROM MY_WITHDRAWAL WHERE MEMNO=#{param1}
 	</delete>
 	<select id="countCheckNonmember" resultType="Integer">
-		SELECT COUNT(*) FROM MY_NONMEMBER WHERE PHONE=#{param1}
+		SELECT COUNT(*) FROM MY_NONMEMBER WHERE EMAIL=#{param1}
 	</select>	
 	<select id="getNonmember" resultType="com.tech.ibara.my.dto.MyNonMemberDto">
-		SELECT ESTINO,NAME,PHONE,EMAIL,PW FROM MY_NONMEMBER WHERE PHONE=#{param1} 
+		SELECT ESTINO,NAME,PHONE,EMAIL,PW FROM MY_NONMEMBER WHERE EMAIL=#{param1} 
 	</select>
 	<!-- <select id="getInterior" resultType="com.tech.ibara.my.dto.MyInteriorDto">
 		SELECT INTENO,MEMNO,INTERIORNUM FROM MY_INTERIOR WHERE MEMNO=#{param1}
@@ -218,15 +218,18 @@
 	<select id="countLikePhotoBoard" resultType="Integer">
 		SELECT COUNT(*) FROM OH_PHOTO_LIKE WHERE MEMNO=#{param1}
 	</select>
-	<select id="countLikePhotoReply" resultType="Integer">
+	<!-- <select id="countLikePhotoReply" resultType="Integer">
 		SELECT COUNT(*) FROM OH_PHOTO_REPLY_LIKE WHERE MEMNO=#{param1}
-	</select>
+	</select> -->
 	<select id="countScrapPhotoBoard" resultType="Integer">
 		SELECT COUNT(*) FROM OH_PHOTO_SCRAP WHERE MEMNO=#{param1}
 	</select>
 	<select id="countBizBmark" resultType="Integer">
-		SELECT COUNT(*) FROM BIZ_HOME_BMARK WHERE USER_IDNO=#{param1}
+		SELECT COUNT(*) FROM BIZ_HOME_BMARK WHERE MEMNO=#{param1}
 	</select>
+	<!-- <select id="getBizHomeBmark" resultType="">
+		SELECT BHB_NO,INTENO FROM BIZ_HOME_BMARK WHERE MEMNO=#{param1}
+	</select> -->
 	
 	
 </mapper>

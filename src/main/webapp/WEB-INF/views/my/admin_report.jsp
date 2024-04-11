@@ -23,7 +23,14 @@ th, td{
 th{
 	background-color: #e2f0fe;
 }
+/* .shortcontent {
+    width: 50px;                /* 가로 길이 고정*/
+    text-overflow: ellipsis;     /* 생략 처리 ( ... )*/
+    white-space: nowrap;         /* 줄바꿈 하지 않고 잘림*/
+    overflow: hidden;            /* 스크롤 처리 하지 않음*/
+} */
 </style>
+
 </head>
 <body>
 	<h3>admin_report.jsp</h3>
@@ -66,9 +73,7 @@ th{
 			</c:choose>			
 		</tr>
 		</c:forEach>	
-	
 	</table>
-
 
 </body>
 </html>

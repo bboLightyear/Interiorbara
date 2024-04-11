@@ -71,9 +71,6 @@
     <div class="mypage_category">
         <div class="mypage_category_list list_1_1"><a href="#">주문배송목록</a></div>
 	    <div class="mypage_category_list list_1_2">나의견적</div>
-        <!-- <div class="mypage_category_list list_1_3">내동영상</div> -->
-        <!-- <div class="mypage_category_list list_1_3"><a href="mypageinfoedit">회원정보수정</a></div>
-        <div class="mypage_category_list list_1_4"><a href="mypagepasswordedit">비밀번호변경</a></div> -->
     </div>
     
 </body>

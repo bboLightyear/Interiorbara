@@ -22,11 +22,13 @@ import com.tech.ibara.my.service.JoinService;
 import com.tech.ibara.my.service.LoginService;
 import com.tech.ibara.my.service.MemberInfoPageService;
 import com.tech.ibara.my.service.MemberListService;
+import com.tech.ibara.my.service.MyLikeService;
 import com.tech.ibara.my.service.MyModifyService;
 import com.tech.ibara.my.service.MyPasswordEditService;
 import com.tech.ibara.my.service.MyPasswordMCEditService;
 import com.tech.ibara.my.service.MyPasswordService;
 import com.tech.ibara.my.service.MyProfileUpdateService;
+import com.tech.ibara.my.service.MyScrapService;
 import com.tech.ibara.my.service.MypageMainService;
 import com.tech.ibara.my.service.NonmemberEstimateSearchService;
 import com.tech.ibara.my.service.PassResetService;
@@ -91,6 +93,21 @@ public class MyController {
 	@RequestMapping("my/login")
 	public String login(HttpServletRequest request,Model model) {
 		System.out.println("login()");
+		
+		String referer = request.getHeader("Referer");
+	    // 이전 페이지 주소 값 확인
+		System.out.println("referer : "+ referer);
+		
+		String str = referer.substring(28);
+		System.out.println("str : "+str);
+		
+		// 세션에 저장
+		/*
+		 * session.setAttribute("refUrl", referer); // 세션에서 값 불러오기 String refUrl =
+		 * (String) session.getAttribute("refUrl"); // 세션에 저장되어 있는 주소 값 확인
+		 * System.out.println("refUrl : " + refUrl);
+		 */
+		
 		model.addAttribute("request",request);
 		sservice=new LoginService(sqlSession);
 		String userNickname=sservice.execute(model);
@@ -110,15 +127,40 @@ public class MyController {
 		}
 		MyDao mdao=sqlSession.getMapper(MyDao.class);
 		MyMemberInfoDto memdto=mdao.getMemberInfo("2",userNickname);
-//		session=request.getSession();
+
 		if(memdto.getMemtype().equals("INTERIOR")) {
 			memdto=mdao.getInteriorMember(memdto.getMemno());
+			int inteno=memdto.getMyinteriordto().getInteno();
+			System.out.println("inteno : "+inteno);
 		}else if(memdto.getMemtype().equals("SELLER")) {
 			memdto=mdao.getSellerMember(memdto.getMemno());
 		}		
 		session.setAttribute("loginUserDto",memdto);
+		if(!str.equals("my/mypage")) {
+			return str;			
+		}else {
+			MyMemberInfoDto mdto= (MyMemberInfoDto) session.getAttribute("loginUserDto");
+			if(mdto==null) {
+				model.addAttribute("msg","로그인 정보가 없습니다. 로그인해주세요");
+				return "my/loginform";
+			}
+			String nickname=mdto.getNickname();
+			System.out.println("로그인유저닉넴 : "+nickname);
+			String memtype=mdto.getMemtype();
+			System.out.println("loginUser의 memtype은 : "+memtype);		
+			if(memtype.equals("ADMIN")) {
+				return "my/adminmain";
+			}else if(memtype.equals("INTERIOR")) {
+				return "my/interiormain";
+			}else if(memtype.equals("SELLER")) {
+				return "my/sellermain";
+			}else {
+				vservice=new MypageMainService(sqlSession,session);
+				vservice.execute(model);
+				return "my/mypagemain";
+			}
+		}
 		
-		return "redirect:/";
 	}
 	@RequestMapping("my/adminmain")
 	public String adminmain(HttpServletRequest request,Model model) {
@@ -129,14 +171,15 @@ public class MyController {
 	public String mypage(HttpServletRequest request,Model model) {
 		System.out.println("mypage()");
 		MyMemberInfoDto mdto= (MyMemberInfoDto) session.getAttribute("loginUserDto");
+		if(mdto==null) {
+			model.addAttribute("msg","로그인 정보가 없습니다. 로그인해주세요");
+			return "my/loginform";
+		}
 		String nickname=mdto.getNickname();
 		System.out.println("로그인유저닉넴 : "+nickname);
 		String memtype=mdto.getMemtype();
 		System.out.println("loginUser의 memtype은 : "+memtype);		
-		if(mdto==null) {
-			model.addAttribute("msg","로그인 정보가 없습니다. 로그인해주세요");
-			return "my/loginform";
-		}else if(memtype.equals("ADMIN")) {
+		if(memtype.equals("ADMIN")) {
 			return "my/adminmain";
 		}else if(memtype.equals("INTERIOR")) {
 			return "my/interiormain";
@@ -171,6 +214,7 @@ public class MyController {
 	public String updateprofile(HttpServletRequest request,Model model) {
 		System.out.println("updateprofile()");
 		model.addAttribute("request",request);
+		model.addAttribute("memtype","PERSON");
 		vservice =new MyProfileUpdateService(sqlSession,session);
 		vservice.execute(model);
 		return "my/mypageinfoedit";
@@ -309,17 +353,19 @@ public class MyController {
 		System.out.println("nonmember()");
 		return "my/nonmember";
 	}	
-	@RequestMapping("my/nonmemberEstimateSearch")
-	public String nonmemberEstimateSearch(HttpServletRequest request,Model model) {
-		System.out.println("nonmemberEstimateSearch()");
-		model.addAttribute("request",request);
-		sservice = new NonmemberEstimateSearchService(sqlSession);
-		String str=sservice.execute(model);
-		if(str.equals("phoneNull")) {
-			model.addAttribute("msg","등록되지 않은 폰번호입니다.");
-		}
-		return "my/nonmemberEstimateSearch";
-	}
+
+	
+	/*
+	 * @RequestMapping("my/nonmemberEstimateSearch") public String
+	 * nonmemberEstimateSearch(HttpServletRequest request,Model model) {
+	 * System.out.println("nonmemberEstimateSearch()");
+	 * model.addAttribute("request",request); sservice = new
+	 * NonmemberEstimateSearchService(sqlSession); String
+	 * str=sservice.execute(model); if(str.equals("emailNull")) {
+	 * model.addAttribute("msg","등록되지 않은 이메일입니다."); return "my/nonmember"; } return
+	 * "my/nonmemberEstimateSearch"; }
+	 */
+	 
 //	@RequestMapping("my/nonmemberOrderSearch")
 //	public String nonmemberOrderSearch(HttpServletRequest request,Model model) {
 //		System.out.println("nonmemberOrderSearch()");
@@ -654,14 +700,30 @@ public class MyController {
 	@RequestMapping("my/mylike")
 	public String mylike(HttpServletRequest request,Model model) {
 		System.out.println("mylike()");
-		//jsp에서 memno 보냈음.
+//		model.addAttribute("request",request);
+		MyMemberInfoDto mdto=(MyMemberInfoDto) session.getAttribute("loginUserDto");
+		if(mdto==null) {
+			model.addAttribute("msg","로그인정보가 없습니다. 로그인해주세요");
+			return "my/loginform";
+		}else {
+		vservice = new MyLikeService(sqlSession,session);
+		vservice.execute(model);
 		return "my/mylike";
+		}
 	}
 	@RequestMapping("my/myscrap")
 	public String myscrap(HttpServletRequest request,Model model) {
 		System.out.println("myscrap()");
-		//jsp에서 memno 보냈음.
+//		model.addAttribute("request",request);
+		MyMemberInfoDto mdto=(MyMemberInfoDto) session.getAttribute("loginUserDto");
+		if(mdto==null) {
+			model.addAttribute("msg","로그인정보가 없습니다. 로그인해주세요");
+			return "my/loginform";
+		}else {
+		vservice = new MyScrapService(sqlSession,session);
+		vservice.execute(model);
 		return "my/myscrap";
+		}
 	}
 	
 	

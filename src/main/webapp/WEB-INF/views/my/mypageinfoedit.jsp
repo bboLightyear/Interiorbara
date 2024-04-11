@@ -24,9 +24,10 @@
     <div class="mypage_category">
         <div class="mypage_category_list list_1_1"><a href="mypage">모두보기</a></div>
 	    <div class="mypage_category_list list_1_2">내사진</div>
-        <!-- <div class="mypage_category_list list_1_3">내동영상</div> -->
-        <div class="mypage_category_list list_1_3"><a href="#">회원정보수정</a></div>
-        <div class="mypage_category_list list_1_4"><a href="mypagepasswordedit">비밀번호변경</a></div>
+        <div class="mypage_category_list list_1_3"><a href="myscrap">스크랩북</a></div>
+        <div class="mypage_category_list list_1_4"><a href="mylike">좋아요</a></div>
+        <div class="mypage_category_list list_1_5"><a href="#">회원정보수정</a></div>
+        <div class="mypage_category_list list_1_6"><a href="mypagepasswordedit">비밀번호변경</a></div>
     </div>
     
     <div id="mypageedit" align="center">

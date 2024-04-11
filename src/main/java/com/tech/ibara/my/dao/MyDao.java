@@ -48,8 +48,8 @@ public interface MyDao {
 //	public void deleteInterior(String memno);
 //	public void deleteSeller(String memno);
 	public void deleteDemandWithdrawal(String memno);
-	public int countCheckNonmember(String phone);
-	public MyNonMemberDto getNonmember(String phone);
+	public int countCheckNonmember(String email);
+	public MyNonMemberDto getNonmember(String email);
 //	public MyInteriorDto getInterior(int memno);
 //	public MySellerDto getSeller(int memno);
 	public MyMemberInfoDto getInteriorMember(int memno);
@@ -61,7 +61,7 @@ public interface MyDao {
 	public void blindReview(int br_no);
 	public void saveReview(String br_content,String br_writer,int br_no);
 	public int countLikePhotoBoard(int memno);
-	public int countLikePhotoReply(int memno);
+//	public int countLikePhotoReply(int memno);
 	public int countScrapPhotoBoard(int memno);
 	public int countBizBmark(int memno);
 	
