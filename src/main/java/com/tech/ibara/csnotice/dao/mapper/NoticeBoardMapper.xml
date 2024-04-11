@@ -1,0 +1,245 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.tech.ibara.csnotice.dao.NoticeBoardIDao">
+
+
+	<!-- 리스트 검색 결과 include문 qq일때 검색, 전체 검색, 우리집 자랑 검색 등등 -->
+	<sql id="includqnalist">
+		<choose>
+			<when test="param4==1">
+				WHERE NBQNADIV='qq'
+				AND NBTITLE LIKE '%'||#{param3}||'%'
+			</when>
+			<when test="param4==2">
+				WHERE NBTITLE LIKE '%'||#{param3}||'%'
+			</when>
+			<when test="param4==3">
+				WHERE NBQNADIV='oh'
+				AND NBTITLE LIKE '%'||#{param3}||'%'
+			</when>
+			<when test="param4==4">
+				WHERE NBQNADIV='biz'
+				AND NBTITLE LIKE '%'||#{param3}||'%'
+			</when>
+			<when test="param4==5">
+				WHERE NBQNADIV='pf'
+				AND NBTITLE LIKE '%'||#{param3}||'%'
+			</when>
+			<when test="param4==6">
+				WHERE NBQNADIV='sh'
+				AND NBTITLE LIKE '%'||#{param3}||'%'
+			</when>
+			<otherwise>
+
+
+			</otherwise>
+		</choose>
+	</sql>
+
+
+	<select id="noticelist" resultType="com.tech.ibara.csnotice.dto.NoticeDto">
+		SELECT
+		NBNO,NBWRITER,NBTITLE,NBCONTENT,NBDATE,NBHIT,NBGROUP,NBSTEP,NBINDENT,NBQNADIV
+		FROM (SELECT ROWNUM NUM,N.*
+		FROM (SELECT
+		NBNO,NBWRITER,NBTITLE,NBCONTENT,NBDATE,NBHIT,NBGROUP,NBSTEP,NBINDENT,NBQNADIV
+		FROM CS_NOTICEBOARD
+		ORDER BY NBGROUP DESC,NBSTEP ASC)N
+		<include refid="includqnalist" />
+		)WHERE NUM BETWEEN #{param1} AND #{param2}
+	</select>
+
+	<select id="selectBoardTotalCount1" resultType="Integer">
+		SELECT COUNT(*)
+		FROM CS_NOTICEBOARD
+		WHERE NBQNADIV='qq'
+	</select>
+
+	<select id="selectBoardTotalCount2" resultType="Integer">
+		SELECT COUNT(*)
+		FROM CS_NOTICEBOARD
+	</select>
+
+	<select id="selectBoardTotalCount3" resultType="Integer">
+		SELECT COUNT(*)
+		FROM CS_NOTICEBOARD
+		WHERE NBQNADIV='oh'
+	</select>
+
+	<select id="selectBoardTotalCount4" resultType="Integer">
+		SELECT COUNT(*)
+		FROM CS_NOTICEBOARD
+		WHERE NBQNADIV='biz'
+	</select>
+
+	<select id="selectBoardTotalCount5" resultType="Integer">
+		SELECT COUNT(*)
+		FROM CS_NOTICEBOARD
+		WHERE NBQNADIV='pf'
+	</select>
+
+	<select id="selectBoardTotalCount6" resultType="Integer">
+		SELECT COUNT(*)
+		FROM CS_NOTICEBOARD
+		WHERE NBQNADIV='sh'
+	</select>
+
+	<select id="noticewrite" resultType="com.tech.ibara.csnotice.dto.NoticeDto">
+		INSERT INTO
+		CS_NOTICEBOARD(NBNO,NBTITLE,NBCONTENT,NBWRITER,NBHIT,NBDATE,NBGROUP,NBSTEP,NBINDENT,NBFILECODE,NBQNADIV)
+		VALUES(CS_NOTICEBOARD_SEQ.NEXTVAL,#{param2},#{param3},#{param1},0,SYSDATE,0,0,0,#{param4},#{param5})
+	</select>
+
+	<select id="imgwrite">
+		INSERT INTO CS_NOTICEBOARD_IMG
+		VALUES(CS_NOTICEBOARD_IMG_SEQ.NEXTVAL,#{param1},#{param2})
+	</select>
+
+	<select id="selsnbno" resultType="Integer">
+		SELECT MAX(NBFILECODE) FROM
+		CS_NOTICEBOARD_IMG
+	</select>
+
+	<update id="uphit">
+		UPDATE CS_NOTICEBOARD SET NBHIT=NBHIT+1 WHERE
+		NBNO=#{PARAM1}
+	</update>
+
+	<update id="noticeeditproc">
+		UPDATE CS_NOTICEBOARD SET NBTITLE=#{param2},NBCONTENT=#{param3},NBQNADIV=#{param4} WHERE
+		NBNO=#{param1}
+	</update>
+
+	<select id="noticecontent" resultType="com.tech.ibara.csnotice.dto.NoticeDto">
+		SELECT
+		NBNO,NBQNADIV,NBWRITER,NBTITLE,NBCONTENT,NBDATE,NBHIT,NBGROUP,NBSTEP,NBINDENT,NBFILECODE
+		FROM
+		CS_NOTICEBOARD
+		WHERE NBNO=#{param1}
+	</select>
+	
+	<select id="getfileListbefore" resultType="String">
+		SELECT FILESRC 
+		FROM CS_NOTICEBOARD_IMG
+		WHERE NBFILECODE=#{param1}
+	</select>	
+
+	<select id="selfilecode" resultType="Integer">
+		SELECT NBFILECODE 
+		FROM CS_NOTICEBOARD
+		WHERE NBNO=#{param1}
+	</select>	
+	
+	<delete id="deletefilebefore">
+		DELETE FROM CS_NOTICEBOARD_IMG
+		WHERE NBFILECODE=#{param1}
+	</delete>
+	
+	<insert id="editimg">
+		INSERT INTO CS_NOTICEBOARD_IMG
+		VALUES(CS_NOTICEBOARD_IMG_SEQ.NEXTVAL,#{param1},#{param2})
+	</insert>
+	
+	<select id="imglist" resultType="com.tech.ibara.csnotice.dto.NoticeImgDto">
+		SELECT *
+		FROM CS_NOTICEBOARD_IMG
+		WHERE NBFILECODE=#{param1}
+	</select>	
+
+	<!-- ================================================================================= -->
+ 	<select id="noticecontentview" resultType="com.tech.ibara.csnotice.dto.NoticeDto">
+		SELECT
+		B.NBNO,B.NBTITLE,B.NBQNADIV,B.NBCONTENT,B.NBWRITER,B.NBHIT,B.NBDATE,B.NBGROUP,B.NBSTEP,B.NBFILECODE,I.FILESRC
+		FROM CS_NOTICEBOARD B LEFT OUTER JOIN CS_NOTICEBOARD_IMG I
+		ON B.NBFILECODE=I.NBFILECODE
+		WHERE B.NBNO=#{param1}
+	</select> 
+
+	<resultMap type="com.tech.ibara.csnotice.dto.NoticeImgDto" id="NoticeImgDto">
+		<result column="NBNO" property="nbno" />
+		<result column="NBFILECODE" property="nbfilecode" />
+		<result column="FILESRC" property="filesrc" />
+	</resultMap>
+
+	<resultMap type="com.tech.ibara.csnotice.dto.NoticeDto" id="NoticeDto">
+		<result column="NBNO" property="nbno" />
+		<result column="NBTITLE" property="nbtitle" />
+		<result column="NBCONTENT" property="nbcontent" />
+		<result column="NBWRITER" property="nbwriter" />
+		<result column="NBHIT" property="nbhit" />
+		<result column="NBDATE" property="nbdate" />
+		<result column="NBGROUP" property="nbgroup" />
+		<result column="NBSTEP" property="nbstep" />
+		<result column="NBINDENT" property="nbindent" />
+		<result column="NBFILECODE" property="nbfilecode" />
+		<result column="NBQNADIV" property="nbqnadiv" />
+		<collection property="noticeImgDto" resultMap="NoticeImgDto" />
+	</resultMap>
+
+
+
+	<select id="noticecontentimgview" parameterType="com.tech.ibara.csnotice.dto.NoticeImgDto" resultMap="NoticeImgDto">
+		SELECT I.FILESRC
+		FROM CS_NOTICEBOARD B LEFT OUTER JOIN CS_NOTICEBOARD_IMG I
+		ON B.NBFILECODE=I.NBFILECODE
+		WHERE B.NBNO=#{param1}
+	</select>
+
+	<!-- =================================================================================== -->
+
+	<update id="imgdelete">
+		DELETE FROM CS_NOTICEBOARD_IMG WHERE
+		NBFILECODE=#{param1}
+	</update>
+
+	<update id="qnadelete">
+		DELETE FROM CS_NOTICEBOARD WHERE
+		NBNO=#{param1}
+	</update>
+
+	<insert id="noticereply">
+		INSERT INTO CS_NOTICEBOARD_REPLY
+		VALUES(#{param1},CS_NOTICEBOARD_REPLY_SEQ.NEXTVAL,#{param3},#{param2},0,CS_NOTICEBOARD_REPLY_SEQ.NEXTVAL,0)
+	</insert>
+
+	<select id="replylist" resultType="com.tech.ibara.csnotice.dto.NoticeReplyDto">
+		SELECT
+		NBNO,RNBNO,RNBWRITER,RNBCONTENT,RNBSTEP,RNBGROUP,RNBINDENT
+		FROM CS_NOTICEBOARD_REPLY
+		WHERE NBNO=#{param1} AND RNBSTEP=0
+		ORDER BY RNBNO DESC
+	</select>
+
+	<select id="replyrlist" resultType="com.tech.ibara.csnotice.dto.NoticeReplyDto">
+		SELECT
+		NBNO,RNBNO,RNBWRITER,RNBCONTENT,RNBSTEP,RNBGROUP,RNBINDENT
+		FROM CS_NOTICEBOARD_REPLY
+		WHERE RNBGROUP=#{param1} AND RNBSTEP>=1
+		ORDER BY RNBNO ASC
+	</select>
+
+	<select id="replycnt" resultType="Integer">
+		SELECT COUNT(*)
+		FROM CS_NOTICEBOARD_REPLY
+		WHERE NBNO=#{param1} AND RNBSTEP=0
+	</select>
+
+
+	<insert id="noticereply_r">
+		INSERT INTO
+		CS_NOTICEBOARD_REPLY(NBNO,RNBNO,RNBWRITER,RNBCONTENT,RNBSTEP,RNBGROUP,RNBINDENT)
+		VALUES(#{param1},CS_NOTICEBOARD_REPLY_SEQ.NEXTVAL,#{param3},#{param4},#{param6}+1,#{param2},#{param7}+1)
+	</insert>
+
+	<update id="replyShape">
+		UPDATE CS_NOTICEBOARD_REPLY
+		SET RNBSTEP=RNBSTEP+1
+		WHERE RNBGROUP=#{param1} AND RNBSTEP>#{param2}
+	</update>
+
+
+</mapper>

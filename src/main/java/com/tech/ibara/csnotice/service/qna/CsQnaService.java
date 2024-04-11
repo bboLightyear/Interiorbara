@@ -1,4 +1,4 @@
-package com.tech.ibara.csnotice.service;
+package com.tech.ibara.csnotice.service.qna;
 
 import org.springframework.ui.Model;
 

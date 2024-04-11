@@ -1,19 +1,22 @@
-package com.tech.ibara.csnotice.service;
+package com.tech.ibara.csnotice.service.notice;
 
 import java.util.ArrayList;
 import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.ui.Model;
+
+import com.tech.ibara.csnotice.dao.NoticeBoardIDao;
 import com.tech.ibara.csnotice.dao.QnaBoardIDao;
+import com.tech.ibara.csnotice.dto.NoticeDto;
 import com.tech.ibara.csnotice.dto.QnaDto;
 import com.tech.ibara.csnotice.vo.SearchVO;
 
-public class CsQnaListService implements CsQnaService {
+public class CsNoticeListService implements CsNoticeService {
 
 	private SqlSession sqlSession;
 
-	public CsQnaListService(SqlSession sqlSession) {
+	public CsNoticeListService(SqlSession sqlSession) {
 		this.sqlSession=sqlSession;
 	}
 
@@ -25,7 +28,7 @@ public class CsQnaListService implements CsQnaService {
 		SearchVO searchVO=(SearchVO) map.get("searchVO");
 		
 		// dao 선언
-		QnaBoardIDao dao = sqlSession.getMapper(QnaBoardIDao.class);
+		NoticeBoardIDao dao = sqlSession.getMapper(NoticeBoardIDao.class);
 
 //				서칭 처리
 		String qq = "";
@@ -178,25 +181,25 @@ public class CsQnaListService implements CsQnaService {
 		int rowStart = searchVO.getRowStart();
 		int rowEnd = searchVO.getRowEnd();
 
-		ArrayList<QnaDto> list = null;
+		ArrayList<NoticeDto> list = null;
 
 		if (qq.equals("qq")) { // 퀵견적 검색
-			model.addAttribute("list", dao.qnalist(rowStart, rowEnd, searchKeyword, "1"));
+			model.addAttribute("list", dao.noticelist(rowStart, rowEnd, searchKeyword, "1"));
 
 		} else if (all.equals("all")) { // 전체 검색
-			model.addAttribute("list", dao.qnalist(rowStart, rowEnd, searchKeyword, "2"));
+			model.addAttribute("list", dao.noticelist(rowStart, rowEnd, searchKeyword, "2"));
 
 		} else if (oh.equals("oh")) { // 우리집 자랑 검색
-			model.addAttribute("list", dao.qnalist(rowStart, rowEnd, searchKeyword, "3"));
+			model.addAttribute("list", dao.noticelist(rowStart, rowEnd, searchKeyword, "3"));
 
 		} else if (biz.equals("biz")) { // 비즈 검색
-			model.addAttribute("list", dao.qnalist(rowStart, rowEnd, searchKeyword, "4"));
+			model.addAttribute("list", dao.noticelist(rowStart, rowEnd, searchKeyword, "4"));
 
 		} else if (pf.equals("pf")) { // 회원정보 검색
-			model.addAttribute("list", dao.qnalist(rowStart, rowEnd, searchKeyword, "5"));
+			model.addAttribute("list", dao.noticelist(rowStart, rowEnd, searchKeyword, "5"));
 
 		} else if (sh.equals("sh")) { // 소품샵 검색
-			model.addAttribute("list", dao.qnalist(rowStart, rowEnd, searchKeyword, "6"));
+			model.addAttribute("list", dao.noticelist(rowStart, rowEnd, searchKeyword, "6"));
 		}
 
 		System.out.println("=======================");

@@ -22,6 +22,6 @@ public class NoticeDto {
 	private int nbgroup;
 	private int nbstep;
 	private int nbindent;
-	private String qbfilecode;
+	private String nbfilecode;
 	private NoticeImgDto noticeImgDto;
 }

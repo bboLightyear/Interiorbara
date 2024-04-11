@@ -1,4 +1,4 @@
-<%@page import="com.tech.ibara.csnotice.dto.QnaDto"%>
+<%@page import="com.tech.ibara.csnotice.dto.NoticeDto"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -11,10 +11,8 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-<link rel="stylesheet" type="text/css"
-	href="resources/css/cs/csboard.css" />
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<link rel="stylesheet" type="text/css" href="resources/css/cs/csboard.css" />
 </head>
 <header>
 	<!-- header_top : 헤더 윗부분 -->
@@ -95,15 +93,15 @@
               <c:if test="${!empty loginUserDto.profileimg}" >
               <img src="${path }/resources/upload/my/${loginUserDto.profileimg}" id="OHMainView-photoProfileImage">
               </c:if>   
-			 <h3 class="cs_list_head_h">${qna_content.qbtitle }</h3></div>
+			 <h3 class="cs_list_head_h">${notice_content.nbtitle }</h3></div>
 
 
 			<div class="cs_list_head_wrap_span">
-				<span>작성자 : ${qna_content.qbwriter }&nbsp;</span> 
-				<span>조회수 : ${qna_content.qbhit }&nbsp;</span> 
-				<span>${qna_content.qbqnadiv } &nbsp;</span> 
+				<span>작성자 : ${notice_content.nbwriter }&nbsp;</span> 
+				<span>조회수 : ${notice_content.nbhit }&nbsp;</span> 
+				<span>${notice_content.nbqnadiv } &nbsp;</span> 
 				<span>
-					<fmt:formatDate value="${qna_content.qbdate}" pattern="yy/MM/dd" />&nbsp;
+					<fmt:formatDate value="${notice_content.nbdate}" pattern="yy/MM/dd" />&nbsp;
 				</span>
 			</div>
 
@@ -116,7 +114,7 @@
 	<section class="cs_content_section2">
 
 		<div class="cs_content_section2_content">
-			<p style="margin: 0">${qna_content.qbcontent }</p>
+			<p style="margin: 0">${notice_content.nbcontent }</p>
 		</div>
 
 		<div class="cs_qnaboard_whitespace">
@@ -145,7 +143,7 @@
 			<h3 style="margin: 0">답글 <span class="cs_content_section3_rcnt_span">${replycnt}</span>개</h3>
 		</div>
 
-		<form action="qnareply?qbno=${qna_content.qbno }" method="post">
+		<form action="noticereply?nbno=${notice_content.nbno }" method="post">
 			<div class="cs_content_section3_replyform">
 				<span>
 					
@@ -159,8 +157,8 @@
 				</span>
 
 				<div class="cs_content_section3_replyform_ti">
-					<textarea class="cs_content_section3_replyform_textarea" name="qnareply"></textarea>
-					<input type="hidden" name="qnarewriter" value="<%=session.getAttribute("userId")%>" /> 
+					<textarea class="cs_content_section3_replyform_textarea" name="noticereply"></textarea>
+					<input type="hidden" name="noticerewriter" value="<%=session.getAttribute("userId")%>" /> 
 					<input class="reply_input_btn" type="submit" value="답변" />
 				</div>
 			</div>
@@ -182,8 +180,8 @@
 				            <%-- 프로필 이미지가 있으면 있는 이미지 --%>
 				            <c:if test="${!empty loginUserDto.profileimg}" >
 				           	<img src="${path }/resources/upload/my/${loginUserDto.profileimg}" id="OHMainView-photoProfileImage">
-				        </c:if> <h4 class="cs_content_section4_wrap_rreply_ni_h4">${dto.rqbwriter }</h4></div>
-					<div class="cs_content_section4_wrap_rreply_content">${dto.rqbcontent }</div>
+				        </c:if> <h4 class="cs_content_section4_wrap_rreply_ni_h4">${dto.rnbwriter }</h4></div>
+					<div class="cs_content_section4_wrap_rreply_content">${dto.rnbcontent }</div>
 	
 					<!--답글 달기 버튼을 클릭 시에 아래에 입력 창이 나타나도록 하는 스크립트-->
 					<%
@@ -195,33 +193,33 @@
 					%>
 					<div class="cs_content_section4_wrap_rreply_wrap_btn">
 					
-					<button  class="cs_content_section4_wrap_rreply_btn" onclick="replyform()" data-rqbno="${dto.rqbno }">답글달기</button>
+					<button  class="cs_content_section4_wrap_rreply_btn" onclick="replyform()" data-rnbno="${dto.rnbno }">답글달기</button>
 					<%
 						}
 					%>
 	
-					<input class="cs_content_section4_wrap_rreply_btn" type="button" onclick="replyrview()" id="${dto.rqbno }replyvbtn" name="${dto.rqbno }replyvbtn" data-rqbno="${dto.rqbno }" value="답글보기" />
+					<input class="cs_content_section4_wrap_rreply_btn" type="button" onclick="replyrview()" id="${dto.rnbno }replyvbtn" name="${dto.rnbno }replyvbtn" data-rnbno="${dto.rnbno }" value="답글보기" />
 					
 					</div>
 					<!-- </div> -->
 	
 					<div class="cs_content_section4_replyrview">
-						<div id="${dto.rqbno }replyrview"> </div>
+						<div id="${dto.rnbno }replyrview"> </div>
 		
 						<!--숨겨진 div, id 값을 조회한 답글 번호로 지정하여 위의 스크립트에서 버튼을 각각의 div를 따로 적용-->
-						<div id="${dto.rqbno }replyform" class="cs_content_section4_replyrview_wrap_inputform">
+						<div id="${dto.rnbno }replyform" class="cs_content_section4_replyrview_wrap_inputform">
 							<div class="cs_content_section4_replyrview_inputform">
-								<input type="hidden" id="rqbno" name="rqbno" value="${dto.rqbno }" />
-								<input type="hidden" id="qbno" name="qbno" value="${dto.qbno }" />
-								<input type="hidden" id="rqbstep" name="rqbstep" value="${dto.rqbstep }" /> 
-								<input type="hidden" id="rqbgroup" name="rqbgroup" value="${dto.rqbgroup }" /> 
-								<input type="hidden" id="rqbindent" name="rqbindent" value="${dto.rqbindent }" />
+								<input type="hidden" id="rnbno" name="rnbno" value="${dto.rnbno }" />
+								<input type="hidden" id="nbno" name="nbno" value="${dto.nbno }" />
+								<input type="hidden" id="rnbstep" name="rnbstep" value="${dto.rnbstep }" /> 
+								<input type="hidden" id="rnbgroup" name="rnbgroup" value="${dto.rnbgroup }" /> 
+								<input type="hidden" id="rnbindent" name="rnbindent" value="${dto.rnbindent }" />
 								<input type="hidden" name="rwriter" id="rwriter" value="<%=session.getAttribute("userId")%>" /> 
 		
 								<textarea id="rcontent" name="rcontent" class=cs_content_section4_replyrview_inputform_ta></textarea>
-								<input class="reply_input_btn" type="button" value="입력" onclick="reply()" data-rqbno="${dto.rqbno }" />
+								<input class="reply_input_btn" type="button" value="입력" onclick="reply()" data-rnbno="${dto.rnbno }" />
 							</div>
-							<button class="cs_content_section4_wrap_rreply_btn" onclick="replyformclose()" data-rqbno="${dto.rqbno }">접기</button>
+							<button class="cs_content_section4_wrap_rreply_btn" onclick="replyformclose()" data-rnbno="${dto.rnbno }">접기</button>
 						</div>
 					</div>
 				
@@ -235,20 +233,20 @@
 		// 답글보기 버튼 처리
 		function replyrview() {
 			var target = event.target;
-			var rqbno = $(target).data("rqbno");
+			var rnbno = $(target).data("rnbno");
 
-			console.log(rqbno);
+			console.log(rnbno);
 
 			var parent = event.target.parentElement;
-			var replyArea = document.getElementById(rqbno + "replyrview");
-			var replyvbtn = document.getElementById(rqbno + "replyvbtn");
+			var replyArea = document.getElementById(rnbno + "replyrview");
+			var replyvbtn = document.getElementById(rnbno + "replyvbtn");
 
 			$.ajax({
 				type : "post",
 				async : true,
-				url : "replyview",
+				url : "nreplyview",
 				data : {
-					"rqbno" : rqbno
+					"rnbno" : rnbno
 				},
 				success : function(data) {
 					console.log("success");
@@ -260,7 +258,7 @@
 
 					for (var i = 0; i < data.length; i++) {
 
-						console.log(data[i].rqbcontent);
+						console.log(data[i].rnbcontent);
 						
 						
 						htmlText += "<div class='cs_content_section4_wrap_replyrview'>";
@@ -275,12 +273,12 @@
 			        	"</c:if>";
 						
 						htmlText += "<h4 class='cs_content_section4_wrap_rreply_ni_h4'>";
-						htmlText += data[i].rqbwriter;
+						htmlText += data[i].rnbwriter;
 						htmlText += "</h4>";
 						htmlText += "</div>";
 		
 						htmlText += "<p>";
-						htmlText += data[i].rqbcontent;
+						htmlText += data[i].rnbcontent;
 						htmlText += "</p>";
 						htmlText += "</div>";
 					}
@@ -300,8 +298,8 @@
 		function replyform() {
 			/* alert("x"); */
 			var target = event.target;
-			var rqbno = $(target).data("rqbno");
-			var hiddenDiv = document.getElementById(rqbno + "replyform");
+			var rnbno = $(target).data("rnbno");
+			var hiddenDiv = document.getElementById(rnbno + "replyform");
 
 			hiddenDiv.style.display = "flex";
 			/* hiddenDiv.style.margin = "auto"; */
@@ -311,9 +309,9 @@
 		function replyformclose() {
 			/* alert("x"); */
 			var target = event.target;
-			var rqbno = $(target).data("rqbno");
+			var rnbno = $(target).data("rnbno");
 
-			var hiddenDiv = document.getElementById(rqbno + "replyform");
+			var hiddenDiv = document.getElementById(rnbno + "replyform");
 
 			hiddenDiv.style.display = "none";
 		}
@@ -321,20 +319,20 @@
 		function reply() {
 			var target = event.target;
 
-			var rqbno = $(target).data("rqbno");
+			var rnbno = $(target).data("rnbno");
 			var parent = event.target.parentElement;
-			var replyArea = document.getElementById(rqbno + "replyrview");
+			var replyArea = document.getElementById(rnbno + "replyrview");
 
 			$.ajax({
 				type : "post",
 				async : true,
-				url : "reply",
+				url : "nreply",
 				data : {
-					"rqbno" : $(parent).find("#rqbno").val(),
-					"qbno" : $(parent).find("#qbno").val(),
-					"rqbstep" : $(parent).find("#rqbstep").val(),
-					"rqbgroup" : $(parent).find("#rqbgroup").val(),
-					"rqbindent" : $(parent).find("#rqbindent").val(),
+					"rnbno" : $(parent).find("#rnbno").val(),
+					"nbno" : $(parent).find("#nbno").val(),
+					"rnbstep" : $(parent).find("#rnbstep").val(),
+					"rnbgroup" : $(parent).find("#rnbgroup").val(),
+					"rnbindent" : $(parent).find("#rnbindent").val(),
 					"rcontent" : $(parent).find("#rcontent").val(),
 					"rwriter" : $(parent).find("#rwriter").val()
 
@@ -351,7 +349,7 @@
 
 					console.log('lastindex' + lastIndex);
 
-					console.log(data[lastIndex].rqbcontent);
+					console.log(data[lastIndex].rnbcontent);
 
 					console.log(viewbtn);
 
@@ -368,12 +366,12 @@
 			        	"</c:if>";
 						
 						htmlText += "<h4 class='cs_content_section4_wrap_rreply_ni_h4'>";
-						htmlText += data[lastIndex].rqbwriter;
+						htmlText += data[lastIndex].rnbwriter;
 						htmlText += "</h4>";
 						htmlText += "</div>";
 		
 						htmlText += "<p>";
-						htmlText += data[lastIndex].rqbcontent;
+						htmlText += data[lastIndex].rnbcontent;
 						htmlText += "</p>";
 						htmlText += "</div>";
 						

@@ -1,26 +1,24 @@
-package com.tech.ibara.csnotice.service;
+package com.tech.ibara.csnotice.service.notice;
 
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import javax.servlet.http.HttpServletRequest;
-
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.ui.Model;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
-import com.tech.ibara.csnotice.dao.QnaBoardIDao;
+import com.tech.ibara.csnotice.dao.NoticeBoardIDao;
 
-public class CsQnaEditProcService implements CsQnaService {
+public class CsNoticeEditProcService implements CsNoticeService {
 
-	CsQnaService csQnaService;
+	CsNoticeService csNoticeService;
 	
 	private SqlSession sqlSession;
 	
-	public CsQnaEditProcService(SqlSession sqlSession) {
+	public CsNoticeEditProcService(SqlSession sqlSession) {
 		this.sqlSession=sqlSession;
 	}
 	
@@ -30,29 +28,29 @@ public class CsQnaEditProcService implements CsQnaService {
 		Map<String, Object> map =model.asMap();
 		MultipartHttpServletRequest mftrequest=(MultipartHttpServletRequest) map.get("mftrequest");
 		
-		String qbtitle = mftrequest.getParameter("qbtitle");
-		String qbcontent = mftrequest.getParameter("qbcontent");
+		String nbtitle = mftrequest.getParameter("nbtitle");
+		String nbcontent = mftrequest.getParameter("nbcontent");
 		String qnadiv = mftrequest.getParameter("qnadiv");
-		String qbno = mftrequest.getParameter("qbno");
+		String nbno = mftrequest.getParameter("nbno");
 
-		System.out.println("qbtitle : " + qbtitle);
-		System.out.println("qbcontent : " + qbcontent);
+		System.out.println("nbtitle : " + nbtitle);
+		System.out.println("nbcontent : " + nbcontent);
 		System.out.println("qnadiv : " + qnadiv);
-		System.out.println("qbno : " + qbno);
+		System.out.println("nbno : " + nbno);
 
-		QnaBoardIDao dao = sqlSession.getMapper(QnaBoardIDao.class);
+		NoticeBoardIDao dao = sqlSession.getMapper(NoticeBoardIDao.class);
 
-		dao.qnaeditproc(qbno, qbtitle, qbcontent, qnadiv);
+		dao.noticeeditproc(nbno, nbtitle, nbcontent, qnadiv);
 
 		String path = "C:\\interiorbara01\\interiorbara01\\src\\main\\webapp\\resources\\upload\\cs";
 
-		List<MultipartFile> fileList = mftrequest.getFiles("qbfile");
+		List<MultipartFile> fileList = mftrequest.getFiles("nbfile");
 		System.out.println("fileList : " + fileList);
 
 		// 수정 파일을 올린 경우에만 실행
 		if (fileList != null) {
 			// 이전 파일 조회
-			Integer selfilecode = dao.selfilecode(qbno);
+			Integer selfilecode = dao.selfilecode(nbno);
 			System.out.println("selfilecode :" + selfilecode);
 
 			ArrayList<String> fileListbefore = dao.getfileListbefore(selfilecode);
@@ -83,7 +81,7 @@ public class CsQnaEditProcService implements CsQnaService {
 			String pathFile = path + "\\" + changeFile;
 
 			// 파일코드 조회
-			Integer filecode = dao.selfilecode(qbno);
+			Integer filecode = dao.selfilecode(nbno);
 			System.out.println("filecode: " + filecode);
 
 			// 이미지 업로드
