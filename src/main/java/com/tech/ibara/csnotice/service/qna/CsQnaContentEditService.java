@@ -1,4 +1,4 @@
-package com.tech.ibara.csnotice.service;
+package com.tech.ibara.csnotice.service.qna;
 
 import java.util.ArrayList;
 import java.util.Map;

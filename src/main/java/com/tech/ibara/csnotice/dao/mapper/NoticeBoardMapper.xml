@@ -201,7 +201,7 @@
 		NBNO=#{param1}
 	</update>
 
-	<insert id="qnareply">
+	<insert id="noticereply">
 		INSERT INTO CS_NOTICEBOARD_REPLY
 		VALUES(#{param1},CS_NOTICEBOARD_REPLY_SEQ.NEXTVAL,#{param3},#{param2},0,CS_NOTICEBOARD_REPLY_SEQ.NEXTVAL,0)
 	</insert>
@@ -229,7 +229,7 @@
 	</select>
 
 
-	<insert id="qnareply_r">
+	<insert id="noticereply_r">
 		INSERT INTO
 		CS_NOTICEBOARD_REPLY(NBNO,RNBNO,RNBWRITER,RNBCONTENT,RNBSTEP,RNBGROUP,RNBINDENT)
 		VALUES(#{param1},CS_NOTICEBOARD_REPLY_SEQ.NEXTVAL,#{param3},#{param4},#{param6}+1,#{param2},#{param7}+1)

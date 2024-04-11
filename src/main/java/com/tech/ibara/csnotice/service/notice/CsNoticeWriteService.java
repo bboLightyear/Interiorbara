@@ -1,4 +1,4 @@
-package com.tech.ibara.csnotice.service;
+package com.tech.ibara.csnotice.service.notice;
 
 import java.io.File;
 import java.util.List;
@@ -11,15 +11,16 @@ import org.springframework.ui.Model;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import com.tech.ibara.csnotice.dao.NoticeBoardIDao;
 import com.tech.ibara.csnotice.dao.QnaBoardIDao;
 
-public class CsQnaWriteService implements CsQnaService {
+public class CsNoticeWriteService implements CsNoticeService {
 
-	CsQnaService csQnaService;
+	CsNoticeService csNoticeService;
 	
 	private SqlSession sqlSession;
 	
-	public CsQnaWriteService(SqlSession sqlSession) {
+	public CsNoticeWriteService(SqlSession sqlSession) {
 		this.sqlSession=sqlSession;
 	}
 	
@@ -29,36 +30,36 @@ public class CsQnaWriteService implements CsQnaService {
 		Map<String, Object> map =model.asMap();
 		MultipartHttpServletRequest mftrequest=(MultipartHttpServletRequest) map.get("mftrequest");
 		
-		String qbwriter = mftrequest.getParameter("qbwriter");
-		String qbtitle = mftrequest.getParameter("qbtitle");
-		String qbcontent = mftrequest.getParameter("qbcontent");
+		String nbwriter = mftrequest.getParameter("nbwriter");
+		String nbtitle = mftrequest.getParameter("nbtitle");
+		String nbcontent = mftrequest.getParameter("nbcontent");
 		String qnadiv = mftrequest.getParameter("qnadiv");
 
 		String path = "C:\\interiorbara01\\interiorbara01\\src\\main\\webapp\\resources\\upload\\cs";
 //		MultipartRequest req=new MultipartRequest(mftrequest, path,1024*1024*10,"utf-8",new DefaultFileRenamePolicy());
 
-		System.out.println("qbwriter : " + qbwriter);
-		System.out.println("qbtitle : " + qbtitle);
-		System.out.println("qbcontent : " + qbcontent);
+		System.out.println("nbwriter : " + nbwriter);
+		System.out.println("nbtitle : " + nbtitle);
+		System.out.println("nbcontent : " + nbcontent);
 		System.out.println("qnadiv : " + qnadiv);
 
-		List<MultipartFile> fileList = mftrequest.getFiles("qbfile");
+		List<MultipartFile> fileList = mftrequest.getFiles("nbfile");
 
 		System.out.println("fileList : " + fileList);
 
-		QnaBoardIDao dao = sqlSession.getMapper(QnaBoardIDao.class);
+		NoticeBoardIDao dao = sqlSession.getMapper(NoticeBoardIDao.class);
 
 		// 최근의 글번호
-		Integer sqbno = dao.selsqbno();
-		System.out.println("sqbno: " + sqbno);
+		Integer snbno = dao.selsnbno();
+		System.out.println("snbno: " + snbno);
 
 		// sqbno null 처리
-		if (sqbno == null) {
-			sqbno = 1;
+		if (snbno == null) {
+			snbno = 1;
 		}
 
 		// 글 작성
-		dao.qnawrite(qbwriter, qbtitle, qbcontent, sqbno, qnadiv);
+		dao.noticewrite(nbwriter, nbtitle, nbcontent, snbno, qnadiv);
 
 		// 파일 이름 업로드 당시 밀리초로 변경
 		for (MultipartFile mf : fileList) {
@@ -71,8 +72,8 @@ public class CsQnaWriteService implements CsQnaService {
 
 			// 이미지 없이 글 올릴 경우 filecode 0으로 설정
 			if (originFile == "") {
-				sqbno = (-1);
-				System.out.println("sqbno=-1");
+				snbno = (-1);
+				System.out.println("snbno=-1");
 			}
 			// 이미지 업로드
 			try {
@@ -80,7 +81,7 @@ public class CsQnaWriteService implements CsQnaService {
 					mf.transferTo(new File(pathFile));
 					System.out.println("다중 업로드 성공");
 //					db에 파일 이름 인서트
-					dao.imgwrite(sqbno, changeFile);
+					dao.imgwrite(snbno, changeFile);
 
 				}
 			} catch (Exception e) {

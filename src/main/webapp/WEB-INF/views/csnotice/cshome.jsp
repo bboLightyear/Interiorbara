@@ -103,12 +103,32 @@
 					<a href="chat" class="chatbtn">채팅상담</a> <a href="" class="emailbtn">이메일
 						보내기<!--가능하면 할 생각-->
 					</a>
-					<button class="emailcopy">이메일 주소 복사</button>
+					<button onclick="copyEmail()" class="emailcopy">이메일 주소 복사</button>
 				</div>
 				<!--cs_wrap_home_csinfor-->
 			</div>
 			<!--cs_wrap_content-->
 		</section>
+		
+		<script> //이메일 복사 기능 스크립트 
+		 function copyEmail() {
+		      var email = "bokun0502@gmail.com";
+		      
+		      // 텍스트를 클립보드에 복사
+		      navigator.clipboard.writeText(email)
+		        .then(function() {
+		          // 복사 성공 시 알림 표시
+		          alert("이메일이 복사되었습니다: " + email);
+		        })
+		        
+		        .catch(function(error) {
+		          // 복사 실패 시 오류 메시지 표시
+		          console.error("클립보드 복사 실패:", error);
+		          alert("이메일 복사에 실패했습니다.");
+		        });
+		    }
+		</script>
+		
 
 		<div class="cs_home_white_space">
 			<!--qna 위 공백-->
