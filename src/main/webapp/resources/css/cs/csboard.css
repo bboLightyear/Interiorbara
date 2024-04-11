@@ -644,14 +644,18 @@ body,html{
 	margin-top: 40px;
 }
 .cs_content_section4_wrap_rreply_c{
+	width:766px;
 	background-color: darkgray;
 	border-radius: 10px;
+	margin-left: 40px;
 }
 .cs_content_section4_wrap_rreply_ni{
 	width: 750px;
 	height: 30px;
     align-items: center;
     display: flex;
+    margin-top: 10px;
+    margin-left: 10px;
 }
 .cs_content_section4_wrap_rreply_ni_h4{
 	margin-top: 0;
@@ -685,17 +689,45 @@ body,html{
 .cs_content_section4_wrap_replyrview{
 	margin-top: 20px;
 	margin-left: 10px;
+	display: flex;
+	flex-direction: column;
 }
 .cs_content_section4_replyrview{
 	background-color: lightgray;
 	border-radius: 10px;
-	width: 720px;
-	margin-left: 40px;
+	width: 700px;
+	margin-left: 30px;
+	margin-right: 20px;
 }
 .cs_content_section4_replyrview_rni{
 	align-items: center;
     display: flex;
     flex-direction: row;
+}
+.cs_content_section4_replyrview_wrap_inputform{
+    display:none;
+    flex-direction: column;
+    align-items: center;
+}
+.cs_content_section4_replyrview_inputform{
+	width: 660px;
+	height: 30px;
+	display: flex;
+    flex-direction: row;
+    align-items: center;
+    background-color: white;
+    border-radius: 10px;
+    border-color: lightskyblue;
+}
+.cs_content_section4_replyrview_inputform_ta{
+	width: 570px;
+	height: 25px;
+	border: none;
+	outline: none;
+	resize: none;
+	overflow-y: auto;
+	font-size: 17px;
+	margin-left: 15px; 	
 }
 /*푸터*/
 footer {

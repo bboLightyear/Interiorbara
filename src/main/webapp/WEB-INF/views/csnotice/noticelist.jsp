@@ -1,15 +1,23 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<link rel="stylesheet" type="text/css"
-	href="resources/css/noticelist.css" />
-<link rel="stylesheet"
-	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css" />
-<title>Notice List</title>
+<link rel="stylesheet" type="text/css" href="resources/css/cs/csboard.css" /> 
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+<style>
+.fa-solid {
+	color: #333;
+}
+
+.fa-solid:hover {
+	color: gold;
+}
+</style>
+<title>Insert title here</title>
 </head>
 <body>
 	<!-- 헤더 -->
@@ -51,97 +59,138 @@
 		</div>
 	</header>
 
-	<br>
-
-	<!-- QnA 내용 -->
-	<div class="notice_list_body">
-		<!-- QnA 타이틀 -->
-		<div class="notice_list_title">
-			<h1>Notice List</h1>
+	<%
+	if (session.getAttribute("userId") == null) {
+		 session.setAttribute("userId", "cus");
+		/* session.removeAttribute("userId"); */
+	}
+	%>
+	<p style="margin: 0;">userId: <%= session.getAttribute("userId") %></p>
+	
+	<div class="cs_qnaboard_whitespace"> <!--여백--></div>
+	
+	<section class="cs_list_section1">
+		<div class="cs_list_head">
+			<h3 class="cs_list_head_h">NOTICE</h3>
 		</div>
-		<!-- 게시판 검색 -->
-		<div class="notice_list_body_search_wrap">
-			<form action="#">
-				<select name="search_options" id="search_option"
-					class="notice_list_body_search_option">
-					<option value="quick">퀵 견적</option>
-					<option value="biz">업체 둘러보기</option>
-					<option value="shop">소품샵</option>
-					<option value="house">우리 집 자랑하기</option>
-				</select>
+	</section>
+	
+	<div class="cs_qnaboard_whitespace"> <!--여백--></div>
+
+	
+	<section class="cs_list_section2">
+	<div class="cs_list_wrap_board">
+		<div class="cs_list_serch_bar">
+			<form action="noticelist" method="post">
+<!-- 				<div> -->
+					<select name="qnadiv">
+					
+						<option value="all" ${all eq 'true' ? 'selected' : ''}>전체</option>
+						<option value="qq" ${qq eq 'true' ? 'selected' : ''}>퀵견적</option>
+						<option value="oh" ${oh eq 'true' ? 'selected' : ''}>우리집 자랑하기</option>
+						<option value="biz" ${biz eq 'true' ? 'selected' : ''}>업체 관련</option>
+						<option value="pf" ${pf eq 'true' ? 'selected' : ''}>로그인/회원정보</option>
+						<option value="sh" ${sh eq 'true' ? 'selected' : ''}>소품샵</option>
+						
+					</select> 
+					<input type="text" name="sk" value="${searchKeyword }" /> 
+					<input type="submit" value="검색" />
+<!-- 				</div> -->
 			</form>
-			<!-- 검색 창 -->
-			<div class="notice_list_body_search_box">
-				<input type="text" class="notice_list_body_search_box_input"
-					placeholder="검색"> <i
-					class="fas fa-search notice_list_body_search_box_icon"></i>
+		</div>
+		
+		<div class="cs_qnaboard_whitespace"> <!--여백--></div>
+	
+<!-- 		<div class=""> -->
+			<table class="cs_list_table">
+			<thead class="cs_list_table_thead">
+				<tr class="">
+					<th class="cs_list_table_th">NO</th>
+					<th class="cs_list_table_th">제목</th>
+					<th class="cs_list_table_th">이름</th>
+					<th class="cs_list_table_th">날짜</th>
+					<th class="cs_list_table_th">조회수</th>
+				</tr>
+			</thead>
+			<tbody class="cs_list_table_tbody">
+				<c:forEach items="${list }" var="dto">
+					<tr class="">
+						<td class="">${dto.nbno }</td>
+						<td class=""><a href="noticecontent?nbno=${dto.nbno }" class="cs_list_table_title">${dto.nbtitle }</a></td>
+						<td class="">${dto.nbwriter }</td>
+						<td class=""><fmt:formatDate value="${dto.nbdate}" pattern="yy/MM/dd" /></td>
+						<td class="">${dto.nbhit }</td>
+					</tr>
+				</c:forEach>
+			</tbody>
+			</table>
+<!-- 		</div> -->
+		
+<div class="cs_qnaboard_whitespace"> <!--여백--></div>
+
+		<div class="cs_list_wrap_writebtn">
+			<div class="cs_list_writebtn_loc">
+				<% if(session.getAttribute("userId") == null){ %>
+				<% } else {%>
+					<!--로그인 안 한 상태로는 글 쓰기 버튼 안 보이게 처리-->
+				<div class="cs_list_writebtn" onclick="linkwritebtn()">
+					<a href="noticewriteview" class="cs_list_writebtn_a">글쓰기</a>
+				</div>
+				<% } %>
 			</div>
 		</div>
 
-		<!---QnA 게시판--->
-		<div class="notice_list_board">
-			<!-- QnA 게시판 카테고리 -->
-			<ul class="notice_list_board_list">
-				<li class="board_list board_category w10 border_right">순번</li>
-				<li class="board_list board_category w50 border_right">제목</li>
-				<li class="board_list board_category w12 border_right">등록자명</li>
-				<li class="board_list board_category w15 border_right">등록일</li>
-				<li class="board_list board_category w10 ">조회수</li>
-			</ul>
-			<!--- QnA 게시판 리스트 --->
-			<ul class="notice_list_board_list">
-				<li class="board_list w10 list_height border_bottom border_right">2</li>
-				<li class="board_list w50 list_height border_bottom border_right">제목</li>
-				<li class="board_list w12 list_height border_bottom border_right">관리자</li>
-				<li class="board_list w15 list_height border_bottom border_right">2019-02-11</li>
-				<li class="board_list w10 list_height border_bottom">1</li>
-			</ul>
-			<ul class="notice_list_board_list">
-				<li class="board_list w10 list_height border_bottom border_right">2</li>
-				<li class="board_list w50 list_height border_bottom border_right">제목</li>
-				<li class="board_list w12 list_height border_bottom border_right">관리자</li>
-				<li class="board_list w15 list_height border_bottom border_right">2019-02-11</li>
-				<li class="board_list w10 list_height border_bottom">1</li>
-			</ul>
-			<ul class="notice_list_board_list">
-				<li class="board_list w10 list_height border_bottom border_right">2</li>
-				<li class="board_list w50 list_height border_bottom border_right">제목</li>
-				<li class="board_list w12 list_height border_bottom border_right">관리자</li>
-				<li class="board_list w15 list_height border_bottom border_right">2019-02-11</li>
-				<li class="board_list w10 list_height border_bottom">1</li>
-			</ul>
-			<ul class="notice_list_board_list">
-				<li class="board_list w10 list_height border_bottom border_right">2</li>
-				<li class="board_list w50 list_height border_bottom border_right">제목</li>
-				<li class="board_list w12 list_height border_bottom border_right">관리자</li>
-				<li class="board_list w15 list_height border_bottom border_right">2019-02-11</li>
-				<li class="board_list w10 list_height border_bottom">1</li>
-			</ul>
-			<ul class="notice_list_board_list">
-				<li class="board_list w10 list_height border_bottom border_right">2</li>
-				<li class="board_list w50 list_height border_bottom border_right">제목</li>
-				<li class="board_list w12 list_height border_bottom border_right">관리자</li>
-				<li class="board_list w15 list_height border_bottom border_right">2019-02-11</li>
-				<li class="board_list w10 list_height border_bottom">1</li>
-			</ul>
-		</div>
-		<!-- page numbering -->
-		<div class="page_number">
-			<i class="fas fa-angle-double-left"></i>
-			<ul>
-				<li class="page_number_list page_number_list_1">1</li>
-				<li class="page_number_list page_number_list_2">2</li>
-				<li class="page_number_list page_number_list_3">3</li>
-				<li class="page_number_list page_number_list_4">4</li>
-				<li class="page_number_list page_number_list_5">5</li>
-			</ul>
-			<i class="fas fa-angle-double-right"></i>
-			<!-- 글쓰기 버튼 -->
-			<button type="button" onclick="" class="write_button">글쓰기</button>
-		</div>
 	</div>
-	<br>
-	<br>
+	</section>
+		
+		
+<script> //글쓰기 div 영역 클릭 시에도 작동 하도록 설정
+function linkwritebtn() {
+	  var link = document.querySelector('.cs_list_writebtn a').href;
+	  window.location.href = link;	
+}
+</script>
+		
+		
+		<div class="cs_qnaboard_whitespace"> <!--여백--></div>
+		
+		<section class="cs_list_section3">
+			<div class="cs_list_wrap_pagenum">
+
+					<a class="cs_list_writebtn_a" href="noticelist?page=1&sk=${searchKeyword}&all=${all==true?'all':''}&qq=${qq==true?'qq':''}&oh=${oh==true?'oh':''}&biz=${biz==true?'biz':''}&qf=${qf==true?'pf':''}&sh=${sh==true?'sh':''}">
+							<!-- <i class="fa-solid fa-angles-left"></i> -->
+							 << 처음으로</a>
+					<a class="cs_list_writebtn_a" href="noticelist?page=${searchVo.page-1 }&sk=${searchKeyword}&all=${all==true?'all':''}&qq=${qq==true?'qq':''}&oh=${oh==true?'oh':''}&biz=${biz==true?'biz':''}&qf=${qf==true?'pf':''}&sh=${sh==true?'sh':''}">
+							<!-- <i class="fa-solid fa-circle-chevron-left"></i> -->
+							&nbsp;이전</a>
+
+		
+				<c:forEach begin="${searchVo.pageStart }" end="${searchVo.pageEnd }" var="i">
+					<c:choose>
+					
+						<c:when test="${i eq searchVo.page }">
+							<span style="color: lightskyblue; font-weight: bold;">&nbsp;${i }&nbsp;</span>
+						</c:when>
+						
+						<c:otherwise>
+							<a class="cs_list_writebtn_a" href="noticelist?page=${i }&sk=${searchKeyword}&all=${all==true?'all':''} &qq=${qq==true?'qq':''}&oh=${oh==true?'oh':''}&biz=${biz==true?'biz':''}&qf=${qf==true?'pf':''}&sh=${sh==true?'sh':''}">${i }</a> &nbsp;
+						</c:otherwise>
+					
+					</c:choose>
+				</c:forEach>
+		
+					<a class="cs_list_writebtn_a" href="noticelist?page=${searchVo.page+1 }&sk=${searchKeyword}&all=${all==true?'all':''}&qq=${qq==true?'qq':''}&oh=${oh==true?'oh':''}&biz=${biz==true?'biz':''}&qf=${qf==true?'pf':''}&sh=${sh==true?'sh':''}">
+							<!-- <i class="fa-solid fa-circle-chevron-right"></i> -->
+							다음&nbsp;</a>
+					
+					<a class="cs_list_writebtn_a" href="noticelist?page=${searchVo.totPage }&sk=${searchKeyword}&all=${all==true?'all':''}&qq=${qq==true?'qq':''}&oh=${oh==true?'oh':''}&biz=${biz==true?'biz':''}&qf=${qf==true?'pf':''}&sh=${sh==true?'sh':''}">
+							<!-- <i class="fa-solid fa-angles-right"></i> -->
+							끝으로 >></a>
+			</div>
+		</section>
+	
+	
+	
 	<!-- 푸터 -->
 	<footer>
 		<!-- 푸터 로고 -->

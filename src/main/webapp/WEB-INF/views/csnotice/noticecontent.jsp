@@ -11,10 +11,8 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-<link rel="stylesheet" type="text/css"
-	href="resources/css/cs/csboard.css" />
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<link rel="stylesheet" type="text/css" href="resources/css/cs/csboard.css" />
 </head>
 <header>
 	<!-- header_top : 헤더 윗부분 -->
@@ -246,7 +244,7 @@
 			$.ajax({
 				type : "post",
 				async : true,
-				url : "replyview",
+				url : "nreplyview",
 				data : {
 					"rqbno" : rqbno
 				},
@@ -328,7 +326,7 @@
 			$.ajax({
 				type : "post",
 				async : true,
-				url : "reply",
+				url : "nreply",
 				data : {
 					"rqbno" : $(parent).find("#rqbno").val(),
 					"qbno" : $(parent).find("#qbno").val(),
