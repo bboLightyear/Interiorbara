@@ -20,27 +20,28 @@ public interface OHInterfaceDao {
 			  								   String searchingType, String searchingWord);
 	public int getPostTotalCount(String pb_category, String pb_residence, String pb_room, String pb_style, String pb_skill, 
 			                     String searchingType, String searchingWord);
-	public ArrayList<OHPhotoLike> ohPhotoLikeView(String userId);
-	public ArrayList<OHPhotoScrap> ohPhotoScrapView(String userId);
+	public ArrayList<OHPhotoLike> ohPhotoLikeView(int memno);
+	public ArrayList<OHPhotoScrap> ohPhotoScrapView(int memno);
 	
 	// ---------- OHPhotoLikeExecute ----------
-	public int likeCheck(String userId, String pb_no);
-	public void likeSave(String userId, String pb_no);
+	public int likeCheck(String memno, String pb_no);
+	public void likeSave(String memno, String nickname, String pb_no);
 	public void likeIncrease(String pb_no);
-	public void likeDelete(String userId, String pb_no);
+	public void likeDelete(String memno, String pb_no);
 	public void likeDecrease(String pb_no);
 	public int likeGetNumber(String pb_no);
 	
 	// ---------- OHPhotoScrapExecute ----------
-	public int scrapCheck(String userId, String pb_no);
-	public void scrapSave(String userId, String pb_no);
+	public int scrapCheck(String memno, String pb_no);
+	public void scrapSave(String memno, String nickname, String pb_no);
 	public void scrapIncrease(String pb_no);
-	public void scrapDelete(String userId, String pb_no);
+	public void scrapDelete(String memno, String pb_no);
 	public void scrapDecrease(String pb_no);
 	public int scrapGetNumber(String pb_no);
 	
 	// ---------- OHPhotoWriteExecute ----------
-	public void ohPhotoWriteExecute(String pb_user, String pb_title, 
+	public void ohPhotoWriteExecute(int memno, String nickname,
+									String pb_title, 
 									String pb_content, String pb_category, 
 									String pb_residence, String pb_room, 
 									String pb_style, String pb_skill);

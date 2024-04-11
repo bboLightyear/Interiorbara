@@ -12,6 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import com.tech.ibara.my.dto.MyMemberInfoDto;
 import com.tech.ibara.oh.dao.OHInterfaceDao;
 
 @Service
@@ -36,11 +37,15 @@ public class OHPhotoWriteExecuteService implements OHInterfaceService {
 		
 		// session
 		HttpSession session = (HttpSession) map.get("session");
-		// session 사용자 아이디, 저장
-		String pb_user = (String) session.getAttribute("userId");
-		// session, 사용자 아이디, 출력
-		System.out.println("pb_user: " + pb_user);
-		System.out.println("------------------------------");
+		// session, 로그인 정보 가져오기
+		MyMemberInfoDto loginUserDto =  (MyMemberInfoDto) session.getAttribute("loginUserDto");
+		// 로그인 정보, 변수 저장
+		int memno = loginUserDto.getMemno();
+		String nickname = loginUserDto.getNickname();
+		// 로그인 정보, 출력		
+		System.out.println("memno: " + memno);
+		System.out.println("nickname: " + nickname);		
+		System.out.println("------------------------------");		
 		
 		// OHInterfaceDao, SqlSession 연결
 		OHInterfaceDao dao = sqlSession.getMapper(OHInterfaceDao.class);
@@ -65,7 +70,7 @@ public class OHPhotoWriteExecuteService implements OHInterfaceService {
 		System.out.println("------------------------------");
 		
 		// ohPhotoWriteExecute() 함수 실행
-		dao.ohPhotoWriteExecute(pb_user, pb_title, pb_content, pb_category,
+		dao.ohPhotoWriteExecute(memno, nickname, pb_title, pb_content, pb_category,
 								pb_residence, pb_room, pb_style, pb_skill);
 		
 		// getRecentPb_no() 함수 실행 -> 가장 최근 작성된 게시글 번호 

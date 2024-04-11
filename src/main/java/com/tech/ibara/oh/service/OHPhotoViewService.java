@@ -10,6 +10,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
+import com.tech.ibara.my.dto.MyMemberInfoDto;
 import com.tech.ibara.oh.dao.OHInterfaceDao;
 import com.tech.ibara.oh.dto.OHPhotoBoard;
 import com.tech.ibara.oh.dto.OHPhotoLike;
@@ -172,6 +173,8 @@ public class OHPhotoViewService implements OHInterfaceService {
 		
 		// 선택한 현재 페이지 번호 가져오기
 		String stringPageSelectedNum = request.getParameter("pageSelectedNum");
+		System.out.println("stringPageSelectedNum: " + stringPageSelectedNum);
+		System.out.println("------------------------------");
 		// stringPageSelectedNum, null Check
 		if(stringPageSelectedNum == null) {
 			stringPageSelectedNum = "1";
@@ -230,12 +233,25 @@ public class OHPhotoViewService implements OHInterfaceService {
 		model.addAttribute("ohPageVO", ohPageVO);	
 		
 		// 로그인 사용자, 게시물 - 좋아요, 스크랩 표시
-		
-		// session 사용자 아이디, 저장
-		String userId = (String) session.getAttribute("userId");
-		// session, 사용자 아이디, 출력
-		System.out.println("userId: " + userId);
-		System.out.println("------------------------------");			
+		// 변수 선언
+		int memno = 0;
+		String nickname = null;
+		// 로그인 정보, null Check
+		if(session.getAttribute("loginUserDto") != null) {
+			// 사용자 로그인 정보 출력
+			MyMemberInfoDto loginUserDto = (MyMemberInfoDto) session.getAttribute("loginUserDto");
+			memno = loginUserDto.getMemno();
+			nickname = loginUserDto.getNickname();
+			System.out.println("로그인 정보가 있습니다.");
+			System.out.println("memno: " + memno);
+			System.out.println("nickname: " + nickname);
+			System.out.println("------------------------------");		
+		} else {
+			System.out.println("로그인 정보가 없습니다.");
+			System.out.println("memno: " + memno);
+			System.out.println("nickname: " + nickname);
+			System.out.println("------------------------------");
+		}					
 		
 		// OHPhotoLike 객체 담을 리스트 선언
 		ArrayList<OHPhotoLike> ohPhotoLike = null;
@@ -244,18 +260,20 @@ public class OHPhotoViewService implements OHInterfaceService {
 		ArrayList<OHPhotoScrap> ohPhotoScrap = null;
 		
 		// 로그인 사용자 => True, 좋아요, 스크랩 표시
-		if(userId != null && !userId.equals("")) {
+		if(session.getAttribute("loginUserDto") != null) {
 			// ohPhotoLikeView() 함수 실행
-			ohPhotoLike = dao.ohPhotoLikeView(userId);
+			ohPhotoLike = dao.ohPhotoLikeView(memno);
 			System.out.println("ohPhotoLikeView() 함수 실행완료");
 			System.out.println("------------------------------");
+			
 			// model <- ohPhotoLike, 로그인 사용자, 게시물 - 좋아요 표시
 			model.addAttribute("ohPhotoLike", ohPhotoLike);
 			
 			// ohPhotoScrapView() 함수 실행
-			ohPhotoScrap = dao.ohPhotoScrapView(userId);
+			ohPhotoScrap = dao.ohPhotoScrapView(memno);
 			System.out.println("ohPhotoScrapView() 함수 실행완료");
 			System.out.println("------------------------------");
+			
 			// model <- ohPhotoScrap, 로그인 사용자, 게시물 - 스크랩 표시
 			model.addAttribute("ohPhotoScrap", ohPhotoScrap);			
 		} else {

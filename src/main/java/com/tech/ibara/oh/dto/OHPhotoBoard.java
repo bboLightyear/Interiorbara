@@ -6,7 +6,8 @@ public class OHPhotoBoard {
 	
 	private int no;
 	private int pb_no;
-	private String pb_user;
+	private int memno;
+	private String nickname;
 	private String pb_title;
 	private String pb_content;
 	private Date pb_date;
@@ -34,15 +35,17 @@ public class OHPhotoBoard {
 	public OHPhotoBoard() {
 		// TODO Auto-generated constructor stub
 	}
-
-	public OHPhotoBoard(int no, int pb_no, String pb_user, String pb_title, 
-						String pb_content, Date pb_date, int pb_like,		
-						int pb_scrap, int pb_reply, int pb_link, 
-						int pb_hit, String pb_category, String pb_residence,
-						String pb_room, String pb_style, String pb_skill) {
+	
+	public OHPhotoBoard(int no, int pb_no, int memno, 
+						String nickname, String pb_title, String pb_content, 
+						Date pb_date, int pb_like, int pb_scrap, 
+						int pb_reply, int pb_link, int pb_hit, 
+						String pb_category, String pb_residence, String pb_room, 
+						String pb_style, String pb_skill, OHPhotoAttach ohPhotoAttach) {
 		this.no = no;
 		this.pb_no = pb_no;
-		this.pb_user = pb_user;
+		this.memno = memno;
+		this.nickname = nickname;
 		this.pb_title = pb_title;
 		this.pb_content = pb_content;
 		this.pb_date = pb_date;
@@ -56,6 +59,7 @@ public class OHPhotoBoard {
 		this.pb_room = pb_room;
 		this.pb_style = pb_style;
 		this.pb_skill = pb_skill;
+		this.ohPhotoAttach = ohPhotoAttach;
 	}
 
 	public int getNo() {
@@ -74,12 +78,20 @@ public class OHPhotoBoard {
 		this.pb_no = pb_no;
 	}
 
-	public String getPb_user() {
-		return pb_user;
+	public int getMemno() {
+		return memno;
 	}
 
-	public void setPb_user(String pb_user) {
-		this.pb_user = pb_user;
+	public void setMemno(int memno) {
+		this.memno = memno;
+	}
+
+	public String getNickname() {
+		return nickname;
+	}
+
+	public void setNickname(String nickname) {
+		this.nickname = nickname;
 	}
 
 	public String getPb_title() {

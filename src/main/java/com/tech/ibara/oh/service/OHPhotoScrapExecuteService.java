@@ -38,16 +38,18 @@ public class OHPhotoScrapExecuteService implements OHInterfaceService {
 		OHInterfaceDao dao = sqlSession.getMapper(OHInterfaceDao.class);
 		
 		// --- 변수 선언, 값 저장 ---		
-		String userId = request.getParameter("userId");
+		String memno = request.getParameter("memno");
+		String nickname = request.getParameter("nickname");
 		String pb_no = request.getParameter("pb_no");
 		
 		// --- 변수, 값 출력 ---		
-		System.out.println("userId: " + userId);
+		System.out.println("memno: " + memno);
+		System.out.println("nickname: " + nickname);
 		System.out.println("pb_no: " + pb_no);
 		System.out.println("------------------------------");		
 		
 		// scrapCheck() 함수 실행 => 사용자가 해당 게시물에 스크랩을 눌렀는지 확인
-		int scrapCheckNum = dao.scrapCheck(userId, pb_no);		
+		int scrapCheckNum = dao.scrapCheck(memno, pb_no);		
 		
 		// --- 변수, 값 출력 ---			
 		System.out.println("scrapCheckNum: " + scrapCheckNum);
@@ -55,7 +57,7 @@ public class OHPhotoScrapExecuteService implements OHInterfaceService {
 		
 		if(scrapCheckNum == 0) {
 			// 스크랩, 기록 없음
-			dao.scrapSave(userId, pb_no);
+			dao.scrapSave(memno, nickname , pb_no);
 			System.out.println("스크랩, 기록 완료");
 			System.out.println("------------------------------");
 			dao.scrapIncrease(pb_no);
@@ -63,7 +65,7 @@ public class OHPhotoScrapExecuteService implements OHInterfaceService {
 			System.out.println("------------------------------");
 		} else {
 			// 스크랩, 기록 있음
-			dao.scrapDelete(userId, pb_no);
+			dao.scrapDelete(memno, pb_no);
 			System.out.println("스크랩, 기록 삭제완료");
 			System.out.println("------------------------------");
 			dao.scrapDecrease(pb_no);

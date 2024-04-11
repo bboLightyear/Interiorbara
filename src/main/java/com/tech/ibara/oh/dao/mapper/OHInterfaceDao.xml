@@ -10,8 +10,9 @@
 	
 	<resultMap type="com.tech.ibara.oh.dto.OHPhotoBoard" id="OHPhotoBoard">
 		<result column="NO" property="no" />
-		<result column="PB_NO" property="pb_no" />
-		<result column="PB_USER" property="pb_user" />
+		<result column="PB_NO" property="pb_no" />	
+		<result column="MEMNO" property="memno" />
+		<result column="NICKNAME" property="nickname" />
 		<result column="PB_TITLE" property="pb_title" />
 		<result column="PB_CONTENT" property="pb_content" />
 		<result column="PB_DATE" property="pb_date" />
@@ -205,7 +206,7 @@
 		FROM
 			OH_PHOTO_LIKE
 		WHERE
-			PL_USER = #{param1}
+			MEMNO = #{param1}
 	</select>
 	<select id="ohPhotoScrapView" resultType="com.tech.ibara.oh.dto.OHPhotoScrap">
 		SELECT
@@ -213,7 +214,7 @@
 		FROM
 			OH_PHOTO_SCRAP
 		WHERE
-			PS_USER = #{param1}
+			MEMNO = #{param1}
 	</select>
 	
 	<!-- OHPhotoLikeExecute -->
@@ -224,13 +225,13 @@
 		FROM
 			OH_PHOTO_LIKE
 		WHERE
-			PL_USER = #{param1} AND PB_NO = #{param2}
+			MEMNO = #{param1} AND PB_NO = #{param2}
 	</select>
 	<insert id="likeSave">
 		INSERT INTO
 			OH_PHOTO_LIKE
 		VALUES (
-			OH_PHOTO_LIKE_SEQ.NEXTVAL, #{param1}, SYSDATE, #{param2}
+			OH_PHOTO_LIKE_SEQ.NEXTVAL, #{param1}, #{param2}, SYSDATE, #{param3}
 		)
 	</insert>
 	<update id="likeIncrease">
@@ -245,7 +246,7 @@
 		DELETE FROM 
 			OH_PHOTO_LIKE
 		WHERE
-			PL_USER = #{param1} AND PB_NO = #{param2}
+			MEMNO = #{param1} AND PB_NO = #{param2}
 	</delete>
 	<update id="likeDecrease">
 		UPDATE
@@ -272,13 +273,13 @@
 		FROM
 			OH_PHOTO_SCRAP
 		WHERE
-			PS_USER = #{param1} AND PB_NO = #{param2}
+			MEMNO = #{param1} AND PB_NO = #{param2}
 	</select>	
 	<insert id="scrapSave">
 		INSERT INTO
 			OH_PHOTO_SCRAP
 		VALUES (
-			OH_PHOTO_SCRAP_SEQ.NEXTVAL, #{param1}, SYSDATE, #{param2}
+			OH_PHOTO_SCRAP_SEQ.NEXTVAL, #{param1}, #{param2}, SYSDATE, #{param3}
 		)
 	</insert>
 	<update id="scrapIncrease">
@@ -293,7 +294,7 @@
 		DELETE FROM 
 			OH_PHOTO_SCRAP
 		WHERE
-			PS_USER = #{param1} AND PB_NO = #{param2}
+			MEMNO = #{param1} AND PB_NO = #{param2}
 	</delete>
 	<update id="scrapDecrease">
 		UPDATE
@@ -318,9 +319,9 @@
 		INSERT INTO 
 		    OH_PHOTO_BOARD
 		VALUES (
-			OH_PHOTO_BOARD_SEQ.NEXTVAL, #{param1}, #{param2}, #{param3}, SYSDATE, 
-		    0, 0, 0, 0, 0, 
-		    #{param4}, #{param5}, #{param6}, #{param7}, #{param8}
+			OH_PHOTO_BOARD_SEQ.NEXTVAL, #{param1}, #{param2}, #{param3}, #{param4},
+			SYSDATE, 0, 0, 0, 0, 0, 
+		    #{param5}, #{param6}, #{param7}, #{param8}, #{param9}
 		)
 	</insert>
 	<select id="getRecentPb_no" resultType="Integer">

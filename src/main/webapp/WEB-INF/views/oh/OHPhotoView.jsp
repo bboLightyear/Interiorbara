@@ -1,8 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <!DOCTYPE html>
+
 <html>
+
 <head>
 	
 	<meta charset="UTF-8">	
@@ -22,17 +26,19 @@
 	<script src="https://code.jquery.com/jquery-3.7.1.js" ></script>
 	
 </head>
+
 <body>
 
 	<!-- 데이터 표시 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
 	<table border="1">
 		<tr>
-			<th colspan="16">OHPhotoBoard</th>
+			<th colspan="17">OHPhotoBoard</th>
 		</tr>
 		<tr>
 			<th>no</th>
 			<th>pb_no</th>
-			<th>pb_user</th>
+			<th>memno</th>
+			<th>nickname</th>			
 			<th>pb_title</th>
 			<th>pb_content</th>
 			<th>pb_date</th>
@@ -51,7 +57,8 @@
 			<tr>
 				<td>${dto.no }</td>
 				<td>${dto.pb_no }</td>
-				<td>${dto.pb_user }</td>
+				<td>${dto.memno }</td>
+				<td>${dto.nickname }</td>
 				<td>${dto.pb_title }</td>
 				<td>${dto.pb_content }</td>
 				<td>${dto.pb_date }</td>
@@ -117,17 +124,36 @@
 	</table>
 	<!-- 데이터 표시 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->	
 
-	<h3>OHMainView.jsp</h3>
+	<h3>OHPhotoView.jsp</h3>
 
 	<!-- 회원, 비회원 구분 후 메세지 출력 -->
 	<c:choose>
-		<c:when test="${sessionScope.userId ne null && !empty sessionScope.userId }">
-			<h3>${sessionScope.userId }님</h3>	
+		<c:when test="${loginUserDto ne null }">
+			<h3>${loginUserDto.nickname }님</h3>	
 		</c:when>
 		<c:otherwise>
 			<h3>비회원님</h3>					
 		</c:otherwise>
 	</c:choose>
+
+	<!-- 로그인 정보 -->
+ 	<input type="hidden" id="memno" value=${loginUserDto.memno } />
+	<input type="hidden" id="nickname" value=${loginUserDto.nickname } />
+	<!-- 정렬 정보 -->
+	<input type="hidden" id="keepOrderingBy" value=${keepOrderingBy } />
+	<input type="hidden" id="keepOrderingMethod" value=${keepOrderingMethod } />
+	<!-- 필터 정보 -->
+	<input type="hidden" id="keepPb_category" value=${keepPb_category } />
+	<input type="hidden" id="keepPb_residence" value=${keepPb_residence } />
+	<input type="hidden" id="keepPb_room" value=${keepPb_room } />
+	<input type="hidden" id="keepPb_style" value=${keepPb_style } />
+	<input type="hidden" id="keepPb_skill" value=${keepPb_skill } />
+	<!-- 검색 정보 -->
+	<input type="hidden" id="keepSearchingType" value=${keepSearchingType } />
+	<input type="hidden" id="keepSearchingWord" value=${keepSearchingWord } />
+	<!-- 페이지 번호 -->
+	<input type="hidden" id="pageSelectedNum" value=${ohPageVO.pageSelectedNum } />
+	<input type="hidden" id="pageTotalNum" value=${ohPageVO.pageTotalNum } />
 
 	<div class="container">
 		
@@ -314,13 +340,27 @@
 							<div class="OHPhotoView-box">
 								
 	                            <div class="OHPhotoView-boxLayer-1">
-	                                <div id="OHPhotoView-photoProfileImage">프로필 이미지</div>
-	                                <div id="OHMainView-photoUserName">${dto.pb_user }</div>
-	                                <div id="OHMainView-photoTitle">${dto.pb_title }</div>
+									<!-- 게시글 작성자 프로필 이미지 -->			
+									<%-- 프로필 이미지가 없으면 기본 이미지 --%>
+									<c:if test="${empty loginUserDto.profileimg}" >
+										<img src="../resources/img/my/user.png" id="OHPhotoView-photoProfileImage">
+							        </c:if>
+							        <%-- 프로필 이미지가 있으면 있는 이미지 --%>
+							        <c:if test="${!empty loginUserDto.profileimg}" >
+							            <img src="../resources/upload/my/${loginUserDto.profileimg}" id="OHPhotoView-photoProfileImage">
+							        </c:if>		                                
+	                                <!-- 게시글 작성자 이름 -->
+	                                <div id="OHPhotoView-photoUserName">${dto.nickname }</div>
+	                                <!-- 게시글 제목 -->
+	                                <div id="OHPhotoView-photoTitle">
+	                                	<a href="OHPhotoDetailView?pb_no=${dto.pb_no }">
+	                                		${dto.pb_title }
+										</a>	                                
+	                                </div>
 	                            </div>								
 								
 	                            <div class="OHPhotoView-boxLayer-2">
-									<!-- 이미지 클릭 => 게시물 상세보기 --> 
+									<!-- 게시글 대표 이미지 --> 
 									<a href="OHPhotoDetailView?pb_no=${dto.pb_no }">
 		                                <img id="OHPhotoView-photoImage" src="../resources/upload/oh/photo/${dto.ohPhotoAttach.pa_attach }" alt="해당 게시글 대표사진">
 									</a>								
@@ -374,15 +414,24 @@
 									<!-- 스크랩, 숫자 End -->	                                
 	                                
 	                                <!-- 댓글, 이미지 -->
-	                                <img class="OHPhotoView-replyImage" src="" alt="댓글">
+	                                <span class="OHPhotoView-replyImage" id="${dto.pb_no }">
+	                                	<i class="fa-regular fa-comment"></i>
+	                                </span>
+	                                <!-- 댓글, 이미지 End -->
 	                                
 	                                <!-- 댓글, 숫자 -->
-	                                <div class="OHPhotoView-replyNumber">1000</div>
+	                                <div class="OHPhotoView-replyNumber" id="${dto.pb_no }">${dto.pb_reply }</div>
+	                                <!-- 댓글, 숫자 End -->
 	                                
+	                              	<!-- 조회수, Lable -->
 	                                <div id="OHPhotoView-photoHit">조회수</div>
+	                                
+	                                <!-- 조회수, 숫자 -->
 	                                <div id="OHPhotoView-photoHitCount">${dto.pb_hit }</div>
-	                                <div id="OHPhotoView-photoCategory">${dto.pb_category }</div>
+	                                
+									<!-- 게시글 내용 -->
 	                                <div id="OHPhotoView-photoContent">${dto.pb_content }</div>
+	                                
 	                            </div>
 	                            
 							</div>
@@ -397,39 +446,48 @@
 					
 					<!-- Paging -->
 					<form action="OHPhotoView" id="pageForm" method="post">
+					
 						<c:if test="${ohPageVO.pageSelectedNum > 1 }">
 							<!-- 첫번째 페이지로 이동 -->	                    
-							<a href="#" onclick="firstPage()" id="firstPage"><i class="fa-solid fa-angles-left"></i></a>
+							<a href="#" onclick="firstPage(1)" id="firstPage"><i class="fa-solid fa-angles-left"></i></a>
 							<!-- 이전 페이지로 이동 -->
-							<a href="#" onclick="beforePage()" id="beforePage"><i class="fa-solid fa-circle-chevron-left"></i></a>
-						</c:if>			
+							<a href="#" onclick="beforePage(${ohPageVO.pageSelectedNum - 1 })" id="beforePage"><i class="fa-solid fa-angle-left"></i></a>
+						</c:if>	
+								
 						<c:forEach begin="${ohPageVO.pageStartNum }" end="${ohPageVO.pageEndNum }" var="i">
 							<c:choose>
 								<c:when test="${i eq ohPageVO.pageSelectedNum }">
-									<span style="color:red; font-weight:bold;">${i } &nbsp;</span>
+									<span style="color:#1e90ff; font-weight:bold;">${i } &nbsp;</span>
 								</c:when>
 								<c:otherwise>
 									<a href="#" onclick="movePage(${i })" >${i }</a>&nbsp;
 								</c:otherwise>
 							</c:choose>
 						</c:forEach>
+						
 						<c:if test="${ohPageVO.pageTotalNum > ohPageVO.pageSelectedNum }">
 							<!-- 다음 페이지로 이동 -->
-							<a href="#" onclick="nextPage()" id="nextPage"><i class="fa-solid fa-arrow-right"></i></a>
+							<a href="#" onclick="nextPage(${ohPageVO.pageSelectedNum + 1 })" id="nextPage"><i class="fa-solid fa-angle-right"></i></a>
 							<!-- 마지막 페이지로 이동 -->					
-							<a href="#" onclick="lastPage()" id="lastPage"><i class="fa-solid fa-poo"></i></a>					                               					
+							<a href="#" onclick="lastPage(${ohPageVO.pageTotalNum })" id="lastPage"><i class="fa-solid fa-angles-right"></i></a>					                               					
 						</c:if>
+						
 						<!-- hidden, value 전달 -->
+						<!-- 정렬 정보 -->
 						<input type="hidden" name="orderingBy" value=${keepOrderingBy } />
 						<input type="hidden" name="orderingMethod" value=${keepOrderingMethod } />
+						<!-- 필터 정보 -->
 						<input type="hidden" name="pb_category" value=${keepPb_category } />
 						<input type="hidden" name="pb_residence" value=${keepPb_residence } />
 						<input type="hidden" name="pb_room" value=${keepPb_room } />
 						<input type="hidden" name="pb_style" value=${keepPb_style } />
 						<input type="hidden" name="pb_skill" value=${keepPb_skill } />
+						<!-- 검색 정보 -->
 						<input type="hidden" name="searchingType" value=${keepSearchingType } />
 						<input type="hidden" name="searchingWord" value=${keepSearchingWord } />
+						<!-- 페이지 이동 버튼, 적용 jQuery 함수 - firstPage(), beforePage(), movePage(num), nextPage(), lastPage() -->
 						<input type="hidden" id="transPage"/>
+						
 					</form>
 			
 				</div>				
@@ -444,314 +502,9 @@
 		
 	</div>	
 	
-</body>
-
-	<script>
+	<!-- OHPhotoView.js -->
+	<script src="../resources/js/oh/OHPhotoView.js"></script>		
 	
-		<!-- HTML Parsing 순서에 따라 body element 아래에 배치 -->
-		
-		$(document).ready(function() {
-			$("OHPhotoView-toWriteButton").click(function() {
-				/* 회원인지 확인 */
-				if("${sessionScope.userId }" != null && "${sessionScope.userId }" != "") {	
-					window.location.href = "OHPhotoWriteView";
-				} else {
-					alert("로그인 페이지로 이동");
-				}
-			});
-		});			
-		
-		/* 변수 선언 - (정렬, 필터, 검색) 값 저장 */
-		var keepOrderingBy = "${keepOrderingBy}";		
-		var keepOrderingMethod = "${keepOrderingMethod}";		
-		var keepPb_category = "${keepPb_category}";		
-		var keepPb_residence = "${keepPb_residence}";		
-		var keepPb_room = "${keepPb_room}";
-		var keepPb_style = "${keepPb_style}";
-		var keepPb_skill = "${keepPb_skill}";
-		var keepSearchingType = "${keepSearchingType}";		
-		var keepSearchingWord = "${keepSearchingWord}";
-		
-		/* 콘솔, 값 출력 */
-		console.log("keepOrderingBy: " + keepOrderingBy);
-		console.log("keepOrderingMethod: " + keepOrderingMethod);
-		console.log("keepPb_category: " + keepPb_category);
-		console.log("keepPb_residence: " + keepPb_residence);
-		console.log("keepPb_room: " + keepPb_room);
-		console.log("keepPb_style: " + keepPb_style);
-		console.log("keepPb_skill: " + keepPb_skill);
-		console.log("keepSearchingType: " + keepSearchingType);
-		console.log("keepSearchingWord: " + keepSearchingWord);
-		
-		/* $(document).ready(function() {}); => 페이지가 로드된 후에 jQuery 실행 */
-		$(document).ready(function() {
-			$("#OHPhotoView-main-2-sorting-orderingBy").val(keepOrderingBy).prop("selected", true);
-			$("#OHPhotoView-main-2-sorting-orderingMethod").val(keepOrderingMethod).prop("selected", true);
-			$("#pb_category").val(keepPb_category).prop("selected", true);
-			$("#pb_residence").val(keepPb_residence).prop("selected", true);
-			$("#pb_room").val(keepPb_room).prop("selected", true);
-			$("#pb_style").val(keepPb_style).prop("selected", true);
-			$("#pb_skill").val(keepPb_skill).prop("selected", true);
-			$("#searchingType").val(keepSearchingType).prop("selected", true);
-			/* keepSearchingWord 값은  searchingWord에 value 값으로 입력 */
-		});
-		
-		// 처음 페이지로 이동하는 함수
-		function firstPage() {
-				var inputHidden = $('<input>', {
-				type: 'hidden',
-				name: 'pageSelectedNum',
-				value: '1'
-			}); 
-			$("#transPage").after(inputHidden);
-			document.getElementById("pageForm").submit();
-		};				
-		// 이전 페이지로 이동하는 함수
-		function beforePage() {
-				var inputHidden = $('<input>', {
-				type: 'hidden',
-				name: 'pageSelectedNum',
-				value: '${ohPageVO.pageSelectedNum - 1}'
-			}); 
-			$("#transPage").after(inputHidden);
-			document.getElementById("pageForm").submit();
-		};				
-		// 원하는 페이지로 이동하는 함수
-		function movePage(num) {
-			var pageNum = num
-			var inputHidden = $('<input>', {
-				type: 'hidden',
-				name: 'pageSelectedNum',
-				value: pageNum
-			});
-			$("#transPage").after(inputHidden);
-			document.getElementById("pageForm").submit();
-		}
-		// 다음 페이지로 이동하는 함수
-		function nextPage() {						
-				var inputHidden = $('<input>', {
-				type: 'hidden',
-				name: 'pageSelectedNum',
-				value: '${ohPageVO.pageSelectedNum + 1}'
-			}); 
-			$("#transPage").after(inputHidden);
-			document.getElementById("pageForm").submit();
-		};
-		// 마지막 페이지로 이동하는 함수
-		function lastPage() {
-				var inputHidden = $('<input>', {
-				type: 'hidden',
-				name: 'pageSelectedNum',
-				value: '${ohPageVO.pageTotalNum}'
-			}); 
-			$("#transPage").after(inputHidden);
-			document.getElementById("pageForm").submit();
-		};		
-		
-		$(document).ready(function() {
-			$(".likeImage").click(function() {
-				/* 회원인지 확인 */						
-				if("${sessionScope.userId }" != null && "${sessionScope.userId }" != "") {		
-					// 사용자 id 값을 가져와 변수에 저장
-					var userId = "${sessionScope.userId }"
-					// userId 변수에 저장된 id 값 출력
-					console.log("userId: ", userId);
-					// 클릭한 하트 요소의 id 값을 가져와 변수에 저장
-					var clickedId = $(this).attr("id");
-					// clickedId 변수에 저장된 id 값 출력
-					console.log("clickedId: ", clickedId);
-					// 클릭 => 하트 색상변경
-					$(this).toggleClass("clickColor");
-					// 클릭한 요소의 하위 태그에서 i태그를 찾아서 icon 변수에 저장 
-					var icon = $(this).find("i");
-					// if 조건문, 기본 하트 모양 => True
-					if(icon.hasClass("fa-regular")) {
-						// <i> 요소의 클래스 변경 => 하트 모양변경 
-						icon.removeClass("fa-regular").addClass("fa-solid");
-						// ajax 요청 보내기
-						$.ajax({
-							url: "OHPhotoLikeExecute",
-							method: "post",
-							dataType: "json",
-							data: {
-								// 전송할 데이터
-								'userId' : userId,
-								'pb_no' : clickedId
-							},
-							success: function(response) {
-				                // 성공적으로 서버로부터 응답을 받았을 때 실행할 코드
-				            	console.log("AJAX 요청 성공");
-				                // 서버에서 받은 게시물의 좋아요 횟수, 변수에 저장
-				                var responseLikeNumber = response.likeNumber;
-				                // responseLikeNumber 변수, 콘솔 출력
-				            	console.log("서버에서 받은 게시물의 좋아요 횟수: ", responseLikeNumber);
-				            	// [중요] 선택자를 이용해 요소 지정할 때 id, class 순서로 지정한다. 그 반대는 선택하지 못한다.
-				            	var likeNumberSelector = "#" + clickedId + ".likeNumber";
-				            	// likeNumberSelector 변수, 콘솔 출력
-				            	console.log("likeNumberSelector: ", likeNumberSelector);
-				            	// 서버에서 받은 게시물의 좋아요 횟수 => 숫자 갱신 
-				                $(likeNumberSelector).text(responseLikeNumber);
-							},
-							error: function(xhr, status, error) {
-				                // AJAX 요청 실패 시 실행할 코드
-				                console.error("AJAX 요청 실패:", status, error);										
-							}
-						});
-					} else {
-						// <i> 요소의 클래스 변경 => 하트 모양변경 
-						icon.removeClass("fa-solid").addClass("fa-regular");
-						// ajax 요청 보내기
-						$.ajax({
-							url: "OHPhotoLikeExecute",
-							method: "post",
-							dataType: "json",
-							data: {
-								// 전송할 데이터
-								'userId' : userId,
-								'pb_no' : clickedId
-							},
-							success: function(response) {
-				                // 성공적으로 서버로부터 응답을 받았을 때 실행할 코드
-				            	console.log("AJAX 요청 성공");		
-				                // 서버에서 받은 게시물의 좋아요 횟수, 변수에 저장
-				                var responseLikeNumber = response.likeNumber;
-				                // responseLikeNumber 변수, 콘솔 출력
-				            	console.log("서버에서 받은 게시물의 좋아요 횟수: ", responseLikeNumber);
-				            	// [중요] 선택자를 이용해 요소 지정할 때 id, class 순서로 지정한다. 그 반대는 선택하지 못한다.
-				            	var likeNumberSelector = "#" + clickedId + ".likeNumber";
-				            	// likeNumberSelector 변수, 콘솔 출력
-				            	console.log("likeNumberSelector: ", likeNumberSelector);
-				            	// 서버에서 받은 게시물의 좋아요 횟수 => 숫자 갱신 
-				                $(likeNumberSelector).text(responseLikeNumber);						                
-							},
-							error: function(xhr, status, error) {
-				                // AJAX 요청 실패 시 실행할 코드
-				                console.error("AJAX 요청 실패:", status, error);										
-							}
-						});								
-					}
-				} else {
-					// 비회원 => 좋아요 누를 경우
-					alert("회원만 가능, 로그인 페이지로 이동");
-				}	
-			});
-		});
-		
-		$(document).ready(function() {
-			$(".scrapImage").click(function() {
-				/* 회원인지 확인 */						
-				if("${sessionScope.userId }" != null && "${sessionScope.userId }" != "") {		
-					// 사용자 id 값을 가져와 변수에 저장
-					var userId = "${sessionScope.userId }";
-					// userId 변수에 저장된 id 값 출력
-					console.log("userId: ", userId);
-					// 클릭한 스크랩 요소의 id 값을 가져와 변수에 저장
-					var clickedId = $(this).attr("id");
-					// clickedId 변수에 저장된 id 값 출력
-					console.log("clickedId: ", clickedId);
-					// 클릭 => 스크랩 색상변경
-					$(this).toggleClass("clickColor");
-					// 클릭한 요소의 하위 태그에서 i태그를 찾아서 icon 변수에 저장 
-					var icon = $(this).find("i");
-					// if 조건문, 기본 스크랩 모양 => True
-					if(icon.hasClass("fa-regular")) {
-						// <i> 요소의 클래스 변경 => 스크랩 모양변경 
-						icon.removeClass("fa-regular").addClass("fa-solid");
-						// ajax 요청 보내기
-						$.ajax({
-							url: "OHPhotoScrapExecute",
-							method: "post",
-							dataType: "json",
-							data: {
-								// 전송할 데이터
-								'userId' : userId,
-								'pb_no' : clickedId
-							},
-							success: function(response) {
-				                // 성공적으로 서버로부터 응답을 받았을 때 실행할 코드
-				            	console.log("AJAX 요청 성공");
-				                // 서버에서 받은 게시물의 스크랩 횟수, 변수에 저장
-				                var responseScrapNumber = response.scrapNumber;
-				                // responseScrapNumber 변수, 콘솔 출력
-				            	console.log("서버에서 받은 게시물의 좋아요 횟수: ", responseScrapNumber);
-				            	// [중요] 선택자를 이용해 요소 지정할 때 id, class 순서로 지정한다. 그 반대는 선택하지 못한다.
-				            	var scrapNumberSelector = "#" + clickedId + ".scrapNumber";
-				            	// scrapNumberSelector 변수, 콘솔 출력
-				            	console.log("scrapNumberSelector: ", scrapNumberSelector);
-				            	// 서버에서 받은 게시물의 스크랩 횟수 => 숫자 갱신 
-				                $(scrapNumberSelector).text(responseScrapNumber);
-							},
-							error: function(xhr, status, error) {
-				                // AJAX 요청 실패 시 실행할 코드
-				                console.error("AJAX 요청 실패:", status, error);										
-							}
-						});
-					} else {
-						// <i> 요소의 클래스 변경 => 스크랩 모양변경 
-						icon.removeClass("fa-solid").addClass("fa-regular");
-						// ajax 요청 보내기
-						$.ajax({
-							url: "OHPhotoScrapExecute",
-							method: "post",
-							dataType: "json",
-							data: {
-								// 전송할 데이터
-								'userId' : userId,
-								'pb_no' : clickedId
-							},
-							success: function(response) {
-				                // 성공적으로 서버로부터 응답을 받았을 때 실행할 코드
-				            	console.log("AJAX 요청 성공");		
-				                // 서버에서 받은 게시물의 스크랩 횟수, 변수에 저장
-				                var responseScrapNumber = response.scrapNumber;
-				                // responseScrapNumber 변수, 콘솔 출력
-				            	console.log("서버에서 받은 게시물의 좋아요 횟수: ", responseScrapNumber);
-				            	// [중요] 선택자를 이용해 요소 지정할 때 id, class 순서로 지정한다. 그 반대는 선택하지 못한다.
-				            	var scrapNumberSelector = "#" + clickedId + ".scrapNumber";
-				            	// scrapNumberSelector 변수, 콘솔 출력
-				            	console.log("scrapNumberSelector: ", scrapNumberSelector);
-				            	// 서버에서 받은 게시물의 스크랩 횟수 => 숫자 갱신 
-				                $(scrapNumberSelector).text(responseScrapNumber);					                
-							},
-							error: function(xhr, status, error) {
-				                // AJAX 요청 실패 시 실행할 코드
-				                console.error("AJAX 요청 실패:", status, error);										
-							}
-						});								
-					}
-				} else {
-					// 비회원 => 좋아요 누를 경우
-					alert("회원만 가능, 로그인 페이지로 이동");
-				}	
-			});
-		});		
-				
-				
-				
-	</script>			
-	
+</body>	
 	
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

@@ -40,16 +40,18 @@ public class OHPhotoLikeExecuteService implements OHInterfaceService {
 		OHInterfaceDao dao = sqlSession.getMapper(OHInterfaceDao.class);		
 		
 		// --- 변수 선언, 값 저장 ---		
-		String userId = request.getParameter("userId");
+		String memno = request.getParameter("memno");
+		String nickname = request.getParameter("nickname");
 		String pb_no = request.getParameter("pb_no");
 		
 		// --- 변수, 값 출력 ---		
-		System.out.println("userId: " + userId);
+		System.out.println("memno: " + memno);
+		System.out.println("nickname: " + nickname);
 		System.out.println("pb_no: " + pb_no);
 		System.out.println("------------------------------");
 		
 		// likeCheck() 함수 실행 => 사용자가 해당 게시물에 좋아요를 눌렀는지 확인
-		int likeCheckNum = dao.likeCheck(userId, pb_no);
+		int likeCheckNum = dao.likeCheck(memno, pb_no);
 		
 		// --- 변수, 값 출력 ---			
 		System.out.println("likeCheckNum: " + likeCheckNum);
@@ -57,7 +59,7 @@ public class OHPhotoLikeExecuteService implements OHInterfaceService {
 		
 		if(likeCheckNum == 0) {
 			// 좋아요, 기록 없음
-			dao.likeSave(userId, pb_no);
+			dao.likeSave(memno, nickname, pb_no);
 			System.out.println("좋아요, 기록 완료");
 			System.out.println("------------------------------");
 			dao.likeIncrease(pb_no);
@@ -65,7 +67,7 @@ public class OHPhotoLikeExecuteService implements OHInterfaceService {
 			System.out.println("------------------------------");
 		} else {
 			// 좋아요, 기록 있음
-			dao.likeDelete(userId, pb_no);
+			dao.likeDelete(memno, pb_no);
 			System.out.println("좋아요, 기록 삭제완료");
 			System.out.println("------------------------------");
 			dao.likeDecrease(pb_no);

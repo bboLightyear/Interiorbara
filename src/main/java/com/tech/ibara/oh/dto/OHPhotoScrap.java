@@ -5,7 +5,8 @@ import java.util.Date;
 public class OHPhotoScrap {
 
 	private int ps_no;
-	private String ps_user;
+	private int memno;
+	private String nickname;	
 	private Date ps_date;
 	private int pb_no;	
 	
@@ -13,10 +14,11 @@ public class OHPhotoScrap {
 		// TODO Auto-generated constructor stub
 	}
 
-	public OHPhotoScrap(int ps_no, String ps_user, 
+	public OHPhotoScrap(int ps_no, int memno, String nickname, 
 						Date ps_date, int pb_no) {
 		this.ps_no = ps_no;
-		this.ps_user = ps_user;
+		this.memno = memno;
+		this.nickname = nickname;
 		this.ps_date = ps_date;
 		this.pb_no = pb_no;
 	}
@@ -29,12 +31,20 @@ public class OHPhotoScrap {
 		this.ps_no = ps_no;
 	}
 
-	public String getPs_user() {
-		return ps_user;
+	public int getMemno() {
+		return memno;
 	}
 
-	public void setPs_user(String ps_user) {
-		this.ps_user = ps_user;
+	public void setMemno(int memno) {
+		this.memno = memno;
+	}
+
+	public String getNickname() {
+		return nickname;
+	}
+
+	public void setNickname(String nickname) {
+		this.nickname = nickname;
 	}
 
 	public Date getPs_date() {
@@ -52,5 +62,5 @@ public class OHPhotoScrap {
 	public void setPb_no(int pb_no) {
 		this.pb_no = pb_no;
 	}
-	
+
 }

@@ -1,7 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <!DOCTYPE html>
+
 <html>
 
 <head>
@@ -29,12 +32,13 @@
 	<!-- 데이터 표시 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
 	<table border="1">
 		<tr>
-			<th colspan="16">OHPhotoBoard</th>
+			<th colspan="17">OHPhotoBoard</th>
 		</tr>
 		<tr>
 			<th>no</th>
 			<th>pb_no</th>
-			<th>pb_user</th>
+			<th>memno</th>
+			<th>nickname</th>
 			<th>pb_title</th>
 			<th>pb_content</th>
 			<th>pb_date</th>
@@ -53,7 +57,8 @@
 			<tr>
 				<td>${dto.no }</td>
 				<td>${dto.pb_no }</td>
-				<td>${dto.pb_user }</td>
+				<td>${dto.memno }</td>
+				<td>${dto.nickname }</td>
 				<td>${dto.pb_title }</td>
 				<td>${dto.pb_content }</td>
 				<td>${dto.pb_date }</td>
@@ -91,13 +96,17 @@
 
 	<!-- 회원, 비회원 구분 후 메세지 출력 -->
 	<c:choose>
-		<c:when test="${sessionScope.userId ne null && !empty sessionScope.userId }">
-			<h3>${sessionScope.userId }님</h3>	
+		<c:when test="${loginUserDto ne null }">
+			<h3>${loginUserDto.nickname }님</h3>	
 		</c:when>
 		<c:otherwise>
 			<h3>비회원님</h3>					
 		</c:otherwise>
 	</c:choose>
+
+	<!-- 로그인 정보 -->
+ 	<input type="hidden" id="memno" value=${loginUserDto.memno } />
+	<input type="hidden" id="nickname" value=${loginUserDto.nickname } />
 
 	<div class="container">
 	
@@ -142,14 +151,24 @@
 								<a href="OHPhotoDetailView?pb_no=${dto.pb_no }">
 									<img id="OHMainView-photoImage" src="../resources/upload/oh/photo/${dto.ohPhotoAttach.pa_attach }" alt="해당 게시글 대표사진"/>
 								</a>			
-								<!-- position: relative, 영역구분 추가 -->		
 								<div class="OHMainView-boxLayer">		
 									<!-- 게시글 제목 -->
-									<div id="OHMainView-photoTitle">${dto.pb_title }</div>
-									<!-- 게시글 작성자 프로필 이미지 -->
-									<div id="OHMainView-photoProfileImage">프로필 이미지</div>	
+									<div id="OHMainView-photoTitle">
+										<a href="OHPhotoDetailView?pb_no=${dto.pb_no }">
+											${dto.pb_title }
+										</a>
+									</div>
+									<!-- 게시글 작성자 프로필 이미지 -->			
+									<%-- 프로필 이미지가 없으면 기본 이미지 --%>
+									<c:if test="${empty loginUserDto.profileimg}" >
+										<img src="../resources/img/my/user.png" id="OHMainView-photoProfileImage">
+							        </c:if>
+							        <%-- 프로필 이미지가 있으면 있는 이미지 --%>
+							        <c:if test="${!empty loginUserDto.profileimg}" >
+							            <img src="../resources/upload/my/${loginUserDto.profileimg}" id="OHMainView-photoProfileImage">
+							        </c:if>	
 									<!-- 게시글 작성자 이름 -->
-									<div id="OHMainView-photoUserName">${dto.pb_user }</div>
+									<div id="OHMainView-photoUserName">${dto.nickname }</div>
 									<!-- 게시글 작성자 조회수 -->
 									<div id="OHMainView-photoHit">조회수</div>
 									<!-- 게시글 작성자 조회수 횟수 -->
@@ -187,19 +206,9 @@
 		
 	</div>	
 	
+	<!-- OHMainView.js -->
+	<script src="../resources/js/oh/OHMainView.js"></script>
+	
 </body>
-
-	<script>
-		$(document).ready(function() {
-			$("#OHMainView-toWriteButtton").click(function() {
-				/* 회원인지 확인 */
-				if("${sessionScope.userId }" != null && "${sessionScope.userId }" != "") {	
-					window.location.href = "OHPhotoWriteView";
-				} else {
-					alert("로그인 페이지로 이동");
-				}
-			});
-		});
-	</script>
 
 </html>
