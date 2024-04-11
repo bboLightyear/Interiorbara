@@ -74,11 +74,13 @@ public class OrderVerifyService extends SqlSessionBase implements ShopService {
 					responseParams.put("message", "위조된 결제시도");
 					
 					jsonResponse = ShopUtil.mapToJson(responseParams);
+					
+					// 결제 취소 코드
 				}
 				
 				response.getWriter().write(jsonResponse);
 				response.getWriter().flush();
-			
+				
 			} catch (Exception e) {
 				e.printStackTrace();
 			}

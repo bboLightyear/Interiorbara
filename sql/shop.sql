@@ -2,6 +2,41 @@
 drop table shop_product purge;
 drop sequence seq_shop_product;
 
+SELECT
+    P.PRODUCT_ID,
+    P.SELLER_ID,
+    P.CATEGORY_ID,
+    P.NAME,
+    P.REP_PRICE,
+    P.REP_DISCOUNTED_PRICE,
+    P.IS_DISCOUNTED,
+    P.DISCOUNT_RATE,
+    P.DELIVERY_FEE,
+    P.DELIVERY_TYPE,
+    P.REF_PRICE,
+    P.OPTION_TYPE,
+    P.OPTION1_SET_ID,
+    P.OPTION2_SET_ID,
+    P.REG_TIME,
+    P.HITS,
+    P.SALES,
+    P.SCRAPS,
+    P.REVIEWS,
+    S.NICKNAME,
+    I.FILE_SRC
+FROM
+    SHOP_PRODUCT P
+JOIN
+    SHOP_SELLER S
+ON
+    P.SELLER_ID = S.SELLER_ID
+JOIN
+    SHOP_PRODUCT_IMG I
+ON
+    P.PRODUCT_ID = I.PRODUCT_ID
+WHERE
+    PRODUCT_ID = 42;
+
 create table shop_product (
     product_id number,
     seller_id number,

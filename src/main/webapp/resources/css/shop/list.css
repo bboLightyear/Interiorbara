@@ -1,0 +1,40 @@
+@charset "UTF-8";
+
+#wrap {
+	width: 1280px;
+	margin: auto;
+}
+
+nav {
+	float: left;
+	width: 20%;
+	background-color: #fff0f0;
+}
+
+main {
+	float: right;
+	width: 80%;
+	background-color: #f0f0ff;
+}
+
+.clear {
+	clear: both;
+}
+
+a {
+	text-decoration: none;
+}
+
+.productItem {
+	display: inline-block;
+	width: calc(33.33% - 20px);
+	height: 400px;
+	text-align: center;
+	background-color: lightyellow;
+	margin: 10px;
+}
+
+.productRepImg {
+	width: 100%;
+	border-radius: 10px;
+}
