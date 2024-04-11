@@ -6,7 +6,6 @@ public class OHPhotoReply {
 
 	private int pr_no;
 	private int memno;
-	private String nickname;	
 	private String pr_content;
 	private Date pr_date;
 	private int pr_group;
@@ -18,12 +17,11 @@ public class OHPhotoReply {
 		// TODO Auto-generated constructor stub
 	}
 
-	public OHPhotoReply(int pr_no, int memno, String nickname, 
+	public OHPhotoReply(int pr_no, int memno, 
 						String pr_content, Date pr_date, int pr_group,
 						int pr_step, int pr_indent, int pb_no) {
 		this.pr_no = pr_no;
 		this.memno = memno;
-		this.nickname = nickname;
 		this.pr_content = pr_content;
 		this.pr_date = pr_date;
 		this.pr_group = pr_group;
@@ -46,14 +44,6 @@ public class OHPhotoReply {
 
 	public void setMemno(int memno) {
 		this.memno = memno;
-	}
-
-	public String getNickname() {
-		return nickname;
-	}
-
-	public void setNickname(String nickname) {
-		this.nickname = nickname;
 	}
 
 	public String getPr_content() {

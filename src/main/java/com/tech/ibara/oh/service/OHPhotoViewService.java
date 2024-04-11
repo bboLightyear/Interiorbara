@@ -235,21 +235,17 @@ public class OHPhotoViewService implements OHInterfaceService {
 		// 로그인 사용자, 게시물 - 좋아요, 스크랩 표시
 		// 변수 선언
 		int memno = 0;
-		String nickname = null;
 		// 로그인 정보, null Check
 		if(session.getAttribute("loginUserDto") != null) {
 			// 사용자 로그인 정보 출력
 			MyMemberInfoDto loginUserDto = (MyMemberInfoDto) session.getAttribute("loginUserDto");
 			memno = loginUserDto.getMemno();
-			nickname = loginUserDto.getNickname();
 			System.out.println("로그인 정보가 있습니다.");
 			System.out.println("memno: " + memno);
-			System.out.println("nickname: " + nickname);
 			System.out.println("------------------------------");		
 		} else {
 			System.out.println("로그인 정보가 없습니다.");
 			System.out.println("memno: " + memno);
-			System.out.println("nickname: " + nickname);
 			System.out.println("------------------------------");
 		}					
 		

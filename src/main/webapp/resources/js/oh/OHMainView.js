@@ -8,10 +8,8 @@ $(document).ready(function() {
 	console.log("OHMainView.jsp is ready!");
 	
 	var memno = document.getElementById("memno").value;
-	var nickname = document.getElementById("nickname").value;
 	
 	console.log("memno: " + memno);
-	console.log("nickname: " + nickname);
 	
 	// 글쓰기 버튼 - Click
 	$("#OHMainView-toWriteButtton").click(function() {

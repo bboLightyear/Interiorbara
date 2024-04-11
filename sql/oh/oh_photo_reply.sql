@@ -11,7 +11,6 @@ CREATE TABLE OH_PHOTO_REPLY (
     PR_NO              NUMBER PRIMARY KEY,    -- 번호
     MEMNO	           NUMBER,                -- 사용자_번호
                                               -- TABLE: my_member_info, COLUMN: memno
-    NICKNAME           VARCHAR2(50),          -- 사용자_닉네임
                                               -- TABLE: my_member_info, COLUMN: nickname
     PR_CONTENT         VARCHAR2(200),         -- 내용
     PR_DATE            DATE DEFAULT SYSDATE,  -- 날짜
@@ -42,11 +41,11 @@ SELECT * FROM OH_PHOTO_REPLY;
 --------------------------------------
 -- INSERT
 INSERT INTO 
-    OH_PHOTO_REPLY (PR_NO, PR_USER, PR_CONTENT, PR_DATE,
+    OH_PHOTO_REPLY (PR_NO, MEMNO, PR_CONTENT, PR_DATE,
                     PR_GROUP, PR_STEP, PR_INDENT, PB_NO
                    ) 
 VALUES (
-    OH_PHOTO_REPLY_SEQ.NEXTVAL, '꼬부기', '댓글내용', SYSDATE,
+    OH_PHOTO_REPLY_SEQ.NEXTVAL, 1, '댓글내용', SYSDATE,
     0, 0, 0, 118
 );
 --------------------------------------

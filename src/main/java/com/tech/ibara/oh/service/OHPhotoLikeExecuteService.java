@@ -41,12 +41,10 @@ public class OHPhotoLikeExecuteService implements OHInterfaceService {
 		
 		// --- 변수 선언, 값 저장 ---		
 		String memno = request.getParameter("memno");
-		String nickname = request.getParameter("nickname");
 		String pb_no = request.getParameter("pb_no");
 		
 		// --- 변수, 값 출력 ---		
 		System.out.println("memno: " + memno);
-		System.out.println("nickname: " + nickname);
 		System.out.println("pb_no: " + pb_no);
 		System.out.println("------------------------------");
 		
@@ -59,7 +57,7 @@ public class OHPhotoLikeExecuteService implements OHInterfaceService {
 		
 		if(likeCheckNum == 0) {
 			// 좋아요, 기록 없음
-			dao.likeSave(memno, nickname, pb_no);
+			dao.likeSave(memno, pb_no);
 			System.out.println("좋아요, 기록 완료");
 			System.out.println("------------------------------");
 			dao.likeIncrease(pb_no);

@@ -10,6 +10,10 @@ import com.tech.ibara.oh.dto.OHPhotoScrap;
 
 public interface OHInterfaceDao {
 	
+	// ---------- 선경님 ----------
+	public ArrayList<OHPhotoBoard> getPhotoBoardLikeList(int memno);
+	public ArrayList<OHPhotoBoard> getPhotoBoardScrapList(int memno);
+	
 	// ---------- OHMainView.jsp ----------
 	public ArrayList<OHPhotoBoard> ohMainPhotoView(int number);
 	
@@ -25,7 +29,7 @@ public interface OHInterfaceDao {
 	
 	// ---------- OHPhotoLikeExecute ----------
 	public int likeCheck(String memno, String pb_no);
-	public void likeSave(String memno, String nickname, String pb_no);
+	public void likeSave(String memno, String pb_no);
 	public void likeIncrease(String pb_no);
 	public void likeDelete(String memno, String pb_no);
 	public void likeDecrease(String pb_no);
@@ -33,15 +37,14 @@ public interface OHInterfaceDao {
 	
 	// ---------- OHPhotoScrapExecute ----------
 	public int scrapCheck(String memno, String pb_no);
-	public void scrapSave(String memno, String nickname, String pb_no);
+	public void scrapSave(String memno, String pb_no);
 	public void scrapIncrease(String pb_no);
 	public void scrapDelete(String memno, String pb_no);
 	public void scrapDecrease(String pb_no);
 	public int scrapGetNumber(String pb_no);
 	
 	// ---------- OHPhotoWriteExecute ----------
-	public void ohPhotoWriteExecute(int memno, String nickname,
-									String pb_title, 
+	public void ohPhotoWriteExecute(int memno, String pb_title, 
 									String pb_content, String pb_category, 
 									String pb_residence, String pb_room, 
 									String pb_style, String pb_skill);

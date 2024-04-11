@@ -2,7 +2,6 @@
  * 
  */
 
-
 // jQuery를 사용하여 문서가 준비되었을 때 실행되는 함수
 $(document).ready(function() {
 	console.log("OHPhotoWriteView.jsp is ready!");
@@ -15,9 +14,6 @@ $(document).ready(function() {
 		window.location.href = before;
 	});
 	
-	
-	
-
 });	
 
 function validateForm() {

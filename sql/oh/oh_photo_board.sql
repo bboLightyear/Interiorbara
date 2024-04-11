@@ -11,7 +11,6 @@ CREATE TABLE OH_PHOTO_BOARD (
     PB_NO		      NUMBER PRIMARY KEY,   -- 번호
     MEMNO	          NUMBER,               -- 사용자_번호
                                             -- TABLE: my_member_info, COLUMN: memno
-    NICKNAME          VARCHAR2(50),         -- 사용자_닉네임
                                             -- TABLE: my_member_info, COLUMN: nickname
     PB_TITLE	      VARCHAR2(100),         -- 제목
     PB_CONTENT	      VARCHAR2(650),        -- 내용
@@ -37,6 +36,7 @@ CREATE SEQUENCE OH_PHOTO_BOARD_SEQ;
 DROP SEQUENCE OH_PHOTO_BOARD_SEQ;
 --------------------------------------
 -- SELECT
+SELECT * FROM OH_PHOTO_BOARD;
 SELECT * FROM OH_PHOTO_BOARD ORDER BY PB_NO DESC;
 SELECT MAX(PB_NO) FROM OH_PHOTO_BOARD;
 --------------------------------------
@@ -44,14 +44,22 @@ SELECT MAX(PB_NO) FROM OH_PHOTO_BOARD;
 DELETE FROM OH_PHOTO_BOARD;
 --------------------------------------
 -- INSERT
-INSERT INTO 
-    OH_PHOTO_BOARD
-VALUES (
-    OH_PHOTO_BOARD_SEQ.NEXTVAL, '37', 'coldplay', 
-    '제목입니다.', '내용입니다....', SYSDATE, 
-    0, 0, 0, 0, 0, 
-    '#그냥', '아파트', '거실', '빈티지', '셀프'
-);
+INSERT INTO OH_PHOTO_BOARD VALUES (OH_PHOTO_BOARD_SEQ.NEXTVAL, '1', '제목입니다.', '내용입니다....', SYSDATE, 
+                                   0, 0, 0, 0, 0, '#그냥', '아파트', '거실', '빈티지', '셀프');
+INSERT INTO OH_PHOTO_BOARD VALUES (OH_PHOTO_BOARD_SEQ.NEXTVAL, '2', '제목입니다.', '내용입니다....', SYSDATE, 
+                                   0, 0, 0, 0, 0, '#그냥', '아파트', '거실', '빈티지', '셀프');
+INSERT INTO OH_PHOTO_BOARD VALUES (OH_PHOTO_BOARD_SEQ.NEXTVAL, '3', '제목입니다.', '내용입니다....', SYSDATE, 
+                                   0, 0, 0, 0, 0, '#그냥', '아파트', '거실', '빈티지', '셀프');
+INSERT INTO OH_PHOTO_BOARD VALUES (OH_PHOTO_BOARD_SEQ.NEXTVAL, '4', '제목입니다.', '내용입니다....', SYSDATE, 
+                                   0, 0, 0, 0, 0, '#그냥', '아파트', '거실', '빈티지', '셀프');
+INSERT INTO OH_PHOTO_BOARD VALUES (OH_PHOTO_BOARD_SEQ.NEXTVAL, '1', '제목입니다.', '내용입니다....', SYSDATE, 
+                                   0, 0, 0, 0, 0, '#그냥', '아파트', '거실', '빈티지', '셀프');
+INSERT INTO OH_PHOTO_BOARD VALUES (OH_PHOTO_BOARD_SEQ.NEXTVAL, '2', '제목입니다.', '내용입니다....', SYSDATE, 
+                                   0, 0, 0, 0, 0, '#그냥', '아파트', '거실', '빈티지', '셀프');
+INSERT INTO OH_PHOTO_BOARD VALUES (OH_PHOTO_BOARD_SEQ.NEXTVAL, '3', '제목입니다.', '내용입니다....', SYSDATE, 
+                                   0, 0, 0, 0, 0, '#그냥', '아파트', '거실', '빈티지', '셀프');
+INSERT INTO OH_PHOTO_BOARD VALUES (OH_PHOTO_BOARD_SEQ.NEXTVAL, '4', '제목입니다.', '내용입니다....', SYSDATE, 
+                                   0, 0, 0, 0, 0, '#그냥', '아파트', '거실', '빈티지', '셀프');                                   
 --------------------------------------
 -- UPDATE
 UPDATE
@@ -63,6 +71,83 @@ WHERE
 --------------------------------------
 
 
+    SELECT
+        ROWNUM, N.*
+    FROM
+        (SELECT 
+             OH1.*, OH2.PA_NO, OH2.PA_ATTACH 
+         FROM 
+             OH_PHOTO_BOARD OH1 
+         LEFT OUTER JOIN 
+             (SELECT 
+                  * 
+              FROM 
+                  OH_PHOTO_ATTACH 
+              WHERE 
+                  PA_NO IN (
+                            SELECT 
+                                MIN(PA_NO) 
+                            FROM 
+                                OH_PHOTO_ATTACH 
+                            GROUP BY 
+                                PB_NO
+                           ) 
+              ORDER BY 
+                  PA_NO
+             ) OH2
+         ON
+             OH1.PB_NO = OH2.PB_NO
+         ORDER BY
+            OH1.PB_NO DESC
+        ) N
+    WHERE
+        ROWNUM BETWEEN 1 AND 4
+;
+
+--------------------------------------
+
+SELECT
+    ROWNUM, N.*
+FROM (
+    SELECT 
+        OH1.*, OH2.PA_NO, OH2.PA_ATTACH 
+    FROM (
+        SELECT
+            OHA.NICKNAME, OHB.*
+        FROM 
+            MY_MEMBER_INFO OHA
+        INNER JOIN
+            OH_PHOTO_BOARD OHB
+        ON 
+            OHA.MEMNO = OHB.MEMNO
+        ) OH1 
+    LEFT OUTER JOIN (
+        SELECT 
+            * 
+        FROM 
+            OH_PHOTO_ATTACH 
+        WHERE 
+            PA_NO IN (
+                SELECT 
+                    MIN(PA_NO) 
+                FROM 
+                    OH_PHOTO_ATTACH 
+                GROUP BY 
+                    PB_NO
+                )
+        ) OH2
+    ON
+        OH1.PB_NO = OH2.PB_NO
+    ORDER BY
+        OH1.PB_NO DESC
+    ) N
+WHERE
+    ROWNUM BETWEEN 1 AND 4
+;            
+                       
+--------------------------------------
+--------------------------------------
+--------------------------------------
 --------------------------------------------------------------------------------
 --------------------------------------------------------------------------------
 --------------------------------------------------------------------------------

@@ -41,10 +41,8 @@ public class OHPhotoWriteExecuteService implements OHInterfaceService {
 		MyMemberInfoDto loginUserDto =  (MyMemberInfoDto) session.getAttribute("loginUserDto");
 		// 로그인 정보, 변수 저장
 		int memno = loginUserDto.getMemno();
-		String nickname = loginUserDto.getNickname();
 		// 로그인 정보, 출력		
-		System.out.println("memno: " + memno);
-		System.out.println("nickname: " + nickname);		
+		System.out.println("memno: " + memno);	
 		System.out.println("------------------------------");		
 		
 		// OHInterfaceDao, SqlSession 연결
@@ -70,7 +68,7 @@ public class OHPhotoWriteExecuteService implements OHInterfaceService {
 		System.out.println("------------------------------");
 		
 		// ohPhotoWriteExecute() 함수 실행
-		dao.ohPhotoWriteExecute(memno, nickname, pb_title, pb_content, pb_category,
+		dao.ohPhotoWriteExecute(memno, pb_title, pb_content, pb_category,
 								pb_residence, pb_room, pb_style, pb_skill);
 		
 		// getRecentPb_no() 함수 실행 -> 가장 최근 작성된 게시글 번호 

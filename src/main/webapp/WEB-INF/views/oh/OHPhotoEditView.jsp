@@ -31,7 +31,7 @@
 		</tr>
 		<tr>
 			<th>pb_no</th>
-			<th>pb_user</th>
+
 			<th>pb_title</th>
 			<th>pb_content</th>
 			<th>pb_date</th>
@@ -48,7 +48,7 @@
 		</tr>
 		<tr>
 			<td>${pb_dto.pb_no }</td>
-			<td>${pb_dto.pb_user }</td>
+
 			<td>${pb_dto.pb_title }</td>
 			<td>${pb_dto.pb_content }</td>
 			<td>${pb_dto.pb_date }</td>

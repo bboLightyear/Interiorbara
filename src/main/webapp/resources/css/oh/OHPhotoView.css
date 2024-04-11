@@ -447,6 +447,12 @@
     line-height: 60px;
     text-align: center;
     color: #1a1f27;
+	/* 요소 내의 텍스트가 줄 바꿈 없이 한 줄로 표시되도록 지정 */ 
+	white-space: nowrap;
+	/* 요소의 콘텐츠가 요소의 크기를 초과할 때, 초과된 부분을 숨기도록 지정 */
+	overflow: hidden;
+	/* 요소의 콘텐츠가 요소의 크기를 초과할 때 초과된 부분을 생략하고 말줄임표(ellipsis, ...)로 표시하도록 지정 */
+	text-overflow: ellipsis;    
 }
 #OHPhotoView-photoTitle {
     position: absolute;
@@ -455,7 +461,14 @@
     height: 60px;
     line-height: 60px;
     text-align: center;
-    color: #1a1f27;    
+    color: #1a1f27; 
+    padding: 0px 10px 0px 10px;
+	/* 요소 내의 텍스트가 줄 바꿈 없이 한 줄로 표시되도록 지정 */ 
+	white-space: nowrap;
+	/* 요소의 콘텐츠가 요소의 크기를 초과할 때, 초과된 부분을 숨기도록 지정 */
+	overflow: hidden;
+	/* 요소의 콘텐츠가 요소의 크기를 초과할 때 초과된 부분을 생략하고 말줄임표(ellipsis, ...)로 표시하도록 지정 */
+	text-overflow: ellipsis;       
 }
 #OHPhotoView-photoTitle a {
 	text-decoration: none;
@@ -485,9 +498,9 @@
     width: 40px;
     height: 40px;
     line-height: 100%;
-    color: #1a1f27;
     font-size: 40px;
     display: inline-block;
+    color: #1a1f27;
 }
 .OHPhotoView-likeImage.clickColor {
     color: #1034a6;
@@ -499,6 +512,7 @@
     height: 40px;
     line-height: 40px; 
     text-align: center;   
+    color: #1a1f27; 
 }
 .OHPhotoView-scrapImage {
     position: absolute;
@@ -506,9 +520,9 @@
     width: 40px;
     height: 40px;
     line-height: 100%;
-    color: #1a1f27;
     font-size: 40px;
     display: inline-block;
+    color: #1a1f27;
 }
 .OHPhotoView-scrapImage.clickColor {
     color: #1034a6;
@@ -520,6 +534,7 @@
     height: 40px;
     line-height: 40px; 
     text-align: center;   
+    color: #1a1f27; 
 }
 .OHPhotoView-replyImage {
     position: absolute;
@@ -527,9 +542,9 @@
     width: 40px;
     height: 40px;
     line-height: 100%;
-    color: #1a1f27;
     font-size: 40px;
     display: inline-block;    
+    color: #1a1f27;
 }
 .OHPhotoView-replyNumber {
     position: absolute;
@@ -538,6 +553,7 @@
     height: 40px;
     line-height: 40px; 
     text-align: center;   
+    color: #1a1f27; 
 }
 #OHPhotoView-photoHit {
     position: absolute;
@@ -545,6 +561,7 @@
     left: 20px;
     width: 80px;
     height: 40px;
+    color: #1a1f27; 
     line-height: 40px; 
 }
 #OHPhotoView-photoHitCount {
@@ -554,6 +571,7 @@
     width: 80px;
     height: 40px;
     line-height: 40px;
+    color: #1a1f27; 
 }
 #OHPhotoView-photoContent {
     position: absolute;
@@ -561,8 +579,21 @@
     left: 20px;
     width: 330px;
     height: 100px;
-    line-height: 30px; 
-    padding: 0px 0px 0px 0px;  
+    line-height: 33px; 
+    color: #1a1f27; 
+    padding: 0px 0px 0px 0px;   
+	/* 디스플레이를 사용할 때, 다른 관련 속성과 함께 텍스트를 줄 수에 따라 제한할 수 있다.*/
+	display: -webkit-box;
+	/* 요소의 텍스트를 지정된 줄 수로 제한 */
+	-webkit-line-clamp: 3; 
+	/* 텍스트가 수직 방향으로 흐르게 설정 */
+	-webkit-box-orient: vertical;
+	/* 요소 내의 텍스트가 일반적인 줄 바꿈 동작을 따르도록 지정 */ 
+	white-space: normal;
+	/* 요소의 콘텐츠가 요소의 크기를 초과할 때, 초과된 부분을 숨기도록 지정 */
+	overflow: hidden;  
+	/* 요소의 콘텐츠가 요소의 크기를 초과할 때 초과된 부분을 생략하고 말줄임표(ellipsis, ...)로 표시하도록 지정 */
+	text-overflow: ellipsis;ㄴ	
 }
 /* ----- End: #OHPhotoView-main-3 ----- */
 

@@ -2,12 +2,13 @@ package com.tech.ibara.oh.dto;
 
 import java.util.Date;
 
+import com.tech.ibara.my.dto.MyMemberInfoDto;
+
 public class OHPhotoBoard {
 	
 	private int no;
 	private int pb_no;
 	private int memno;
-	private String nickname;
 	private String pb_title;
 	private String pb_content;
 	private Date pb_date;
@@ -32,12 +33,47 @@ public class OHPhotoBoard {
 		this.ohPhotoAttach = ohPhotoAttach;
 	}
 
+	private MyMemberInfoDto myMemberInfoDto;
+	
+	public MyMemberInfoDto getMyMemberInfoDto() {
+		return myMemberInfoDto;
+	}
+
+	public void setMyMemberInfoDto(MyMemberInfoDto myMemberInfoDto) {
+		this.myMemberInfoDto = myMemberInfoDto;
+	}
+
+	private OHPhotoLike ohPhotoLike;
+	
+	public OHPhotoLike getOhPhotoLike() {
+		return ohPhotoLike;
+	}
+
+	public void setOhPhotoLike(OHPhotoLike ohPhotoLike) {
+		this.ohPhotoLike = ohPhotoLike;
+	}
+
+	private OHPhotoScrap ohPhotoScrap;
+	
+	public OHPhotoScrap getOhPhotoScrap() {
+		return ohPhotoScrap;
+	}
+
+	public void setOhPhotoScrap(OHPhotoScrap ohPhotoScrap) {
+		this.ohPhotoScrap = ohPhotoScrap;
+	}
+
 	public OHPhotoBoard() {
 		// TODO Auto-generated constructor stub
 	}
+
+	public OHPhotoBoard(int pb_no, String pb_title) {
+		this.pb_no = pb_no;
+		this.pb_title = pb_title;
+	}
 	
 	public OHPhotoBoard(int no, int pb_no, int memno, 
-						String nickname, String pb_title, String pb_content, 
+						String pb_title, String pb_content, 
 						Date pb_date, int pb_like, int pb_scrap, 
 						int pb_reply, int pb_link, int pb_hit, 
 						String pb_category, String pb_residence, String pb_room, 
@@ -45,7 +81,6 @@ public class OHPhotoBoard {
 		this.no = no;
 		this.pb_no = pb_no;
 		this.memno = memno;
-		this.nickname = nickname;
 		this.pb_title = pb_title;
 		this.pb_content = pb_content;
 		this.pb_date = pb_date;
@@ -84,14 +119,6 @@ public class OHPhotoBoard {
 
 	public void setMemno(int memno) {
 		this.memno = memno;
-	}
-
-	public String getNickname() {
-		return nickname;
-	}
-
-	public void setNickname(String nickname) {
-		this.nickname = nickname;
 	}
 
 	public String getPb_title() {

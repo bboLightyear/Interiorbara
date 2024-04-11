@@ -110,6 +110,7 @@
     line-height: 50px;
     text-align: center;
 	color: #1a1f27;
+	padding: 0px 10px 0px 10px;
 	/* 요소 내의 텍스트가 줄 바꿈 없이 한 줄로 표시되도록 지정 */ 
 	white-space: nowrap;
 	/* 요소의 콘텐츠가 요소의 크기를 초과할 때, 초과된 부분을 숨기도록 지정 */

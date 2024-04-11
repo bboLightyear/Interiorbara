@@ -5,8 +5,7 @@ import java.util.Date;
 public class OHPhotoLike {
 
 	private int pl_no;	
-	private int memno;
-	private String nickname;	
+	private int memno;	
 	private Date pl_date;
 	private int pb_no;
 	
@@ -14,11 +13,10 @@ public class OHPhotoLike {
 		// TODO Auto-generated constructor stub
 	}
 
-	public OHPhotoLike(int pl_no, int memno, String nickname, 
+	public OHPhotoLike(int pl_no, int memno, 
 					   Date pl_date, int pb_no) {
 		this.pl_no = pl_no;
 		this.memno = memno;
-		this.nickname = nickname;
 		this.pl_date = pl_date;
 		this.pb_no = pb_no;
 	}
@@ -37,14 +35,6 @@ public class OHPhotoLike {
 
 	public void setMemno(int memno) {
 		this.memno = memno;
-	}
-
-	public String getNickname() {
-		return nickname;
-	}
-
-	public void setNickname(String nickname) {
-		this.nickname = nickname;
 	}
 
 	public Date getPl_date() {

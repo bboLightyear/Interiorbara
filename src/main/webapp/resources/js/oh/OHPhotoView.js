@@ -8,10 +8,8 @@ $(document).ready(function() {
 	
 	// 로그인 정보, 변수 저장
 	var memno = document.getElementById("memno").value;
-	var nickname = document.getElementById("nickname").value;
 	// 로그인 정보, 값 출력	
 	console.log("memno: " + memno);
-	console.log("nickname: " + nickname);	
 	
 	// 정렬 정보, 변수 저장
 	var keepOrderingBy = document.getElementById("keepOrderingBy").value;
@@ -74,7 +72,6 @@ $(document).ready(function() {
 		if(memno !== null && memno !== "" && memno !== "/") {
 			// 로그인 정보, 값 출력	
 			console.log("memno: " + memno);
-			console.log("nickname: " + nickname);
 			// 클릭한 하트 요소의 id 값을 가져와 변수에 저장
 			var clickedId = $(this).attr("id");
 			// clickedId 변수에 저장된 id 값 출력
@@ -95,7 +92,6 @@ $(document).ready(function() {
 					data: {
 						// 전송할 데이터
 						'memno' : memno,
-						'nickname' : nickname,
 						'pb_no' : clickedId
 					},
 					success: function(response) {
@@ -128,7 +124,6 @@ $(document).ready(function() {
 					data: {
 						// 전송할 데이터
 						'memno' : memno,
-						'nickname' : nickname,
 						'pb_no' : clickedId
 					},
 					success: function(response) {
@@ -164,7 +159,6 @@ $(document).ready(function() {
 		if(memno !== null && memno !== "" && memno !== "/") {
 			// 로그인 정보, 값 출력	
 			console.log("memno: " + memno);
-			console.log("nickname: " + nickname);
 			// 클릭한 스크랩 요소의 id 값을 가져와 변수에 저장
 			var clickedId = $(this).attr("id");
 			// clickedId 변수에 저장된 id 값 출력
@@ -185,7 +179,6 @@ $(document).ready(function() {
 					data: {
 						// 전송할 데이터
 						'memno' : memno,
-						'nickname' : nickname,
 						'pb_no' : clickedId
 					},
 					success: function(response) {
@@ -218,7 +211,6 @@ $(document).ready(function() {
 					data: {
 						// 전송할 데이터
 						'memno' : memno,
-						'nickname' : nickname,
 						'pb_no' : clickedId
 					},
 					success: function(response) {

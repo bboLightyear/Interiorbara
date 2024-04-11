@@ -39,12 +39,10 @@ public class OHPhotoScrapExecuteService implements OHInterfaceService {
 		
 		// --- 변수 선언, 값 저장 ---		
 		String memno = request.getParameter("memno");
-		String nickname = request.getParameter("nickname");
 		String pb_no = request.getParameter("pb_no");
 		
 		// --- 변수, 값 출력 ---		
 		System.out.println("memno: " + memno);
-		System.out.println("nickname: " + nickname);
 		System.out.println("pb_no: " + pb_no);
 		System.out.println("------------------------------");		
 		
@@ -57,7 +55,7 @@ public class OHPhotoScrapExecuteService implements OHInterfaceService {
 		
 		if(scrapCheckNum == 0) {
 			// 스크랩, 기록 없음
-			dao.scrapSave(memno, nickname , pb_no);
+			dao.scrapSave(memno, pb_no);
 			System.out.println("스크랩, 기록 완료");
 			System.out.println("------------------------------");
 			dao.scrapIncrease(pb_no);

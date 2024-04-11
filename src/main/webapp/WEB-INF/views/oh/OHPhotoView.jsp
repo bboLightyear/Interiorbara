@@ -32,13 +32,12 @@
 	<!-- 데이터 표시 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
 	<table border="1">
 		<tr>
-			<th colspan="17">OHPhotoBoard</th>
+			<th colspan="16">OHPhotoBoard</th>
 		</tr>
 		<tr>
 			<th>no</th>
 			<th>pb_no</th>
-			<th>memno</th>
-			<th>nickname</th>			
+			<th>memno</th>			
 			<th>pb_title</th>
 			<th>pb_content</th>
 			<th>pb_date</th>
@@ -58,7 +57,6 @@
 				<td>${dto.no }</td>
 				<td>${dto.pb_no }</td>
 				<td>${dto.memno }</td>
-				<td>${dto.nickname }</td>
 				<td>${dto.pb_title }</td>
 				<td>${dto.pb_content }</td>
 				<td>${dto.pb_date }</td>
@@ -138,7 +136,6 @@
 
 	<!-- 로그인 정보 -->
  	<input type="hidden" id="memno" value=${loginUserDto.memno } />
-	<input type="hidden" id="nickname" value=${loginUserDto.nickname } />
 	<!-- 정렬 정보 -->
 	<input type="hidden" id="keepOrderingBy" value=${keepOrderingBy } />
 	<input type="hidden" id="keepOrderingMethod" value=${keepOrderingMethod } />
@@ -350,7 +347,7 @@
 							            <img src="../resources/upload/my/${loginUserDto.profileimg}" id="OHPhotoView-photoProfileImage">
 							        </c:if>		                                
 	                                <!-- 게시글 작성자 이름 -->
-	                                <div id="OHPhotoView-photoUserName">${dto.nickname }</div>
+	                                <div id="OHPhotoView-photoUserName">${dto.myMemberInfoDto.nickname }</div>
 	                                <!-- 게시글 제목 -->
 	                                <div id="OHPhotoView-photoTitle">
 	                                	<a href="OHPhotoDetailView?pb_no=${dto.pb_no }">
