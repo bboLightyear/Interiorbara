@@ -19,32 +19,42 @@
 			<div></div>
 			<!-- header_logo : 로고 -->
 			<div class="header_logo">
-				<i class="fas fa-paw"></i>
+				<img src="resources/img/mainimg/main_logo.jpg" alt="#" onclick="location.href='main'" />
 			</div>
 			<!-- header_search_box : 검색창 -->
 			<div class="header_search_box">
-				<form action="mainSearchView">
+				<form action="mainSearchView" method="get">
 					<i class="fas fa-search header_search_box_icon"></i> <input
-						type="text" class="header_search_box_input" placeholder="검색">
+						type="text" name="mainSearchContent" value="${mainSearchContent }"
+						class="header_search_box_input" placeholder="검색">
 				</form>
 			</div>
 			<!-- header_login_box : 회원관리부분 -->
 			<div class="header_login_box">
-				<div class="header_login">로그인</div>
-				<div class="header_join">회원가입</div>
-				<div class="header_cs">마이페이지</div>
-			</div>
 			<!-- 로그인 세션 부분 -->
-		<!--<c:choose>
-				<c:when test="${sessionNickname eq null }">
-					<a href="my/joinform">join</a> | <a href="my/loginform">login</a>
-				</c:when>
-				<c:otherwise>
-    				${sessionNickname }님 로그인 되었습니다.
-    				<br />
-					<a href="my/mypagemain">mypage</a> | <a href="my/logout">logout</a>
-				</c:otherwise>
-			</c:choose> -->
+				<c:choose>
+				   <c:when test="${loginUserDto eq null }">
+		   				<div class="header_login">
+							<a href="my/loginform">로그인</a>
+						</div>
+						<div class="header_join">
+							<a href="my/joinform">회원가입</a>
+						</div>
+				   </c:when>
+				   <c:otherwise>
+					${loginUserDto.nickname }님 로그인 되었습니다. <br />
+					${loginUserDto.memno}번 회원님 로그인 되었습니다. <br />   
+					${loginUserDto.email}님 로그인 되었습니다.<br />
+	   					<div class="header_login">
+							<a href="my/logout">로그아웃</a>
+						</div>
+						<div class="header_join">
+							<a href="my/mypage">mypage</a>
+						</div>
+				   </c:otherwise>
+				</c:choose>
+			</div>
+
 			<!-- 오른쪽 여백 -->
 			<div></div>
 		</div>
@@ -55,11 +65,21 @@
 				<i class="fas fa-bars"></i>
 			</div>
 			<!-- header_category_list : 카테고리 / list_1~5 : list에 각각 들어갈 내용 -->
-			<div class="openModal header_category_list list_1">퀵견적</div>
-			<div class="header_category_list list_2">업체 둘러보기</div>
-			<div class="header_category_list list_3">소품샵</div>
-			<div class="header_category_list list_4">우리 집 자랑하기</div>
-			<div class="header_category_list list_5">고객센터</div>
+			<div class="header_category_list list_1">
+				<a href="#" class="openModal">퀵견적</a>
+			</div>
+			<div class="header_category_list list_2">
+				<a href="shop/list">소품샵</a>
+			</div>
+			<div class="header_category_list list_3">
+				<a href="biz/magazine/bizMgzList">업체 둘러보기</a>
+			</div>
+			<div class="header_category_list list_4">
+				<a href="oh/OHMainView">우리 집 자랑하기</a>
+			</div>
+			<div class="header_category_list list_5">
+				<a href="cshome">고객센터</a>
+			</div>
 		</div>
 	</header>
 	<br />
@@ -69,28 +89,13 @@
         carousel_wrapper : 캐러셀 슬라이드의 전체 구조를 잡아줍니다.
         carousel_slide : 캐러셀 이미지를 설정합니다.
         carousel_button_container : 슬라이드를 넘기기 위한 사이드 버튼의 전체 구조를 잡아줍니다.
-        carousel_prev / carousel_next : 캐러셀 사이드 버튼을 설정하고 svg 태그를 사용했습니다.
         carousel_pagination : 캐러셀 중앙 버튼의 전체 구조를 잡아줍니다.
         carousel_circle : 캐러셀 중앙 버튼을 설정합니다.-->
 		<div class="carousel_whole_wrap">
-			<!-- 캐러셀 왼쪽 버튼 -->
-			<div class="carousel_prev_button_container">
-				<button type="button" class="carousel_prev">
-					<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
-						fill="currentColor" class="bi bi-chevron-double-left"
-						viewBox="0 0 16 16">
-				        <path fill-rule="evenodd"
-							d="M8.354 1.646a.5.5 0 0 1 0 .708L2.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z" />
-				        <path fill-rule="evenodd"
-							d="M12.354 1.646a.5.5 0 0 1 0 .708L6.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z" />
-				    </svg>
-				</button>
-			</div>
 			<div class="carousel_main">
 				<div class="carousel_wrapper">
 					<div class="carousel_slide">
-						<img src="mainImagesOH/1711080291545_집사진2.jpg" alt="#" />
-						<!-- 차후 table에서 저장되는 파일양식을 불러오는 방향으로 변경할 예정 -->
+						<img src="resources/img/mainimg/footer_logo.PNG" alt="#" />
 					</div>
 					<div class="carousel_slide">
 						<img src="resources/img/mainimg/0.gif" alt="#" />
@@ -109,72 +114,115 @@
 					</div>
 				</div>
 			</div>
-			<!-- 캐러셀 오른쪽 버튼 -->
-			<div class="carousel_next_button_container">
-				<button type="button" class="carousel_next">
-					<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
-						fill="currentColor" class="bi bi-chevron-double-right"
-						viewBox="0 0 16 16">
-                        <path fill-rule="evenodd"
-							d="M3.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L9.293 8 3.646 2.354a.5.5 0 0 1 0-.708z" />
-                        <path fill-rule="evenodd"
-							d="M7.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L13.293 8 7.646 2.354a.5.5 0 0 1 0-.708z" />
-                    </svg>
-				</button>
-			</div>
 			<!-- 캐러셀 중앙 버튼 -->
 			<div class="carousel_pagination">
 				<div class="carousel_circle"></div>
 				<div class="carousel_circle"></div>
 				<div class="carousel_circle"></div>
 				<div class="carousel_circle"></div>
+				<div class="carousel_circle"></div>
+				<div class="carousel_circle"></div>
+			</div>
+			<!-- 캐러셀 작동 js -->
+			<script>
+				var swiper = document.querySelector('.carousel_wrapper');
+				var bullets = document.querySelectorAll('.carousel_circle');
+				var currentSlide = 0;
+				function showSlide(slideIndex) {
+					swiper.style.transform = "translateX(-" + slideIndex * 700
+							+ "px)";
+					currentSlide = slideIndex;
+					bullets.forEach(function(bullet, index) {
+						if (index === currentSlide) {
+							bullet.classList.add('active');
+						} else {
+							bullet.classList.remove('active');
+						}
+					});
+				}
+				bullets.forEach(function(bullet, index) {
+					bullet.addEventListener('click', function() {
+						showSlide(index);
+					});
+				});
+				showSlide(0);
+				setInterval(function(intervalSlide){
+					if (currentSlide < 6) {
+						showSlide(currentSlide + 1);
+					}
+					if (currentSlide == 6) {
+						showSlide(0);
+					}
+				}, 2000);
+			</script>
+			
+			<div class="carousel_main2">
+				<div class="carousel_wrapper2">
+					<div class="carousel_slide2">
+						<img src="resources/img/mainimg/footer_logo.PNG" alt="#" />
+					</div>
+					<div class="carousel_slide2">
+						<img src="resources/img/mainimg/0.gif" alt="#" />
+					</div>
+					<div class="carousel_slide2">
+						<img src="resources/img/mainimg/1.gif" alt="#" />
+					</div>
+					<div class="carousel_slide2">
+						<img src="resources/img/mainimg/2.gif" alt="#" />
+					</div>
+					<div class="carousel_slide2">
+						<img src="resources/img/mainimg/3.gif" alt="#" />
+					</div>
+					<div class="carousel_slide2">
+						<img src="resources/img/mainimg/4.gif" alt="#" />
+					</div>
+				</div>
+			</div>
+			<!-- 캐러셀 중앙 버튼 -->
+			<div class="carousel_pagination2">
+				<div class="carousel_circle2"></div>
+				<div class="carousel_circle2"></div>
+				<div class="carousel_circle2"></div>
+				<div class="carousel_circle2"></div>
+				<div class="carousel_circle2"></div>
+				<div class="carousel_circle2"></div>
 			</div>
 		</div>
 		<!-- 캐러셀 작동 js -->
 		<script>
-			
-		<%-- JSP scriptlet to generate JavaScript code dynamically --%>
-			var swiper = document.querySelector('.carousel_wrapper');
-			var prevButtons = document.querySelectorAll('.carousel_prev');
-			var nextButtons = document.querySelectorAll('.carousel_next');
-			var bullets = document.querySelectorAll('.carousel_circle');
-			var currentSlide = 0;
-			function showSlide(slideIndex) {
-				swiper.style.transform = "translateX(-" + slideIndex * 300
+			var swiper2 = document.querySelector('.carousel_wrapper2');
+			var bullets2 = document.querySelectorAll('.carousel_circle2');
+			var currentSlide2 = 0;
+			function showSlide2(slideIndex2) {
+				swiper2.style.transform = "translateX(-" + slideIndex2 * 400
 						+ "px)";
-				currentSlide = slideIndex;
-				bullets.forEach(function(bullet, index) {
-					if (index === currentSlide) {
-						bullet.classList.add('active');
+				currentSlide2 = slideIndex2;
+				bullets2.forEach(function(bullet2, index2) {
+					if (index2 === currentSlide2) {
+						bullet2.classList.add('active');
 					} else {
-						bullet.classList.remove('active');
+						bullet2.classList.remove('active');
 					}
 				});
 			}
-			prevButtons.forEach(function(prevButton) {
-				prevButton.addEventListener('click', function() {
-					if (currentSlide > 0) {
-						showSlide(currentSlide - 1);
-					}
+			bullets2.forEach(function(bullet2, index2) {
+				bullet2.addEventListener('click', function() {
+					showSlide2(index2);
 				});
 			});
-			nextButtons.forEach(function(nextButton) {
-				nextButton.addEventListener('click', function() {
-					if (currentSlide < 3) {
-						showSlide(currentSlide + 1);
-					}
-				});
-			});
-			bullets.forEach(function(bullet, index) {
-				bullet.addEventListener('click', function() {
-					showSlide(index);
-				});
-			});
-			showSlide(0);
+			showSlide2(0);
+			setInterval(function(intervalSlide2){
+				if (currentSlide2 < 6) {
+					showSlide2(currentSlide2 + 1);
+				}
+				if (currentSlide2 == 6) {
+					showSlide2(0);
+				}
+			}, 3000);
 		</script>
 		<br />
-		<div class="category_button_wrap">
-			<button  class="openModal category_button category_1">
+		<div id="category_button" class="category_button_wrap">
+			<button id="category_button" class="openModal category_button category_1">
 				<span>퀵견적</span>
 			</button>
 			<jsp:include page="../modal/mMain.jsp" />
@@ -227,24 +275,24 @@
 				<hr />
 				<div class="main_preview_shop">
 					<c:forEach items="${shopPreviewList }" var="shop">
-					<div class="main_preview_shop_list">
-						<ul>
-							<li class="main_preview_shop_img">
-								<img src="resources/upload/main/${shop.shop_img }" alt="#" />
-							</li>
-						</ul>
-						<ul>
-							<li class="main_preview_shop_name">${shop.shop_name }</li>
-						</ul>
-						<ul>
-							<li class="main_preview_shop_price">\ ${shop.shop_price }</li>
-						</ul>
-						<ul>
-							<li class="main_preview_shop_chat"><a
-								href="https://www.naver.com" class="main_preview_shop_chat_link">채팅
-									바로가기 <i class="far fa-comment-alt"></i>
-							</a></li>
-						</ul>
+						<div class="main_preview_shop_list">
+							<ul>
+								<li class="main_preview_shop_img">
+									<img src="resources/upload/main/${shop.shop_img }" alt="#" />
+								</li>
+							</ul>
+							<ul>
+								<li class="main_preview_shop_name">${shop.shop_name }</li>
+							</ul>
+							<ul>
+								<li class="main_preview_shop_price">\ ${shop.shop_price }</li>
+							</ul>
+							<ul>
+								<li class="main_preview_shop_chat"><a
+									href="https://www.naver.com" class="main_preview_shop_chat_link">채팅
+										바로가기 <i class="far fa-comment-alt"></i>
+								</a></li>
+							</ul>
 						</div>
 					</c:forEach>
 				</div>
@@ -324,10 +372,9 @@
 			</div>
 		</div>
         <div id="main_left_side_bar" class="main_left_side_bar">
-            <button  class="openModal side_bar_button button_1">
+            <button class="openModal side_bar_button button_1">
 				<span>퀵견적</span>
 			</button>
-			
 			<button onclick="location.href='shop/list'"	class="side_bar_button button_2">
 				<span>소품 샵</span>
 			</button>
@@ -358,7 +405,7 @@
                 headerBottom.style.opacity ='1';
             }
             
-            if(scrollHeight > 650) {
+            if(scrollHeight > 700) {
                 mainLeftSideBar.style.visibility = 'visible';
                 mainLeftSideBar.style.opacity = '1';
             } else {
@@ -367,9 +414,6 @@
             }
         });
         </script>
-        <script>
-            var side_bar
-        </script>
 		<hr />
 	</div>
 	<br />
@@ -377,15 +421,19 @@
 	<!-- 푸터 -->
 	<footer>
 		<!-- 푸터 로고 -->
-		<div class="footer_logo">logo</div>
+		<div class="footer_logo">
+			<img src="resources/img/mainimg/footer_logo.PNG" alt="#" onclick="location.href='main'"  />
+		</div>
 		<!-- 푸터 내용 -->
 		<div class="footer_content">(주) 카피바라 주소 : 대한민국 서울시 양천구 목동 655-19
 			대표 : 조보근 전화번호 : 010-3017-5283</div>
 		<!-- sns 아이콘 -->
 		<div class="footer_sns">
-			<i class="fab fa-facebook fa-lg"></i> <i class="fab fa-youtube fa-lg"></i>
-			<i class="fab fa-twitter fa-lg"></i> <i class="fab fa-twitch fa-lg"></i>
-			<i class="fab fa-instagram fa-lg"></i>
+			<a href="https://www.facebook.com/"><i class="fab fa-facebook fa-lg"></i></a>
+			<a href="https://www.youtube.com/"><i class="fab fa-youtube fa-lg"></i></a>
+			<a href="https://www.twitter.com/"><i class="fab fa-twitter fa-lg"></i></a>
+			<a href="https://www.twitch.tv/"><i class="fab fa-twitch fa-lg"></i></a>
+			<a href="https://www.instagram.com/"><i class="fab fa-instagram fa-lg"></i></a>
 		</div>
 	</footer>
 </body>
