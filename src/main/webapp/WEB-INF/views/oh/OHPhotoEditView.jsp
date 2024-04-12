@@ -1,8 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <!DOCTYPE html>
+
 <html>
+
 <head>
 
 	<meta charset="UTF-8">
@@ -22,6 +26,7 @@
 	<script src="https://code.jquery.com/jquery-3.7.1.js" ></script>
 
 </head>
+
 <body>
 
 	<!-- 데이터 표시 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
@@ -31,7 +36,7 @@
 		</tr>
 		<tr>
 			<th>pb_no</th>
-
+			<th>memno</th>
 			<th>pb_title</th>
 			<th>pb_content</th>
 			<th>pb_date</th>
@@ -48,7 +53,7 @@
 		</tr>
 		<tr>
 			<td>${pb_dto.pb_no }</td>
-
+			<td>${pb_dto.memno }</td>
 			<td>${pb_dto.pb_title }</td>
 			<td>${pb_dto.pb_content }</td>
 			<td>${pb_dto.pb_date }</td>
@@ -86,13 +91,13 @@
 
 	<!-- 회원, 비회원 구분 후 메세지 출력 -->
 	<c:choose>
-		<c:when test="${sessionScope.userId ne null && !empty sessionScope.userId }">
-			<h3>${sessionScope.userId }님</h3>	
+		<c:when test="${loginUserDto ne null }">
+			<h3>${loginUserDto.nickname }님</h3>	
 		</c:when>
 		<c:otherwise>
 			<h3>비회원님</h3>					
 		</c:otherwise>
-	</c:choose>	
+	</c:choose>
 
 	<div class="container">
 	
@@ -131,7 +136,8 @@
 			
                 <div id="OHPhotoEditView-main-3">			
 			
-					<form action="OHPhotoEditExecute" method="post" enctype="multipart/form-data">
+					<form action="OHPhotoEditExecute" onsubmit="return validateForm()" 
+						  method="post" enctype="multipart/form-data">
 					
 						<!-- hidden, pb_no, pa_dto 값 전달 -->
 						<input type="hidden" name="pb_no" value="${pb_dto.pb_no }" /> 
@@ -140,8 +146,7 @@
 
 						    <input id="OHPhotoEditView-editPostButton" type="submit" value="수정하기" />
                             
-                            <!-- <a href="OHPhotoDetailView?pb_no=${pb_dto.pb_no }">취소하기</a> -->
-						    <button id="OHPhotoEditView-cancelPostButton">취소하기</button>
+						    <button type="button" id="OHPhotoEditView-cancelPostButton">취소하기</button>
 
                         </div>					
 				
@@ -150,15 +155,27 @@
 							<div id="OHPhotoEditView-main-sector2-1">
 
                                 <div id="sector2-1-layer1">
+                                
+	                             	<span id="OHPhotoEditView-fileUploadInput-guide">
+										사진을 선택하세요. <br />
+										파일개수 - 최소 1개 ~ 최대 10개 <br />
+										파일형식 - JPG, JPEG, PNG, GIF 
+									</span>
+                                
 								    <input id="OHPhotoEditView-fileUploadInput" type="file" name="pa_attach" multiple />
+								    
                                 </div>				
 
                                 <!-- 게시물, 이미지 출력 Start -->
                                 <div id="sector2-1-layer2">
+                                	<!-- 사진 번호, 초기 값 설정 -->
+                                	<c:set var="number" value="1" />
                             		<c:forEach items="${pa_dto }" var="dto">    
 	                                    <div class="sector2-1-layer2-uploadImage">
 	                                        <div id="uploadImage-numberLable">번호</div>
-	                                        <div id="uploadImage-number">999</div>
+	                                        <div id="uploadImage-number">${number }</div>
+	                                       	<!-- 반복할 때마다 변수 값 증가 -->
+	                                       	<c:set var="number" value="${number + 1 }" />
 	                                        <div id="uploadImage-nameLable">파일명</div>
 	                                        <div id="uploadImage-name">${dto.pa_attach }</div>
 											<img id="uploadImage-Image" src="../resources/upload/oh/photo/${dto.pa_attach }" alt="해당 게시글 사진" />                                       					
@@ -172,11 +189,11 @@
                             <div id="OHPhotoEditView-main-sector2-2">
 
                                 <div id="sector2-2-layer1">
-                                    <input id="layer1-title" type="text" name="pb_title" value="${pb_dto.pb_title }" placeholder="제목을 입력하세요." />
+                                    <input id="layer1-title" type="text" maxlength="30" name="pb_title" value="${pb_dto.pb_title }" placeholder="제목을 입력하세요." />
                                 </div>
 
                                 <div id="sector2-2-layer2">
-                                    <textarea id="layer2-content" name="pb_content" rows="10" cols="30" placeholder="내용을 입력하세요." >${pb_dto.pb_content }</textarea>
+                                    <textarea id="layer2-content" maxlength="200" name="pb_content" rows="10" cols="30" placeholder="내용을 입력하세요." >${pb_dto.pb_content }</textarea>
                                 </div>	   				
 						
                                 <div id="sector2-2-layer3">
@@ -261,6 +278,9 @@
 		</footer>
 		
 	</div>	
+	
+	<!-- OHPhotoEditView.js -->
+	<script src="../resources/js/oh/OHPhotoEditView.js"></script>	
 	
 </body>
 </html>

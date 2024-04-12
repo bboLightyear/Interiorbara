@@ -4,10 +4,10 @@
 
 // jQuery를 사용하여 문서가 준비되었을 때 실행되는 함수
 $(document).ready(function() {
-	console.log("OHPhotoWriteView.jsp is ready!");
-
+	console.log("OHPhotoEditView.jsp is ready!");
+	
 	// 취소하기 버튼
-	$("#OHPhotoWriteView-cancelPostButton").click(function() {
+	$("#OHPhotoEditView-cancelPostButton").click(function() {
 		// 이전 페이지의 URI 정보
 		const before = document.referrer;
 		// 이전 페이지로 이동
@@ -15,7 +15,7 @@ $(document).ready(function() {
 	});
 	
 });	
-
+	
 function validateForm() {
 	// 게시글 제목
 	var title = document.getElementById("layer1-title").value;
@@ -24,10 +24,10 @@ function validateForm() {
 	var content = document.getElementById("layer2-content").value;
 	console.log("content: " + content);
 	// 게시글 업로드 할 사진파일
-	var fileUploadInput = document.getElementById("OHPhotoWriteView-fileUploadInput");
+	var fileUploadInput = document.getElementById("OHPhotoEditView-fileUploadInput");
 	var files = fileUploadInput.files;
-	console.log("files: " + files);
-		
+	console.log("files: " + files);	
+	
 	// 필수 입력 값 확인 
 	if(title == "") {
 		alert("제목을 입력하세요.");
@@ -45,12 +45,20 @@ function validateForm() {
         return false;	
 	} else {
 		console.log("제목, 내용, 사진파일 개수 - successful verification");
-	}
+	}	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	// 사진파일 - 허용할 확장자 목록
 	var allowedExtensions = ["jpg", "jpeg", "png", "gif"];
     console.log("확장자 검사 " + allowedExtensions)
-	
+    
 	// 파일의 확장자를 확인하여 허용되는 확장자인지 검사
 	for(var i = 0; i < files.length; i++) {
 		var fileExtension = files[i].name.split(".").pop().toLowerCase();
@@ -64,5 +72,5 @@ function validateForm() {
 			console.log(files[i].name + " - successful verification")
 		}
 	}
-	return true;
+	return true;    
 }

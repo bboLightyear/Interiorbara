@@ -7,7 +7,6 @@
 /* ----- Start: #OHPhotoEditView-main ----- */
 #OHPhotoEditView-main {
 	position: relative;
-	background-color: #f4e1f5;
     width: 1480px;     
 }
 /* ----- End: #OHPhotoEditView-main ----- */
@@ -16,7 +15,6 @@
 #OHPhotoEditView-main-1 {
 	position: relative;
 	text-align: center;
-	background-color: darkcyan;
 	height: 100px;
 }
 #OHPhotoEditView-title {
@@ -24,6 +22,7 @@
 	top: 50%;
 	left: 50%;
     transform: translate(-50%, -50%);  
+    color: #1a1f27;      
 	font-size: 50px;
     font-weight: bold;
 }
@@ -31,13 +30,12 @@
 
 /* ----- Start: #OHPhotoEditView-main-2 ----- */
 #OHPhotoEditView-main-2 {
-	position: relative;
-	background-color: lightslategray; 
+	position: relative; 
     text-align: center;
     height: 100px;
     margin-top: 50px;   
-    border-top: 3px solid skyblue;
-    border-bottom: 3px solid skyblue;
+    border-top: 1px solid #1a1f27;
+    border-bottom: 1px solid #1a1f27;
 }
 #OHPhotoEditView-photoBoardButton {
     position: absolute;
@@ -46,7 +44,8 @@
     transform: translate(-50%, -50%);     
     width: 80px;
     height: 50px;
-   	background-color: powderblue;
+    color: #1a1f27; 
+   	background-color: #1e90ff;
    	border: none;
     border-radius: 10px;
 }
@@ -67,13 +66,11 @@
 /* ----- End: #OHPhotoEditView-main-3 ----- */
 #OHPhotoEditView-main-3 {
     position: relative;
-	background-color: bisque;
     text-align: center;
 }
 #OHPhotoEditView-main-sector1 {
     position: relative;
     margin-top: 50px;
-	background-color: khaki; 
     text-align: center; 
     height: 50px;   
 }
@@ -84,7 +81,8 @@
     transform: translate(-50%, -50%);     
     width: 80px;
     height: 50px;
-   	background-color: powderblue;
+    color: #1a1f27; 
+   	background-color: #1e90ff;
    	border: none;
     border-radius: 10px;
 }
@@ -95,7 +93,8 @@
     transform: translate(-50%, -50%);     
     width: 80px;
     height: 50px;
-   	background-color: powderblue;
+    color: #1a1f27; 
+   	background-color: #1e90ff;
    	border: none;
     border-radius: 10px;
 }
@@ -105,14 +104,12 @@
     justify-content: center;
     flex-direction: row;
     flex-wrap: wrap;
-    background-color: crimson;
     margin-top: 50px;
 }
 #OHPhotoEditView-main-sector2-1 {
     position: relative;
     margin: 0px 0px 0px 0px;
     padding: 0px 0px 0px 0px;
-	background-color: cornflowerblue;
     width: 650px;
     display: inline-block;
     margin-right: 50px;
@@ -121,7 +118,14 @@
     position: relative;
     width: 650px;
     height: 200px;
-    background-color: cadetblue;
+}
+#OHPhotoEditView-fileUploadInput-guide {
+	position: absolute;
+    top: 25%;
+    left: 49%;
+    transform: translate(-50%, -50%);
+    text-align: left;  	
+    color: #1a1f27;
 }
 #OHPhotoEditView-fileUploadInput {
     position: absolute;
@@ -135,8 +139,7 @@
     align-content: center;
     flex-direction: row;
     flex-wrap: wrap;
-    width: 650px;
-    background-color: dimgray;    
+    width: 650px;    
 }
 .sector2-1-layer2-uploadImage {
     position: relative;
@@ -152,7 +155,7 @@
     width: 100%;
     height: 30px;
     line-height: 30px;
-    background-color: azure;    
+    color: #1a1f27; 	  
 }
 #uploadImage-number {
     position: absolute;
@@ -162,7 +165,7 @@
     width: 100%;
     height: 30px;
     line-height: 30px;
-    background-color: azure;        
+    color: #1a1f27;         
 }
 #uploadImage-nameLable {
     position: absolute;
@@ -172,7 +175,7 @@
     width: 100%;
     height: 30px;
     line-height: 30px;
-    background-color: azure;    
+    color: #1a1f27;  
 }
 #uploadImage-name {
     position: absolute;
@@ -182,7 +185,7 @@
     width: 100%;
     height: 30px;
     line-height: 30px;
-    background-color: azure;   
+    color: #1a1f27;  
 }
 #uploadImage-Image {
     position: absolute;
@@ -195,16 +198,12 @@
 }
 #OHPhotoEditView-main-sector2-2 {
     position: relative;
-    margin: 0px 0px 0px 0px;
-    padding: 0px 0px 0px 0px;
-	background-color: darkorange;
     width: 650px;
     height: 700px;
     display: inline-block;    
 }
 #sector2-2-layer1 {
     position: relative;
-    background-color: cadetblue;
     width: 650px;
     height: 100px;
 }
@@ -216,13 +215,13 @@
     width: 500px;
     height: 50px;
     line-height: 50px;
-    border: 1px solid #333;
+    border: 1px solid #1a1f27;
     border-radius: 10px;
     padding: 10px;
+    color: #1a1f27;    
 }
 #sector2-2-layer2 {
     position: relative;
-    background-color: lightseagreen;
     width: 650px;
     height: 200px;    
 }
@@ -233,14 +232,14 @@
     transform: translate(-50%, -50%);
     width: 500px;
     height: 200px;
-    line-height: 50px;
-    border: 1px solid #333;
+    line-height: 30px;
+    border: 1px solid #1a1f27;
     border-radius: 10px;
     padding: 10px;
+	color: #1a1f27;    
 }
 #sector2-2-layer3 {
     position: relative;
-    background-color: lightgreen;
     width: 650px;
     height: 300px;
 }
@@ -252,7 +251,7 @@
     line-height: 50px;
     width: 100px;
     text-align: center;
-    background-color: lightpink;
+	color: #1a1f27;        
 }
 #layer3-pb_category {
     position: absolute;    
@@ -262,7 +261,8 @@
     line-height: 50px;
     width: 100px;
     text-align: center;
-    background-color: lightpink;
+    background-color: #e2f0fe;
+	color: #1a1f27;
     border-radius: 10px;    
     -o-appearance: none;
     -webkit-appearance: none;
@@ -277,7 +277,7 @@
     line-height: 50px;
     width: 100px;
     text-align: center;
-    background-color: lightslategray;    
+	color: #1a1f27; 
 }
 #layer3-pb_residence {
     position: absolute;    
@@ -287,7 +287,8 @@
     line-height: 50px;
     width: 100px;
     text-align: center;
-    background-color: lightslategray;
+    background-color: #e2f0fe;
+	color: #1a1f27;
     border-radius: 10px;    
     -o-appearance: none;
     -webkit-appearance: none;
@@ -302,7 +303,7 @@
     line-height: 50px;
     width: 100px;
     text-align: center;
-    background-color: lightyellow; 
+	color: #1a1f27;
 }
 #layer3-pb_room {
     position: absolute;    
@@ -312,7 +313,8 @@
     line-height: 50px;
     width: 100px;
     text-align: center;
-    background-color: lightyellow;
+    background-color: #e2f0fe;
+	color: #1a1f27;
     border-radius: 10px;    
     -o-appearance: none;
     -webkit-appearance: none;
@@ -327,7 +329,7 @@
     line-height: 50px;
     width: 100px;
     text-align: center;
-    background-color: lightskyblue; 
+	color: #1a1f27;
 }
 #layer3-pb_style {
     position: absolute;    
@@ -337,7 +339,8 @@
     line-height: 50px;
     width: 100px;
     text-align: center;
-    background-color: lightskyblue;
+    background-color: #e2f0fe;
+	color: #1a1f27;
     border-radius: 10px;    
     -o-appearance: none;
     -webkit-appearance: none;
@@ -352,7 +355,7 @@
     line-height: 50px;
     width: 100px;
     text-align: center;
-    background-color: lightcoral; 
+	color: #1a1f27; 
 }
 #layer3-pb_skill {
     position: absolute;    
@@ -362,7 +365,8 @@
     line-height: 50px;
     width: 100px;
     text-align: center;
-    background-color: lightcoral;
+    background-color: #e2f0fe;
+	color: #1a1f27;
     border-radius: 10px;    
     -o-appearance: none;
     -webkit-appearance: none;
@@ -374,4 +378,3 @@
 /* ---------------------------------------------------------------- */
 /* ----- End: OHPhotoEditView.jsp ----- */
 /* ---------------------------------------------------------------- */
-

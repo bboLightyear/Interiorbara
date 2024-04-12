@@ -60,7 +60,7 @@ public class OHPhotoEditExecuteService implements OHInterfaceService {
 		// DB, OH_PHOTO_BOARD - 변경된 내용으로 업데이트
 		// ohPBEditUpdate() 함수 실행
 		dao.ohPBEditUpdate(pb_no, pb_title, pb_content, pb_category,
-								pb_residence, pb_room, pb_style, pb_skill);	
+						   pb_residence, pb_room, pb_style, pb_skill);	
 		
 		// 업로드 파일 - 저장할 폴더 경로, path 변수에 저장
 		

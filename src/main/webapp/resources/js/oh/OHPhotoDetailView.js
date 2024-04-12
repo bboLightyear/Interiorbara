@@ -2,8 +2,11 @@
  * 
  */
 	
+// jQuery를 사용하여 문서가 준비되었을 때 실행되는 함수
 $(document).ready(function() {
-
+	
+	console.log("OHPhotoDetailView.jsp is ready!");	
+	
 	$("#toWriteBtn").click(function() {
 		/* 회원인지 확인 */
 		if("${sessionScope.userId }" != null && "${sessionScope.userId }" != "") {
@@ -14,7 +17,6 @@ $(document).ready(function() {
 	});
 	
 });	
-
 
 $(document).ready(function() {
 	
