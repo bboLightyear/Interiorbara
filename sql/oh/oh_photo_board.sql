@@ -9,10 +9,11 @@ ROLLBACK;
 -- CREATE
 CREATE TABLE OH_PHOTO_BOARD (
     PB_NO		      NUMBER PRIMARY KEY,   -- 번호
-    MEMNO	          NUMBER,               -- 사용자_번호
+  
+    MEMNO	          NUMBER,               -- 사용자_번호, FOREIGN KEY
                                             -- TABLE: my_member_info, COLUMN: memno
-                                            -- TABLE: my_member_info, COLUMN: nickname
-    PB_TITLE	      VARCHAR2(100),         -- 제목
+
+    PB_TITLE	      VARCHAR2(100),        -- 제목
     PB_CONTENT	      VARCHAR2(650),        -- 내용
     PB_DATE		      DATE DEFAULT SYSDATE, -- 날짜
     PB_LIKE		      NUMBER DEFAULT 0,     -- 좋아요수
@@ -35,6 +36,16 @@ DROP TABLE OH_PHOTO_BOARD PURGE;
 CREATE SEQUENCE OH_PHOTO_BOARD_SEQ;
 DROP SEQUENCE OH_PHOTO_BOARD_SEQ;
 --------------------------------------
+-- INSERT
+INSERT INTO OH_PHOTO_BOARD VALUES (OH_PHOTO_BOARD_SEQ.NEXTVAL, '1', '제목입니다.', '내용입니다....', SYSDATE, 0, 0, 0, 0, 0, '#그냥', '아파트', '거실', '빈티지', '셀프');
+INSERT INTO OH_PHOTO_BOARD VALUES (OH_PHOTO_BOARD_SEQ.NEXTVAL, '2', '제목입니다.', '내용입니다....', SYSDATE, 0, 0, 0, 0, 0, '#그냥', '아파트', '거실', '빈티지', '셀프');
+INSERT INTO OH_PHOTO_BOARD VALUES (OH_PHOTO_BOARD_SEQ.NEXTVAL, '3', '제목입니다.', '내용입니다....', SYSDATE, 0, 0, 0, 0, 0, '#그냥', '아파트', '거실', '빈티지', '셀프');
+INSERT INTO OH_PHOTO_BOARD VALUES (OH_PHOTO_BOARD_SEQ.NEXTVAL, '4', '제목입니다.', '내용입니다....', SYSDATE, 0, 0, 0, 0, 0, '#그냥', '아파트', '거실', '빈티지', '셀프');
+INSERT INTO OH_PHOTO_BOARD VALUES (OH_PHOTO_BOARD_SEQ.NEXTVAL, '1', '제목입니다.', '내용입니다....', SYSDATE, 0, 0, 0, 0, 0, '#그냥', '아파트', '거실', '빈티지', '셀프');
+INSERT INTO OH_PHOTO_BOARD VALUES (OH_PHOTO_BOARD_SEQ.NEXTVAL, '2', '제목입니다.', '내용입니다....', SYSDATE, 0, 0, 0, 0, 0, '#그냥', '아파트', '거실', '빈티지', '셀프');
+INSERT INTO OH_PHOTO_BOARD VALUES (OH_PHOTO_BOARD_SEQ.NEXTVAL, '3', '제목입니다.', '내용입니다....', SYSDATE, 0, 0, 0, 0, 0, '#그냥', '아파트', '거실', '빈티지', '셀프');
+INSERT INTO OH_PHOTO_BOARD VALUES (OH_PHOTO_BOARD_SEQ.NEXTVAL, '4', '제목입니다.', '내용입니다....', SYSDATE, 0, 0, 0, 0, 0, '#그냥', '아파트', '거실', '빈티지', '셀프');                                   
+--------------------------------------
 -- SELECT
 SELECT * FROM OH_PHOTO_BOARD;
 SELECT * FROM OH_PHOTO_BOARD ORDER BY PB_NO DESC;
@@ -42,24 +53,6 @@ SELECT MAX(PB_NO) FROM OH_PHOTO_BOARD;
 --------------------------------------
 -- DELETE
 DELETE FROM OH_PHOTO_BOARD;
---------------------------------------
--- INSERT
-INSERT INTO OH_PHOTO_BOARD VALUES (OH_PHOTO_BOARD_SEQ.NEXTVAL, '1', '제목입니다.', '내용입니다....', SYSDATE, 
-                                   0, 0, 0, 0, 0, '#그냥', '아파트', '거실', '빈티지', '셀프');
-INSERT INTO OH_PHOTO_BOARD VALUES (OH_PHOTO_BOARD_SEQ.NEXTVAL, '2', '제목입니다.', '내용입니다....', SYSDATE, 
-                                   0, 0, 0, 0, 0, '#그냥', '아파트', '거실', '빈티지', '셀프');
-INSERT INTO OH_PHOTO_BOARD VALUES (OH_PHOTO_BOARD_SEQ.NEXTVAL, '3', '제목입니다.', '내용입니다....', SYSDATE, 
-                                   0, 0, 0, 0, 0, '#그냥', '아파트', '거실', '빈티지', '셀프');
-INSERT INTO OH_PHOTO_BOARD VALUES (OH_PHOTO_BOARD_SEQ.NEXTVAL, '4', '제목입니다.', '내용입니다....', SYSDATE, 
-                                   0, 0, 0, 0, 0, '#그냥', '아파트', '거실', '빈티지', '셀프');
-INSERT INTO OH_PHOTO_BOARD VALUES (OH_PHOTO_BOARD_SEQ.NEXTVAL, '1', '제목입니다.', '내용입니다....', SYSDATE, 
-                                   0, 0, 0, 0, 0, '#그냥', '아파트', '거실', '빈티지', '셀프');
-INSERT INTO OH_PHOTO_BOARD VALUES (OH_PHOTO_BOARD_SEQ.NEXTVAL, '2', '제목입니다.', '내용입니다....', SYSDATE, 
-                                   0, 0, 0, 0, 0, '#그냥', '아파트', '거실', '빈티지', '셀프');
-INSERT INTO OH_PHOTO_BOARD VALUES (OH_PHOTO_BOARD_SEQ.NEXTVAL, '3', '제목입니다.', '내용입니다....', SYSDATE, 
-                                   0, 0, 0, 0, 0, '#그냥', '아파트', '거실', '빈티지', '셀프');
-INSERT INTO OH_PHOTO_BOARD VALUES (OH_PHOTO_BOARD_SEQ.NEXTVAL, '4', '제목입니다.', '내용입니다....', SYSDATE, 
-                                   0, 0, 0, 0, 0, '#그냥', '아파트', '거실', '빈티지', '셀프');                                   
 --------------------------------------
 -- UPDATE
 UPDATE

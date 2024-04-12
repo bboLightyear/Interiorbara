@@ -131,7 +131,7 @@
 						     회원: 글쓰기 가능 
 						  비회원: 글쓰기 불가능
 						  -->
-					<button id="OHMainView-toWriteButtton">글쓰기</button> 				
+					<button id="OHMainView-toWriteButton">글쓰기</button> 				
 				</div>
 				
 				<div id="OHMainView-main-2">					

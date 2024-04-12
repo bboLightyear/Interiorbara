@@ -159,6 +159,7 @@
 	                             	<span id="OHPhotoEditView-fileUploadInput-guide">
 										사진을 선택하세요. <br />
 										파일개수 - 최소 1개 ~ 최대 10개 <br />
+										파일명 길이 - 최소 1자 ~ 최대 25자 <br />
 										파일형식 - JPG, JPEG, PNG, GIF 
 									</span>
                                 

@@ -117,8 +117,8 @@
 }
 #OHPhotoWriteView-fileUploadInput-guide {
 	position: absolute;
-    top: 23%;
-    left: 49%;
+    top: 20%;
+    left: 50%;
     transform: translate(-50%, -50%);
     text-align: left;  
     color: #1a1f27;    

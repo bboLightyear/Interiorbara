@@ -92,10 +92,11 @@
 								<span id="OHPhotoWriteView-fileUploadInput-guide">
 									사진을 선택하세요. <br />
 									파일개수 - 최소 1개 ~ 최대 10개 <br />
-									파일형식 - JPG, JPEG, PNG, GIF
+									파일명 길이 - 최소 1자 ~ 최대 25자 <br />
+									파일형식 - JPG, JPEG, PNG, GIF 
 								</span>
 								
-								<input id="OHPhotoWriteView-fileUploadInput" type="file" accept=".jpg, .jpeg, .png, .gif" name="pa_attach" multiple />
+								<input id="OHPhotoWriteView-fileUploadInput" type="file" name="pa_attach" multiple />
 						
 							</div>
 							

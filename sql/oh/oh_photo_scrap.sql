@@ -9,9 +9,10 @@ ROLLBACK;
 -- CREATE
 CREATE TABLE OH_PHOTO_SCRAP (
     PS_NO             NUMBER PRIMARY KEY,     -- 번호
-    MEMNO	          NUMBER,                 -- 사용자_번호
+
+    MEMNO	          NUMBER,                 -- 사용자_번호, FOREIGN KEY
                                               -- TABLE: my_member_info, COLUMN: memno
-                                              -- TABLE: my_member_info, COLUMN: nickname
+                                         
     PS_DATE           DATE DEFAULT SYSDATE,   -- 날짜
     PB_NO             NUMBER CONSTRAINT       -- 번호(OH_PHOTO_BOARD)     
                                 PS_PB_NO_FK
@@ -20,13 +21,13 @@ CREATE TABLE OH_PHOTO_SCRAP (
                              ON DELETE CASCADE 
 );
 --------------------------------------
--- DROP
-DROP TABLE OH_PHOTO_SCRAP;
-DROP TABLE OH_PHOTO_SCRAP PURGE;
---------------------------------------
 -- CONSTRAINT
 SELECT * FROM ALL_CONSTRAINTS WHERE TABLE_NAME = 'OH_PHOTO_SCRAP';
 ALTER TABLE OH_PHOTO_SCRAP DROP CONSTRAINT PS_PB_NO_FK;
+--------------------------------------
+-- DROP
+DROP TABLE OH_PHOTO_SCRAP;
+DROP TABLE OH_PHOTO_SCRAP PURGE;
 --------------------------------------
 -- SEQUENCE
 CREATE SEQUENCE OH_PHOTO_SCRAP_SEQ;

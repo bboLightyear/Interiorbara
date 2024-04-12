@@ -14,6 +14,78 @@ $(document).ready(function() {
 		window.location.href = before;
 	});
 	
+	// 파일 업로드 input 요소 선택
+	var fileInput = document.getElementById("OHPhotoWriteView-fileUploadInput");	
+	
+	// 파일 이름의 최대 길이 제한 (원하는 길이로 설정)
+	var maxLength = 25;
+	// 파일 이름의 최소 길이 제한 (원하는 길이로 설정)
+	var minLength = 1;
+	// 파일 - 허용할 확장자 목록
+	var allowedExtensions = ["jpg", "jpeg", "png", "gif"];		
+
+	// 파일 업로드 시 검사
+	fileInput.addEventListener("change", function() {
+		var files = fileInput.files;
+
+		// 파일명 저장 변수
+		var file = null;
+
+		// 파일명 길이 검증 결과 저장 변수
+		var fileLengthFailed = "";
+
+		// 파일명 확장자명 검증 결과 저장 변수
+		var fileExtensionFailed = "";
+
+		// 선택한 파일을 가져옵니다.
+		for(var i = 0; i < files.length; i++) {
+			file = files[i];
+			
+			// 파일이 존재할 때
+			if(file) {
+				// 전체 파일명 변수
+				var fileFullName = file.name
+				// 확장자명을 제거한 파일명 변수
+				var fileName = file.name.slice(0, file.name.lastIndexOf("."));
+				
+				if(fileName.length > maxLength) {
+					// 파일명의 길이가 기준을 벗어나는 경우
+					fileLengthFailed += "파일명: " + fileFullName + " / 길이: " + fileName.length + "\n";
+				} else if(fileName.length < minLength) {
+					// 파일명의 길이가 기준을 벗어나는 경우
+					fileLengthFailed += "파일명: " + fileFullName + " / 길이: " + fileName.length + "\n";
+				};
+
+				var fileExtension = file.name.split(".").pop().toLowerCase();
+				
+				if(allowedExtensions.indexOf(fileExtension) === -1) {
+					fileExtensionFailed += "파일명: " + fileFullName + " / 확장자명: " + fileExtension + "\n";
+				};
+			};	
+		};
+
+		var fileUploadFailed = "";
+
+		if(fileLengthFailed !== "") {
+			fileUploadFailed += "***** 업로드 실패 - 파일명 길이 제한 ***** \n" 
+								+ "***** 최소 " + minLength + "자 이상, 최대 " +	maxLength + "자 이하로 제한합니다. *****\n"
+								+ fileLengthFailed;
+		};
+
+		if(fileExtensionFailed !== "") {
+			fileUploadFailed += "***** 업로드 실패 - 파일 형식 제한 ***** \n" 
+								+ "***** 파일형식은 jpg, jpeg, png, gif만 가능합니다. *****\n"
+								+ fileExtensionFailed;
+			
+		}
+
+		if(fileUploadFailed !== "") {
+			alert(fileUploadFailed);
+			// 파일 입력값 초기화
+			fileInput.value = "";				
+		}
+
+	});		
 });	
 
 function validateForm() {
@@ -45,24 +117,6 @@ function validateForm() {
         return false;	
 	} else {
 		console.log("제목, 내용, 사진파일 개수 - successful verification");
-	}
-	
-	// 사진파일 - 허용할 확장자 목록
-	var allowedExtensions = ["jpg", "jpeg", "png", "gif"];
-    console.log("확장자 검사 " + allowedExtensions)
-	
-	// 파일의 확장자를 확인하여 허용되는 확장자인지 검사
-	for(var i = 0; i < files.length; i++) {
-		var fileExtension = files[i].name.split(".").pop().toLowerCase();
-		if (allowedExtensions.indexOf(fileExtension) === -1) {
-			alert("jpg, jpeg, png, gif 확장자만 허용됩니다.");
-			console.log(files[i].name + " - failed verification")
-			// 파일 입력값 초기화
-			fileUploadInput.value = "";
-			return false;
-		} else {
-			console.log(files[i].name + " - successful verification")
-		}
 	}
 	return true;
 }

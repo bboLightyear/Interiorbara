@@ -12,7 +12,7 @@ $(document).ready(function() {
 	console.log("memno: " + memno);
 	
 	// 글쓰기 버튼 - Click
-	$("#OHMainView-toWriteButtton").click(function() {
+	$("#OHMainView-toWriteButton").click(function() {
 		// Login Check
 		if(memno !== null && memno !== "" && memno !== "/") {	
 			// 로그인 되어 있으면 OHPhotoWriteView 페이지로 이동

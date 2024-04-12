@@ -121,8 +121,8 @@
 }
 #OHPhotoEditView-fileUploadInput-guide {
 	position: absolute;
-    top: 25%;
-    left: 49%;
+    top: 17%;
+    left: 50%;
     transform: translate(-50%, -50%);
     text-align: left;  	
     color: #1a1f27;

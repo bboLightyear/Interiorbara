@@ -7,24 +7,28 @@ $(document).ready(function() {
 	
 	console.log("OHPhotoDetailView.jsp is ready!");	
 	
-	$("#toWriteBtn").click(function() {
-		/* 회원인지 확인 */
-		if("${sessionScope.userId }" != null && "${sessionScope.userId }" != "") {
+	// 로그인 정보, 변수 저장
+	var memno = document.getElementById("memno").value;
+	// 로그인 정보, 값 출력
+	console.log("memno: " + memno);	
+	// 게시글 정보, 변수 저장
+	var pb_no = document.getElementById("pb_no").value;
+	// 게시글 정보, 값 저장	
+	console.log("pb_no: " + pb_no);
+	
+	// 글쓰기 버튼 - Click	
+	$("#OHPhotoDetailView-toWriteButton").click(function() {
+		// Login Check
+		if(memno !== null && memno !== "" && memno !== "/") {	
+			// 로그인 되어 있으면 OHPhotoWriteView 페이지로 이동
 			window.location.href = "OHPhotoWriteView";
 		} else {
-			alert("로그인 페이지로 이동");
+			// 로그인되어 있지 않으면 경고창 표시
+			alert("로그인 페이지로 이동합니다.");
+			window.location.href = "../my/loginform";
 		}
-	});
-	
-});	
+	});	
 
-$(document).ready(function() {
-	
-	// 사용자 id 값을 가져와 변수에 저장
-	var userId = "${sessionScope.userId }";
-	// 게시글 번호, 변수에 저장
-	var pb_no = "${pb_dto.pb_no }";
-	
 	// 페이지 로드 시 댓글을 불러오는 함수를 실행합니다.
 	loadReplys();
 	
@@ -47,7 +51,7 @@ $(document).ready(function() {
 			method: "post",
 			data: {
 				// 전송할 데이터
-				'userId' : userId,
+				'memno' : memno,
 				'pr_content' : inputValue,
 				'pb_no' : pb_no	
 			},

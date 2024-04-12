@@ -1,8 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <!DOCTYPE html>
+
 <html>
+
 <head>
 	
 	<meta charset="UTF-8">
@@ -22,6 +26,7 @@
 	<script src="https://code.jquery.com/jquery-3.7.1.js" ></script>
 		
 </head>
+
 <body>
 	
 	<!-- 데이터 표시 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
@@ -94,6 +99,11 @@
 		</c:otherwise>
 	</c:choose>	
 
+	<!-- 로그인 정보 -->
+ 	<input type="hidden" id="memno" value=${loginUserDto.memno } />
+	<!-- 게시글 정보 -->
+	<input type="hidden" id="pb_no" value=${pb_dto.pb_no } />
+
 	<div class="container">
 	
 		<header>
@@ -122,7 +132,7 @@
 					     회원: 글쓰기 가능 
 					  비회원: 글쓰기 불가능
 					  -->
-				<button id="toWriteBtn">글쓰기</button> 
+				<button id="OHPhotoDetailView-toWriteButton">글쓰기</button> 
 	
 				<!-- 해당 게시물 작성자일 경우 => 수정, 삭제 버튼 생성 -->
 				<c:choose>
@@ -179,22 +189,17 @@
 					
 					<br />
 					
-					<div id=contentReply></div>
+					<div id=contentReply>
 					
-				</div>
-				<!-- End: <div class="sectionReply"> 
-					 End: 댓글 출력
-				-->			
-				
-
-				
-										
+						<!-- 댓글 추가 영역 -->
+					
+					</div>
+					
+				</div>						
 				
 			</div>
-			<!-- End: <div class="main"> -->					
 			
 		</div> 
-		<!-- End: <div class="contents"> -->	
 			
 		<footer>
 			<h1>footer</h1>
