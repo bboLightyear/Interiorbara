@@ -115,7 +115,7 @@
 		
 			<div class="sideBar">
 				<ul >
-					<li><a href="OHMainView">우리집 자랑하기</a></li>
+					<li><a href="OHMainView">우리 집 자랑하기</a></li>
 					<li><a href="OHPhotoView">집사진</a></li>
 					<!-- 집영상 -->
 					<!-- <li><a href="#">집영상</a></li> -->

@@ -114,7 +114,7 @@
 	
 			<div class="sideBar">
 				<ul >
-					<li><a href="OHMainView">우리집 자랑하기</a></li>
+					<li><a href="OHMainView">우리 집 자랑하기</a></li>
 					<li><a href="OHPhotoView">집사진</a></li>
 					<!-- 집영상 -->
 					<!-- <li><a href="">집영상</a></li> -->
@@ -169,44 +169,44 @@
 				<hr />
 				
 				<div class="sectionReply">
-					<!-- 입력창 -->
-					<div id="wrapInputTextReply"
-						 style="display:inline-block">
-						<input id="inputTextReply"
-							   type="text" 
-						       placeholder="칭찬과 격려의 댓글은 작성자에게 큰 힘이 됩니다."
-						 	   style="height:50px;
-						 			  width:600px;
-						 			  background-color:#ffc978;
-						 			  color:#555"/>
-					</div>
-					<!-- 입력버튼 -->
-					<button id="replyButton" disabled>입력</button>
+						<!-- 입력창 -->
+						<div id="wrapInputTextReply"
+							 style="display:inline-block">
+							<input id="inputTextReply"
+								   type="text" 
+							       placeholder="칭찬과 격려의 댓글은 작성자에게 큰 힘이 됩니다."
+							 	   style="height:50px;
+							 			  width:600px;
+							 			  background-color:#ffc978;
+							 			  color:#555"/>
+						</div>
+						<!-- 입력버튼 -->
+						<button id="replyButton" disabled>입력</button>
+						
+						<br />
+						
+						<hr />
+						
+						<br />
+						
+						<div id=contentReply>
+						
+							<!-- 댓글 추가 영역 -->
+						
+						</div>
+						
+					</div>						
 					
-					<br />
-					
-					<hr />
-					
-					<br />
-					
-					<div id=contentReply>
-					
-						<!-- 댓글 추가 영역 -->
-					
-					</div>
-					
-				</div>						
+				</div>
 				
-			</div>
+			</div> 
 			
-		</div> 
-			
+		</div>
+		
 		<footer>
 			<h1>footer</h1>
 		</footer>
 		
-	</div>
-	
 	</div>
 	
 	<!-- OHPhotoDetailView.js -->
