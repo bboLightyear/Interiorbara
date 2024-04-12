@@ -728,7 +728,166 @@ body,html{
 	overflow-y: auto;
 	font-size: 17px;
 	margin-left: 15px; 	
+}/*글상세*/
+
+/*글쓰기 폼*/
+.cs_write_wrap_all{
+	width: 100%;
+	height: auto;
+	background-color: #E2F0FE;
+	display: flex;
+	justify-content: center;
+	/* align-items: center; */  /* 내부 요소들을 수직 중앙 정렬합니다. */
 }
+.cs_write_wrap_form{
+	background-color: white;
+	width: 720px;
+}
+.cs_write_wrap_form_back{
+	margin-top: 10px;
+	margin-left: 10px;
+}
+.cs_write_wrap_form_back_a{
+	text-decoration: none;
+	color: #b1b8c0;
+}
+.cs_write_wrap_form_head{
+	width: 100%;
+	height:30px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	margin-top: 30px;
+}
+.cs_write_wrap_form_ni{
+	width: 100%;
+	display: flex;
+	align-items: center;
+	margin-left: 45px;
+	margin-top: 30px;
+}
+.cs_write_wrap_form_wrap_div{
+	width: 100%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+.cs_write_wrap_form_div{
+	width: 630px;
+	height: 70px;
+	display: flex;
+	/* align-items: center; */
+	justify-content: center;
+	flex-direction: column;
+	margin-top: 20px;
+}
+.cs_write_wrap_form_div_selbox{
+	margin-top: 20px;
+	width: 180px;
+}
+.cs_write_wrap_form_title{
+	width: 100%;
+	height: 50px;
+	margin-top: 20px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+.cs_write_wrap_form_title_it{
+	width: 630px;
+	height: 30px;
+	font-size: 18px;
+	color : gray;
+	padding: 0;
+}
+.cs_write_wrap_form_wrap_content{
+	width: 100%;
+	display: flex;
+	justify-content: center;
+	margin-top: 20px;
+}
+.cs_write_wrap_form_content{
+	display: flex;
+	width: 630px;
+	flex-direction: column;
+}
+.cs_write_wrap_form_content_ta{
+	width: 630px;
+	height: 200px;
+	padding: 0;
+	font-size: 17px;
+	color : gray;
+}
+.cs_write_wrap_form_wrap_writebtn{
+	width:100%;
+	height:50px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	margin-top: px;
+}
+.cs_write_wrap_form_writebtn{
+	width: 400px;
+	height: 35px;
+	border: none;
+	border-radius:10px;
+	background-color: #1e90ff;
+	color: white;
+}
+.cs_write_wrap_form_writebtn:hover {
+	background: #0b7dda;
+}
+.cs_write_wrap_form_wrap_filebtn{
+	width:100%;
+	height:50px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	margin-top: 30px;
+}
+.cs_write_wrap_form_filebtn{
+	width: 400px;
+	height: 35px;
+	border: none;
+	border-radius:10px;
+	background-color: #1e90ff;
+	color: white;
+}
+.custom-file-upload {
+	width: 400px;
+    height: 35px;
+    display: inline-block;
+    cursor: pointer;
+    background: #2196F3;
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    transition: background 0.3s ease;
+    text-align: center;
+	line-height: 35px;
+	font-size: 15px;
+}
+.custom-file-upload:hover {
+    background: #0b7dda;
+}
+.cs_write_wrap_form_file_wrap_display{
+	width: 100%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+.cs_write_wrap_form_file_display{
+	display: none;
+	width: 400px;
+    height: auto;
+    background-color: #b1b8c0;
+    border-radius: 10px;
+    align-items: center;
+	justify-content: center;
+	flex-direction: column;
+}
+/*글쓰기 폼*/
+
 /*푸터*/
 footer {
 	margin: 0;
