@@ -30,12 +30,35 @@ JOIN
     SHOP_SELLER S
 ON
     P.SELLER_ID = S.SELLER_ID
-JOIN
-    SHOP_PRODUCT_IMG I
+JOIN (
+    SELECT
+        ROWNUM, II.*
+    FROM
+        SHOP_PRODUCT_IMG II
+    WHERE
+        II.PRODUCT_ID = 42 AND ROWNUM = 1) I
 ON
-    P.PRODUCT_ID = I.PRODUCT_ID
+    P.PRODUCT_ID = I.PRODUCT_ID;
 WHERE
-    PRODUCT_ID = 42;
+    P.PRODUCT_ID = 42;
+    
+SELECT 
+    p.*,
+    pi.* 
+FROM 
+    shop_product p
+JOIN 
+    (SELECT 
+         product_id,
+         file_src,
+         ROW_NUMBER() OVER (PARTITION BY product_id ORDER BY product_img_id) AS rn
+     FROM 
+         shop_product_img) pi
+ON 
+    p.product_id = pi.product_id
+WHERE 
+    pi.rn = 1;
+
 
 create table shop_product (
     product_id number,
