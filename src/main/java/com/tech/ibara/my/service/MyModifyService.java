@@ -25,8 +25,8 @@ public class MyModifyService implements SService{
 		System.out.println("MyModifyService()");
 		Map<String, Object> map=model.asMap();
 		HttpServletRequest request=(HttpServletRequest) map.get("request");
-		String memtype=(String) map.get("memtype");
-		System.out.println("memtype : "+memtype );
+//		String memtype=(String) map.get("memtype");
+//		System.out.println("memtype : "+memtype );
 //		session=request.getSession();
 		String memno=request.getParameter("memno");
 		String email=request.getParameter("email");
@@ -74,7 +74,7 @@ public class MyModifyService implements SService{
 		}else {
 			result = mdao.modifyMyMemberInfo("admin",phone,birth,gender,email);
 		}
-			
+		String memtype=mdao.getMemtype(memno);	
 		MyMemberInfoDto memdto;
 		int intmemno=Integer.parseInt(memno);
 		if(result==1) {

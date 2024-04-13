@@ -230,6 +230,74 @@
 	<!-- <select id="getBizHomeBmark" resultType="">
 		SELECT BHB_NO,INTENO FROM BIZ_HOME_BMARK WHERE MEMNO=#{param1}
 	</select> -->
+	<resultMap type="com.tech.ibara.my.dto.PhotoBoardDto" id="PhotoBoardDto">
+		<result column="NO" property="no" />
+		<result column="PB_NO" property="pb_no" />
+		<result column="PB_USER" property="pb_user" />
+		<result column="PB_TITLE" property="pb_title" />
+		<result column="PB_CONTENT" property="pb_content" />
+		<result column="PB_DATE" property="pb_date" />
+		<result column="PB_LIKE" property="pb_like" />
+		<result column="PB_SCRAP" property="pb_scrap" />
+		<result column="PB_REPLY" property="pb_reply" />
+		<result column="PB_LINK" property="pb_link" />
+		<result column="PB_HIT" property="pb_hit" />
+		<result column="PB_CATEGORY" property="pb_category" />
+		<result column="PB_RESIDENCE" property="pb_residence" />
+		<result column="PB_ROOM" property="pb_room" />
+		<result column="PB_STYLE" property="pb_style" />
+		<result column="PB_SKILL" property="pb_skill" />
+		<!-- collection -->
+	</resultMap>
+	
+	<!-- resultMap OHPhotoAttach -->
+	
+	<resultMap type="com.tech.ibara.my.dto.PhotoAttachDto" id="PhotoAttachDto">
+		<result column="PA_NO" property="pa_no" />
+		<result column="PA_ATTACH" property="pa_attach" />
+		<result column="PB_NO" property="pb_no" />
+		<collection property="photoBoardDto" resultMap="PhotoBoardDto"/>
+	</resultMap>	
+	<resultMap type="com.tech.ibara.my.dto.PhotoAttachDto" id="PhotoAttachDtoAtt">
+		<result column="PA_NO" property="pa_no" />
+		<result column="PA_ATTACH" property="pa_attach" />
+		<result column="PB_NO" property="pb_no" />
+		<result column="ATTACHS" property="attachs" />
+		<collection property="photoBoardDto" resultMap="PhotoBoardDto"/>
+	</resultMap>
+	
+	<select id="getMyPhoto" resultType="com.tech.ibara.my.dto.PhotoAttachDto" resultMap="PhotoAttachDto">
+		SELECT PB.PB_NO,PB.PB_TITLE,PA.PA_ATTACH FROM OH_PHOTO_BOARD PB JOIN OH_PHOTO_ATTACH PA 
+		ON PB.PB_NO=PA.PB_NO WHERE PB.MEMNO=#{param1} ORDER BY PB_NO DESC
+	</select>
+	<select id="getMyPhotoBoardList" resultType="com.tech.ibara.my.dto.PhotoAttachDto" resultMap="PhotoAttachDtoAtt">
+		SELECT PB.PB_NO,PB.PB_TITLE,LISTAGG(PA.PA_ATTACH,',') WITHIN GROUP(ORDER BY PA.PA_ATTACH DESC) ATTACHs
+		FROM OH_PHOTO_BOARD PB JOIN OH_PHOTO_ATTACH PA ON PB.PB_NO=PA.PB_NO WHERE PB.MEMNO=#{param1}
+		GROUP BY PB.PB_NO,PB.PB_TITLE
+	</select>
+	<resultMap type="com.tech.ibara.my.dto.InteriorCasesDto" id="InteriorCasesDto">
+		<result column="BC_NO" property="bc_no" />
+		<result column="BC_TITLE" property="bc_title" />
+		<result column="BC_CONTENT" property="bc_content" />
+		<result column="BC_DATE" property="bc_date" />
+		<result column="BC_HIT" property="bc_hit" />
+		<result column="INTENO" property="inteno" />	
+	</resultMap>
+	<resultMap type="com.tech.ibara.my.dto.InteriorCasesImgDto" id="InteriorCasesImgDto">
+		<result column="BCIMG_NO" property="bcimg_no" />	
+		<result column="BCIMG_OGN" property="bcimg_ogn" />	
+		<result column="BCIMG_CGN" property="bcimg_cgn" />	
+		<result column="BC_NO" property="bc_no" />	
+		<result column="INTENO" property="inteno" />
+		<result column="IMGS" property="imgs" />
+		<collection property="inteCasesDto" resultMap="InteriorCasesDto" />
+	</resultMap>
+	<select id="getMyCasesList" resultType="com.tech.ibara.my.dto.InteriorCasesImgDto" resultMap="InteriorCasesImgDto">
+		SELECT BC.BC_NO,BC.BC_TITLE,BC.BC_CONTENT,LISTAGG(BCI.BCIMG_CGN,',') WITHIN GROUP(ORDER BY BCI.BCIMG_CGN) IMGS
+		FROM BIZ_CASES BC JOIN BIZ_CASES_IMG BCI ON BC.BC_NO=BCI.BC_NO WHERE BC.INTENO=#{param1}
+		GROUP BY BC.BC_NO,BC.BC_TITLE,BC.BC_CONTENT	
+	</select>
+	
 	
 	
 </mapper>

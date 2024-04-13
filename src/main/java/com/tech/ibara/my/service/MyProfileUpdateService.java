@@ -27,8 +27,8 @@ public class MyProfileUpdateService implements VService {
 		System.out.println("MyProfileUpdateService");
 		Map<String, Object> map = model.asMap();
 		HttpServletRequest request = (HttpServletRequest) map.get("request");
-		String memtype=(String) map.get("memtype");
-		System.out.println("memtype : "+memtype );
+//		String memtype=(String) map.get("memtype");
+//		System.out.println("memtype : "+memtype );
 //		session = request.getSession();					
 		String path="C:\\23setspring\\springwork23\\interiorbara01\\src\\main\\webapp\\resources\\upload\\my";
 		
@@ -58,6 +58,7 @@ public class MyProfileUpdateService implements VService {
 		}
 		System.out.println("updateprofileimg result : "+result);
 		MyMemberInfoDto memdto;
+		String memtype=mdao.getMemtype(memno);
 		int intmemno=Integer.parseInt(memno);
 		if(result==1) {
 			if(memtype.equals("INTERIOR")) {

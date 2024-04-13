@@ -2,12 +2,16 @@ package com.tech.ibara.my.dao;
 
 import java.util.ArrayList;
 
+import com.tech.ibara.my.dto.InteriorCasesImgDto;
 import com.tech.ibara.my.dto.MyInteriorDto;
 import com.tech.ibara.my.dto.MyMemberInfoDto;
 import com.tech.ibara.my.dto.MyNonMemberDto;
 import com.tech.ibara.my.dto.MyReportDto;
 import com.tech.ibara.my.dto.MySellerDto;
 import com.tech.ibara.my.dto.MyWithdrawalDto;
+import com.tech.ibara.my.dto.PhotoAttachDto;
+import com.tech.ibara.my.dto.PhotoBoardDto;
+import com.tech.ibara.oh.dto.OHPhotoBoard;
 
 public interface MyDao {
 	public void join(String nickname,String shpwd,String bcpwd,String email);
@@ -64,5 +68,8 @@ public interface MyDao {
 //	public int countLikePhotoReply(int memno);
 	public int countScrapPhotoBoard(int memno);
 	public int countBizBmark(int memno);
+	public ArrayList<PhotoAttachDto> getMyPhoto(int memno);
+	public ArrayList<PhotoAttachDto> getMyPhotoBoardList(int memno);
+	public ArrayList<InteriorCasesImgDto> getMyCasesList(int inteno);
 	
 }

@@ -53,7 +53,7 @@ th{
 				<td><a href="memberinfopage?memno=${mdto.memno}">${mdto.memno }</a></td>
 				<td>${mdto.nickname }</td>
 				<td>${mdto.email }</td>
-				<td><fmt:formatDate value="${mdto.joindate }" type="both" dateStyle="short" pattern="YY-MM-dd"/></td>
+				<td><fmt:formatDate value="${mdto.joindate }" type="both" dateStyle="short" pattern="YYYY-MM-dd"/></td>
 				<td>${mdto.memtype }</td>
 			</tr>
 			</c:forEach>

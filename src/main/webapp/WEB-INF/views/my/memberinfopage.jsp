@@ -11,6 +11,15 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 	<link rel="stylesheet" href="${path}/resources/css/my/mypageinfoedit.css" />
 	<script src="https://code.jquery.com/jquery-latest.min.js"></script>
+	<style>
+	.imgsize{
+		width: 200px;
+		height: 150px;
+	}
+	td{
+		padding: 8px;
+	}
+	</style>
 </head>
 <body>
 <h3>memberinfopage.jsp</h3>
@@ -47,8 +56,17 @@
 		        <p>${mdto.gender}</p>
 		    </div>		    
 		    </c:if>
-		    
-    </div>	    
+    </div>
+    <div>
+    	<table align="center">
+    		
+    		<tr>
+    			<c:forEach items="${palist}" var="pa" end="2">
+    				<td><img class="imgsize" src="${path}/resources/upload/oh/photo/${pa.pa_attach}" alt="" /></td>
+    			</c:forEach>
+    		</tr>
+	  	</table>
+	</div>	    
     <script>
 
 $(document).ready(function() {

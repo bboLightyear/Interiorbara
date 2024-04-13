@@ -22,15 +22,16 @@ import com.tech.ibara.my.service.JoinService;
 import com.tech.ibara.my.service.LoginService;
 import com.tech.ibara.my.service.MemberInfoPageService;
 import com.tech.ibara.my.service.MemberListService;
+import com.tech.ibara.my.service.MyInteriorCasesService;
 import com.tech.ibara.my.service.MyLikeService;
 import com.tech.ibara.my.service.MyModifyService;
 import com.tech.ibara.my.service.MyPasswordEditService;
 import com.tech.ibara.my.service.MyPasswordMCEditService;
 import com.tech.ibara.my.service.MyPasswordService;
+import com.tech.ibara.my.service.MyPhotoService;
 import com.tech.ibara.my.service.MyProfileUpdateService;
 import com.tech.ibara.my.service.MyScrapService;
 import com.tech.ibara.my.service.MypageMainService;
-import com.tech.ibara.my.service.NonmemberEstimateSearchService;
 import com.tech.ibara.my.service.PassResetService;
 import com.tech.ibara.my.service.ReportService;
 import com.tech.ibara.my.service.SService;
@@ -42,7 +43,7 @@ import com.tech.ibara.my.service.VService;
 public class MyController {
 	SService sservice;
 	VService vservice;
-	
+		
 	@Autowired
 	private SqlSession sqlSession;
 	
@@ -136,9 +137,9 @@ public class MyController {
 			memdto=mdao.getSellerMember(memdto.getMemno());
 		}		
 		session.setAttribute("loginUserDto",memdto);
-		if(!str.equals("my/mypage")) {
-			return str;			
-		}else {
+		if(str.equals("my/passeditMC") || str.equals("my/loginform") || str.equals("my/passedit") || str.equals("my/intepassedit") || str.equals("my/sellerpassedit") || str.equals("my/login")) {
+			return "redirect:/";
+		}else if(str.equals("my/mypage")) {
 			MyMemberInfoDto mdto= (MyMemberInfoDto) session.getAttribute("loginUserDto");
 			if(mdto==null) {
 				model.addAttribute("msg","로그인 정보가 없습니다. 로그인해주세요");
@@ -159,8 +160,9 @@ public class MyController {
 				vservice.execute(model);
 				return "my/mypagemain";
 			}
-		}
-		
+		}else {		
+			return str;			
+		}		
 	}
 	@RequestMapping("my/adminmain")
 	public String adminmain(HttpServletRequest request,Model model) {
@@ -214,7 +216,6 @@ public class MyController {
 	public String updateprofile(HttpServletRequest request,Model model) {
 		System.out.println("updateprofile()");
 		model.addAttribute("request",request);
-		model.addAttribute("memtype","PERSON");
 		vservice =new MyProfileUpdateService(sqlSession,session);
 		vservice.execute(model);
 		return "my/mypageinfoedit";
@@ -223,7 +224,6 @@ public class MyController {
 	public String modify(HttpServletRequest request,Model model) {
 		System.out.println("modify()");
 		model.addAttribute("request",request);
-		model.addAttribute("memtype","PERSON");
 		sservice =new MyModifyService(sqlSession,session);
 		String str=sservice.execute(model);
 		if(str.equals("nndupl")) {
@@ -456,7 +456,6 @@ public class MyController {
 	public String updateinteprofile(HttpServletRequest request,Model model) {
 		System.out.println("updateinteprofile()");
 		model.addAttribute("request",request);
-		model.addAttribute("memtype","INTERIOR");
 		vservice =new MyProfileUpdateService(sqlSession,session);
 		vservice.execute(model);
 		return "my/interiorinfoedit";
@@ -465,7 +464,6 @@ public class MyController {
 	public String intemodify(HttpServletRequest request,Model model) {
 		System.out.println("intemodify()");
 		model.addAttribute("request",request);
-		model.addAttribute("memtype","INTERIOR");		
 		sservice =new MyModifyService(sqlSession,session);
 		String str=sservice.execute(model);
 		if(str.equals("nndupl")) {
@@ -548,7 +546,6 @@ public class MyController {
 	public String updatesellerprofile(HttpServletRequest request,Model model) {
 		System.out.println("updatesellerprofile()");
 		model.addAttribute("request",request);
-		model.addAttribute("memtype","SELLER");
 		vservice =new MyProfileUpdateService(sqlSession,session);
 		vservice.execute(model);
 		return "my/sellerinfoedit";
@@ -557,7 +554,6 @@ public class MyController {
 	public String sellermodify(HttpServletRequest request,Model model) {
 		System.out.println("sellermodify()");
 		model.addAttribute("request",request);
-		model.addAttribute("memtype","SELLER");
 		sservice =new MyModifyService(sqlSession,session);
 		String str=sservice.execute(model);
 		if(str.equals("nndupl")) {
@@ -688,8 +684,8 @@ public class MyController {
 		return "my/sellersalelist";
 	}
 	@RequestMapping("my/interiorestimate")
-	public String estimate(Model model) {
-		System.out.println("estimate()");
+	public String interiorestimate(Model model) {
+		System.out.println("interiorestimate()");
 		return "my/interiorestimate";
 	}
 	@RequestMapping("my/myshopping")
@@ -706,8 +702,9 @@ public class MyController {
 			model.addAttribute("msg","로그인정보가 없습니다. 로그인해주세요");
 			return "my/loginform";
 		}else {
-		vservice = new MyLikeService(sqlSession,session);
-		vservice.execute(model);
+			model.addAttribute("mdto",mdto);
+			vservice = new MyLikeService(sqlSession,session);
+			vservice.execute(model);
 		return "my/mylike";
 		}
 	}
@@ -720,9 +717,38 @@ public class MyController {
 			model.addAttribute("msg","로그인정보가 없습니다. 로그인해주세요");
 			return "my/loginform";
 		}else {
-		vservice = new MyScrapService(sqlSession,session);
-		vservice.execute(model);
+			model.addAttribute("mdto",mdto);
+			vservice = new MyScrapService(sqlSession,session);
+			vservice.execute(model);
 		return "my/myscrap";
+		}
+	}
+	@RequestMapping("my/myphoto")
+	public String myphoto(Model model) {
+		System.out.println("myphoto()");
+		MyMemberInfoDto mdto=(MyMemberInfoDto) session.getAttribute("loginUserDto");
+		if(mdto==null) {
+			model.addAttribute("msg","로그인정보가 없습니다. 로그인해주세요");
+			return "my/loginform";
+		}else {
+			model.addAttribute("mdto",mdto);
+			vservice = new MyPhotoService(sqlSession,session);
+			vservice.execute(model);
+		return "my/myphoto";
+		}
+	}
+	@RequestMapping("my/interiorcases")
+	public String interiorcases(Model model) {
+		System.out.println("interiorcases()");
+		MyMemberInfoDto mdto=(MyMemberInfoDto) session.getAttribute("loginUserDto");
+		if(mdto==null) {
+			model.addAttribute("msg","로그인정보가 없습니다. 로그인해주세요");
+			return "my/loginform";
+		}else {
+			model.addAttribute("mdto",mdto);
+			vservice = new MyInteriorCasesService(sqlSession,session);
+			vservice.execute(model);		
+		return "my/interiorcases";
 		}
 	}
 	

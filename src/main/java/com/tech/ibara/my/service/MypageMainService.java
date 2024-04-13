@@ -1,5 +1,7 @@
 package com.tech.ibara.my.service;
 
+import java.util.ArrayList;
+
 import javax.servlet.http.HttpSession;
 
 import org.apache.ibatis.session.SqlSession;
@@ -7,6 +9,8 @@ import org.springframework.ui.Model;
 
 import com.tech.ibara.my.dao.MyDao;
 import com.tech.ibara.my.dto.MyMemberInfoDto;
+import com.tech.ibara.my.dto.PhotoAttachDto;
+import com.tech.ibara.oh.dto.OHPhotoBoard;
 
 public class MypageMainService implements VService{
 	private SqlSession sqlSession;
@@ -33,6 +37,11 @@ public class MypageMainService implements VService{
 		
 		model.addAttribute("mylike",mylike);
 		model.addAttribute("myscrap",myscrap);
+		ArrayList<PhotoAttachDto> palist=mdao.getMyPhoto(memno);
+		model.addAttribute("palist",palist);
+		
+		
+		
 	}
 	
 

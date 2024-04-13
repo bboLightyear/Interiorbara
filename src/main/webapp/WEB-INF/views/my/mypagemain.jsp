@@ -36,6 +36,7 @@
     #mypage_profile{
     	padding-left: 25%;
     }
+    
 	.box {
 	    width: 150px;
 	    height: 150px; 
@@ -59,6 +60,16 @@
 	.w70 {width:70px; }
 	.w80 {width:80px; }
 	.w150 {width:150px; }
+	table{
+		margin-left: 40%;
+	}
+	td{
+		padding: 8px;
+	}
+	.imgsize{
+		width: 200px;
+		height: 150px;
+	}
 </style>
 </head>
 <body>
@@ -70,7 +81,7 @@
     </div>
     <div class="mypage_category">
         <div class="mypage_category_list list_1_1"><a href="#">모두보기</a></div>
-	    <div class="mypage_category_list list_1_2">내사진</div>
+	    <div class="mypage_category_list list_1_2"><a href="myphoto">내사진</a></div>
         <div class="mypage_category_list list_1_3"><a href="myscrap">스크랩북</a></div>
         <div class="mypage_category_list list_1_4"><a href="mylike">좋아요</a></div>
         <div class="mypage_category_list list_1_5"><a href="mypageinfoedit">회원정보수정</a></div>
@@ -94,8 +105,8 @@
         	<li class="fl tc w150">${loginUserDto.nickname}님</li>
         </ul>
        	<ul class="board">
-       		<li class="fl tc w80"><a href="#"><img class="w50" src="../resources/img/my/bookmark.png" alt="" /></a></li>
-       		<li class="fl tc w80"><a href="#"><img class="w50" src="../resources/img/my/heart.png" alt="" /></a></li>        		
+       		<li class="fl tc w80"><a href="myscrap"><img class="w50" src="../resources/img/my/bookmark.png" alt="" /></a></li>
+       		<li class="fl tc w80"><a href="mylike"><img class="w50" src="../resources/img/my/heart.png" alt="" /></a></li>        		
        	</ul>
        	<ul class="board">
        		<li class="fl tc w80"><a href="myscrap">스크랩북</a></li>
@@ -105,6 +116,22 @@
        		<li class="fl tc w80"><a href="myscrap">${myscrap}</a></li>
        		<li class="fl tc w80"><a href="mylike">${mylike}</a></li>
        	</ul>
+    </div>
+    
+    
+    <div id="mypage_photo">
+    	<table>
+    		<tr>
+    			<td colspan="4"><b>내 사진</b></td>
+    		</tr>
+    		<tr>
+    			<c:forEach items="${palist}" var="pa" end="3">
+    				<td><img class="imgsize" src="../resources/upload/oh/photo/${pa.pa_attach}" alt="" /></td>
+    			</c:forEach>
+    		</tr>
+	  	</table>
+    
+    
     </div>
 </body>
 </html>

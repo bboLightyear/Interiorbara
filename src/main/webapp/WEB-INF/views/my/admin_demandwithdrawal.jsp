@@ -51,7 +51,7 @@ th{
 			<tr>
 				<td>${list.memno }</td>
 				<td>${list.reason }</td>
-				<td><fmt:formatDate value="${list.wddate }" type="both" dateStyle="short" pattern="YY-MM-dd"/></td>
+				<td><fmt:formatDate value="${list.wddate }" type="both" dateStyle="short" pattern="YYYY-MM-dd"/></td>
 				<c:choose>
 					<c:when test="${list.yesno eq 'N'}">
 						<td>

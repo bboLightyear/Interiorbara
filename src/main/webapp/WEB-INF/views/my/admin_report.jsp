@@ -58,7 +58,7 @@ th{
 			<td>${reportdto.targettype }</td>
 			<td>${reportdto.bizRvReportedDto.brr_content }</td>
 			<td>${reportdto.cause }</td>
-			<td><fmt:formatDate value="${reportdto.redate }" type="both" dateStyle="short" pattern="YY-MM-dd"/></td>
+			<td><fmt:formatDate value="${reportdto.redate }" type="both" dateStyle="short" pattern="YYYY-MM-dd"/></td>
 			<c:choose>
 				<c:when test="${reportdto.yesno eq 'N'}">
 					<td>

@@ -1,6 +1,7 @@
 package com.tech.ibara.my.service;
 
 import java.util.ArrayList;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -23,7 +24,8 @@ public class MyScrapService implements VService{
 	}
 	@Override
 	public void execute(Model model) {
-		MyMemberInfoDto mdto=(MyMemberInfoDto) session.getAttribute("loginUserDto");
+		Map<String, Object> map=model.asMap();
+		MyMemberInfoDto mdto=(MyMemberInfoDto) map.get("mdto");
 		int memno = mdto.getMemno();
 						
 		MyDao mdao=sqlSession.getMapper(MyDao.class);

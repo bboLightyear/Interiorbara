@@ -54,7 +54,7 @@
 <h3>sellerpasswordedit.jsp</h3>
 	<div class="mypage_category">
         <div class="mypage_category_list list_1"><a href="mypage">프로필</a></div>
-	    <div class="mypage_category_list list_2">판매리스트</div> <br />
+	    <div class="mypage_category_list list_2"><a href="sellersale">판매</a></div> <br />
     </div>
     <div class="mypage_category">
         <div class="mypage_category_list list_1_1"><a href="mypage">모두보기</a></div>
