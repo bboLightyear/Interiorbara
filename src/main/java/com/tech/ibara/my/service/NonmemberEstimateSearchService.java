@@ -21,15 +21,15 @@ public class NonmemberEstimateSearchService implements SService {
 		System.out.println("NonmemberEstimateSearchService()");
 		Map<String, Object> map = model.asMap();
 		HttpServletRequest request= (HttpServletRequest) map.get("request");
-		String estino=request.getParameter("estino");
-		String phone=request.getParameter("phone");
+//		String estino=request.getParameter("estino");
+		String email=request.getParameter("email");
 		MyDao mdao=sqlSession.getMapper(MyDao.class);
-		int count=mdao.countCheckNonmember(phone);
-		System.out.println(phone+"번 휴대폰번호의 비회원은 "+count+"명");
+		int count=mdao.countCheckNonmember(email);
+		System.out.println(email+"번 휴대폰번호의 비회원은 "+count+"명");
+		MyNonMemberDto ndto=mdao.getNonmember(email);
 		if(count==0) {//폰번호로 일치하는 데이터가 없는경우
-			return "phoneNull";
+			return "emailNull";
 		}else {//phone번호가 일치하는 데이터가 있음 -> MyNonMemberDto 형식으로 비회원 정보 담고 견적번호로 견적정보 불러와서 모델에 담아서 뷰단에 뿌려주기
-			MyNonMemberDto ndto=mdao.getNonmember(phone);
 			model.addAttribute("ndto",ndto);
 		}
 		return "";

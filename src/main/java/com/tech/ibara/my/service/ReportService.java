@@ -9,6 +9,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.ui.Model;
 
 import com.tech.ibara.my.dao.MyDao;
+import com.tech.ibara.my.dto.MyReportDto;
 
 public class ReportService implements VService{
 	private SqlSession sqlSession;
@@ -21,9 +22,7 @@ public class ReportService implements VService{
 //		Map<String, Object> map= model.asMap();
 //		HttpServletRequest request=(HttpServletRequest) map.get("request");
 		MyDao mdao=sqlSession.getMapper(MyDao.class);
-//		ArrayList<ReportDto> list=mdao.getReportList();
-
-		
+		ArrayList<MyReportDto> list=mdao.getReportList();
+		model.addAttribute("list",list);		
 	}
-
 }

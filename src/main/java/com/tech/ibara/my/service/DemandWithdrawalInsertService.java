@@ -24,11 +24,14 @@ public class DemandWithdrawalInsertService implements VService {
 		String memtype=request.getParameter("memtype");
 		String memno=request.getParameter("memno");
 		System.out.println("memno : "+memno);
+		
 		String reason=request.getParameter("withdrawalCheck");
 		System.out.println("withdrawal reason : "+reason);
 		MyDao mdao=sqlSession.getMapper(MyDao.class);
 		int memnoDupl=mdao.memnoDuplCheck(memno);
-		if(memtype.equals("ADMIN")) {
+		if(memno.equals("")) {
+			model.addAttribute("msg","로그인해주세요");			
+		}else if(memtype.equals("ADMIN")) {
 			model.addAttribute("msg","관리자는 탈퇴할수 없습니다.");
 		}else {
 			if(memnoDupl==0) {

@@ -61,71 +61,57 @@
 	.w50 {width:50px; }
 	.w70 {width:70px; }
 	.w80 {width:80px; }
-	.w150 {width:150px; }
-	.flex-container{
-		/* display: inline-flex;
-		margin: auto; */
-		display: flex;
-		justify-content : center;
-		margin-top: 10px;		
+	.w300 {width:35em; }
+	.w60 {width:60%;}
+	.s{
+		overflow: hidden;
+		white-space: nowrap;
+  		text-overflow: ellipsis;
 	}
-	.container{
-		padding-left:10%;
-		width: fit-content;
-        height: fit-content;
+	table{
+		margin-top:50px;
+		border: 1px;
 	}
-/* 	.row{
-		width: fit-content;
-        height: fit-content; 
-	} */ 
-	#myChart{
-		width: 450px;		
+	.imgsize{
+		width: 100px;
+		height: 70px;
 	}
+	
 </style>
 </head>
 <body>
-<h3>interiormain.jsp</h3>
+<h3>interiorcases.jsp</h3>
 	<div class="mypage_category">
-        <div class="mypage_category_list list_1"><a href="#">프로필</a></div>
+        <div class="mypage_category_list list_1"><a href="mypage">프로필</a></div>
 	    <div class="mypage_category_list list_2"><a href="interiorestimate">견적</a></div> <br />
     </div>
     <div class="mypage_category">
-        <div class="mypage_category_list list_1_1"><a href="#">모두보기</a></div>
+        <div class="mypage_category_list list_1_1"><a href="interiorestimate">견적리스트</a></div>
 	    <!-- <div class="mypage_category_list list_1_2">내시공사례</div> -->
         <!-- <div class="mypage_category_list list_1_3">질문과답변</div> -->
-        <div class="mypage_category_list list_1_2"><a href="interiorinfoedit">회원정보수정</a></div>
-        <div class="mypage_category_list list_1_3"><a href="interiorpasswordedit">비밀번호변경</a></div>
-    </div>
-    <div class="flex-container">
-    <div id="mypage_profile">
-    	<ul class="board">
-    		<li class="fl tc box w150">
-    			<c:if test="${empty loginUserDto.profileimg}" >
-	            <img class="profile" src="../resources/img/my/user.png" id="profileimg">
-	        </c:if>
-	        <%-- 프로필 이미지가 있으면 있는 이미지 --%>
-	        <c:if test="${!empty loginUserDto.profileimg}" >
-	            <img class="profile" src="../resources/upload/my/${loginUserDto.profileimg}" id="profileimg">
-	        </c:if>	
-    			<%-- <img class="profile" src="../resources/upload/my/${loginUserDto.profileimg}" alt=""> --%>
-    		</li>
-    	</ul>
-        <ul class="board">
-        	<li class="fl tc w150">${loginUserDto.nickname}님</li>
-        </ul>
-        인테리어 업체번호 ${loginUserDto.myinteriordto.inteno }번님
+        <div class="mypage_category_list list_1_2"><a href="#">시공사례</a></div>
+        <div class="mypage_category_list list_1_3">견적자재금액관리</div>
     </div>
     
-    <div class="container">
-		<div class="row">
-			<div class="col-md-6">
-				<canvas id="myChart"></canvas>
-			</div>
-			<%-- <div class="col-md-6">
-				<canvas id="myChart2"></canvas>
-			</div> --%>
-		</div>
-	</div>
-	</div>
+    
+    <div>
+    <table class="w60" align="center">
+    	<c:forEach items="${cdto}" var="caseslist">
+    	<tr>
+    		<td>${caseslist.inteCasesDto.bc_no}</td>
+    		<td>${caseslist.inteCasesDto.bc_title}</td>
+    		<td><p class="w300 s">${caseslist.inteCasesDto.bc_content}</p></td>
+    		<td>
+    			<c:forTokens items="${caseslist.imgs}" delims="," var="casesimg" end="5">	
+    				<img class="imgsize" src="../resources/upload/biz/cases/${casesimg}" alt="" />&nbsp;&nbsp;
+    			</c:forTokens>
+    		</td>
+    	</tr>
+    	</c:forEach>
+    </table>  
+    
+    
+    </div>
+    
 </body>
 </html>

@@ -16,11 +16,15 @@ table{
 	font-size: 15px;
 }
 th, td{
+	width:50%;
 	height: 50px;
 	border-bottom: 1px solid gray;
 }
 .title{
 	background-color: #e2f0fe;
+}
+#align{
+	text-align: center;
 }
 </style>
 
@@ -44,8 +48,8 @@ th, td{
 		<td class="title">email</td>
 		<td>${ndto.email}</td>
 	</tr>
-</table>
-<c:out value="${msg }" default="" />
+</table><br />
+<p id="align"><c:out value="${msg }" default="" /></p>
 <script>
 
 $(document).ready(function() {

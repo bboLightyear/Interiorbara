@@ -38,18 +38,18 @@
     /* #mypage_profile{
     	padding-left: 25%;
     } */
-	.box {
+	/* .box {
 	    width: 150px;
 	    height: 150px; 
 	    border-radius: 70%;
 	    overflow: hidden;
-	}
-	.profile {
+	} */
+	/* .profile {
 	    width: 100%;
 	    height: 100%;
 	    background-color:#f9fafb;
 	    object-fit: cover;
-	}
+	} */
 	ul li {
 		list-style:none;
 		margin-bottom: 15%;
@@ -61,7 +61,7 @@
 	.w70 {width:70px; }
 	.w80 {width:80px; }
 	.w150 {width:150px; }
-	.flex-container{
+	/* .flex-container{
 		/* display: inline-flex;
 		margin: auto; */
 		display: flex;
@@ -72,57 +72,30 @@
 		padding-left:10%;
 		width: fit-content;
         height: fit-content;
-	}
+	} */
 /* 	.row{
 		width: fit-content;
         height: fit-content; 
 	} */ 
-	#myChart{
+	/* #myChart{
 		width: 450px;		
-	}
+	} */
 </style>
 </head>
 <body>
-<h3>sellermain.jsp</h3>
+<h3>sellersalelist.jsp</h3>
 	<div class="mypage_category">
-        <div class="mypage_category_list list_1"><a href="#">프로필</a></div>
-	    <div class="mypage_category_list list_2"><a href="sellersale">판매</a></div> <br />
+        <div class="mypage_category_list list_1"><a href="mypage">프로필</a></div>
+	    <div class="mypage_category_list list_2"><a href="#">판매</a></div> <br />
     </div>
     <div class="mypage_category">
-        <div class="mypage_category_list list_1_1"><a href="#">모두보기</a></div>
-	    <div class="mypage_category_list list_1_2"><a href="sellerinfoedit">회원정보수정</a></div>
-        <div class="mypage_category_list list_1_3"><a href="sellerpasswordedit">비밀번호변경</a></div>
+        <div class="mypage_category_list list_1_1"><a href="sellersale">판매상품관리</a></div>
+	    <div class="mypage_category_list list_1_2"><a href="#">판매목록</a></div>
+        
     </div>
-    <div class="flex-container">
-    <div id="mypage_profile">
-    	<ul class="board">
-    		<li class="fl tc box w150">
-    			<c:if test="${empty loginUserDto.profileimg}" >
-	            <img class="profile" src="../resources/img/my/user.png" id="profileimg">
-	        </c:if>
-	        <%-- 프로필 이미지가 있으면 있는 이미지 --%>
-	        <c:if test="${!empty loginUserDto.profileimg}" >
-	            <img class="profile" src="../resources/upload/my/${loginUserDto.profileimg}" id="profileimg">
-	        </c:if>	
-    			<%-- <img class="profile" src="../resources/upload/my/${loginUserDto.profileimg}" alt=""> --%>
-    		</li>
-    	</ul>
-        <ul class="board">
-        	<li class="fl tc w150">${loginUserDto.nickname}님</li>
-        </ul>
-        판매자회원번호 ${loginUserDto.mysellerdto.sellerno}번 님
-    </div>
-    <div class="container">
-		<div class="row">
-			<div class="col-md-6">
-				<canvas id="myChart"></canvas>
-			</div>
-			<%-- <div class="col-md-6">
-				<canvas id="myChart2"></canvas>
-			</div> --%>
-		</div>
-	</div>    
-    </div>
+    
+	    
+    
     
     
 </body>
