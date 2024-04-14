@@ -728,7 +728,60 @@ body,html{
 	overflow-y: auto;
 	font-size: 17px;
 	margin-left: 15px; 	
-}/*글상세*/
+}
+.cs_content_editbtn{
+	width: 80px; 
+    height: 38px;
+    border: 1px solid gray;
+    border-radius: 40px;
+    align-items: center;
+    padding-left: 10px;
+    padding-right: 10px;
+	justify-content: center;
+    display: flex;
+}
+.cs_content_editbtn:hover {
+    border-color: lightskyblue; /* 마우스를 올렸을 때 링크 텍스트의 색을 빨간색으로 변경 */
+}
+.cs_content_editbtn_a{
+	text-decoration: none;
+	color: gray;
+}
+ .cs_content_editbtn:hover .cs_content_editbtn_a {
+    color: lightskyblue;
+}
+.cs_content_delbtn{
+	width: 80px; 
+    height: 38px;
+    border: 1px solid lightskyblue;
+    border-radius: 40px;
+    align-items: center;
+    padding-left: 10px;
+    padding-right: 10px;
+	justify-content: center;
+    display: flex;
+    margin-left: 5px;
+}
+.cs_content_delbtn:hover {
+    border-color: gray; /* 마우스를 올렸을 때 링크 텍스트의 색을 빨간색으로 변경 */
+}
+.cs_content_delbtn_a{
+	text-decoration: none;
+	color: lightskyblue;
+}
+ .cs_content_delbtn:hover .cs_content_delbtn_a {
+    color: gray;
+}
+.cs_content_wrap_edbtn{
+	display: flex;
+	justify-content: center;
+}
+.cs_content_edbtn{
+	width: 850px;
+	display: flex;
+	justify-content: right;
+}
+/*글상세*/
 
 /*글쓰기 폼*/
 .cs_write_wrap_all{

@@ -92,12 +92,12 @@
       resultType="com.tech.ibara.csnotice.dto.QnaDto">
       INSERT INTO
       CS_QNABOARD(QBNO,QBTITLE,QBCONTENT,QBWRITER,QBHIT,QBDATE,QBGROUP,QBSTEP,QBINDENT,QBFILECODE,QBQNADIV)
-      VALUES(CS_QNABOARD_SEQ.NEXTVAL,#{param2},#{param3},#{param1},0,SYSDATE,0,0,0,#{param4},#{param5})
+      VALUES(CS_QNABOARD_SEQ.NEXTVAL,#{param2},#{param3},#{param1},0,SYSDATE,0,0,0,#{param4}+1,#{param5})
    </select>
 
    <select id="imgwrite">
       INSERT INTO CS_QNABOARD_IMG
-      VALUES(CS_QNABOARD_IMG_SEQ.NEXTVAL,#{param1},#{param2})
+      VALUES(CS_QNABOARD_IMG_SEQ.NEXTVAL,#{param1}+1,#{param2})
    </select>
 
    <select id="selsqbno" resultType="Integer">

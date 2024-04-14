@@ -130,13 +130,15 @@
 				</div><!--cs_write_wrap_form_wrap_div-->
 				
 				<div class="cs_write_wrap_form_title">
-					<input type="text" class="cs_write_wrap_form_title_it" name="qbtitle" value="&nbsp;&nbsp;제목을 입력해주세요." onfocus="clearInput(this)"/>
+					<input type="text" class="cs_write_wrap_form_title_it" name="qbtitle" value="제목을 입력해주세요." onfocus="clearInput(this)"/>
+					
 					<script>// 글제목 커서 올릴 때 제목입력 문구 사라지게 하는 스크립트
-					   	function clearInput(inputField) {
-					      	if (inputField.value === "제목을 입력해주세요.") {
-					           	inputField.value = "";
-					       	}
-					   	}
+			
+			        function clearInput(inputField) {
+			            if (inputField.value.trim() === "제목을 입력해주세요.") {
+			                inputField.value = "";
+			            }
+			        }
 					</script>
 				</div><!--cs_write_wrap_form_title-->
 				
@@ -165,18 +167,25 @@
 				
 				<script>// 사진 첨부 후에 첨부한 사진 리스트 나오도록 하는 스크립트
 					function displayFileName(input) {
+						const maxFiles = 3; // 최대 파일 수 설정
+
 				        const files = input.files;
 				        const fileNameDisplay = document.getElementById('file-name-display');
 				        const fileNameDisplayA = document.getElementById('file-name-display-a');
 	
-				        if (files.length > 0) {
-				            fileNameDisplayA.style.display = "flex";
-				            fileNameDisplay.innerHTML = ""; // 이전에 표시된 파일 이름을 지움
-	
+				        if (files.length >= maxFiles) {
+				            alert("파일은 2개까지 업로드 가능합니다."); // 파일 수가 최대 값보다 많으면 알림 표시
+				            input.value = null; // 파일 선택 초기화
+				            fileNameDisplayA.style.display = "none"; // 파일 이름 표시 부분 숨김
+				        } else {
+				            fileNameDisplayA.style.display = "flex"; // 파일 이름 표시 부분 표시
+
+				            // 파일 이름 표시 부분 업데이트
+				            fileNameDisplay.innerHTML = "";
 				            for (var i = 0; i < files.length; i++) {
-				                const fileNameDiv = document.createElement("div"); // 새로운 div 요소 생성
+				                const fileNameDiv = document.createElement("div");
 				                fileNameDiv.innerText = files[i].name;
-				                fileNameDisplay.appendChild(fileNameDiv); // 새로운 파일 이름을 추가
+				                fileNameDisplay.appendChild(fileNameDiv);
 				            }
 				        }
 				    }

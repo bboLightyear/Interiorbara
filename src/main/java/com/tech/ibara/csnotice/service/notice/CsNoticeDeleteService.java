@@ -54,10 +54,11 @@ public class CsNoticeDeleteService implements CsNoticeService {
 				System.out.println("이미지 삭제실패: " + f);
 			}
 		}
-		}
-		
 		// 파일코드로 이미지 삭제
 		dao.imgdelete(selfilecode);
+		}
+		
+		
 		// 글 앞에서 받은 글 번호로 게시글 삭제
 		dao.noticedelete(nbno);
 

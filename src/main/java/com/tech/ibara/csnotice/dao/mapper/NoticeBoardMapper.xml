@@ -91,12 +91,12 @@
 	<select id="noticewrite" resultType="com.tech.ibara.csnotice.dto.NoticeDto">
 		INSERT INTO
 		CS_NOTICEBOARD(NBNO,NBTITLE,NBCONTENT,NBWRITER,NBHIT,NBDATE,NBGROUP,NBSTEP,NBINDENT,NBFILECODE,NBQNADIV)
-		VALUES(CS_NOTICEBOARD_SEQ.NEXTVAL,#{param2},#{param3},#{param1},0,SYSDATE,0,0,0,#{param4},#{param5})
+		VALUES(CS_NOTICEBOARD_SEQ.NEXTVAL,#{param2},#{param3},#{param1},0,SYSDATE,0,0,0,#{param4}+1,#{param5})
 	</select>
 
 	<select id="imgwrite">
 		INSERT INTO CS_NOTICEBOARD_IMG
-		VALUES(CS_NOTICEBOARD_IMG_SEQ.NEXTVAL,#{param1},#{param2})
+		VALUES(CS_NOTICEBOARD_IMG_SEQ.NEXTVAL,#{param1}+1,#{param2})
 	</select>
 
 	<select id="selsnbno" resultType="Integer">
@@ -196,7 +196,7 @@
 		NBFILECODE=#{param1}
 	</update>
 
-	<update id="qnadelete">
+	<update id="noticedelete">
 		DELETE FROM CS_NOTICEBOARD WHERE
 		NBNO=#{param1}
 	</update>

@@ -63,6 +63,8 @@
 	if (session.getAttribute("userId") == null) {
 		 session.setAttribute("userId", "cus");
 		/* session.removeAttribute("userId"); */
+	}else if(session.getAttribute("userId").equals("admin")){
+		session.setAttribute("userId", "cus");
 	}
 	%>
 	<p style="margin: 0;">userId: <%= session.getAttribute("userId") %></p>

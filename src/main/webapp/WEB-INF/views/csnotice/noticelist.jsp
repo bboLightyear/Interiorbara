@@ -60,8 +60,8 @@
 	</header>
 
 	<%
-	if (session.getAttribute("userId") == null) {
-		 session.setAttribute("userId", "cus");
+	if (session.getAttribute("userId").equals("cus")) {
+		 session.setAttribute("userId", "admin");
 		/* session.removeAttribute("userId"); */
 	}
 	%>
@@ -131,7 +131,7 @@
 		<div class="cs_list_wrap_writebtn">
 			<div class="cs_list_writebtn_loc">
 				<% if(session.getAttribute("userId") == null){ %>
-				<% } else {%>
+				<% } else if(session.getAttribute("userId").equals("admin")) {%> <!--admin 계정일 때만 글 작성 가능하도록 함-->
 					<!--로그인 안 한 상태로는 글 쓰기 버튼 안 보이게 처리-->
 				<div class="cs_list_writebtn" onclick="linkwritebtn()">
 					<a href="noticewriteview" class="cs_list_writebtn_a">글쓰기</a>
