@@ -4,8 +4,6 @@ import java.io.File;
 import java.util.List;
 import java.util.Map;
 
-import javax.servlet.http.HttpServletRequest;
-
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.ui.Model;
 import org.springframework.web.multipart.MultipartFile;
@@ -71,8 +69,8 @@ public class CsQnaWriteService implements CsQnaService {
 
 			// 이미지 없이 글 올릴 경우 filecode 0으로 설정
 			if (originFile == "") {
-				sqbno = (-1);
-				System.out.println("sqbno=-1");
+				sqbno =0;
+				System.out.println("sqbno=0");
 			}
 			// 이미지 업로드
 			try {

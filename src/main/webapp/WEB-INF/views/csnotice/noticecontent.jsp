@@ -131,6 +131,22 @@
 	<div class="cs_qnaboard_whitespace">
 		<!--여백-->
 	</div>
+	<div class="cs_qnaboard_whitespace">
+		<!--여백-->
+	</div>
+
+	
+	<div class="cs_content_wrap_edbtn">
+		<div class="cs_content_edbtn">
+			<div class="cs_content_editbtn">
+				<a href="noticeeditview?nbno=${notice_content.nbno }" class="cs_content_editbtn_a">수정하기</a>
+			</div>
+			
+			<div class="cs_content_delbtn">
+				<a href="noticedelete?nbno=${notice_content.nbno }" class="cs_content_delbtn_a">삭제하기</a>
+			</div>
+		</div>
+	</div>
 
 	<%
 		if (session.getAttribute("userId") == null) {
