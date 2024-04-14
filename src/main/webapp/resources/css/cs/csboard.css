@@ -23,21 +23,29 @@ header {
 	padding: 0;
 	width: 100%;
 	height: 65px;
-	border-bottom: 1px solid gray;
+	border-bottom: 1px solid #b1b8c0;
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
-	background-color: lightskyblue;
+	background-color: white;
 }
 
 /* 로고 이미지 */
 .header_logo {
 	display: inline-block;
-	margin-top: 10px;
-	width: 50px;
-	height: 30px;
+	margin-top: 5px;
+	margin-left: 150px;
+	width: 400px;
+	height: 50px;
 	object-fit: fill;
 	cursor: pointer;
+}
+
+.header_logo img{
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	object-position: center;
 }
 
 /* 검색 창 */
@@ -46,9 +54,15 @@ header {
 	display: inline-block;
 	width: 40%;
 	height: 30px;
-	border: 1px solid gray;
+	border: 1px solid #b1b8c0;
 	border-radius: 10px;
-	background-color: lightgray;
+	background-color: #f9fafb;
+}
+.header_search_box:hover {
+	background-color: #e2f0fe;
+}
+.header_search_box:click {
+	background-color: #e2f0fe;
 }
 /* 검색 부분 */
 .header_search_box_input {
@@ -59,9 +73,15 @@ header {
 	font-size: 15px;
 	width: 80%;
 	height: 60%;
-	background-color: lightgray;
+	background-color: #f9fafb;
 	text-align: center;
 	cursor: pointer;
+}
+.header_search_box_input:hover {
+	background-color: #e2f0fe;
+}
+.header_search_box_input:click {
+	background-color: #e2f0fe;
 }
 
 /* 회원관리부분 */
@@ -76,10 +96,12 @@ header {
 .header_login {
 	float: left;
 	margin-right: 10px;
+	padding-left: 10px;
 	padding-right: 10px;
 	width: fit-content;
 	height: fit-content;
-	border-right: 1px solid gray;
+	border-left: 1px solid #b1b8c0;
+	border-right: 1px solid #b1b8c0;
 	cursor: pointer;
 }
 /* 회원가입 */
@@ -89,7 +111,7 @@ header {
 	padding-right: 10px;
 	width: fit-content;
 	height: fit-content;
-	border-right: 1px solid gray;
+	border-right: 1px solid #b1b8c0;
 	cursor: pointer;
 }
 /* 마이페이지 */
@@ -104,11 +126,11 @@ header {
 	padding: 0;
 	width: 100%;
 	height: 65px;
-	border-bottom: 1px solid gray;
+	border-bottom: 1px solid #b1b8c0;
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	background-color: lightskyblue;
+	background-color: white;
     transition: 0.1s;
 }
 
@@ -126,16 +148,24 @@ header {
 	margin-top: -5px;
 	margin-left: 10px;
 	padding-left: 10px;
-	border-left: 1px solid gray;
+	border-left: 1px solid #b1b8c0;
 	display: inline-block;
 	width: fit-content;
 	height: fit-content;
 	font-size: 15px;
 	font-weight: bold;
 	font-family: sans-serif;
+	text-decoration: none;
 	cursor: pointer;
 }
-
+.header_category_list:hover {
+	padding-right: 10px;
+	transform: scale(1.1);
+    letter-spacing: 2px;
+	background-color: #e2f0fe;
+	transition: 0.1s;
+	font-size: 18px;
+}
 body,html{
 	width: 100%;
 }
@@ -845,6 +875,7 @@ body,html{
 	display: flex;
 	align-items: center;
 	justify-content: center;
+	flex-direction: column;
 }
 .cs_write_wrap_form_title_it{
 	width: 630px;
@@ -941,7 +972,7 @@ body,html{
 }
 /*글쓰기 폼*/
 
-/*푸터*/
+/* 푸터 */
 footer {
 	margin: 0;
 	padding: 0;
@@ -949,22 +980,31 @@ footer {
 	height: 130px;
 	position: relative;
 	transform: translateY(10%);
-	border-top: 1px solid gray;
+	border-top: 1px solid #b1b8c0;
 	display: flex;
-	background-color: lightskyblue;
+	background-color: #b1b8c0;
 }
 
 /* 푸터 로고 */
 .footer_logo {
-	margin-top: 15px;
+	margin-top: 5px;
 	margin-left: 30px;
-	width: 10%;
-	height: 100px;
-	border: 1px solid gray;
+	width: 120px;
+	height: 120px;
+	border: 1px solid #b1b8c0;
+	cursor: pointer;
+}
+
+.footer_logo img {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	object-position: center;
 }
 
 /* 푸터 내용 */
 .footer_content {
+	margin-top: 10px;
 	margin-left: 50px;
 	width: 60%;
 	white-space: pre-line;
@@ -972,9 +1012,20 @@ footer {
 
 /* sns 아이콘 */
 .footer_sns {
+	position: absolute;
+	right: 50px;
+	bottom: 10px;
 	text-align: right;
 	margin-top: 100px;
-	width: 20%;
+	width: 150px;
+	height: 25px;
 }
-/*푸터*/
+.footer_sns a{
+	float: left;
+	margin-left: 5px;
+	margin-right: 5px;
+	width: 20px;
+	height: 20px;
+	text-decoration: none;
+}
 

@@ -60,9 +60,11 @@
 	</header>
 
 	<%
-	if (session.getAttribute("userId").equals("cus")) {
-		 session.setAttribute("userId", "admin");
-		/* session.removeAttribute("userId"); */
+	String userId = (String) session.getAttribute("userId");
+	if (userId != null && userId.equals("cus")) {
+	    session.setAttribute("userId", "admin");
+	} else {
+		session.setAttribute("userId", "admin"); 
 	}
 	%>
 	<p style="margin: 0;">userId: <%= session.getAttribute("userId") %></p>

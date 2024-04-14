@@ -141,7 +141,7 @@
 	<div class="cs_content_wrap_edbtn">
 		<div class="cs_content_edbtn">
 			<div class="cs_content_editbtn">
-				<a href="qnaeditview" class="cs_content_editbtn_a">수정하기</a>
+				<a href="qnaeditview?qbno=${qna_content.qbno }" class="cs_content_editbtn_a">수정하기</a>
 			</div>
 			
 			<div class="cs_content_delbtn">
