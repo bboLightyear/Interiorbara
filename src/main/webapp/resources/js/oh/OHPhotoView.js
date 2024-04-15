@@ -19,13 +19,11 @@ $(document).ready(function() {
 	console.log("keepOrderingMethod: " + keepOrderingMethod);
 	
 	// 필터 정보, 변수 저장
-	var keepPb_category = document.getElementById("keepPb_category").value;
 	var keepPb_residence = document.getElementById("keepPb_residence").value;
 	var keepPb_room = document.getElementById("keepPb_room").value;
 	var keepPb_style = document.getElementById("keepPb_style").value;
 	var keepPb_skill = document.getElementById("keepPb_skill").value;
 	// 필터 정보, 값 출력		
-	console.log("keepPb_category: " + keepPb_category);
 	console.log("keepPb_residence: " + keepPb_residence);
 	console.log("keepPb_room: " + keepPb_room);
 	console.log("keepPb_style: " + keepPb_style);
@@ -43,7 +41,6 @@ $(document).ready(function() {
 	$("#OHPhotoView-main-2-sorting-orderingMethod").val(keepOrderingMethod).prop("selected", true);	
 	
 	// 필터 정보, 선택 유지
-	$("#OHPhotoView-main-2-filtering-pb_category").val(keepPb_category).prop("selected", true);
 	$("#OHPhotoView-main-2-filtering-pb_residence").val(keepPb_residence).prop("selected", true);
 	$("#OHPhotoView-main-2-filtering-pb_room").val(keepPb_room).prop("selected", true);
 	$("#OHPhotoView-main-2-filtering-pb_style").val(keepPb_style).prop("selected", true);

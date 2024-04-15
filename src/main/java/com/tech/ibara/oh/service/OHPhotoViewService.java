@@ -61,7 +61,6 @@ public class OHPhotoViewService implements OHInterfaceService {
 		// --- filtering ---
 		
 		// --- filtering 변수 선언, 값 저장 ---
-		String pb_category = request.getParameter("pb_category");
 		String pb_residence = request.getParameter("pb_residence");
 		String pb_room = request.getParameter("pb_room");
 		String pb_style = request.getParameter("pb_style");
@@ -69,7 +68,6 @@ public class OHPhotoViewService implements OHInterfaceService {
 		
 		// --- filtering 변수 값 출력 ---
 		System.out.println("--- filtering 변수 값 출력 ---");
-		System.out.println("pb_category: " + pb_category);
 		System.out.println("pb_residence: " + pb_residence);
 		System.out.println("pb_room: " + pb_room);
 		System.out.println("pb_style: " + pb_style);
@@ -104,16 +102,7 @@ public class OHPhotoViewService implements OHInterfaceService {
 			System.out.println("------------------------------");
 		}
 		// 정렬기준 - orderingMethod, model 저장, attributeName is keepOrderingMethod		
-		model.addAttribute("keepOrderingMethod", orderingMethod);		
-		
-		// 정렬기준 - pb_category, null Check
-		if(pb_category == null) {
-			pb_category = "default";
-			System.out.println("pb_category is null therefore assigned [default] to it");
-			System.out.println("------------------------------");
-		}
-		// 정렬기준 - pb_category, model 저장, attributeName is keepPb_category
-		model.addAttribute("keepPb_category", pb_category);				
+		model.addAttribute("keepOrderingMethod", orderingMethod);						
 		
 		// 정렬기준 - pb_residence, null Check
 		if(pb_residence == null) {
@@ -186,7 +175,7 @@ public class OHPhotoViewService implements OHInterfaceService {
 		// 전체 게시글 수, 검색에 적용할 변수
 		int postTotalNum = 0;
 		// getPostTotalCount() 함수 실행, (filtering, searching) 조건에 맞게 전체 게시글 수를 구한다.		
-		postTotalNum = dao.getPostTotalCount(pb_category, pb_residence, pb_room, pb_style, pb_skill,
+		postTotalNum = dao.getPostTotalCount(pb_residence, pb_room, pb_style, pb_skill,
 					   						 searchingType, searchingWord);		
 		// 전체 게시글 수, 출력
 		System.out.println("postTotalNum: " + postTotalNum);
@@ -223,7 +212,7 @@ public class OHPhotoViewService implements OHInterfaceService {
 		// dtoList, 게시판에 나타낼 게시글 담을 변수선언, ohPhotoView() 함수 실행
 		ArrayList<OHPhotoBoard> dtoList = dao.ohPhotoView(postStartNum, postEndNum, 
 														  orderingBy, orderingMethod,														  
-														  pb_category, pb_residence, pb_room, pb_style, pb_skill,
+														  pb_residence, pb_room, pb_style, pb_skill,
 														  searchingType, searchingWord);			
 		
 		// model <- dtoList, 게시판에 나타낼 게시글 담을 변수

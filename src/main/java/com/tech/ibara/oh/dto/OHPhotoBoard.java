@@ -17,7 +17,6 @@ public class OHPhotoBoard {
 	private int pb_reply;
 	private int pb_link;
 	private int pb_hit;
-	private String pb_category;
 	private String pb_residence;
 	private String pb_room;
 	private String pb_style;
@@ -76,7 +75,7 @@ public class OHPhotoBoard {
 						String pb_title, String pb_content, 
 						Date pb_date, int pb_like, int pb_scrap, 
 						int pb_reply, int pb_link, int pb_hit, 
-						String pb_category, String pb_residence, String pb_room, 
+						String pb_residence, String pb_room, 
 						String pb_style, String pb_skill, OHPhotoAttach ohPhotoAttach) {
 		this.no = no;
 		this.pb_no = pb_no;
@@ -89,7 +88,6 @@ public class OHPhotoBoard {
 		this.pb_reply = pb_reply;
 		this.pb_link = pb_link;
 		this.pb_hit = pb_hit;
-		this.pb_category = pb_category;
 		this.pb_residence = pb_residence;
 		this.pb_room = pb_room;
 		this.pb_style = pb_style;
@@ -183,14 +181,6 @@ public class OHPhotoBoard {
 
 	public void setPb_hit(int pb_hit) {
 		this.pb_hit = pb_hit;
-	}
-
-	public String getPb_category() {
-		return pb_category;
-	}
-
-	public void setPb_category(String pb_category) {
-		this.pb_category = pb_category;
 	}
 
 	public String getPb_residence() {

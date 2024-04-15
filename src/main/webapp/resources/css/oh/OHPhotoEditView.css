@@ -236,56 +236,31 @@
     border: 1px solid #1a1f27;
     border-radius: 10px;
     padding: 10px;
-	color: #1a1f27;    
+	color: #1a1f27;
+	resize: none;  	    
 }
 #sector2-2-layer3 {
     position: relative;
     width: 650px;
     height: 300px;
 }
-#layer3-pb_category-Lable {
-    position: absolute;
-    top: 50px;
-    left: 25px;
-    height: 50px;
-    line-height: 50px;
-    width: 100px;
-    text-align: center;
-	color: #1a1f27;        
-}
-#layer3-pb_category {
-    position: absolute;    
-    top: 100px;
-    left: 25px;
-    height: 50px;
-    line-height: 50px;
-    width: 100px;
-    text-align: center;
-    background-color: #e2f0fe;
-	color: #1a1f27;
-    border-radius: 10px;    
-    -o-appearance: none;
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    appearance: none;
-}
 #layer3-pb_residence-Lable {
     position: absolute;
     top: 50px;
-    left: 150px;
+    left: 34px;
     height: 50px;
     line-height: 50px;
-    width: 100px;
+    width: 120px;
     text-align: center;
 	color: #1a1f27; 
 }
 #layer3-pb_residence {
     position: absolute;    
     top: 100px;
-    left: 150px;
+    left: 34px;
     height: 50px;
     line-height: 50px;
-    width: 100px;
+    width: 120px;
     text-align: center;
     background-color: #e2f0fe;
 	color: #1a1f27;
@@ -298,20 +273,20 @@
 #layer3-pb_room-Lable {
     position: absolute;
     top: 50px;
-    left: 275px;
+    left: 188px;
     height: 50px;
     line-height: 50px;
-    width: 100px;
+    width: 120px;
     text-align: center;
 	color: #1a1f27;
 }
 #layer3-pb_room {
     position: absolute;    
     top: 100px;
-    left: 275px;
+    left: 188px;
     height: 50px;
     line-height: 50px;
-    width: 100px;
+    width: 120px;
     text-align: center;
     background-color: #e2f0fe;
 	color: #1a1f27;
@@ -324,20 +299,20 @@
 #layer3-pb_style-Lable {
     position: absolute;
     top: 50px;
-    left: 400px;
+    left: 342px;
     height: 50px;
     line-height: 50px;
-    width: 100px;
+    width: 120px;
     text-align: center;
 	color: #1a1f27;
 }
 #layer3-pb_style {
     position: absolute;    
     top: 100px;
-    left: 400px;
+    left: 342px;
     height: 50px;
     line-height: 50px;
-    width: 100px;
+    width: 120px;
     text-align: center;
     background-color: #e2f0fe;
 	color: #1a1f27;
@@ -350,20 +325,20 @@
 #layer3-pb_skill-Lable {
     position: absolute;
     top: 50px;
-    left: 525px;
+    left: 496px;
     height: 50px;
     line-height: 50px;
-    width: 100px;
+    width: 120px;
     text-align: center;
 	color: #1a1f27; 
 }
 #layer3-pb_skill {
     position: absolute;    
     top: 100px;
-    left: 525px;
+    left: 496px;
     height: 50px;
     line-height: 50px;
-    width: 100px;
+    width: 120px;
     text-align: center;
     background-color: #e2f0fe;
 	color: #1a1f27;

@@ -46,7 +46,6 @@
 			<th>pb_reply</th>
 			<th>pb_link</th>
 			<th>pb_hit</th>
-			<th>pb_category</th>
 			<th>pb_residence</th>
 			<th>pb_room</th>
 			<th>pb_style</th>
@@ -65,7 +64,6 @@
 				<td>${dto.pb_reply }</td>
 				<td>${dto.pb_link }</td>
 				<td>${dto.pb_hit }</td>
-				<td>${dto.pb_category }</td>
 				<td>${dto.pb_residence }</td>
 				<td>${dto.pb_room }</td>
 				<td>${dto.pb_style }</td>
@@ -140,7 +138,6 @@
 	<input type="hidden" id="keepOrderingBy" value=${keepOrderingBy } />
 	<input type="hidden" id="keepOrderingMethod" value=${keepOrderingMethod } />
 	<!-- 필터 정보 -->
-	<input type="hidden" id="keepPb_category" value=${keepPb_category } />
 	<input type="hidden" id="keepPb_residence" value=${keepPb_residence } />
 	<input type="hidden" id="keepPb_room" value=${keepPb_room } />
 	<input type="hidden" id="keepPb_style" value=${keepPb_style } />
@@ -166,7 +163,7 @@
 					<li><a href="OHPhotoView">집사진</a></li>
 					<!-- 집영상 -->
 					<!-- <li><a href="#">집영상</a></li> -->
-					<li><a href="#">#category</a></li>
+					<!-- <li><a href="#">#category</a></li> -->
 				</ul>
 			</div>							
 						
@@ -209,15 +206,7 @@
 						<div id="OHPhotoView-main-2-filtering">
                             <div id="OHPhotoView-main-2-filtering-title">
 								필터
-                            </div>						
-                            <div id="OHPhotoView-main-2-filtering-pb_category-lable">
-                                #category
-                            </div>										
-							<select name="pb_category" id="OHPhotoView-main-2-filtering-pb_category">
-								<option value="default">전체</option>
-								<option value="#그냥">#그냥</option>
-								<option value="#내돈내산">#내돈내산</option>
-							</select>	
+                            </div>														
                             <div id="OHPhotoView-main-2-filtering-pb_residence-lable">
 								주거형태
                             </div>							
@@ -474,7 +463,6 @@
 						<input type="hidden" name="orderingBy" value=${keepOrderingBy } />
 						<input type="hidden" name="orderingMethod" value=${keepOrderingMethod } />
 						<!-- 필터 정보 -->
-						<input type="hidden" name="pb_category" value=${keepPb_category } />
 						<input type="hidden" name="pb_residence" value=${keepPb_residence } />
 						<input type="hidden" name="pb_room" value=${keepPb_room } />
 						<input type="hidden" name="pb_style" value=${keepPb_style } />

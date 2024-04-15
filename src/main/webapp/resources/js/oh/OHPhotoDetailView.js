@@ -11,9 +11,10 @@ $(document).ready(function() {
 	var memno = document.getElementById("memno").value;
 	// 로그인 정보, 값 출력
 	console.log("memno: " + memno);	
+	
 	// 게시글 정보, 변수 저장
 	var pb_no = document.getElementById("pb_no").value;
-	// 게시글 정보, 값 저장	
+	// 게시글 정보, 값 출력	
 	console.log("pb_no: " + pb_no);
 	
 	// 글쓰기 버튼 - Click	
@@ -29,6 +30,52 @@ $(document).ready(function() {
 		}
 	});	
 
+	// 좋아요 이미지 => 클릭	
+	$("#OHPhotoDetailView-main-6like").click(function() {
+		// Login Check						
+//		if(memno !== null && memno !== "" && memno !== "/") {
+//			// 로그인 정보, 값 출력	
+//			console.log("memno: " + memno);	
+//			// 게시글 정보, 값 출력	
+//			console.log("pb_no: " + pb_no);			
+//			// 클릭 => 하트 색상변경
+//			$(this).toggleClass("clickColor");			
+//			// 클릭한 요소의 하위 태그에서 i태그를 찾아서 icon 변수에 저장 
+//			var icon = $(this).find("i");			
+//			// if 조건문, 기본 하트 모양 => True
+//			if(icon.hasClass("fa-regular")) {			
+//				// <i> 요소의 클래스 변경 => 하트 모양변경 
+//				icon.removeClass("fa-regular").addClass("fa-solid");			
+//				// ajax 요청 보내기
+//				$.ajax({
+//					url: "OHPhotoLikeExecute",
+//					method: "post",
+//					dataType: "json",
+//					data: {
+//						// 전송할 데이터
+//						'memno' : memno,
+//						'pb_no' : clickedId
+//					},
+				
+				
+				
+	});
+	
+		
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	// 페이지 로드 시 댓글을 불러오는 함수를 실행합니다.
 	loadReplys();
 	

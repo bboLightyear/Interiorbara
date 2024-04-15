@@ -24,15 +24,35 @@ $(document).ready(function() {
 		}
 	});
 	
-	// 집사진 버튼 - Click 
-	$("#OHMainView-toOHPhotoViewButton").click(function() {
-		window.location.href = "OHPhotoView";
+	// 집사진 - 최신순으로 보기!
+	$("#OHMainView-2toOHPhotoViewButton").click(function() {
+		window.location.href = "OHPhotoView?orderingBy=" + "pb_date" + "&orderingMethod=" + "desc";
 	});
 	
-	// 더보기 버튼 - Click
-	$("#OHMainView-toMoreOHPhotoViewButton").click(function() {
-		window.location.href = "OHPhotoView";
+	// 더보기 - 최신순
+	$("#OHMainView-2toMoreOHPhotoViewButton").click(function() {
+		window.location.href = "OHPhotoView?orderingBy=" + "pb_date" + "&orderingMethod=" + "desc";
 	});
+	
+	// 집사진 - 인기순으로 보기!
+	$("#OHMainView-4toOHPhotoViewButton").click(function() {
+		window.location.href = "OHPhotoView?orderingBy=" + "pb_like" + "&orderingMethod=" + "desc";
+	});
+	
+	// 더보기 - 인기순
+	$("#OHMainView-4toMoreOHPhotoViewButton").click(function() {
+		window.location.href = "OHPhotoView?orderingBy=" + "pb_like" + "&orderingMethod=" + "desc";
+	});	
+	
+	// 집사진 - 조회순으로 보기!
+	$("#OHMainView-6toOHPhotoViewButton").click(function() {
+		window.location.href = "OHPhotoView?orderingBy=" + "pb_hit" + "&orderingMethod=" + "desc";
+	});
+	
+	// 더보기 - 조회순
+	$("#OHMainView-6toMoreOHPhotoViewButton").click(function() {
+		window.location.href = "OHPhotoView?orderingBy=" + "pb_hit" + "&orderingMethod=" + "desc";
+	});	
 	
 });
 

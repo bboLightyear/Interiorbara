@@ -50,7 +50,7 @@
 					<li><a href="OHPhotoView">집사진</a></li>
 					<!-- 집영상 -->
 					<!-- <li><a href="">집영상</a></li> -->
-					<li><a href="">#category</a></li>
+					<!-- <li><a href="">#category</a></li> -->
 				</ul>
 			</div>		
 			
@@ -103,23 +103,14 @@
 							<div id="OHPhotoWriteView-main-sector2-2">
 							
                                 <div id="sector2-2-layer1">
-                                    <input id="layer1-title" type="text" maxlength="30" name="pb_title" placeholder="제목을 입력하세요." />
+                                    <input id="layer1-title" type="text" maxlength="30" name="pb_title" placeholder="제목을 입력하세요. 최대 30자 까지 작성할 수 있습니다." />
                                 </div>
 
                                 <div id="sector2-2-layer2">
-                                    <textarea id="layer2-content" maxlength="200" name="pb_content" rows="10" cols="30" placeholder="내용을 입력하세요." ></textarea>
+                                    <textarea id="layer2-content" maxlength="200" name="pb_content" rows="10" cols="30" placeholder="내용을 입력하세요. &#13;&#10;최대 200자 까지 작성할 수 있습니다." ></textarea>
                                 </div>								
 						
 								<div id="sector2-2-layer3">
-                                    
-                                    <div id="layer3-pb_category-Lable">
-                                        #category
-                                    </div>
-                                    <select name="pb_category" id="layer3-pb_category">
-                                        <option value="">선택</option>
-                                        <option value="#그냥">#그냥</option>
-                                        <option value="#내돈내산">#내돈내산</option>
-                                    </select>				
                                     
                                     <div id="layer3-pb_residence-Lable">
 										주거형태

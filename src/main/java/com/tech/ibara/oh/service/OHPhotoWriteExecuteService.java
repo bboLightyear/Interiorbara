@@ -51,7 +51,6 @@ public class OHPhotoWriteExecuteService implements OHInterfaceService {
 		// 변수 선언, 값 저장
 		String pb_title = mftRequest.getParameter("pb_title");
 		String pb_content = mftRequest.getParameter("pb_content");
-		String pb_category = mftRequest.getParameter("pb_category");
 		String pb_residence = mftRequest.getParameter("pb_residence");
 		String pb_room = mftRequest.getParameter("pb_room");
 		String pb_style = mftRequest.getParameter("pb_style");
@@ -60,7 +59,6 @@ public class OHPhotoWriteExecuteService implements OHInterfaceService {
 		// 변수 값 출력
 		System.out.println("pb_title: " + pb_title);
 		System.out.println("pb_content: " + pb_content);
-		System.out.println("pb_category: " + pb_category);
 		System.out.println("pb_residence: " + pb_residence);
 		System.out.println("pb_room: " + pb_room);
 		System.out.println("pb_style: " + pb_style);
@@ -68,7 +66,7 @@ public class OHPhotoWriteExecuteService implements OHInterfaceService {
 		System.out.println("------------------------------");
 		
 		// ohPhotoWriteExecute() 함수 실행
-		dao.ohPhotoWriteExecute(memno, pb_title, pb_content, pb_category,
+		dao.ohPhotoWriteExecute(memno, pb_title, pb_content,
 								pb_residence, pb_room, pb_style, pb_skill);
 		
 		// getRecentPb_no() 함수 실행 -> 가장 최근 작성된 게시글 번호 

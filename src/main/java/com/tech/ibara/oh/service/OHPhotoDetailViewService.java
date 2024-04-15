@@ -10,9 +10,12 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
+import com.tech.ibara.my.dto.MyMemberInfoDto;
 import com.tech.ibara.oh.dao.OHInterfaceDao;
 import com.tech.ibara.oh.dto.OHPhotoAttach;
 import com.tech.ibara.oh.dto.OHPhotoBoard;
+import com.tech.ibara.oh.dto.OHPhotoLike;
+import com.tech.ibara.oh.dto.OHPhotoScrap;
 import com.tech.ibara.oh.vo.OHPageVO;
 
 @Service
@@ -64,7 +67,54 @@ public class OHPhotoDetailViewService implements OHInterfaceService {
 		
 		// model 값 전달
 		model.addAttribute("pa_dto", pa_dto);
+
+		// 로그인 사용자, 게시물 - 좋아요, 스크랩 표시
+		// 변수 선언
+		int memno = 0;
+		// 로그인 정보, null Check
+		if(session.getAttribute("loginUserDto") != null) {
+			// 사용자 로그인 정보 출력
+			MyMemberInfoDto loginUserDto = (MyMemberInfoDto) session.getAttribute("loginUserDto");
+			memno = loginUserDto.getMemno();
+			System.out.println("로그인 정보가 있습니다.");
+			System.out.println("memno: " + memno);
+			System.out.println("------------------------------");		
+		} else {
+			System.out.println("로그인 정보가 없습니다.");
+			System.out.println("memno: " + memno);
+			System.out.println("------------------------------");
+		}					
 		
+		// OHPhotoLike 객체 담을 리스트 선언
+		OHPhotoLike ohPhotoDetailLike = null;
+		
+		// OHPhotoScrap 객체 담을 리스트 선언
+		OHPhotoScrap ohPhotoDetailScrap = null;		
+		
+		// 로그인 사용자 => True, 좋아요, 스크랩 표시
+		if(session.getAttribute("loginUserDto") != null) {
+			// ohPhotoLikeView() 함수 실행
+			ohPhotoDetailLike = dao.ohPhotoDetailLikeView(memno, pb_no);
+			System.out.println("ohPhotoDetailLikeView() 함수 실행완료");
+			System.out.println("------------------------------");
+			
+			// model <- ohPhotoLike, 로그인 사용자, 게시물 - 좋아요 표시
+			model.addAttribute("ohPhotoDetailLike", ohPhotoDetailLike);
+			
+			// ohPhotoScrapView() 함수 실행
+			ohPhotoDetailScrap = dao.ohPhotoDetailScrapView(memno, pb_no);
+			System.out.println("ohPhotoDetailScrapView() 함수 실행완료");
+			System.out.println("------------------------------");
+			
+			// model <- ohPhotoScrap, 로그인 사용자, 게시물 - 스크랩 표시
+			model.addAttribute("ohPhotoDetailScrap", ohPhotoDetailScrap);			
+		} else {
+			System.out.println("비회원 입니다.");
+			System.out.println("ohPhotoLikeView() 함수 실행불가");
+			System.out.println("ohPhotoScrapView() 함수 실행불가");
+			System.out.println("------------------------------");
+		}		
+				
 	}
 
 }

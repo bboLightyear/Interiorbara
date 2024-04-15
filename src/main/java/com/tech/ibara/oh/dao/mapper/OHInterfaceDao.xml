@@ -29,7 +29,6 @@
 		<result column="PB_REPLY" property="pb_reply" />
 		<result column="PB_LINK" property="pb_link" />
 		<result column="PB_HIT" property="pb_hit" />
-		<result column="PB_CATEGORY" property="pb_category" />
 		<result column="PB_RESIDENCE" property="pb_residence" />
 		<result column="PB_ROOM" property="pb_room" />
 		<result column="PB_STYLE" property="pb_style" />
@@ -76,7 +75,7 @@
 	
 	<!-- OHMainView.jsp -->
 	
-	<select id="ohMainPhotoView" resultType="com.tech.ibara.oh.dto.OHPhotoBoard" resultMap="OHPhotoBoard">
+	<select id="ohMainPhotoViewOrderDate" resultType="com.tech.ibara.oh.dto.OHPhotoBoard" resultMap="OHPhotoBoard">
 		SELECT
 		    ROWNUM, N.*
 		FROM (
@@ -115,6 +114,84 @@
 		WHERE
 		    ROWNUM BETWEEN 1 AND #{param1}
 	</select>
+	<select id="ohMainPhotoViewOrderLike" resultType="com.tech.ibara.oh.dto.OHPhotoBoard" resultMap="OHPhotoBoard">
+		SELECT
+		    ROWNUM, N.*
+		FROM (
+		    SELECT 
+		        OH1.*, OH2.PA_NO, OH2.PA_ATTACH 
+		    FROM (
+		        SELECT
+		            OHA.NICKNAME, OHB.*
+		        FROM 
+		            MY_MEMBER_INFO OHA
+		        INNER JOIN
+		            OH_PHOTO_BOARD OHB
+		        ON 
+		            OHA.MEMNO = OHB.MEMNO
+		        ) OH1 
+		    LEFT OUTER JOIN (
+		        SELECT 
+		            * 
+		        FROM 
+		            OH_PHOTO_ATTACH 
+		        WHERE 
+		            PA_NO IN (
+		                SELECT 
+		                    MIN(PA_NO) 
+		                FROM 
+		                    OH_PHOTO_ATTACH 
+		                GROUP BY 
+		                    PB_NO
+		                )
+		        ) OH2
+		    ON
+		        OH1.PB_NO = OH2.PB_NO
+		    ORDER BY
+		        OH1.PB_LIKE DESC
+		    ) N
+		WHERE
+		    ROWNUM BETWEEN 1 AND #{param1}
+	</select>
+	<select id="ohMainPhotoViewOrderHit" resultType="com.tech.ibara.oh.dto.OHPhotoBoard" resultMap="OHPhotoBoard">
+		SELECT
+		    ROWNUM, N.*
+		FROM (
+		    SELECT 
+		        OH1.*, OH2.PA_NO, OH2.PA_ATTACH 
+		    FROM (
+		        SELECT
+		            OHA.NICKNAME, OHB.*
+		        FROM 
+		            MY_MEMBER_INFO OHA
+		        INNER JOIN
+		            OH_PHOTO_BOARD OHB
+		        ON 
+		            OHA.MEMNO = OHB.MEMNO
+		        ) OH1 
+		    LEFT OUTER JOIN (
+		        SELECT 
+		            * 
+		        FROM 
+		            OH_PHOTO_ATTACH 
+		        WHERE 
+		            PA_NO IN (
+		                SELECT 
+		                    MIN(PA_NO) 
+		                FROM 
+		                    OH_PHOTO_ATTACH 
+		                GROUP BY 
+		                    PB_NO
+		                )
+		        ) OH2
+		    ON
+		        OH1.PB_NO = OH2.PB_NO
+		    ORDER BY
+		        OH1.PB_HIT DESC
+		    ) N
+		WHERE
+		    ROWNUM BETWEEN 1 AND #{param1}	
+	</select>	
 	
 	<!-- OHPhotoView.jsp -->
 	
@@ -125,7 +202,7 @@
 			(SELECT
 			 	ROWNUM NO, N.*
 			 FROM
-			 	(SELECT 
+			 	(SELECT
 			     	OH1.*, OH2.PA_NO, OH2.PA_ATTACH 
 			     FROM (
 			        SELECT
@@ -181,30 +258,27 @@
 				 </choose>			     	
 			    ) N
 			 <trim prefix="WHERE" prefixOverrides="AND">
-			 	 <if test='param5 != "default"' >
-				 	 AND PB_CATEGORY = #{param5}
-				 </if>
-				 <if test='param6 != "default"' >
+				 <if test='param5 != "default"' >
 					 AND PB_RESIDENCE = #{param6}
 				 </if>
-				 <if test='param7 != "default"' >
+				 <if test='param6 != "default"' >
 					 AND PB_ROOM = #{param7}
 				 </if>						
-				 <if test='param8 != "default"' >
+				 <if test='param7 != "default"' >
 					 AND PB_STYLE = #{param8}
 				 </if>
-				 <if test='param9 != "default"' >
+				 <if test='param8 != "default"' >
 					 AND PB_SKILL = #{param9}
 				 </if>
 				 <choose>						
-					 <when test='param10 == "default"'>
-						 AND (PB_TITLE LIKE '%'||#{param11}||'%' OR PB_CONTENT LIKE '%'||#{param11}||'%')
+					 <when test='param9 == "default"'>
+						 AND (PB_TITLE LIKE '%'||#{param10}||'%' OR PB_CONTENT LIKE '%'||#{param10}||'%')
 					 </when>	
-					 <when test='param10 == "pb_title"'>
-						 AND (PB_TITLE LIKE '%'||#{param11}||'%')
+					 <when test='param9 == "pb_title"'>
+						 AND (PB_TITLE LIKE '%'||#{param10}||'%')
 					 </when>
-					 <when test='param10 == "pb_content"'>
-						 AND (PB_CONTENT LIKE '%'||#{param11}||'%')
+					 <when test='param9 == "pb_content"'>
+						 AND (PB_CONTENT LIKE '%'||#{param10}||'%')
 					 </when>
 					 <otherwise></otherwise>				
 				 </choose>													
@@ -220,29 +294,26 @@
 			OH_PHOTO_BOARD
 		<trim prefix="WHERE" prefixOverrides="AND">
 			<if test='param1 != "default"' >
-				AND PB_CATEGORY = #{param1}
-			</if>
-			<if test='param2 != "default"' >
 				AND PB_RESIDENCE = #{param2}
 			</if>
-			<if test='param3 != "default"' >
+			<if test='param2 != "default"' >
 				AND PB_ROOM = #{param3}
 			</if>						
-			<if test='param4 != "default"' >
+			<if test='param3 != "default"' >
 				AND PB_STYLE = #{param4}
 			</if>
-			<if test='param5 != "default"' >
+			<if test='param4 != "default"' >
 				AND PB_SKILL = #{param5}
 			</if>
 			<choose>						
-				<when test='param6 == "default"'>
-					AND (PB_TITLE LIKE '%'||#{param7}||'%' OR PB_CONTENT LIKE '%'||#{param7}||'%')
+				<when test='param5 == "default"'>
+					AND (PB_TITLE LIKE '%'||#{param6}||'%' OR PB_CONTENT LIKE '%'||#{param6}||'%')
 				</when>	
-				<when test='param6 == "pb_title"'>
-					AND (PB_TITLE LIKE '%'||#{param7}||'%')
+				<when test='param5 == "pb_title"'>
+					AND (PB_TITLE LIKE '%'||#{param6}||'%')
 				</when>
-				<when test='param6 == "pb_content"'>
-					AND (PB_CONTENT LIKE '%'||#{param7}||'%')
+				<when test='param5 == "pb_content"'>
+					AND (PB_CONTENT LIKE '%'||#{param6}||'%')
 				</when>
 				<otherwise></otherwise>				
 			</choose>													
@@ -369,7 +440,7 @@
 		VALUES (
 			OH_PHOTO_BOARD_SEQ.NEXTVAL, #{param1}, #{param2}, #{param3}, 
 			SYSDATE, 0, 0, 0, 0, 0, 
-		    #{param4}, #{param5}, #{param6}, #{param7}, #{param8}
+		    #{param4}, #{param5}, #{param6}, #{param7}
 		)
 	</insert>
 	<select id="getRecentPb_no" resultType="Integer">
@@ -412,6 +483,22 @@
 		WHERE
 			PB_NO = #{param1}		
 	</select>
+	<select id="ohPhotoDetailLikeView" resultType="com.tech.ibara.oh.dto.OHPhotoLike">
+		SELECT
+			*
+		FROM
+			OH_PHOTO_LIKE
+		WHERE
+			MEMNO = ${param1} AND PB_NO = ${param2}
+	</select>
+	<select id="ohPhotoDetailScrapView" resultType="com.tech.ibara.oh.dto.OHPhotoScrap">
+		SELECT
+			*
+		FROM
+			OH_PHOTO_SCRAP
+		WHERE
+			MEMNO = ${param1} AND PB_NO = ${param2}			
+	</select>	
 	
 	<!-- OHPhotoReplyView -->
 	
@@ -443,11 +530,10 @@
 		SET
 			PB_TITLE = #{param2},
 			PB_CONTENT = #{param3},
-			PB_CATEGORY = #{param4},
-			PB_RESIDENCE = #{param5},
-			PB_ROOM = #{param6},
-			PB_STYLE = #{param7},
-			PB_SKILL = #{param8}
+			PB_RESIDENCE = #{param4},
+			PB_ROOM = #{param5},
+			PB_STYLE = #{param6},
+			PB_SKILL = #{param7}
 		WHERE
 			PB_NO = #{param1}
 	</update>	

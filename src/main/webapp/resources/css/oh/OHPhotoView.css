@@ -45,6 +45,7 @@
 /* ----- Start: #OHPhotoView-main-2 ----- */
 #OHPhotoView-main-2 {
 	position: relative;
+	padding: 0px 210px 0px 210px;
 }
 /* ----- Start: #OHPhotoView-main-2-sorting ----- */
 #OHPhotoView-main-2-sorting {
@@ -76,7 +77,7 @@
     transform: translate(0, -50%);
     text-align: center;
     left: 210px;
-    width: 100px;
+    width: 120px;
     height: 40px;
     background-color: #e2f0fe;
     -o-appearance: none;
@@ -88,7 +89,7 @@
 }
 #OHPhotoView-main-2-sorting-orderingMethod-lable {
     position: absolute;
-    left: 310px;
+    left: 340px;
     height: 50px;
     line-height: 50px;
     width: 100px;
@@ -100,8 +101,8 @@
     top: 50%;
     transform: translate(0, -50%);
     text-align: center;
-    left: 420px;
-    width: 100px;
+    left: 450px;
+    width: 120px;
     height: 40px;
     background-color: #e2f0fe;
     -o-appearance: none;
@@ -127,34 +128,9 @@
     font-weight: bold;  
     color: #1a1f27;	  
 }
-#OHPhotoView-main-2-filtering-pb_category-lable {
-    position: absolute;
-    left: 100px;
-    height: 50px;
-    line-height: 50px;
-    width: 100px;
-    text-align: right;
-	color: #1a1f27;	
-}
-#OHPhotoView-main-2-filtering-pb_category {
-    position: absolute;    
-    top: 50%;
-    transform: translate(0, -50%);
-    text-align: center;
-    left: 210px;
-    width: 100px;
-    height: 40px;
-    background-color: #e2f0fe;
-    -o-appearance: none;
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    appearance: none;
-    border-radius: 10px;
-    color: #1a1f27;	    
-}
 #OHPhotoView-main-2-filtering-pb_residence-lable {
     position: absolute;
-    left: 310px;
+    left: 100px;
     height: 50px;
     line-height: 50px;
     width: 100px;
@@ -166,8 +142,8 @@
     top: 50%;
     transform: translate(0, -50%);
     text-align: center;
-    left: 420px;
-    width: 100px;
+    left: 210px;
+    width: 120px;
     height: 40px;
     background-color: #e2f0fe;
     -o-appearance: none;
@@ -179,7 +155,7 @@
 }
 #OHPhotoView-main-2-filtering-pb_room-lable {
     position: absolute;
-    left: 520px;
+    left: 340px;
     height: 50px;
     line-height: 50px;
     width: 100px;
@@ -191,8 +167,8 @@
     top: 50%;
     transform: translate(0, -50%);
     text-align: center;
-    left: 630px;
-    width: 100px;
+    left: 450px;
+    width: 120px;
     height: 40px;
     background-color: #e2f0fe;
     -o-appearance: none;
@@ -204,7 +180,7 @@
 }
 #OHPhotoView-main-2-filtering-pb_style-lable {
     position: absolute;
-    left: 730px;
+    left: 580px;
     height: 50px;
     line-height: 50px;
     width: 100px;
@@ -216,8 +192,8 @@
     top: 50%;
     transform: translate(0, -50%);
     text-align: center;
-    left: 840px;
-    width: 100px;
+    left: 690px;
+    width: 120px;
     height: 40px;
     background-color: #e2f0fe;
     -o-appearance: none;
@@ -229,7 +205,7 @@
 }
 #OHPhotoView-main-2-filtering-pb_skill-lable {
     position: absolute;
-    left: 940px;
+    left: 820px;
     height: 50px;
     line-height: 50px;
     width: 100px;
@@ -240,8 +216,8 @@
     top: 50%;
     transform: translate(0, -50%);
     text-align: center;
-    left: 1050px;
-    width: 100px;
+    left: 930px;
+    width: 120px;
     height: 40px;
     background-color: #e2f0fe;
     -o-appearance: none;
@@ -282,7 +258,7 @@
     transform: translate(0, -50%);
     text-align: center;
     left: 210px;
-    width: 100px;
+    width: 120px;
     height: 40px;
 	background-color: #e2f0fe;    
     -o-appearance: none;
@@ -296,7 +272,7 @@
     position: absolute;
     top: 50%;
     transform: translate(0, -50%);
-    left: 350px;
+    left: 375px;
     width: 300px;
     height: 40px;
     line-height: 40px;
@@ -321,7 +297,8 @@
 /* ----- End: #OHPhotoView-main-2-paging ----- */
 #OHPhotoView-main-2-paging {
 	position: relative;
-    height: 150px;    
+    height: 150px;   
+    padding: 0px 300px 0px 300px; 
 }
 #OHPhotoView-main-2-paging-postCount {
     position: relative;

@@ -3,6 +3,8 @@
     
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
 <!DOCTYPE html>
 
 <html>
@@ -45,7 +47,6 @@
 			<th>pb_reply</th>
 			<th>pb_link</th>
 			<th>pb_hit</th>
-			<th>pb_category</th>
 			<th>pb_residence</th>
 			<th>pb_room</th>
 			<th>pb_style</th>
@@ -62,7 +63,6 @@
 			<td>${pb_dto.pb_reply }</td>
 			<td>${pb_dto.pb_link }</td>
 			<td>${pb_dto.pb_hit }</td>
-			<td>${pb_dto.pb_category }</td>
 			<td>${pb_dto.pb_residence }</td>
 			<td>${pb_dto.pb_room }</td>
 			<td>${pb_dto.pb_style }</td>
@@ -82,9 +82,38 @@
 				<td>${dto.pa_attach }</td>
 				<td>${dto.pb_no }</td>
 			</tr>
-		</c:forEach>			
+		</c:forEach>	
+		<tr>
+			<th colspan="4">OHPhotoLike</th>
+		</tr>	
+		<tr>
+			<th>pl_no</th>
+			<th>memno</th>
+			<th>pl_date</th>
+			<th>pb_no</th>
+		</tr>
+		<tr>
+			<td>${ohPhotoDetailLike.pl_no }</td>
+			<td>${ohPhotoDetailLike.memno }</td>
+			<td>${ohPhotoDetailLike.pl_date }</td>
+			<td>${ohPhotoDetailLike.pb_no }</td>
+		</tr>
+		<tr>
+			<th colspan="4">OHPhotoScrap</th>
+		</tr>	
+		<tr>
+			<th>ps_no</th>
+			<th>memno</th>
+			<th>ps_date</th>
+			<th>pb_no</th>
+		</tr>
+		<tr>
+			<td>${ohPhotoDetailScrap.ps_no }</td>
+			<td>${ohPhotoDetailScrap.memno }</td>
+			<td>${ohPhotoDetailScrap.ps_date }</td>
+			<td>${ohPhotoDetailScrap.pb_no }</td>
+		</tr>				
 	</table>
-	
 	<!-- 데이터 표시 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
 
 	<h3>OHPhotoDetailView.jsp</h3>
@@ -118,91 +147,161 @@
 					<li><a href="OHPhotoView">집사진</a></li>
 					<!-- 집영상 -->
 					<!-- <li><a href="">집영상</a></li> -->
-					<li><a href="#">#category</a></li>
+					<!-- <li><a href="#">#category</a></li> -->
 				</ul>
 			</div>							
-						
+
 			<div id="OHPhotoDetailView-main">
 				
-				<div>
+				<div id="OHPhotoDetailView-main-1">
 				
-					<h3>집사진 게시글 상세</h3>
+					<div id="OHPhotoDetailView-main-1Title">${pb_dto.pb_title }</div>
 					
-				<!-- jQuery 작성완료
-					     회원: 글쓰기 가능 
-					  비회원: 글쓰기 불가능
-					  -->
-				<button id="OHPhotoDetailView-toWriteButton">글쓰기</button> 
-	
-				<!-- 해당 게시물 작성자일 경우 => 수정, 삭제 버튼 생성 -->
-				<c:choose>
-					<c:when test="${loginUserDto.memno eq pb_dto.memno }">
-						<!-- 수정 버튼 -->
-						<button onclick="location.href='OHPhotoEditView?pb_no=${pb_dto.pb_no }'">수정</button>
-						<!-- 삭제 버튼 -->
-						<button onclick="location.href='OHPhotoDeleteExecute?pb_no=${pb_dto.pb_no }'">삭제</button>					
-					</c:when>
-					<c:otherwise></c:otherwise>
-				</c:choose>				
+					<!-- 비회원 불가 -->
+					<button id="OHPhotoDetailView-main-1toWriteButton">글쓰기</button> 
 					
-				<hr />				
+					<!-- 해당 게시물 작성자일 경우 => 수정, 삭제 버튼 생성 -->
+					
+					<c:choose>
+						<c:when test="${loginUserDto.memno eq pb_dto.memno }">					
+							<!-- 수정 버튼 -->
+							<button id="OHPhotoDetailView-main-1toEditButton" onclick="location.href='OHPhotoEditView?pb_no=${pb_dto.pb_no }'">수정</button>
+							<!-- 삭제 버튼 -->
+							<button id="OHPhotoDetailView-main-1toDeleteButton" onclick="location.href='OHPhotoDeleteExecute?pb_no=${pb_dto.pb_no }'">삭제</button>					
+						</c:when>
+						<c:otherwise></c:otherwise>
+					</c:choose>	
+										
+				</div>				
 				
-				<!-- 게시물, 이미지 출력 Start -->
-				<c:forEach items="${pa_dto }" var="dto">			
-					<div>
-						<div>pa_no: ${dto.pa_no }</div>
-						<div>pa_attach: ${dto.pa_attach }</div>
-						<div>pb_no: ${dto.pb_no }</div>
-						<img src="../resources/upload/oh/photo/${dto.pa_attach }" alt="해당 게시글 사진" height="300px" width="300px"/>					
-					</div>
-				</c:forEach>		
-				<!-- 게시물, 이미지 출력 End -->							
-				
-				<hr />
-				
-				<!-- Start: <div class="sectionReply">
-					 Start: 댓글 출력 
-				-->
-				
-				<span>댓글 </span> &nbsp; <span>총 수량 표시</span>
-				
-				<hr />
-				
-				<div class="sectionReply">
-						<!-- 입력창 -->
-						<div id="wrapInputTextReply"
-							 style="display:inline-block">
-							<input id="inputTextReply"
-								   type="text" 
-							       placeholder="칭찬과 격려의 댓글은 작성자에게 큰 힘이 됩니다."
-							 	   style="height:50px;
-							 			  width:600px;
-							 			  background-color:#ffc978;
-							 			  color:#555"/>
+				<div id="OHPhotoDetailView-main-2">
+
+					<span id="OHPhotoDetailView-main-2residence">
+						주거형태 <br>
+						${pb_dto.pb_residence }
+					</span>
+
+					<span id="OHPhotoDetailView-main-2room">
+						공간 <br>
+						${pb_dto.pb_room }
+					</span>
+
+					<span id="OHPhotoDetailView-main-2style">
+						스타일 <br>
+						${pb_dto.pb_style }
+					</span>
+
+					<span id="OHPhotoDetailView-main-2skill">
+						셀프/전문가 <br>
+						${pb_dto.pb_skill }
+					</span>
+
+				</div>					
+
+				<div id="OHPhotoDetailView-main-3">
+					<!-- 게시물, 이미지 출력 -->
+					<c:forEach items="${pa_dto }" var="dto">	
+						<div class="OHPhotoDetailView-main-3photoSector">
+							<img src="../resources/upload/oh/photo/${dto.pa_attach }" alt="해당 게시글 사진"/>					
 						</div>
-						<!-- 입력버튼 -->
-						<button id="replyButton" disabled>입력</button>
-						
-						<br />
-						
-						<hr />
-						
-						<br />
-						
-						<div id=contentReply>
-						
-							<!-- 댓글 추가 영역 -->
-						
-						</div>
-						
-					</div>						
+					</c:forEach>	
+				</div>				
+				
+				<div id="OHPhotoDetailView-main-4">
+					<span id="OHPhotoDetailView-main-4photoContent">
+						${pb_dto.pb_content }											
+					</span>					
+				</div>
+
+				<div id="OHPhotoDetailView-main-5">
+					<span id="OHPhotoDetailView-main-5dateLable">
+						작성일 
+					</span>
+					<span id="OHPhotoDetailView-main-5date">
+						<fmt:formatDate value="${pb_dto.pb_date }" pattern="yyyy.MM.dd" />					
+					</span>
+				</div>
+
+				<div id="OHPhotoDetailView-main-6">
+					<!-- 좋아요, 이미지 -->
+					<c:choose>
+						<c:when test="${ohPhotoDetailLike ne null }">
+							<span id="OHPhotoDetailView-main-6like" class="clickColor">
+								<i class="fa-solid fa-heart"></i>
+							</span>																				
+						</c:when>
+						<c:otherwise>
+							<span id="OHPhotoDetailView-main-6like">
+								<i class="fa-regular fa-heart"></i>
+							</span>													
+						</c:otherwise>
+					</c:choose>
+					<!-- 좋아요, 이미지 End -->						
+					
+					<!-- 좋아요, 숫자 -->
+					<span id="OHPhotoDetailView-main-6likeNumber">
+						${pb_dto.pb_like }
+					</span>
+					<!-- 좋아요, 숫자 End -->						
+					
+					
+					
+
+
+					
+					
+					
+					<span id="OHPhotoDetailView-main-6scrap">
+						스크랩
+					</span>
+					<span id="OHPhotoDetailView-main-6scrapNumber">
+						999
+					</span>
+					
+					<span id="OHPhotoDetailView-main-6views">
+						조회수
+					</span>
+					<span id="OHPhotoDetailView-main-6viewsNumber">
+						999
+					</span>
+					
+					<button id="OHPhotoDetailView-main-6complaintButton">
+						신고하기
+					</button>
 					
 				</div>
+
+				<div id="OHPhotoDetailView-main-7">
+					<img id="OHPhotoDetailView-main-7profileImage"></img>
+					<div id="OHPhotoDetailView-main-7writerName">작성자명</div>
+				</div>
+
+				<div id="OHPhotoDetailView-main-8">
+					<span id="OHPhotoDetailView-main-8replyLable">댓글</span>
+					<span id="OHPhotoDetailView-main-8replyTotal">99</span>
+				</div>
+
+				<div id="OHPhotoDetailView-main-9">
+					<!-- 입력창 -->
+					<textarea id="OHPhotoDetailView-main-9inputReply" maxlength="60" cols="30" rows="10" placeholder="칭찬과 격려의 댓글은 작성자에게 큰 힘이 됩니다. &#13;&#10;최대 60자 까지 작성할 수 있습니다."></textarea>
+					<!-- 입력버튼 -->
+					<button id="OHPhotoDetailView-main-9inputReplyButton" disabled>입력</button>								
+				</div>				
+				
+				<div id="OHPhotoDetailView-main-10">
+
+					<div id=contentReply>				
+					
+						<!-- 댓글 추가 영역 -->
+				
+					</div>
+				
+				</div>						
 				
 			</div> 
 			
 		</div>
-		
+				
 		<footer>
 			<h1>footer</h1>
 		</footer>

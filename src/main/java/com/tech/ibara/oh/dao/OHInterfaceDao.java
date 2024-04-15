@@ -15,14 +15,16 @@ public interface OHInterfaceDao {
 	public ArrayList<OHPhotoBoard> getPhotoBoardScrapList(int memno);
 	
 	// ---------- OHMainView.jsp ----------
-	public ArrayList<OHPhotoBoard> ohMainPhotoView(int number);
+	public ArrayList<OHPhotoBoard> ohMainPhotoViewOrderDate(int number);
+	public ArrayList<OHPhotoBoard> ohMainPhotoViewOrderLike(int number);
+	public ArrayList<OHPhotoBoard> ohMainPhotoViewOrderHit(int number);		
 	
 	// ---------- OHPhotoView.jsp ---------- 
 	public ArrayList<OHPhotoBoard> ohPhotoView(int postStartNum, int postEndNum,
 											   String orderingBy, String orderingMethod,	
-			  								   String pb_category, String pb_residence, String pb_room, String pb_style, String pb_skill,
+			  								   String pb_residence, String pb_room, String pb_style, String pb_skill,
 			  								   String searchingType, String searchingWord);
-	public int getPostTotalCount(String pb_category, String pb_residence, String pb_room, String pb_style, String pb_skill, 
+	public int getPostTotalCount(String pb_residence, String pb_room, String pb_style, String pb_skill, 
 			                     String searchingType, String searchingWord);
 	public ArrayList<OHPhotoLike> ohPhotoLikeView(int memno);
 	public ArrayList<OHPhotoScrap> ohPhotoScrapView(int memno);
@@ -44,8 +46,7 @@ public interface OHInterfaceDao {
 	public int scrapGetNumber(String pb_no);
 	
 	// ---------- OHPhotoWriteExecute ----------
-	public void ohPhotoWriteExecute(int memno, String pb_title, 
-									String pb_content, String pb_category, 
+	public void ohPhotoWriteExecute(int memno, String pb_title, String pb_content, 
 									String pb_residence, String pb_room, 
 									String pb_style, String pb_skill);
 	public int getRecentPb_no();
@@ -55,6 +56,8 @@ public interface OHInterfaceDao {
 	public void updatePb_hit(String pb_no);
 	public OHPhotoBoard getDtoOHPhotoBoard(String pb_no);
 	public ArrayList<OHPhotoAttach> getDtoOHPhotoAttach(String pa_no);
+	public OHPhotoLike ohPhotoDetailLikeView(int memno, String pb_no);
+	public OHPhotoScrap ohPhotoDetailScrapView(int memno, String pb_no); 	
 	
 	// ---------- OHPhotoReplyView ----------
 	public ArrayList<OHPhotoReply> ohPhotoReplyView(String pb_no);
@@ -64,7 +67,7 @@ public interface OHInterfaceDao {
 	
 	// ---------- OHPhotoEditExecute ----------
 	public void ohPBEditUpdate(String pb_no, String pb_title, 
-							   String pb_content, String pb_category, 
+							   String pb_content, 
 							   String pb_residence, String pb_room, 
 							   String pb_style, String pb_skill);	
 	public ArrayList<String> getPAFileNames(String pb_no);

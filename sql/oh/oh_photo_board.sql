@@ -21,7 +21,6 @@ CREATE TABLE OH_PHOTO_BOARD (
     PB_REPLY	      NUMBER DEFAULT 0,     -- 댓글수
     PB_LINK		      NUMBER DEFAULT 0,     -- 공유수
     PB_HIT		      NUMBER DEFAULT 0,     -- 조회수
-    PB_CATEGORY	      VARCHAR2(50),         -- #카테고리
     PB_RESIDENCE      VARCHAR2(50),         -- 주거형태
     PB_ROOM		      VARCHAR2(50),         -- 공간
     PB_STYLE		  VARCHAR2(50),         -- 스타일
