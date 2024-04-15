@@ -20,16 +20,24 @@ public interface BizPriceIDao {
 //
 //	public void bizCasesMod(String bc_no, String bc_title, String bc_content);
 
-	public ArrayList<BizPriceDto> bizPriceList(String biz_idno);
+	public ArrayList<BizPriceDto> bizPriceListView(String inteno);
 
-	public Integer bizPriceCnt(String biz_idno);
+	public Integer bizPriceCnt(String inteno);
 	
 	public void bizPriceWrite(String bp_name, String bp_content, String bp_price,
-			String bp_category, String bp_type, String string, String biz_idno);
+			String bp_category, String bp_type, String string, String inteno);
 
 	public int selBp_no();
 
 	public void bizPriceImgWrite(int bp_no, String changeFile);
+
+	public void bizPriceModAll(String bp_no, String bp_name, String bp_content, String bp_price, String bp_category,
+			String bp_type, String bp_img, String inteno);
+
+	public BizPriceDto bizPriceModEachView(String inteno, String bp_no);
+
+	public void bizPriceModEach(String bp_no, String bp_name, String bp_content, String bp_price, String bp_category,
+			String bp_type, String bpImgNew, String inteno);
 
 
 

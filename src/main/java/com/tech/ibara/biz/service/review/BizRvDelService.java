@@ -32,6 +32,8 @@ public class BizRvDelService implements BizServiceInter {
 		BizIDao dao=sqlSession.getMapper(BizIDao.class);
 		
 		String br_no=request.getParameter("br_no");
+		String inteno=request.getParameter("inteno");
+		model.addAttribute("inteno", inteno);
 		
 		System.out.println(br_no);
 		

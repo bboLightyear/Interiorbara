@@ -32,10 +32,13 @@ public class BizCasesModService implements BizServiceInter {
 		BizIDao dao=sqlSession.getMapper(BizIDao.class);
 		
 		String bc_no=request.getParameter("bc_no");
+		String inteno=request.getParameter("inteno");
 		String bc_title=request.getParameter("bc_title");
 		String bc_content=request.getParameter("bc_content");
 		
 		dao.bizCasesMod(bc_no, bc_title, bc_content);
+		
+		model.addAttribute("inteno", inteno);
 
 		System.out.println(bc_no);
 	}

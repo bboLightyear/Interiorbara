@@ -36,12 +36,13 @@ public class BizRvReportResultViewService implements BizServiceInter {
 		BizIDao dao=sqlSession.getMapper(BizIDao.class);
 		
 		String br_no=request.getParameter("br_no");
+		String inteno=request.getParameter("inteno");
 		System.out.println("br_no>>>>>>>"+br_no);
 		
 //		dao.bizRvUpHit(br_no);
-//		z
 		BizRvDto dto=dao.bizRvReportResultView(br_no);
 		model.addAttribute("bizRvReportResultView",dto);
+		model.addAttribute("inteno",inteno);
 	}
 
 }

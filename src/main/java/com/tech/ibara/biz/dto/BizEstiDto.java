@@ -14,8 +14,8 @@ public class BizEstiDto {
 	private int be_size;
 	private String be_type;
 	private int be_total_price;
-	private int biz_idno;
-	private int user_idno;
+	private int inteno;
+	private int memno;
 	private int bp_no;
 	
 	public int getBe_no() {
@@ -78,17 +78,17 @@ public class BizEstiDto {
 	public void setBe_total_price(int be_total_price) {
 		this.be_total_price = be_total_price;
 	}
-	public int getBiz_idno() {
-		return biz_idno;
+	public int getInteno() {
+		return inteno;
 	}
-	public void setBiz_idno(int biz_idno) {
-		this.biz_idno = biz_idno;
+	public void setInteno(int inteno) {
+		this.inteno = inteno;
 	}
-	public int getUser_idno() {
-		return user_idno;
+	public int getMemno() {
+		return memno;
 	}
-	public void setUser_idno(int user_idno) {
-		this.user_idno = user_idno;
+	public void setMemno(int memno) {
+		this.memno = memno;
 	}
 	public int getBp_no() {
 		return bp_no;

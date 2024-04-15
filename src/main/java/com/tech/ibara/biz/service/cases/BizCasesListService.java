@@ -36,6 +36,11 @@ public class BizCasesListService implements BizServiceInter {
 		
 		BizIDao dao=sqlSession.getMapper(BizIDao.class);
 		
+		
+		String inteno=request.getParameter("inteno");
+		model.addAttribute("inteno", inteno);
+		System.out.println("inteno:"+inteno);
+		
 		String bc_title="";
 		String bc_content="";
 		
@@ -101,14 +106,14 @@ public class BizCasesListService implements BizServiceInter {
 		
 		int total=0;
 		if (bc_title.equals("bc_title") && bc_content.equals("")) { //제목만 검색
-			total=dao.selectCasesTotalCount1(searchKeyword);
+			total=dao.selectCasesTotalCount1(searchKeyword, inteno);
 		}else if (bc_title.equals("") && bc_content.equals("bc_content")) { //내용만 검색
-			total=dao.selectCasesTotalCount2(searchKeyword);
+			total=dao.selectCasesTotalCount2(searchKeyword, inteno);
 		}else if (bc_title.equals("bc_title") && bc_content.equals("bc_content")) { //둘 다 검색
-			total=dao.selectCasesTotalCount3(searchKeyword);
+			total=dao.selectCasesTotalCount3(searchKeyword, inteno);
 			System.out.println("total>>>>>"+total);
 		}else if (bc_title.equals("") && bc_content.equals("")) { //아무것도 체크 안 함
-			total=dao.selectCasesTotalCount4(searchKeyword);
+			total=dao.selectCasesTotalCount4(searchKeyword, inteno);
 		}
 		
 		System.out.println("total : "+total);
@@ -128,18 +133,21 @@ public class BizCasesListService implements BizServiceInter {
 		int rowEnd=searchVO.getRowEnd();
 		
 		ArrayList<BizCasesDto> bizCasesList = null;
-		
 		if (bc_title.equals("bc_title") && bc_content.equals("")) { //제목만 검색
-			bizCasesList = dao.bizCasesList(rowStart,rowEnd,searchKeyword,"1");
+			bizCasesList = dao.bizCasesList(rowStart,rowEnd,searchKeyword,"1", inteno);
+			System.out.println("제목만 검색 게시글수: "+bizCasesList.size());
 //			model.addAttribute("bizCasesList",dao.bizCasesList(rowStart,rowEnd,searchKeyword,"1"));
 		}else if (bc_title.equals("") && bc_content.equals("bc_content")) { //내용만 검색
-			bizCasesList = dao.bizCasesList(rowStart,rowEnd,searchKeyword,"2");
+			bizCasesList = dao.bizCasesList(rowStart,rowEnd,searchKeyword,"2", inteno);
+			System.out.println("내용만 검색 게시글수: "+bizCasesList.size());
 //			model.addAttribute("bizCasesList",dao.bizCasesList(rowStart,rowEnd,searchKeyword,"2"));
 		}else if (bc_title.equals("bc_title") && bc_content.equals("bc_content")) { //둘 다 검색
-			bizCasesList = dao.bizCasesList(rowStart,rowEnd,searchKeyword,"3");
+			bizCasesList = dao.bizCasesList(rowStart,rowEnd,searchKeyword,"3", inteno);
+			System.out.println("제목, 내용 둘 다 검색 게시글수: "+bizCasesList.size());
 //			model.addAttribute("bizCasesList",dao.bizCasesList(rowStart,rowEnd,searchKeyword,"3"));
 		}else if (bc_title.equals("") && bc_content.equals("")) { //아무것도 체크 안 함
-			bizCasesList = dao.bizCasesList(rowStart,rowEnd,searchKeyword,"4");
+			bizCasesList = dao.bizCasesList(rowStart,rowEnd,searchKeyword,"4", inteno);
+			System.out.println("검색 없이 모든 게시글보기 수: "+bizCasesList.size());
 //			model.addAttribute("bizCasesList",dao.bizCasesList(rowStart,rowEnd,searchKeyword,"4"));
 		}	
 				

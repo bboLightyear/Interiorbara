@@ -31,6 +31,7 @@ public class BizPageVO {
         
         rowStart = ((page - 1) * displayRowCount) + 1 ;
         rowEnd   = rowStart + displayRowCount - 1;
+        
     } 
     
 
@@ -44,6 +45,7 @@ public class BizPageVO {
         
         return page;
     }
+    
 
     public void setPage(Integer page) {
         this.page = page;
@@ -103,7 +105,8 @@ public class BizPageVO {
 
     public void setPageEnd(Integer pageEnd) {
         this.pageEnd = pageEnd;
-    }
+    
+	}
   
 }
 

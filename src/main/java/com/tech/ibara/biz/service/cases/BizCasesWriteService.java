@@ -35,22 +35,24 @@ public class BizCasesWriteService implements BizServiceInter {
 		String bc_title=mftRequest.getParameter("bc_title");
 		String bc_content=mftRequest.getParameter("bc_content");
 		String bc_writer=mftRequest.getParameter("bc_writer");
-		String user_idno=mftRequest.getParameter("user_idno");
+		String inteno=mftRequest.getParameter("inteno");
+		String memno=mftRequest.getParameter("memno");
 		
 		System.out.println("bc_title: "+bc_title);
 		System.out.println("bc_content: "+bc_content);
 		System.out.println("bc_writer: "+bc_writer);
-		System.out.println("user_idno: "+user_idno);
+		System.out.println("inteno: "+inteno);
+		System.out.println("memno: "+memno);
 		
 		BizIDao dao=sqlSession.getMapper(BizIDao.class);
-		dao.bizCasesWrite(bc_title,bc_content,bc_writer,user_idno);
+		dao.bizCasesWrite(bc_title,bc_content,bc_writer,inteno);
 		
 //		최근의 글번호 가져오기
 		int bc_no=dao.selBc_no();
 		System.out.println("bc_no: "+bc_no);
 		
 		//show in sys explorer로 열어서 주소복사함
-		String path="C:\\23setspring\\springwork23\\interiorbara00\\src\\main\\webapp\\resources\\upload\\biz\\cases";
+		String path="C:\\23setspring\\springwork23\\interiorbara_simi\\src\\main\\webapp\\resources\\upload\\biz\\cases";
 //		MultipartRequest req=
 //				new MultipartRequest(mftRequest, path, 1024*1024*10,"utf-8", new DefaultFileRenamePolicy());
 //		
@@ -67,7 +69,7 @@ public class BizCasesWriteService implements BizServiceInter {
 		            if(!originFile.equals("")) {
 		               mf.transferTo(new File(pathfile));
 		               // setFileUpload() 함수 실행 -> DB에 파일명 INSERT
-		               dao.bizCasesImgWrite(bc_no, originFile, changeFile);
+		               dao.bizCasesImgWrite(bc_no, originFile, changeFile, inteno);
 		               System.out.println("다중 파일 업로드 성공");
 		            }
 		         } catch (Exception e) {

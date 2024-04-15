@@ -9,7 +9,7 @@ public class BizPriceDto {
 	private String bp_category;
 	private String bp_type;
 	private String bp_img;
-	private int biz_idno;
+	private int inteno;
 	
 	
 	public int getBp_no() {
@@ -54,11 +54,11 @@ public class BizPriceDto {
 	public void setBp_img(String bp_img) {
 		this.bp_img = bp_img;
 	}
-	public int getBiz_idno() {
-		return biz_idno;
+	public int getInteno() {
+		return inteno;
 	}
-	public void setBiz_idno(int biz_idno) {
-		this.biz_idno = biz_idno;
+	public void setInteno(int inteno) {
+		this.inteno = inteno;
 	}
 	
 }
