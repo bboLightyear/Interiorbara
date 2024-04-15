@@ -1,5 +1,6 @@
 package com.tech.ibara.biz.service.cases;
 
+import java.util.ArrayList;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -9,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
 import com.tech.ibara.biz.dao.BizIDao;
+import com.tech.ibara.biz.dto.BizCasesDto;
 import com.tech.ibara.biz.service.BizServiceInter;
 
 @Service
@@ -34,6 +36,9 @@ public class BizCasesDelService implements BizServiceInter {
 		String bc_no=request.getParameter("bc_no");
 		
 		System.out.println(bc_no);
+		
+		String inteno=Integer.toString(dao.bizCasesContentView(bc_no).getInteno());
+		model.addAttribute("inteno", inteno);
 		
 		dao.bizCasesDel(bc_no);
 		dao.bizCasesImgDel(bc_no);

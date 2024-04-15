@@ -10,7 +10,7 @@ public class BizCasesDto {
 	private String bc_writer;
 	private Timestamp bc_date;
 	private int bc_hit;
-	private int biz_idno;
+	private int inteno;
 	
 	public int getBc_no() {
 		return bc_no;
@@ -42,11 +42,11 @@ public class BizCasesDto {
 	public void setBc_hit(int bc_hit) {
 		this.bc_hit = bc_hit;
 	}
-	public int getBiz_idno() {
-		return biz_idno;
+	public int getInteno() {
+		return inteno;
 	}
-	public void setBiz_idno(int biz_idno) {
-		this.biz_idno = biz_idno;
+	public void setInteno(int inteno) {
+		this.inteno = inteno;
 	}
 	public String getBc_writer() {
 		return bc_writer;

@@ -34,6 +34,7 @@ public class BizRvModService implements BizServiceInter {
 		String br_no=request.getParameter("br_no");
 		String orgPoint=request.getParameter("orgPoint");
 		String br_point=request.getParameter("br_point");
+		String inteno=request.getParameter("inteno");
 		
 		if (br_point=="") {						
 			br_point=request.getParameter("orgPoint");
@@ -45,6 +46,8 @@ public class BizRvModService implements BizServiceInter {
 		
 		dao.bizRvMod(br_no, br_point, br_content);
 
+		model.addAttribute("inteno", inteno);
+		
 		System.out.println(br_no);
 	}
 

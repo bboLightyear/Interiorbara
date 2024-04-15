@@ -11,7 +11,7 @@
 <h3>bizPriceList.jsp</h3>
 
 <form action="bizPriceWrite" method="post" enctype="multipart/form-data">
-<input type="hidden" name="biz_idno" value="40<%-- ${sessionUser_Idno } --%>" />
+<input type="hidden" name="inteno" value="40<%-- ${sessionUser_Idno } --%>" />
 	<table width="700" border="1">
 		<tr>
 <!-- 			<td>번호</td> -->
@@ -28,7 +28,7 @@
 			<tr>
 				<%-- <td>${dto.bp_no }</td> --%>
 				<td class="">
-					<input type="file" name="file" multiple="multiple"/>
+					<input type="file" name="file"/>
 				</td>
 				<td class="">
 					${dto[0] }

@@ -35,17 +35,19 @@ public class BizRvWriteService implements BizServiceInter {
 		String br_content=mftRequest.getParameter("br_content");
 		String br_writer=mftRequest.getParameter("br_writer");
 		String br_point=mftRequest.getParameter("br_point");
-		String biz_idno=mftRequest.getParameter("biz_idno");
-		String user_idno=mftRequest.getParameter("user_idno");
+		String inteno=mftRequest.getParameter("inteno");
+		String memno=mftRequest.getParameter("memno");
 		
 		System.out.println("br_content: "+br_content);
 		System.out.println("br_writer: "+br_writer);
 		System.out.println("br_point: "+br_point);
-		System.out.println("user_idno: "+user_idno);
-		System.out.println("biz_idno: "+biz_idno);
+		System.out.println("memno: "+memno);
+		System.out.println("inteno: "+inteno);
+		
+		model.addAttribute("inteno", inteno);
 		
 		BizIDao dao=sqlSession.getMapper(BizIDao.class);
-		dao.bizRvWrite(br_content,br_writer,br_point, biz_idno, user_idno);
+		dao.bizRvWrite(br_content,br_writer,br_point, inteno, memno);
 		
 //		최근의 글번호 가져오기
 		int br_no=dao.selBr_no();

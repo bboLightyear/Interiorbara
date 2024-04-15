@@ -9,10 +9,11 @@ public class BizRvDto {
 	private int br_like_cnt;
 	private Timestamp br_date;
 	private float br_point;
-	private int biz_idno;
-	private int user_idno;
+	private int inteno;
+	private int memno;
 	
 	private BizRvImgDto bizRvImgDto;
+	private BizHomeDto bizHomeDto;
 	
 	
 	public int getBr_no() {
@@ -45,17 +46,17 @@ public class BizRvDto {
 	public void setBr_point(float br_point) {
 		this.br_point = br_point;
 	}
-	public int getBiz_idno() {
-		return biz_idno;
+	public int getInteno() {
+		return inteno;
 	}
-	public void setBiz_idno(int biz_idno) {
-		this.biz_idno = biz_idno;
+	public void setInteno(int inteno) {
+		this.inteno = inteno;
 	}
-	public int getUser_idno() {
-		return user_idno;
+	public int getMemno() {
+		return memno;
 	}
-	public void setUser_idno(int user_idno) {
-		this.user_idno = user_idno;
+	public void setMemno(int memno) {
+		this.memno = memno;
 	}
 	public String getBr_writer() {
 		return br_writer;
@@ -68,5 +69,11 @@ public class BizRvDto {
 	}
 	public void setBizRvImgDto(BizRvImgDto bizRvImgDto) {
 		this.bizRvImgDto = bizRvImgDto;
+	}
+	public BizHomeDto getBizHomeDto() {
+		return bizHomeDto;
+	}
+	public void setBizHomeDto(BizHomeDto bizHomeDto) {
+		this.bizHomeDto = bizHomeDto;
 	}
 }
