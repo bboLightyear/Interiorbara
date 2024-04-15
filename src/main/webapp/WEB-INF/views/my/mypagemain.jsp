@@ -24,15 +24,38 @@
         margin-top: -5px;
         margin-left: 10px;
         padding-left: 10px;
-        border-left: 1px solid gray;
+        border-left: 1px solid #b1b8c0;
         display: inline-block;
         width: fit-content;
         height: fit-content;
         font-size: 15px;
         font-weight: bold;
         font-family: sans-serif;
+        text-decoration: none;
         cursor: pointer;
     }
+    .mypage_category_list:hover{
+		padding-right: 10px;
+		transform: scale(1.1);
+	    letter-spacing: 2px;
+		background-color: #e2f0fe;
+		transition: 0.1s;
+		font-size: 18px;	
+	}
+	a{
+		text-decoration: none;
+		color: black;
+		font-weight: bold;
+	}
+	a:hover{
+		padding-right: 10px;
+		transform: scale(1.1);
+	    letter-spacing: 2px;
+		background-color: #e2f0fe;
+		transition: 0.1s;
+		font-size: 18px;	
+	}
+	
     #mypage_profile{
     	padding-left: 25%;
     }

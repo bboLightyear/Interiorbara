@@ -33,7 +33,7 @@ th{
 		<div class="mypage_category_list list_2"><a href="#">회원관리</a></div>
 		<!-- <div class="mypage_category_list list_3">업체신청관리</div> -->
 		<div class="mypage_category_list list_3"><a href="admin_report">신고게시판</a></div>
-		<div class="mypage_category_list list_4">컨텐츠관리</div>
+		<!-- <div class="mypage_category_list list_4">컨텐츠관리</div> -->
 	</div>
 	<div class="mypage_category">
         <div class="mypage_category_list list_2_1"><a href="#">회원리스트</a></div>
@@ -48,13 +48,13 @@ th{
 				<th>가입일</th>
 				<th>회원구분</th>
 			</tr>			
-			<c:forEach items="${list }" var="mdto">
+			<c:forEach items="${list}" var="mdto">
 			<tr>
-				<td><a href="memberinfopage?memno=${mdto.memno}">${mdto.memno }</a></td>
-				<td>${mdto.nickname }</td>
-				<td>${mdto.email }</td>
-				<td><fmt:formatDate value="${mdto.joindate }" type="both" dateStyle="short" pattern="YYYY-MM-dd"/></td>
-				<td>${mdto.memtype }</td>
+				<td><a href="memberinfopage?memno=${mdto.memno}">${mdto.memno}</a></td>
+				<td>${mdto.nickname}</td>
+				<td>${mdto.email}</td>
+				<td><fmt:formatDate value="${mdto.joindate}" type="both" dateStyle="short" pattern="YYYY-MM-dd"/></td>
+				<td>${mdto.memtype}</td>
 			</tr>
 			</c:forEach>
 		</table>

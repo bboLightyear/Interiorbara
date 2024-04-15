@@ -66,7 +66,7 @@ public class SignUpService implements SService{
 			int sellerCount=mdao.countCheckSeller(interiorNum);
 			if(interiorCount==0 && sellerCount==0) {
 				int interiorResult=mdao.insertInterior(memno, interiorNum);
-				if(interiorResult==1) {
+				if(interiorResult==1) {// 인테리어 업체로 등록되는 경우이므로 biz_home 생성해야됨.
 					mdao.completedInterior(memno);
 					MyMemberInfoDto memdto=mdao.getMemberInfo("1",memno);
 					session.removeAttribute("loginUserDto");

@@ -33,6 +33,27 @@
         font-family: sans-serif;
         cursor: pointer;
     }
+    .mypage_category_list:hover{
+		padding-right: 10px;
+		transform: scale(1.1);
+	    letter-spacing: 2px;
+		background-color: #e2f0fe;
+		transition: 0.1s;
+		font-size: 18px;	
+	}
+	a{
+		text-decoration: none;
+		color: black;
+		font-weight: bold;
+	}
+	a:hover{
+		padding-right: 10px;
+		transform: scale(1.1);
+	    letter-spacing: 2px;
+		background-color: #e2f0fe;
+		transition: 0.1s;
+		font-size: 18px;	
+	}
     
 	.box {
 	    width: 150px;
