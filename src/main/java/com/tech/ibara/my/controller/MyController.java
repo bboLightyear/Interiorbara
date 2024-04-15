@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.tech.ibara.my.dao.MyDao;
 import com.tech.ibara.my.dto.MyMemberInfoDto;
+import com.tech.ibara.my.service.AdminmainService;
 import com.tech.ibara.my.service.AllowCheckWithdrawalService;
 import com.tech.ibara.my.service.BlindCheckService;
 import com.tech.ibara.my.service.CancelWithdrawalService;
@@ -167,6 +168,7 @@ public class MyController {
 	@RequestMapping("my/adminmain")
 	public String adminmain(HttpServletRequest request,Model model) {
 		System.out.println("adminmain()");
+		
 		return "my/adminmain";
 	}
 	@RequestMapping("my/mypage")
