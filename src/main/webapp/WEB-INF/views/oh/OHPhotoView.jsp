@@ -326,28 +326,42 @@
 							<div class="OHPhotoView-box">
 								
 	                            <div class="OHPhotoView-boxLayer-1">
-									<!-- 게시글 작성자 프로필 이미지 -->			
+	                            
+									<!-- 게시글 작성자 프로필 이미지 -->		
+										
 									<%-- 프로필 이미지가 없으면 기본 이미지 --%>
-									<c:if test="${empty loginUserDto.profileimg}" >
-										<img src="../resources/img/my/user.png" id="OHPhotoView-photoProfileImage">
+									<c:if test="${empty dto.myMemberInfoDto.profileimg}" >
+										<a href="../my/memberinfopage?memno=${dto.myMemberInfoDto.memno }">
+											<img src="../resources/img/my/user.png" id="OHPhotoView-photoProfileImage">
+										</a>
 							        </c:if>
+							        
 							        <%-- 프로필 이미지가 있으면 있는 이미지 --%>
-							        <c:if test="${!empty loginUserDto.profileimg}" >
-							            <img src="../resources/upload/my/${loginUserDto.profileimg}" id="OHPhotoView-photoProfileImage">
-							        </c:if>		                                
+							        <c:if test="${!empty dto.myMemberInfoDto.profileimg}" >
+							        	<a href="../my/memberinfopage?memno=${dto.myMemberInfoDto.memno }">
+							            	<img src="../resources/upload/my/${dto.myMemberInfoDto.profileimg }" id="OHPhotoView-photoProfileImage">
+							            </a>
+							        </c:if>		          
+							                              
 	                                <!-- 게시글 작성자 이름 -->
-	                                <div id="OHPhotoView-photoUserName">${dto.myMemberInfoDto.nickname }</div>
+	                                <div id="OHPhotoView-photoUserName">
+	                                	<a href="../my/memberinfopage?memno=${dto.myMemberInfoDto.memno }">
+	                                		${dto.myMemberInfoDto.nickname }
+	                                	</a>
+	                                </div>
+	                                
 	                                <!-- 게시글 제목 -->
 	                                <div id="OHPhotoView-photoTitle">
-	                                	<a href="OHPhotoDetailView?pb_no=${dto.pb_no }&nickname=${dto.myMemberInfoDto.nickname }">
+	                                	<a href="OHPhotoDetailView?pb_no=${dto.pb_no }">
 	                                		${dto.pb_title }
 										</a>	                                
 	                                </div>
+	                                
 	                            </div>								
 								
 	                            <div class="OHPhotoView-boxLayer-2">
 									<!-- 게시글 대표 이미지 --> 
-									<a href="OHPhotoDetailView?pb_no=${dto.pb_no }&nickname=${dto.myMemberInfoDto.nickname }">
+									<a href="OHPhotoDetailView?pb_no=${dto.pb_no }">
 		                                <img id="OHPhotoView-photoImage" src="../resources/upload/oh/photo/${dto.ohPhotoAttach.pa_attach }" alt="해당 게시글 대표사진">
 									</a>								
 	                            </div>								
@@ -401,7 +415,9 @@
 	                                
 	                                <!-- 댓글, 이미지 -->
 	                                <span class="OHPhotoView-replyImage" id="${dto.pb_no }">
-	                                	<i class="fa-regular fa-comment"></i>
+	                                	<a href="OHPhotoDetailView?pb_no=${dto.pb_no }#OHPhotoDetailView-main-8">
+	                                		<i class="fa-regular fa-comment"></i>
+	                                	</a>
 	                                </span>
 	                                <!-- 댓글, 이미지 End -->
 	                                

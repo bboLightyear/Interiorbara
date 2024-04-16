@@ -192,7 +192,7 @@
                                 </div>
 
                                 <div id="sector2-2-layer2">
-                                    <textarea id="layer2-content" maxlength="200" name="pb_content" rows="10" cols="30" placeholder="내용을 입력하세요. &#13;&#10;최대 200자 까지 작성할 수 있습니다." >${pb_dto.pb_content }</textarea>
+                                    <textarea id="layer2-content" maxlength="500" name="pb_content" rows="10" cols="30" placeholder="내용을 입력하세요. &#13;&#10;최대 500자 까지 작성할 수 있습니다." >${pb_dto.pb_content }</textarea>
                                 </div>	   				
 						
                                 <div id="sector2-2-layer3">

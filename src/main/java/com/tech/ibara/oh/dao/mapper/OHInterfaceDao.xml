@@ -84,7 +84,7 @@
 		        OH1.*, OH2.PA_NO, OH2.PA_ATTACH 
 		    FROM (
 		        SELECT
-		            OHA.NICKNAME, OHB.*
+		            OHA.NICKNAME, OHA.PROFILEIMG, OHB.*
 		        FROM 
 		            MY_MEMBER_INFO OHA
 		        INNER JOIN
@@ -123,7 +123,7 @@
 		        OH1.*, OH2.PA_NO, OH2.PA_ATTACH 
 		    FROM (
 		        SELECT
-		            OHA.NICKNAME, OHB.*
+		            OHA.NICKNAME, OHA.PROFILEIMG, OHB.*
 		        FROM 
 		            MY_MEMBER_INFO OHA
 		        INNER JOIN
@@ -162,7 +162,7 @@
 		        OH1.*, OH2.PA_NO, OH2.PA_ATTACH 
 		    FROM (
 		        SELECT
-		            OHA.NICKNAME, OHB.*
+		            OHA.NICKNAME, OHA.PROFILEIMG, OHB.*
 		        FROM 
 		            MY_MEMBER_INFO OHA
 		        INNER JOIN
@@ -207,7 +207,7 @@
 			     	OH1.*, OH2.PA_NO, OH2.PA_ATTACH 
 			     FROM (
 			        SELECT
-			            OHA.NICKNAME, OHB.*
+			            OHA.NICKNAME, OHA.PROFILEIMG, OHB.*
 			        FROM 
 			            MY_MEMBER_INFO OHA
 			        INNER JOIN
@@ -468,11 +468,15 @@
 		WHERE
 			PB_NO = #{param1}
 	</update>
-	<select id="getDtoOHPhotoBoard" resultType="com.tech.ibara.oh.dto.OHPhotoBoard">
+	<select id="getDtoOHPhotoBoard" resultType="com.tech.ibara.oh.dto.OHPhotoBoard" resultMap="OHPhotoBoard">
 		SELECT
-			*
-		FROM
-			OH_PHOTO_BOARD
+		    OHA.NICKNAME, OHA.PROFILEIMG, OHB.*
+		FROM 
+		    MY_MEMBER_INFO OHA
+		INNER JOIN
+		    OH_PHOTO_BOARD OHB
+		ON 
+		    OHA.MEMNO = OHB.MEMNO
 		WHERE
 			PB_NO = #{param1}
 	</select>
