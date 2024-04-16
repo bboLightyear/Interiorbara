@@ -49,4 +49,10 @@ public class ModalCheckService implements ModalService{
         return modalDao.selectCompleteInfo(phone);
     }
 
+	@Override
+	public String execute(Model model) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

@@ -7,7 +7,7 @@
 String path=request.getContextPath();
 %>
     <title>mStandard.jsp</title>
-    <link rel="stylesheet" href="resources/css/modal.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/modal.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script></head>
 <body>
@@ -18,7 +18,7 @@ String path=request.getContextPath();
     <div class="modal_content">
         <div class="modal_leftside">
             <div class=modal_leftside_progress>
-                <ul>
+               <!--  <ul>
                     <li data-step-name="services" class="">
                         <div>
                             <span>어떤 서비스가 필요하신가요?</span>
@@ -46,15 +46,18 @@ String path=request.getContextPath();
                             <span>견적완료</span>
                         </div>
                     </li>
-                </ul>
+                </ul> -->
+            </div>
+            <div class="modal_leftside_img">
+            	<img src="${pageContext.request.contextPath}/resources/img/modalimg/mMain.png" alt="mMain" />
             </div>
             <div class="modal_leftside_content">
                 <h4>어떤 서비스가 필요하신가요?</h4>
                 <div>필요한 서비스를 선택해 주세요.</div>
             </div>
             <div class="modal_leftside_question">
-                <h5>바로문의</h5>
-                123-456-7890
+                <h4>바로문의</h4>
+                010-1234-5678
             </div>
         </div>
 			<div class="modal_center">
@@ -74,8 +77,7 @@ String path=request.getContextPath();
 						</div>
 						<div class="size-control">
 							<button id="decreaseSize">-</button>
-							<input type="text" id="sizeInput" value="15" min="1" max="99"
-								readonly>
+							<input type="text" id="sizeInput" value="15" min="1" max="99">
 							<button id="increaseSize">+</button>
 						</div>
 					</div>
@@ -87,11 +89,11 @@ String path=request.getContextPath();
 						
 				</div>			
 			</div>
-			
-			<div class="modal_rightside">
+			<div class="rightside">
 				<div class="modal_rightside_header">
-				<p>요약</p>
+				<span>요약</span>
 				</div>
+			<div class="modal_rightside">
 				<div class="service_box">
 				<div class="selectedSize" ></div>
 				<div class="selectedService" >
@@ -99,6 +101,7 @@ String path=request.getContextPath();
 				</div>
 				</div>
 				
+			</div>
 			</div>
 		</div>
 </div>
@@ -124,7 +127,16 @@ $(document).ready(function() {
     closeSizeModalBtn.click(function() {
         closeModal('.sizeModal');
     });
-
+    
+    $('#sizeInput').on('input', function() {
+        var value = $(this).val();
+        if (value < 1) {
+            $(this).val(1);
+        } else if (value > 99) {
+            $(this).val(99);
+        }
+    });
+    
     decreaseBtn.click(function() {
         var currentSize = parseInt(sizeInput.val());
         if (currentSize > 1) {

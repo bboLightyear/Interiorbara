@@ -9,7 +9,7 @@
 %>
 <meta charset="UTF-8">
 <title>고객정보창</title>
-<link rel="stylesheet" href="resources/css/modal.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/modal.css">
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
@@ -22,7 +22,7 @@
 		<div class="modal_content">
 			<div class="modal_leftside">
 				<div class=modal_leftside_progress>
-					<ul>
+				<!-- 	<ul>
 						<li data-step-name="services" class="">
 							<div>
 								<span>어떤 서비스가 필요하신가요?</span>
@@ -50,15 +50,18 @@
 								<span>견적완료</span>
 							</div>
 						</li>
-					</ul>
+					</ul> -->
 				</div>
+				<div class="img2 modal_leftside_img">
+            		<img src="${pageContext.request.contextPath}/resources/img/modalimg/mInfo.png" alt="mInfo" />
+           		</div>
 				<div class="modal_leftside_content">
 					<h4>정보 입력</h4>
 					<div>연락을 드릴 수 있는 고객님의 정보를 입력해 주세요!</div>
 				</div>
 				<div class="modal_leftside_question">
-					<h5>바로문의</h5>
-					123-456-7890
+					<h4>바로문의</h4>
+                010-1234-5678
 				</div>
 			</div>
 			<div class="modal_center">
@@ -75,24 +78,26 @@
 								method="post">
 								<div class="item12">
 									<label for="name">성함</label> <input type="text" id="name"
-										name="name" required>
+										name="name" placeholder="성함" required>
 								</div>
 								<div class="item13">
 									<label for="email">이메일</label> <input type="email" id="email"
-										name="email" required>
+										name="email" placeholder="이메일 주소" required>
 								</div>
 								<div class="item14">
 									<label for="phone">휴대번호</label> <input type="tel" id="phone"
-										name="phone" class="phone" required>
+										name="phone" class="phone" placeholder="01012345678 (- 제외 )" required>
 								</div>
-								<div class="item15">
-									<label for="password">비밀번호</label> <input type="password"
-										id="password" name="pw" required>
-								</div>
-								<div class="item16">
-									<label for="confirmPassword">비밀번호확인</label> <input
-										type="password" id="confirmPassword" name="confirmPassword"
-										required>
+								<div class="item-pw">
+									<div class="item15">
+										<label for="password">비밀번호</label> <input type="password"
+											id="password" name="pw" placeholder="비밀번호" required>
+									</div>
+									<div class="item16">
+										<label for="confirmPassword">비밀번호확인</label> <input
+											type="password" id="confirmPassword" name="confirmPassword"
+											 placeholder="비밀번호확인" required>
+									</div>
 								</div>
 							</form>
 						</div>
@@ -105,11 +110,11 @@
 
 				</div>
 			</div>
-
-			<div class="modal_rightside">
+			<div class="rightside">
 				<div class="modal_rightside_header">
-					<p>요약</p>
+					<span>요약</span>
 				</div>
+			<div class="modal_rightside">
 				<div class="modal_rightside_body">
 					<div class="service_box">
 						<div class="selectedSize complete-selectedSize" id="complete-selectedSize"></div>
@@ -148,7 +153,7 @@
 							<span id="selectedService"></span>
 						</div>
 					</div>
-					<div class="selectedItems complete-selectedItems" id="complete-selectedItems">
+					<div class="selectedItems complete-selectedItems" id="complete-selectedItems" style="white-space: pre-wrap;">
 						<!-- 선택한 상품들을 동적으로 생성 -->
 					</div>
 					<div class="totalPrice">
@@ -156,6 +161,7 @@
 						<div class="totalPriceValue complete-totalPriceValue">0 만원</div>
 					</div>
 				</div>
+			</div>
 			</div>
 		</div>
 	</div>
@@ -257,7 +263,7 @@ $(document).ready(function() {
 				                        data: { phone: $('.phone').val() },
 				                        success: function(data) {
 				                        	 $('.estino').text(data.estino);
-				                             $('.customer-info').text(data.name + ', ' + data.email + ', ' + data.phone);
+				                        	 $('.customer-info').html('성함  ' + data.name + '<br>' + '이메일  ' + data.email + '<br>' + '전화번호  ' + data.phone);
 				                             openModal('.completeModal');
 				                             closeModal('.infoModal');
 				                        },

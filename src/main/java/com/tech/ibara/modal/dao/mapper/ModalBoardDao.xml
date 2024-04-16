@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tech.ibara.modal.dao.mapper.ModalBoardDao">
+    <select id="selectModalBoardByEmailAndPw" parameterType="java.util.Map" resultType="com.tech.ibara.modal.dto.ModalBoardDto">
+        SELECT
+            NAME,
+            EMAIL,
+            PHONE,
+            PW,
+            ESTINO,
+            M_DATE,
+            M_ADDR,
+            M_CONTENT,
+            M_SIZE,
+            M_REQUEST,
+            M_PRICE,
+            M_WANTTIME,
+            M_WANTDATE,
+            M_CIRCS,
+            M_PLACE,
+            M_TYPE,
+            M_CONTENTPRICE
+        FROM
+            NONMEMBER_COMPLETE_VIEW
+        WHERE
+            EMAIL = #{email}
+        AND
+            PW = #{pw}
+            
+    </select>
+</mapper>

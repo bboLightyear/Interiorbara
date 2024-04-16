@@ -7,9 +7,10 @@ String path=request.getContextPath();
 %>
     <title>mMain.jsp</title>
    
-    <link rel="stylesheet" href="resources/css/modal.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/modal.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    
    
 </head> 
 <body>
@@ -19,7 +20,7 @@ String path=request.getContextPath();
     <div class="modal_content">
         <div class="modal_leftside">
             <div class=modal_leftside_progress>
-                <ul>
+                <!-- <ul>
                     <li data-step-name="services" class="">
                         <div>
                             <span>어떤 서비스가 필요하신가요?</span>
@@ -47,15 +48,18 @@ String path=request.getContextPath();
                             <span>견적완료</span>
                         </div>
                     </li>
-                </ul>
+                </ul> -->
+            </div>
+            <div class="modal_leftside_img">
+            	<img src="${pageContext.request.contextPath}/resources/img/modalimg/mMain.png" alt="mMain" />
             </div>
             <div class="modal_leftside_content">
                 <h4>어떤 서비스가 필요하신가요?</h4>
                 <div>필요한 서비스를 선택해 주세요.</div>
             </div>
             <div class="modal_leftside_question">
-                <h5>바로문의</h5>
-                123-456-7890
+                <h4>바로문의</h4>
+                010-1234-5678
             </div>
         </div>
         <div class="modal_center">
@@ -67,27 +71,27 @@ String path=request.getContextPath();
                 <div class="row">
                     <a href="">
                     <div class="item1">
-                        <img src="resources/img/modalimg/company.png" alt="Icon 1" class="icon1"> <span>업체 먼저 둘러보기</span>
+                        <img src="${pageContext.request.contextPath}/resources/img/modalimg/company.png" alt="Icon 1" class="icon1"> <span>업체 먼저 둘러보기</span>
                     </div>
                     </a>
                     <a href="#" class="openSizeModal" data-option="standard" data-service="스탠다드 커스텀 인테리어 ">
                     <div class="item2">
-                        <img src="resources/img/modalimg/custom.png" alt="Icon 2" class="icon2"> <span>스탠다드 커스텀 인테리어 시공하기</span>
+                        <img src="${pageContext.request.contextPath}/resources/img/modalimg/custom.png" alt="Icon 2" class="icon2"> <span>스탠다드 커스텀 인테리어 시공하기</span>
                     </div>
                     </a>
                     <a href="#" class="openSizeModal" data-option="premium" data-service="프리미엄 커스텀 인테리어 ">
                     <div class="item3">
-                        <img src="resources/img/modalimg/premium.png" alt="Icon 3" class="icon3"> <span>프리미엄 커스텀 인테리어 시공하기</span>
+                        <img src="${pageContext.request.contextPath}/resources/img/modalimg/premium.png" alt="Icon 3" class="icon3"> <span>프리미엄 커스텀 인테리어 시공하기</span>
                     </div>
                     </a>
                     <a href="#" class="openServiceCheckModal" data-option="kitchen" data-service="주방만 시공하기">
                     <div class="item4">
-                        <img src="resources/img/modalimg/kitchen.jpg" alt="Icon 4" class="icon4"> <span>주방만 시공하기</span>
+                        <img src="${pageContext.request.contextPath}/resources/img/modalimg/kitchen.jpg" alt="Icon 4" class="icon4"> <span>주방만 시공하기</span>
                     </div>
                     </a>
                     <a href="#" class="openServiceCheckModal"  data-option="bath" data-service="욕실만 시공하기">
                     <div class="item5">
-                        <img src="resources/img/modalimg/bath.jpg" alt="Icon 5" class="icon5"> <span>욕실만 시공하기</span>
+                        <img src="${pageContext.request.contextPath}/resources/img/modalimg/bath.jpg" alt="Icon 5" class="icon5"> <span>욕실만 시공하기</span>
                     </div>  
                     </a>                   
                 </div>
@@ -103,6 +107,8 @@ String path=request.getContextPath();
 <jsp:include page="mAsk.jsp" />
 <jsp:include page="mInfo.jsp" />
 <jsp:include page="mComplete.jsp" />
+
+
 
 <script>
 $(document).ready(function() {
@@ -163,20 +169,26 @@ $(document).ready(function() {
                 productCheckbox.empty();
                 
                 $.each(serviceItems, function(index, item) {
-                    var serviceItem = '<div class="serviceItem">' +
-                                      '<div>' +
-                                      '<input type="checkbox" class="productCheckBox" ' +
-                                      'data-name="' + item.m_pname + '" data-exp="' + item.m_pexp + '" ' +
-                                      'data-price="' + item.m_pprice + '">' +
-                                      '<span>' + item.m_pname + '</span><br/>' +
-                                      '<span>' + item.m_pexp + '</span>' +
-                                      '</div>' +
-                                      '<div>' + item.m_pprice + '만원</div>' +
-                                      '<div>' +
-                                      '<button class="decreaseQuantity">-</button>' +
-                                      '<input type="text" class="quantity" value="0" readonly>' +
-                                      '<button class="increaseQuantity">+</button>' +
-                                      '</div>' +
+                    var m_pname = item.m_pname === null ? "" : item.m_pname;
+                    var m_pexp = item.m_pexp === null ? "" : item.m_pexp;
+                    var m_pprice = item.m_pprice === null ? "" : item.m_pprice;
+
+                    var serviceItem = '<div class="serviceItem" data-option="' + option + '">' +
+                                          '<div>' +
+                                              '<input type="checkbox" class="productCheckBox" ' +
+                                              'data-name="' + m_pname + '" data-exp="' + m_pexp + '" ' +
+                                              'data-price="' + m_pprice + '">' +
+                                          '</div>' +
+                                          '<div>' +
+                                              '<div class="item_m_pname">' + m_pname + '</div><br/>' +
+                                              '<div class="item_m_pexp">' + m_pexp + '</div>' +
+                                          '</div>' +
+                                          '<div>' + m_pprice + '만원</div>' +
+                                          '<div>' +
+                                              '<button class="decreaseQuantity">-</button>' +
+                                              '<input type="text" class="quantity" value="0" readonly>' +
+                                              '<button class="increaseQuantity">+</button>' +
+                                          '</div>' +
                                       '</div>';
                     productCheckbox.append(serviceItem);
                 });
@@ -187,7 +199,7 @@ $(document).ready(function() {
             error: function(xhr, status, error) {
                 console.log(error);
             }
-    });
+        });
     });
 
     openServiceCheckModalBtn.click(function() {
@@ -196,7 +208,8 @@ $(document).ready(function() {
         
         updateSelectedService(service);
        
-        $('.serviceCheckModal').attr('data-prev-modal', option === 'kitchen' || option === 'bath' ? 'myModal' : 'sizeModal');//의심중
+        $('.serviceCheckModal').attr('data-prev-modal', option === 'kitchen' || option === 'bath' ? 'myModal' : 'sizeModal');
+        
         $.ajax({
             type: "GET",
             async: true,
@@ -209,20 +222,26 @@ $(document).ready(function() {
                 productCheckbox.empty();
                 
                 $.each(serviceItems, function(index, item) {
-                    var serviceItem = '<div class="serviceItem">' +
-                                      '<div>' +
-                                      '<input type="checkbox" class="productCheckBox" ' +
-                                      'data-name="' + item.m_pname + '" data-exp="' + item.m_pexp + '" ' +
-                                      'data-price="' + item.m_pprice + '">' +
-                                      '<span>' + item.m_pname + '</span><br/>' +
-                                      '<span>' + item.m_pexp + '</span>' +
-                                      '</div>' +
-                                      '<div>' + item.m_pprice + '만원</div>' +
-                                      '<div>' +
-                                      '<button class="decreaseQuantity">-</button>' +
-                                      '<input type="text" class="quantity" value="0" readonly>' +
-                                      '<button class="increaseQuantity">+</button>' +
-                                      '</div>' +
+                    var m_pname = item.m_pname === null ? "" : item.m_pname;
+                    var m_pexp = item.m_pexp === null ? "" : item.m_pexp;
+                    var m_pprice = item.m_pprice === null ? "" : item.m_pprice;
+
+                    var serviceItem = '<div class="serviceItem" data-option="' + option + '">' +
+                                          '<div>' +
+                                              '<input type="checkbox" class="productCheckBox" ' +
+                                              'data-name="' + m_pname + '" data-exp="' + m_pexp + '" ' +
+                                              'data-price="' + m_pprice + '">' +
+                                          '</div>' +
+                                          '<div>' +
+                                              '<div class="item_m_pname">' + m_pname + '</div><br/>' +
+                                              '<div class="item_m_pexp">' + m_pexp + '</div>' +
+                                          '</div>' +
+                                          '<div>' + m_pprice + '만원</div>' +
+                                          '<div>' +
+                                              '<button class="decreaseQuantity">-</button>' +
+                                              '<input type="text" class="quantity" value="0" readonly>' +
+                                              '<button class="increaseQuantity">+</button>' +
+                                          '</div>' +
                                       '</div>';
                     productCheckbox.append(serviceItem);
                 });
@@ -233,8 +252,9 @@ $(document).ready(function() {
             error: function(xhr, status, error) {
                 console.log(error);
             }
+        });
     });
-    });
+    
 });
        
 
