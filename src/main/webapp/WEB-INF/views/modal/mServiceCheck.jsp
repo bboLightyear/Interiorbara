@@ -9,7 +9,7 @@ String path=request.getContextPath();
 %>
 <meta charset="UTF-8">
 <title>상품체크창</title>
- <link rel="stylesheet" href="resources/css/modal.css">
+ <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/modal.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 </head>
@@ -20,7 +20,7 @@ String path=request.getContextPath();
     <div class="modal_content">
         <div class="modal_leftside">
             <div class=modal_leftside_progress>
-                <ul>
+               <!--  <ul>
                     <li data-step-name="services" class="">
                         <div>
                             <span>어떤 서비스가 필요하신가요?</span>
@@ -48,15 +48,18 @@ String path=request.getContextPath();
                             <span>견적완료</span>
                         </div>
                     </li>
-                </ul>
+                </ul> -->
+            </div>
+             <div class="img2 modal_leftside_img">
+            	<img src="${pageContext.request.contextPath}/resources/img/modalimg/mServiceCheck.png" alt="mServiceCheck" />
             </div>
             <div class="modal_leftside_content">
                 <h4>원하는 서비스 선택하기</h4>
                 <div>원하는 서비스를 선택해 주세요.</div>
             </div>
             <div class="modal_leftside_question">
-                <h5>바로문의</h5>
-                123-456-7890
+                <h4>바로문의</h4>
+                010-1234-5678
             </div>
         </div>
 			<div class="modal_center">
@@ -80,17 +83,17 @@ String path=request.getContextPath();
 						
 				</div>			
 			</div>
-			
-			 <div class="modal_rightside">
+				<div class="rightside">
 				<div class="modal_rightside_header">
-				<p>요약</p>
+					<span>요약</span>
 				</div>
+			 <div class="modal_rightside">
 				<div class="modal_rightside_body">
 					<div class="service_box">
 						<div class="selectedSize"></div>
 						<div class="selectedService">
 							<span id="selectedService"></span>
-								<div>추가 :</div>
+								<div class="plus-checkedItems">추가 </div>
 								<div class="checkedItems" id="checkedItems">
 									<!-- 선택한 상품들을 동적으로 생성 -->
 								</div>
@@ -106,7 +109,7 @@ String path=request.getContextPath();
 						</div>												
 					</div>
 					
-						<div class="selectedItems" id="selectedItems">
+						<div class="selectedItems" id="selectedItems" style="white-space: pre-wrap;">
 							<!-- 선택한 상품들을 동적으로 생성 -->
 						</div>
 					
@@ -115,6 +118,7 @@ String path=request.getContextPath();
 						<div class="totalPriceValue">0 만원</div>
 					</div>
 				</div>
+			</div>
 			</div>
 		</div>
 </div>
@@ -129,6 +133,7 @@ $(document).ready(function() {
 
     // 상품 체크박스 클릭 이벤트 처리 (이벤트 위임 사용)
     $(document).on('change', '.productCheckBox', function() {
+    	
         var itemName = $(this).data('name');
         var itemPrice = $(this).data('price');
         var itemQuantity = $(this).closest('.serviceItem').find('.quantity').val();
@@ -139,23 +144,34 @@ $(document).ready(function() {
                 quantity: itemQuantity
             };
             checkedItems[itemName] = {};
+            $(this).closest('.serviceItem').css('border-color', '#1e90ff'); // 체크박스 활성화 시 border 색상 변경
         } else {
             delete selectedItems[itemName];
             delete checkedItems[itemName];
+            $(this).closest('.serviceItem').css('border-color', 'rgba(0, 0, 0, .05)'); // 체크박스 비활성화 시 원래 border 색상으로 변경
         }
         
 		
         updateSelectedItems();
         updateTotalPrice();
     });
+    
+  
+    
 
-    // 수량 증가 버튼 클릭 이벤트 처리 (이벤트 위임 사용)
+ // 수량 증가 버튼 클릭 이벤트 처리 (이벤트 위임 사용)
     $(document).on('click', '.increaseQuantity', function() {
         var quantityInput = $(this).siblings('.quantity');
         var currentQuantity = parseInt(quantityInput.val());
         quantityInput.val(currentQuantity + 1);
 
-        var itemName = $(this).closest('.serviceItem').find('.productCheckBox').data('name');
+        var checkbox = $(this).closest('.serviceItem').find('.productCheckBox');
+        var itemName = checkbox.data('name');
+
+        if (!checkbox.is(':checked')) {
+            checkbox.prop('checked', true).trigger('change');
+        }
+
         if (selectedItems[itemName]) {
             selectedItems[itemName].quantity++;
         }
@@ -168,12 +184,18 @@ $(document).ready(function() {
     $(document).on('click', '.decreaseQuantity', function() {
         var quantityInput = $(this).siblings('.quantity');
         var currentQuantity = parseInt(quantityInput.val());
-        if (currentQuantity > 1) {
+        if (currentQuantity > 0) {
             quantityInput.val(currentQuantity - 1);
 
-            var itemName = $(this).closest('.serviceItem').find('.productCheckBox').data('name');
+            var checkbox = $(this).closest('.serviceItem').find('.productCheckBox');
+            var itemName = checkbox.data('name');
+
             if (selectedItems[itemName]) {
                 selectedItems[itemName].quantity--;
+            }
+
+            if (currentQuantity - 1 === 0) {
+                checkbox.prop('checked', false).trigger('change');
             }
 
             updateSelectedItems();
@@ -192,9 +214,10 @@ $(document).ready(function() {
                 var itemPrice = item.price;
                 var itemQuantity = item.quantity;
                 var totalPrice = itemPrice * itemQuantity;
-                var itemDiv = $('<div>').text(itemName);
-                var priceDiv = $('<div>').text(totalPrice + '만원');
-                selectedItemsDiv.append(itemDiv).append(priceDiv);
+                var itemDiv = $('<div>').css('display', 'flex').css('justify-content', 'space-between')
+                .append($('<span>').text(itemName))
+                .append($('<span>').text(totalPrice + '만원'));
+                selectedItemsDiv.append(itemDiv).append('\n');
             }
         }
 

@@ -10,7 +10,8 @@ import com.tech.ibara.modal.dto.ModalCompleteDto;
 import com.tech.ibara.modal.dto.NonMemberDto;
 
 public interface ModalService {
-	
+
+	public String execute(Model model);
 
 	public List<ModalCheckDto> getServiceItems(String m_type);
 
