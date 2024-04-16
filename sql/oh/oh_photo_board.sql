@@ -14,7 +14,7 @@ CREATE TABLE OH_PHOTO_BOARD (
                                             -- TABLE: my_member_info, COLUMN: memno
 
     PB_TITLE	      VARCHAR2(100),        -- 제목
-    PB_CONTENT	      VARCHAR2(650),        -- 내용
+    PB_CONTENT	      VARCHAR2(1500),        -- 내용
     PB_DATE		      DATE DEFAULT SYSDATE, -- 날짜
     PB_LIKE		      NUMBER DEFAULT 0,     -- 좋아요수
     PB_SCRAP	      NUMBER DEFAULT 0,     -- 스크랩수
@@ -36,14 +36,19 @@ CREATE SEQUENCE OH_PHOTO_BOARD_SEQ;
 DROP SEQUENCE OH_PHOTO_BOARD_SEQ;
 --------------------------------------
 -- INSERT
-INSERT INTO OH_PHOTO_BOARD VALUES (OH_PHOTO_BOARD_SEQ.NEXTVAL, '1', '제목입니다.', '내용입니다....', SYSDATE, 0, 0, 0, 0, 0, '#그냥', '아파트', '거실', '빈티지', '셀프');
+
+-- & 기호의 특수 기능 비활성화
+SET DEFINE OFF;
+
+-- & 기호를 값으로 사용한 INSERT INTO 쿼리
+INSERT INTO OH_PHOTO_BOARD VALUES (OH_PHOTO_BOARD_SEQ.NEXTVAL, '1', '제목입니다.', '내용입니다....', SYSDATE, 0, 0, 0, 0, 0, '빌라&연립', '거실', '빈티지', '셀프');
+
+-- 설정을 다시 활성화하려면 set define on을 사용할 수 있습니다.
+SET DEFINE ON;
+
 INSERT INTO OH_PHOTO_BOARD VALUES (OH_PHOTO_BOARD_SEQ.NEXTVAL, '2', '제목입니다.', '내용입니다....', SYSDATE, 0, 0, 0, 0, 0, '#그냥', '아파트', '거실', '빈티지', '셀프');
 INSERT INTO OH_PHOTO_BOARD VALUES (OH_PHOTO_BOARD_SEQ.NEXTVAL, '3', '제목입니다.', '내용입니다....', SYSDATE, 0, 0, 0, 0, 0, '#그냥', '아파트', '거실', '빈티지', '셀프');
-INSERT INTO OH_PHOTO_BOARD VALUES (OH_PHOTO_BOARD_SEQ.NEXTVAL, '4', '제목입니다.', '내용입니다....', SYSDATE, 0, 0, 0, 0, 0, '#그냥', '아파트', '거실', '빈티지', '셀프');
-INSERT INTO OH_PHOTO_BOARD VALUES (OH_PHOTO_BOARD_SEQ.NEXTVAL, '1', '제목입니다.', '내용입니다....', SYSDATE, 0, 0, 0, 0, 0, '#그냥', '아파트', '거실', '빈티지', '셀프');
-INSERT INTO OH_PHOTO_BOARD VALUES (OH_PHOTO_BOARD_SEQ.NEXTVAL, '2', '제목입니다.', '내용입니다....', SYSDATE, 0, 0, 0, 0, 0, '#그냥', '아파트', '거실', '빈티지', '셀프');
-INSERT INTO OH_PHOTO_BOARD VALUES (OH_PHOTO_BOARD_SEQ.NEXTVAL, '3', '제목입니다.', '내용입니다....', SYSDATE, 0, 0, 0, 0, 0, '#그냥', '아파트', '거실', '빈티지', '셀프');
-INSERT INTO OH_PHOTO_BOARD VALUES (OH_PHOTO_BOARD_SEQ.NEXTVAL, '4', '제목입니다.', '내용입니다....', SYSDATE, 0, 0, 0, 0, 0, '#그냥', '아파트', '거실', '빈티지', '셀프');                                   
+INSERT INTO OH_PHOTO_BOARD VALUES (OH_PHOTO_BOARD_SEQ.NEXTVAL, '4', '제목입니다.', '내용입니다....', SYSDATE, 0, 0, 0, 0, 0, '#그냥', '아파트', '거실', '빈티지', '셀프');     
 --------------------------------------
 -- SELECT
 SELECT * FROM OH_PHOTO_BOARD;

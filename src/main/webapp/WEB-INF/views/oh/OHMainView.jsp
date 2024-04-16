@@ -257,27 +257,39 @@
 						<c:forEach items="${ohPhotoViewOrderDate }" var="dto" varStatus="status">
 							<div class="OHMainView-3box">
 								<!-- 게시글 대표 이미지 --> 
-								<a href="OHPhotoDetailView?pb_no=${dto.pb_no }&nickname=${dto.myMemberInfoDto.nickname }">
+								<a href="OHPhotoDetailView?pb_no=${dto.pb_no }">
 									<img id="OHMainView-3photoImage" src="../resources/upload/oh/photo/${dto.ohPhotoAttach.pa_attach }" alt="해당 게시글 대표사진"/>
 								</a>			
 								<div class="OHMainView-3boxLayer">		
 									<!-- 게시글 제목 -->
 									<div id="OHMainView-3photoTitle">
-										<a href="OHPhotoDetailView?pb_no=${dto.pb_no }&nickname=${dto.myMemberInfoDto.nickname }">
+										<a href="OHPhotoDetailView?pb_no=${dto.pb_no }">
 											${dto.pb_title }
 										</a>
 									</div>
-									<!-- 게시글 작성자 프로필 이미지 -->			
+									
+									<!-- 게시글 작성자 프로필 이미지 -->	
+									
 									<%-- 프로필 이미지가 없으면 기본 이미지 --%>
-									<c:if test="${empty loginUserDto.profileimg}" >
-										<img src="../resources/img/my/user.png" id="OHMainView-3photoProfileImage">
+									<c:if test="${empty dto.myMemberInfoDto.profileimg}" >
+										<a href="../my/memberinfopage?memno=${dto.myMemberInfoDto.memno }">
+											<img src="../resources/img/my/user.png" id="OHMainView-3photoProfileImage">
+										</a>
 							        </c:if>
 							        <%-- 프로필 이미지가 있으면 있는 이미지 --%>
-							        <c:if test="${!empty loginUserDto.profileimg}" >
-							            <img src="../resources/upload/my/${loginUserDto.profileimg}" id="OHMainView-3photoProfileImage">
+							        <c:if test="${!empty dto.myMemberInfoDto.profileimg}" >
+							        	<a href="../my/memberinfopage?memno=${dto.myMemberInfoDto.memno }">
+							            	<img src="../resources/upload/my/${dto.myMemberInfoDto.profileimg }" id="OHMainView-3photoProfileImage">
+							            </a>
 							        </c:if>	
+							        
 									<!-- 게시글 작성자 이름 -->
-									<div id="OHMainView-3photoUserName">${dto.myMemberInfoDto.nickname }</div>
+									<div id="OHMainView-3photoUserName">
+										<a href="../my/memberinfopage?memno=${dto.myMemberInfoDto.memno }">
+											${dto.myMemberInfoDto.nickname }
+										</a>
+									</div>
+									
 									<!-- 게시글 작성자 조회수 -->
 									<div id="OHMainView-3photoHit">조회수</div>
 									<!-- 게시글 작성자 조회수 횟수 -->
@@ -303,27 +315,40 @@
 						<c:forEach items="${ohPhotoViewOrderLike }" var="dto" varStatus="status">
 							<div class="OHMainView-5box">
 								<!-- 게시글 대표 이미지 --> 
-								<a href="OHPhotoDetailView?pb_no=${dto.pb_no }&nickname=${dto.myMemberInfoDto.nickname }">
+								<a href="OHPhotoDetailView?pb_no=${dto.pb_no }">
 									<img id="OHMainView-5photoImage" src="../resources/upload/oh/photo/${dto.ohPhotoAttach.pa_attach }" alt="해당 게시글 대표사진"/>
 								</a>			
 								<div class="OHMainView-5boxLayer">		
 									<!-- 게시글 제목 -->
 									<div id="OHMainView-5photoTitle">
-										<a href="OHPhotoDetailView?pb_no=${dto.pb_no }&nickname=${dto.myMemberInfoDto.nickname }">
+										<a href="OHPhotoDetailView?pb_no=${dto.pb_no }">
 											${dto.pb_title }
 										</a>
 									</div>
-									<!-- 게시글 작성자 프로필 이미지 -->			
+									
+									<!-- 게시글 작성자 프로필 이미지 -->	
+											
 									<%-- 프로필 이미지가 없으면 기본 이미지 --%>
-									<c:if test="${empty loginUserDto.profileimg}" >
-										<img src="../resources/img/my/user.png" id="OHMainView-5photoProfileImage">
+									<c:if test="${empty dto.myMemberInfoDto.profileimg}" >
+										<a href="../my/memberinfopage?memno=${dto.myMemberInfoDto.memno }">
+											<img src="../resources/img/my/user.png" id="OHMainView-5photoProfileImage">
+										</a>
 							        </c:if>
+							        
 							        <%-- 프로필 이미지가 있으면 있는 이미지 --%>
-							        <c:if test="${!empty loginUserDto.profileimg}" >
-							            <img src="../resources/upload/my/${loginUserDto.profileimg}" id="OHMainView-5photoProfileImage">
+							        <c:if test="${!empty dto.myMemberInfoDto.profileimg}" >
+							        	<a href="../my/memberinfopage?memno=${dto.myMemberInfoDto.memno }">
+							            	<img src="../resources/upload/my/${dto.myMemberInfoDto.profileimg }" id="OHMainView-5photoProfileImage">
+							            </a>
 							        </c:if>	
+							        
 									<!-- 게시글 작성자 이름 -->
-									<div id="OHMainView-5photoUserName">${dto.myMemberInfoDto.nickname }</div>
+									<div id="OHMainView-5photoUserName">
+										<a href="../my/memberinfopage?memno=${dto.myMemberInfoDto.memno }">
+											${dto.myMemberInfoDto.nickname }
+										</a>
+									</div>
+									
 									<!-- 게시글 작성자 조회수 -->
 									<div id="OHMainView-5photoHit">조회수</div>
 									<!-- 게시글 작성자 조회수 횟수 -->
@@ -349,27 +374,40 @@
 						<c:forEach items="${ohPhotoViewOrderHit }" var="dto" varStatus="status">
 							<div class="OHMainView-7box">
 								<!-- 게시글 대표 이미지 --> 
-								<a href="OHPhotoDetailView?pb_no=${dto.pb_no }&nickname=${dto.myMemberInfoDto.nickname }">
+								<a href="OHPhotoDetailView?pb_no=${dto.pb_no }">
 									<img id="OHMainView-7photoImage" src="../resources/upload/oh/photo/${dto.ohPhotoAttach.pa_attach }" alt="해당 게시글 대표사진"/>
 								</a>			
 								<div class="OHMainView-7boxLayer">		
 									<!-- 게시글 제목 -->
 									<div id="OHMainView-7photoTitle">
-										<a href="OHPhotoDetailView?pb_no=${dto.pb_no }&nickname=${dto.myMemberInfoDto.nickname }">
+										<a href="OHPhotoDetailView?pb_no=${dto.pb_no }">
 											${dto.pb_title }
 										</a>
 									</div>
-									<!-- 게시글 작성자 프로필 이미지 -->			
+									
+									<!-- 게시글 작성자 프로필 이미지 -->	
+											
 									<%-- 프로필 이미지가 없으면 기본 이미지 --%>
-									<c:if test="${empty loginUserDto.profileimg}" >
-										<img src="../resources/img/my/user.png" id="OHMainView-7photoProfileImage">
+									<c:if test="${empty dto.myMemberInfoDto.profileimg}" >
+										<a href="../my/memberinfopage?memno=${dto.myMemberInfoDto.memno }">
+											<img src="../resources/img/my/user.png" id="OHMainView-7photoProfileImage">
+										</a>
 							        </c:if>
+							        
 							        <%-- 프로필 이미지가 있으면 있는 이미지 --%>
-							        <c:if test="${!empty loginUserDto.profileimg}" >
-							            <img src="../resources/upload/my/${loginUserDto.profileimg}" id="OHMainView-7photoProfileImage">
+							        <c:if test="${!empty dto.myMemberInfoDto.profileimg}" >
+							        	<a href="../my/memberinfopage?memno=${dto.myMemberInfoDto.memno }">
+							            	<img src="../resources/upload/my/${dto.myMemberInfoDto.profileimg }" id="OHMainView-7photoProfileImage">
+							            </a>
 							        </c:if>	
+							        
 									<!-- 게시글 작성자 이름 -->
-									<div id="OHMainView-7photoUserName">${dto.myMemberInfoDto.nickname }</div>
+									<div id="OHMainView-7photoUserName">
+										<a href="../my/memberinfopage?memno=${dto.myMemberInfoDto.memno }">
+											${dto.myMemberInfoDto.nickname }
+										</a>
+									</div>
+									
 									<!-- 게시글 작성자 조회수 -->
 									<div id="OHMainView-7photoHit">조회수</div>
 									<!-- 게시글 작성자 조회수 횟수 -->

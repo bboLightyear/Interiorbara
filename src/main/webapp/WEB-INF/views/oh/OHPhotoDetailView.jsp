@@ -288,19 +288,27 @@
 
 				<div id="OHPhotoDetailView-main-7">
 									
-					<!-- 게시글 작성자 프로필 이미지 -->			
+					<!-- 게시글 작성자 프로필 이미지 -->
+								
 					<%-- 프로필 이미지가 없으면 기본 이미지 --%>
-					<c:if test="${empty loginUserDto.profileimg}" >
-						<img src="../resources/img/my/user.png" id="OHPhotoDetailView-main-7profileImage">
+					<c:if test="${empty pb_dto.myMemberInfoDto.profileimg}" >
+						<a href="../my/memberinfopage?memno=${pb_dto.myMemberInfoDto.memno }">
+							<img src="../resources/img/my/user.png" id="OHPhotoDetailView-main-7profileImage">
+			        	</a>
 			        </c:if>
+			        
 			        <%-- 프로필 이미지가 있으면 있는 이미지 --%>
-			        <c:if test="${!empty loginUserDto.profileimg}" >
-			            <img src="../resources/upload/my/${loginUserDto.profileimg}" id="OHPhotoDetailView-main-7profileImage">
+			        <c:if test="${!empty pb_dto.myMemberInfoDto.profileimg}" >
+			        	<a href="../my/memberinfopage?memno=${pb_dto.myMemberInfoDto.memno }">
+			            	<img src="../resources/upload/my/${pb_dto.myMemberInfoDto.profileimg }" id="OHPhotoDetailView-main-7profileImage">
+			        	</a>
 			        </c:if>						
 					
 					<!-- 게시글 작성자명 -->
 					<div id="OHPhotoDetailView-main-7writerName">
-						${nickname }
+						<a href="../my/memberinfopage?memno=${pb_dto.myMemberInfoDto.memno }">
+							${pb_dto.myMemberInfoDto.nickname }
+						</a>
 					</div>
 
 				</div>
@@ -332,16 +340,24 @@
 								
  									<!-- 댓글 작성자 프로필 이미지 -->
 									<!-- 프로필 이미지가 없으면 기본 이미지 -->
-									<c:if test="${empty dto.myMemberInfoDto.profileimg}" >								
-										<img src="../resources/img/my/user.png" class="reply-profileImage">
+									<c:if test="${empty dto.myMemberInfoDto.profileimg}" >		
+										<a href="../my/memberinfopage?memno=${dto.memno }">					
+											<img src="../resources/img/my/user.png" class="reply-profileImage">
+										</a>
 									</c:if>
 									<!-- 프로필 이미지가 있으면 있는 이미지 -->
 									<c:if test="${!empty dto.myMemberInfoDto.profileimg}" >
-										<img src="../resources/img/my/${dto.myMemberInfoDto.profileimg }" class="reply-profileImage">
+										<a href="../my/memberinfopage?memno=${dto.memno }">
+											<img src="../resources/img/my/${dto.myMemberInfoDto.profileimg }" class="reply-profileImage">
+							        	</a>
 							        </c:if>	
 								
 									<!-- 사용자 이름 -->
-									<div class="reply-userName">${dto.myMemberInfoDto.nickname }</div>
+									<div class="reply-userName">
+										<a href="../my/memberinfopage?memno=${dto.memno }">
+											${dto.myMemberInfoDto.nickname }
+										</a>
+									</div>
 								
 									<!-- 내댓글 표시 -->
 									<c:if test="${loginUserDto.memno eq dto.memno }">
