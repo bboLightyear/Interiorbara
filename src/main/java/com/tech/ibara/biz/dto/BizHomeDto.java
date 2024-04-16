@@ -7,12 +7,16 @@ public class BizHomeDto {
 	private String bh_notice;
 	private String bh_intro;
 	private String bh_name;
-	private int bh_like;
+	private int bh_bookmarked;
 	private int bh_cont_cnt;
 	private String bh_pro;
 	private String bh_addr1;
 	private String bh_addr2;
-	private int biz_idno;
+	private int inteno;
+	
+	private BizSearchTempDto bizSearchTempDto;
+	
+	private BizHomeBmarkDto BizHomeBmarkDto;
 	
 	public int getBh_no() {
 		return bh_no;
@@ -44,12 +48,6 @@ public class BizHomeDto {
 	public void setBh_name(String bh_name) {
 		this.bh_name = bh_name;
 	}
-	public int getBh_like() {
-		return bh_like;
-	}
-	public void setBh_like(int bh_like) {
-		this.bh_like = bh_like;
-	}
 	public int getBh_cont_cnt() {
 		return bh_cont_cnt;
 	}
@@ -74,11 +72,31 @@ public class BizHomeDto {
 	public void setBh_addr2(String bh_addr2) {
 		this.bh_addr2 = bh_addr2;
 	}
-	public int getBiz_idno() {
-		return biz_idno;
+	public int getInteno() {
+		return inteno;
 	}
-	public void setBiz_idno(int biz_idno) {
-		this.biz_idno = biz_idno;
+	public void setInteno(int inteno) {
+		this.inteno = inteno;
 	}
+	public int getBh_bookmarked() {
+		return bh_bookmarked;
+	}
+	public void setBh_bookmarked(int bh_bookmarked) {
+		this.bh_bookmarked = bh_bookmarked;
+	}
+	public BizHomeBmarkDto getBizHomeBmarkDto() {
+		return BizHomeBmarkDto;
+	}
+	public void setBizHomeBmarkDto(BizHomeBmarkDto bizHomeBmarkDto) {
+		BizHomeBmarkDto = bizHomeBmarkDto;
+	}
+	
+	public BizSearchTempDto getBizSearchTempDto() {
+		return bizSearchTempDto;
+	}
+	public void setBizSearchTempDto(BizSearchTempDto bizSearchTempDto) {
+		this.bizSearchTempDto = bizSearchTempDto;
+	}
+
 	
 }

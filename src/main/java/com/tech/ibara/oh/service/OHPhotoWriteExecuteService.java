@@ -12,6 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import com.tech.ibara.my.dto.MyMemberInfoDto;
 import com.tech.ibara.oh.dao.OHInterfaceDao;
 
 @Service
@@ -36,11 +37,13 @@ public class OHPhotoWriteExecuteService implements OHInterfaceService {
 		
 		// session
 		HttpSession session = (HttpSession) map.get("session");
-		// session 사용자 아이디, 저장
-		String pb_user = (String) session.getAttribute("userId");
-		// session, 사용자 아이디, 출력
-		System.out.println("pb_user: " + pb_user);
-		System.out.println("------------------------------");
+		// session, 로그인 정보 가져오기
+		MyMemberInfoDto loginUserDto =  (MyMemberInfoDto) session.getAttribute("loginUserDto");
+		// 로그인 정보, 변수 저장
+		int memno = loginUserDto.getMemno();
+		// 로그인 정보, 출력		
+		System.out.println("memno: " + memno);	
+		System.out.println("------------------------------");		
 		
 		// OHInterfaceDao, SqlSession 연결
 		OHInterfaceDao dao = sqlSession.getMapper(OHInterfaceDao.class);
@@ -48,7 +51,6 @@ public class OHPhotoWriteExecuteService implements OHInterfaceService {
 		// 변수 선언, 값 저장
 		String pb_title = mftRequest.getParameter("pb_title");
 		String pb_content = mftRequest.getParameter("pb_content");
-		String pb_category = mftRequest.getParameter("pb_category");
 		String pb_residence = mftRequest.getParameter("pb_residence");
 		String pb_room = mftRequest.getParameter("pb_room");
 		String pb_style = mftRequest.getParameter("pb_style");
@@ -57,7 +59,6 @@ public class OHPhotoWriteExecuteService implements OHInterfaceService {
 		// 변수 값 출력
 		System.out.println("pb_title: " + pb_title);
 		System.out.println("pb_content: " + pb_content);
-		System.out.println("pb_category: " + pb_category);
 		System.out.println("pb_residence: " + pb_residence);
 		System.out.println("pb_room: " + pb_room);
 		System.out.println("pb_style: " + pb_style);
@@ -65,7 +66,7 @@ public class OHPhotoWriteExecuteService implements OHInterfaceService {
 		System.out.println("------------------------------");
 		
 		// ohPhotoWriteExecute() 함수 실행
-		dao.ohPhotoWriteExecute(pb_user, pb_title, pb_content, pb_category,
+		dao.ohPhotoWriteExecute(memno, pb_title, pb_content,
 								pb_residence, pb_room, pb_style, pb_skill);
 		
 		// getRecentPb_no() 함수 실행 -> 가장 최근 작성된 게시글 번호 
@@ -77,7 +78,7 @@ public class OHPhotoWriteExecuteService implements OHInterfaceService {
 		
 		// 스프링 STS - upload 폴더 경로
 		// 글쓰기 후 이미지가 바로 출력되지 않는 문제가 있다.
-		String path = "C:\\23setspring\\springwork23\\interiorbara01\\src\\main\\webapp\\resources\\upload\\oh\\photo";
+		String path = "C:\\interiorbara01\\interiorbara01\\src\\main\\webapp\\resources\\upload\\oh\\photo";
 		System.out.println("path: " + path);
 		System.out.println("------------------------------");
 		

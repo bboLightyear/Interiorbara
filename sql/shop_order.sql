@@ -3,6 +3,7 @@ create table shop_order_state (
     state varchar2(12)
 );
 
+
 insert into shop_order_state values (1, '주문전');
 insert into shop_order_state values (2, '입금대기');
 insert into shop_order_state values (3, '결제완료');
@@ -10,7 +11,6 @@ insert into shop_order_state values (4, '배송준비');
 insert into shop_order_state values (5, '배송중');
 insert into shop_order_state values (6, '배송완료');
 insert into shop_order_state values (7, '구매확정');
-
 
 create table shop_payment_type (
     payment_type_id number,

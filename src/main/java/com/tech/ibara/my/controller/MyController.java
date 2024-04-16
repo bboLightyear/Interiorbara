@@ -11,27 +11,32 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.tech.ibara.my.dao.MyDao;
-import com.tech.ibara.my.dto.MyInteriorDto;
 import com.tech.ibara.my.dto.MyMemberInfoDto;
-import com.tech.ibara.my.dto.MySellerDto;
+import com.tech.ibara.my.service.AdminmainService;
 import com.tech.ibara.my.service.AllowCheckWithdrawalService;
+import com.tech.ibara.my.service.BlindCheckService;
 import com.tech.ibara.my.service.CancelWithdrawalService;
 import com.tech.ibara.my.service.DemandWithdrawalInsertService;
 import com.tech.ibara.my.service.DemandWithdrawalMemberService;
 import com.tech.ibara.my.service.EmailCheckService;
 import com.tech.ibara.my.service.JoinService;
 import com.tech.ibara.my.service.LoginService;
+import com.tech.ibara.my.service.MemberInfoPageService;
 import com.tech.ibara.my.service.MemberListService;
+import com.tech.ibara.my.service.MyInteriorCasesService;
+import com.tech.ibara.my.service.MyLikeService;
 import com.tech.ibara.my.service.MyModifyService;
-import com.tech.ibara.my.service.MyPageService;
 import com.tech.ibara.my.service.MyPasswordEditService;
 import com.tech.ibara.my.service.MyPasswordMCEditService;
 import com.tech.ibara.my.service.MyPasswordService;
+import com.tech.ibara.my.service.MyPhotoService;
 import com.tech.ibara.my.service.MyProfileUpdateService;
-import com.tech.ibara.my.service.NonmemberEstimateSearchService;
+import com.tech.ibara.my.service.MyScrapService;
+import com.tech.ibara.my.service.MypageMainService;
 import com.tech.ibara.my.service.PassResetService;
 import com.tech.ibara.my.service.ReportService;
 import com.tech.ibara.my.service.SService;
+import com.tech.ibara.my.service.SellerSaleService;
 import com.tech.ibara.my.service.SignUpService;
 import com.tech.ibara.my.service.VService;
 
@@ -39,7 +44,7 @@ import com.tech.ibara.my.service.VService;
 public class MyController {
 	SService sservice;
 	VService vservice;
-	
+		
 	@Autowired
 	private SqlSession sqlSession;
 	
@@ -90,6 +95,21 @@ public class MyController {
 	@RequestMapping("my/login")
 	public String login(HttpServletRequest request,Model model) {
 		System.out.println("login()");
+		
+		String referer = request.getHeader("Referer");
+	    // 이전 페이지 주소 값 확인
+		System.out.println("referer : "+ referer);
+		
+		String str = referer.substring(28);
+		System.out.println("str : "+str);
+		
+		// 세션에 저장
+		/*
+		 * session.setAttribute("refUrl", referer); // 세션에서 값 불러오기 String refUrl =
+		 * (String) session.getAttribute("refUrl"); // 세션에 저장되어 있는 주소 값 확인
+		 * System.out.println("refUrl : " + refUrl);
+		 */
+		
 		model.addAttribute("request",request);
 		sservice=new LoginService(sqlSession);
 		String userNickname=sservice.execute(model);
@@ -109,30 +129,71 @@ public class MyController {
 		}
 		MyDao mdao=sqlSession.getMapper(MyDao.class);
 		MyMemberInfoDto memdto=mdao.getMemberInfo("2",userNickname);
-//		session=request.getSession();
+
 		if(memdto.getMemtype().equals("INTERIOR")) {
-			MyInteriorDto idto=mdao.getInterior(memdto.getMemno());
-			session.setAttribute("loginInteDto", idto);
+			memdto=mdao.getInteriorMember(memdto.getMemno());
+			int inteno=memdto.getMyinteriordto().getInteno();
+			System.out.println("inteno : "+inteno);
 		}else if(memdto.getMemtype().equals("SELLER")) {
-			MySellerDto sdto=mdao.getSeller(memdto.getMemno());
-			session.setAttribute("loginSellerDto", sdto);
-		}
+			memdto=mdao.getSellerMember(memdto.getMemno());
+		}		
 		session.setAttribute("loginUserDto",memdto);
-		
-		return "redirect:/";
+		if(str.equals("my/passeditMC") || str.equals("my/loginform") || str.equals("my/passedit") || str.equals("my/intepassedit") || str.equals("my/sellerpassedit") || str.equals("my/login")) {
+			return "redirect:/";
+		}else if(str.equals("my/mypage")) {
+			MyMemberInfoDto mdto= (MyMemberInfoDto) session.getAttribute("loginUserDto");
+			if(mdto==null) {
+				model.addAttribute("msg","로그인 정보가 없습니다. 로그인해주세요");
+				return "my/loginform";
+			}
+			String nickname=mdto.getNickname();
+			System.out.println("로그인유저닉넴 : "+nickname);
+			String memtype=mdto.getMemtype();
+			System.out.println("loginUser의 memtype은 : "+memtype);		
+			if(memtype.equals("ADMIN")) {
+				return "my/adminmain";
+			}else if(memtype.equals("INTERIOR")) {
+				return "my/interiormain";
+			}else if(memtype.equals("SELLER")) {
+				return "my/sellermain";
+			}else {
+				vservice=new MypageMainService(sqlSession,session);
+				vservice.execute(model);
+				return "my/mypagemain";
+			}
+		}else {		
+			return str;			
+		}		
 	}
 	@RequestMapping("my/adminmain")
 	public String adminmain(HttpServletRequest request,Model model) {
 		System.out.println("adminmain()");
+		
 		return "my/adminmain";
 	}
 	@RequestMapping("my/mypage")
 	public String mypage(HttpServletRequest request,Model model) {
 		System.out.println("mypage()");
-		model.addAttribute("request",request);
-		sservice = new MyPageService(sqlSession,session);
-		String str=sservice.execute(model);
-		return str;
+		MyMemberInfoDto mdto= (MyMemberInfoDto) session.getAttribute("loginUserDto");
+		if(mdto==null) {
+			model.addAttribute("msg","로그인 정보가 없습니다. 로그인해주세요");
+			return "my/loginform";
+		}
+		String nickname=mdto.getNickname();
+		System.out.println("로그인유저닉넴 : "+nickname);
+		String memtype=mdto.getMemtype();
+		System.out.println("loginUser의 memtype은 : "+memtype);		
+		if(memtype.equals("ADMIN")) {
+			return "my/adminmain";
+		}else if(memtype.equals("INTERIOR")) {
+			return "my/interiormain";
+		}else if(memtype.equals("SELLER")) {
+			return "my/sellermain";
+		}else {
+			vservice=new MypageMainService(sqlSession,session);
+			vservice.execute(model);
+			return "my/mypagemain";
+		}
 	}	
 	@RequestMapping("my/logout")
 	public String logout(HttpServletRequest request) {
@@ -144,6 +205,8 @@ public class MyController {
 	@RequestMapping("my/mypagemain")
 	public String mypagemain(HttpServletRequest request,Model model) {
 		System.out.println("mypagemain()");
+		vservice=new MypageMainService(sqlSession,session);
+		vservice.execute(model);
 		return "my/mypagemain";
 	}
 	@RequestMapping("my/mypageinfoedit")
@@ -285,26 +348,26 @@ public class MyController {
 			model.addAttribute("msg","비밀번호 변경 오류");
 			model.addAttribute("nickname",nickname);
 			return "my/passwordReset";	
-		}
-				
-	}
-	
+		}				
+	}	
 	@RequestMapping("my/nonmember")
 	public String nonmember() {
 		System.out.println("nonmember()");
 		return "my/nonmember";
 	}	
-	@RequestMapping("my/nonmemberEstimateSearch")
-	public String nonmemberEstimateSearch(HttpServletRequest request,Model model) {
-		System.out.println("nonmemberEstimateSearch()");
-		model.addAttribute("request",request);
-		sservice = new NonmemberEstimateSearchService(sqlSession);
-		String str=sservice.execute(model);
-		if(str.equals("phoneNull")) {
-			model.addAttribute("msg","등록되지 않은 폰번호입니다.");
-		}
-		return "my/nonmemberEstimateSearch";
-	}
+
+	
+	/*
+	 * @RequestMapping("my/nonmemberEstimateSearch") public String
+	 * nonmemberEstimateSearch(HttpServletRequest request,Model model) {
+	 * System.out.println("nonmemberEstimateSearch()");
+	 * model.addAttribute("request",request); sservice = new
+	 * NonmemberEstimateSearchService(sqlSession); String
+	 * str=sservice.execute(model); if(str.equals("emailNull")) {
+	 * model.addAttribute("msg","등록되지 않은 이메일입니다."); return "my/nonmember"; } return
+	 * "my/nonmemberEstimateSearch"; }
+	 */
+	 
 //	@RequestMapping("my/nonmemberOrderSearch")
 //	public String nonmemberOrderSearch(HttpServletRequest request,Model model) {
 //		System.out.println("nonmemberOrderSearch()");
@@ -594,5 +657,103 @@ public class MyController {
 		vservice.execute(model);
 		return "my/admin_report";
 	}
+	@RequestMapping("my/blindCheck")
+	public String blindCheck(HttpServletRequest request,Model model) {
+		System.out.println("blindCheck()");
+		model.addAttribute("request",request);
+		vservice =new BlindCheckService(sqlSession);
+		vservice.execute(model);
+		return "redirect:admin_report";
+	}
+	@RequestMapping("my/memberinfopage")
+	public String memberinfopage(HttpServletRequest request,Model model) {
+		System.out.println("memberinfopage()");
+		model.addAttribute("request",request);
+		vservice=new MemberInfoPageService(sqlSession);
+		vservice.execute(model);
+		return "my/memberinfopage";
+	}
+	@RequestMapping("my/sellersale")
+	public String sellersale(Model model) {
+		System.out.println("sellersale()");
+		vservice = new SellerSaleService(sqlSession);
+		vservice.execute(model);
+		return "my/sellersale";
+	}
+	@RequestMapping("my/sellersalelist")
+	public String sellersalelist(Model model) {
+		System.out.println("sellersalelist()");
+		return "my/sellersalelist";
+	}
+	@RequestMapping("my/interiorestimate")
+	public String interiorestimate(Model model) {
+		System.out.println("interiorestimate()");
+		return "my/interiorestimate";
+	}
+	@RequestMapping("my/myshopping")
+	public String myshopping(Model model) {
+		System.out.println("myshopping()");
+		return "my/myshopping";
+	}
+	@RequestMapping("my/mylike")
+	public String mylike(HttpServletRequest request,Model model) {
+		System.out.println("mylike()");
+//		model.addAttribute("request",request);
+		MyMemberInfoDto mdto=(MyMemberInfoDto) session.getAttribute("loginUserDto");
+		if(mdto==null) {
+			model.addAttribute("msg","로그인정보가 없습니다. 로그인해주세요");
+			return "my/loginform";
+		}else {
+			model.addAttribute("mdto",mdto);
+			vservice = new MyLikeService(sqlSession,session);
+			vservice.execute(model);
+		return "my/mylike";
+		}
+	}
+	@RequestMapping("my/myscrap")
+	public String myscrap(HttpServletRequest request,Model model) {
+		System.out.println("myscrap()");
+//		model.addAttribute("request",request);
+		MyMemberInfoDto mdto=(MyMemberInfoDto) session.getAttribute("loginUserDto");
+		if(mdto==null) {
+			model.addAttribute("msg","로그인정보가 없습니다. 로그인해주세요");
+			return "my/loginform";
+		}else {
+			model.addAttribute("mdto",mdto);
+			vservice = new MyScrapService(sqlSession,session);
+			vservice.execute(model);
+		return "my/myscrap";
+		}
+	}
+	@RequestMapping("my/myphoto")
+	public String myphoto(Model model) {
+		System.out.println("myphoto()");
+		MyMemberInfoDto mdto=(MyMemberInfoDto) session.getAttribute("loginUserDto");
+		if(mdto==null) {
+			model.addAttribute("msg","로그인정보가 없습니다. 로그인해주세요");
+			return "my/loginform";
+		}else {
+			model.addAttribute("mdto",mdto);
+			vservice = new MyPhotoService(sqlSession,session);
+			vservice.execute(model);
+		return "my/myphoto";
+		}
+	}
+	@RequestMapping("my/interiorcases")
+	public String interiorcases(Model model) {
+		System.out.println("interiorcases()");
+		MyMemberInfoDto mdto=(MyMemberInfoDto) session.getAttribute("loginUserDto");
+		if(mdto==null) {
+			model.addAttribute("msg","로그인정보가 없습니다. 로그인해주세요");
+			return "my/loginform";
+		}else {
+			model.addAttribute("mdto",mdto);
+			vservice = new MyInteriorCasesService(sqlSession,session);
+			vservice.execute(model);		
+		return "my/interiorcases";
+		}
+	}
+	
+	
 	
 }

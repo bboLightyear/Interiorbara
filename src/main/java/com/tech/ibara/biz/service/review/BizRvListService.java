@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Service;
@@ -18,7 +19,7 @@ import com.tech.ibara.biz.vo.BizSearchVO;
 public class BizRvListService implements BizServiceInter {
 
 	private SqlSession sqlSession;
-
+	
 	public BizRvListService(SqlSession sqlSession) {
 		// TODO Auto-generated constructor stub
 		this.sqlSession=sqlSession;
@@ -35,6 +36,10 @@ public class BizRvListService implements BizServiceInter {
 		BizSearchVO searchVO=(BizSearchVO) map.get("searchVO");
 		
 		BizIDao dao=sqlSession.getMapper(BizIDao.class);
+		
+		String inteno=request.getParameter("inteno");
+		model.addAttribute("inteno", inteno);
+		System.out.println("inteno:"+inteno);
 		
 		String br_content="";
 		String br_writer="";
@@ -101,14 +106,14 @@ public class BizRvListService implements BizServiceInter {
 		
 		int total=0;
 		if (br_content.equals("br_content") && br_writer.equals("")) { //리뷰 내용만 검색
-			total=dao.selectRvTotalCount1(searchKeyword);
+			total=dao.selectRvTotalCount1(searchKeyword, inteno);
 		}else if (br_content.equals("") && br_writer.equals("br_writer")) { //작성자 닉네임만 검색
-			total=dao.selectRvTotalCount2(searchKeyword);
+			total=dao.selectRvTotalCount2(searchKeyword, inteno);
 		}else if (br_content.equals("br_content") && br_writer.equals("br_writer")) { //둘 다 검색
-			total=dao.selectRvTotalCount3(searchKeyword);
+			total=dao.selectRvTotalCount3(searchKeyword, inteno);
 //			System.out.println("total>>>>>"+total);
 		}else if (br_content.equals("") && br_writer.equals("")) { //아무것도 체크 안 함
-			total=dao.selectRvTotalCount4(searchKeyword);
+			total=dao.selectRvTotalCount4(searchKeyword, inteno);
 		}
 		
 		System.out.println("total : "+total);
@@ -130,16 +135,16 @@ public class BizRvListService implements BizServiceInter {
 		ArrayList<BizRvDto> bizRvList = null;
 		
 		if (br_content.equals("br_content") && br_writer.equals("")) { //리뷰내용만 검색
-			bizRvList = dao.bizRvList(rowStart,rowEnd,searchKeyword,"1");
+			bizRvList = dao.bizRvList(rowStart,rowEnd,searchKeyword,"1", inteno);
 //			model.addAttribute("bizRvList",dao.bizRvList(rowStart,rowEnd,searchKeyword,"1"));
 		}else if (br_content.equals("") && br_writer.equals("br_writer")) { //작성자 닉네임만 검색
-			bizRvList = dao.bizRvList(rowStart,rowEnd,searchKeyword,"2");
+			bizRvList = dao.bizRvList(rowStart,rowEnd,searchKeyword,"2", inteno);
 //			model.addAttribute("bizRvList",dao.bizRvList(rowStart,rowEnd,searchKeyword,"2"));
 		}else if (br_content.equals("br_content") && br_writer.equals("br_writer")) { //둘 다 검색
-			bizRvList = dao.bizRvList(rowStart,rowEnd,searchKeyword,"3");
+			bizRvList = dao.bizRvList(rowStart,rowEnd,searchKeyword,"3", inteno);
 //			model.addAttribute("bizRvList",dao.bizRvList(rowStart,rowEnd,searchKeyword,"3"));
 		}else if (br_content.equals("") && br_writer.equals("")) { //아무것도 체크 안 함
-			bizRvList = dao.bizRvList(rowStart,rowEnd,searchKeyword,"4");
+			bizRvList = dao.bizRvList(rowStart,rowEnd,searchKeyword,"4", inteno);
 //			model.addAttribute("bizRvList",dao.bizRvList(rowStart,rowEnd,searchKeyword,"4"));
 		}	
 				
@@ -150,7 +155,7 @@ public class BizRvListService implements BizServiceInter {
 		model.addAttribute("searchVO", searchVO);
 		
 		
-		ArrayList<BizRvDto> joinList=dao.getRvImgJoin();
+		ArrayList<BizRvDto> joinList=dao.getRvImgJoin(inteno);
 		
 //		for (BizRvDto BizRvDto : joinList) {
 //			System.out.println(BizRvDto.getBr_no()+" : "+BizRvDto.getBizRvImgDto().getBrimg_cgn());

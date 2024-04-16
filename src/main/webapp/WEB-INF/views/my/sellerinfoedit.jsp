@@ -18,7 +18,7 @@
 <h3>sellerinfoedit.jsp</h3>
 	<div class="mypage_category">
         <div class="mypage_category_list list_1"><a href="mypage">프로필</a></div>
-	    <div class="mypage_category_list list_2">판매리스트</div> <br />
+	    <div class="mypage_category_list list_2"><a href="sellersale">판매</a></div> <br />
     </div>
     <div class="mypage_category">
         <div class="mypage_category_list list_1_1"><a href="mypage">모두보기</a></div>
@@ -27,8 +27,8 @@
     </div>
     <div id="mypageedit" align="center">
     	<form action="sellerprofile" method="POST" name="myPageFrm" id="profileFrm" enctype="multipart/form-data">
-	    	<input type="hidden" name="memno" id="memno" value="${loginUserDto.memno} " />
-	    	<input type="hidden" name="myimg" id="myimg" value="${loginUserDto.profileimg} }"  />
+	    	<input type="hidden" name="memno" id="memno" value="${loginUserDto.memno}" />
+	    	<input type="hidden" name="myimg" id="myimg" value="${loginUserDto.profileimg}" />
 		    <div class="profile-image-area">
 		        <%-- 프로필 이미지가 없으면 기본 이미지 --%>
 		        <c:if test="${empty loginUserDto.profileimg}" >
@@ -46,7 +46,8 @@
 		        <button>변경하기</button> 
 		    </div>
 		</form>
-		<form action="sellermodify" id="modify" method="post">    
+		<form action="sellermodify" id="modify" method="post">
+			<input type="hidden" name="memno" id="memno" value="${loginUserDto.memno}" />    
 		    <div class="myPage-row">
 		        <label>이메일</label>
 		        <p><input type="text" name="email" id="email" style="padding:10px;width:220px;" value="${loginUserDto.email}" readonly /></p>	        

@@ -16,7 +16,7 @@ public class OrderDto {
 	private String orderer_name;
 	private Integer orderer_phone;
 	private String orderer_email;
-	private Integer payment_type_id;
+	private String payment_type;
 	private Date order_date;
 	private int total_price;
 	private int total_delivery_fee;
@@ -141,12 +141,12 @@ public class OrderDto {
 		this.orderer_email = orderer_email;
 	}
 
-	public Integer getPayment_type_id() {
-		return payment_type_id;
+	public String getPayment_type() {
+		return payment_type;
 	}
 
-	public void setPayment_type_id(Integer payment_type_id) {
-		this.payment_type_id = payment_type_id;
+	public void setPayment_type(String payment_type) {
+		this.payment_type = payment_type;
 	}
 
 	public Date getOrder_date() {

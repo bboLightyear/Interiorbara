@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.tech.ibara.shop.dto.BasketDto;
 import com.tech.ibara.shop.dto.CategoryDto;
+import com.tech.ibara.shop.dto.DetailImgDto;
 import com.tech.ibara.shop.dto.LevelCategoryDto;
 import com.tech.ibara.shop.dto.OptionDto;
 import com.tech.ibara.shop.dto.OptionSetDto;
@@ -12,6 +13,8 @@ import com.tech.ibara.shop.dto.OrderDto;
 import com.tech.ibara.shop.dto.OrderProductDto;
 import com.tech.ibara.shop.dto.ProductDto;
 import com.tech.ibara.shop.dto.ProductImgDto;
+import com.tech.ibara.shop.dto.QnaDto;
+import com.tech.ibara.shop.dto.ReviewDto;
 
 public interface ShopDao {
 
@@ -48,6 +51,17 @@ public interface ShopDao {
 	public OrderDto selectOrderById(int orderId);
 	public ArrayList<OrderProductDto> selectOrderProductsByOrder(int orderId);
 	
+	public ArrayList<ReviewDto> selectReviewsByProduct(int productId);
+	public ArrayList<ReviewDto> selectReviewsPageByProduct(int productId, int reviewStart, int reviewEnd);
+	
+	public int selectReviewsCount(int productId);
+	
+	public ArrayList<QnaDto> selectQnasPageByProduct(int productId, int qnaStart, int qnaEnd);
+	
+	public int selectQnasCount(int productId);
+	
+	public ArrayList<DetailImgDto> selectDetailImgsByProduct(int productId);
+	
 	public void insertOptionSet(OptionSetDto optionSetDto);
 	public void insertOption(OptionDto optionDto);
 	public void insertProduct(ProductDto productDto);
@@ -56,8 +70,14 @@ public interface ShopDao {
 	public void insertBaskets(List<BasketDto> basketDtoList);
 	public void insertOrder(OrderDto orderDto);
 	public void insertOrderProduct(OrderProductDto orderProductDto);
+	public void insertReview(ReviewDto reviewDto);
+	public void insertQna(QnaDto qnaDto);
+	public void insertDetailImg(DetailImgDto detailImgDto);
 	
 	public void updateBasketQuantity(int userId, int optionId, String action);
+	public void updateProductIncreaseOne(int productId, String target);
+	
+	public void updateCompleteOrder(OrderDto orderDto);
 	
 	public void deleteBasket(int userId, int targetId, String target);
 }

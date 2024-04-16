@@ -36,6 +36,7 @@ public class BizRvImgPopUpViewService implements BizServiceInter {
 		BizIDao dao=sqlSession.getMapper(BizIDao.class);
 		
 		String br_no=request.getParameter("br_no");
+		String inteno=request.getParameter("inteno");
 		System.out.println(br_no);
 		
 //		dao.bizRvUpHit(br_no);
@@ -43,6 +44,7 @@ public class BizRvImgPopUpViewService implements BizServiceInter {
 		BizRvDto dto=dao.bizRvContentView(br_no);
 		
 		model.addAttribute("bizRvContentView",dto);
+		model.addAttribute("inteno",inteno);
 		
 //		이미지 테이블에서 파일 이름 가져오기
 //		그림이 여러 개 있을 수 있으니 어레이리스트에 담는다.

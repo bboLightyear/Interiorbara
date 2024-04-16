@@ -24,18 +24,42 @@
         margin-top: -5px;
         margin-left: 10px;
         padding-left: 10px;
-        border-left: 1px solid gray;
+        border-left: 1px solid #b1b8c0;
         display: inline-block;
         width: fit-content;
         height: fit-content;
         font-size: 15px;
         font-weight: bold;
         font-family: sans-serif;
+        text-decoration: none;
         cursor: pointer;
     }
+    .mypage_category_list:hover{
+		padding-right: 10px;
+		transform: scale(1.1);
+	    letter-spacing: 2px;
+		background-color: #e2f0fe;
+		transition: 0.1s;
+		font-size: 18px;	
+	}
+	a{
+		text-decoration: none;
+		color: black;
+		font-weight: bold;
+	}
+	a:hover{
+		padding-right: 10px;
+		transform: scale(1.1);
+	    letter-spacing: 2px;
+		background-color: #e2f0fe;
+		transition: 0.1s;
+		font-size: 18px;	
+	}
+	
     #mypage_profile{
     	padding-left: 25%;
     }
+    
 	.box {
 	    width: 150px;
 	    height: 150px; 
@@ -59,21 +83,32 @@
 	.w70 {width:70px; }
 	.w80 {width:80px; }
 	.w150 {width:150px; }
+	table{
+		margin-left: 40%;
+	}
+	td{
+		padding: 8px;
+	}
+	.imgsize{
+		width: 200px;
+		height: 150px;
+	}
 </style>
 </head>
 <body>
 <h3>mypagemain.jsp</h3>
 	<div class="mypage_category">
-        <div class="mypage_category_list list_1">프로필</div>
-	    <div class="mypage_category_list list_2">나의쇼핑</div>
+        <div class="mypage_category_list list_1"><a href="#">프로필</a></div>
+	    <div class="mypage_category_list list_2"><a href="myshopping">나의쇼핑</a></div>
 	    <div class="mypage_category_list list_3"><a href="mypagecompanysignup">업체신청</a></div> <br>
     </div>
     <div class="mypage_category">
-        <div class="mypage_category_list list_1_1">모두보기</div>
-	    <div class="mypage_category_list list_1_2">내사진</div>
-        <div class="mypage_category_list list_1_3">내동영상</div>
-        <div class="mypage_category_list list_1_4"><a href="mypageinfoedit">회원정보수정</a></div>
-        <div class="mypage_category_list list_1_5"><a href="mypagepasswordedit">비밀번호변경</a></div>
+        <div class="mypage_category_list list_1_1"><a href="#">모두보기</a></div>
+	    <div class="mypage_category_list list_1_2"><a href="myphoto">내사진</a></div>
+        <div class="mypage_category_list list_1_3"><a href="myscrap">스크랩북</a></div>
+        <div class="mypage_category_list list_1_4"><a href="mylike">좋아요</a></div>
+        <div class="mypage_category_list list_1_5"><a href="mypageinfoedit">회원정보수정</a></div>
+        <div class="mypage_category_list list_1_6"><a href="mypagepasswordedit">비밀번호변경</a></div>
     </div>
     
     <div id="mypage_profile">
@@ -93,17 +128,33 @@
         	<li class="fl tc w150">${loginUserDto.nickname}님</li>
         </ul>
        	<ul class="board">
-       		<li class="fl tc w80"><a href="#"><img class="w50" src="../resources/img/my/bookmark.png" alt="" /></a></li>
-       		<li class="fl tc w80"><a href="#"><img class="w50" src="../resources/img/my/heart.png" alt="" /></a></li>        		
+       		<li class="fl tc w80"><a href="myscrap"><img class="w50" src="../resources/img/my/bookmark.png" alt="" /></a></li>
+       		<li class="fl tc w80"><a href="mylike"><img class="w50" src="../resources/img/my/heart.png" alt="" /></a></li>        		
        	</ul>
        	<ul class="board">
-       		<li class="fl tc w80"><a href="#">북마크</a></li>
-       		<li class="fl tc w80"><a href="#">좋아요</a></li>
+       		<li class="fl tc w80"><a href="myscrap">스크랩북</a></li>
+       		<li class="fl tc w80"><a href="mylike">좋아요</a></li>
        	</ul>
        	<ul class="board">
-       		<li class="fl tc w80">0</li>
-       		<li class="fl tc w80">0</li>
+       		<li class="fl tc w80"><a href="myscrap">${myscrap}</a></li>
+       		<li class="fl tc w80"><a href="mylike">${mylike}</a></li>
        	</ul>
+    </div>
+    
+    
+    <div id="mypage_photo">
+    	<table>
+    		<tr>
+    			<td colspan="4"><b>내 사진</b></td>
+    		</tr>
+    		<tr>
+    			<c:forEach items="${palist}" var="pa" end="3">
+    				<td><img class="imgsize" src="../resources/upload/oh/photo/${pa.pa_attach}" alt="" /></td>
+    			</c:forEach>
+    		</tr>
+	  	</table>
+    
+    
     </div>
 </body>
 </html>

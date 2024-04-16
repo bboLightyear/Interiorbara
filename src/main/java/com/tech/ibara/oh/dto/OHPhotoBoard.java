@@ -2,11 +2,13 @@ package com.tech.ibara.oh.dto;
 
 import java.util.Date;
 
+import com.tech.ibara.my.dto.MyMemberInfoDto;
+
 public class OHPhotoBoard {
 	
 	private int no;
 	private int pb_no;
-	private String pb_user;
+	private int memno;
 	private String pb_title;
 	private String pb_content;
 	private Date pb_date;
@@ -15,7 +17,6 @@ public class OHPhotoBoard {
 	private int pb_reply;
 	private int pb_link;
 	private int pb_hit;
-	private String pb_category;
 	private String pb_residence;
 	private String pb_room;
 	private String pb_style;
@@ -31,18 +32,54 @@ public class OHPhotoBoard {
 		this.ohPhotoAttach = ohPhotoAttach;
 	}
 
+	private MyMemberInfoDto myMemberInfoDto;
+	
+	public MyMemberInfoDto getMyMemberInfoDto() {
+		return myMemberInfoDto;
+	}
+
+	public void setMyMemberInfoDto(MyMemberInfoDto myMemberInfoDto) {
+		this.myMemberInfoDto = myMemberInfoDto;
+	}
+
+	private OHPhotoLike ohPhotoLike;
+	
+	public OHPhotoLike getOhPhotoLike() {
+		return ohPhotoLike;
+	}
+
+	public void setOhPhotoLike(OHPhotoLike ohPhotoLike) {
+		this.ohPhotoLike = ohPhotoLike;
+	}
+
+	private OHPhotoScrap ohPhotoScrap;
+	
+	public OHPhotoScrap getOhPhotoScrap() {
+		return ohPhotoScrap;
+	}
+
+	public void setOhPhotoScrap(OHPhotoScrap ohPhotoScrap) {
+		this.ohPhotoScrap = ohPhotoScrap;
+	}
+
 	public OHPhotoBoard() {
 		// TODO Auto-generated constructor stub
 	}
 
-	public OHPhotoBoard(int no, int pb_no, String pb_user, String pb_title, 
-						String pb_content, Date pb_date, int pb_like,		
-						int pb_scrap, int pb_reply, int pb_link, 
-						int pb_hit, String pb_category, String pb_residence,
-						String pb_room, String pb_style, String pb_skill) {
+	public OHPhotoBoard(int pb_no, String pb_title) {
+		this.pb_no = pb_no;
+		this.pb_title = pb_title;
+	}
+	
+	public OHPhotoBoard(int no, int pb_no, int memno, 
+						String pb_title, String pb_content, 
+						Date pb_date, int pb_like, int pb_scrap, 
+						int pb_reply, int pb_link, int pb_hit, 
+						String pb_residence, String pb_room, 
+						String pb_style, String pb_skill, OHPhotoAttach ohPhotoAttach) {
 		this.no = no;
 		this.pb_no = pb_no;
-		this.pb_user = pb_user;
+		this.memno = memno;
 		this.pb_title = pb_title;
 		this.pb_content = pb_content;
 		this.pb_date = pb_date;
@@ -51,11 +88,11 @@ public class OHPhotoBoard {
 		this.pb_reply = pb_reply;
 		this.pb_link = pb_link;
 		this.pb_hit = pb_hit;
-		this.pb_category = pb_category;
 		this.pb_residence = pb_residence;
 		this.pb_room = pb_room;
 		this.pb_style = pb_style;
 		this.pb_skill = pb_skill;
+		this.ohPhotoAttach = ohPhotoAttach;
 	}
 
 	public int getNo() {
@@ -74,12 +111,12 @@ public class OHPhotoBoard {
 		this.pb_no = pb_no;
 	}
 
-	public String getPb_user() {
-		return pb_user;
+	public int getMemno() {
+		return memno;
 	}
 
-	public void setPb_user(String pb_user) {
-		this.pb_user = pb_user;
+	public void setMemno(int memno) {
+		this.memno = memno;
 	}
 
 	public String getPb_title() {
@@ -144,14 +181,6 @@ public class OHPhotoBoard {
 
 	public void setPb_hit(int pb_hit) {
 		this.pb_hit = pb_hit;
-	}
-
-	public String getPb_category() {
-		return pb_category;
-	}
-
-	public void setPb_category(String pb_category) {
-		this.pb_category = pb_category;
 	}
 
 	public String getPb_residence() {

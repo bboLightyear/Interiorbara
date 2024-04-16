@@ -11,7 +11,7 @@
 <h3>bizMgzWriteView.jsp</h3>
 
 <form action="bizMgzWrite" method="post" enctype="multipart/form-data">
-<input type="hidden" name="user_idno" value="1000<%-- ${sessionUser_Idno } --%>" />
+<input type="hidden" name="memno" value="1000<%-- ${sessionUser_Idno } --%>" />
 	<table>
 		<tr>
 			<td class="">이름</td>

@@ -37,6 +37,8 @@ public class BizRvModDelViewService implements BizServiceInter {
 		
 		String br_no=request.getParameter("br_no");
 		String br_point=request.getParameter("br_point");
+		String inteno=request.getParameter("inteno");
+		model.addAttribute("inteno", inteno);
 		System.out.println(br_no);
 		
 		BizRvDto dto=dao.bizRvContentView(br_no);

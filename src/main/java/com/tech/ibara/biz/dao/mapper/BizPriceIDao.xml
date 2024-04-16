@@ -9,18 +9,19 @@
 
 <!-- 시공사례 게시판 쿼리 -->
 	
-	<select id="bizPriceList" resultType="com.tech.ibara.biz.dto.BizPriceDto">
-		SELECT NUM, BP_NO, BP_NAME, BP_CONTENT, BP_PRICE, BP_CATEGORY, BP_TYPE, BP_IMG, BIZ_IDNO
+	<select id="bizPriceListView" resultType="com.tech.ibara.biz.dto.BizPriceDto">
+		SELECT NUM, BP_NO, BP_NAME, BP_CONTENT, BP_PRICE, BP_CATEGORY, BP_TYPE, BP_IMG, INTENO
 		 FROM 
-		 (SELECT ROWNUM NUM,N.* FROM (SELECT BP_NO, BP_NAME, BP_CONTENT, BP_PRICE, BP_CATEGORY, BP_TYPE, BP_IMG, BIZ_IDNO 
+		 (SELECT ROWNUM NUM,N.* FROM (SELECT BP_NO, BP_NAME, BP_CONTENT, BP_PRICE, BP_CATEGORY, BP_TYPE, BP_IMG, INTENO 
 		 FROM BIZ_PRICE ORDER BY BP_NO ASC) N)
-		 WHERE BIZ_IDNO=#{param1}
+		 WHERE INTENO=#{param1}
+		 ORDER BY BP_NO ASC
 	</select>
 	
 	<select id="bizPriceCnt" resultType="Integer">
 		SELECT COUNT(*)  
 		 FROM BIZ_PRICE 
-		 WHERE BIZ_IDNO=#{param1}
+		 WHERE INTENO=#{param1}
 	</select>
 	
 	<select id="selBp_no" resultType="Integer">
@@ -28,7 +29,7 @@
 	</select>
 	
 	<insert id="bizPriceWrite">
-		INSERT INTO BIZ_PRICE(BP_NO, BP_NAME, BP_CONTENT, BP_PRICE, BP_CATEGORY, BP_TYPE, BP_IMG, BIZ_IDNO) 
+		INSERT INTO BIZ_PRICE(BP_NO, BP_NAME, BP_CONTENT, BP_PRICE, BP_CATEGORY, BP_TYPE, BP_IMG, INTENO) 
     	VALUES(BIZ_PRICE_SEQ.NEXTVAL,#{param1},#{param2},#{param3},#{param4},#{param5},#{param6},#{param7})
 	</insert>
 	
@@ -36,11 +37,38 @@
 		UPDATE BIZ_PRICE SET BP_IMG=#{param2} WHERE BP_NO=#{param1}
 	</update>
 	
+	<update id="bizPriceModAll">
+		UPDATE BIZ_PRICE SET
+		 BP_NAME=#{param2},
+		 BP_CONTENT=#{param3},
+		 BP_PRICE=#{param4},
+		 BP_CATEGORY=#{param5},
+		 BP_TYPE=#{param6},
+		 BP_IMG=#{param7} 
+		 WHERE BP_NO=#{param1} AND INTENO=#{param8}
+	</update>
+	
+	<select id="bizPriceModEachView" resultType="com.tech.ibara.biz.dto.BizPriceDto">
+		SELECT BP_NO, BP_NAME, BP_CONTENT, BP_PRICE, BP_CATEGORY, BP_TYPE, BP_IMG, INTENO
+		 FROM BIZ_PRICE
+		 WHERE INTENO=#{param1} AND BP_NO=#{param2}
+	</select>
+	
+		<update id="bizPriceModEach">
+		UPDATE BIZ_PRICE SET
+		 BP_NAME=#{param2},
+		 BP_CONTENT=#{param3},
+		 BP_PRICE=#{param4},
+		 BP_CATEGORY=#{param5},
+		 BP_TYPE=#{param6},
+		 BP_IMG=#{param7}
+		 WHERE BP_NO=#{param1} AND INTENO=#{param8}
+	</update>
 	
 <!-- 
 	<select id="bizCasesContentView"
 		resultType="com.tech.ibara.biz.dto.BizCasesDto">
-		SELECT BC_NO,BC_TITLE,BC_CONTENT,BC_WRITER,BC_DATE,BC_HIT,BIZ_IDNO 
+		SELECT BC_NO,BC_TITLE,BC_CONTENT,BC_WRITER,BC_DATE,BC_HIT,INTENO 
 		FROM BIZ_CASES
 		WHERE BC_NO=#{param1}
 	</select>
@@ -72,7 +100,7 @@
 	</update>
 
 	<insert id="bizCasesWrite" >
-		INSERT INTO BIZ_CASES(BC_NO,BC_TITLE,BC_CONTENT,BC_WRITER,BC_DATE,BC_HIT,BIZ_IDNO) 
+		INSERT INTO BIZ_CASES(BC_NO,BC_TITLE,BC_CONTENT,BC_WRITER,BC_DATE,BC_HIT,INTENO) 
     	VALUES(BIZ_CASES_SEQ.NEXTVAL,#{param1},#{param2},#{param3},SYSDATE,0,#{param4})
 	</insert>
 	
@@ -133,8 +161,8 @@
 
 	
 	<select id="bizMgzList" resultType="com.tech.ibara.biz.dto.BizMgzDto">
-		SELECT BM_NO,BM_TITLE,BM_CONTENT,BM_WRITER,BM_DATE,BM_HIT,USER_IDNO FROM 
-		(SELECT ROWNUM NUM,N.* FROM (SELECT BM_NO,BM_TITLE,BM_CONTENT,BM_WRITER,BM_DATE,BM_HIT,USER_IDNO 
+		SELECT BM_NO,BM_TITLE,BM_CONTENT,BM_WRITER,BM_DATE,BM_HIT,MEMNO FROM 
+		(SELECT ROWNUM NUM,N.* FROM (SELECT BM_NO,BM_TITLE,BM_CONTENT,BM_WRITER,BM_DATE,BM_HIT,MEMNO 
 		FROM BIZ_MGZ ORDER BY BM_NO DESC) N
 		<include refid="mgzIncludlist" />
 		)WHERE NUM BETWEEN #{param1} AND #{param2}
@@ -142,7 +170,7 @@
 
 	<select id="bizMgzContentView"
 		resultType="com.tech.ibara.biz.dto.BizMgzDto">
-		SELECT BM_NO,BM_TITLE,BM_CONTENT,BM_WRITER,BM_DATE,BM_HIT,USER_IDNO  
+		SELECT BM_NO,BM_TITLE,BM_CONTENT,BM_WRITER,BM_DATE,BM_HIT,MEMNO  
 		FROM BIZ_MGZ
 		WHERE BM_NO=#{param1}
 	</select>
@@ -174,7 +202,7 @@
 	</update>
 
 	<insert id="bizMgzWrite" >
-		INSERT INTO BIZ_MGZ(BM_NO,BM_TITLE,BM_CONTENT,BM_WRITER,BM_DATE,BM_HIT,USER_IDNO) 
+		INSERT INTO BIZ_MGZ(BM_NO,BM_TITLE,BM_CONTENT,BM_WRITER,BM_DATE,BM_HIT,MEMNO) 
     	VALUES(BIZ_MGZ_SEQ.NEXTVAL,#{param1},#{param2},#{param3},SYSDATE,0,#{param4})
 	</insert>
 	
@@ -235,8 +263,8 @@
 
 	
 	<select id="bizRvList" resultType="com.tech.ibara.biz.dto.BizRvDto">
-		SELECT BR_NO, BR_CONTENT, BR_WRITER, BR_LIKE_CNT, BR_DATE, BR_POINT, BIZ_IDNO, USER_IDNO FROM 
-		(SELECT ROWNUM NUM,N.* FROM (SELECT BR_NO, BR_CONTENT, BR_WRITER, BR_LIKE_CNT, BR_DATE, BR_POINT, BIZ_IDNO, USER_IDNO 
+		SELECT BR_NO, BR_CONTENT, BR_WRITER, BR_LIKE_CNT, BR_DATE, BR_POINT, INTENO, MEMNO FROM 
+		(SELECT ROWNUM NUM,N.* FROM (SELECT BR_NO, BR_CONTENT, BR_WRITER, BR_LIKE_CNT, BR_DATE, BR_POINT, INTENO, MEMNO 
 		FROM BIZ_RV ORDER BY BR_NO DESC) N
 		<include refid="rvIncludlist" />
 		)WHERE NUM BETWEEN #{param1} AND #{param2}
@@ -244,7 +272,7 @@
 
 	<select id="bizRvContentView"
 		resultType="com.tech.ibara.biz.dto.BizRvDto">
-		SELECT BR_NO, BR_CONTENT, BR_WRITER, BR_LIKE_CNT, BR_DATE, BR_POINT, BIZ_IDNO, USER_IDNO  
+		SELECT BR_NO, BR_CONTENT, BR_WRITER, BR_LIKE_CNT, BR_DATE, BR_POINT, INTENO, MEMNO  
 		FROM BIZ_RV
 		WHERE BR_NO=#{param1}
 	</select>
@@ -268,7 +296,7 @@
 	</update>
 
 	<insert id="bizRvWrite" >
-		INSERT INTO BIZ_RV(BR_NO, BR_CONTENT, BR_WRITER, BR_LIKE_CNT, BR_DATE, BR_POINT, BIZ_IDNO, USER_IDNO) 
+		INSERT INTO BIZ_RV(BR_NO, BR_CONTENT, BR_WRITER, BR_LIKE_CNT, BR_DATE, BR_POINT, INTENO, MEMNO) 
     	VALUES(BIZ_MGZ_SEQ.NEXTVAL,#{param1},#{param2},0,SYSDATE,#{param3},#{param4},#{param5})
 	</insert>
 	
@@ -309,7 +337,7 @@
 	</select>
 
 	<select id="getRvImgJoin" parameterType="com.tech.ibara.biz.dto.BizRvDto" resultMap="BizRvDto">
-		SELECT RV.BR_NO, RV.BR_CONTENT, RV.BR_WRITER, RV.BR_LIKE_CNT, RV.BR_DATE, RV.BR_POINT, RV.BIZ_IDNO, RV.USER_IDNO, IMG.BRIMG_CGN 
+		SELECT RV.BR_NO, RV.BR_CONTENT, RV.BR_WRITER, RV.BR_LIKE_CNT, RV.BR_DATE, RV.BR_POINT, RV.INTENO, RV.MEMNO, IMG.BRIMG_CGN 
 				FROM BIZ_RV RV INNER JOIN BIZ_RV_IMG IMG ON RV.BR_NO=IMG.BR_NO
 	</select>
 
@@ -328,15 +356,15 @@
 	<select id="bizRvLikeCnt" resultType="Integer">
 		SELECT COUNT(*) 
 		 FROM BIZ_RV_LIKE 
-		 WHERE BR_NO=#{param1} AND USER_IDNO=#{param2}
+		 WHERE BR_NO=#{param1} AND MEMNO=#{param2}
 	</select>
 	
 	<update id="bizRvLikeDel">
-		DELETE FROM BIZ_RV_LIKE WHERE USER_IDNO=#{param1} AND BR_NO=#{param2}
+		DELETE FROM BIZ_RV_LIKE WHERE MEMNO=#{param1} AND BR_NO=#{param2}
 	</update>
 	
 	<insert id="bizRvLikeAdd">
-		INSERT INTO BIZ_RV_LIKE(BR_LIKE_NO, USER_IDNO, BR_NO) 
+		INSERT INTO BIZ_RV_LIKE(BR_LIKE_NO, MEMNO, BR_NO) 
 		 VALUES(BIZ_RV_LIKE_SEQ.NEXTVAL,#{param1},#{param2})
 	</insert>
 	
@@ -358,7 +386,7 @@
 	
 	
 	<insert id="bizRvReportedWrite" >
-		INSERT INTO BIZ_RV_REPORTED(BRR_NO, BRR_CONTENT, BRR_WRITER, BRR_LIKE_CNT, BRR_DATE, BRR_POINT, BIZ_IDNO, USER_IDNO, BR_NO) 
+		INSERT INTO BIZ_RV_REPORTED(BRR_NO, BRR_CONTENT, BRR_WRITER, BRR_LIKE_CNT, BRR_DATE, BRR_POINT, INTENO, MEMNO, BR_NO) 
     	VALUES(BIZ_RV_REPORTED_SEQ.NEXTVAL,#{param1},#{param2},#{param3},#{param4},#{param5},#{param6},#{param7},#{param8})
 	</insert>
 	 -->

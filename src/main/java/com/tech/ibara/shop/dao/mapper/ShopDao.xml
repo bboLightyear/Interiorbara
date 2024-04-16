@@ -481,7 +481,7 @@
 			ORDERER_NAME,
 			ORDERER_PHONE,
 			ORDERER_EMAIL,
-			PAYMENT_TYPE_ID,
+			PAYMENT_TYPE,
 			ORDER_DATE,
 			TOTAL_PRICE,
 			TOTAL_DELIVERY_FEE,
@@ -507,6 +507,103 @@
 			SHOP_ORDER_PRODUCT
 		WHERE
 			ORDER_ID = #{param1}
+	</select>
+	
+	<select id="selectReviewsByProduct" resultType="com.tech.ibara.shop.dto.ReviewDto">
+		SELECT
+			REVIEW_ID,
+			PRODUCT_ID,
+			USER_ID,
+			SCORE,
+			FILE_SRC,
+			CONTENT,
+			REG_DATE
+		FROM
+			SHOP_REVIEW
+		WHERE
+			PRODUCT_ID = #{param1}
+	</select>
+	
+	<select id="selectReviewsPageByProduct" resultType="com.tech.ibara.shop.dto.ReviewDto">
+		SELECT
+			*
+		FROM (
+			SELECT
+				ROWNUM N, R.*
+			FROM (
+				SELECT
+					REVIEW_ID,
+					PRODUCT_ID,
+					USER_ID,
+					SCORE,
+					FILE_SRC,
+					CONTENT,
+					REG_DATE
+				FROM
+					SHOP_REVIEW
+				WHERE
+					PRODUCT_ID = #{param1}
+				ORDER BY
+					REG_DATE DESC) R )
+		WHERE
+			N BETWEEN #{param2} AND #{param3}
+		
+	</select>
+	
+	<select id="selectReviewsCount" resultType="Integer">
+		SELECT
+			COUNT(*)
+		FROM
+			SHOP_REVIEW
+		WHERE
+			PRODUCT_ID = #{param1}
+	</select>
+	
+	<select id="selectQnasPageByProduct" resultType="com.tech.ibara.shop.dto.QnaDto">
+		SELECT
+			*
+		FROM (
+			SELECT
+				ROWNUM N, Q.*
+			FROM (
+				SELECT
+					QNA_ID,
+					PRODUCT_ID,
+					USER_ID,
+					Q_REG_TIME,
+					Q_CONTENT,
+					IS_ANSWERED,
+					A_REG_TIME,
+					A_CONTENT
+				FROM
+					SHOP_QNA
+				WHERE
+					PRODUCT_ID = #{param1}
+				ORDER BY
+					Q_REG_TIME DESC) Q )
+		WHERE
+			N BETWEEN #{param2} AND #{param3}
+		
+	</select>
+	
+	<select id="selectQnasCount" resultType="Integer">
+		SELECT
+			COUNT(*)
+		FROM
+			SHOP_QNA
+		WHERE
+			PRODUCT_ID = #{param1}
+	</select>
+	
+	<select id="selectDetailImgsByProduct" resultType="com.tech.ibara.shop.dto.DetailImgDto">
+		SELECT
+			DETAIL_IMG_ID,
+			PRODUCT_ID,
+			FILE_SRC
+		FROM
+			SHOP_DETAIL_IMG
+		WHERE
+			PRODUCT_ID = #{param1}
 	</select>
 	
 	<!-- ===================== INSERT ===================== -->
@@ -595,7 +692,7 @@
 				PRODUCT_ID,
 				FILE_SRC)
 		VALUES (
-			SEQ_PRODUCT_IMG.NEXTVAL,
+			SEQ_SHOP_PRODUCT_IMG.NEXTVAL,
 			#{product_id},
 			#{file_src})
 	</insert>
@@ -680,7 +777,7 @@
 				ORDERER_NAME,
 				ORDERER_PHONE,
 				ORDERER_EMAIL,
-				PAYMENT_TYPE_ID,
+				PAYMENT_TYPE,
 				ORDER_DATE,
 				TOTAL_PRICE,
 				TOTAL_DELIVERY_FEE,
@@ -698,7 +795,7 @@
 			#{orderer_name, jdbcType=VARCHAR},
 			#{orderer_phone, jdbcType=INTEGER},
 			#{orderer_email, jdbcType=VARCHAR},
-			#{payment_type_id, jdbcType=INTEGER},
+			#{payment_type, jdbcType=VARCHAR},
 			#{order_date, jdbcType=DATE},
 			#{total_price},
 			#{total_delivery_fee},
@@ -718,7 +815,7 @@
 				QUANTITY,
 				OPTION_TEXT)
 		VALUES (
-			SEQ_ORDER_PRODUCT.NEXTVAL,
+			SEQ_SHOP_ORDER_PRODUCT.NEXTVAL,
 			#{order_id},
 			#{product_id},
 			#{option_id},
@@ -727,6 +824,60 @@
 			#{total_delivery_fee},
 			#{quantity},
 			#{option_text})
+	</insert>
+	
+	<insert id="insertReview" parameterType="com.tech.ibara.shop.dto.ReviewDto">
+		INSERT INTO
+			SHOP_REVIEW (
+				REVIEW_ID,
+				PRODUCT_ID,
+				USER_ID,
+				SCORE,
+				FILE_SRC,
+				CONTENT,
+				REG_DATE)
+		VALUES (
+			SEQ_SHOP_REVIEW.NEXTVAL,
+			#{product_id},
+			#{user_id},
+			#{score},
+			#{file_src, jdbcType=VARCHAR},
+			#{content},
+			SYSDATE)
+	</insert>
+	
+	<insert id="insertQna" parameterType="com.tech.ibara.shop.dto.QnaDto" >
+		INSERT INTO
+			SHOP_QNA (
+				QNA_ID,
+				PRODUCT_ID,
+				USER_ID,
+				Q_REG_TIME,
+				Q_CONTENT,
+				IS_ANSWERED,
+				A_REG_TIME,
+				A_CONTENT)
+		VALUES (
+			SEQ_SHOP_QNA.NEXTVAL,
+			#{product_id},
+			#{user_id},
+			SYSDATE,
+			#{q_content},
+			'N',
+			NULL,
+			NULL)
+	</insert>
+	
+	<insert id="insertDetailImg" parameterType="com.tech.ibara.shop.dto.DetailImgDto" >
+		INSERT INTO
+			SHOP_DETAIL_IMG (
+				DETAIL_IMG_ID,
+				PRODUCT_ID,
+				FILE_SRC)
+		VALUES (
+			SEQ_SHOP_DETAIL_IMG.NEXTVAL,
+			#{product_id},
+			#{file_src})
 	</insert>
 	
 	<!-- ===================== UPDATE ===================== -->
@@ -745,6 +896,59 @@
 		</choose>
 		WHERE
 			USER_ID = #{param1} AND OPTION_ID = #{param2}
+	</update>
+	
+	<update id="updateProductIncreaseOne">
+		UPDATE
+			SHOP_PRODUCT
+		SET
+		<choose>
+			<when test="param2 == 'hits'">
+				HITS = HITS + 1
+			</when>
+			<when test="param2 == 'reviews'">
+				REVIEWS = REVIEWS + 1
+			</when>
+			<when test="param2 == 'scraps'">
+				SCRAPS = SCRAPS + 1
+			</when>
+			<when test="param2 == 'sales'">
+				SALES = SALES + 1
+			</when>
+		</choose>
+		WHERE
+			PRODUCT_ID = #{param1}
+	</update>
+	
+	<update id="updateWriteQnaAnswer">
+		UPDATE
+			SHOP_QNA
+		SET
+			IS_ANSWERED = "Y",
+			A_REG_TIME = SYSDATE,
+			A_CONTENT = #{param2}
+		WHERE
+			QNA_ID = #{param1}
+	</update>
+	
+	<update id="updateCompleteOrder" parameterType="com.tech.ibara.shop.dto.OrderDto">
+		UPDATE
+			SHOP_ORDER
+		SET
+			ORDER_STATE_ID = 3,
+			ADDRESS_NAME = #{address_name},
+			RECEIVER_NAME = #{receiver_name},
+			RECEIVER_PHONE = #{receiver_phone},
+			ZIPCODE = #{zipcode},
+			BIG_ADDRESS = #{big_address},
+			DETAIL_ADDRESS = #{detail_address},
+			ORDERER_NAME = #{orderer_name},
+			ORDERER_PHONE = #{orderer_phone},
+			ORDERER_EMAIL = #{orderer_email},
+			PAYMENT_TYPE = #{payment_type},
+			ORDER_DATE = SYSDATE
+		WHERE
+			USER_ID = #{user_id} AND ORDER_ID = #{order_id}
 	</update>
 	
 	<!-- ===================== DELETE ===================== -->

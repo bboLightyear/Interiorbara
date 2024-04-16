@@ -1,13 +1,5 @@
 package com.tech.ibara.csnotice;
 
-import java.io.File;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.ArrayList;
-import java.util.List;
-
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.ibatis.session.SqlSession;
@@ -16,21 +8,16 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
-import com.tech.ibara.csnotice.dao.QnaBoardIDao;
-import com.tech.ibara.csnotice.dto.QnaDto;
-import com.tech.ibara.csnotice.dto.QnaImgDto;
-import com.tech.ibara.csnotice.dto.QnaReplyDto;
-import com.tech.ibara.csnotice.service.CsQnaContentEditService;
-import com.tech.ibara.csnotice.service.CsQnaContentService;
-import com.tech.ibara.csnotice.service.CsQnaDeleteService;
-import com.tech.ibara.csnotice.service.CsQnaEditProcService;
-import com.tech.ibara.csnotice.service.CsQnaListService;
-import com.tech.ibara.csnotice.service.CsQnaReplyService;
-import com.tech.ibara.csnotice.service.CsQnaService;
-import com.tech.ibara.csnotice.service.CsQnaWriteService;
+import com.tech.ibara.csnotice.service.qna.CsQnaContentEditService;
+import com.tech.ibara.csnotice.service.qna.CsQnaContentService;
+import com.tech.ibara.csnotice.service.qna.CsQnaDeleteService;
+import com.tech.ibara.csnotice.service.qna.CsQnaEditProcService;
+import com.tech.ibara.csnotice.service.qna.CsQnaListService;
+import com.tech.ibara.csnotice.service.qna.CsQnaReplyService;
+import com.tech.ibara.csnotice.service.qna.CsQnaService;
+import com.tech.ibara.csnotice.service.qna.CsQnaWriteService;
 import com.tech.ibara.csnotice.vo.SearchVO;
 
 @Controller
@@ -149,39 +136,4 @@ public class CsQnaController {
 		
 		return "redirect:qnacontent?qbno=" + qbno;
 	}//qnareply
-	
-	
-//	//답글에 대한 답글 작성하는 컨트롤러
-//	@RequestMapping(method = RequestMethod.POST, value = "/qnareply_r")
-//	public String qnareply_r(HttpServletRequest request, Model model) throws ClassNotFoundException, SQLException {
-//		System.out.println("qnareply()");
-//
-//		QnaBoardIDao dao = sqlSession.getMapper(QnaBoardIDao.class);
-//
-//		String nbno = request.getParameter("nbno");
-//		String rnbno = request.getParameter("rnbno");
-//		String rwriter = request.getParameter("rwriter");
-//		String rcontent = request.getParameter("rcontent");
-//		String rnbstep = request.getParameter("rnbstep");
-//		String rnbgroup = request.getParameter("rnbgroup");
-//		String rnbindent = request.getParameter("rnbindent");
-//
-//		System.out.println("nbno :" + nbno);
-//		System.out.println("rnbno :" + rnbno);
-//		System.out.println("rwriter :" + rwriter);
-//		System.out.println("rcontent :" + rcontent);
-//		System.out.println("rnbstep :" + rnbstep);
-//		System.out.println("rnbindent :" + rnbindent);
-//
-//		String sql = "select * from dept";
-//		Class.forName("oracle.jdbc.driver.OracleDriver");
-//		String url = "jdbc:oracle:thin:@localhost:1521:xe";
-//		String user = "hr";
-//		String pw = "123456";
-//		Connection conn = DriverManager.getConnection(url, user, pw);
-//		Statement stmt = conn.createStatement();
-//
-//		return "redirect:qnacontent?nbno=" + nbno;
-//	}//qnareply_r rest 사용 없어도 됨
- 
 }

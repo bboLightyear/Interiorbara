@@ -85,11 +85,11 @@
 <body>
 <h3>sellermain.jsp</h3>
 	<div class="mypage_category">
-        <div class="mypage_category_list list_1">프로필</div>
-	    <div class="mypage_category_list list_2">판매리스트</div> <br />
+        <div class="mypage_category_list list_1"><a href="#">프로필</a></div>
+	    <div class="mypage_category_list list_2"><a href="sellersale">판매</a></div> <br />
     </div>
     <div class="mypage_category">
-        <div class="mypage_category_list list_1_1">모두보기</div>
+        <div class="mypage_category_list list_1_1"><a href="#">모두보기</a></div>
 	    <div class="mypage_category_list list_1_2"><a href="sellerinfoedit">회원정보수정</a></div>
         <div class="mypage_category_list list_1_3"><a href="sellerpasswordedit">비밀번호변경</a></div>
     </div>
@@ -110,6 +110,7 @@
         <ul class="board">
         	<li class="fl tc w150">${loginUserDto.nickname}님</li>
         </ul>
+        판매자회원번호 ${loginUserDto.mysellerdto.sellerno}번 님
     </div>
     <div class="container">
 		<div class="row">

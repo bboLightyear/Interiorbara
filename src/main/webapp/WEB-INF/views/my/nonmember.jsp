@@ -36,21 +36,17 @@
     </style>
 </head>
 <body>
-   <div>
-      <form action="${path}/modal/mBoard" method="post">
-         <div align="center">
-            <h3>내 견적조회</h3>
-            <label for="email">이메일</label>
-            <input type="email" id="email" name="email" size="35" placeholder="이메일을 입력해주세요" /><br /> 
-            <label for="pw">비밀번호</label>
-            <input type="password" id="pw" name="pw" size="35" placeholder="비밀번호를 입력해주세요" title="비밀번호를 입력해주세요" /><br />
-            <input type="submit" id="btn" value="확인" />
-         </div>
-      </form>
-      <c:if test="${not empty error}">
-         <p style="color: red;">${error}</p>
-      </c:if>
-   </div>
+    <form action="${path}/modal/mBoard" method="post">
+    	<div align="center">
+    		<h3>내 견적조회</h3>
+	        <label for="email">이메일</label>
+	        <input type="text" id="email" name="email" size="35" placeholder="이메일주소를 입력해주세요" /><br />
+	        <label for="pw">비밀번호</label>       
+	        <input type="text" id="pw" name="pw" size="35" placeholder="비밀번호를 입력해주세요" /><br />
+	        <input type="submit" id="btn" value="확인" />
+    	</div>
+    </form><br />
+    
 
 </body>
 </html>

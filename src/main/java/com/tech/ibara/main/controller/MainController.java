@@ -7,14 +7,19 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.tech.ibara.main.service.BizPreviewService;
+import com.tech.ibara.main.service.BizSearchService;
 import com.tech.ibara.main.service.MainDataService;
+import com.tech.ibara.main.service.MainSearchService;
 import com.tech.ibara.main.service.NoticePreviewService;
+import com.tech.ibara.main.service.NoticeSearchService;
 import com.tech.ibara.main.service.OHPreviewService;
+import com.tech.ibara.main.service.OHSearchService;
 import com.tech.ibara.main.service.QnAPreviewService;
+import com.tech.ibara.main.service.QnASearchService;
 import com.tech.ibara.main.service.ShopPreviewService;
+import com.tech.ibara.main.service.ShopSearchService;
 
 @Controller
 public class MainController {
@@ -28,7 +33,7 @@ public class MainController {
 	private MainDataService noticeDataService;
 	private MainDataService qnaDataService;
 
-	@RequestMapping(value = "/", method = RequestMethod.GET)
+	@RequestMapping("/")
 	public String main(HttpServletRequest request, Model model) {
 		model.addAttribute("request", request);
 		
@@ -50,8 +55,57 @@ public class MainController {
 		return "main/main";
 	}
 	
+	@RequestMapping("main")
+	public String Home() {
+		return "redirect:/";
+	}
+	
+	private MainSearchService bizSearchService;
+	private MainSearchService ohSearchService;
+	private MainSearchService shopSearchService;
+	private MainSearchService noticeSearchService;
+	private MainSearchService qnaSearchService;
+	
 	@RequestMapping("mainSearchView")
-	public String mainSearchView() {
+	public String mainSearchView(HttpServletRequest request, Model model) {
+		model.addAttribute("request", request);
+		
+		bizSearchService=new BizSearchService(sqlSession);
+		bizSearchService.execute(model);
+		
+		ohSearchService=new OHSearchService(sqlSession);
+		ohSearchService.execute(model);
+		
+		shopSearchService=new ShopSearchService(sqlSession);
+		shopSearchService.execute(model);
+		
+		noticeSearchService=new NoticeSearchService(sqlSession);
+		noticeSearchService.execute(model);
+		
+		qnaSearchService=new QnASearchService(sqlSession);
+		qnaSearchService.execute(model);
+		
+		return "main/mainSearchView";
+	}
+	
+	@RequestMapping("searchView")
+	public String SearchView(HttpServletRequest request, Model model) {
+		model.addAttribute("request", request);
+		
+		bizSearchService=new BizSearchService(sqlSession);
+		bizSearchService.execute(model);
+		
+		ohSearchService=new OHSearchService(sqlSession);
+		ohSearchService.execute(model);
+		
+		shopSearchService=new ShopSearchService(sqlSession);
+		shopSearchService.execute(model);
+		
+		noticeSearchService=new NoticeSearchService(sqlSession);
+		noticeSearchService.execute(model);
+		
+		qnaSearchService=new QnASearchService(sqlSession);
+		qnaSearchService.execute(model);
 		
 		return "main/mainSearchView";
 	}

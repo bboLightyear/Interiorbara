@@ -35,15 +35,15 @@ public class BizMgzWriteService implements BizServiceInter {
 		String bm_title=mftRequest.getParameter("bm_title");
 		String bm_content=mftRequest.getParameter("bm_content");
 		String bm_writer=mftRequest.getParameter("bm_writer");
-		String user_idno=mftRequest.getParameter("user_idno");
+		String memno=mftRequest.getParameter("memno");
 		
 		System.out.println("bm_title: "+bm_title);
 		System.out.println("bm_content: "+bm_content);
 		System.out.println("bm_writer: "+bm_writer);
-		System.out.println("user_idno: "+user_idno);
+		System.out.println("memno: "+memno);
 		
 		BizIDao dao=sqlSession.getMapper(BizIDao.class);
-		dao.bizMgzWrite(bm_title,bm_content,bm_writer,user_idno);
+		dao.bizMgzWrite(bm_title,bm_content,bm_writer,memno);
 		
 //		최근의 글번호 가져오기
 		int bm_no=dao.selBm_no();

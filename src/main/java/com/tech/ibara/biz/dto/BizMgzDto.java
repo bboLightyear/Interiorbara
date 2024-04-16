@@ -10,7 +10,7 @@ public class BizMgzDto {
 	private String bm_img;
 	private Timestamp bm_date;
 	private int bm_hit;
-	private int user_idno;
+	private int memno;
 	
 	public BizMgzDto() {
 		// TODO Auto-generated constructor stub
@@ -52,11 +52,11 @@ public class BizMgzDto {
 	public void setBm_hit(int bm_hit) {
 		this.bm_hit = bm_hit;
 	}
-	public int getUser_idno() {
-		return user_idno;
+	public int getMemno() {
+		return memno;
 	}
-	public void setUser_idno(int user_idno) {
-		this.user_idno = user_idno;
+	public void setMemno(int memno) {
+		this.memno = memno;
 	}
 
 	public String getBm_writer() {

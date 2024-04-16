@@ -40,7 +40,6 @@ public class OHPhotoEditExecuteService implements OHInterfaceService {
 		String pb_no = mftRequest.getParameter("pb_no");
 		String pb_title = mftRequest.getParameter("pb_title");
 		String pb_content = mftRequest.getParameter("pb_content");
-		String pb_category = mftRequest.getParameter("pb_category");
 		String pb_residence = mftRequest.getParameter("pb_residence");
 		String pb_room = mftRequest.getParameter("pb_room");
 		String pb_style = mftRequest.getParameter("pb_style");
@@ -50,7 +49,6 @@ public class OHPhotoEditExecuteService implements OHInterfaceService {
 		System.out.println("pb_no: " + pb_no);	
 		System.out.println("pb_title: " + pb_title);
 		System.out.println("pb_content: " + pb_content);
-		System.out.println("pb_category: " + pb_category);
 		System.out.println("pb_residence: " + pb_residence);
 		System.out.println("pb_room: " + pb_room);
 		System.out.println("pb_style: " + pb_style);
@@ -59,8 +57,8 @@ public class OHPhotoEditExecuteService implements OHInterfaceService {
 		
 		// DB, OH_PHOTO_BOARD - 변경된 내용으로 업데이트
 		// ohPBEditUpdate() 함수 실행
-		dao.ohPBEditUpdate(pb_no, pb_title, pb_content, pb_category,
-								pb_residence, pb_room, pb_style, pb_skill);	
+		dao.ohPBEditUpdate(pb_no, pb_title, pb_content,
+						   pb_residence, pb_room, pb_style, pb_skill);	
 		
 		// 업로드 파일 - 저장할 폴더 경로, path 변수에 저장
 		

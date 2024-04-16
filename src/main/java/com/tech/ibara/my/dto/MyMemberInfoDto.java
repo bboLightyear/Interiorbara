@@ -8,7 +8,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 @Getter
 @Setter
-@AllArgsConstructor
 @NoArgsConstructor
 public class MyMemberInfoDto {
 	private int memno;
@@ -24,4 +23,60 @@ public class MyMemberInfoDto {
 	private String memtype;
 	private String profileimg;
 	
+	private MyInteriorDto myinteriordto;
+	private MySellerDto mysellerdto;
+	
+	public MyMemberInfoDto(int memno, String nickname, String shpwd, String bcpwd, String email, int mailcheck,
+			String birth, String gender, String phone, Date joindate, String memtype, String profileimg) {
+		super();
+		this.memno = memno;
+		this.nickname = nickname;
+		this.shpwd = shpwd;
+		this.bcpwd = bcpwd;
+		this.email = email;
+		this.mailcheck = mailcheck;
+		this.birth = birth;
+		this.gender = gender;
+		this.phone = phone;
+		this.joindate = joindate;
+		this.memtype = memtype;
+		this.profileimg = profileimg;
+	}
+	public MyMemberInfoDto(int memno, String nickname, String shpwd, String bcpwd, String email, int mailcheck,
+			String birth, String gender, String phone, Date joindate, String memtype, String profileimg,
+			MyInteriorDto myinteriordto) {
+		super();
+		this.memno = memno;
+		this.nickname = nickname;
+		this.shpwd = shpwd;
+		this.bcpwd = bcpwd;
+		this.email = email;
+		this.mailcheck = mailcheck;
+		this.birth = birth;
+		this.gender = gender;
+		this.phone = phone;
+		this.joindate = joindate;
+		this.memtype = memtype;
+		this.profileimg = profileimg;
+		this.myinteriordto = myinteriordto;
+	}
+	public MyMemberInfoDto(int memno, String nickname, String shpwd, String bcpwd, String email, int mailcheck,
+			String birth, String gender, String phone, Date joindate, String memtype, String profileimg,
+			MySellerDto mysellerdto) {
+		super();
+		this.memno = memno;
+		this.nickname = nickname;
+		this.shpwd = shpwd;
+		this.bcpwd = bcpwd;
+		this.email = email;
+		this.mailcheck = mailcheck;
+		this.birth = birth;
+		this.gender = gender;
+		this.phone = phone;
+		this.joindate = joindate;
+		this.memtype = memtype;
+		this.profileimg = profileimg;
+		this.mysellerdto = mysellerdto;
+	}
+		
 }

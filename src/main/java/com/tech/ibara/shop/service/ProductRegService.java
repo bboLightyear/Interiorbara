@@ -9,11 +9,12 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.tech.ibara.shop.dao.ShopDao;
+import com.tech.ibara.shop.dto.DetailImgDto;
 import com.tech.ibara.shop.dto.OptionDto;
 import com.tech.ibara.shop.dto.OptionSetDto;
 import com.tech.ibara.shop.dto.ProductDto;
 import com.tech.ibara.shop.dto.ProductImgDto;
-import com.tech.ibara.shop.util.ShopUtil;
+import com.tech.ibara.shop.vo.ShopUtil;
 
 public class ProductRegService extends SqlSessionBase implements ShopService {
 
@@ -238,7 +239,27 @@ public class ProductRegService extends SqlSessionBase implements ShopService {
 				e.printStackTrace();
 			}
 		}
+		
+		// detailImgs
 
+		List<MultipartFile> detailFileList = mpRequest.getFiles("detailImgs");
+
+		for (int i = 0; i < detailFileList.size(); ++i) {
+			MultipartFile file = detailFileList.get(i);
+			String originalName = file.getOriginalFilename();
+			long longtime = System.currentTimeMillis();
+			String extension = originalName.substring(originalName.lastIndexOf("."));
+			String newName = longtime + String.valueOf(i) + extension;
+			String filePath = path + "\\" + newName;
+			try {
+				if (!originalName.equals("")) {
+					file.transferTo(new File(filePath));
+					dao.insertDetailImg(new DetailImgDto(productDto.getProduct_id(), newName));
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
 	}
 
 }
