@@ -1,24 +1,17 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<c:set var="path" value="${pageContext.request.contextPath}"/>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-	<link rel="stylesheet" href="${path}/resources/css/my/mypageinfoedit.css" />
-	<script defer src="${path}/resources/js/my/mypage.js"></script>
-	<script defer src="${path}/resources/js/my/mypagemodify.js"></script>
-    <script defer src="${path}/resources/js/my/my_script_nickname.js"></script>	
-</head>
-<body>
-<h3>mypageinfoedit.jsp</h3>
+<%@include file ="header.jsp" %>
+<script>
+document.title = "My Page Info Edit";
+</script>
+<script defer src="${path}/resources/js/my/mypage.js"></script>
+<script defer src="${path}/resources/js/my/mypagemodify.js"></script>
+<script defer src="${path}/resources/js/my/my_script_nickname.js"></script>	
+
+<main class="Site-content" style="margin-top:10px;">
 	<div class="mypage_category">
         <div class="mypage_category_list list_1"><a href="mypage">프로필</a></div>
-	    <div class="mypage_category_list list_2"><a href="myshopping">나의쇼핑</a></div>
+	    <!-- <div class="mypage_category_list list_2"><a href="myshopping">나의쇼핑</a></div> -->
 	    <div class="mypage_category_list list_3"><a href="mypagecompanysignup">업체신청</a></div> <br>
     </div>
     <div class="mypage_category">
@@ -48,11 +41,11 @@
 		    <div class="profile-btn-area">
 		        <label for="imgInput">이미지 선택</label>
 		        <input type="file" name="profileimg" id="imgInput" accept="image/*">
-		        <button>변경하기</button> 
+		        <button>변경하기</button>
 		    </div>
 		</form>
 		<form action="modify" id="modify" method="post">
-			<input type="hidden" name="memno" id="memno" value="${loginUserDto.memno}"/>	    
+			<input type="hidden" name="memno" id="memno" value="${loginUserDto.memno}"/>
 		    <div class="myPage-row">
 		        <label>이메일</label>
 		        <p><input type="text" name="email" id="email" style="padding:10px;width:220px;" value="${loginUserDto.email}" readonly /></p>	        
@@ -61,17 +54,17 @@
 		    <div class="myPage-row">
 		        <label for="nickname">닉네임<br /></label>
 		        <p><input type="text" name="nickname" id="nickname" style="padding:10px;width:220px;" value="${loginUserDto.nickname}" /> <br />
-		        <span id="nicknameResult"></span></p>
+		        <span id="nicknameResult" class="fontbold"></span></p>
 		    </div>
 		    <div class="myPage-row">
 		        <label for="phone">휴대폰번호<br /></label>
 		        <p><input type="number" name="phone" id="phone" style="padding:10px;width:220px;" value="${loginUserDto.phone}" /><br />
-		        <span id="phoneResult"></span></p>
+		        <span id="phoneResult" class="fontbold"></span></p>
 		    </div>
 		    <div class="myPage-row">
 		        <label for="birth">생년월일<br /></label>
 		        <p><input type="number" name="birth" id="birth" style="padding:10px;width:220px;" value="${loginUserDto.birth}" /><br />
-		        <span id="birthResult"></span>
+		        <span id="birthResult" class="fontbold"></span>
 		        </p>
 		    </div>
 		    <div class="myPage-row">
@@ -97,14 +90,13 @@
 		        </p>
 		    </div>
 		    <div class="myPage-row">
-		        <a id="withdrawal" href="withdrawal">탈퇴하기 ></a>
+		        <a class="XXX" id="withdrawal" href="withdrawal">탈퇴하기 ></a>
 		    </div>
 		    <div align="center">
 		    	<p><input id="btn" type="submit" value="확인" /></p> <br />
 		    </div>
 	    </form>
-	    <c:out value="${msg }" default="" />
+	    <span class="returnmsg"><c:out value="${msg }" default="" /></span>
     </div>	    
-    
-</body>
-</html>
+    </main>
+    <%@include file ="footer.jsp" %>

@@ -1,28 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<c:set var="path" value="${pageContext.request.contextPath}"/>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-	<link rel="stylesheet" href="${path}/resources/css/my/mypageinfoedit.css" />
-	<script src="https://code.jquery.com/jquery-latest.min.js"></script>
-	<style>
-	.imgsize{
-		width: 200px;
-		height: 150px;
-	}
-	td{
-		padding: 8px;
-	}
-	</style>
-</head>
-<body>
-<h3>memberinfopage.jsp</h3>
+<%@include file="header.jsp"%>
+<script src="https://code.jquery.com/jquery-latest.min.js"></script>
+<script>
+	document.title = "Member Infomation";
+</script>
+<main class="Site-content textcenter">
+<h3>${mdto.nickname}님 페이지</h3>
     <div id="mypageedit" align="center">
 		    <div class="profile-image-area">
 		        <%-- 프로필 이미지가 없으면 기본 이미지 --%>
@@ -59,10 +43,9 @@
     </div>
     <div>
     	<table align="center">
-    		
     		<tr>
     			<c:forEach items="${palist}" var="pa" end="2">
-    				<td><img class="imgsize" src="${path}/resources/upload/oh/photo/${pa.pa_attach}" alt="" /></td>
+    				<td class="pd8"><img class="imgsize" src="${path}/resources/upload/oh/photo/${pa.pa_attach}" alt="" /></td>
     			</c:forEach>
     		</tr>
 	  	</table>
@@ -82,5 +65,5 @@ $(document).ready(function() {
 });
 
 </script>
-</body>
-</html>
+</main>
+<%@include file ="footer.jsp" %>

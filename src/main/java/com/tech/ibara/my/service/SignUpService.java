@@ -8,6 +8,7 @@ import javax.servlet.http.HttpSession;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.ui.Model;
 
+import com.tech.ibara.biz.dao.BizIDao;
 import com.tech.ibara.my.dao.MyDao;
 import com.tech.ibara.my.dto.MyMemberInfoDto;
 
@@ -27,6 +28,7 @@ public class SignUpService implements SService{
 		String memtype=request.getParameter("memtype");				
 		String interiorNum=request.getParameter("interior");
 		String sellerNum=request.getParameter("seller");
+		String nickname=request.getParameter("nickname");
 		System.out.println("memno : "+memno);
 		System.out.println("memtype : "+memtype);
 		System.out.println("interiorNum : "+interiorNum);
@@ -66,7 +68,10 @@ public class SignUpService implements SService{
 			int sellerCount=mdao.countCheckSeller(interiorNum);
 			if(interiorCount==0 && sellerCount==0) {
 				int interiorResult=mdao.insertInterior(memno, interiorNum);
-				if(interiorResult==1) {// 인테리어 업체로 등록되는 경우이므로 biz_home 생성해야됨.
+				int inteno=mdao.getInteno(memno);
+				System.out.println("inteno생성 : "+inteno);
+				if(interiorResult==1) {
+					mdao.bizHomeCreate(nickname, inteno);
 					mdao.completedInterior(memno);
 					MyMemberInfoDto memdto=mdao.getMemberInfo("1",memno);
 					session.removeAttribute("loginUserDto");

@@ -27,7 +27,6 @@ public class MyScrapService implements VService{
 		Map<String, Object> map=model.asMap();
 		MyMemberInfoDto mdto=(MyMemberInfoDto) map.get("mdto");
 		int memno = mdto.getMemno();
-						
 		MyDao mdao=sqlSession.getMapper(MyDao.class);
 		int scrapPb= mdao.countScrapPhotoBoard(memno);
 		int bmarkBiz=mdao.countBizBmark(memno);
@@ -35,10 +34,9 @@ public class MyScrapService implements VService{
 		model.addAttribute("scrapPb",scrapPb);
 		model.addAttribute("bmarkBiz",bmarkBiz);
 		
-//		MyDao mdao=sqlSession.getMapper(MyDao.class);
-		BizIDao bdao=sqlSession.getMapper(BizIDao.class);
-//		ArrayList<BizHomeDto> bhdto=bdao.getBmarkedHomesByUserMy(memno); //비즈북마크된 비즈홈정보를 가져오는 메소드
-//		model.addAttribute("bhlist",bhdto); //북마크된 비즈홈정보를 jsp로 보내주기
+//		BizIDao bdao=sqlSession.getMapper(BizIDao.class);
+		ArrayList<BizHomeDto> bhdto=mdao.getBmarkedHomesByUserMy(memno); //비즈북마크된 비즈홈정보를 가져오는 메소드
+		model.addAttribute("bhlist",bhdto); //북마크된 비즈홈정보를 jsp로 보내주기
 		
 		OHInterfaceDao odao=sqlSession.getMapper(OHInterfaceDao.class);
 //		ArrayList<OHPhotoBoard> pblikedto=odao.getPhotoBoardLikeList(memno); //int memno를 보내면 likeDTO가 조인된 모든 정보를 가져오는 쿼리를 부르는 메소드

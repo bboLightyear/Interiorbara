@@ -19,7 +19,7 @@ import com.tech.ibara.my.dao.MyDao;
 import com.tech.ibara.my.util.EmailSHA;
 import com.tech.ibara.my.util.Gmail;
 
-public class PassResetService implements SService {
+public class PassResetService implements VService {
 	private SqlSession sqlSession;
 
 	public PassResetService(SqlSession sqlSession) {
@@ -27,7 +27,7 @@ public class PassResetService implements SService {
 	}
 
 	@Override
-	public String execute(Model model) {
+	public void execute(Model model) {
 		System.out.println("PassResetService()");
 		Map<String, Object> map = model.asMap();
 		HttpServletRequest request = (HttpServletRequest) map.get("request");
@@ -36,11 +36,11 @@ public class PassResetService implements SService {
 		MyDao mdao = sqlSession.getMapper(MyDao.class);
 		int emailCheckResult=mdao.countCheck("3",email);
 		if(emailCheckResult==0) {
-			return "emailNull";
+			model.addAttribute("msg","가입되지않은 이메일입니다.");
 		}else {
 			String nickname = mdao.getMemberNickname(email);
 			emailSendAction(nickname);
-			return "my/passwordReset";
+			model.addAttribute("msg","비밀번호 변경을 위해 이메일인증을 해주세요");
 		}
 	}
 

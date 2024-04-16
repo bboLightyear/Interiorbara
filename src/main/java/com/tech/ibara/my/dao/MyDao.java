@@ -2,6 +2,7 @@ package com.tech.ibara.my.dao;
 
 import java.util.ArrayList;
 
+import com.tech.ibara.biz.dto.BizHomeDto;
 import com.tech.ibara.my.dto.InteriorCasesImgDto;
 import com.tech.ibara.my.dto.MyMemberInfoDto;
 import com.tech.ibara.my.dto.MyNonMemberDto;
@@ -67,6 +68,8 @@ public interface MyDao {
 	public ArrayList<PhotoAttachDto> getMyPhoto(int memno);
 	public ArrayList<PhotoAttachDto> getMyPhotoBoardList(int memno);
 	public ArrayList<InteriorCasesImgDto> getMyCasesList(int inteno);
-	
+	public ArrayList<BizHomeDto> getBmarkedHomesByUserMy(int memno);
+	public int getInteno(String memno);
+	public void bizHomeCreate(String nickname, int inteno);
 	
 }

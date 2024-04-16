@@ -1,10 +1,10 @@
-table {
+.classtable {
 	text-align: left;
 }
-th,td {
+.classth,.classtd {
 	line-height: 2.7em;
 }
-body {
+.classbody {
 	text-align: center;
 }
 #btnstyle {
@@ -16,11 +16,6 @@ body {
 #btnstyle:hover{
 	background-color: #1e90ff;
 	cursor: pointer;
-}
-a {
-	text-decoration: none;
-	color: #1a1f27;
-	font-weight: bold;
 }
 #fs10px {
 	font-size: 10px;

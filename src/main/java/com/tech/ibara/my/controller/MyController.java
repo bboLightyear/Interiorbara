@@ -78,6 +78,7 @@ public class MyController {
 			model.addAttribute("joinmsg","이미 가입된 닉네임입니다");
 			return "my/joinform";
 		}
+		model.addAttribute("joinmsg","가입되었습니다. 로그인하시려면 이메일을 인증해주세요");
 		return str;
 	}
 	@RequestMapping("/emailCheck")
@@ -205,6 +206,11 @@ public class MyController {
 	@RequestMapping("my/mypagemain")
 	public String mypagemain(HttpServletRequest request,Model model) {
 		System.out.println("mypagemain()");
+		MyMemberInfoDto mdto=(MyMemberInfoDto) session.getAttribute("loginUserDto");
+		if(mdto==null) {
+			model.addAttribute("msg","로그인 정보가 없습니다. 로그인해주세요");
+			return "my/loginform";
+		}		
 		vservice=new MypageMainService(sqlSession,session);
 		vservice.execute(model);
 		return "my/mypagemain";
@@ -304,14 +310,9 @@ public class MyController {
 	public String passReset(HttpServletRequest request,Model model) {
 		System.out.println("passReset()");
 		model.addAttribute("request",request);
-		sservice=new PassResetService(sqlSession);
-		String str = sservice.execute(model);
-		if(str.equals("emailNull")) {
-			model.addAttribute("msg","가입되지않은 이메일입니다.");
-			return "my/passwordReset";
-		}else {
-		return str;
-		}
+		vservice=new PassResetService(sqlSession);
+		vservice.execute(model);
+		return "my/passwordReset";
 	}
 	@RequestMapping("my/passMailCheck")
 	public String passMailCheck(HttpServletRequest request,Model model) {

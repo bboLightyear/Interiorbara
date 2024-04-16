@@ -1,33 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<c:set var="path" value="${pageContext.request.contextPath}" />
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-<link rel="stylesheet" href="${path}/resources/css/my/mypageinfoedit.css" />
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-<style>
-table{
-	width: 60%;
-	text-align: center;
-	margin-top: 30px;
-	font-size: 15px;
-}
-th, td{
-	height: 30px;
-	border-bottom: 1px solid gray;
-}
-th{
-	background-color: #e2f0fe;
-}
-</style>
-</head>
-<body>
-	<h3>admin_demandwithdrawal.jsp</h3>
+<%@include file ="header.jsp" %>
+<script>
+document.title = "Admin Demand Withdrawal";
+</script>
+
+<main class="Site-content" style="margin-top:10px;">
+	
 	<div class="mypage_category">
 		<div class="mypage_category_list list_1"><a href="mypage">메인</a></div>
 		<div class="mypage_category_list list_2"><a href="admin_memberlist">회원관리</a></div>
@@ -39,35 +18,33 @@ th{
         <div class="mypage_category_list list_2_1"><a href="admin_memberlist">회원리스트</a></div>
 	    <div class="mypage_category_list list_2_2"><a href="#">탈퇴신청회원리스트</a></div>
     </div>
-	<!-- <form action="allowCheckWithdrawal" method="post"> -->
-		<table align="center">
+	
+		<table align="center" class="scraptable">
 			<tr>
-				<th>회원번호</th>
-				<th>탈퇴사유</th>
-				<th>탈퇴신청일</th>
-				<th>승인여부</th>				
+				<th class="scrapth">회원번호</th>
+				<th class="scrapth">탈퇴사유</th>
+				<th class="scrapth">탈퇴신청일</th>
+				<th class="scrapth">승인여부</th>				
 			</tr>			
 			<c:forEach items="${wdto }" var="list">
 			<tr>
-				<td>${list.memno }</td>
-				<td>${list.reason }</td>
-				<td><fmt:formatDate value="${list.wddate }" type="both" dateStyle="short" pattern="YYYY-MM-dd"/></td>
+				<td class="scraptd">${list.memno }</td>
+				<td class="scraptd">${list.reason }</td>
+				<td class="scraptd"><fmt:formatDate value="${list.wddate }" type="both" dateStyle="short" pattern="YYYY-MM-dd"/></td>
 				<c:choose>
 					<c:when test="${list.yesno eq 'N'}">
-						<td>
-							<a id="allowCheck" href="allowCheckWithdrawal?memno=${list.memno }">승인하기</a>
+						<td class="scraptd">
+							<a class="aaa" id="allowCheck" href="allowCheckWithdrawal?memno=${list.memno }">승인하기</a>
 						</td>
 					</c:when>
 					<c:otherwise>
-						<td>
-							<a href="allowCheckWithdrawal?memno=${list.memno }">취소하기</a>
+						<td class="scraptd">
+							<a class="aaa" href="allowCheckWithdrawal?memno=${list.memno }">취소하기</a>
 						</td>
 					</c:otherwise>
 				</c:choose>
 			</tr>
 			</c:forEach>
 		</table>
-	<!-- </form> -->
-
-</body>
-</html>
+	</main>
+	<%@include file ="footer.jsp" %>

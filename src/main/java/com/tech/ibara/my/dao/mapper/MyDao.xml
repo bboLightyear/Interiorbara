@@ -297,7 +297,39 @@
 		FROM BIZ_CASES BC JOIN BIZ_CASES_IMG BCI ON BC.BC_NO=BCI.BC_NO WHERE BC.INTENO=#{param1}
 		GROUP BY BC.BC_NO,BC.BC_TITLE,BC.BC_CONTENT	
 	</select>
-	
+	<resultMap type="com.tech.ibara.biz.dto.BizHomeBmarkDto" id="BizHomeBmarkDto">
+		<!-- 칼럼명은 관습적으로 대문자로 표현 -->
+		<result column="BHB_NO" property="bhb_no"  />
+		<result column="MEMNO" property="memno"  />
+		<result column="INTENO" property="inteno"  />
+	</resultMap>
+	<resultMap type="com.tech.ibara.biz.dto.BizHomeDto" id="BizHomeDto">
+		<!-- 칼럼명은 관습적으로 대문자로 표현 -->
+		<result column="BH_NO" property="bh_no"  />
+		<result column="BH_IMG" property="bh_img"  />
+		<result column="BH_NOTICE" property="bh_notice"  />
+		<result column="BH_INTRO" property="bh_intro"  />
+		<result column="BH_NAME" property="bh_name"  />
+		<result column="BH_BOOKMARKED" property="bh_bookmarked"  />
+		<result column="BH_CONT_CNT" property="bh_cont_cnt"  />
+		<result column="BH_PRO" property="bh_pro"  />
+		<result column="BH_ADDR1" property="bh_addr1"  />
+		<result column="BH_ADDR2" property="bh_addr2"  />
+		<result column="INTENO" property="inteno"  />
+		<collection property="BizHomeBmarkDto" resultMap="BizHomeBmarkDto"></collection>
+	</resultMap>
+	<select id="getBmarkedHomesByUserMy" resultType="com.tech.ibara.biz.dto.BizHomeDto" resultMap="BizHomeDto">
+		SELECT BH.BH_NO,BH.INTENO,BH.BH_NAME,BH.BH_INTRO FROM BIZ_HOME BH JOIN BIZ_HOME_BMARK BHB ON BH.INTENO=BHB.INTENO
+		WHERE BHB.MEMNO = #{param1}
+	</select>
+	<select id="getInteno" resultType="Integer">
+		SELECT INTENO FROM MY_INTERIOR WHERE MEMNO=#{param1}
+	</select>
+	<insert id="bizHomeCreate">
+      INSERT INTO BIZ_HOME VALUES (BIZ_HOME_SEQ.NEXTVAL,'HOME_NEW.JPG',
+      '이벤트를 비롯한 공지사항을 입력해 주세요. 메인 상단에 표시됩니다.','전화번호, 찾아오시는 길을 비롯한 전반적인 업체 소개를 입력해 주세요.',
+      #{param1},0,0,'도배·페인트','시/군/구만 입력 바랍니다.','지도로 검색할 상세주소를 작성해 주세요.',#{param2})
+   	</insert>
 	
 	
 	

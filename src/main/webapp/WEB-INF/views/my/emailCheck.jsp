@@ -18,7 +18,7 @@ function closeWin(){
 <body onload="closeWin()">
 <img src="resources/img/my/3.png" alt="" /> <br />
 
-<a href="${path }/">main</a>
+<a href="${path}/">main</a>
 	
 </body>
 </html>
