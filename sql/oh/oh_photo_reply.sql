@@ -42,6 +42,37 @@ INSERT INTO OH_PHOTO_REPLY (PR_NO, MEMNO, PR_CONTENT, PR_DATE, PR_GROUP, PR_STEP
 --------------------------------------
 -- SELECT
 SELECT * FROM OH_PHOTO_REPLY;
+
+SELECT
+    PR_NO, MEMNO, PR_CONTENT, 
+    TO_CHAR(PR_DATE, 'YYYY.MM.DD') AS PR_DATE,
+    PR_GROUP, PR_INDENT, PB_NO
+FROM
+    OH_PHOTO_REPLY
+;
+
+SELECT
+    OHA.NICKNAME, OHB.*
+FROM 
+    MY_MEMBER_INFO OHA
+INNER JOIN
+    (SELECT
+        PR_NO, MEMNO, PR_CONTENT, 
+        TO_CHAR(PR_DATE, 'YYYY.MM.DD') AS PR_DATE,
+        PR_GROUP, PR_INDENT, PB_NO
+    FROM
+        OH_PHOTO_REPLY
+    ) OHB
+ON 
+    OHA.MEMNO = OHB.MEMNO
+WHERE
+    PB_NO = 127    
+ORDER BY
+    PR_NO DESC
+;
+
+
+
 --------------------------------------
 --------------------------------------------------------------------------------
 --------------------------------------------------------------------------------

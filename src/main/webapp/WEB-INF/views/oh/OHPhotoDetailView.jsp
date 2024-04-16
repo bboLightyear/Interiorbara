@@ -112,7 +112,8 @@
 			<td>${ohPhotoDetailScrap.memno }</td>
 			<td>${ohPhotoDetailScrap.ps_date }</td>
 			<td>${ohPhotoDetailScrap.pb_no }</td>
-		</tr>				
+		</tr>		
+	
 	</table>
 	<!-- 데이터 표시 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
 
@@ -174,29 +175,34 @@
 										
 				</div>				
 				
-				<div id="OHPhotoDetailView-main-2">
-
-					<span id="OHPhotoDetailView-main-2residence">
-						주거형태 <br>
-						${pb_dto.pb_residence }
-					</span>
-
-					<span id="OHPhotoDetailView-main-2room">
-						공간 <br>
-						${pb_dto.pb_room }
-					</span>
-
-					<span id="OHPhotoDetailView-main-2style">
-						스타일 <br>
-						${pb_dto.pb_style }
-					</span>
-
-					<span id="OHPhotoDetailView-main-2skill">
-						셀프/전문가 <br>
-						${pb_dto.pb_skill }
-					</span>
-
-				</div>					
+				<c:if test="${pb_dto.pb_residence ne null || pb_dto.pb_room ne null || pb_dto.pb_style ne null || pb_dto.pb_skill ne null }">
+					<div id="OHPhotoDetailView-main-2">
+						<c:if test="${pb_dto.pb_residence ne null }">
+							<span id="OHPhotoDetailView-main-2residence">
+								주거형태 <br>
+								${pb_dto.pb_residence }
+							</span>
+						</c:if>
+						<c:if test="${pb_dto.pb_room ne null }">
+							<span id="OHPhotoDetailView-main-2room">
+								공간 <br>
+								${pb_dto.pb_room }
+							</span>
+						</c:if>
+						<c:if test="${pb_dto.pb_style ne null }">
+							<span id="OHPhotoDetailView-main-2style">
+								스타일 <br>
+								${pb_dto.pb_style }
+							</span>
+						</c:if>
+						<c:if test="${pb_dto.pb_skill ne null }">
+							<span id="OHPhotoDetailView-main-2skill">
+								셀프/전문가 <br>
+								${pb_dto.pb_skill }
+							</span>
+						</c:if>
+					</div>					
+				</c:if>
 
 				<div id="OHPhotoDetailView-main-3">
 					<!-- 게시물, 이미지 출력 -->
@@ -223,6 +229,7 @@
 				</div>
 
 				<div id="OHPhotoDetailView-main-6">
+				
 					<!-- 좋아요, 이미지 -->
 					<c:choose>
 						<c:when test="${ohPhotoDetailLike ne null }">
@@ -244,25 +251,33 @@
 					</span>
 					<!-- 좋아요, 숫자 End -->						
 					
-					
-					
-
-
-					
-					
-					
-					<span id="OHPhotoDetailView-main-6scrap">
-						스크랩
-					</span>
+					<!-- 스크랩, 이미지 -->
+					<c:choose>					
+						<c:when test="${ohPhotoDetailScrap ne null }">
+							<span id="OHPhotoDetailView-main-6scrap" class="clickColor">
+								<i class="fa-solid fa-bookmark"></i>
+							</span>
+						</c:when>
+						<c:otherwise>
+							<span id="OHPhotoDetailView-main-6scrap">
+								<i class="fa-regular fa-bookmark"></i>
+							</span>
+						</c:otherwise>
+					</c:choose>
+					<!-- 스크랩, 이미지 End -->
+								
+					<!-- 스크랩, 숫자 -->										
 					<span id="OHPhotoDetailView-main-6scrapNumber">
-						999
+						${pb_dto.pb_scrap }
 					</span>
+					<!-- 스크랩, 숫자 End -->						
 					
 					<span id="OHPhotoDetailView-main-6views">
 						조회수
 					</span>
+					
 					<span id="OHPhotoDetailView-main-6viewsNumber">
-						999
+						${pb_dto.pb_hit }
 					</span>
 					
 					<button id="OHPhotoDetailView-main-6complaintButton">
@@ -272,18 +287,32 @@
 				</div>
 
 				<div id="OHPhotoDetailView-main-7">
-					<img id="OHPhotoDetailView-main-7profileImage"></img>
-					<div id="OHPhotoDetailView-main-7writerName">작성자명</div>
+									
+					<!-- 게시글 작성자 프로필 이미지 -->			
+					<%-- 프로필 이미지가 없으면 기본 이미지 --%>
+					<c:if test="${empty loginUserDto.profileimg}" >
+						<img src="../resources/img/my/user.png" id="OHPhotoDetailView-main-7profileImage">
+			        </c:if>
+			        <%-- 프로필 이미지가 있으면 있는 이미지 --%>
+			        <c:if test="${!empty loginUserDto.profileimg}" >
+			            <img src="../resources/upload/my/${loginUserDto.profileimg}" id="OHPhotoDetailView-main-7profileImage">
+			        </c:if>						
+					
+					<!-- 게시글 작성자명 -->
+					<div id="OHPhotoDetailView-main-7writerName">
+						${nickname }
+					</div>
+
 				</div>
 
 				<div id="OHPhotoDetailView-main-8">
 					<span id="OHPhotoDetailView-main-8replyLable">댓글</span>
-					<span id="OHPhotoDetailView-main-8replyTotal">99</span>
+					<span id="OHPhotoDetailView-main-8replyTotal">${replyNumber }</span>
 				</div>
 
 				<div id="OHPhotoDetailView-main-9">
 					<!-- 입력창 -->
-					<textarea id="OHPhotoDetailView-main-9inputReply" maxlength="60" cols="30" rows="10" placeholder="칭찬과 격려의 댓글은 작성자에게 큰 힘이 됩니다. &#13;&#10;최대 60자 까지 작성할 수 있습니다."></textarea>
+					<textarea id="OHPhotoDetailView-main-9inputReply" oninput="checkTextarea()" maxlength="60" cols="30" rows="10" placeholder="칭찬과 격려의 댓글은 작성자에게 큰 힘이 됩니다. &#13;&#10;최대 60자 까지 작성할 수 있습니다."></textarea>
 					<!-- 입력버튼 -->
 					<button id="OHPhotoDetailView-main-9inputReplyButton" disabled>입력</button>								
 				</div>				
@@ -292,7 +321,59 @@
 
 					<div id=contentReply>				
 					
-						<!-- 댓글 추가 영역 -->
+						<!-- 댓글 추가 영역 -->					
+					
+						<c:forEach items="${dtoReplyList }" var="dto">	
+						
+							<!-- 댓글 1개 영역 - 시작 -->
+							<div class="reply-container">
+	
+								<div class="reply-container-layer1">
+								
+ 									<!-- 댓글 작성자 프로필 이미지 -->
+									<!-- 프로필 이미지가 없으면 기본 이미지 -->
+									<c:if test="${empty dto.myMemberInfoDto.profileimg}" >								
+										<img src="../resources/img/my/user.png" class="reply-profileImage">
+									</c:if>
+									<!-- 프로필 이미지가 있으면 있는 이미지 -->
+									<c:if test="${!empty dto.myMemberInfoDto.profileimg}" >
+										<img src="../resources/img/my/${dto.myMemberInfoDto.profileimg }" class="reply-profileImage">
+							        </c:if>	
+								
+									<!-- 사용자 이름 -->
+									<div class="reply-userName">${dto.myMemberInfoDto.nickname }</div>
+								
+									<!-- 내댓글 표시 -->
+									<c:if test="${loginUserDto.memno eq dto.memno }">
+										<div class="reply-checkMyReply">내 댓글</div>
+									</c:if>
+									
+								</div>
+	
+								<div class="reply-container-layer2">
+									<!-- 댓글 내용 -->
+									<span class="reply-content">${dto.pr_content }</span>
+								</div>
+	
+								<div class="reply-container-layer3">
+									<!-- 작성된 시간 -->
+									<div class="reply-writtenDate">${dto.pr_date }</div>
+									<!-- 좋아요 버튼 -->
+									<div class="reply-likeButton">하트</div>
+									<!-- 좋아요 횟수 -->
+									<div class="reply-likeNumber">999</div>
+									<!-- 답글 달기 -->
+									<button class="reply-replyToReplyButton">답글 달기</button>
+									<!-- 삭제 버튼 -->
+									<button class="reply-deleteButton">삭제</button>
+									<!-- 신고 버튼 -->
+									<button class="reply-complaintButton">신고</button>
+								</div>
+	
+							</div>
+							<!-- 댓글 1개 영역 - 끝 -->						
+						
+						</c:forEach>		
 				
 					</div>
 				
@@ -307,7 +388,7 @@
 		</footer>
 		
 	</div>
-	
+
 	<!-- OHPhotoDetailView.js -->
 	<script src="../resources/js/oh/OHPhotoDetailView.js"></script>	
 		

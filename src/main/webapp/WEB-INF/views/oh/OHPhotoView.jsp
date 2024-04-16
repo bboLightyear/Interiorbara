@@ -339,7 +339,7 @@
 	                                <div id="OHPhotoView-photoUserName">${dto.myMemberInfoDto.nickname }</div>
 	                                <!-- 게시글 제목 -->
 	                                <div id="OHPhotoView-photoTitle">
-	                                	<a href="OHPhotoDetailView?pb_no=${dto.pb_no }">
+	                                	<a href="OHPhotoDetailView?pb_no=${dto.pb_no }&nickname=${dto.myMemberInfoDto.nickname }">
 	                                		${dto.pb_title }
 										</a>	                                
 	                                </div>
@@ -347,7 +347,7 @@
 								
 	                            <div class="OHPhotoView-boxLayer-2">
 									<!-- 게시글 대표 이미지 --> 
-									<a href="OHPhotoDetailView?pb_no=${dto.pb_no }">
+									<a href="OHPhotoDetailView?pb_no=${dto.pb_no }&nickname=${dto.myMemberInfoDto.nickname }">
 		                                <img id="OHPhotoView-photoImage" src="../resources/upload/oh/photo/${dto.ohPhotoAttach.pa_attach }" alt="해당 게시글 대표사진">
 									</a>								
 	                            </div>								

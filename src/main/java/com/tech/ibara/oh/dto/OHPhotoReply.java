@@ -1,24 +1,34 @@
 package com.tech.ibara.oh.dto;
 
-import java.util.Date;
+import com.tech.ibara.my.dto.MyMemberInfoDto;
 
 public class OHPhotoReply {
 
 	private int pr_no;
 	private int memno;
 	private String pr_content;
-	private Date pr_date;
+	private String pr_date;
 	private int pr_group;
 	private int pr_step;
 	private int pr_indent;
 	private int pb_no;
+	
+	private MyMemberInfoDto myMemberInfoDto;
+	
+	public MyMemberInfoDto getMyMemberInfoDto() {
+		return myMemberInfoDto;
+	}
+
+	public void setMyMemberInfoDto(MyMemberInfoDto myMemberInfoDto) {
+		this.myMemberInfoDto = myMemberInfoDto;
+	}	
 	
 	public OHPhotoReply() {
 		// TODO Auto-generated constructor stub
 	}
 
 	public OHPhotoReply(int pr_no, int memno, 
-						String pr_content, Date pr_date, int pr_group,
+						String pr_content, String pr_date, int pr_group,
 						int pr_step, int pr_indent, int pb_no) {
 		this.pr_no = pr_no;
 		this.memno = memno;
@@ -54,11 +64,11 @@ public class OHPhotoReply {
 		this.pr_content = pr_content;
 	}
 
-	public Date getPr_date() {
+	public String getPr_date() {
 		return pr_date;
 	}
 
-	public void setPr_date(Date pr_date) {
+	public void setPr_date(String pr_date) {
 		this.pr_date = pr_date;
 	}
 

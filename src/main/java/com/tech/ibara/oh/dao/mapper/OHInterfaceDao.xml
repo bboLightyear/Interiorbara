@@ -53,6 +53,7 @@
 	<resultMap type="com.tech.ibara.my.dto.MyMemberInfoDto" id="MyMemberInfoDto">
 		<result column="MEMNO" property="memno" />
 		<result column="NICKNAME" property="nickname" />
+		<result column="PROFILEIMG" property="profileimg" />
 	</resultMap>
 	
 	<!-- resultMap OHPhotoLike -->
@@ -71,7 +72,7 @@
 		<result column="MEMNO" property="memno" />
 		<result column="PS_DATE" property="ps_date" />
 		<result column="PB_NO" property="pb_no" />
-	</resultMap>	
+	</resultMap>		
 	
 	<!-- OHMainView.jsp -->
 	
@@ -483,6 +484,14 @@
 		WHERE
 			PB_NO = #{param1}		
 	</select>
+	<select id="getOHPhotoReplyNumber" resultType="Integer">
+		SELECT
+			COUNT(*)
+		FROM
+			OH_PHOTO_REPLY
+		WHERE
+			PB_NO = #{param1}	
+	</select>	
 	<select id="ohPhotoDetailLikeView" resultType="com.tech.ibara.oh.dto.OHPhotoLike">
 		SELECT
 			*
@@ -499,16 +508,51 @@
 		WHERE
 			MEMNO = ${param1} AND PB_NO = ${param2}			
 	</select>	
+		
+	<!-- resultMap OHPhotoReply -->
 	
+	<resultMap type="com.tech.ibara.oh.dto.OHPhotoReply" id="OHPhotoReply">
+		<result column="PR_NO" property="pr_no" />
+		<result column="MEMNO" property="memno" />	
+		<result column="PR_CONTENT" property="pr_content" />
+		<result column="PR_DATE" property="pr_date" />
+		<result column="PR_GROUP" property="pr_group" />
+		<result column="PR_STEP" property="pr_step" />
+		<result column="PR_INDENT" property="pr_indent" />
+		<result column="PB_NO" property="pb_no" />
+		<!-- collection -->
+		<collection property="myMemberInfoDto" resultMap="ReplyMyMemberInfoDto"/>
+	</resultMap>	
+	
+	<!-- resultMap ReplyMyMemberInfoDto -->
+	
+	<resultMap type="com.tech.ibara.my.dto.MyMemberInfoDto" id="ReplyMyMemberInfoDto">
+		<result column="MEMNO" property="memno" />
+		<result column="NICKNAME" property="nickname" />
+		<result column="PROFILEIMG" property="profileimg" />
+	</resultMap>		
+		
 	<!-- OHPhotoReplyView -->
 	
-	<select id="ohPhotoReplyView" resultType="com.tech.ibara.oh.dto.OHPhotoReply">
+	<select id="ohPhotoReplyView" resultType="com.tech.ibara.oh.dto.OHPhotoReply" resultMap="OHPhotoReply">			
 		SELECT
-			*
-		FROM
-			OH_PHOTO_REPLY
-		WHERE
-			PB_NO = #{param1}
+	        OHA.NICKNAME, OHA.PROFILEIMG, OHB.*
+	    FROM 
+	        MY_MEMBER_INFO OHA
+	    INNER JOIN
+	        (SELECT
+	            PR_NO, MEMNO, PR_CONTENT, 
+	            TO_CHAR(PR_DATE, 'YYYY.MM.DD') AS PR_DATE,
+	            PR_GROUP, PR_INDENT, PB_NO
+	        FROM
+	            OH_PHOTO_REPLY
+	        ) OHB
+	    ON 
+	        OHA.MEMNO = OHB.MEMNO
+        WHERE
+        	PB_NO = #{param1}
+	    ORDER BY
+	        PR_NO DESC	
 	</select>
 	
 	<!-- OHPhotoReplyWriteExecute -->

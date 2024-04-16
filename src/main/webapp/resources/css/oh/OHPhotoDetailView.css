@@ -200,11 +200,16 @@
 	position: absolute;
 	top: 50%;
 	left: 0px;
-	text-align: left;
-	width: 50px;
 	transform: translate(0%, -50%);  
+	width: 50px;
 	display: inline-block;
+	text-align: center;
+	font-size: 35px;
+	color: #1a1f27;	
 	background-color: #e36639;
+}
+#OHPhotoDetailView-main-6like.clickColor {
+	color: #1034a6;
 }
 #OHPhotoDetailView-main-6likeNumber {
 	position: absolute;
@@ -220,11 +225,16 @@
 	position: absolute;
 	top: 50%;
 	left: 130px;
-	text-align: left;
-	width: 50px;
 	transform: translate(0%, -50%);  
+	width: 50px;
 	display: inline-block;
-	background-color: #558ffa;
+	text-align: center;
+	font-size: 35px;
+	color: #1a1f27;	
+	background-color: #e36639;
+}
+#OHPhotoDetailView-main-6scrap.clickColor {
+	color: #1034a6;	
 }
 #OHPhotoDetailView-main-6scrapNumber {
 	position: absolute;
@@ -376,7 +386,7 @@
     width: 80px;
     height: 60px;
     color: #1a1f27; 
-   	background-color: #1e90ff;
+   	/* background-color: #1e90ff; */
    	border: none;
     border-radius: 10px;
 }

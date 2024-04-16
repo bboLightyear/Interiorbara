@@ -56,6 +56,7 @@ public interface OHInterfaceDao {
 	public void updatePb_hit(String pb_no);
 	public OHPhotoBoard getDtoOHPhotoBoard(String pb_no);
 	public ArrayList<OHPhotoAttach> getDtoOHPhotoAttach(String pa_no);
+	public int getOHPhotoReplyNumber(String pb_no);
 	public OHPhotoLike ohPhotoDetailLikeView(int memno, String pb_no);
 	public OHPhotoScrap ohPhotoDetailScrapView(int memno, String pb_no); 	
 	

@@ -257,13 +257,13 @@
 						<c:forEach items="${ohPhotoViewOrderDate }" var="dto" varStatus="status">
 							<div class="OHMainView-3box">
 								<!-- 게시글 대표 이미지 --> 
-								<a href="OHPhotoDetailView?pb_no=${dto.pb_no }">
+								<a href="OHPhotoDetailView?pb_no=${dto.pb_no }&nickname=${dto.myMemberInfoDto.nickname }">
 									<img id="OHMainView-3photoImage" src="../resources/upload/oh/photo/${dto.ohPhotoAttach.pa_attach }" alt="해당 게시글 대표사진"/>
 								</a>			
 								<div class="OHMainView-3boxLayer">		
 									<!-- 게시글 제목 -->
 									<div id="OHMainView-3photoTitle">
-										<a href="OHPhotoDetailView?pb_no=${dto.pb_no }">
+										<a href="OHPhotoDetailView?pb_no=${dto.pb_no }&nickname=${dto.myMemberInfoDto.nickname }">
 											${dto.pb_title }
 										</a>
 									</div>
@@ -303,13 +303,13 @@
 						<c:forEach items="${ohPhotoViewOrderLike }" var="dto" varStatus="status">
 							<div class="OHMainView-5box">
 								<!-- 게시글 대표 이미지 --> 
-								<a href="OHPhotoDetailView?pb_no=${dto.pb_no }">
+								<a href="OHPhotoDetailView?pb_no=${dto.pb_no }&nickname=${dto.myMemberInfoDto.nickname }">
 									<img id="OHMainView-5photoImage" src="../resources/upload/oh/photo/${dto.ohPhotoAttach.pa_attach }" alt="해당 게시글 대표사진"/>
 								</a>			
 								<div class="OHMainView-5boxLayer">		
 									<!-- 게시글 제목 -->
 									<div id="OHMainView-5photoTitle">
-										<a href="OHPhotoDetailView?pb_no=${dto.pb_no }">
+										<a href="OHPhotoDetailView?pb_no=${dto.pb_no }&nickname=${dto.myMemberInfoDto.nickname }">
 											${dto.pb_title }
 										</a>
 									</div>
@@ -349,13 +349,13 @@
 						<c:forEach items="${ohPhotoViewOrderHit }" var="dto" varStatus="status">
 							<div class="OHMainView-7box">
 								<!-- 게시글 대표 이미지 --> 
-								<a href="OHPhotoDetailView?pb_no=${dto.pb_no }">
+								<a href="OHPhotoDetailView?pb_no=${dto.pb_no }&nickname=${dto.myMemberInfoDto.nickname }">
 									<img id="OHMainView-7photoImage" src="../resources/upload/oh/photo/${dto.ohPhotoAttach.pa_attach }" alt="해당 게시글 대표사진"/>
 								</a>			
 								<div class="OHMainView-7boxLayer">		
 									<!-- 게시글 제목 -->
 									<div id="OHMainView-7photoTitle">
-										<a href="OHPhotoDetailView?pb_no=${dto.pb_no }">
+										<a href="OHPhotoDetailView?pb_no=${dto.pb_no }&nickname=${dto.myMemberInfoDto.nickname }">
 											${dto.pb_title }
 										</a>
 									</div>

@@ -15,6 +15,7 @@ import com.tech.ibara.oh.dao.OHInterfaceDao;
 import com.tech.ibara.oh.dto.OHPhotoAttach;
 import com.tech.ibara.oh.dto.OHPhotoBoard;
 import com.tech.ibara.oh.dto.OHPhotoLike;
+import com.tech.ibara.oh.dto.OHPhotoReply;
 import com.tech.ibara.oh.dto.OHPhotoScrap;
 import com.tech.ibara.oh.vo.OHPageVO;
 
@@ -52,7 +53,15 @@ public class OHPhotoDetailViewService implements OHInterfaceService {
 		// pb_no 변수, 값 출력
 		System.out.println("pb_no: " + pb_no);
 		System.out.println("------------------------------");
+		
+		// nickname 변수 선언, 값 저장		
+		String nickname = request.getParameter("nickname");
+		// nickname 변수, 값 출력
+		System.out.println("nickname: " + nickname);
+		System.out.println("------------------------------");		
 
+		model.addAttribute("nickname", nickname);
+		
 		// 게시글 조회수 증가, UpdatePb_hit() 함수 실행
 		dao.updatePb_hit(pb_no);
 		
@@ -67,7 +76,7 @@ public class OHPhotoDetailViewService implements OHInterfaceService {
 		
 		// model 값 전달
 		model.addAttribute("pa_dto", pa_dto);
-
+		
 		// 로그인 사용자, 게시물 - 좋아요, 스크랩 표시
 		// 변수 선언
 		int memno = 0;
@@ -113,7 +122,19 @@ public class OHPhotoDetailViewService implements OHInterfaceService {
 			System.out.println("ohPhotoLikeView() 함수 실행불가");
 			System.out.println("ohPhotoScrapView() 함수 실행불가");
 			System.out.println("------------------------------");
-		}		
+		}
+		
+		// 댓글 개수 저장
+		int replyNumber = dao.getOHPhotoReplyNumber(pb_no);
+		
+		// model 값 전달		
+		model.addAttribute("replyNumber", replyNumber);	
+		
+		// 댓글 가져오기
+		ArrayList<OHPhotoReply> dtoReplyList = dao.ohPhotoReplyView(pb_no);
+		
+		// model 값 전달
+		model.addAttribute("dtoReplyList", dtoReplyList);	
 				
 	}
 
