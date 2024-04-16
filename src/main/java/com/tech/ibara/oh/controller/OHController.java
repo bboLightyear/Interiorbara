@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import com.tech.ibara.my.dto.MyMemberInfoDto;
 import com.tech.ibara.oh.service.OHInterfaceService;
 import com.tech.ibara.oh.service.OHMainViewService;
 import com.tech.ibara.oh.service.OHPhotoDeleteExecuteService;
@@ -39,24 +40,35 @@ public class OHController {
 	@RequestMapping("oh/OHMainView")
 	public String OHMainView(HttpServletRequest request, HttpSession session,  Model model) {
 		
-		// 임시 session 내장객체 설정 - 사용자 ID
-		session.setAttribute("userId", "KimGyeongTae");
-//		session.setAttribute("userId", "Tom");
-//		session.setAttribute("userId", "Bob");
-//		session.setAttribute("userId", "Sam");
-//		session.setAttribute("userId", "");
-		
-		// session 사용자 아이디, 저장
-		String userId = (String) session.getAttribute("userId");
-		
-		// userId - null Check, 값 출력 
-		if(userId != null && !userId.equals("")) {
-			System.out.println("userId: " + userId);
+		// -----------------------------------------------
+		// session 내장객체 - 로그인 정보 임시 설정
+		MyMemberInfoDto loginUserDto = new MyMemberInfoDto();
+		// 회원 번호, 닉네임 - 값 설정 
+		loginUserDto.setMemno(5);
+		loginUserDto.setNickname("한글입니다한글입니다한글입니다");
+		// MyMemberInfoDto loginUserDto 객체 - session 저장
+		session.setAttribute("loginUserDto", loginUserDto);
+		// 변수 선언
+		int memno = 0;
+		String nickname = null;
+		// 로그인 정보, null Check
+		if(session.getAttribute("loginUserDto") != null) {
+			// 사용자 로그인 정보 출력
+			MyMemberInfoDto loginUserDto2 = (MyMemberInfoDto) session.getAttribute("loginUserDto");
+			memno = loginUserDto2.getMemno();
+			nickname = loginUserDto2.getNickname();
+			System.out.println("로그인 정보가 있습니다.");
+			System.out.println("memno: " + memno);
+			System.out.println("nickname: " + nickname);
 			System.out.println("------------------------------");
 		} else {
-			System.out.println("userId: " + userId);
+			System.out.println("로그인 정보가 없습니다.");
+			System.out.println("memno: " + memno);
+			System.out.println("nickname: " + nickname);
 			System.out.println("------------------------------");
 		}		
+		// -----------------------------------------------		
+		
 		
 		// Console 출력
 		System.out.println("OHMainView Controller");

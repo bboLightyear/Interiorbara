@@ -3,12 +3,12 @@ package com.tech.ibara.oh.vo;
 public class OHPageVO {
 	
 	// 게시글 - Post
-	private Integer outputPostCount = 3; // 출력할 게시글 수	
+	private Integer outputPostCount = 12; // 출력할 게시글 수	
 	private Integer postTotalNum;		  // 전체 게시글 수
 	private Integer postStartNum;		  // 시작 게시글 번호
 	private Integer postEndNum;			  // 종료 게시글 번호
 	// 페이지 - Page
-	private Integer groupPageCount = 5;   // 페이지 그룹당 페이지 수
+	private Integer groupPageCount = 10;   // 페이지 그룹당 페이지 수
 	private Integer pageTotalNum;		  // 전체 페이지 수
 	private Integer pageSelectedNum;	  // 현재 페이지 번호 
 	private Integer pageStartNum;		  // 시작 페이지 번호

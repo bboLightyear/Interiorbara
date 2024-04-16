@@ -32,18 +32,18 @@ public class OHPhotoReplyWriteExecuteService implements OHInterfaceService {
 		OHInterfaceDao dao = sqlSession.getMapper(OHInterfaceDao.class);
 		
 		// --- 변수 선언, 값 저장 ---		
-		String userId = request.getParameter("userId");
+		String memno = request.getParameter("memno");
 		String pr_content = request.getParameter("pr_content");
 		String pb_no = request.getParameter("pb_no");
 		
 		// --- 변수, 값 출력 ---
-		System.out.println("userId: " + userId);
+		System.out.println("memno: " + memno);
 		System.out.println("pr_content: " + pr_content);
 		System.out.println("pb_no: " + pb_no);
 		System.out.println("------------------------------");
 		
 		// 댓글 - DB 저장
-		dao.ohPhotoReplyWriteExecute(userId, pr_content, pb_no);		
+		dao.ohPhotoReplyWriteExecute(memno, pr_content, pb_no);		
 	}	
 	
 }
