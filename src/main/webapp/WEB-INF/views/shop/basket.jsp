@@ -9,7 +9,7 @@
 <script src="../resources/js/shop/basket.js"></script>
 <link rel="stylesheet" href="../resources/css/shop/basket.css" />
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>Basket</title>
 </head>
 <body>
     <!-- 헤더 -->

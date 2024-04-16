@@ -10,8 +10,10 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script src="https://cdn.iamport.kr/v1/iamport.js"></script>
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css" />
 <link rel="stylesheet" href="../resources/css/shop/order.css" />
-<title>Insert title here</title>
+<title>Order</title>
 <script>
 	$(document).ready(function() {
 		var result = ${result};
@@ -118,7 +120,7 @@
 			<div></div>
 			<!-- header_logo : 로고 -->
 			<div class="header_logo">
-				<img src="resources/img/mainimg/main_logo.jpg" alt="#" onclick="location.href='main'" />
+				<img src="../resources/img/mainimg/main_logo.jpg" alt="#" onclick="location.href='../'" />
 			</div>
 			<!-- header_search_box : 검색창 -->
 			<div class="header_search_box">
@@ -344,23 +346,23 @@
         </div>
     </div>
     <br />
-    <!-- 푸터 -->
-    <footer>
-        <!-- 푸터 로고 -->
-        <div class="footer_logo">
-            <img src="resources/img/mainimg/footer_logo.PNG" alt="#" onclick="location.href='main'"  />
-        </div>
-        <!-- 푸터 내용 -->
-        <div class="footer_content">(주) 카피바라 주소 : 대한민국 서울시 양천구 목동 655-19
-            대표 : 조보근 전화번호 : 010-3017-5283</div>
-        <!-- sns 아이콘 -->
-        <div class="footer_sns">
-            <a href="https://www.facebook.com/"><i class="fab fa-facebook fa-lg"></i></a>
-            <a href="https://www.youtube.com/"><i class="fab fa-youtube fa-lg"></i></a>
-            <a href="https://www.twitter.com/"><i class="fab fa-twitter fa-lg"></i></a>
-            <a href="https://www.twitch.tv/"><i class="fab fa-twitch fa-lg"></i></a>
-            <a href="https://www.instagram.com/"><i class="fab fa-instagram fa-lg"></i></a>
-        </div>
-    </footer>
+	<!-- 푸터 -->
+	<footer>
+		<!-- 푸터 로고 -->
+		<div class="footer_logo">
+			<img src="../resources/img/mainimg/footer_logo.PNG" alt="#" onclick="location.href='main'"  />
+		</div>
+		<!-- 푸터 내용 -->
+		<div class="footer_content">(주) 카피바라 주소 : 대한민국 서울시 양천구 목동 655-19
+			대표 : 조보근 전화번호 : 010-3017-5283</div>
+		<!-- sns 아이콘 -->
+		<div class="footer_sns">
+			<a href="https://www.facebook.com/"><i class="fab fa-facebook fa-lg"></i></a>
+			<a href="https://www.youtube.com/"><i class="fab fa-youtube fa-lg"></i></a>
+			<a href="https://www.twitter.com/"><i class="fab fa-twitter fa-lg"></i></a>
+			<a href="https://www.twitch.tv/"><i class="fab fa-twitch fa-lg"></i></a>
+			<a href="https://www.instagram.com/"><i class="fab fa-instagram fa-lg"></i></a>
+		</div>
+	</footer>
 </body>
 </html>
