@@ -44,7 +44,7 @@ public class OHController {
 		// session 내장객체 - 로그인 정보 임시 설정
 		MyMemberInfoDto loginUserDto = new MyMemberInfoDto();
 		// 회원 번호, 닉네임 - 값 설정 
-		loginUserDto.setMemno(5);
+		loginUserDto.setMemno(1002);
 		loginUserDto.setNickname("한글입니다한글입니다한글입니다");
 		// MyMemberInfoDto loginUserDto 객체 - session 저장
 		session.setAttribute("loginUserDto", loginUserDto);
