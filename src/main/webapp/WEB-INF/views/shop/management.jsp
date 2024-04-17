@@ -7,10 +7,9 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script src="../resources/js/shop/management.js"></script>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>Product Management</title>
 </head>
 <body>
-	<h3>management.jsp</h3>
 	상품 등록 <br />
 	<form action="management/regProduct" method="post" enctype="multipart/form-data">
 		상품 이름: <input type="text" name="productName" value="상품이름" required="required" /> <br />

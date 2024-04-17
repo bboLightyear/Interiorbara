@@ -25,9 +25,18 @@ public class ProductDto {
 	private int reviews;
 
 	private SellerDto seller;
+	private String rep_img;
 
 	public ProductDto() {
 
+	}
+
+	public String getRep_img() {
+		return rep_img;
+	}
+
+	public void setRep_img(String rep_img) {
+		this.rep_img = rep_img;
 	}
 
 	public ProductDto(int seller_id, int category_id, String name, int rep_price, Integer rep_discounted_price,

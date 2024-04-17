@@ -42,7 +42,7 @@ public class OrderViewService extends SqlSessionBase implements ShopService {
 		
 		ArrayList<OrderProductDto> orderProductDtoList = dao.selectOrderProductsByOrder(orderId);
 		
-		PortOneAPI.getInstance().prepare(orderId, orderDto.getAmount());
+//		PortOneAPI.getInstance().prepare(orderId, orderDto.getAmount());
 		
 		model.addAttribute("order", orderDto);
 		model.addAttribute("orderProductList", orderProductDtoList);
