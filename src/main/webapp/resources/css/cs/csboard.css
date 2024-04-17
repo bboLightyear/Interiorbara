@@ -971,6 +971,111 @@ body,html{
 	flex-direction: column;
 }
 /*글쓰기 폼*/
+/*메일*/
+.cs_mail_wrap_all{
+	height: auto;
+	width: 100%;
+    display: flex;
+    flex-direction: column; /* 요소들을 세로로 배치할 때 */
+    justify-content: center;
+    align-items: center;
+}
+.cs_mail_wrap_title{
+	width: 750px;
+}
+.cs_mail_wrap_form_title_it{
+	width: 750px;
+	height: 30px;
+	font-size: 18px;
+	color : gray;
+	padding: 0;
+	border-color: #1034a6;
+}
+.cs_mail_wrap_title_it{
+	width: 750px;
+	margin-top: 10px;
+}
+.cs_mail_wrap_form_wrap_content{
+	width: 100%;
+	display: flex;
+	justify-content: center;
+	margin-top: 20px;
+}
+.cs_mail_wrap_form_content{
+	display: flex;
+	width: 750px;
+	flex-direction: column;
+}
+.cs_mail_wrap_form_content_ta{
+	width: 750px;
+	height: 200px;
+	padding: 0;
+	font-size: 17px;
+	color : gray;
+	resize: none;
+	/* border-color: #1034a6; */
+	border: 2px solid #1034a6;
+}
+.cs_mail_wrap_selectBox{
+	width: 750px;
+	margin-top: 10px;
+}
+select::-ms-expand { 
+	display: none;
+}
+.select {
+  -o-appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}
+.selectBox {
+  position: relative;
+  width: 350px;
+  height: 37px;
+  border-radius: 4px;
+  border: 2px solid #1034a6;
+}
+.selectBox .select {
+  width: inherit;
+  height: inherit;
+  background: transparent;
+  border: 0 none;
+  outline: 0 none;
+  padding: 0 5px;
+  position: relative;
+  z-index: 3; // select가 위로 올라와야 함
+}
+.selectBox .select option {
+  background: #e2f0fe;
+  color: #b1b8c0;
+  padding: 3px 0;
+  font-size: 16px;
+}
+.selectBox .icoArrow {
+  position: absolute; 
+  top: 0; 
+  right: 0; 
+  z-index: 1; 
+  width: 35px; 
+  height: inherit;
+  border-left: 2px solid #1034a6;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.selectBox .icoArrow img {
+  width: 50%;
+  transition: .3s; // 부드럽게 회전
+}
+
+.selectBox .select:focus + .icoArrow img {
+  transform: rotate(180deg);
+}
+/*메일*/
+
+
 
 /* 푸터 */
 footer {

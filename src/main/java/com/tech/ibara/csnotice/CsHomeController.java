@@ -1,7 +1,5 @@
 package com.tech.ibara.csnotice;
 
-import java.util.ArrayList;
-
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.ibatis.session.SqlSession;
@@ -10,8 +8,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.tech.ibara.csnotice.dao.CsHomeIDao;
-import com.tech.ibara.csnotice.dto.NoticeDto;
 import com.tech.ibara.csnotice.service.CsHomeQnaNoticeService;
 import com.tech.ibara.csnotice.service.CsHomeService;
 
@@ -36,4 +32,18 @@ public class CsHomeController {
 		
 		return "csnotice/cshome";
 	}//cshome
+	
+	@RequestMapping("/mailservice")
+	public String emailservice(HttpServletRequest request, Model model) {
+		System.out.println("mailservice()controller");
+		
+		model.addAttribute("request",request);
+		
+		csHomeService= new CsHomeQnaNoticeService(sqlSession);
+		csHomeService.execute(model);
+		
+		return "csnotice/mailservice";
+	}//cshome
+	
+	
 }
