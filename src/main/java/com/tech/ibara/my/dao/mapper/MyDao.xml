@@ -81,10 +81,23 @@
 	<update id="cancelWithdrawal">
 		UPDATE MY_MEMBER_INFO SET MEMTYPE='PERSON' WHERE MEMNO = #{param1}
 	</update>
-	
+	<sql id="includeMemberCount">
+		<choose>
+			<when test="param1==1">
+				WHERE NICKNAME LIKE '%'||#{param2}||'%'
+			</when>
+			<when test="param1==2">
+				WHERE MEMTYPE LIKE '%'||#{param2}||'%'
+			</when>
+			<otherwise></otherwise>
+		</choose>	
+	</sql>	
+	<select id="countMemberList" resultType="Integer">
+		SELECT COUNT(*) FROM MY_MEMBER_INFO <include refid="includeMemberCount" />
+	</select>
 	<select id="getMemberInfoList" resultType="com.tech.ibara.my.dto.MyMemberInfoDto">
 		SELECT MEMNO,NICKNAME,SHPWD,BCPWD,EMAIL,MAILCHECK,BIRTH,GENDER,
-		PHONE,JOINDATE,MEMTYPE,PROFILEIMG FROM MY_MEMBER_INFO ORDER BY MEMNO
+		PHONE,JOINDATE,MEMTYPE,PROFILEIMG FROM MY_MEMBER_INFO <include refid="includeMemberCount" /> ORDER BY MEMTYPE,MEMNO
 	</select>
 	<insert id="insertInterior">
 		INSERT INTO MY_INTERIOR VALUES(INTENO_SEQ.NEXTVAL,#{param1},#{param2})
@@ -279,6 +292,7 @@
 		<result column="BC_NO" property="bc_no" />
 		<result column="BC_TITLE" property="bc_title" />
 		<result column="BC_CONTENT" property="bc_content" />
+		<result column="BC_WRITER" property="bc_writer" />
 		<result column="BC_DATE" property="bc_date" />
 		<result column="BC_HIT" property="bc_hit" />
 		<result column="INTENO" property="inteno" />	
@@ -293,9 +307,9 @@
 		<collection property="inteCasesDto" resultMap="InteriorCasesDto" />
 	</resultMap>
 	<select id="getMyCasesList" resultType="com.tech.ibara.my.dto.InteriorCasesImgDto" resultMap="InteriorCasesImgDto">
-		SELECT BC.BC_NO,BC.BC_TITLE,BC.BC_CONTENT,LISTAGG(BCI.BCIMG_CGN,',') WITHIN GROUP(ORDER BY BCI.BCIMG_CGN) IMGS
+		SELECT BC.BC_NO,BC.BC_WRITER,BC.BC_TITLE,BC.BC_CONTENT,LISTAGG(BCI.BCIMG_CGN,',') WITHIN GROUP(ORDER BY BCI.BCIMG_CGN) IMGS
 		FROM BIZ_CASES BC JOIN BIZ_CASES_IMG BCI ON BC.BC_NO=BCI.BC_NO WHERE BC.INTENO=#{param1}
-		GROUP BY BC.BC_NO,BC.BC_TITLE,BC.BC_CONTENT	
+		GROUP BY BC.BC_NO,BC.BC_TITLE,BC.BC_CONTENT,BC.BC_WRITER	
 	</select>
 	<resultMap type="com.tech.ibara.biz.dto.BizHomeBmarkDto" id="BizHomeBmarkDto">
 		<!-- 칼럼명은 관습적으로 대문자로 표현 -->

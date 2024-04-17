@@ -39,7 +39,6 @@ public interface MyDao {
 	public void allowWithdrawal(String yn,String memno);
 	public void completedWithdrawal(String memno);
 	public void cancelWithdrawal(String memno);
-	public ArrayList<MyMemberInfoDto> getMemberInfoList();
 	public int insertInterior(String memno,String interiornum);
 	public int insertSeller(String memno,String sellernum);
 	public int countCheckInterior(String interiorNum);
@@ -71,5 +70,7 @@ public interface MyDao {
 	public ArrayList<BizHomeDto> getBmarkedHomesByUserMy(int memno);
 	public int getInteno(String memno);
 	public void bizHomeCreate(String nickname, int inteno);
+	public int countMemberList(String mlSelNum,String searchKeyword);
+	public ArrayList<MyMemberInfoDto> getMemberInfoList(String selNum,String searchKeyword);
 	
 }

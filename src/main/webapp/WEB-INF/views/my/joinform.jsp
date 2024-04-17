@@ -5,7 +5,7 @@
 <script defer src="${path}/resources/js/my/my_script_nickname.js"></script>
 <script src="https://code.jquery.com/jquery-latest.min.js"></script>
 <script>
-	document.title = "Join";
+	document.title = "회원가입";
 </script>
 
 <main class="Site-content textcenter">

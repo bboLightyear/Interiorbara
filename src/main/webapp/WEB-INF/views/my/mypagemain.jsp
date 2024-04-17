@@ -2,31 +2,17 @@
     pageEncoding="UTF-8"%>
 <%@include file ="header.jsp" %>
 <script>
-document.title = "My Page";
+document.title = "마이페이지";
 </script>
-<style>
-    
-	table{
-		margin-left: 40%;
-	}
-	td{
-		padding: 8px;
-	}
-	
-</style>
-	<main class="Site-content" style="margin-top:10px;">
-	<div class="mypage_category">
-        <div class="mypage_category_list list_1"><a href="#">프로필</a></div>
-	    <!-- <div class="mypage_category_list list_2"><a href="myshopping">나의쇼핑</a></div> -->
-	    <div class="mypage_category_list list_3"><a href="mypagecompanysignup">업체신청</a></div> <br>
-    </div>
+<main class="Site-content" style="margin-top:10px;">
     <div class="mypage_category">
-        <div class="mypage_category_list list_1_1"><a href="#">모두보기</a></div>
+        <div class="mypage_category_list list_1_1" pointcolor>프로필</div>
 	    <div class="mypage_category_list list_1_2"><a href="myphoto">내사진</a></div>
         <div class="mypage_category_list list_1_3"><a href="myscrap">스크랩북</a></div>
         <div class="mypage_category_list list_1_4"><a href="mylike">좋아요</a></div>
-        <div class="mypage_category_list list_1_5"><a href="mypageinfoedit">회원정보수정</a></div>
-        <div class="mypage_category_list list_1_6"><a href="mypagepasswordedit">비밀번호변경</a></div>
+        <div class="mypage_category_list list_1_5"><a href="mypagecompanysignup">업체신청</a></div>
+        <div class="mypage_category_list list_1_6"><a href="mypageinfoedit">회원정보수정</a></div>
+        <div class="mypage_category_list list_1_7"><a href="mypagepasswordedit">비밀번호변경</a></div>
     </div>
     <div class="mypage_area">
     <div id="mypage_profile">
@@ -60,15 +46,15 @@ document.title = "My Page";
     </div>
         
     <div id="mypage_photo">
-    	<table>
+    	<table class="maintable">
     		<tr>
-    			<td colspan="4"><b>내 사진</b></td>
+    			<td class="pd8 signuplabel" colspan="4"><b>내 사진</b></td>
     		</tr>
     		<tr>
     			<c:choose>
     				<c:when test="${!empty palist}">
 		    			<c:forEach items="${palist}" var="pa" end="3">
-		    				<td><a href="${path}/oh/OHPhotoDetailView?pb_no=${pa.pb_no}"><img class="imgsize" src="../resources/upload/oh/photo/${pa.pa_attach}" alt="" /></a></td>
+		    				<td class="pd8"><a href="${path}/oh/OHPhotoDetailView?pb_no=${pa.pb_no}"><img class="imgsize" src="${path}/resources/upload/oh/photo/${pa.pa_attach}" alt="" /></a></td>
 	    				</c:forEach>
 	    			</c:when>
 	    			<c:otherwise>
@@ -76,7 +62,6 @@ document.title = "My Page";
 	    			</c:otherwise>
     			</c:choose>
     		</tr>
-    		
 	  	</table>
     </div>
     </div>

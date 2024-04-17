@@ -91,7 +91,7 @@ public class JoinService implements SService {
       if(emailCheckResult==0 && nnCheckResult==0) {//가입 가능할 때
     	  mdao.join(nickname,shpwd,bcpwd,email);
     	  emailSendAction(nickname);
-    	  return "redirect:/";//가입 성공
+    	  return "success";//가입 성공
       }else if(emailCheckResult==1) {//이미 가입한 email, 가입 불가
     	  return "emaildupl";
       }else if(nnCheckResult==1) {//이미 존재하는 닉네임, 가입 불가

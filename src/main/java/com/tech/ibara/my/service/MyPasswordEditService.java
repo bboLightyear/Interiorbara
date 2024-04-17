@@ -15,30 +15,46 @@ import com.tech.ibara.my.util.CryptoUtil;
 
 public class MyPasswordEditService implements SService{
 	private SqlSession sqlSession;
+	private HttpSession session;
 	
-	public MyPasswordEditService(SqlSession sqlSession) {
+	public MyPasswordEditService(SqlSession sqlSession,HttpSession session) {
 		this.sqlSession=sqlSession;
+		this.session=session;
 	}
 	@Override
 	public String execute(Model model) {
 		System.out.println("MyPasswordEditService()");
 		Map<String, Object> map=model.asMap();
 		HttpServletRequest request=(HttpServletRequest) map.get("request");
+		MyMemberInfoDto memdto = (MyMemberInfoDto) session.getAttribute("loginUserDto");
 		String nickname=request.getParameter("nickname");
-		String mypwd=request.getParameter("mypwd");
 		String inputpwd=request.getParameter("inputpwd");
 		String pw=request.getParameter("pw1");
 		String pw2=request.getParameter("pw2");
 		
 		boolean pwbool=Pattern.matches("^(?=.*[A-Za-z])(?=.*\\d)(?=.*[$@$!%*#?&])[A-Za-z\\d$@$!%*#?&]{8,}$", pw);
-	
-		if(!mypwd.equals(inputpwd)) {
+		String mypwd=memdto.getBcpwd();
+		
+		String inputshpwd="";
+		String inputbcpwd="";
+		try {
+			inputshpwd = CryptoUtil.sha512(inputpwd);
+			inputbcpwd = CryptoUtil.encryptAES256(inputpwd, inputshpwd);	         
+	    } catch (Exception e) {
+	         // TODO Auto-generated catch block
+	         e.printStackTrace();
+	    }
+		if(mypwd.equals(inputbcpwd)) {
+			model.addAttribute("reinputpwd");
+		}
+		if(!mypwd.equals(inputbcpwd)) {
 			return "password not match";
 		}else if(!pwbool) {
 	    	return "pw check";
 	    }else if(!pw.equals(pw2)) {
 	    	return "pw not match";    	  
-	    }   
+	    }
+				
 		String shpwd="";
 		String bcpwd="";
 		try {

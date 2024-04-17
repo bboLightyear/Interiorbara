@@ -2,7 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@include file ="header.jsp" %>
 <script>
-document.title = "Admin Member List";
+document.title = "회원관리";
 </script>
 	<main class="Site-content">
 	<div class="mypage_category">
@@ -16,7 +16,21 @@ document.title = "Admin Member List";
         <div class="mypage_category_list list_2_1"><a href="#">회원리스트</a></div>
 	    <div class="mypage_category_list list_2_2"><a href="admin_demandwithdrawal">탈퇴신청회원리스트</a></div>
     </div>
-	
+<div>
+	<form action="admin_memberlist" method="post">
+			<div  class="formdiv pd8">
+			<select name="searchType">
+				<option selected disabled>--검색선택--</option>
+				<option value="nn" <c:if test="${mlSel=='nn' }">selected</c:if>>닉네임</option>
+				<option value="mt" <c:if test="${mlSel=='mt' }">selected</c:if>>멤버타입</option>
+			</select>
+			<input type="text" name="sk" value="${resk }" />
+			<input type="submit" value="검색" />			
+			</div>
+		</form><br/>
+<span class="formdiv pd8">총 ${total}명</span>
+
+
 		<table align="center" class="scraptable">
 			<tr>
 				<th class="scrapth">회원번호</th>
@@ -25,7 +39,7 @@ document.title = "Admin Member List";
 				<th class="scrapth">가입일</th>
 				<th class="scrapth">회원구분</th>
 			</tr>			
-			<c:forEach items="${list}" var="mdto">
+			<c:forEach items="${mlist}" var="mdto">
 			<tr>
 				<td class="scraptd"><a class="aaa" href="memberinfopage?memno=${mdto.memno}">${mdto.memno}</a></td>
 				<td class="scraptd">${mdto.nickname}</td>
@@ -35,5 +49,6 @@ document.title = "Admin Member List";
 			</tr>
 			</c:forEach>
 		</table>
+		</div>
 	</main>
 <%@include file ="footer.jsp" %>

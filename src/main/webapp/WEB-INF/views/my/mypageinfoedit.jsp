@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@include file ="header.jsp" %>
 <script>
-document.title = "My Page Info Edit";
+document.title = "회원정보수정";
 </script>
 <script defer src="${path}/resources/js/my/mypage.js"></script>
 <script defer src="${path}/resources/js/my/mypagemodify.js"></script>
@@ -98,5 +98,5 @@ document.title = "My Page Info Edit";
 	    </form>
 	    <span class="returnmsg"><c:out value="${msg }" default="" /></span>
     </div>	    
-    </main>
-    <%@include file ="footer.jsp" %>
+</main>
+<%@include file ="footer.jsp" %>

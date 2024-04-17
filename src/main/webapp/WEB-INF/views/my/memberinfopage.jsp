@@ -3,10 +3,10 @@
 <%@include file="header.jsp"%>
 <script src="https://code.jquery.com/jquery-latest.min.js"></script>
 <script>
-	document.title = "Member Infomation";
+	document.title = "회원 정보";
 </script>
 <main class="Site-content textcenter">
-<h3>${mdto.nickname}님 페이지</h3>
+<h3>${mdto.nickname}님 회원정보</h3>
     <div id="mypageedit" align="center">
 		    <div class="profile-image-area">
 		        <%-- 프로필 이미지가 없으면 기본 이미지 --%>
@@ -40,16 +40,19 @@
 		        <p>${mdto.gender}</p>
 		    </div>		    
 		    </c:if>
-    </div>
-    <div>
-    	<table align="center">
-    		<tr>
-    			<c:forEach items="${palist}" var="pa" end="2">
-    				<td class="pd8"><img class="imgsize" src="${path}/resources/upload/oh/photo/${pa.pa_attach}" alt="" /></td>
-    			</c:forEach>
-    		</tr>
-	  	</table>
-	</div>	    
+		    <div  class="myPage-row">
+		    	<label>멤버타입<br /></label>
+		    	<p id="memtype"></p>		    
+		    </div>
+		    <div  class="myPage-row">
+		    	<label>최근올린사진<br /></label>
+		    </div>
+		    <div>
+		    	<c:forEach items="${palist}" var="pa" end="3">
+   				<a href="${path}/oh/OHPhotoDetailView?pb_no=${pa.pb_no}"><img class="imgsmall mt10" src="${path}/resources/upload/oh/photo/${pa.pa_attach}" alt="" /></a>
+		    	</c:forEach>
+			 </div>
+	   </div>
     <script>
 
 $(document).ready(function() {
@@ -64,6 +67,24 @@ $(document).ready(function() {
 	$("#birth").text(replacebirth);
 });
 
+
+window.onload = function (){
+	var membertype="${mdto.memtype}";
+	var memtype = document.getElementById("memtype");
+	if(membertype == "PERSON"){
+		memtype.innerHTML = "개인회원"
+	}else if (membertype=="INTERIOR"){
+		memtype.innerHTML = "인테리어업체"
+	}else if (membertype=="SELLER"){
+		memtype.innerHTML = "판매자"
+	}else if(membertype=="ADMIN"){
+		memtype.innerHTML = "관리자"
+	}else if(membertype=="WITHDRAWAL"){
+		memtype.innerHTML = "탈퇴회원"
+	}else if(membertype=="NOTMAILCHECK"){
+		memtype.innerHTML = "메일인증안된회원"
+	}
+}
 </script>
 </main>
 <%@include file ="footer.jsp" %>
