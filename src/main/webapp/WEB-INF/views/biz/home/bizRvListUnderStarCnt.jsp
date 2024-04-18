@@ -335,7 +335,7 @@
 										<c:forTokens items="${fileNm }" delims="." var="token" varStatus="status">
 										<c:if test="${status.last }">
 											<c:choose>
-												<c:when test="${token eq 'jpg' || token eq 'png'}">											
+												<c:when test="${token eq 'jpg' || token eq 'png' || token eq 'jpeg'}">											
 													<c:if test="${dto.br_no eq rv.bizRvImgDto.br_no }">
 														<img src="../../resources/upload/biz/review/${rv.bizRvImgDto.brimg_cgn }" alt="${rv.bizRvImgDto.brimg_cgn }" width="48" height="27" style="cursor:pointer"
 														onclick="window.open('../review/bizRvImgPopUpView?br_no=${dto.br_no }',

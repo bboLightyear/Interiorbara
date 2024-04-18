@@ -55,7 +55,7 @@
 								varStatus="status">
 								<c:if test="${status.last }">
 									<c:choose>
-										<c:when test="${token eq 'jpg' || token eq 'png'}">
+										<c:when test="${token eq 'jpg' || token eq 'png' || token eq 'jpeg'}">
 											<img src="../../resources/upload/biz/home/${bizHome.bh_img }"
 												alt="${bizHome.bh_img }" width="250" height="150"
 												style="border-top-left-radius: 3.5%; border-top-right-radius: 3.5%;" />
