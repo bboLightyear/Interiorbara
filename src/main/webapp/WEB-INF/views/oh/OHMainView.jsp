@@ -11,7 +11,7 @@
 
 	<meta charset="UTF-8">
 	
-	<title>OH - OHMainView.jsp</title>
+	<title>우리 집 자랑하기</title>
 	
 	<!-- photo.css -->
 	<link rel="stylesheet" href="../resources/css/oh/photo.css?after" />
@@ -25,11 +25,20 @@
 	<!-- https://jquery.com/ -->		
 	<script src="https://code.jquery.com/jquery-3.7.1.js" ></script>
 	
+	<!-- ----------------------------------------------------- -->
+	
+	<!-- header, footer -->
+	<link rel="stylesheet" 
+	href="../resources/css/main/main.css" />
+	<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css" />
+	
 </head>
 
 <body>
 
-	<!-- 데이터 표시 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+<!-- 데이터 표시 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+<%-- 	
 	<table border="1">
 		<tr>
 			<th colspan="16">OHPhotoBoard - OrderDate</th>
@@ -200,8 +209,8 @@
 			</tr>
 		</c:forEach>							
 	</table>		
-	<!-- 데이터 표시 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->	
-
+--%>	
+<%-- 	
 	<h3>OHMainView.jsp</h3>
 
 	<!-- 회원, 비회원 구분 후 메세지 출력 -->
@@ -212,16 +221,17 @@
 		<c:otherwise>
 			<h3>비회원님</h3>					
 		</c:otherwise>
-	</c:choose>
+	</c:choose> 
+--%>	
+<!-- 데이터 표시 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->	
 
 	<!-- 로그인 정보 -->
  	<input type="hidden" id="memno" value=${loginUserDto.memno } />
 
 	<div class="container">
 	
-		<header>
-			<h1>header</h1>
-		</header>
+		<!-- header -->
+		<%@ include file="header.jsp" %>
 		
 		<div class="contents">
 		
@@ -257,13 +267,13 @@
 						<c:forEach items="${ohPhotoViewOrderDate }" var="dto" varStatus="status">
 							<div class="OHMainView-3box">
 								<!-- 게시글 대표 이미지 --> 
-								<a href="OHPhotoDetailView?pb_no=${dto.pb_no }">
+								<a href="OHPhotoDetailView?pb_no=${dto.pb_no }&orderingBy=pb_date&orderingMethod=desc">
 									<img id="OHMainView-3photoImage" src="../resources/upload/oh/photo/${dto.ohPhotoAttach.pa_attach }" alt="해당 게시글 대표사진"/>
 								</a>			
 								<div class="OHMainView-3boxLayer">		
 									<!-- 게시글 제목 -->
 									<div id="OHMainView-3photoTitle">
-										<a href="OHPhotoDetailView?pb_no=${dto.pb_no }">
+										<a href="OHPhotoDetailView?pb_no=${dto.pb_no }&orderingBy=pb_date&orderingMethod=desc">
 											${dto.pb_title }
 										</a>
 									</div>
@@ -272,20 +282,20 @@
 									
 									<%-- 프로필 이미지가 없으면 기본 이미지 --%>
 									<c:if test="${empty dto.myMemberInfoDto.profileimg}" >
-										<a href="../my/memberinfopage?memno=${dto.myMemberInfoDto.memno }">
+										<a href="#" onclick="javascript_:window.open('../my/memberinfopage?memno=${dto.myMemberInfoDto.memno }','pop','menubar=no,status=no,scrollbars=no,resizable=no,width=560,height=700,top=50,left=50');">
 											<img src="../resources/img/my/user.png" id="OHMainView-3photoProfileImage">
 										</a>
 							        </c:if>
 							        <%-- 프로필 이미지가 있으면 있는 이미지 --%>
 							        <c:if test="${!empty dto.myMemberInfoDto.profileimg}" >
-							        	<a href="../my/memberinfopage?memno=${dto.myMemberInfoDto.memno }">
+							        	<a href="#" onclick="javascript_:window.open('../my/memberinfopage?memno=${dto.myMemberInfoDto.memno }','pop','menubar=no,status=no,scrollbars=no,resizable=no,width=560,height=700,top=50,left=50');">
 							            	<img src="../resources/upload/my/${dto.myMemberInfoDto.profileimg }" id="OHMainView-3photoProfileImage">
 							            </a>
 							        </c:if>	
 							        
 									<!-- 게시글 작성자 이름 -->
 									<div id="OHMainView-3photoUserName">
-										<a href="../my/memberinfopage?memno=${dto.myMemberInfoDto.memno }">
+										<a href="#" onclick="javascript_:window.open('../my/memberinfopage?memno=${dto.myMemberInfoDto.memno }','pop','menubar=no,status=no,scrollbars=no,resizable=no,width=560,height=700,top=50,left=50');">
 											${dto.myMemberInfoDto.nickname }
 										</a>
 									</div>
@@ -315,13 +325,13 @@
 						<c:forEach items="${ohPhotoViewOrderLike }" var="dto" varStatus="status">
 							<div class="OHMainView-5box">
 								<!-- 게시글 대표 이미지 --> 
-								<a href="OHPhotoDetailView?pb_no=${dto.pb_no }">
+								<a href="OHPhotoDetailView?pb_no=${dto.pb_no }&orderingBy=pb_like&orderingMethod=desc">
 									<img id="OHMainView-5photoImage" src="../resources/upload/oh/photo/${dto.ohPhotoAttach.pa_attach }" alt="해당 게시글 대표사진"/>
 								</a>			
 								<div class="OHMainView-5boxLayer">		
 									<!-- 게시글 제목 -->
 									<div id="OHMainView-5photoTitle">
-										<a href="OHPhotoDetailView?pb_no=${dto.pb_no }">
+										<a href="OHPhotoDetailView?pb_no=${dto.pb_no }&orderingBy=pb_like&orderingMethod=desc">
 											${dto.pb_title }
 										</a>
 									</div>
@@ -330,21 +340,21 @@
 											
 									<%-- 프로필 이미지가 없으면 기본 이미지 --%>
 									<c:if test="${empty dto.myMemberInfoDto.profileimg}" >
-										<a href="../my/memberinfopage?memno=${dto.myMemberInfoDto.memno }">
+										<a href="#" onclick="javascript_:window.open('../my/memberinfopage?memno=${dto.myMemberInfoDto.memno }','pop','menubar=no,status=no,scrollbars=no,resizable=no,width=560,height=700,top=50,left=50');">
 											<img src="../resources/img/my/user.png" id="OHMainView-5photoProfileImage">
 										</a>
 							        </c:if>
 							        
 							        <%-- 프로필 이미지가 있으면 있는 이미지 --%>
 							        <c:if test="${!empty dto.myMemberInfoDto.profileimg}" >
-							        	<a href="../my/memberinfopage?memno=${dto.myMemberInfoDto.memno }">
+							        	<a href="#" onclick="javascript_:window.open('../my/memberinfopage?memno=${dto.myMemberInfoDto.memno }','pop','menubar=no,status=no,scrollbars=no,resizable=no,width=560,height=700,top=50,left=50');">
 							            	<img src="../resources/upload/my/${dto.myMemberInfoDto.profileimg }" id="OHMainView-5photoProfileImage">
 							            </a>
 							        </c:if>	
 							        
 									<!-- 게시글 작성자 이름 -->
 									<div id="OHMainView-5photoUserName">
-										<a href="../my/memberinfopage?memno=${dto.myMemberInfoDto.memno }">
+										<a href="#" onclick="javascript_:window.open('../my/memberinfopage?memno=${dto.myMemberInfoDto.memno }','pop','menubar=no,status=no,scrollbars=no,resizable=no,width=560,height=700,top=50,left=50');">
 											${dto.myMemberInfoDto.nickname }
 										</a>
 									</div>
@@ -374,13 +384,13 @@
 						<c:forEach items="${ohPhotoViewOrderHit }" var="dto" varStatus="status">
 							<div class="OHMainView-7box">
 								<!-- 게시글 대표 이미지 --> 
-								<a href="OHPhotoDetailView?pb_no=${dto.pb_no }">
+								<a href="OHPhotoDetailView?pb_no=${dto.pb_no }&orderingBy=pb_hit&orderingMethod=desc">
 									<img id="OHMainView-7photoImage" src="../resources/upload/oh/photo/${dto.ohPhotoAttach.pa_attach }" alt="해당 게시글 대표사진"/>
 								</a>			
 								<div class="OHMainView-7boxLayer">		
 									<!-- 게시글 제목 -->
 									<div id="OHMainView-7photoTitle">
-										<a href="OHPhotoDetailView?pb_no=${dto.pb_no }">
+										<a href="OHPhotoDetailView?pb_no=${dto.pb_no }&orderingBy=pb_hit&orderingMethod=desc">
 											${dto.pb_title }
 										</a>
 									</div>
@@ -389,21 +399,21 @@
 											
 									<%-- 프로필 이미지가 없으면 기본 이미지 --%>
 									<c:if test="${empty dto.myMemberInfoDto.profileimg}" >
-										<a href="../my/memberinfopage?memno=${dto.myMemberInfoDto.memno }">
+										<a href="#" onclick="javascript_:window.open('../my/memberinfopage?memno=${dto.myMemberInfoDto.memno }','pop','menubar=no,status=no,scrollbars=no,resizable=no,width=560,height=700,top=50,left=50');">
 											<img src="../resources/img/my/user.png" id="OHMainView-7photoProfileImage">
 										</a>
 							        </c:if>
 							        
 							        <%-- 프로필 이미지가 있으면 있는 이미지 --%>
 							        <c:if test="${!empty dto.myMemberInfoDto.profileimg}" >
-							        	<a href="../my/memberinfopage?memno=${dto.myMemberInfoDto.memno }">
+							        	<a href="#" onclick="javascript_:window.open('../my/memberinfopage?memno=${dto.myMemberInfoDto.memno }','pop','menubar=no,status=no,scrollbars=no,resizable=no,width=560,height=700,top=50,left=50');">
 							            	<img src="../resources/upload/my/${dto.myMemberInfoDto.profileimg }" id="OHMainView-7photoProfileImage">
 							            </a>
 							        </c:if>	
 							        
 									<!-- 게시글 작성자 이름 -->
 									<div id="OHMainView-7photoUserName">
-										<a href="../my/memberinfopage?memno=${dto.myMemberInfoDto.memno }">
+										<a href="#" onclick="javascript_:window.open('../my/memberinfopage?memno=${dto.myMemberInfoDto.memno }','pop','menubar=no,status=no,scrollbars=no,resizable=no,width=560,height=700,top=50,left=50');">
 											${dto.myMemberInfoDto.nickname }
 										</a>
 									</div>
@@ -441,9 +451,8 @@
 								
 		</div>
 		
-		<footer>
-			<h1>footer</h1>
-		</footer>
+		<!-- footer -->
+		<%@ include file="footer.jsp" %>
 		
 	</div>	
 	

@@ -35,6 +35,9 @@ public class OHPageVO {
 		if(PTN % outputPostCount > 0) {
 			// 전체 페이지 수, 1 증가
 			pageTotalNum++;
+		// 전체 게시글 수(PTN)가 0일 경우, 전체 페이지 수 => 1 
+		} else if (PTN == 0) {
+			pageTotalNum = 1;
 		}
 		// 시작 페이지 번호 = (현재 페이지 번호 - (현재 페이지 번호 - 1) % 페이지 그룹당 페이지 수)
 		pageStartNum = (pageSelectedNum - (pageSelectedNum - 1) % groupPageCount);
