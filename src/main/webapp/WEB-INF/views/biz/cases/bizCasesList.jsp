@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<c:set var="path" value="${pageContext.request.contextPath}"/>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
@@ -10,6 +11,8 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootswatch@5.3.3/dist/zephyr/bootstrap.min.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+<%@include file ="../bizHeader.jsp" %>
+<link rel="stylesheet" href="${path}/resources/css/biz/biz.css"/>
 <link  rel="stylesheet"
   href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"/>
  	<style>
@@ -19,21 +22,24 @@
 	 .fa-solid:hover{
 	 	color: #1e90ff;
 	 }	 
-	.proBtns{
-	  /* 상하좌우 정중앙 정렬하기 */
-	  display: flex;
-	  justify-content: center;
-	  align-items: center;
-	}
-	 
-	 .proBtn{
-		cursor:pointer;
-		padding: 8px;
-	}
 	 
 	 th, tr{
     	text-align: center;	 
 	 }
+	 
+	 .left{
+		 text-align: left;	 
+	 }
+	 a {
+	   text-decoration: none;
+	   color: #1a1f27;
+	}
+	
+	body {
+		display: flex;
+		min-height: 100vh;
+		flex-direction: column;
+	}	
 	</style>
 	
 	<script>
@@ -59,9 +65,10 @@
 	</script>	
 </head>
 <body>
+<main class="Site-content">
 	<div class="pt-3 bg-light bg-opacity-75">
 	<div class="d-flex justify-content-center">
-		<div class="p-3" style="width: 750px" >
+		<div class="p-3" onclick="location.href='bizCasesList?inteno=${inteno}'" style="width: 750px; cursor:pointer;" >
 					<ul class="list-inline">
 						<li class="list-inline-item">
 							<h4 style="--bs-text-opacity: 1; background-color: #1034a6; padding: 3px; !important;">
@@ -74,7 +81,7 @@
 					</ul>	
 		</div>
 		<div class="d-flex align-items-end mb-5">
-			<div onclick="location.href='../home/bizHome?inteno=${inteno }'">
+			<div onclick="location.href='../home/bizHome?inteno=${inteno}'">
 				<span class="text-body-secondary" style="font-size: 12px; cursor:pointer;">HOME <i class="fa-solid fa-rotate-left" style="cursor:pointer;"></i></span>
 			</div>
 		</div>
@@ -99,14 +106,14 @@
 				
 				<c:forEach items="${bizCasesList }" var="dto">
 				
-					<tr class="" >
-						<td class="">${dto.bc_no }</td>
-						<td class="">${dto.bc_writer }</td>
-						<td class="">
+					<tr class="">
+						<td class="" onclick="location.href='bizCasesContentView?bc_no=${dto.bc_no }'" style="cursor:pointer;">${dto.bc_no }</td>
+						<td class="" onclick="javascript_:window.open('${path}/my/memberinfopage?nickname=${dto.bc_writer }','pop','menubar=no,status=no,scrollbars=no,resizable=no,width=560,height=700,top=50,left=50');" style="cursor: pointer;">${dto.bc_writer } <i class="fa-solid fa-user" style="font-size: 11px;"></i></td>
+						<td class="left">
 							<a href="bizCasesContentView?bc_no=${dto.bc_no }" style="text-decoration: none; color: #1a1f27;">${dto.bc_title }</a>
 						</td>
-						<td class=""><fmt:formatDate value="${dto.bc_date }" type="both" dateStyle="short" pattern="YYYY-MM-dd"/></td>
-						<td class="">${dto.bc_hit }</td>
+						<td class="" onclick="location.href='bizCasesContentView?bc_no=${dto.bc_no }'" style="cursor:pointer;"><fmt:formatDate value="${dto.bc_date }" type="both" dateStyle="short" pattern="YYYY-MM-dd"/></td>
+						<td class="" onclick="location.href='bizCasesContentView?bc_no=${dto.bc_no }'" style="cursor:pointer;">${dto.bc_hit }</td>
 					</tr>		
 				
 				</c:forEach>			
@@ -182,10 +189,10 @@
 			<div class="d-flex justify-content-evenly">
 				<div class="d-flex justify-content-center" style="width: 750px;">
 					<div class="d-flex align-items-start" style="width: 40%; max-width: 300px;">
-						<button class="ms-1 btn btn-outline-primary btn-sm w-10"  onclick="location.href='../home/bizHome?inteno=${inteno }'"><span style="font-size: 14px;">뒤로 가기</span></button>
+						<button class="ms-1 btn btn-outline-primary btn-sm w-10"  onclick="location.href='../home/bizCasesListUnder?inteno=${inteno}'"><span style="font-size: 14px;">홈에서 보기</span></button>
 					</div>
 				<div class="d-flex justify-content-end" style="width: 60%; max-width: 450px;">
-							<button class="btn btn-outline-primary btn-sm w-10 me-1" onclick="location.href='bizCasesList?inteno=${inteno }'"><span style="font-size: 14px;">초기화</span></button>
+							<button class="btn btn-outline-primary btn-sm w-10 me-1" onclick="location.href='bizCasesList?inteno=${inteno }'"><span style="font-size: 14px;">검색 초기화</span></button>
 							<c:if test="${empty loginUserDto.memno}">
 		 						<button class="btn btn-outline-primary btn-sm w-10 me-1"  onclick="redirectLogin()"><span style="font-size: 14px;">글쓰기</span></button>
 							</c:if>
@@ -205,8 +212,9 @@
 			
 		</div>
 	</div>		
-			
+</main>			
 
 		
 </body>
+<%@include file ="../bizFooter.jsp" %>
 </html>

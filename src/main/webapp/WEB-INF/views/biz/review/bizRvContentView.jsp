@@ -12,6 +12,8 @@
 <title>시공리뷰 보기</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootswatch@5.3.3/dist/zephyr/bootstrap.min.css">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+<%@include file ="../bizHeader.jsp" %>
+<link rel="stylesheet" href="${path}/resources/css/biz/biz.css"/>
 <link  rel="stylesheet"
   href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"/>
   	<style>
@@ -29,6 +31,15 @@
 	 th, .center{
     	text-align: center;	 
 	 }
+	 a {
+	   text-decoration: none;
+	   color: #1a1f27;
+	}
+	body {
+		display: flex;
+		min-height: 100vh;
+		flex-direction: column;
+	}		 
 	</style>
 	
 	<script>
@@ -93,6 +104,7 @@
 </head>
 
 <body>
+<main class="Site-content">
 	<div class="pt-3 bg-light bg-opacity-75">
 	<div class="d-flex justify-content-center">
 		<div class="p-3" style="width: 750px" >
@@ -108,8 +120,8 @@
 					</ul>	
 		</div>
 		<div class="d-flex align-items-end mb-5">
-			<div onclick="location.href='bizRvList?inteno=${inteno}'">
-				<span class="text-body-secondary" style="font-size: 12px; cursor:pointer;">뒤로 가기 <i class="fa-solid fa-rotate-left" style="cursor:pointer;"></i></span>
+			<div onclick="location.href='../home/bizRvListUnder?inteno=${bizRvContentView.inteno}'">
+				<span class="text-body-secondary" style="font-size: 12px; cursor:pointer;">HOME <i class="fa-solid fa-rotate-left" style="cursor:pointer;"></i></span>
 			</div>
 		</div>
 	</div>
@@ -145,7 +157,7 @@
 								<c:forTokens items="${fileNm }" delims="." var="token" varStatus="status">
 								<c:if test="${status.last }">
 									<c:choose>
-										<c:when test="${token eq 'jpg' || token eq 'png'}">
+										<c:when test="${token eq 'jpg' || token eq 'png' || token eq 'jpeg'}">
 											<img class="pb-3" src="../../resources/upload/biz/review/${imgdto.brimg_cgn }" alt="${imgdto.brimg_cgn }"  width="60%"  />
 										</c:when>
 									<c:otherwise>그림이 아닌 다른 형식 파일입니다.</c:otherwise>		
@@ -224,12 +236,7 @@
 
 		</div>
 	</div>
-	
-	
-	
-	
-
-
-
+</main>	
 </body>
+<%@include file ="../bizFooter.jsp" %>
 </html>

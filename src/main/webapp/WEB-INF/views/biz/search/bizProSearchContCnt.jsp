@@ -6,6 +6,13 @@
 <!DOCTYPE html>
 <html>
 <head>
+<meta charset="UTF-8">
+<title>전문시공업체 찾기</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootswatch@5.3.3/dist/zephyr/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+<%@include file ="../bizHeader.jsp" %>
+<link rel="stylesheet" href="${path}/resources/css/biz/biz.css"/>
 <link  rel="stylesheet"
   href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"/>
   	<style>
@@ -25,14 +32,12 @@
 	 .proBtn{
 		cursor:pointer;
 		padding: 8px;
+	}	
+	a {
+	   text-decoration: none;
+	   color: #1a1f27;
 	}
-	
 	</style>
-<meta charset="UTF-8">
-<title>전문시공업체 찾기</title>
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootswatch@5.3.3/dist/zephyr/bootstrap.min.css">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 </head>
 <body>
 <c:set var="bh_pro" value="${bh_pro}" />
@@ -128,7 +133,7 @@
 								varStatus="status">
 								<c:if test="${status.last }">
 									<c:choose>
-										<c:when test="${token eq 'jpg' || token eq 'png'}">
+										<c:when test="${token eq 'jpg' || token eq 'png' || token eq 'jpeg'}">
 											<img src="../../resources/upload/biz/home/${bizHome.bh_img }"
 												alt="${bizHome.bh_img }" width="250" height="150"
 												style="border-top-left-radius: 3.5%; border-top-right-radius: 3.5%;" />
@@ -205,4 +210,5 @@
     
     
 </body>
+<%@include file ="../bizFooter.jsp" %>
 </html>

@@ -9,13 +9,13 @@ String path=request.getContextPath();
 %>
 <meta charset="UTF-8">
 <title>상품체크창</title>
- 	<link rel="stylesheet" href="resources/css/modal.css">
+ 	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/modal.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    
-    <!-- 주소api -->
+     <!-- 주소api -->
 	<script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-	<script src="//dapi.kakao.com/v2/maps/sdk.js?appkey=4efcfe1bb89f6b2d141d4e7298e8efee&libraries=services"></script>
+	<script src="https://dapi.kakao.com/v2/maps/sdk.js?appkey=4efcfe1bb89f6b2d141d4e7298e8efee&libraries=services"></script>
+    
 </head>
 <body>
 
@@ -24,7 +24,7 @@ String path=request.getContextPath();
     <div class="modal_content">
         <div class="modal_leftside">
             <div class=modal_leftside_progress>
-                <ul>
+                <!-- <ul>
                     <li data-step-name="services" class="">
                         <div>
                             <span>어떤 서비스가 필요하신가요?</span>
@@ -52,20 +52,24 @@ String path=request.getContextPath();
                             <span>견적완료</span>
                         </div>
                     </li>
-                </ul>
+                </ul> -->
             </div>
+            <div class="img2 modal_leftside_img">
+            		<img src="${pageContext.request.contextPath}/resources/img/modalimg/mAsk.png" alt="mAsk" />
+           		</div>
             <div class="modal_leftside_content">
                 <h4>추가 질문</h4>
                 <div>현장환경에 따라 시공비/운임비/운송비/양중비(기타비용)이 추가 될 수 있습니다.</div>
             </div>
             <div class="modal_leftside_question">
-                <h5>바로문의</h5>
-                123-456-7890
+                <h4>바로문의</h4>
+                010-1234-5678
             </div>
         </div>
 			<div class="modal_center">
 				<div class="modal_center_header">
 					<h3>추가 질문</h3>
+					<span class="summary-button">요약보기</span>
 					<span id="closeaskModal" class="close">&times;</span>
 				</div>
 				<div class="Modal_center">
@@ -96,7 +100,7 @@ String path=request.getContextPath();
                     </div>
                     <div class="item8">
                     	<div class="addr">
-                    		<label for="sample5_address"></label>
+                    		<label for="sample5_address">주소</label>
                         	<input type="text" id="sample5_address1" placeholder="시공하실 주소를 입력해주세요" >
 							<input type="button" class="sample5_address2" onclick="sample5_execDaumPostcode()" value="주소 검색"><br>
 						</div>
@@ -133,7 +137,8 @@ String path=request.getContextPath();
                     <div class="item11">
                     	<div class="request">
                     		<label for="request_id"></label>
-                        	<textarea placeholder="추가로 요청하실 사항이 있으시면 적어주세요!" class="request_ta" id="request_id" cols="60" rows="3"></textarea>
+                        	<textarea placeholder="추가로 요청하실 사항이 있으시면 적어주세요!" class="request_ta" id="request_id" cols="68" rows="4" style="border-radius: 8px;padding-block-start: 5px;
+    padding-inline-start: 5px;"></textarea>
 						</div>
                     </div>                               
                 </div>
@@ -147,11 +152,11 @@ String path=request.getContextPath();
 						
 				</div>			
 			</div>
-
-			<div class="modal_rightside">
+			<div class="rightside rightside-ani">
 				<div class="modal_rightside_header">
-					<p>요약</p>
+					<span>요약</span>
 				</div>
+			<div class="modal_rightside">
 				<div class="modal_rightside_body">
 					<div class="service_box">
 						<div class="selectedSize"></div>
@@ -170,7 +175,7 @@ String path=request.getContextPath();
 							<span id="selectedService"></span>
 						</div>
 					</div>
-					<div class="selectedItems" id="selectedItems">
+					<div class="selectedItems" id="selectedItems" style="white-space: pre-wrap;">
 						<!-- 선택한 상품들을 동적으로 생성 -->
 					</div>
 					<div class="totalPrice">
@@ -178,6 +183,8 @@ String path=request.getContextPath();
 						<div class="totalPriceValue">0 만원</div>
 					</div>
 				</div>
+			</div>
+			
 			</div>
 		</div>
 </div>

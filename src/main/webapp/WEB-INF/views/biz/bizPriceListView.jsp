@@ -11,7 +11,6 @@
 <body>
 <h3>전체 수정하기</h3>
 
-
 	<table width="800" border="1">
 		<tr>
 <!-- 			<td>번호</td> -->

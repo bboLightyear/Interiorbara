@@ -28,8 +28,8 @@
 
 	<!-- 회원, 비회원 구분 후 메세지 출력 -->
 	<c:choose>
-		<c:when test="${sessionScope.userId ne null && !empty sessionScope.userId }">
-			<h3>${sessionScope.userId }님</h3>	
+		<c:when test="${loginUserDto ne null }">
+			<h3>${loginUserDto.nickname }님</h3>	
 		</c:when>
 		<c:otherwise>
 			<h3>비회원님</h3>					
@@ -46,11 +46,11 @@
 		
 			<div class="sideBar">
 				<ul >
-					<li><a href="OHMainView">우리집 자랑하기</a></li>
+					<li><a href="OHMainView">우리 집 자랑하기</a></li>
 					<li><a href="OHPhotoView">집사진</a></li>
 					<!-- 집영상 -->
 					<!-- <li><a href="">집영상</a></li> -->
-					<li><a href="">#category</a></li>
+					<!-- <li><a href="">#category</a></li> -->
 				</ul>
 			</div>		
 			
@@ -73,14 +73,14 @@
 				
 				<div id="OHPhotoWriteView-main-3">
 				
-					<form action="OHPhotoWriteExecute" method="post" enctype="multipart/form-data">
+					<form action="OHPhotoWriteExecute" onsubmit="return validateForm()" 
+						  method="post" enctype="multipart/form-data">
 				
-						
                         <div id="OHPhotoWriteView-main-sector1">
 
 						    <input id="OHPhotoWriteView-writePostButton" type="submit" value="올리기" />
 						
-						    <button id="OHPhotoWriteView-cancelPostButton">취소하기</button>
+						    <button id="OHPhotoWriteView-cancelPostButton" type="button">취소하기</button>
 
                         </div>						
 						
@@ -89,6 +89,13 @@
 						
 							<div id="OHPhotoWriteView-main-sector2-1">
 
+								<span id="OHPhotoWriteView-fileUploadInput-guide">
+									사진을 선택하세요. <br />
+									파일개수 - 최소 1개 ~ 최대 10개 <br />
+									파일명 길이 - 최소 1자 ~ 최대 25자 <br />
+									파일형식 - JPG, JPEG, PNG, GIF 
+								</span>
+								
 								<input id="OHPhotoWriteView-fileUploadInput" type="file" name="pa_attach" multiple />
 						
 							</div>
@@ -96,23 +103,14 @@
 							<div id="OHPhotoWriteView-main-sector2-2">
 							
                                 <div id="sector2-2-layer1">
-                                    <input id="layer1-title" type="text" name="pb_title" placeholder="제목을 입력하세요." />
+                                    <input id="layer1-title" type="text" maxlength="30" name="pb_title" placeholder="제목을 입력하세요. 최대 30자 까지 작성할 수 있습니다." />
                                 </div>
 
                                 <div id="sector2-2-layer2">
-                                    <textarea id="layer2-content" name="pb_content" rows="10" cols="30" placeholder="내용을 입력하세요." ></textarea>
+                                    <textarea id="layer2-content" maxlength="500" name="pb_content" rows="10" cols="30" placeholder="내용을 입력하세요. &#13;&#10;최대 500자 까지 작성할 수 있습니다." ></textarea>
                                 </div>								
 						
 								<div id="sector2-2-layer3">
-                                    
-                                    <div id="layer3-pb_category-Lable">
-                                        #category
-                                    </div>
-                                    <select name="pb_category" id="layer3-pb_category">
-                                        <option value="">선택</option>
-                                        <option value="#그냥">#그냥</option>
-                                        <option value="#내돈내산">#내돈내산</option>
-                                    </select>				
                                     
                                     <div id="layer3-pb_residence-Lable">
 										주거형태
@@ -192,6 +190,9 @@
 		</footer>
 		
 	</div>
+	
+	<!-- OHPhotoWriteView.js -->
+	<script src="../resources/js/oh/OHPhotoWriteView.js"></script>		
 	
 </body>
 </html>

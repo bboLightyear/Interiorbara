@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<c:set var="path" value="${pageContext.request.contextPath}"/>
 <!DOCTYPE html>
 <html>
 <head>
@@ -9,6 +10,8 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootswatch@5.3.3/dist/zephyr/bootstrap.min.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+<%@include file ="../bizHeader.jsp" %>
+<link rel="stylesheet" href="${path}/resources/css/biz/biz.css"/>
 <link  rel="stylesheet"
   href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"/>
   	<style>
@@ -17,14 +20,23 @@
 	 }
 	 .fa-solid:hover{
 	 	color: #1e90ff;
-	 } 
+	 }
+	body {
+		display: flex;
+		min-height: 100vh;
+		flex-direction: column;
+	}	  
+	 a {
+	   text-decoration: none;
+	   color: #1a1f27;
+	}
 	</style>
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 </head>
 <body>
-<div class="pt-3 bg-light bg-opacity-75">
+<div class="pt-4  bg-light bg-opacity-75">
 	<div class="d-flex justify-content-center">
-		<div class="px-3" style="width: 750px" >
+		<div class="px-3" style="width: 750px; cursor: pointer;" onclick="location.href='/ibara/biz/home/bizHome?inteno=${bizHome.inteno}'">
 					<ul class="list-inline">
 						<li class="list-inline-item">
 							<h4><span style="--bs-text-opacity: 1; background-color: #1034a6; padding: 3px; !important;">
@@ -45,9 +57,13 @@
 			<hr style="height: 1px; width: 680px; margin: 5px;"/>
 		</div>
 </div>
-
-
-<div id="map" style="width:100%;height:500px;"></div>
+<main class="Site-content">
+	<div class="d-flex justify-content-center">
+		<div class="px-3 pt-4" style="width: 750px" >
+			<div id="map" style="width:100%; height:500px;"></div>
+		</div>
+	</div>
+</main>
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=0b3258e2aa6ba25ac3a1649b721bb7da&libraries=services"></script>
 <script>
 
@@ -154,4 +170,5 @@ kakao.maps.event.addListener(marker, 'click', function() {
 }
 </script>
 </body>
+<%@include file ="../bizFooter.jsp" %>
 </html>

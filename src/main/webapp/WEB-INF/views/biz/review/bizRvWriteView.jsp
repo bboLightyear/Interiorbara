@@ -13,6 +13,8 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootswatch@5.3.3/dist/zephyr/bootstrap.min.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+<%@include file ="../bizHeader.jsp" %>
+<link rel="stylesheet" href="${path}/resources/css/biz/biz.css"/>
 <link  rel="stylesheet"
   href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"/>
   	<style>
@@ -30,6 +32,15 @@
 	 th, .center{
     	text-align: center;	 
 	 }
+	 a {
+	   text-decoration: none;
+	   color: #1a1f27;
+	}
+	body {
+		display: flex;
+		min-height: 100vh;
+		flex-direction: column;
+	}	
 	</style>
 	<script>
 		$(document).ready(function() {
@@ -65,9 +76,7 @@
 	</script>
 </head>
 <body>
-
-
-
+<main class="Site-content">
 	<div class="pt-3 bg-light bg-opacity-75">
 	<div class="d-flex justify-content-center">
 		<div class="p-3" style="width: 750px" >
@@ -84,7 +93,7 @@
 		</div>
 		<div class="d-flex align-items-end mb-5">
 			<div onclick="location.href='bizRvList?inteno=${inteno }'">
-				<span class="text-body-secondary" style="font-size: 12px; cursor:pointer;">뒤로 가기 <i class="fa-solid fa-rotate-left" style="cursor:pointer;"></i></span>
+				<span class="text-body-secondary" style="font-size: 12px; cursor:pointer;">목록으로 <i class="fa-solid fa-rotate-left" style="cursor:pointer;"></i></span>
 			</div>
 		</div>
 	</div>
@@ -142,7 +151,12 @@
 			<div class="d-flex justify-content-evenly">
 				<div class="d-flex justify-content-center" style="width: 750px;">
 				<div class="d-flex justify-content-end" style="width: 99%; max-width: 720px;">
-					<input type="submit" value="글쓰기"  class="ms-1 btn btn-outline-primary btn-sm w-10">
+					<c:choose>
+						<c:when test="${loginUserDto.memtype eq 'PERSON'}">
+							<input type="submit" value="글쓰기"  class="ms-1 btn btn-outline-primary btn-sm w-10">
+						</c:when>
+						<c:otherwise></c:otherwise>							
+					</c:choose>
 				</div>
 				</div>
 			</div>
@@ -152,6 +166,7 @@
 	</div>	
 </form>
 </div>
-
+</main>
 </body>
+<%@include file ="../bizFooter.jsp" %>
 </html>

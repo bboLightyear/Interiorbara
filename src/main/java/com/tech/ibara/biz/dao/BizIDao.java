@@ -250,9 +250,25 @@ public interface BizIDao {
 
 	public ArrayList<BizRvDto> getRvImgJoin(String inteno);
 
+	public ArrayList<BizRvDto> bizRvListLikeCnt(int rowStart, int rowEnd, String searchKeyword, String string,
+			String inteno);
+
+	public ArrayList<BizRvDto> getRvImgJoinLikeCnt(String inteno);
+
+	public ArrayList<BizRvDto> bizRvListStarCnt(int rowStart, int rowEnd, String searchKeyword, String string,
+			String inteno);
+
+	public ArrayList<BizRvDto> getRvImgJoinStarCnt(String inteno);
+
+	public ArrayList<BizRvDto> bizRvListStarCntAsc(int rowStart, int rowEnd, String searchKeyword, String string,
+			String inteno);
+
+	public ArrayList<BizRvDto> getRvImgJoinStarCntAsc(String inteno);
+
+	public void bizHomeCreate(String nickname, int inteno);
 
 
-
+	
 
 	
 

@@ -1,7 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <!DOCTYPE html>
+
 <html>
 
 <head>
@@ -29,12 +32,12 @@
 	<!-- 데이터 표시 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
 	<table border="1">
 		<tr>
-			<th colspan="16">OHPhotoBoard</th>
+			<th colspan="16">OHPhotoBoard - OrderDate</th>
 		</tr>
 		<tr>
 			<th>no</th>
 			<th>pb_no</th>
-			<th>pb_user</th>
+			<th>memno</th>
 			<th>pb_title</th>
 			<th>pb_content</th>
 			<th>pb_date</th>
@@ -43,17 +46,16 @@
 			<th>pb_reply</th>
 			<th>pb_link</th>
 			<th>pb_hit</th>
-			<th>pb_category</th>
 			<th>pb_residence</th>
 			<th>pb_room</th>
 			<th>pb_style</th>
 			<th>pb_skill</th>
 		</tr>
-		<c:forEach items="${ohPhotoView }" var="dto">				
+		<c:forEach items="${ohPhotoViewOrderDate }" var="dto">				
 			<tr>
 				<td>${dto.no }</td>
 				<td>${dto.pb_no }</td>
-				<td>${dto.pb_user }</td>
+				<td>${dto.memno }</td>
 				<td>${dto.pb_title }</td>
 				<td>${dto.pb_content }</td>
 				<td>${dto.pb_date }</td>
@@ -62,7 +64,6 @@
 				<td>${dto.pb_reply }</td>
 				<td>${dto.pb_link }</td>
 				<td>${dto.pb_hit }</td>
-				<td>${dto.pb_category }</td>
 				<td>${dto.pb_residence }</td>
 				<td>${dto.pb_room }</td>
 				<td>${dto.pb_style }</td>
@@ -70,14 +71,14 @@
 			</tr>		
 		</c:forEach>			
 		<tr>
-			<th colspan="3">OHPhotoAttach</th>
+			<th colspan="3">OHPhotoAttach - OrderDate</th>
 		</tr>
 		<tr>
 			<th>pa_no</th>
 			<th>pa_attach</th>
 			<th>pb_no</th>
 		</tr>
-		<c:forEach items="${ohPhotoView }" var="dto">			
+		<c:forEach items="${ohPhotoViewOrderDate }" var="dto">			
 			<tr>
 				<td>${dto.ohPhotoAttach.pa_no }</td>
 				<td>${dto.ohPhotoAttach.pa_attach }</td>
@@ -85,19 +86,136 @@
 			</tr>
 		</c:forEach>							
 	</table>
+	
+	<table border="1">
+		<tr>
+			<th colspan="16">OHPhotoBoard - OrderLike</th>
+		</tr>
+		<tr>
+			<th>no</th>
+			<th>pb_no</th>
+			<th>memno</th>
+			<th>pb_title</th>
+			<th>pb_content</th>
+			<th>pb_date</th>
+			<th>pb_like</th>
+			<th>pb_scrap</th>
+			<th>pb_reply</th>
+			<th>pb_link</th>
+			<th>pb_hit</th>
+			<th>pb_residence</th>
+			<th>pb_room</th>
+			<th>pb_style</th>
+			<th>pb_skill</th>
+		</tr>
+		<c:forEach items="${ohPhotoViewOrderLike }" var="dto">				
+			<tr>
+				<td>${dto.no }</td>
+				<td>${dto.pb_no }</td>
+				<td>${dto.memno }</td>
+				<td>${dto.pb_title }</td>
+				<td>${dto.pb_content }</td>
+				<td>${dto.pb_date }</td>
+				<td>${dto.pb_like }</td>
+				<td>${dto.pb_scrap }</td>
+				<td>${dto.pb_reply }</td>
+				<td>${dto.pb_link }</td>
+				<td>${dto.pb_hit }</td>
+				<td>${dto.pb_residence }</td>
+				<td>${dto.pb_room }</td>
+				<td>${dto.pb_style }</td>
+				<td>${dto.pb_skill }</td>
+			</tr>		
+		</c:forEach>			
+		<tr>
+			<th colspan="3">OHPhotoAttach - OrderLike</th>
+		</tr>
+		<tr>
+			<th>pa_no</th>
+			<th>pa_attach</th>
+			<th>pb_no</th>
+		</tr>
+		<c:forEach items="${ohPhotoViewOrderLike }" var="dto">			
+			<tr>
+				<td>${dto.ohPhotoAttach.pa_no }</td>
+				<td>${dto.ohPhotoAttach.pa_attach }</td>
+				<td>${dto.ohPhotoAttach.pb_no }</td>
+			</tr>
+		</c:forEach>							
+	</table>	
+	
+	<table border="1">
+		<tr>
+			<th colspan="16">OHPhotoBoard - OrderHit</th>
+		</tr>
+		<tr>
+			<th>no</th>
+			<th>pb_no</th>
+			<th>memno</th>
+			<th>pb_title</th>
+			<th>pb_content</th>
+			<th>pb_date</th>
+			<th>pb_like</th>
+			<th>pb_scrap</th>
+			<th>pb_reply</th>
+			<th>pb_link</th>
+			<th>pb_hit</th>
+			<th>pb_residence</th>
+			<th>pb_room</th>
+			<th>pb_style</th>
+			<th>pb_skill</th>
+		</tr>
+		<c:forEach items="${ohPhotoViewOrderHit }" var="dto">				
+			<tr>
+				<td>${dto.no }</td>
+				<td>${dto.pb_no }</td>
+				<td>${dto.memno }</td>
+				<td>${dto.pb_title }</td>
+				<td>${dto.pb_content }</td>
+				<td>${dto.pb_date }</td>
+				<td>${dto.pb_like }</td>
+				<td>${dto.pb_scrap }</td>
+				<td>${dto.pb_reply }</td>
+				<td>${dto.pb_link }</td>
+				<td>${dto.pb_hit }</td>
+				<td>${dto.pb_residence }</td>
+				<td>${dto.pb_room }</td>
+				<td>${dto.pb_style }</td>
+				<td>${dto.pb_skill }</td>
+			</tr>		
+		</c:forEach>			
+		<tr>
+			<th colspan="3">OHPhotoAttach - OrderHit</th>
+		</tr>
+		<tr>
+			<th>pa_no</th>
+			<th>pa_attach</th>
+			<th>pb_no</th>
+		</tr>
+		<c:forEach items="${ohPhotoViewOrderHit }" var="dto">			
+			<tr>
+				<td>${dto.ohPhotoAttach.pa_no }</td>
+				<td>${dto.ohPhotoAttach.pa_attach }</td>
+				<td>${dto.ohPhotoAttach.pb_no }</td>
+			</tr>
+		</c:forEach>							
+	</table>		
 	<!-- 데이터 표시 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->	
 
 	<h3>OHMainView.jsp</h3>
 
 	<!-- 회원, 비회원 구분 후 메세지 출력 -->
 	<c:choose>
-		<c:when test="${sessionScope.userId ne null && !empty sessionScope.userId }">
-			<h3>${sessionScope.userId }님</h3>	
+		<c:when test="${loginUserDto ne null }">
+			<h3>${loginUserDto.nickname }님</h3>	
 		</c:when>
 		<c:otherwise>
 			<h3>비회원님</h3>					
 		</c:otherwise>
 	</c:choose>
+
+	<!-- 로그인 정보 -->
+ 	<input type="hidden" id="memno" value=${loginUserDto.memno } />
 
 	<div class="container">
 	
@@ -109,11 +227,11 @@
 		
 			<div class="sideBar">
 				<ul >
-					<li><a href="OHMainView">우리집 자랑하기</a></li>
+					<li><a href="OHMainView">우리 집 자랑하기</a></li>
 					<li><a href="OHPhotoView">집사진</a></li>
 					<!-- 집영상 -->
 					<!-- <li><a href="#">집영상</a></li> -->
-					<li><a href="#">#category</a></li>
+					<!-- <li><a href="#">#category</a></li> -->
 				</ul>
 			</div>
 			
@@ -125,58 +243,200 @@
 						     회원: 글쓰기 가능 
 						  비회원: 글쓰기 불가능
 						  -->
-					<button id="OHMainView-toWriteButtton">글쓰기</button> 				
+					<button id="OHMainView-toWriteButton">글쓰기</button> 				
 				</div>
-				
+
 				<div id="OHMainView-main-2">					
-					<button id="OHMainView-toOHPhotoViewButton">집사진</button>
-					<button id="OHMainView-toMoreOHPhotoViewButton">더보기</button> 
+					<button id="OHMainView-2toOHPhotoViewButton">집사진 - 최신순으로 보기!</button>
+					<button id="OHMainView-2toMoreOHPhotoViewButton">더보기 - 최신순</button> 
 				</div>
 				
 				<div id="OHMainView-main-3">				
-					<div id="OHMainView-flexContainer">				
+					<div id="OHMainView-3flexContainer">				
 						<!-- 반복문 사용, 게시물 표현 -->
-						<c:forEach items="${ohPhotoView }" var="dto" varStatus="status">
-							<div class="OHMainView-box">
+						<c:forEach items="${ohPhotoViewOrderDate }" var="dto" varStatus="status">
+							<div class="OHMainView-3box">
 								<!-- 게시글 대표 이미지 --> 
 								<a href="OHPhotoDetailView?pb_no=${dto.pb_no }">
-									<img id="OHMainView-photoImage" src="../resources/upload/oh/photo/${dto.ohPhotoAttach.pa_attach }" alt="해당 게시글 대표사진"/>
+									<img id="OHMainView-3photoImage" src="../resources/upload/oh/photo/${dto.ohPhotoAttach.pa_attach }" alt="해당 게시글 대표사진"/>
 								</a>			
-								<!-- position: relative, 영역구분 추가 -->		
-								<div class="OHMainView-boxLayer">		
+								<div class="OHMainView-3boxLayer">		
 									<!-- 게시글 제목 -->
-									<div id="OHMainView-photoTitle">${dto.pb_title }</div>
-									<!-- 게시글 작성자 프로필 이미지 -->
-									<div id="OHMainView-photoProfileImage">프로필 이미지</div>	
+									<div id="OHMainView-3photoTitle">
+										<a href="OHPhotoDetailView?pb_no=${dto.pb_no }">
+											${dto.pb_title }
+										</a>
+									</div>
+									
+									<!-- 게시글 작성자 프로필 이미지 -->	
+									
+									<%-- 프로필 이미지가 없으면 기본 이미지 --%>
+									<c:if test="${empty dto.myMemberInfoDto.profileimg}" >
+										<a href="../my/memberinfopage?memno=${dto.myMemberInfoDto.memno }">
+											<img src="../resources/img/my/user.png" id="OHMainView-3photoProfileImage">
+										</a>
+							        </c:if>
+							        <%-- 프로필 이미지가 있으면 있는 이미지 --%>
+							        <c:if test="${!empty dto.myMemberInfoDto.profileimg}" >
+							        	<a href="../my/memberinfopage?memno=${dto.myMemberInfoDto.memno }">
+							            	<img src="../resources/upload/my/${dto.myMemberInfoDto.profileimg }" id="OHMainView-3photoProfileImage">
+							            </a>
+							        </c:if>	
+							        
 									<!-- 게시글 작성자 이름 -->
-									<div id="OHMainView-photoUserName">${dto.pb_user }</div>
+									<div id="OHMainView-3photoUserName">
+										<a href="../my/memberinfopage?memno=${dto.myMemberInfoDto.memno }">
+											${dto.myMemberInfoDto.nickname }
+										</a>
+									</div>
+									
 									<!-- 게시글 작성자 조회수 -->
-									<div id="OHMainView-photoHit">조회수</div>
+									<div id="OHMainView-3photoHit">조회수</div>
 									<!-- 게시글 작성자 조회수 횟수 -->
-									<div id="OHMainView-photoHitCount">${dto.pb_hit }</div>
+									<div id="OHMainView-3photoHitCount">${dto.pb_hit }</div>
 									<!-- 게시글 작성자 스크랩 -->
-									<div id="OHMainView-photoScrap">좋아요</div>
+									<div id="OHMainView-3photoScrap">좋아요</div>
 									<!-- 게시글 작성자 스크랩 횟수 -->
-									<div id="OHMainView-photoScrapCount">${dto.pb_like }</div>
+									<div id="OHMainView-3photoScrapCount">${dto.pb_like }</div>
 								</div>								
 							</div>
 						</c:forEach>
 					</div>				
 				</div>
 				
+				<div id="OHMainView-main-4">					
+					<button id="OHMainView-4toOHPhotoViewButton">집사진 - 인기순으로 보기!</button>
+					<button id="OHMainView-4toMoreOHPhotoViewButton">더보기 - 인기순</button> 
+				</div>				
+				
+				<div id="OHMainView-main-5">				
+					<div id="OHMainView-5flexContainer">				
+						<!-- 반복문 사용, 게시물 표현 -->
+						<c:forEach items="${ohPhotoViewOrderLike }" var="dto" varStatus="status">
+							<div class="OHMainView-5box">
+								<!-- 게시글 대표 이미지 --> 
+								<a href="OHPhotoDetailView?pb_no=${dto.pb_no }">
+									<img id="OHMainView-5photoImage" src="../resources/upload/oh/photo/${dto.ohPhotoAttach.pa_attach }" alt="해당 게시글 대표사진"/>
+								</a>			
+								<div class="OHMainView-5boxLayer">		
+									<!-- 게시글 제목 -->
+									<div id="OHMainView-5photoTitle">
+										<a href="OHPhotoDetailView?pb_no=${dto.pb_no }">
+											${dto.pb_title }
+										</a>
+									</div>
+									
+									<!-- 게시글 작성자 프로필 이미지 -->	
+											
+									<%-- 프로필 이미지가 없으면 기본 이미지 --%>
+									<c:if test="${empty dto.myMemberInfoDto.profileimg}" >
+										<a href="../my/memberinfopage?memno=${dto.myMemberInfoDto.memno }">
+											<img src="../resources/img/my/user.png" id="OHMainView-5photoProfileImage">
+										</a>
+							        </c:if>
+							        
+							        <%-- 프로필 이미지가 있으면 있는 이미지 --%>
+							        <c:if test="${!empty dto.myMemberInfoDto.profileimg}" >
+							        	<a href="../my/memberinfopage?memno=${dto.myMemberInfoDto.memno }">
+							            	<img src="../resources/upload/my/${dto.myMemberInfoDto.profileimg }" id="OHMainView-5photoProfileImage">
+							            </a>
+							        </c:if>	
+							        
+									<!-- 게시글 작성자 이름 -->
+									<div id="OHMainView-5photoUserName">
+										<a href="../my/memberinfopage?memno=${dto.myMemberInfoDto.memno }">
+											${dto.myMemberInfoDto.nickname }
+										</a>
+									</div>
+									
+									<!-- 게시글 작성자 조회수 -->
+									<div id="OHMainView-5photoHit">조회수</div>
+									<!-- 게시글 작성자 조회수 횟수 -->
+									<div id="OHMainView-5photoHitCount">${dto.pb_hit }</div>
+									<!-- 게시글 작성자 스크랩 -->
+									<div id="OHMainView-5photoScrap">좋아요</div>
+									<!-- 게시글 작성자 스크랩 횟수 -->
+									<div id="OHMainView-5photoScrapCount">${dto.pb_like }</div>
+								</div>								
+							</div>
+						</c:forEach>
+					</div>				
+				</div>				
+				
+				<div id="OHMainView-main-6">					
+					<button id="OHMainView-6toOHPhotoViewButton">집사진 - 조회순으로 보기!</button>
+					<button id="OHMainView-6toMoreOHPhotoViewButton">더보기 - 조회순</button> 
+				</div>					
+				
+				<div id="OHMainView-main-7">				
+					<div id="OHMainView-7flexContainer">				
+						<!-- 반복문 사용, 게시물 표현 -->
+						<c:forEach items="${ohPhotoViewOrderHit }" var="dto" varStatus="status">
+							<div class="OHMainView-7box">
+								<!-- 게시글 대표 이미지 --> 
+								<a href="OHPhotoDetailView?pb_no=${dto.pb_no }">
+									<img id="OHMainView-7photoImage" src="../resources/upload/oh/photo/${dto.ohPhotoAttach.pa_attach }" alt="해당 게시글 대표사진"/>
+								</a>			
+								<div class="OHMainView-7boxLayer">		
+									<!-- 게시글 제목 -->
+									<div id="OHMainView-7photoTitle">
+										<a href="OHPhotoDetailView?pb_no=${dto.pb_no }">
+											${dto.pb_title }
+										</a>
+									</div>
+									
+									<!-- 게시글 작성자 프로필 이미지 -->	
+											
+									<%-- 프로필 이미지가 없으면 기본 이미지 --%>
+									<c:if test="${empty dto.myMemberInfoDto.profileimg}" >
+										<a href="../my/memberinfopage?memno=${dto.myMemberInfoDto.memno }">
+											<img src="../resources/img/my/user.png" id="OHMainView-7photoProfileImage">
+										</a>
+							        </c:if>
+							        
+							        <%-- 프로필 이미지가 있으면 있는 이미지 --%>
+							        <c:if test="${!empty dto.myMemberInfoDto.profileimg}" >
+							        	<a href="../my/memberinfopage?memno=${dto.myMemberInfoDto.memno }">
+							            	<img src="../resources/upload/my/${dto.myMemberInfoDto.profileimg }" id="OHMainView-7photoProfileImage">
+							            </a>
+							        </c:if>	
+							        
+									<!-- 게시글 작성자 이름 -->
+									<div id="OHMainView-7photoUserName">
+										<a href="../my/memberinfopage?memno=${dto.myMemberInfoDto.memno }">
+											${dto.myMemberInfoDto.nickname }
+										</a>
+									</div>
+									
+									<!-- 게시글 작성자 조회수 -->
+									<div id="OHMainView-7photoHit">조회수</div>
+									<!-- 게시글 작성자 조회수 횟수 -->
+									<div id="OHMainView-7photoHitCount">${dto.pb_hit }</div>
+									<!-- 게시글 작성자 스크랩 -->
+									<div id="OHMainView-7photoScrap">좋아요</div>
+									<!-- 게시글 작성자 스크랩 횟수 -->
+									<div id="OHMainView-7photoScrapCount">${dto.pb_like }</div>
+								</div>								
+							</div>
+						</c:forEach>
+					</div>				
+				</div>								
+				
 				<!-- 집영상 -->
 				<!-- 				
-				<div id="OHMainView-main-4">
-					<button id="OHMainView-toOHVideoViewButton">집영상</button>
-					<button id="OHMainView-toMoreOHVideoViewButton">더보기</button> 
+				<div id="OHMainView-main-8">
+					<button id="OHMainView-8toOHVideoViewButton">집영상</button>
+					<button id="OHMainView-8toMoreOHVideoViewButton">더보기</button> 
 				</div>  
 				-->
 				
-				<div id="OHMainView-main-5">
-					<button id="OHMainView-toCategoryView">#category</button>
-					<span id="OHMainView-toCategoryText">카테고리별로 보고 싶다면 여기!</span>			
-				</div>
-			
+				<!-- 			
+				<div id="OHMainView-main-9">
+					<button id="OHMainView-9toCategoryView">#category</button>
+					<span id="OHMainView-9toCategoryText">카테고리별로 보고 싶다면 여기!</span>			
+				</div> 
+				-->
+
 			</div>
 								
 		</div>
@@ -187,19 +447,9 @@
 		
 	</div>	
 	
+	<!-- OHMainView.js -->
+	<script src="../resources/js/oh/OHMainView.js"></script>
+	
 </body>
-
-	<script>
-		$(document).ready(function() {
-			$("#OHMainView-toWriteButtton").click(function() {
-				/* 회원인지 확인 */
-				if("${sessionScope.userId }" != null && "${sessionScope.userId }" != "") {	
-					window.location.href = "OHPhotoWriteView";
-				} else {
-					alert("로그인 페이지로 이동");
-				}
-			});
-		});
-	</script>
 
 </html>

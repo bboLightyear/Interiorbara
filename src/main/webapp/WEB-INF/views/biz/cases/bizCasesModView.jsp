@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<c:set var="path" value="${pageContext.request.contextPath}"/>
 <!DOCTYPE html>
 <html>
 <head>
@@ -9,6 +10,8 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootswatch@5.3.3/dist/zephyr/bootstrap.min.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+<%@include file ="../bizHeader.jsp" %>
+<link rel="stylesheet" href="${path}/resources/css/biz/biz.css"/>
 <link  rel="stylesheet"
   href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"/>
   	<style>
@@ -26,6 +29,15 @@
 	 th, .center{
     	text-align: center;	 
 	 }
+	 a {
+	   text-decoration: none;
+	   color: #1a1f27;
+	}
+	body {
+		display: flex;
+		min-height: 100vh;
+		flex-direction: column;
+	}	
 	</style>
 	<script>
 		$(document).ready(function() {
@@ -47,9 +59,10 @@
 	
 </head>
 <body>
+<main class="Site-content">
 	<div class="pt-3 bg-light bg-opacity-75">
 	<div class="d-flex justify-content-center">
-		<div class="p-3" style="width: 750px" >
+		<div class="p-3"  onclick="location.href='bizCasesList?inteno=${bizCasesContentView.inteno}'" style="width: 750px; cursor:pointer;" >
 					<ul class="list-inline">
 						<li class="list-inline-item">
 							<h4 style="--bs-text-opacity: 1; background-color: #1034a6; padding: 3px; !important;">
@@ -87,7 +100,7 @@
 				</tr>		
 				<tr class="">
 				      <th scope="row"  class="table-light border-light-subtle">이름</th>
-					<td colspan="3">${bizCasesContentView.bc_writer }</td>
+					<td colspan="3" onclick="javascript_:window.open('${path}/my/memberinfopage?nickname=${dto.bc_writer }','pop','menubar=no,status=no,scrollbars=no,resizable=no,width=560,height=700,top=50,left=50');" style="cursor: pointer;">${bizCasesContentView.bc_writer } <i class="fa-solid fa-user" style="font-size: 11px;"></i></td>
 				</tr>		
 				<tr>
 				    <th scope="row" class="table-light border-light-subtle">제목</th>
@@ -105,7 +118,12 @@
 			<div class="d-flex justify-content-evenly">
 				<div class="d-flex justify-content-center" style="width: 750px;">			
 				<div class="d-flex justify-content-end" style="width: 99%; max-width: 750px;">
-					<input type="submit" value="수정"  class="ms-1 btn btn-outline-primary btn-sm w-10">
+					<c:choose>
+						<c:when test="${loginUserDto.myinteriordto.inteno eq bizCasesContentView.inteno}">
+							<input type="submit" value="수정"  class="ms-1 btn btn-outline-primary btn-sm w-10">
+						</c:when>
+						<c:otherwise></c:otherwise>							
+					</c:choose>
 				</div>
 				</div>
 			</div>
@@ -113,6 +131,7 @@
 	</div>
 </form>
 
-
+</main>
 </body>
+<%@include file ="../bizFooter.jsp" %>
 </html>

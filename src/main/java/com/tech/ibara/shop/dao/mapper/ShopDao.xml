@@ -35,7 +35,7 @@
 			PRODUCT_ID
 	</select>
 	
-	<select id="selectProductsByCategories" resultType="com.tech.ibara.shop.dto.ProductDto">
+	<!-- <select id="selectProductsByCategories" resultType="com.tech.ibara.shop.dto.ProductDto">
 		SELECT
 			PRODUCT_ID,
 			SELLER_ID,
@@ -65,7 +65,7 @@
 			</foreach>
 		ORDER BY
 			PRODUCT_ID	
-	</select>
+	</select> -->
 	
 	<select id="selectCategoriesByParent" resultType="com.tech.ibara.shop.dto.CategoryDto">
 		SELECT
@@ -153,6 +153,82 @@
 		    PARENT_CATEGORY_ID IS NULL
 	</select>
 	
+	<resultMap type="com.tech.ibara.shop.dto.ProductImgDto" id="ProductImgDto">
+		<result column="PRODUCT_IMG_ID" property="product_img_id" />
+		<result column="PRODUCT_ID" property="product_id" />
+		<result column="FILE_SRC" property="file_src" />
+	</resultMap>
+	
+	<resultMap type="com.tech.ibara.shop.dto.ProductDto" id="ProductDto3">
+		<result column="PRODUCT_ID" property="product_id" />
+		<result column="SELLER_ID" property="seller_id" />
+		<result column="CATEGORY_ID" property="category_id" />
+		<result column="NAME" property="name" />
+		<result column="REP_PRICE" property="rep_price" />
+		<result column="REP_DISCOUNTED_PRICE" property="rep_discounted_price" />
+		<result column="IS_DISCOUNTED" property="is_discounted" />
+		<result column="DISCOUNT_RATE" property="discount_rate" />
+		<result column="DELIVERY_FEE" property="delivery_fee" />
+		<result column="DELIVERY_TYPE" property="delivery_type" />
+		<result column="REF_PRICE" property="ref_price" />
+		<result column="OPTION_TYPE" property="option_type" />
+		<result column="OPTION1_SET_ID" property="option1_set_id" />
+		<result column="OPTION2_SET_ID" property="option2_set_id" />
+		<result column="REG_TIME" property="reg_time" />
+		<result column="HITS" property="hits" />
+		<result column="SALES" property="sales" />
+		<result column="SCRAPS" property="scraps" />
+		<result column="REVIEWS" property="reviews" />
+		<result column="FILE_SRC" property="rep_img" />
+		<collection property="seller" resultMap="SellerDto"></collection>
+	</resultMap>
+	
+	<select id="selectProductsByCategories" resultType="com.tech.ibara.shop.dto.ProductDto" resultMap="ProductDto3">
+		SELECT
+			P.PRODUCT_ID,
+			P.SELLER_ID,
+			P.CATEGORY_ID,
+			P.NAME,
+			P.REP_PRICE,
+			P.REP_DISCOUNTED_PRICE,
+			P.IS_DISCOUNTED,
+			P.DISCOUNT_RATE,
+			P.DELIVERY_FEE,
+			P.DELIVERY_TYPE,
+			P.REF_PRICE,
+			P.OPTION_TYPE,
+			P.OPTION1_SET_ID,
+			P.OPTION2_SET_ID,
+			P.REG_TIME,
+			P.HITS,
+			P.SALES,
+			P.SCRAPS,
+			P.REVIEWS,
+			S.NICKNAME,
+			I.FILE_SRC
+		FROM
+			SHOP_PRODUCT P
+		JOIN
+			SHOP_SELLER S
+		ON
+			P.SELLER_ID = S.SELLER_ID
+		JOIN (
+			SELECT 
+		         PRODUCT_ID,
+		         FILE_SRC,
+		         ROW_NUMBER() OVER (PARTITION BY PRODUCT_ID ORDER BY PRODUCT_IMG_ID) AS RN
+		     FROM 
+		         SHOP_PRODUCT_IMG) I
+		ON
+			P.PRODUCT_ID = I.PRODUCT_ID
+		WHERE
+			P.CATEGORY_ID IN
+			<foreach item="item" index="index" collection="list" open="(" separator="," close=")">
+				#{item.category_id}
+			</foreach>
+			AND I.RN = 1
+	</select>
+	
 	<select id="selectProduct" resultType="com.tech.ibara.shop.dto.ProductDto">
 		SELECT
 			PRODUCT_ID,
@@ -186,7 +262,7 @@
 		<result column="INTRODUCE" property="introduce" />
 	</resultMap>
 	
-	<resultMap type="com.tech.ibara.shop.dto.ProductDto" id="ProductDto">
+	<resultMap type="com.tech.ibara.shop.dto.ProductDto" id="ProductDto2">
 		<result column="PRODUCT_ID" property="product_id" />
 		<result column="SELLER_ID" property="seller_id" />
 		<result column="CATEGORY_ID" property="category_id" />
@@ -209,7 +285,30 @@
 		<collection property="seller" resultMap="SellerDto"></collection>
 	</resultMap>
 	
-	<select id="selectProductJoinSeller" resultType="com.tech.ibara.shop.dto.ProductDto" resultMap="ProductDto">
+		<resultMap type="com.tech.ibara.shop.dto.ProductDto" id="ProductDto">
+		<result column="PRODUCT_ID" property="product_id" />
+		<result column="SELLER_ID" property="seller_id" />
+		<result column="CATEGORY_ID" property="category_id" />
+		<result column="NAME" property="name" />
+		<result column="REP_PRICE" property="rep_price" />
+		<result column="REP_DISCOUNTED_PRICE" property="rep_discounted_price" />
+		<result column="IS_DISCOUNTED" property="is_discounted" />
+		<result column="DISCOUNT_RATE" property="discount_rate" />
+		<result column="DELIVERY_FEE" property="delivery_fee" />
+		<result column="DELIVERY_TYPE" property="delivery_type" />
+		<result column="REF_PRICE" property="ref_price" />
+		<result column="OPTION_TYPE" property="option_type" />
+		<result column="OPTION1_SET_ID" property="option1_set_id" />
+		<result column="OPTION2_SET_ID" property="option2_set_id" />
+		<result column="REG_TIME" property="reg_time" />
+		<result column="HITS" property="hits" />
+		<result column="SALES" property="sales" />
+		<result column="SCRAPS" property="scraps" />
+		<result column="REVIEWS" property="reviews" />
+		<collection property="seller" resultMap="SellerDto"></collection>
+	</resultMap>
+	
+	<select id="selectProductJoinSeller" resultType="com.tech.ibara.shop.dto.ProductDto" resultMap="ProductDto2">
 		SELECT
 			P.PRODUCT_ID,
 			P.SELLER_ID,

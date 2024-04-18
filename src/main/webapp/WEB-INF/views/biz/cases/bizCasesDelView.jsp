@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<c:set var="path" value="${pageContext.request.contextPath}"/>
 <!DOCTYPE html>
 <html>
 <head>
@@ -9,6 +10,8 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootswatch@5.3.3/dist/zephyr/bootstrap.min.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+<%@include file ="../bizHeader.jsp" %>
+<link rel="stylesheet" href="${path}/resources/css/biz/biz.css"/>
 <link  rel="stylesheet"
   href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"/>
   	<style>
@@ -27,6 +30,17 @@
 	td{
    		text-align: center;
 	}
+	
+	a {
+	   text-decoration: none;
+	   color: #1a1f27;
+	}
+	
+body {
+	display: flex;
+	min-height: 100vh;
+	flex-direction: column;
+}
 	</style>
 		<script>
 		$(document).ready(function() {
@@ -57,9 +71,10 @@
 	</script>
 </head>
 <body>
+<main class="Site-content">
 	<div class="pt-3 bg-light bg-opacity-75">
 	<div class="d-flex justify-content-center">
-		<div class="p-3" style="width: 750px" >
+		<div class="p-3" onclick="location.href='bizCasesList?inteno=${bizCasesDelView.inteno}'" style="width: 750px; cursor:pointer;"  >
 					<ul class="list-inline">
 						<li class="list-inline-item">
 							<h4 style="--bs-text-opacity: 1; background-color: #1034a6; padding: 3px; !important;">
@@ -93,7 +108,7 @@
 			<table class="p-3 table" style="width: 100%; height: 150px; max-width: 750px">
 				<tr>
 				    <td class="align-middle">
-				    	<p style="font-size: 16px;"><span class="px-2" style="color: #ff8d1e"><strong>${bizCasesDelView.bc_title }</strong></span> 글을 삭제하시겠습니까?</p>
+				    	<p style="font-size: 16px;"><span class="px-2" style="color: #ff8d1e"><strong onclick="location.href='bizCasesContentView?bc_no=${bizCasesDelView.bc_no }'" style="cursor:pointer;">${bizCasesDelView.bc_title }</strong></span> 글을 삭제하시겠습니까?</p>
 				    </td>
 				</tr>			
 			</table>
@@ -107,13 +122,20 @@
 			
 			
 				<div class="d-flex justify-content-end" style="width: 60%; max-width: 450px;">
-					<button class="ms-1 btn btn-outline-primary btn-sm w-10" onclick="confirmDelete('${bizCasesDelView.bc_no }')"><span style="font-size: 14px;">삭제</span></button>
+					<c:choose>
+						<c:when test="${loginUserDto.myinteriordto.inteno eq bizCasesDelView.inteno}">
+							<button class="ms-1 btn btn-outline-primary btn-sm w-10" onclick="confirmDelete('${bizCasesDelView.bc_no }')"><span style="font-size: 14px;">삭제</span></button>
+						</c:when>
+						<c:otherwise></c:otherwise>							
+					</c:choose>
+				
 				</div>
 				</div>
 			</div>
 
 		</div>
 	</div>
-
+</main>
 </body>
+<%@include file ="../bizFooter.jsp" %>
 </html>

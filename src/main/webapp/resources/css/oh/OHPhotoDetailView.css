@@ -4,229 +4,561 @@
 /* ----- Start: OHPhotoDetailView.jsp ----- */
 /* ---------------------------------------------------------------- */
 
+/* ----- Start: #OHPhotoDetailView-main ----- */
+#OHPhotoDetailView-main {
+	position: relative;
+	width: 1480px;
+}
+/* ----- End: #OHPhotoDetailView-main ----- */	
 
+/* ----- Start: #OHPhotoDetailView-main-1 ----- */
+#OHPhotoDetailView-main-1 {
+	position: relative;
+	text-align: center;
+	height: 100px;
+	background-color: #1e90ff;
+}
+#OHPhotoDetailView-main-1Title {
+	background-color: #7af5f3;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+    transform: translate(-50%, -50%);  
+	width: 800px;
+	height: 100px;
+	line-height: 100px;
+	text-align: center;
+	font-size: 25px;
+    font-weight: bold;
+    color: #1a1f27;
+    display: inline-block;	
+}
+#OHPhotoDetailView-main-1toWriteButton {
+	background-color: #7df76f;
+    position: absolute;
+    top: 50%;
+	left: 1200px;
+    transform: translate(0, -50%);    
+    width: 80px;
+    height: 50px;
+   	border: none;
+    border-radius: 10px;
+    color: #1a1f27;	
+}
+#OHPhotoDetailView-main-1toEditButton {
+	background-color: #f28950;
+	position: absolute;
+    top: 50%;
+	left: 1290px;
+    transform: translate(0, -50%);    
+    width: 80px;
+    height: 50px;
+   	border: none;
+    border-radius: 10px;
+    color: #1a1f27;	
+}
+#OHPhotoDetailView-main-1toDeleteButton {
+	background-color: #f593c4;
+	position: absolute;
+    top: 50%;
+		left: 1380px;
+    transform: translate(0, -50%);    
+    width: 80px;
+    height: 50px;
+   	border: none;
+    border-radius: 10px;
+    color: #1a1f27;		
+}
+/* ----- End: #OHPhotoDetailView-main-1 ----- */	
 
+/* ----- Start: #OHPhotoDetailView-main-2 ----- */
+#OHPhotoDetailView-main-2 {
+	position: relative;
+	text-align: center;
+  	height: 150px;
+	background-color: #faed64;
+}
+#OHPhotoDetailView-main-2residence {
+	position: relative;
+	display: inline-block;
+	top: 50%;
+	transform: translate(0, -50%);    
+	background-color: #bef75c;
+	padding: 10px 10px 10px 10px;
+	border: 1px solid #1a1f27;
+	border-radius: 10px;    
+}
+#OHPhotoDetailView-main-2room {
+	position: relative;
+	display: inline-block;
+	top: 50%;
+	transform: translate(0, -50%);    
+	background-color: #bef75c;
+	padding: 10px 10px 10px 10px;
+	border: 1px solid #1a1f27;
+	border-radius: 10px;    
+}
+#OHPhotoDetailView-main-2style {
+	position: relative;
+	display: inline-block;
+	top: 50%;
+	transform: translate(0, -50%);    
+	background-color: #bef75c;
+	padding: 10px 10px 10px 10px;
+	border: 1px solid #1a1f27;
+	border-radius: 10px;    
+}
+#OHPhotoDetailView-main-2skill {
+	position: relative;
+	display: inline-block;
+	top: 50%;
+	transform: translate(0, -50%);    
+	background-color: #bef75c;
+	padding: 10px 10px 10px 10px;
+	border: 1px solid #1a1f27;
+	border-radius: 10px;    
+}
+/* ----- End: #OHPhotoDetailView-main-2 ----- */
 
+/* ----- Start: #OHPhotoDetailView-main-3 ----- */
+#OHPhotoDetailView-main-3 {
+	position: relative;
+	text-align: center;
+	background-color: antiquewhite;
+}
+.OHPhotoDetailView-main-3photoSector {
+	position: relative;
+	background-color: #e36639;
+	margin-top: 50px;
+	margin-bottom: 50px;
+}
+.OHPhotoDetailView-main-3photoSector img {
+	width: 720px;
+	height: 720px;
+}
+/* ----- End: #OHPhotoDetailView-main-3 ----- */
 
+/* ----- Start: #OHPhotoDetailView-main-4 ----- */
+#OHPhotoDetailView-main-4 {
+	position: relative;
+	text-align: center;
+	background-color: #7df76f;
+}
+#OHPhotoDetailView-main-4photoContent {
+	display: inline-block;
+	text-align: left;
+	width: 720px;
+	line-height: 30px;
+	background-color: #d6d4d5;
+}
+/* ----- End: #OHPhotoDetailView-main-4 ----- */
 
+/* ----- Start: #OHPhotoDetailView-main-5 ----- */
+#OHPhotoDetailView-main-5 {
+	position: relative;
+	left: 50%;
+	transform: translate(-50%, 0%);   
+	width: 720px;
+	height: 40px;
+	line-height: 40px;
+	background-color: #f28950;
+	margin: 40px 0px 10px 0px;
+}
+#OHPhotoDetailView-main-5dateLable {
+	position: absolute;
+	top: 50%;
+	left: 0%;
+	width: 50px;
+	transform: translate(0%, -50%);  
+	display: inline-block;
+	background-color: #faed64;
+}
+#OHPhotoDetailView-main-5date {
+	position: absolute;
+	top: 50%;
+	left: 60px;
+	text-align: left;
+	width: 100px;
+	transform: translate(0%, -50%);  
+	display: inline-block;
+	background-color: #faed64;
+}
+/* ----- End: #OHPhotoDetailView-main-5 ----- */
 
+/* ----- Start: #OHPhotoDetailView-main-6 ----- */
+#OHPhotoDetailView-main-6 {
+	position: relative;
+	left: 50%;
+	transform: translate(-50%, 0%);   
+	width: 720px;
+	height: 40px;
+	line-height: 40px;
+	background-color: aquamarine;
+	margin: 0px 0px 30px 0px;
+}
+#OHPhotoDetailView-main-6like {
+	position: absolute;
+	top: 50%;
+	left: 0px;
+	transform: translate(0%, -50%);  
+	width: 50px;
+	display: inline-block;
+	text-align: center;
+	font-size: 35px;
+	color: #1a1f27;	
+	background-color: #e36639;
+}
+#OHPhotoDetailView-main-6like.clickColor {
+	color: #1034a6;
+}
+#OHPhotoDetailView-main-6likeNumber {
+	position: absolute;
+	top: 50%;
+	left: 60px;
+	text-align: left;
+	width: 60px;
+	transform: translate(0%, -50%);  
+	display: inline-block;
+	background-color: #e36639;
+}
+#OHPhotoDetailView-main-6scrap {
+	position: absolute;
+	top: 50%;
+	left: 130px;
+	transform: translate(0%, -50%);  
+	width: 50px;
+	display: inline-block;
+	text-align: center;
+	font-size: 35px;
+	color: #1a1f27;	
+	background-color: #e36639;
+}
+#OHPhotoDetailView-main-6scrap.clickColor {
+	color: #1034a6;	
+}
+#OHPhotoDetailView-main-6scrapNumber {
+	position: absolute;
+	top: 50%;
+	left: 190px;
+	text-align: left;
+	width: 60px;
+	transform: translate(0%, -50%);  
+	display: inline-block;
+	background-color: #558ffa;
+}
+#OHPhotoDetailView-main-6views {
+	position: absolute;
+	top: 50%;
+	left: 260px;
+	text-align: left;
+	width: 50px;
+	transform: translate(0%, -50%);  
+	display: inline-block;
+	background-color: #7df76f;
+}
+#OHPhotoDetailView-main-6viewsNumber {
+	position: absolute;
+	top: 50%;
+	left: 320px;
+	text-align: left;
+	width: 60px;
+	transform: translate(0%, -50%);  
+	display: inline-block;
+	background-color: #7df76f;
+}
+#OHPhotoDetailView-main-6complaintButton {
+	position: absolute;
+	top: 50%;
+	right: 10px;
+	transform: translate(0%, -50%);  
+	text-align: center;
+	width: 60px;
+	height: 30px;
+	line-height: 30px;
+	border: none;
+	border-radius: 10px;
+	background-color: #d6d4d5;
+}
+/* ----- End: #OHPhotoDetailView-main-6 ----- */
 
+/* ----- Start: #OHPhotoDetailView-main-7 ----- */
+#OHPhotoDetailView-main-7 {
+	position: relative;
+	left: 50%;
+	transform: translate(-50%, 0%);   
+	width: 720px;
+	height: 80px;
+	background-color: aquamarine;
+	margin: 0px 0px 50px 0px;
+}
+#OHPhotoDetailView-main-7profileImage {
+	position: absolute;
+	top: 50%;
+	transform: translate(0%, -50%);   
+	width: 60px;
+	height: 60px;
+	border-radius: 50%;
+	background-color: #558ffa;
+}
+#OHPhotoDetailView-main-7writerName {
+	position: absolute;
+	top: 50%;
+	left: 80px;
+	transform: translate(0%, -50%);
+	width: 300px;
+	height: 80px;
+	line-height: 80px;
+	text-align: left;
+	background-color: #bef75c;
+}
+#OHPhotoDetailView-main-7writerName a {
+	text-decoration: none;
+	color: #1a1f27;	
+}
+/* ----- End: #OHPhotoDetailView-main-7 ----- */
 
+/* ----- Start: #OHPhotoDetailView-main-8 ----- */
+#OHPhotoDetailView-main-8 {
+	position: relative;
+	left: 50%;
+	transform: translate(-50%, 0%);   
+	width: 720px;
+	height: 60px;
+	background-color: #bef75c;
+	margin: 0px 0px 0px 0px;
+}
+#OHPhotoDetailView-main-8replyLable {
+	position: absolute;
+	left: 0px;
+	top: 50%;
+	transform: translate(0%, -50%);
+	width: 80px;
+	height: 60px;
+	line-height: 60px;
+	text-align: center;
+	font-size: 20px;
+	font-weight: bold;
+	display: inline-block;
+	background-color: #d6d4d5;
+}
+#OHPhotoDetailView-main-8replyTotal {
+	position: absolute;
+	left: 90px;
+	top: 50%;
+	transform: translate(0%, -50%);	
+	width: 80px;
+	height: 60px;
+	line-height: 60px;
+	text-align: left;
+	font-size: 20px;
+	font-weight: bold;
+	display: inline-block;
+	background-color: #d6d4d5;
+}
+/* ----- End: #OHPhotoDetailView-main-8 ----- */
 
+/* ----- Start: #OHPhotoDetailView-main-9 ----- */
+#OHPhotoDetailView-main-9 {
+	position: relative;
+	left: 50%;
+	transform: translate(-50%, 0%);  
+	width: 720px;
+	height: 60px;
+	background-color: #e36639;
+	margin: 0px 0px 30px 0px;	 	
+}
+#OHPhotoDetailView-main-9inputReply {
+	position: absolute;
+	top: 50%;
+	left: 0%;
+	transform: translate(0%, -50%);
+	width: 610px;
+	height: 60px;
+	line-height: 19px;
+    border: 1px solid #1a1f27;
+    border-radius: 10px;
+	margin-left: 10px;
+    padding: 10px;
+	color: #1a1f27;	
+	resize: none;
+}
+#OHPhotoDetailView-main-9inputReplyButton {
+    position: absolute;
+    top: 50%;
+    left: 630px;
+    transform: translate(0%, -50%);     
+    width: 80px;
+    height: 60px;
+    color: #1a1f27; 
+   	/* background-color: #1e90ff; */
+   	border: none;
+    border-radius: 10px;
+}
+/* ----- End: #OHPhotoDetailView-main-9 ----- */
 
-
-/* ----- Start: #inputTextReply ----- */
-
-/* ----- End: #inputTextReply ----- */
-
-/* ---------------------------------------------------------------- */
-
-/* Start: 댓글 출력 영역 */
-
+/* ----- Start: #OHPhotoDetailView-main-10 ----- */
+#OHPhotoDetailView-main-10 {
+	position: relative;
+	left: 50%;
+	transform: translate(-50%, 0%);  
+	width: 720px;
+	background-color: #1e90ff;
+	margin: 0px 0px 0px 0px;		
+}
 #contentReply {
 	display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    margin: 5px;
-	padding: 5px;
 }
-
 .reply-container {
-	box-sizing: border-box;
-	border: solid 0px black;
-	background-color: #d6d4d5;
-	margin: 0px 0px 5px 0px;
-	padding: 0px 0px 0px 0px;
-	width: 700px;
-	height: 100px;
 	position: relative;	
+	background-color: #d6d4d5;
+	margin: 0px 0px 15px 0px;
+	width: 650px;
+	height: 150px;
 }
-
-.reply-profileImage {
-	text-align: center;
-	line-height: 30px;
-	box-sizing: border-box;
-	border: solid 0px black;
-	background-color: #f593c4;
-	margin: 0px 5px 0px 0px;
-	padding: 0px 0px 0px 0px;
-	width: 30px;
-	height: 30px;
-	font-size: 3px;
-	display: inline-block;
-	position: absolute;
-	top: 0px;
-	bottom: auto;
-	left: 0px;
-	right: auto;	
-}
-
-.reply-userName {
-	text-align: center;
-	line-height: 30px;
-	box-sizing: border-box;
-	border: solid 0px black;
-	background-color: #7af5f3;
-	margin: 0px 5px 0px 0px;
-	padding: 0px 0px 0px 0px;
-	width: 80px;
-	height: 30px;
-	font-size: 10px;
-	text-align: center;
-	display: inline-block;
-	position: absolute;
-	top: auto;
-	bottom: auto;
-	left: 35px;
-	right: auto;	
-}
-
-.reply-checkMyReply {
-	text-align: center;
-	line-height: 30px;
-	box-sizing: border-box;        
-	border: solid 0px black;
-	background-color: #7df76f;
-	margin: 0px 5px 0px 0px;
-	padding: 0px 0px 0px 0px;
-	width: 60px;
-	height: 30px;
-	font-size: 10px;
-	text-align: center;
-	display: inline-block;
-	position: absolute;
-	top: auto;
-	bottom: auto;
-	left: 120px;
-	right: auto;	
-}
-
-.reply-content {
-	text-align: center;
-	line-height: 40px;
-	box-sizing: border-box;         
-	border: solid 0px black;
-	background-color: #faed64;
-	margin: 5px 0px 0px 0px;
-	padding: 0px 0px 0px 0px;
-	width: 690px;
-	height: 40px;
-	font-size: 10px;
-	text-align: center;
-	display: inline-block;
-	position: absolute;
-	top: 30px;
-	bottom: auto;
-	left: 5px;
-	right: auto;	
-}
-
-.reply-writtenTime {
-	text-align: center;
-	line-height: 20px;
-	box-sizing: border-box;         
-	border: solid 0px black;
-	background-color: #f28950;
-	margin: 5px 5px 0px 0px;
-	padding: 0px 0px 0px 0px;
-	width: 100px;
-	height: 20px;
-	font-size: 5px;
-	text-align: center;
-	display: inline-block;
-	position: absolute;
-	top: 75px;
-	bottom: auto;
-	left: 0px;
-	right: auto;	
-}
-
-.reply-likeButton {
-	text-align: center;
-	line-height: 20px;
-	box-sizing: border-box;         
-	border: solid 0px black;
-	background-color: #bef75c;
-	margin: 5px 5px 0px 0px;
-	padding: 0px 0px 0px 0px;
-	width: 20px;
-	height: 20px;
-	font-size: 3px;
-	text-align: center;
-	display: inline-block;
-	position: absolute;
-	top: 75px;
-	bottom: auto;
-	left: 105px;
-	right: auto;	
-}
-
-.reply-likeHit {
-	text-align: center;
-	line-height: 20px;
-	box-sizing: border-box;         
-	border: solid 0px black;        
-	background-color: #558ffa;
-	margin: 5px 5px 0px 0px;
-	padding: 0px 0px 0px 0px;
-	width: 40px;
-	height: 20px;
-	font-size: 3px;
-	text-align: center;
-	display: inline-block;
-	position: absolute;
-	top: 75px;
-	bottom: auto;
-	left: 130px;
-	right: auto;  	
-}
-
-.reply-replyToReplyButton {
-	text-align: center;
-	line-height: 20px;
-	box-sizing: border-box;         
-	border: solid 0px black;
-	background-color: #e36639;
-	margin: 5px 5px 0px 0px;
-	padding: 0px 0px 0px 0px;
-	width: 40px;
-	height: 20px;
-	font-size: 5px;
-	text-align: center;
-	display: inline-block;
-	position: absolute;
-	top: 75px;
-	bottom: auto;
-	left: 175px;
-	right: auto;	
-}
-
-.reply-deleteOrComplaintButton {
-	text-align: center;
-	line-height: 20px;
-	box-sizing: border-box;         
-	border: solid 0px black;
+.reply-container-layer1 {
+	position: relative;
 	background-color: #b8f54e;
-	margin: 5px 5px 0px 0px;
-	padding: 0px 0px 0px 0px;
-	width: 80px;
-	height: 20px;
-	font-size: 5px;
-	text-align: center;
-	display: inline-block;
-	position: absolute;
-	top: 75px;
-	bottom: auto;
-	left: 220px;
-	right: auto;	
+	width: 650px;
+	height: 40px;
 }
-
-/* End: 댓글 출력 영역 */
+.reply-profileImage {
+	position: absolute;
+	top: 50%;
+	left: 0px;	
+	transform: translate(0%, -50%);
+	width: 40px;
+	height: 40px;
+	background-color: #f593c4;
+}
+.reply-userName {
+	position: absolute;
+	top: 50%;
+	left: 50px;
+	transform: translate(0%, -50%);
+	display: inline-block;
+	width: 350px;
+	height: 40px;
+	line-height: 40px;
+	text-align: left;
+	background-color: #7af5f3;
+}
+.reply-userName a {
+	text-decoration: none;
+	color: #1a1f27;		
+}
+.reply-checkMyReply {
+	position: absolute;
+	top: 50%;
+	left: 410px;
+	transform: translate(0%, -50%);
+	display: inline-block;
+	padding: 5px;
+	text-align: center;
+	background-color: #f28950;
+}
+.reply-container-layer2 {
+	position: relative;
+	background-color: #f28950;
+	width: 650px;
+	height: 70px;	
+}
+.reply-content {
+	position: absolute;
+	top: 50%;
+	left: 0px;
+	transform: translate(0%, -50%);
+	width: 650px;
+	text-align: left;	
+	padding: 0px 20px 0px 20px;
+	background-color: #faed64;
+}
+.reply-container-layer3 {
+	position: relative;
+	background-color: #bef75c;
+	width: 650px;
+	height: 40px;	
+}
+.reply-writtenDate {
+	position: absolute;
+	top: 50%;
+	left: 20px;
+	transform: translate(0%, -50%);  
+	display: inline-block;
+	width: 90px;
+	height: 40px;
+	line-height: 40px;
+	text-align: left;
+	background-color: #faed64;
+}
+.reply-likeButton {
+	position: absolute;
+	top: 50%;
+	left: 120px;
+	transform: translate(0%, -50%);  
+	display: inline-block;
+	width: 40px;
+	height: 40px;
+	line-height: 40px;
+	text-align: center;
+	background-color: #e36639;	
+}
+.reply-likeNumber {
+	position: absolute;
+	top: 50%;
+	left: 170px;
+	transform: translate(0%, -50%);  
+	display: inline-block;
+	width: 40px;
+	height: 40px;
+	line-height: 40px;
+	text-align: center;
+	background-color: #e36639;	
+}
+.reply-replyToReplyButton {
+    position: absolute;
+    top: 50%;
+    left: 220px;
+    transform: translate(0%, -50%);     
+    width: 70px;
+    height: 30px;
+    color: #1a1f27; 
+   	background-color: #1e90ff;
+   	border: none;
+    border-radius: 10px;	
+}
+.reply-deleteButton {
+    position: absolute;
+    top: 50%;
+    left: 300px;
+    transform: translate(0%, -50%);     
+    width: 70px;
+    height: 30px;
+    color: #1a1f27; 
+   	background-color: #1e90ff;
+   	border: none;
+    border-radius: 10px;	
+}
+.reply-complaintButton {
+    position: absolute;
+    top: 50%;
+    left: 380px;
+    transform: translate(0%, -50%);     
+    width: 70px;
+    height: 30px;
+    color: #1a1f27; 
+   	background-color: #1e90ff;
+   	border: none;
+    border-radius: 10px;	
+}
+/* ----- End: #OHPhotoDetailView-main-10 ----- */
 
 /* ---------------------------------------------------------------- */
 /* ----- End: OHPhotoDetailView.jsp ----- */
 /* ---------------------------------------------------------------- */
+
 
 
 

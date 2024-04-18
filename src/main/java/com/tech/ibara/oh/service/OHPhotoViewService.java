@@ -10,6 +10,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
+import com.tech.ibara.my.dto.MyMemberInfoDto;
 import com.tech.ibara.oh.dao.OHInterfaceDao;
 import com.tech.ibara.oh.dto.OHPhotoBoard;
 import com.tech.ibara.oh.dto.OHPhotoLike;
@@ -60,7 +61,6 @@ public class OHPhotoViewService implements OHInterfaceService {
 		// --- filtering ---
 		
 		// --- filtering 변수 선언, 값 저장 ---
-		String pb_category = request.getParameter("pb_category");
 		String pb_residence = request.getParameter("pb_residence");
 		String pb_room = request.getParameter("pb_room");
 		String pb_style = request.getParameter("pb_style");
@@ -68,7 +68,6 @@ public class OHPhotoViewService implements OHInterfaceService {
 		
 		// --- filtering 변수 값 출력 ---
 		System.out.println("--- filtering 변수 값 출력 ---");
-		System.out.println("pb_category: " + pb_category);
 		System.out.println("pb_residence: " + pb_residence);
 		System.out.println("pb_room: " + pb_room);
 		System.out.println("pb_style: " + pb_style);
@@ -103,16 +102,7 @@ public class OHPhotoViewService implements OHInterfaceService {
 			System.out.println("------------------------------");
 		}
 		// 정렬기준 - orderingMethod, model 저장, attributeName is keepOrderingMethod		
-		model.addAttribute("keepOrderingMethod", orderingMethod);		
-		
-		// 정렬기준 - pb_category, null Check
-		if(pb_category == null) {
-			pb_category = "default";
-			System.out.println("pb_category is null therefore assigned [default] to it");
-			System.out.println("------------------------------");
-		}
-		// 정렬기준 - pb_category, model 저장, attributeName is keepPb_category
-		model.addAttribute("keepPb_category", pb_category);				
+		model.addAttribute("keepOrderingMethod", orderingMethod);						
 		
 		// 정렬기준 - pb_residence, null Check
 		if(pb_residence == null) {
@@ -172,6 +162,8 @@ public class OHPhotoViewService implements OHInterfaceService {
 		
 		// 선택한 현재 페이지 번호 가져오기
 		String stringPageSelectedNum = request.getParameter("pageSelectedNum");
+		System.out.println("stringPageSelectedNum: " + stringPageSelectedNum);
+		System.out.println("------------------------------");
 		// stringPageSelectedNum, null Check
 		if(stringPageSelectedNum == null) {
 			stringPageSelectedNum = "1";
@@ -183,7 +175,7 @@ public class OHPhotoViewService implements OHInterfaceService {
 		// 전체 게시글 수, 검색에 적용할 변수
 		int postTotalNum = 0;
 		// getPostTotalCount() 함수 실행, (filtering, searching) 조건에 맞게 전체 게시글 수를 구한다.		
-		postTotalNum = dao.getPostTotalCount(pb_category, pb_residence, pb_room, pb_style, pb_skill,
+		postTotalNum = dao.getPostTotalCount(pb_residence, pb_room, pb_style, pb_skill,
 					   						 searchingType, searchingWord);		
 		// 전체 게시글 수, 출력
 		System.out.println("postTotalNum: " + postTotalNum);
@@ -220,7 +212,7 @@ public class OHPhotoViewService implements OHInterfaceService {
 		// dtoList, 게시판에 나타낼 게시글 담을 변수선언, ohPhotoView() 함수 실행
 		ArrayList<OHPhotoBoard> dtoList = dao.ohPhotoView(postStartNum, postEndNum, 
 														  orderingBy, orderingMethod,														  
-														  pb_category, pb_residence, pb_room, pb_style, pb_skill,
+														  pb_residence, pb_room, pb_style, pb_skill,
 														  searchingType, searchingWord);			
 		
 		// model <- dtoList, 게시판에 나타낼 게시글 담을 변수
@@ -230,12 +222,21 @@ public class OHPhotoViewService implements OHInterfaceService {
 		model.addAttribute("ohPageVO", ohPageVO);	
 		
 		// 로그인 사용자, 게시물 - 좋아요, 스크랩 표시
-		
-		// session 사용자 아이디, 저장
-		String userId = (String) session.getAttribute("userId");
-		// session, 사용자 아이디, 출력
-		System.out.println("userId: " + userId);
-		System.out.println("------------------------------");			
+		// 변수 선언
+		int memno = 0;
+		// 로그인 정보, null Check
+		if(session.getAttribute("loginUserDto") != null) {
+			// 사용자 로그인 정보 출력
+			MyMemberInfoDto loginUserDto = (MyMemberInfoDto) session.getAttribute("loginUserDto");
+			memno = loginUserDto.getMemno();
+			System.out.println("로그인 정보가 있습니다.");
+			System.out.println("memno: " + memno);
+			System.out.println("------------------------------");		
+		} else {
+			System.out.println("로그인 정보가 없습니다.");
+			System.out.println("memno: " + memno);
+			System.out.println("------------------------------");
+		}					
 		
 		// OHPhotoLike 객체 담을 리스트 선언
 		ArrayList<OHPhotoLike> ohPhotoLike = null;
@@ -244,18 +245,20 @@ public class OHPhotoViewService implements OHInterfaceService {
 		ArrayList<OHPhotoScrap> ohPhotoScrap = null;
 		
 		// 로그인 사용자 => True, 좋아요, 스크랩 표시
-		if(userId != null && !userId.equals("")) {
+		if(session.getAttribute("loginUserDto") != null) {
 			// ohPhotoLikeView() 함수 실행
-			ohPhotoLike = dao.ohPhotoLikeView(userId);
+			ohPhotoLike = dao.ohPhotoLikeView(memno);
 			System.out.println("ohPhotoLikeView() 함수 실행완료");
 			System.out.println("------------------------------");
+			
 			// model <- ohPhotoLike, 로그인 사용자, 게시물 - 좋아요 표시
 			model.addAttribute("ohPhotoLike", ohPhotoLike);
 			
 			// ohPhotoScrapView() 함수 실행
-			ohPhotoScrap = dao.ohPhotoScrapView(userId);
+			ohPhotoScrap = dao.ohPhotoScrapView(memno);
 			System.out.println("ohPhotoScrapView() 함수 실행완료");
 			System.out.println("------------------------------");
+			
 			// model <- ohPhotoScrap, 로그인 사용자, 게시물 - 스크랩 표시
 			model.addAttribute("ohPhotoScrap", ohPhotoScrap);			
 		} else {
