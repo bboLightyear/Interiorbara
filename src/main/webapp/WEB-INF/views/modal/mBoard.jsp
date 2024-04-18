@@ -101,6 +101,12 @@
 			<div class="mBoard_body_3-money">
 			<div>예상금액</div><div>${modalBoard.m_price}</div>
 			</div>
+			<div class="mBoard_body_3-caution">
+				<ul>
+					<li>자가거주 용도의 종합리모델링 평균 금액으로, 임대 혹은 기능적 목적의 수리와는 견적이 다릅니다.</li>
+					<li>본 금액은 참고용입니다. 상세 조건, 시공지 상황, 업체별 자재비, 인건비, 상세 시공방법 등에 따라 금액이 달라질 수 있으니, 참고로만 이용해 주세요.</li>
+				</ul>
+			</div>
 		</div>
 			<h4>요청사항</h4>
 		<div class="mBoard_body_4">

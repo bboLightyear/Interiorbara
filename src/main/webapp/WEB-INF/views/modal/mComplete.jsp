@@ -125,6 +125,12 @@ String path=request.getContextPath();
 							<div class="complete_totalPriceValues">
 								<span>예상금액</span><span class="totalPriceValue"></span>
 							</div>
+							<div class="mBoard_body_3-caution">
+								<ul>
+									<li>자가거주 용도의 종합리모델링 평균 금액으로, 임대 혹은 기능적 목적의 수리와는 견적이 다릅니다.</li>
+									<li>본 금액은 참고용입니다. 상세 조건, 시공지 상황, 업체별 자재비, 인건비, 상세 시공방법 등에 따라 금액이 달라질 수 있으니, 참고로만 이용해 주세요.</li>
+								</ul>
+							</div>
 						</div>
 					</div>
 				</div>
