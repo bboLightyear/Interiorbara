@@ -9,6 +9,8 @@ import com.tech.ibara.my.dto.MyNonMemberDto;
 import com.tech.ibara.my.dto.MyReportDto;
 import com.tech.ibara.my.dto.MyWithdrawalDto;
 import com.tech.ibara.my.dto.PhotoAttachDto;
+import com.tech.ibara.my.dto.PhotoLikeDto;
+import com.tech.ibara.my.dto.PhotoScrapDto;
 
 public interface MyDao {
 	public void join(String nickname,String shpwd,String bcpwd,String email);
@@ -19,6 +21,7 @@ public interface MyDao {
 		
 	public String getMemberEmail(String nickname);
 	public String getMemberNickname(String email);
+	public int getMemberMemno(String nickname);
 	
 	public void setMemberEmailChecked(String nickname);
 	
@@ -72,5 +75,7 @@ public interface MyDao {
 	public void bizHomeCreate(String nickname, int inteno);
 	public int countMemberList(String mlSelNum,String searchKeyword);
 	public ArrayList<MyMemberInfoDto> getMemberInfoList(String selNum,String searchKeyword);
+	public ArrayList<PhotoLikeDto> getPhotoBoardLikeList(int memno);
+	public ArrayList<PhotoScrapDto> getPhotoBoardScrapList(int memno);	
 	
 }

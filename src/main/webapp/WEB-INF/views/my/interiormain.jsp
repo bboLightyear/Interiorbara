@@ -4,6 +4,7 @@
 <script>
 document.title = "인테리어업체 마이페이지";
 </script>
+<script src="https://code.jquery.com/jquery-latest.min.js"></script>
 <%-- <script defer src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script defer src="${path}/resources/js/my/myinteriorchart.js"></script> --%>
 <main class="Site-content" style="margin-top:10px;">
@@ -55,16 +56,40 @@ document.title = "인테리어업체 마이페이지";
     				<a href="${path}/biz/cases/bizCasesContentView?bc_no=${caseslist.inteCasesDto.bc_no}"><img class="imgsmall" src="${path}/resources/upload/biz/cases/${casesimg}" alt="" /></a>
     			</c:forTokens>
     		</td>
-    		<td class="scraptd pd8">${caseslist.inteCasesDto.bc_writer}</td>
+    		<td class="scraptd pd8">
+    		<span class="abc" onclick="javascript_:window.open('${path}/my/memberinfopage?nickname=${caseslist.inteCasesDto.bc_writer}','pop','menubar=no,status=no,scrollbars=no,resizable=no,width=560,height=780,top=50,left=50');">
+			${caseslist.inteCasesDto.bc_writer} <i class="fa-solid fa-user fa-2xs"></i></span>    		
+    		</td>
     		<td class="scraptd pd8">${caseslist.inteCasesDto.bc_title}</td>
     		<td class="scraptd pd8"><p class="w20 s">${caseslist.inteCasesDto.bc_content}</p></td>
     		
     	</tr>
     	</c:forEach>
     </table>  
-    
-    
     </div>
 	</div>
+	<div>
+		<a id="topBtn" href="#"><img alt="" src="${path}/resources/img/my/fromtop.png"></a>		
+	</div>
+
+<script>
+$(function() {
+   // 보이기 | 숨기기
+   $(window).scroll(function() {
+      if ($(this).scrollTop() > 250) { //250 넘으면 버튼이 보여짐니다.
+            $('#topBtn').fadeIn();
+            } else {
+            $('#topBtn').fadeOut();
+      }
+   });
+   // 버튼 클릭시
+   $("#topBtn").click(function() {   
+   $('html, body').animate({
+     scrollTop : 0    // 0 까지 animation 이동합니다.
+    }, 400);          // 속도 400
+    return false;
+    });
+  });
+</script>
 </main>
 <%@include file ="footer.jsp" %>

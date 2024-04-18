@@ -10,19 +10,19 @@
     	<table align="center" class="classtable" style="margin-top:50px;">
     		<tr>
     			<td class="tdheight">
-    				<input type="text" name="email" style="padding:10px;" size="50" placeholder="이메일" required>
+    				<input class="radius10" type="text" name="email" style="padding:10px;" size="50" placeholder="이메일" required>
     			</td>
     		</tr>
     		<tr>
     			<td class="password tdheight">
-    				<input type="password" name="pw" id="pw" style="padding:10px;" size="50" placeholder="비밀번호" required>
+    				<input class="radius10" type="password" name="pw" id="pw" style="padding:10px;" size="50" placeholder="비밀번호" required>
     				<span id="togglePwd"><i class="fa-solid fa-eye"></i></span>	<br />
     				<span id="pwResult" class="fontbold"></span><br />
     			</td>
     		</tr>
     		<tr>
     			<td class="tdheight">
-    				<input id="btn" type="submit" value="로그인">
+    				<input class="radius10" id="btn" type="submit" value="로그인">
     			</td>
     		</tr>
     	</table>

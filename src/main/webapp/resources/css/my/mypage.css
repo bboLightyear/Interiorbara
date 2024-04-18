@@ -12,7 +12,6 @@ body {
 	min-height: 100vh;
 	flex-direction: column;
 }
-
 header {
 	margin: 0;
 	padding: 0;
@@ -226,8 +225,6 @@ header {
 	border-bottom: 1px solid #1e90ff;
 }
 
-
-
 a {
 	text-decoration: none;
 	color: black;
@@ -247,6 +244,35 @@ a {
 	transition: 0.1s;
 	font-size: 18px;
 }
+.abc {
+	color: #1a1f27;
+	font-weight: bold;
+	cursor: pointer;
+}
+.abc:hover {
+	color: ##1e90ff;
+	transition: 0.1s;
+}
+.pointblue{
+	color: #1034a6;
+	font-weight: bold;
+	cursor: pointer;	
+}
+.pointblue:hover{
+	transform: scale(1.1);
+	transition: 0.1s;	
+}
+.pointorange{
+	color: #ff8d1e;
+	font-weight: bold;
+	cursor: pointer;	
+}
+.pointorange:hover{
+	transform: scale(1.1);
+	transition: 0.1s;	
+}
+
+
 
 .myPage-row {
 	width: 500px;
@@ -316,7 +342,9 @@ a {
 	background-color: #f9fafb;
 	object-fit: cover;
 }
-
+.radius10{
+	border-radius: 10px;
+}
 ul li {
 	list-style: none;
 	margin-bottom: 15%;
@@ -497,8 +525,9 @@ input[type="number"]::-webkit-outer-spin-button, input[type="number"]::-webkit-i
 }
 
 #nonmemberbtn {
+	margin-left:40px;
 	padding: 10px;
-	width: 380px;
+	width: 390px;
 	background-color: #e2f0fe;
 }
 
@@ -521,6 +550,23 @@ input[type="number"]::-webkit-outer-spin-button, input[type="number"]::-webkit-i
 	margin: 10px;
 }
 
+.mg3pd6{
+	margin: 3px;
+	padding: 6px;	
+}
+
+#minibtn {
+	background-color: #e2f0fe;
+	padding: 4px;
+}
+
+#minibtn:hover {
+	background-color: #1e90ff;
+	cursor: pointer;
+	transition: 0.1s;
+}
+
+
 #smbtn {
 	background-color: #e2f0fe;
 	padding: 10px;
@@ -535,12 +581,22 @@ input[type="number"]::-webkit-outer-spin-button, input[type="number"]::-webkit-i
 .classtable {
 	text-align: left;
 }
+.tablestyle{
+	table-layout: fixed;
+	border-spacing: 1;
+	border-radius:20px;
+	overflow:hidden;	
+}
 .maintable{
 	margin-left: 40%;
 }
 
 .mt30 {
 	margin-top: 30px;
+}
+
+.ma{
+	margin: 30px;
 }
 .pb20{
 	padding-bottom: 20px;
@@ -558,12 +614,14 @@ input[type="number"]::-webkit-outer-spin-button, input[type="number"]::-webkit-i
 }
 
 .scraptd {
-	height: 30px;
+	line-height: 2.7em;
+	/* height: 30px; */
 	border-bottom: 1px solid gray;
 }
 
 .scrapth {
-	height: 30px;
+	line-height: 2.7em;
+	/* height: 30px; */
 	border-bottom: 1px solid gray;
 	background-color: #e2f0fe;
 }
@@ -709,6 +767,7 @@ input[type="number"]::-webkit-outer-spin-button, input[type="number"]::-webkit-i
 	vertical-align: middle;
 }
 
+
 .m0 {
 	margin: 0;
 }
@@ -809,6 +868,13 @@ footer {
 
 .Site-content {
 	flex: 1;
+}
+#topBtn{
+	position: fixed;
+	right: 4%;
+	bottom: 5%;
+	display: none;
+	/* z-index: 9999; */
 }
 
 .clear {

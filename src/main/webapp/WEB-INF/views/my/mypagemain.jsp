@@ -6,7 +6,7 @@ document.title = "마이페이지";
 </script>
 <main class="Site-content" style="margin-top:10px;">
     <div class="mypage_category">
-        <div class="mypage_category_list list_1_1" pointcolor>프로필</div>
+        <div class="mypage_category_list list_1_1 pointcolor">프로필</div>
 	    <div class="mypage_category_list list_1_2"><a href="myphoto">내사진</a></div>
         <div class="mypage_category_list list_1_3"><a href="myscrap">스크랩북</a></div>
         <div class="mypage_category_list list_1_4"><a href="mylike">좋아요</a></div>
@@ -54,7 +54,9 @@ document.title = "마이페이지";
     			<c:choose>
     				<c:when test="${!empty palist}">
 		    			<c:forEach items="${palist}" var="pa" end="3">
-		    				<td class="pd8"><a href="${path}/oh/OHPhotoDetailView?pb_no=${pa.pb_no}"><img class="imgsize" src="${path}/resources/upload/oh/photo/${pa.pa_attach}" alt="" /></a></td>
+		    				<td class="pd8"><a href="${path}/oh/OHPhotoDetailView?pb_no=${pa.pb_no}">
+		    				<div style='display:inline-flex;justify-content: center;border-radius: 10%;overflow: hidden;'>
+		    				<img class="imgsize" src="${path}/resources/upload/oh/photo/${pa.pa_attach}" alt="" /></div></a></td>
 	    				</c:forEach>
 	    			</c:when>
 	    			<c:otherwise>

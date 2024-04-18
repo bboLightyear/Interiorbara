@@ -22,40 +22,40 @@
 		    <div class="profile-image-area">
 		        <%-- 프로필 이미지가 없으면 기본 이미지 --%>
 		        <c:if test="${empty loginUserDto.profileimg}" >
-		            <img src="../resources/img/my/user.png" id="profileimg">
+		            <img src="${path}/resources/img/my/user.png" id="profileimg">
 		        </c:if>
 		        <%-- 프로필 이미지가 있으면 있는 이미지 --%>
 		        <c:if test="${!empty loginUserDto.profileimg}" >
-		            <img src="../resources/upload/my/${loginUserDto.profileimg}" id="profileimg">
+		            <img src="${path}/resources/upload/my/${loginUserDto.profileimg}" id="profileimg">
 		        </c:if>	
 		    </div>
 		    <span id="deleteimg"><i class="fa-regular fa-circle-xmark"></i></span>
 		    <div class="profile-btn-area">
-		        <label for="imgInput">이미지 선택</label>
+		        <label class="radius10" for="imgInput">이미지 선택</label>
 		        <input type="file" name="profileimg" id="imgInput" accept="image/*">
-		        <button>변경하기</button> 
+		        <button class="radius10">변경하기</button> 
 		    </div>
 		</form>
 		<form action="intemodify" id="modify" method="post">    
-		    <input type="hidden" name="memno" id="memno" value="${loginUserDto.memno}" />
+		    <input class="radius10" type="hidden" name="memno" id="memno" value="${loginUserDto.memno}" />
 		    <div class="myPage-row">
 		        <label>이메일</label>
-		        <p><input type="text" name="email" id="email" style="padding:10px;width:220px;" value="${loginUserDto.email}" readonly /></p>	        
+		        <p><input class="radius10" type="text" name="email" id="email" style="padding:10px;width:220px;" value="${loginUserDto.email}" readonly /></p>	        
 		    </div>
 		    
 		    <div class="myPage-row">
 		        <label for="nickname">닉네임<br /></label>
-		        <p><input type="text" name="nickname" id="nickname" style="padding:10px;width:220px;" value="${loginUserDto.nickname}" /> <br />
+		        <p><input class="radius10" type="text" name="nickname" id="nickname" style="padding:10px;width:220px;" value="${loginUserDto.nickname}" /> <br />
 		        <span id="nicknameResult" class="fontbold"></span></p>
 		    </div>
 		    <div class="myPage-row">
 		        <label for="phone">휴대폰번호<br /></label>
-		        <p><input type="number" name="phone" id="phone" style="padding:10px;width:220px;" value="${loginUserDto.phone}" /><br />
+		        <p><input class="radius10" type="number" name="phone" id="phone" style="padding:10px;width:220px;" value="${loginUserDto.phone}" /><br />
 		        <span id="phoneResult" class="fontbold"></span></p>
 		    </div>
 		    <div class="myPage-row">
 		        <label for="birth">생년월일<br /></label>
-		        <p><input type="number" name="birth" id="birth" style="padding:10px;width:220px;" value="${loginUserDto.birth}" /><br />
+		        <p><input class="radius10" type="number" name="birth" id="birth" style="padding:10px;width:220px;" value="${loginUserDto.birth}" /><br />
 		        <span id="birthResult" class="fontbold"></span>
 		        </p>
 		    </div>
@@ -82,10 +82,10 @@
 		        </p>
 		    </div>
 		    <div class="myPage-row">
-		        <a class="XXX" id="withdrawal" href="withdrawal">탈퇴하기 ></a>
+		        <a class="XXX" id="withdrawal" href="${path}/my/withdrawal">탈퇴하기 ></a>
 		    </div>
 		    <div align="center">
-		    	<p><input id="btn" type="submit" value="확인" /></p> <br />
+		    	<p><input class="radius10" id="btn" type="submit" value="확인" /></p> <br />
 		    </div>
 	    </form>
 	    <span class="returnmsg"><c:out value="${msg }" default="" /></span>

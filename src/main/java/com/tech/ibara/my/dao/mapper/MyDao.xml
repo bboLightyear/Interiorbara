@@ -32,8 +32,10 @@
 	</select>
 	<select id="getMemberNickname" resultType="string">
 		SELECT NICKNAME FROM MY_MEMBER_INFO WHERE EMAIL = #{param1}
+	</select>
+	<select id="getMemberMemno" resultType="Integer">
+		SELECT MEMNO FROM MY_MEMBER_INFO WHERE NICKNAME = #{param1}
 	</select>	
-	
 	<update id="setMemberEmailChecked">
 		UPDATE MY_MEMBER_INFO SET MAILCHECK = 1, MEMTYPE='PERSON' WHERE NICKNAME = #{param1}
 	</update>	
@@ -344,6 +346,68 @@
       '이벤트를 비롯한 공지사항을 입력해 주세요. 메인 상단에 표시됩니다.','전화번호, 찾아오시는 길을 비롯한 전반적인 업체 소개를 입력해 주세요.',
       #{param1},0,0,'도배·페인트','시/군/구만 입력 바랍니다.','지도로 검색할 상세주소를 작성해 주세요.',#{param2})
    	</insert>
+	<resultMap type="com.tech.ibara.my.dto.PhotoScrapDto" id="PhotoScrapDto">
+		<result column="PS_NO" property="ps_no" />
+		<result column="MEMNO" property="memno" />
+		<result column="PS_DATE" property="ps_date" />
+		<result column="PB_NO" property="pb_no" />
+		<collection property="photoBoardDto" resultMap="PhotoBoardDto"/>
+	</resultMap>
+	<resultMap type="com.tech.ibara.my.dto.PhotoLikeDto" id="PhotoLikeDto">
+		<result column="PL_NO" property="pl_no" />
+		<result column="MEMNO" property="memno" />
+		<result column="Pl_DATE" property="pl_date" />
+		<result column="PB_NO" property="pb_no" />
+		<collection property="photoBoardDto" resultMap="PhotoBoardDto"/>
+	</resultMap>
+	<select id="getPhotoBoardLikeList" resultType="com.tech.ibara.my.dto.PhotoLikeDto" resultMap="PhotoLikeDto">
+		SELECT PB.PB_NO,PB.PB_TITLE FROM OH_PHOTO_BOARD PB JOIN OH_PHOTO_LIKE PL
+		ON PB.PB_NO=PL.PB_NO WHERE PL.MEMNO=#{param1}
+	</select>
+	<select id="getPhotoBoardScrapList" resultType="com.tech.ibara.my.dto.PhotoScrapDto" resultMap="PhotoScrapDto">
+		SELECT PB.PB_NO,PB.PB_TITLE FROM OH_PHOTO_BOARD PB JOIN OH_PHOTO_SCRAP PS
+		ON PB.PB_NO=PS.PB_NO WHERE PS.MEMNO=#{param1}
+	</select>
+	
+	
+	
+	
+	
+	
+	 <resultMap type="com.tech.ibara.biz.dto.BizRvDto" id="BizRvDto">
+      <!-- 칼럼명은 관습적으로 대문자로 표현 -->
+      <result column="BR_NO" property="br_no"  />
+      <result column="BR_CONTENT" property="br_content"  />
+      <result column="BR_WRITER" property="br_writer"  />
+      <result column="BR_LIKE_CNT" property="br_like_cnt"  />
+      <result column="BR_DATE" property="br_date"  />
+      <result column="BR_POINT" property="br_point"  />
+      <result column="INTENO" property="inteno"  />
+      <result column="MEMNO" property="memno"  />
+<!--          dto에 넣어놓은 BizRvImgDto 가져오기, 저 위 resultMap id=BizRvImgDto의 BizRvImgDto를 resultMap=에 넣는다. -->
+      <collection property="bizRvImgDto" resultMap="BizRvImgDto"></collection>
+      <collection property="bizHomeDto" resultMap="BizHomeDto"></collection>
+   </resultMap>
+
+   <select id="rvLikedBrNoList" resultType="com.tech.ibara.biz.dto.BizRvDto">
+      SELECT BR_NO FROM BIZ_RV_LIKE WHERE MEMNO=#{param1} ORDER BY BR_NO DESC
+   </select>
+
+   <select id="rvIlikedList" parameterType="com.tech.ibara.biz.dto.BizRvDto" resultMap="BizRvDto">
+      SELECT BR.INTENO, BH.BH_NAME, BR.BR_CONTENT 
+       FROM BIZ_RV BR JOIN BIZ_HOME BH ON BR.INTENO = BH.INTENO
+          WHERE BR.BR_NO=#{param1}
+   </select>
+   
+   <select id="rvIlikedHomeName"
+      resultType="String">
+      SELECT BH_NAME FROM BIZ_HOME WHERE INTENO=#{param1}
+   </select>
+
+	
+	
+	
+	
 	
 	
 	

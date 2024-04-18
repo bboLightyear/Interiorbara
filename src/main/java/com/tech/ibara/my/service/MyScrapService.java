@@ -12,6 +12,8 @@ import com.tech.ibara.biz.dao.BizIDao;
 import com.tech.ibara.biz.dto.BizHomeDto;
 import com.tech.ibara.my.dao.MyDao;
 import com.tech.ibara.my.dto.MyMemberInfoDto;
+import com.tech.ibara.my.dto.PhotoLikeDto;
+import com.tech.ibara.my.dto.PhotoScrapDto;
 import com.tech.ibara.oh.dao.OHInterfaceDao;
 import com.tech.ibara.oh.dto.OHPhotoBoard;
 
@@ -37,14 +39,9 @@ public class MyScrapService implements VService{
 //		BizIDao bdao=sqlSession.getMapper(BizIDao.class);
 		ArrayList<BizHomeDto> bhdto=mdao.getBmarkedHomesByUserMy(memno); //비즈북마크된 비즈홈정보를 가져오는 메소드
 		model.addAttribute("bhlist",bhdto); //북마크된 비즈홈정보를 jsp로 보내주기
+		ArrayList<PhotoScrapDto> pbscrapdto = mdao.getPhotoBoardScrapList(memno);
+		model.addAttribute("scraplist",pbscrapdto);
 		
-		OHInterfaceDao odao=sqlSession.getMapper(OHInterfaceDao.class);
-//		ArrayList<OHPhotoBoard> pblikedto=odao.getPhotoBoardLikeList(memno); //int memno를 보내면 likeDTO가 조인된 모든 정보를 가져오는 쿼리를 부르는 메소드
-//		ArrayList<OHPhotoBoard> pbscrapdto=odao.getPhotoBoardScrapList(memno); //int memno를 보내면 scrapDTO가 조인된 모든 정보를 가져오는 쿼리를 부르는 메소드
-//		model.addAttribute("scraplist",pbscrapdto);
-		
-		
-	}
-	
+	}	
 
 }

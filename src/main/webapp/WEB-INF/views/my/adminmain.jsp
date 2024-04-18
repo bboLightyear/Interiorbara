@@ -89,11 +89,9 @@ while(rs3.next()){
 	
 <main class="Site-content">	
 	<div class="mypage_category">
-		<div class="mypage_category_list list_1"><a href="#">메인</a>	</div>
+		<div class="mypage_category_list list_1 pointcolor">관리자메인</div>
 		<div class="mypage_category_list list_2"><a href="admin_memberlist">회원관리</a></div>
-		<!-- <div class="mypage_category_list list_3">업체신청관리</div> -->
 		<div class="mypage_category_list list_3"><a href="admin_report">신고게시판</a></div>
-		<!-- <div class="mypage_category_list list_4">컨텐츠관리</div> -->
 	</div>
 
 	<div class="container">

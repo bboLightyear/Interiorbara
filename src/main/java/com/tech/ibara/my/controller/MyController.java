@@ -28,7 +28,6 @@ import com.tech.ibara.my.service.MyLikeService;
 import com.tech.ibara.my.service.MyModifyService;
 import com.tech.ibara.my.service.MyPasswordEditService;
 import com.tech.ibara.my.service.MyPasswordMCEditService;
-import com.tech.ibara.my.service.MyPasswordService;
 import com.tech.ibara.my.service.MyPhotoService;
 import com.tech.ibara.my.service.MyProfileUpdateService;
 import com.tech.ibara.my.service.MyScrapService;
@@ -174,8 +173,7 @@ public class MyController {
 	}
 	@RequestMapping("my/adminmain")
 	public String adminmain(HttpServletRequest request,Model model) {
-		System.out.println("adminmain()");
-		
+		System.out.println("adminmain()");		
 		return "my/adminmain";
 	}
 	@RequestMapping("my/mypage")
@@ -274,9 +272,8 @@ public class MyController {
 		}else {
 			return "my/mypagepasswordedit";
 		}
-		/* sservice=new MyPasswordService(sqlSession,session); */
-		/* String str=sservice.execute(model); */
-			}
+		
+	}
 			
 	@RequestMapping(method=RequestMethod.POST,value="my/passedit")
 	public String passedit(HttpServletRequest request,Model model) {
@@ -362,23 +359,6 @@ public class MyController {
 		return "my/nonmember";
 	}	
 
-	
-	/*
-	 * @RequestMapping("my/nonmemberEstimateSearch") public String
-	 * nonmemberEstimateSearch(HttpServletRequest request,Model model) {
-	 * System.out.println("nonmemberEstimateSearch()");
-	 * model.addAttribute("request",request); sservice = new
-	 * NonmemberEstimateSearchService(sqlSession); String
-	 * str=sservice.execute(model); if(str.equals("emailNull")) {
-	 * model.addAttribute("msg","등록되지 않은 이메일입니다."); return "my/nonmember"; } return
-	 * "my/nonmemberEstimateSearch"; }
-	 */
-	 
-//	@RequestMapping("my/nonmemberOrderSearch")
-//	public String nonmemberOrderSearch(HttpServletRequest request,Model model) {
-//		System.out.println("nonmemberOrderSearch()");
-//		return "my/nonmemberOrderSearch";
-//	}
 	@RequestMapping("my/withdrawal")
 	public String withdrawal(HttpServletRequest request,Model model) {
 		System.out.println("withdrawal()");
@@ -509,10 +489,8 @@ public class MyController {
 	@RequestMapping("my/interiorpasswordedit")
 	public String interiorpasswordedit(HttpServletRequest request,Model model) {
 		System.out.println("interiorpasswordedit()");
-		model.addAttribute("request",request);
-		sservice=new MyPasswordService(sqlSession,session);
-		String str=sservice.execute(model);
-		if(str.equals("not login")) {
+		MyMemberInfoDto memdto = (MyMemberInfoDto) session.getAttribute("loginUserDto");
+		if(memdto==null) {
 			model.addAttribute("msg","로그인정보가 없습니다. 로그인해주세요");
 			return "my/loginform";
 		}else {		
@@ -594,10 +572,8 @@ public class MyController {
 	@RequestMapping("my/sellerpasswordedit")
 	public String sellerpasswordedit(HttpServletRequest request,Model model) {
 		System.out.println("sellerpasswordedit()");
-		model.addAttribute("request",request);
-		sservice=new MyPasswordService(sqlSession,session);
-		String str=sservice.execute(model);
-		if(str.equals("not login")) {
+		MyMemberInfoDto memdto = (MyMemberInfoDto) session.getAttribute("loginUserDto");
+		if(memdto==null) {
 			model.addAttribute("msg","로그인정보가 없습니다. 로그인해주세요");
 			return "my/loginform";
 		}else {		

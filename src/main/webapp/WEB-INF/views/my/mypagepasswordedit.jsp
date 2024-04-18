@@ -29,7 +29,7 @@ document.title = "비밀번호 변경";
 		    </tr>
 		    <tr>
 		    	<td class="password lh2">
-		    		<input type="password" name="inputpwd" id="inputpwd" style="padding:10px;" size="50" value="${reinputpwd}" required />
+		    		<input class="radius10" type="password" name="inputpwd" id="inputpwd" style="padding:10px;" size="50" value="${reinputpwd}" required />
 	        		<span id="toggleMyPwd"><i class="fa-solid fa-eye"></i></span><br />
 	        		<span id="pwdMatchResule" class="fontbold"></span>
 		    </tr>
@@ -40,7 +40,7 @@ document.title = "비밀번호 변경";
 		    </tr>
 		    <tr>
 		    	<td class="password lh2">
-		    		<input type="password" name="pw1" id="pw1" style="padding:10px;" size="50" required />
+		    		<input class="radius10" type="password" name="pw1" id="pw1" style="padding:10px;" size="50" required />
 			        <span id="togglePwd1"><i class="fa-solid fa-eye"></i></span> <br />
 			        <span id="pw1Result" class="fontbold"></span>
 		    		
@@ -53,14 +53,14 @@ document.title = "비밀번호 변경";
 		    </tr>
 		    <tr>
 		    	<td class="password lh2">
-		    		<input type="password" name="pw2" id="pw2" style="padding:10px;" size="50" required />
+		    		<input class="radius10" type="password" name="pw2" id="pw2" style="padding:10px;" size="50" required />
 	        		<span id="togglePwd2"><i class="fa-solid fa-eye"></i></span> <br />
 	        		<span id="pw2Result" class="fontbold"></span>		    		
 		    	</td>
 		    </tr>
 		    <tr>
 		    	<td class="lh2">
-		    		<input id="btn" type="submit" value="확인" /><br />	
+		    		<input class="radius10" id="btn" type="submit" value="확인" /><br />	
 		    	</td>
 		    </tr>
 	    </table>

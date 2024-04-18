@@ -31,7 +31,7 @@ public class MyPasswordEditService implements SService{
 		String inputpwd=request.getParameter("inputpwd");
 		String pw=request.getParameter("pw1");
 		String pw2=request.getParameter("pw2");
-		
+					
 		boolean pwbool=Pattern.matches("^(?=.*[A-Za-z])(?=.*\\d)(?=.*[$@$!%*#?&])[A-Za-z\\d$@$!%*#?&]{8,}$", pw);
 		String mypwd=memdto.getBcpwd();
 		
@@ -45,8 +45,11 @@ public class MyPasswordEditService implements SService{
 	         e.printStackTrace();
 	    }
 		if(mypwd.equals(inputbcpwd)) {
-			model.addAttribute("reinputpwd");
-		}
+			model.addAttribute("reinputpwd",inputpwd);
+		}else {
+			model.addAttribute("reinputpwd","");
+		}	
+		
 		if(!mypwd.equals(inputbcpwd)) {
 			return "password not match";
 		}else if(!pwbool) {

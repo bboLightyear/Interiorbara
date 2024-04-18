@@ -1,21 +1,30 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@include file="header.jsp"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<c:set var="path" value="${pageContext.request.contextPath}"/>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>회원정보</title>
+<link rel="stylesheet" href="${path}/resources/css/my/mypage.css" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
 <script src="https://code.jquery.com/jquery-latest.min.js"></script>
-<script>
-	document.title = "회원 정보";
-</script>
+</head>
+<body>
 <main class="Site-content textcenter">
-<h3>${mdto.nickname}님 회원정보</h3>
+<h3 class="mt30">${mdto.nickname}님 회원정보</h3>
     <div id="mypageedit" align="center">
 		    <div class="profile-image-area">
 		        <%-- 프로필 이미지가 없으면 기본 이미지 --%>
 		        <c:if test="${empty mdto.profileimg}" >
-		            <img src="../resources/img/my/user.png" id="profileimg">
+		            <img src="${path}/resources/img/my/user.png" id="profileimg">
 		        </c:if>
 		        <%-- 프로필 이미지가 있으면 있는 이미지 --%>
 		        <c:if test="${!empty mdto.profileimg}" >
-		            <img src="../resources/upload/my/${mdto.profileimg}" id="profileimg">
+		            <img src="${path}/resources/upload/my/${mdto.profileimg}" id="profileimg">
 		        </c:if>	
 		    </div>
 		    <div class="myPage-row">
@@ -44,13 +53,26 @@
 		    	<label>멤버타입<br /></label>
 		    	<p id="memtype"></p>		    
 		    </div>
+		    <!-- <div  class="myPage-row">
+		    	<label>최근로그인 날짜<br /></label>
+		    	<p></p>		    
+		    </div> -->
 		    <div  class="myPage-row">
 		    	<label>최근올린사진<br /></label>
 		    </div>
-		    <div>
-		    	<c:forEach items="${palist}" var="pa" end="3">
-   				<a href="${path}/oh/OHPhotoDetailView?pb_no=${pa.pb_no}"><img class="imgsmall mt10" src="${path}/resources/upload/oh/photo/${pa.pa_attach}" alt="" /></a>
-		    	</c:forEach>
+		    <div class="mt30">
+		    	<c:choose>
+		    		<c:when test="${!empty palist}">
+				    	<c:forEach items="${palist}" var="pa" end="3">
+		   				<a href="#" onclick="javascript_:opener.document.location.href='${path}/oh/OHPhotoDetailView?pb_no=${pa.pb_no}';window.close();">
+		   				<div style='display:inline-flex;justify-content: center;border-radius: 10px;overflow: hidden;'>
+		   				<img class="imgsmall" src="${path}/resources/upload/oh/photo/${pa.pa_attach}" alt="" /></div></a>
+				    	</c:forEach>
+		    		</c:when>
+		    		<c:otherwise>
+		    		<h3>올린 사진이 없습니다.</h3>
+		    		</c:otherwise>	
+		    	</c:choose>
 			 </div>
 	   </div>
     <script>
@@ -66,7 +88,6 @@ $(document).ready(function() {
 	var replacebirth=birthnum.replace(/(\d{4})(\d{2})(\d{2})/g, '$1-$2-$3');
 	$("#birth").text(replacebirth);
 });
-
 
 window.onload = function (){
 	var membertype="${mdto.memtype}";
@@ -85,6 +106,8 @@ window.onload = function (){
 		memtype.innerHTML = "메일인증안된회원"
 	}
 }
+
 </script>
 </main>
-<%@include file ="footer.jsp" %>
+</body>
+</html>

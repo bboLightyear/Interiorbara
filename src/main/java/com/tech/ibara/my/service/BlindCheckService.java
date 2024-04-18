@@ -39,7 +39,6 @@ public class BlindCheckService implements VService{
 		}else {//N로 바꿔주고 원글 살리기 
 			mdao.allowBlind("N", reno);
 			mdao.saveReview(br_content,br_writer,br_no);
-		}		
+		}
 	}
-
 }

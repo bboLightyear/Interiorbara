@@ -12,24 +12,34 @@ import com.tech.ibara.my.dao.MyDao;
 import com.tech.ibara.my.dto.MyMemberInfoDto;
 import com.tech.ibara.my.dto.PhotoAttachDto;
 
-public class MemberInfoPageService implements VService{
+public class MemberInfoPageService implements VService {
 	private SqlSession sqlSession;
+
 	public MemberInfoPageService(SqlSession sqlSession) {
-		this.sqlSession=sqlSession;
+		this.sqlSession = sqlSession;
 	}
+
 	@Override
 	public void execute(Model model) {
 		Map<String, Object> map = model.asMap();
 		HttpServletRequest request = (HttpServletRequest) map.get("request");
-		String smemno =request.getParameter("memno");
-		MyDao mdao=sqlSession.getMapper(MyDao.class);
-		MyMemberInfoDto mdto=mdao.getMemberInfo("1",smemno);
-		model.addAttribute("mdto",mdto);
-		int memno = Integer.parseInt(smemno);
-		System.out.println("memno : "+memno);
-		ArrayList<PhotoAttachDto> palist=mdao.getMyPhoto(memno);
-		model.addAttribute("palist",palist);
-		
+		String nickname = request.getParameter("nickname");
+		String smemno = request.getParameter("memno");
+		MyDao mdao = sqlSession.getMapper(MyDao.class);
+		MyMemberInfoDto mdto;
+		ArrayList<PhotoAttachDto> palist;
+		if (smemno == null) {
+			mdto = mdao.getMemberInfo("2", nickname);
+			model.addAttribute("mdto", mdto);
+			int memno = mdao.getMemberMemno(nickname);
+			palist = mdao.getMyPhoto(memno);
+			model.addAttribute("palist", palist);
+		} else {
+			mdto = mdao.getMemberInfo("1", smemno);
+			model.addAttribute("mdto", mdto);
+			int memno = Integer.parseInt(smemno);
+			palist = mdao.getMyPhoto(memno);
+			model.addAttribute("palist", palist);
+		}
 	}
-
 }
