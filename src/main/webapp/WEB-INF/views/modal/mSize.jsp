@@ -63,9 +63,10 @@ String path=request.getContextPath();
 			<div class="modal_center">
 				<div class="modal_center_header">
 					<h3>평수 선택</h3>
+					<span class="summary-button">요약보기</span>
 					<span id="closeSizeModal" class="close">&times;</span>
 				</div>
-				<div class="sizeModal_center_body">
+				<div class="modal_center_body sizeModal_center_body">
 					<div>
 						<div>
 							<h3>평형을 알려주세요.</h3>
@@ -89,7 +90,7 @@ String path=request.getContextPath();
 						
 				</div>			
 			</div>
-			<div class="rightside">
+			<div class="rightside rightside-ani">
 				<div class="modal_rightside_header">
 				<span>요약</span>
 				</div>
@@ -115,6 +116,7 @@ $(document).ready(function() {
     var decreaseBtn = $('#decreaseSize');
     var increaseBtn = $('#increaseSize');
     var privBtn = $('#sizePrivBtn');
+    
    
     function openModal(modalId) {
         $(modalId).css('display', 'block');

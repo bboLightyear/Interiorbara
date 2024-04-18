@@ -63,12 +63,13 @@ String path=request.getContextPath();
             </div>
         </div>
 			<div class="modal_center">
-				<div class="serviceCheckModal_center_header">
+				<div class="serviceCheckModal_center_header modal_center_header">
 					<h3>서비스를 선택해주세요.</h3>
+					<span class="summary-button">요약보기</span>
 					<span id="closeServiceCheckModal" class="close">&times;</span>
 				</div>
 				<div class="serviceCheckModal_center">
-				<div class="serviceCheckModal_center_body">
+				<div class="modal_center_body serviceCheckModal_center_body">
 					<div>
 						<div class="productCheckBox">
 					
@@ -83,7 +84,7 @@ String path=request.getContextPath();
 						
 				</div>			
 			</div>
-				<div class="rightside">
+				<div class="rightside rightside-ani">
 				<div class="modal_rightside_header">
 					<span>요약</span>
 				</div>
@@ -128,6 +129,7 @@ String path=request.getContextPath();
 
 $(document).ready(function() {
     var serviceCheckModal = $('.serviceCheckModal');
+    
     
    
 
@@ -215,7 +217,7 @@ $(document).ready(function() {
                 var itemQuantity = item.quantity;
                 var totalPrice = itemPrice * itemQuantity;
                 var itemDiv = $('<div>').css('display', 'flex').css('justify-content', 'space-between')
-                .append($('<span>').text(itemName))
+                .append($('<span>').text(itemName+'  '))
                 .append($('<span>').text(totalPrice + '만원'));
                 selectedItemsDiv.append(itemDiv).append('\n');
             }

@@ -58,11 +58,21 @@
 				<i class="fas fa-bars"></i>
 			</div>
 			<!-- header_category_list : 카테고리 / list_1~5 : list에 각각 들어갈 내용 -->
-			<div class="openModal header_category_list list_1">퀵견적</div>	
-			<div class="header_category_list list_2">업체 둘러보기</div>
-			<div class="header_category_list list_3">소품샵</div>
-			<div class="header_category_list list_4">우리 집 자랑하기</div>
-			<div class="header_category_list list_5">고객센터</div>
+			<div class="header_category_list list_1">
+				<a href="#" class="openModal">퀵견적</a>
+			</div>
+			<div class="header_category_list list_2">
+				<a href="shop/list">소품샵</a>
+			</div>
+			<div class="header_category_list list_3">
+				<a href="biz/magazine/bizMgzList">업체 둘러보기</a>
+			</div>
+			<div class="header_category_list list_4">
+				<a href="oh/OHMainView">우리 집 자랑하기</a>
+			</div>
+			<div class="header_category_list list_5">
+				<a href="cshome">고객센터</a>
+			</div>
 		</div>
 	</header>
 	
@@ -81,6 +91,7 @@
 	    </div>
 	    	<h4>견적 내용</h4>
 		<div class="mBoard_body_3">
+			<div class="mBoard_body_3-service1">서비스</div>
 			<div class="mBoard_body_3-service">${modalBoard.m_type}  ${modalBoard.m_size}</div>
 			<div class="mBoard_body_3-circs">환경</div>
 			<div class="mBoard_body_3-circs-1">${modalBoard.m_circs}</div>
@@ -99,7 +110,7 @@
 		</div>	
 
 	</div>
-	
+	<jsp:include page="../modal/mMain.jsp" />
 	<!-- 푸터 -->
 	<footer>
 		<!-- 푸터 로고 -->
