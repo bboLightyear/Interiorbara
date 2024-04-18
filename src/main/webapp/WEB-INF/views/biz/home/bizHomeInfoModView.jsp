@@ -81,7 +81,7 @@ function changeBackgroundColor(color) {
 			<div class="d-flex justify-content-center">
 				<div class="px-3" style="width: 750px" >						
 				    <div class="px-3 py-1">
-				      <label for="headerImg" class="col-sm-2 col-form-label">헤더 이미지</label>
+				      <label for="headerImg" class="col-sm-2 col-form-label"><strong>헤더 이미지</strong></label>
 				      <div class="px-3 py-1">
 				      	<img id="headerImg" src="../../resources/upload/biz/home/${bizHome.bh_img }" width="100%" style="max-width: 750px">
 						<input class="mt-4 form-control" type="file" name="fileNew"  />
@@ -89,10 +89,10 @@ function changeBackgroundColor(color) {
 				      </div>
 				    </div>
 				    <div class="px-3 py-1">
-				      <label for="bh_name" class="form-label mt-4">업체명</label>
+				      <label for="bh_name" class="form-label mt-4"><strong>업체명</strong></label>
 				      <input type="text" class="form-control" name="bh_name" id="bh_name" value="${bizHome.bh_name }"  />
 				    </div>
-				    <div class="px-3 pt-4" style="font-size: 16px;">전문시공영역(선택 필수)</div>
+				    <div class="px-3 pt-4" style="font-size: 16px;"><strong>전문시공영역(선택 필수)</strong></div>
 				      <div class="form-check pb-1 pe-3 pt-1 ps-4">
 				      	<input type="radio" name="bh_pro" value="마루"  />마루시공 <span style="width: 20px; color: transparent;">_</span>
 						<input type="radio" name="bh_pro" value="도배·페인트"  />도배·페인트 <span style="width: 20px; color: transparent;">_</span>
@@ -104,20 +104,20 @@ function changeBackgroundColor(color) {
 						<input type="radio" name="bh_pro" value="시트·필름"  />시트·필름
 				     </div>
 				    <div class="px-3 py-1">
-				      <label for="sigungu" class="form-label mt-3">주소1 (시/군/구를 정확하게 적어 주세요.)</label>
+				      <label for="sigungu" class="form-label mt-3"><strong>주소1 (시/군/구를 정확하게 적어 주세요.)</strong></label>
 				      <input class="form-control" id="sigungu" type="text" name="bh_addr1" value="${bizHome.bh_addr1 }"  />
 				    </div>
 				    <div class="px-3 py-1">
-				      <label for="detailAddr" class="form-label mt-4">주소2 (상세주소를 적어 주세요.)</label>
+				      <label for="detailAddr" class="form-label mt-4"><strong>주소2 (상세주소를 적어 주세요.)</strong></label>
 				      <input class="form-control" id="detailAddr" type="text" name="bh_addr2" value="${bizHome.bh_addr2 }"  />
 				    </div>
 				    <div class="px-3 py-1">
-				      <label for="bh_notice" class="form-label mt-4">공지</label>
+				      <label for="bh_notice" class="form-label mt-4"><strong>공지</strong></label>
 				      		<textarea class="form-control" name="bh_notice" id="bh_notice" cols="35" rows="5">${bizHome.bh_notice }</textarea>
 				      <small id="noticeHelp" class="form-text text-muted">홈 상단에 노출됩니다.</small>
 				    </div>
 				    <div class="px-3 py-1 pb-3">
-				      <label for="bh_intro" class="form-label mt-4">소개글</label>
+				      <label for="bh_intro" class="form-label mt-4"><strong>소개글</strong></label>
 				      		<textarea class="form-control"  name="bh_intro" id="bh_intro" cols="35" rows="5">${bizHome.bh_intro }</textarea>
 				      <small id="noticeHelp" class="form-text text-muted">업체에 대한 자세한 소개; 홈 정보란에 노출됩니다.</small>
 				    </div>
