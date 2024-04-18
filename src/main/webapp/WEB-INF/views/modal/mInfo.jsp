@@ -111,7 +111,7 @@
 
 				</div>
 			</div>
-			<div class="rightside">
+			<div class="rightside rightside-ani">
 				<div class="modal_rightside_header">
 					<span>요약</span>
 				</div>
