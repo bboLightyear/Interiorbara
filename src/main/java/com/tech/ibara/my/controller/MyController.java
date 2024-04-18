@@ -28,7 +28,6 @@ import com.tech.ibara.my.service.MyLikeService;
 import com.tech.ibara.my.service.MyModifyService;
 import com.tech.ibara.my.service.MyPasswordEditService;
 import com.tech.ibara.my.service.MyPasswordMCEditService;
-import com.tech.ibara.my.service.MyPasswordService;
 import com.tech.ibara.my.service.MyPhotoService;
 import com.tech.ibara.my.service.MyProfileUpdateService;
 import com.tech.ibara.my.service.MyScrapService;
@@ -77,8 +76,10 @@ public class MyController {
 		}else if(str.equals("nndupl")) {
 			model.addAttribute("joinmsg","이미 가입된 닉네임입니다");
 			return "my/joinform";
+		}else{
+			model.addAttribute("joinmsg","가입되었습니다. 로그인하시려면 이메일을 인증해주세요");
+			return "my/joinform";
 		}
-		return str;
 	}
 	@RequestMapping("/emailCheck")
 	public String emailCheck(HttpServletRequest request, Model model) {
@@ -153,6 +154,9 @@ public class MyController {
 			if(memtype.equals("ADMIN")) {
 				return "my/adminmain";
 			}else if(memtype.equals("INTERIOR")) {
+				model.addAttribute("mdto",mdto);
+				vservice = new MyInteriorCasesService(sqlSession,session);
+				vservice.execute(model);
 				return "my/interiormain";
 			}else if(memtype.equals("SELLER")) {
 				return "my/sellermain";
@@ -161,14 +165,15 @@ public class MyController {
 				vservice.execute(model);
 				return "my/mypagemain";
 			}
-		}else {		
+		}else if(str.equals("null") || str.length()==0) {
+			return "redirect:/";
+		}else {			
 			return str;			
 		}		
 	}
 	@RequestMapping("my/adminmain")
 	public String adminmain(HttpServletRequest request,Model model) {
-		System.out.println("adminmain()");
-		
+		System.out.println("adminmain()");		
 		return "my/adminmain";
 	}
 	@RequestMapping("my/mypage")
@@ -186,6 +191,9 @@ public class MyController {
 		if(memtype.equals("ADMIN")) {
 			return "my/adminmain";
 		}else if(memtype.equals("INTERIOR")) {
+			model.addAttribute("mdto",mdto);
+			vservice = new MyInteriorCasesService(sqlSession,session);
+			vservice.execute(model);
 			return "my/interiormain";
 		}else if(memtype.equals("SELLER")) {
 			return "my/sellermain";
@@ -205,6 +213,11 @@ public class MyController {
 	@RequestMapping("my/mypagemain")
 	public String mypagemain(HttpServletRequest request,Model model) {
 		System.out.println("mypagemain()");
+		MyMemberInfoDto mdto=(MyMemberInfoDto) session.getAttribute("loginUserDto");
+		if(mdto==null) {
+			model.addAttribute("msg","로그인 정보가 없습니다. 로그인해주세요");
+			return "my/loginform";
+		}		
 		vservice=new MypageMainService(sqlSession,session);
 		vservice.execute(model);
 		return "my/mypagemain";
@@ -252,36 +265,32 @@ public class MyController {
 	@RequestMapping("my/mypagepasswordedit")
 	public String mypagepasswordedit(HttpServletRequest request,Model model) {
 		System.out.println("mypagepasswordedit()");
-		model.addAttribute("request",request);
-		sservice=new MyPasswordService(sqlSession,session);
-		String str=sservice.execute(model);
-		if(str.equals("not login")) {
+		MyMemberInfoDto memdto = (MyMemberInfoDto) session.getAttribute("loginUserDto");
+		if(memdto==null) {
 			model.addAttribute("msg","로그인정보가 없습니다. 로그인해주세요");
 			return "my/loginform";
 		}else {
 			return "my/mypagepasswordedit";
 		}
+		
 	}
 			
 	@RequestMapping(method=RequestMethod.POST,value="my/passedit")
 	public String passedit(HttpServletRequest request,Model model) {
 		System.out.println("passedit()");
-		String mypwd=request.getParameter("mypwd");
+		/* String mypwd=request.getParameter("mypwd"); */
 		model.addAttribute("request",request);
-		sservice =new MyPasswordEditService(sqlSession);
+		sservice =new MyPasswordEditService(sqlSession,session);
 		String str=sservice.execute(model);
 		System.out.println("return msg : "+str);
 		if(str.equals("password not match")) {
 			model.addAttribute("msg","현재비밀번호를 다시 확인해주세요.");
-			model.addAttribute("mypwd",mypwd);
 			return "my/mypagepasswordedit";
 		}else if(str.equals("pw check")) {
 			model.addAttribute("msg","새비밀번호가 유효하지 않습니다.");
-			model.addAttribute("mypwd",mypwd);
 			return "my/mypagepasswordedit";
 		}else if(str.equals("pw not match")) {
 			model.addAttribute("msg","새비밀번호가 일치하지않습니다.");
-			model.addAttribute("mypwd",mypwd);
 			return "my/mypagepasswordedit";
 		}else if(str.equals("password reset success")) {
 			session.invalidate();
@@ -289,7 +298,6 @@ public class MyController {
 			return "my/loginform";
 		}else {
 			model.addAttribute("msg","비밀번호 변경 오류");
-			model.addAttribute("mypwd",mypwd);
 			return "my/mypagepasswordedit";	
 		}		
 	}	
@@ -304,14 +312,9 @@ public class MyController {
 	public String passReset(HttpServletRequest request,Model model) {
 		System.out.println("passReset()");
 		model.addAttribute("request",request);
-		sservice=new PassResetService(sqlSession);
-		String str = sservice.execute(model);
-		if(str.equals("emailNull")) {
-			model.addAttribute("msg","가입되지않은 이메일입니다.");
-			return "my/passwordReset";
-		}else {
-		return str;
-		}
+		vservice=new PassResetService(sqlSession);
+		vservice.execute(model);
+		return "my/passwordReset";
 	}
 	@RequestMapping("my/passMailCheck")
 	public String passMailCheck(HttpServletRequest request,Model model) {
@@ -356,23 +359,6 @@ public class MyController {
 		return "my/nonmember";
 	}	
 
-	
-	/*
-	 * @RequestMapping("my/nonmemberEstimateSearch") public String
-	 * nonmemberEstimateSearch(HttpServletRequest request,Model model) {
-	 * System.out.println("nonmemberEstimateSearch()");
-	 * model.addAttribute("request",request); sservice = new
-	 * NonmemberEstimateSearchService(sqlSession); String
-	 * str=sservice.execute(model); if(str.equals("emailNull")) {
-	 * model.addAttribute("msg","등록되지 않은 이메일입니다."); return "my/nonmember"; } return
-	 * "my/nonmemberEstimateSearch"; }
-	 */
-	 
-//	@RequestMapping("my/nonmemberOrderSearch")
-//	public String nonmemberOrderSearch(HttpServletRequest request,Model model) {
-//		System.out.println("nonmemberOrderSearch()");
-//		return "my/nonmemberOrderSearch";
-//	}
 	@RequestMapping("my/withdrawal")
 	public String withdrawal(HttpServletRequest request,Model model) {
 		System.out.println("withdrawal()");
@@ -447,7 +433,17 @@ public class MyController {
 	@RequestMapping("my/interiormain")
 	public String interiormain(HttpServletRequest request,Model model) {
 		System.out.println("interiormain()");
-		return "my/interiormain";
+		MyMemberInfoDto mdto=(MyMemberInfoDto) session.getAttribute("loginUserDto");
+		System.out.println("mdto : "+mdto.getNickname());
+		if(mdto==null) {
+			model.addAttribute("msg","로그인정보가 없습니다. 로그인해주세요");
+			return "my/loginform";
+		}else {
+			model.addAttribute("mdto",mdto);
+			vservice = new MyInteriorCasesService(sqlSession,session);
+			vservice.execute(model);
+			return "my/interiormain";		
+		}
 	}		
 	@RequestMapping("my/interiorinfoedit")
 	public String interiorinfoedit(HttpServletRequest request,Model model) {
@@ -493,10 +489,8 @@ public class MyController {
 	@RequestMapping("my/interiorpasswordedit")
 	public String interiorpasswordedit(HttpServletRequest request,Model model) {
 		System.out.println("interiorpasswordedit()");
-		model.addAttribute("request",request);
-		sservice=new MyPasswordService(sqlSession,session);
-		String str=sservice.execute(model);
-		if(str.equals("not login")) {
+		MyMemberInfoDto memdto = (MyMemberInfoDto) session.getAttribute("loginUserDto");
+		if(memdto==null) {
 			model.addAttribute("msg","로그인정보가 없습니다. 로그인해주세요");
 			return "my/loginform";
 		}else {		
@@ -506,22 +500,19 @@ public class MyController {
 	@RequestMapping(method=RequestMethod.POST,value="my/intepassedit")
 	public String intepassedit(HttpServletRequest request,Model model) {
 		System.out.println("intepassedit()");
-		String mypwd=request.getParameter("mypwd");
+		/* String mypwd=request.getParameter("mypwd"); */
 		model.addAttribute("request",request);
-		sservice =new MyPasswordEditService(sqlSession);
+		sservice =new MyPasswordEditService(sqlSession,session);
 		String str=sservice.execute(model);
 		System.out.println("return msg : "+str);
 		if(str.equals("password not match")) {
 			model.addAttribute("msg","현재비밀번호를 다시 확인해주세요.");
-			model.addAttribute("mypwd",mypwd);
 			return "my/interiorpasswordedit";
 		}else if(str.equals("pw check")) {
 			model.addAttribute("msg","새비밀번호가 유효하지 않습니다.");
-			model.addAttribute("mypwd",mypwd);
 			return "my/interiorpasswordedit";
 		}else if(str.equals("pw not match")) {
 			model.addAttribute("msg","새비밀번호가 일치하지않습니다.");
-			model.addAttribute("mypwd",mypwd);
 			return "my/interiorpasswordedit";
 		}else if(str.equals("password reset success")) {
 			session.invalidate();
@@ -529,7 +520,6 @@ public class MyController {
 			return "my/loginform";
 		}else {
 			model.addAttribute("msg","비밀번호 변경 오류");
-			model.addAttribute("mypwd",mypwd);			
 			return "my/interiorpasswordedit";
 		}		
 	}	
@@ -582,10 +572,8 @@ public class MyController {
 	@RequestMapping("my/sellerpasswordedit")
 	public String sellerpasswordedit(HttpServletRequest request,Model model) {
 		System.out.println("sellerpasswordedit()");
-		model.addAttribute("request",request);
-		sservice=new MyPasswordService(sqlSession,session);
-		String str=sservice.execute(model);
-		if(str.equals("not login")) {
+		MyMemberInfoDto memdto = (MyMemberInfoDto) session.getAttribute("loginUserDto");
+		if(memdto==null) {
 			model.addAttribute("msg","로그인정보가 없습니다. 로그인해주세요");
 			return "my/loginform";
 		}else {		
@@ -595,22 +583,19 @@ public class MyController {
 	@RequestMapping(method=RequestMethod.POST,value="my/sellerpassedit")
 	public String sellerpassedit(HttpServletRequest request,Model model) {
 		System.out.println("sellerpassedit()");
-		String mypwd=request.getParameter("mypwd");
+		/* String mypwd=request.getParameter("mypwd"); */
 		model.addAttribute("request",request);
-		sservice =new MyPasswordEditService(sqlSession);
+		sservice =new MyPasswordEditService(sqlSession,session);
 		String str=sservice.execute(model);
 		System.out.println("return msg : "+str);
 		if(str.equals("password not match")) {
 			model.addAttribute("msg","현재비밀번호를 다시 확인해주세요.");
-			model.addAttribute("mypwd",mypwd);
 			return "my/sellerpasswordedit";
 		}else if(str.equals("pw check")) {
 			model.addAttribute("msg","새비밀번호가 유효하지 않습니다.");
-			model.addAttribute("mypwd",mypwd);
 			return "my/sellerpasswordedit";
 		}else if(str.equals("pw not match")) {
 			model.addAttribute("msg","새비밀번호가 일치하지않습니다.");
-			model.addAttribute("mypwd",mypwd);
 			return "my/sellerpasswordedit";
 		}else if(str.equals("password reset success")) {
 			session.invalidate();
@@ -618,7 +603,6 @@ public class MyController {
 			return "my/loginform";
 		}else {
 			model.addAttribute("msg","비밀번호 변경 오류");
-			model.addAttribute("mypwd",mypwd);
 			return "my/sellerpasswordedit";	
 		}		
 	}
@@ -626,7 +610,7 @@ public class MyController {
 	@RequestMapping("my/admin_memberlist")
 	public String memberlist(HttpServletRequest request,Model model) {
 		System.out.println("admin_memberlist()");
-//		model.addAttribute("request",request);
+		model.addAttribute("request",request);
 		vservice=new MemberListService(sqlSession);
 		vservice.execute(model);
 		return "my/admin_memberlist";

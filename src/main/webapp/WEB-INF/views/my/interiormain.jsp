@@ -1,102 +1,20 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<c:set var="path" value="${pageContext.request.contextPath}"/>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-<!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" /> -->
-<script defer src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-<script defer src="${path}/resources/js/my/myinteriorchart.js"></script>
-<style>
-	.mypage_category {
-    	margin: 0;
-        padding: 0;
-        width: 100%;
-        height: 65px;
-        /* border-bottom: 1px solid gray; */
-        display: flex; 
-        justify-content: center;
-        align-items: center;
-        /* background-color: lightblue; */
-	}
-    /* 카테고리 list */
-   	.mypage_category_list {
-        margin-top: -5px;
-        margin-left: 10px;
-        padding-left: 10px;
-        border-left: 1px solid gray;
-        display: inline-block;
-        width: fit-content;
-        height: fit-content;
-        font-size: 15px;
-        font-weight: bold;
-        font-family: sans-serif;
-        cursor: pointer;
-    }
-    /* #mypage_profile{
-    	padding-left: 80%;
-    } */
-	.box {
-	    width: 150px;
-	    height: 150px; 
-	    border-radius: 70%;
-	    overflow: hidden;
-	}
-	.profile {
-	    width: 100%;
-	    height: 100%;
-	    background-color:#f9fafb;
-	    object-fit: cover;
-	}
-	ul li {
-		list-style:none;
-		margin-bottom: 15%;
-	 }
-	.fl {float:left; }
-	.tc {text-align:center; }
-	.board {width: 160px; }
-	.w50 {width:50px; }
-	.w70 {width:70px; }
-	.w80 {width:80px; }
-	.w150 {width:150px; }
-	.flex-container{
-		/* display: inline-flex;
-		margin: auto; */
-		display: flex;
-		justify-content : center;
-		margin-top: 10px;		
-	}
-	.container{
-		padding-left:10%;
-		width: fit-content;
-        height: fit-content;
-	}
-/* 	.row{
-		width: fit-content;
-        height: fit-content; 
-	} */ 
-	#myChart{
-		width: 450px;		
-	}
-</style>
-</head>
-<body>
-<h3>interiormain.jsp</h3>
-	<div class="mypage_category">
-        <div class="mypage_category_list list_1"><a href="#">프로필</a></div>
-	    <div class="mypage_category_list list_2"><a href="interiorestimate">견적</a></div> <br />
-    </div>
+<%@include file ="header.jsp" %>
+<script>
+document.title = "인테리어업체 마이페이지";
+</script>
+<script src="https://code.jquery.com/jquery-latest.min.js"></script>
+<%-- <script defer src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script defer src="${path}/resources/js/my/myinteriorchart.js"></script> --%>
+<main class="Site-content" style="margin-top:10px;">
+	
     <div class="mypage_category">
-        <div class="mypage_category_list list_1_1"><a href="#">모두보기</a></div>
-	    <!-- <div class="mypage_category_list list_1_2">내시공사례</div> -->
-        <!-- <div class="mypage_category_list list_1_3">질문과답변</div> -->
-        <div class="mypage_category_list list_1_2"><a href="interiorinfoedit">회원정보수정</a></div>
+        <div class="mypage_category_list list_1_1 pointcolor">프로필</div>
+	    <div class="mypage_category_list list_1_2"><a href="interiorinfoedit">회원정보수정</a></div>
         <div class="mypage_category_list list_1_3"><a href="interiorpasswordedit">비밀번호변경</a></div>
     </div>
-    <div class="flex-container">
+    <div class="mypage_area">
     <div id="mypage_profile">
     	<ul class="board">
     		<li class="fl tc box w150">
@@ -113,19 +31,65 @@
         <ul class="board">
         	<li class="fl tc w150">${loginUserDto.nickname}님</li>
         </ul>
-        인테리어 업체번호 ${loginUserDto.myinteriordto.inteno }번님
+        <ul class="board">
+        	<li class="fl tc w150"><a href="${path}/biz/home/bizHome?inteno=${loginUserDto.myinteriordto.inteno}"><b>MY HOME</b></a></li>
+        </ul>
+        
     </div>
-    
-    <div class="container">
-		<div class="row">
-			<div class="col-md-6">
-				<canvas id="myChart"></canvas>
-			</div>
-			<%-- <div class="col-md-6">
-				<canvas id="myChart2"></canvas>
-			</div> --%>
-		</div>
+   
+	<div>
+    <table class="maintable">
+    	<tr>
+    		<td class="pd8 signuplabel pb20" colspan="4"><b>내 시공사례</b></td>
+    	</tr>
+    	<tr>
+    		<th class="scrapth pd8">메인이미지</th>
+    		<th class="scrapth pd8">작성자</th>
+    		<th class="scrapth pd8">제목</th>
+    		<th class="scrapth pd8">내용</th>
+    	</tr>
+    	<c:forEach items="${cdto}" var="caseslist">
+    	<tr>
+    		<%-- <td class="pd8">${caseslist.inteCasesDto.bc_no}</td> --%>
+    		<td class="scraptd pd8">
+    			<c:forTokens items="${caseslist.imgs}" delims="," var="casesimg" end="0">	
+    				<a href="${path}/biz/cases/bizCasesContentView?bc_no=${caseslist.inteCasesDto.bc_no}"><img class="imgsmall" src="${path}/resources/upload/biz/cases/${casesimg}" alt="" /></a>
+    			</c:forTokens>
+    		</td>
+    		<td class="scraptd pd8">
+    		<span class="abc" onclick="javascript_:window.open('${path}/my/memberinfopage?nickname=${caseslist.inteCasesDto.bc_writer}','pop','menubar=no,status=no,scrollbars=no,resizable=no,width=560,height=780,top=50,left=50');">
+			${caseslist.inteCasesDto.bc_writer} <i class="fa-solid fa-user fa-2xs"></i></span>    		
+    		</td>
+    		<td class="scraptd pd8">${caseslist.inteCasesDto.bc_title}</td>
+    		<td class="scraptd pd8"><p class="w20 s">${caseslist.inteCasesDto.bc_content}</p></td>
+    		
+    	</tr>
+    	</c:forEach>
+    </table>  
+    </div>
 	</div>
+	<div>
+		<a id="topBtn" href="#"><img alt="" src="${path}/resources/img/my/fromtop.png"></a>		
 	</div>
-</body>
-</html>
+
+<script>
+$(function() {
+   // 보이기 | 숨기기
+   $(window).scroll(function() {
+      if ($(this).scrollTop() > 250) { //250 넘으면 버튼이 보여짐니다.
+            $('#topBtn').fadeIn();
+            } else {
+            $('#topBtn').fadeOut();
+      }
+   });
+   // 버튼 클릭시
+   $("#topBtn").click(function() {   
+   $('html, body').animate({
+     scrollTop : 0    // 0 까지 animation 이동합니다.
+    }, 400);          // 속도 400
+    return false;
+    });
+  });
+</script>
+</main>
+<%@include file ="footer.jsp" %>

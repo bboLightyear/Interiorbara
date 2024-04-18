@@ -1,16 +1,15 @@
-var mypwd=document.getElementById("mypwd");
+var reg = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,}$/;
 var inputpwd=document.getElementById("inputpwd");
 var pwdMatchResule=document.getElementById("pwdMatchResule");
 var toggleMyPwd=document.getElementById("toggleMyPwd");
 
 inputpwd.addEventListener("input", function (){
-	if(mypwd.value==inputpwd.value){
-    	pwdMatchResule.innerHTML="현재 비밀번호 확인되었습니다."
-    	pwdMatchResule.style.color = "lightseagreen"
+	if(!reg.test(inputpwd.value)){
+    	pwdMatchResule.innerHTML="영문숫자특수문자를 포함한 8자리 이상"
+    	pwdMatchResule.style.color = "lightcoral"
     	return false;
     }else{
-    	pwdMatchResule.innerHTML="현재 비밀번호를 다시 확인해주세요.";
-    	pwdMatchResule.style.color = "lightcoral"
+    	pwdMatchResule.innerHTML="";
     	return false;
     } 
 });

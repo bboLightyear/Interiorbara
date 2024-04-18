@@ -1,5 +1,6 @@
 package com.tech.ibara.my.service;
 
+import java.util.ArrayList;
 import java.util.Map;
 
 import javax.servlet.http.HttpSession;
@@ -9,6 +10,7 @@ import org.springframework.ui.Model;
 
 import com.tech.ibara.my.dao.MyDao;
 import com.tech.ibara.my.dto.MyMemberInfoDto;
+import com.tech.ibara.my.dto.PhotoLikeDto;
 import com.tech.ibara.oh.dao.OHInterfaceDao;
 
 public class MyLikeService implements VService{
@@ -26,11 +28,8 @@ public class MyLikeService implements VService{
 		MyDao mdao=sqlSession.getMapper(MyDao.class);
 		int likePb= mdao.countLikePhotoBoard(memno);
 		model.addAttribute("likePb",likePb);		
-		
-		OHInterfaceDao odao=sqlSession.getMapper(OHInterfaceDao.class);
-//		ArrayList<OHPhotoBoard> pblikedto=odao.getPhotoBoardLikeList(memno); //int memno를 보내면 likeDTO가 조인된 모든 정보를 가져오는 쿼리를 부르는 메소드
-//		model.addAttribute("likelist",pblikedto);
-		
+		ArrayList<PhotoLikeDto> pblikedto = mdao.getPhotoBoardLikeList(memno);
+		model.addAttribute("likelist",pblikedto);
 	}
 	
 

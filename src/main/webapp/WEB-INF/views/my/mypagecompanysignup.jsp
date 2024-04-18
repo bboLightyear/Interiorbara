@@ -1,67 +1,39 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<c:set var="path" value="${pageContext.request.contextPath}"/>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-	<link rel="stylesheet" href="${path}/resources/css/my/mypageinfoedit.css" />
-	<script defer src="${path}/resources/js/my/jquery-3.7.1.min.js"></script>
-	<script defer src="${path }/resources/js/my/mypagecompanysignup.js"></script>
-	<style>
-	body{
-		text-align: center;
-	}
-	label{
-		font-size: 1.2em;
-	}
-	button{
-		background-color: #e2f0fe;
-		width: 100px;
-		padding: 10px;
-	}
-	button:hover{
-		background-color: #1e90ff;
-		cursor: pointer;
-	}
-	</style>
-</head>
-<body>
-<h3>mypagecompanysignup.jsp</h3>
+<%@include file ="header.jsp" %>
+<script>
+document.title = "업체신청";
+</script>
+<script defer src="${path }/resources/js/my/mypagecompanysignup.js"></script>
+<main class="Site-content" style="margin-top:10px;">
 	<div class="mypage_category">
-        <div class="mypage_category_list list_1"><a href="mypage">프로필</a></div>
-	    <div class="mypage_category_list list_2"><a href="myshopping">나의쇼핑</a></div>
-	    <div class="mypage_category_list list_3"><a href="#">업체신청</a></div> <br>
-	    
+        <div class="mypage_category_list list_1_1"><a href="mypage">프로필</a></div>
+	    <div class="mypage_category_list list_1_2"><a href="myphoto">내사진</a></div>
+        <div class="mypage_category_list list_1_3"><a href="myscrap">스크랩북</a></div>
+        <div class="mypage_category_list list_1_4"><a href="mylike">좋아요</a></div>
+        <div class="mypage_category_list list_1_5 pointcolor">업체신청</div>
+        <div class="mypage_category_list list_1_6"><a href="mypageinfoedit">회원정보수정</a></div>
+        <div class="mypage_category_list list_1_7"><a href="mypagepasswordedit">비밀번호변경</a></div>
     </div>
-    <!-- <div class="mypage_category">
-        <div class="mypage_category_list list_1_1"><a href="mypage">모두보기</a></div>
-	    <div class="mypage_category_list list_1_2">내사진</div>
-        <div class="mypage_category_list list_1_3">내동영상</div>
-        <div class="mypage_category_list list_1_4"><a href="mypageinfoedit">회원정보수정</a></div>
-        <div class="mypage_category_list list_1_5"><a href="mypagepasswordedit">비밀번호변경</a></div>
-    </div> -->
-    <form action="signUp" method="post">
+    
+    <form action="signUp" method="post" align="center">
     <input type="hidden" name="memno" id="memno" value="${loginUserDto.memno}" />
     <input type="hidden" name="memtype" id="memtype" value="${loginUserDto.memtype}"/>
-    	<c:out value="${errorMsg}" default="" />
+    <input type="hidden" name="nickname" id="nickname" value="${loginUserDto.nickname}"/>
+    	<span class="returnmsg"><c:out value="${errorMsg}" default="" /></span>
     	<h3>인테리어업체 신청하기</h3>
-    	<label for="interior">사업자등록번호 </label>
-    	<input type="text" name="interior" id="interior" style="padding:10px;" size="35" placeholder="10자리 숫자만 입력해주세요" oninput="oninputNum(this)"/>
-    	<button>신청</button> <br />
-    	<span id="interiorResult"></span> <br />
-    	<c:out value="${inteResultMsg}" default="" />
+    	<label class="signuplabel" for="interior">사업자등록번호 </label>
+    	<input class="radius10" type="text" name="interior" id="interior" style="padding:10px;" size="35" placeholder="10자리 숫자만 입력해주세요" oninput="oninputNum(this)"/>
+    	<button class="radius10 signupbutton">신청</button> <br />
+    	<span id="interiorResult" class="fontbold"></span> <br />
+    	<span class="returnmsg"><c:out value="${inteResultMsg}" default="" /></span>
     	<br /><br />   	
     	<h3>판매업체 신청하기</h3>
-    	<label for="seller">사업자등록번호</label>
-    	<input type="text" name="seller" id="seller" style="padding:10px;" size="35" placeholder="10자리 숫자만 입력해주세요" oninput="oninputNum(this)" />
-    	<button>신청</button> <br />
-    	<span id="sellerResult"></span> <br />
-    	<c:out value="${sellerResultMsg}" default="" />    	 
+    	<label class="signuplabel" for="seller">사업자등록번호</label>
+    	<input class="radius10" type="text" name="seller" id="seller" style="padding:10px;" size="35" placeholder="10자리 숫자만 입력해주세요" oninput="oninputNum(this)" />
+    	<button class="radius10 signupbutton">신청</button> <br />
+    	<span id="sellerResult" class="fontbold"></span> <br />
+    	<span class="returnmsg"><c:out value="${sellerResultMsg}" default="" /></span>    	 
     </form>
-</body>
-</html>
+    </main>
+<%@include file ="footer.jsp" %>

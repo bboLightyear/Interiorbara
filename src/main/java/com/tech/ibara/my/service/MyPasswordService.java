@@ -25,21 +25,6 @@ public class MyPasswordService implements SService{
 		Map<String, Object> map=model.asMap();
 		HttpServletRequest request=(HttpServletRequest) map.get("request");
 //		session=request.getSession();
-		MyMemberInfoDto memdto = (MyMemberInfoDto) session.getAttribute("loginUserDto");
-		if(memdto==null) {
-			return "not login";
-		}
-		String shpwd=memdto.getShpwd();
-		String bcpwd=memdto.getBcpwd();
-		String decpwd="";
-		try {
-			decpwd= CryptoUtil.decryptAES256(bcpwd,shpwd);
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		System.out.println("decpwd : "+decpwd);
-		model.addAttribute("mypwd",decpwd);
-		return "login";
+		return "";
 	}
 }

@@ -1,73 +1,79 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<c:set var="path" value="${pageContext.request.contextPath}" />
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-<link rel="stylesheet" href="${path}/resources/css/my/mypageinfoedit.css" />
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<%@include file ="header.jsp" %>
+<script>
+document.title = "Admin Demand Withdrawal";
+</script>
 <style>
-table{
-	width: 60%;
-	text-align: center;
-	margin-top: 30px;
-	font-size: 15px;
-}
-th, td{
-	height: 30px;
-	border-bottom: 1px solid gray;
-}
-th{
-	background-color: #e2f0fe;
-}
+tr:nth-child(odd) {background-color: #f9fafb;}
+tr:nth-child(even) {background-color: #fefefe;}
 </style>
-</head>
-<body>
-	<h3>admin_demandwithdrawal.jsp</h3>
+<script src="https://code.jquery.com/jquery-latest.min.js"></script>
+<main class="Site-content" style="margin-top:10px;">
+	
 	<div class="mypage_category">
-		<div class="mypage_category_list list_1"><a href="mypage">메인</a></div>
-		<div class="mypage_category_list list_2"><a href="admin_memberlist">회원관리</a></div>
-		<!-- <div class="mypage_category_list list_3">업체신청관리</div> -->
+		<div class="mypage_category_list list_1"><a href="mypage">관리자메인</a></div>
+		<div class="mypage_category_list list_2 pointcolor">회원관리</div>
 		<div class="mypage_category_list list_3"><a href="admin_report">신고게시판</a></div>
-		<!-- <div class="mypage_category_list list_4">컨텐츠관리</div> -->
 	</div>
 	<div class="mypage_category">
         <div class="mypage_category_list list_2_1"><a href="admin_memberlist">회원리스트</a></div>
-	    <div class="mypage_category_list list_2_2"><a href="#">탈퇴신청회원리스트</a></div>
+	    <div class="mypage_category_list list_2_2 pointcolor">탈퇴신청회원리스트</div>
     </div>
-	<!-- <form action="allowCheckWithdrawal" method="post"> -->
-		<table align="center">
+	
+		<table align="center" class="scraptable">
 			<tr>
-				<th>회원번호</th>
-				<th>탈퇴사유</th>
-				<th>탈퇴신청일</th>
-				<th>승인여부</th>				
+				<th class="scrapth">회원번호</th>
+				<th class="scrapth">탈퇴사유</th>
+				<th class="scrapth">탈퇴신청일</th>
+				<th class="scrapth">승인여부</th>				
 			</tr>			
-			<c:forEach items="${wdto }" var="list">
+			<c:forEach items="${wdto}" var="list">
 			<tr>
-				<td>${list.memno }</td>
-				<td>${list.reason }</td>
-				<td><fmt:formatDate value="${list.wddate }" type="both" dateStyle="short" pattern="YYYY-MM-dd"/></td>
+				<td class="scraptd">
+				<span class="abc" onclick="javascript_:window.open('${path}/my/memberinfopage?memno=${list.memno}','pop','menubar=no,status=no,scrollbars=no,resizable=no,width=560,height=780,top=50,left=50');">
+				${list.memno} <i class="fa-solid fa-user fa-2xs"></i></span>
+				</td>
+				<td class="scraptd">${list.reason }</td>
+				<td class="scraptd"><fmt:formatDate value="${list.wddate }" type="both" dateStyle="short" pattern="YYYY-MM-dd"/></td>
 				<c:choose>
 					<c:when test="${list.yesno eq 'N'}">
-						<td>
-							<a id="allowCheck" href="allowCheckWithdrawal?memno=${list.memno }">승인하기</a>
+						<td class="scraptd">
+							<a class="pointblue" id="allowCheck" href="${path}/my/allowCheckWithdrawal?memno=${list.memno}">승인하기</a>
 						</td>
 					</c:when>
 					<c:otherwise>
-						<td>
-							<a href="allowCheckWithdrawal?memno=${list.memno }">취소하기</a>
+						<td class="scraptd">
+							<a class="pointorange" href="${path}/my/allowCheckWithdrawal?memno=${list.memno}">취소하기</a>
 						</td>
 					</c:otherwise>
 				</c:choose>
 			</tr>
 			</c:forEach>
 		</table>
-	<!-- </form> -->
+		<div>
+		<a id="topBtn" href="#"><img alt="" src="${path}/resources/img/my/fromtop.png"></a>		
+		</div>
 
-</body>
-</html>
+<script>
+$(function() {
+   // 보이기 | 숨기기
+   $(window).scroll(function() {
+      if ($(this).scrollTop() > 250) { //250 넘으면 버튼이 보여짐니다.
+            $('#topBtn').fadeIn();
+            } else {
+            $('#topBtn').fadeOut();
+      }
+   });
+   // 버튼 클릭시
+   $("#topBtn").click(function() {   
+   $('html, body').animate({
+     scrollTop : 0    // 0 까지 animation 이동합니다.
+    }, 400);          // 속도 400
+    return false;
+    });
+  });
+</script>
+
+	</main>
+	<%@include file ="footer.jsp" %>
