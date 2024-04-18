@@ -101,7 +101,7 @@
 								<c:forTokens items="${fileNm }" delims="." var="token" varStatus="status">
 								<c:if test="${status.last }">
 									<c:choose>
-										<c:when test="${token eq 'jpg' || token eq 'png'}">
+										<c:when test="${token eq 'jpg' || token eq 'png' || token eq 'jpeg'}}">
 											<img class="pb-3" src="../../resources/upload/biz/cases/${imgdto.bcimg_cgn }" alt="${imgdto.bcimg_cgn }" width="60%" />
 										</c:when>
 									<c:otherwise>그림이 아닌 다른 형식 파일입니다.</c:otherwise>		
