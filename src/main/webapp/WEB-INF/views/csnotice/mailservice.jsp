@@ -95,7 +95,7 @@
 		
 		<div class="cs_home_white_space"></div>
 		
-		<form action="">
+		<form action="mailsend">
 			<div class="cs_mail_wrap_selectBox">
 				<h4 style="margin: 0;">어떤 유형의 문의인가요?</h4>
 				<div class="selectBox">
