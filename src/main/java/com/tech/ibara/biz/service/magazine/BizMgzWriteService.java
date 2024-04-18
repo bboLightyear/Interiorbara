@@ -50,7 +50,7 @@ public class BizMgzWriteService implements BizServiceInter {
 		System.out.println("bm_no: "+bm_no);
 		
 		//show in sys explorer로 열어서 주소복사함
-		String path="C:\\23setspring\\springwork23\\interiorbara00\\src\\main\\webapp\\resources\\upload\\biz";
+		String path="C:\\23setspring\\springwork23\\interiorbara_simi\\src\\main\\webapp\\resources\\upload\\biz\\mgz";
 //		MultipartRequest req=
 //				new MultipartRequest(mftRequest, path, 1024*1024*10,"utf-8", new DefaultFileRenamePolicy());
 //		

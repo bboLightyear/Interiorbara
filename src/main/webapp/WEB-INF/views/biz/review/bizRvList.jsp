@@ -15,6 +15,8 @@
 <title>시공사례 목록</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootswatch@5.3.3/dist/zephyr/bootstrap.min.css">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+<%@include file ="../bizHeader.jsp" %>
+<link rel="stylesheet" href="${path}/resources/css/biz/biz.css"/>
 <link  rel="stylesheet"
   href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"/>
   	<style>
@@ -28,6 +30,20 @@
 		 th, tr{
 	    	text-align: center;	 
 		 }
+	 
+		 #left{
+			 text-align: left;	 
+		 }		 
+		 a {
+	  	 text-decoration: none;
+	  	 color: #1a1f27;
+	  	 }
+	  	 body {
+		display: flex;
+		min-height: 100vh;
+		flex-direction: column;
+		}
+	  	 
 	</style>
 	
 	<script>
@@ -53,9 +69,10 @@
 	</script>	
 </head>
 <body>
+<main class="Site-content">
 	<div class="pt-3 bg-light bg-opacity-75">
 	<div class="d-flex justify-content-center">
-		<div class="p-3" style="width: 750px" >
+		<div class="p-3" onclick="location.href='bizRvList?inteno=${inteno}'" style="width: 750px; cursor:pointer;" >
 					<ul class="list-inline">
 						<li class="list-inline-item">
 							<h4 style="--bs-text-opacity: 1; background-color: #1034a6; padding: 3px; !important;">
@@ -103,7 +120,7 @@
 											<c:choose>
 												<c:when test="${token eq 'jpg' || token eq 'png'}">											
 													<c:if test="${dto.br_no eq rv.bizRvImgDto.br_no }">
-														<img src="../../resources/upload/biz/review/${rv.bizRvImgDto.brimg_cgn }" alt="${rv.bizRvImgDto.brimg_cgn }" width="50" style="cursor:pointer"
+														<img src="../../resources/upload/biz/review/${rv.bizRvImgDto.brimg_cgn }" alt="${rv.bizRvImgDto.brimg_cgn }" width="52" height="29" style="cursor:pointer"
 														onclick="window.open('bizRvImgPopUpView?br_no=${dto.br_no }',
 														'new','scrollbars=yes,width=400,height=500');"/>
 													</c:if>
@@ -115,44 +132,25 @@
 									</c:if>			
 								</c:forEach>
 						</td>
-						<td class="align-middle">${dto.br_writer }</td>
+						<td class="align-middle" onclick="javascript_:window.open('${path}/my/memberinfopage?nickname=${dto.br_writer }','pop','menubar=no,status=no,scrollbars=no,resizable=no,width=560,height=700,top=50,left=50');" style="cursor: pointer;">${dto.br_writer } <i class="fa-solid fa-user" style="font-size: 11px;"></i></td>
 						
 						
 						
 						
-						<td class="align-middle">
+						<td class="align-middle" id="left">
 							<a href="bizRvContentView?br_no=${dto.br_no }" style="text-decoration: none; color: #1a1f27;">${dto.br_content }</a>
 						</td>
-						<td class="align-middle"><fmt:formatDate value="${dto.br_date }" type="both" dateStyle="short" pattern="YY-MM-dd"/></td>
-						<td class="align-middle"><span style="color: gold;">★</span> ${dto.br_point }</td>
-						<td class="align-middle">${dto.br_like_cnt }</td>
+						<td class="align-middle" onclick="location.href='bizRvContentView?br_no=${dto.br_no }'" style="cursor:pointer;"><fmt:formatDate value="${dto.br_date }" type="both" dateStyle="short" pattern="YY-MM-dd"/></td>
+						<td class="align-middle" onclick="location.href='bizRvContentView?br_no=${dto.br_no }'" style="cursor:pointer;"><span style="color: gold;">★</span> ${dto.br_point }</td>
+						<td class="align-middle" onclick="location.href='bizRvContentView?br_no=${dto.br_no }'" style="cursor:pointer;">${dto.br_like_cnt }</td>
 					</tr>		
 				</c:forEach>			
 			</table>
-		</div>
-	</div>
-		<div class="d-flex justify-content-evenly">
-			<div class="d-flex justify-content-center" style="width: 750px;">
-				<div class="d-flex justify-content-end pe-1" style="width: 96%; max-width: 720px;">
-					<c:if test="${empty loginUserDto.memno}">
- 						<button class="btn btn-outline-primary btn-sm w-10"  onclick="redirectLogin()"><span style="font-size: 14px;">리뷰쓰기</span></button>
-					</c:if>
-					<c:if test="${not empty loginUserDto.memno}">
-						<c:choose>
-							<c:when test="${loginUserDto.memtype eq 'PERSON'}">
-								<button class="btn btn-outline-primary btn-sm w-10" onclick="location.href='bizRvWriteView?inteno=${inteno }'"><span style="font-size: 14px;">리뷰쓰기</span></button>
-							</c:when>
-							<c:otherwise>
-								<button class="btn btn-outline-primary btn-sm w-10" onclick="alertNo()"><span style="font-size: 14px;">리뷰쓰기</span></button>
-							</c:otherwise>							
-						</c:choose>
-					</c:if>	
-				</div>
-			</div>
-		</div>			
+
+	
 	<div class="d-flex justify-content-center">
 		<div style="width: 750px">				
-			<form action="bizRvList" method="post" style="width: 750px;">
+			<form action="bizRvList" method="get" style="width: 750px;">
 				<input type="hidden" name="inteno" value="${inteno }" />
 					<div class="p-3 container-md" style="width: 99%">	
 					<div class="w-100 d-flex justify-content-center">
@@ -184,13 +182,33 @@
 					</div>				
 				</form>
 			</div>
-		</div>
-				
-				
-				
-
-
+		</div>	
 	
-	
+		<div class="d-flex justify-content-evenly">
+			<div class="d-flex justify-content-center" style="width: 750px;">
+				<div class="d-flex align-items-start" style="width: 40%; max-width: 300px;">
+					<button class="ms-1 btn btn-outline-primary btn-sm w-10"  onclick="location.href='../home/bizRvListUnder?inteno=${inteno }'"><span style="font-size: 14px;">홈에서 보기</span></button>
+				</div>
+				<div class="d-flex justify-content-end pe-1" style="width: 60%; max-width: 450px;">
+					<c:if test="${empty loginUserDto.memno}">
+ 						<button class="btn btn-outline-primary btn-sm w-10"  onclick="redirectLogin()"><span style="font-size: 14px;">리뷰쓰기</span></button>
+					</c:if>
+					<c:if test="${not empty loginUserDto.memno}">
+						<c:choose>
+							<c:when test="${loginUserDto.memtype eq 'PERSON'}">
+								<button class="btn btn-outline-primary btn-sm w-10" onclick="location.href='bizRvWriteView?inteno=${inteno }'"><span style="font-size: 14px;">리뷰쓰기</span></button>
+							</c:when>
+							<c:otherwise>
+								<button class="btn btn-outline-primary btn-sm w-10" onclick="alertNo()"><span style="font-size: 14px;">리뷰쓰기</span></button>
+							</c:otherwise>							
+						</c:choose>
+					</c:if>	
+				</div>
+			</div>
+		</div>			
+	</div>
+</div>
+</main>
 </body>
+<%@include file ="../bizFooter.jsp" %>
 </html>

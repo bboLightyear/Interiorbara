@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<c:set var="path" value="${pageContext.request.contextPath}"/>
 <!DOCTYPE html>
 <html>
 <head>
@@ -10,6 +11,8 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootswatch@5.3.3/dist/zephyr/bootstrap.min.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+<%@include file ="../bizHeader.jsp" %>
+<link rel="stylesheet" href="${path}/resources/css/biz/biz.css"/>
 <link  rel="stylesheet"
   href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"/>
  	<style>
@@ -19,24 +22,28 @@
 	 .fa-solid:hover{
 	 	color: #1e90ff;
 	 }	 
-	.proBtns{
-	  /* 상하좌우 정중앙 정렬하기 */
-	  display: flex;
-	  justify-content: center;
-	  align-items: center;
-	}
-	 
-	 .proBtn{
-		cursor:pointer;
-		padding: 8px;
-	}
 	 
 	 th, tr{
     	text-align: center;	 
 	 }
+	 
+	 .left{
+		 text-align: left;	 
+	 }
+	 a {
+	   text-decoration: none;
+	   color: #1a1f27;
+	}
+	body {
+	display: flex;
+	min-height: 100vh;
+	flex-direction: column;
+}
+	
 	</style>	
 </head>
 <body>
+<main class="Site-content">
 	<div class="pt-3 bg-light bg-opacity-75">
 	<div class="d-flex justify-content-center">
 		<div class="p-3" style="width: 750px" >
@@ -53,7 +60,7 @@
 		</div>
 		<div class="d-flex align-items-end mb-5">
 			<div onclick="location.href='../search/bizAddrSearch'">
-				<span class="text-body-secondary" style="font-size: 12px; cursor:pointer;">처음으로 <i class="fa-solid fa-rotate-left" style="cursor:pointer;"></i></span>
+				<span class="text-body-secondary" style="font-size: 12px; cursor:pointer;">업체검색 <i class="fa-solid fa-rotate-left" style="cursor:pointer;"></i></span>
 			</div>
 		</div>
 	</div>
@@ -80,7 +87,7 @@
 			<tr class="">
 				<td class="">${dto.bm_no }</td>
 				<td class="">${dto.bm_writer }</td>
-				<td class="">
+				<td class="left">
 					<a href="bizMgzContentView?bm_no=${dto.bm_no }" style="text-decoration: none; color: #1a1f27;">${dto.bm_title }</a>
 				</td>
 				<td class=""><fmt:formatDate value="${dto.bm_date }" type="both" dateStyle="short" pattern="YYYY-MM-dd"/></td>
@@ -155,7 +162,7 @@
 			<div class="d-flex justify-content-evenly">
 				<div class="d-flex justify-content-center" style="width: 750px;">
 					<div class="d-flex align-items-start" style="width: 40%; max-width: 300px;">
-						<button class="ms-1 btn btn-outline-primary btn-sm w-10"  onclick="location.href='../search/bizAddrSearch'"><span style="font-size: 14px;">이전화면으로</span></button>
+						<button class="ms-1 btn btn-outline-primary btn-sm w-10"  onclick="location.href='../search/bizAddrSearch'"><span style="font-size: 14px;">업체검색</span></button>
 					</div>
 				<div class="d-flex justify-content-end" style="width: 60%; max-width: 450px;">
 							<button class="btn btn-outline-primary btn-sm w-10 me-1" onclick="location.href='bizMgzList'"><span style="font-size: 14px;">검색 초기화</span></button>
@@ -163,7 +170,7 @@
 		 					</c:if>
 							<c:if test="${not empty loginUserDto.memno}">
 								<c:choose>
-									<c:when test="${loginUserDto.myinteriordto.inteno eq inteno}">
+									<c:when test="${loginUserDto.memtype eq 'ADMIN'}">
 										<button class="btn btn-outline-primary btn-sm w-10" onclick="location.href='bizMgzWriteView'"><span style="font-size: 14px;">글쓰기</span></button>
 									</c:when>
 									<c:otherwise></c:otherwise>							
@@ -174,6 +181,7 @@
 			</div>
 		</div>
 	</div>
-	
+</main>	
 </body>
+<%@include file ="../bizFooter.jsp" %>
 </html>

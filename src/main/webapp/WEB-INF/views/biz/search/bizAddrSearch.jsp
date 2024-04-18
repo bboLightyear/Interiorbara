@@ -11,6 +11,8 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootswatch@5.3.3/dist/zephyr/bootstrap.min.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+<%@include file ="../bizHeader.jsp"%>	
+<link rel="stylesheet" href="${path}/resources/css/biz/biz.css"/>
 <link  rel="stylesheet"
   href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"/>
   	<style>
@@ -20,6 +22,10 @@
 	 .fa-solid:hover{
 	 	color: #1e90ff;
 	 } 
+	 a {
+	   text-decoration: none;
+	   color: black;
+	}
 	</style>
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 	<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
@@ -30,7 +36,8 @@ $(document).ready(function () {
     const html = document.documentElement;
     
     let sortResult = document.querySelector('.sortResult');
-    $('.sortResult').css('height', sortResult.scrollHeight); // 높이를 변경
+	//footer에 listend를 집어넣기 이전에 사용
+    //$('.sortResult').css('height', sortResult.scrollHeight); // 높이를 변경
     
     let mgzBanner=document.querySelector('#mgzBanner');
 	
@@ -68,12 +75,13 @@ $(document).ready(function () {
 	        	    data: {'page' : page,
 	        	    		'sk' : sk}, // 다음 페이지 번호를 서버에 전달할 수 있음
 	        	    success: function (data) {
-		        		console.log('sortResult.scrollHeight: '+sortResult.scrollHeight);
-		        		console.log('loadMoreSpace.scrollHeight: '+loadMoreSpace.scrollHeight);
+		        		//console.log('sortResult.scrollHeight: '+sortResult.scrollHeight);
+		        		//console.log('loadMoreSpace.scrollHeight: '+loadMoreSpace.scrollHeight);
 	        	        if(page==pageEnd){
 	        	        	observer.unobserve(entry.target);
 	        	        }else{
-		                	$('.loadMoreSpace').css('height', sortResult.scrollHeight+loadMoreSpace.scrollHeight-mgzBanner.scrollHeight); // 높이를 변경
+		                	//footer에 listend를 집어넣기 이전에 사용
+		                	//$('.loadMoreSpace').css('height', sortResult.scrollHeight+loadMoreSpace.scrollHeight-mgzBanner.scrollHeight); // 높이를 변경 
 		        	        // 서버에서 받아온 데이터를 loadMoreSpace에 추가
 		        	        loadMoreSpace.innerHTML += data;
 		        	        observer.unobserve(entry.target);
@@ -223,7 +231,7 @@ $(document).ready(function () {
 						   	</h4>
 						</li>
 						<li class="list-inline-item">
-								<small class="text-body-secondary">${loginUserDto.nickname }님, 우리집 주변 시공업체를 모아 볼까요?</small>
+								<small class="text-body-secondary">우리집 주변 시공업체를 모아 볼까요?</small>
 						</li>
 					</ul>	
 		</div>
@@ -317,12 +325,6 @@ $(document).ready(function () {
 	
 	<div class="loadMoreSpace"></div>
 
-	<div class="listEnd">
-		<hr />
-	</div>
-
-		
-
 </body>
-
+<%@include file ="../bizFooter.jsp" %>
 </html>

@@ -13,7 +13,6 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootswatch@5.3.3/dist/zephyr/bootstrap.min.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <%@include file ="../bizHeader.jsp" %>
 <link rel="stylesheet" href="${path}/resources/css/biz/biz.css"/>
 <link  rel="stylesheet"
@@ -50,14 +49,16 @@
     	text-align: center;	 
 	 }
 	 
-	 .left{
+	 #left{
 		 text-align: left;	 
 	 }
+	 
 	 a {
 	   text-decoration: none;
 	   color: #1a1f27;
 	}	 
-	</style>  
+	 
+	</style>
 <script>  
   
 	// 좋아요 버튼을 클릭 시 실행되는 코드
@@ -131,7 +132,7 @@
 	}
 	
 	function loadRvList() {
-		/*  		var inteno = '${bizHome.inteno }';
+/*  		var inteno = '${bizHome.inteno }';
 		var memno='';
 	    if(${empty memno}==true){memno='';
 	 	   }else{memno='${memno }';}
@@ -153,6 +154,16 @@
 			  }); */
 		window.location.href = 'bizRvListUnder?inteno=${inteno }';
 	}
+	
+	
+	function loadRvListLikeCnt() {
+		window.location.href = 'bizRvListUnderLikeCnt?inteno=${inteno }';
+	}	
+	
+	function loadRvListStarCnt() {
+		window.location.href = 'bizRvListUnderStarCnt?inteno=${inteno }';
+	}	
+	
 	
 	function loadHomeInfo() {
 		var inteno = '${bizHome.inteno }';
@@ -182,6 +193,11 @@
 	function redirectLogin() {
 		alert('로그인 후 이용하실 수 있습니다. 로그인 화면으로 이동합니다.');
 		window.location.href = "../../my/loginform";
+	}
+	
+
+	function alertNo() {
+		alert('일반회원 외에는 리뷰 작성이 불가능합니다.');
 	}
 	
      </script>
@@ -288,128 +304,113 @@
 </div>
 <br />
 
-
 <div class="clickResult">
 	<div class="d-flex justify-content-center">
-		<div class="p-3 pt-1" style="width: 650px">
+		<div class="p-3 pt-1 pb-0" style="width: 650px">
 			<table class="table table-hover" style="width: 100%; max-width: 650px">
 				<thead>
 				    <tr class="table-light">
-				      <th scope="col">NO.</th>
-				      <th scope="col">작성자</th>
-				      <th scope="col">제목</th>
-				      <th scope="col">날짜</th>
-				      <th scope="col">HIT</th>
+				      <th scope="col" class="align-middle" style="cursor:pointer;" onclick="location.href='bizRvListUnderStarCnt?inteno=${inteno}'"><i class="fa-solid fa-star"></i></th>
+				      <th scope="col" class="align-middle">이미지</th>
+				      <th scope="col" class="align-middle">작성자</th>
+				      <th scope="col" class="align-middle">내용</th>
+				      <th scope="col" class="align-middle" style="cursor:pointer;" onclick="location.href='bizRvListUnder?inteno=${inteno}'">날짜</th>
+				      <th scope="col" class="align-middle" width="10%" style="cursor:pointer;" onclick="location.href='bizRvListUnderLikeCnt?inteno=${inteno}'"><i class="fa-solid fa-heart"></i>↓</th>
 				    </tr>
 				  </thead>
-				
-				<c:forEach items="${bizCasesList }" var="dto">
-				
-					<tr class="" >
-						<td class="" onclick="location.href='bizCasesContentView?bc_no=${dto.bc_no }'" style="cursor:pointer;">${dto.bc_no }</td>
-						<td class="" onclick="javascript_:window.open('${path}/my/memberinfopage?nickname=${dto.bc_writer }','pop','menubar=no,status=no,scrollbars=no,resizable=no,width=560,height=700,top=50,left=50');" style="cursor: pointer;">${dto.bc_writer } <i class="fa-solid fa-user" style="font-size: 10px;"></i></td>
-						<td class="left" >
-							<a href="../cases/bizCasesContentView?bc_no=${dto.bc_no }" style="text-align: left; text-decoration: none; color: #1a1f27;">${dto.bc_title }</a>
+				<c:forEach items="${bizRvList }" var="dto">
+					<tr class="">
+						<td class="align-middle" width="10%"  onclick="location.href='../review/bizRvContentView?br_no=${dto.br_no }'" style="cursor:pointer;"><span style="color: gold;">★</span> ${dto.br_point }</td>					
+						<td class="align-middle">
+			 				 	<c:forEach items="${joinList }" var="rv">
+									<c:if test="${rv.bizRvImgDto.brimg_cgn ne null }">
+										<c:set value="${rv.bizRvImgDto.brimg_cgn }" var="filename" />
+										<c:set value="${fn:toLowerCase(filename) }" var="fileNm" />
+										<c:forTokens items="${fileNm }" delims="." var="token" varStatus="status">
+										<c:if test="${status.last }">
+											<c:choose>
+												<c:when test="${token eq 'jpg' || token eq 'png'}">											
+													<c:if test="${dto.br_no eq rv.bizRvImgDto.br_no }">
+														<img src="../../resources/upload/biz/review/${rv.bizRvImgDto.brimg_cgn }" alt="${rv.bizRvImgDto.brimg_cgn }" width="48" height="27" style="cursor:pointer"
+														onclick="window.open('../review/bizRvImgPopUpView?br_no=${dto.br_no }',
+														'new','scrollbars=yes,width=400,height=500');"/>
+													</c:if>
+												</c:when>
+											<c:otherwise> </c:otherwise>		
+											</c:choose>
+										</c:if>
+										</c:forTokens>
+									</c:if>			
+								</c:forEach>
 						</td>
-						<td class="" onclick="location.href='bizCasesContentView?bc_no=${dto.bc_no }'" style="cursor:pointer;"><fmt:formatDate value="${dto.bc_date }" type="both" dateStyle="short" pattern="YYYY-MM-dd"/></td>
-						<td class="" onclick="location.href='bizCasesContentView?bc_no=${dto.bc_no }'" style="cursor:pointer;">${dto.bc_hit }</td>
+						<td class="align-middle" width=15%; onclick="javascript_:window.open('${path}/my/memberinfopage?nickname=${dto.br_writer }','pop','menubar=no,status=no,scrollbars=no,resizable=no,width=560,height=700,top=50,left=50');" style="cursor: pointer;">${dto.br_writer } <i class="fa-solid fa-user" style="font-size: 10px;"></i></td>
+						<td class="align-middle" id="left">
+							<a href="../review/bizRvContentView?br_no=${dto.br_no }" style="text-align: left; text-decoration: none; color: #1a1f27;">${dto.br_content }</a>
+						</td>
+						<td class="align-middle" onclick="location.href='../review/bizRvContentView?br_no=${dto.br_no }'" style="cursor:pointer;"><fmt:formatDate value="${dto.br_date }" type="both" dateStyle="short" pattern="MM-dd"/></td>
+						<td class="align-middle" width=7% onclick="location.href='../review/bizRvContentView?br_no=${dto.br_no }'" style="cursor:pointer;">${dto.br_like_cnt }</td>
 					</tr>		
-				
 				</c:forEach>			
 			</table>
-		<div class="d-flex justify-content-evenly">
-			<form action="bizCasesListUnder" method="get" style="width: 650px;">
+		<div class="d-flex justify-content-center">
+		<div style="width: 650px">				
+			<form action="bizRvListUnderLikeCnt" method="get" style="width: 650px;">
 				<input type="hidden" name="inteno" value="${inteno }" />
-					<div class="d-flex justify-content-center">
-						<div class="d-flex align-items-start" style="width: 75%; max-width: 455px;">
-								<div>
-									<c:choose>
-										<c:when test="${bc_title }">
-											<input class="form-check-input"  type="checkbox" name="searchType" value="bc_title" checked/>
-										</c:when>
-										<c:otherwise>
-											<input class="form-check-input"  type="checkbox" name="searchType" value="bc_title"/>
-										</c:otherwise>
-									</c:choose>
-										<span style="font-size: 14px;">제목</span>
-									<c:choose>
-										<c:when test="${bc_content }">
-											<input class="form-check-input"  type="checkbox" name="searchType" value="bc_content" checked/>
-										</c:when>
-										<c:otherwise>
-											<input class="form-check-input"  type="checkbox" name="searchType" value="bc_content"/>
-										</c:otherwise>
-									</c:choose>			 
-									 <span style="font-size: 14px;">내용</span>			 
-									 
-									<input class="mx-2 rounded border border-ddark-subtle" type="text" name="sk" value="${resk }"/>
-									<input class="btn btn-outline-primary btn-sm w-10" type="submit" value="검색" />
-								</div>
-						</div>
-					</div>
-					
-					<div class="p-3 pb-0 mb-0 container-md" style="width: 99%">	
+					<div class="p-3 container-md pt-1 pb-0 mb-0" style="width: 99%">	
 					<div class="w-100 d-flex justify-content-center">
 							<div id="bottomDiv">
-								<input type="hidden" name="inteno" value="${inteno }" />
-									<c:if test="${searchVO.totPage>1}">
+								<c:if test="${searchVO.totPage>1}">
 										<c:if test="${searchVO.page>1 }">
-											<a style="display:inline" href="bizCasesListUnder?inteno=${inteno }&page=1"><i class="fa-solid fa-angles-left"></i></a>
-											<a style="display:inline" href="bizCasesListUnder?inteno=${inteno }&page=${searchVO.page-1} "><i class="fa-solid fa-circle-chevron-left"></i></a>
+											<a style="display:inline" href="bizRvListUnderLikeCnt?inteno=${inteno }&page=1"><i class="fa-solid fa-angles-left"></i></a>
+											<a style="display:inline" href="bizRvListUnderLikeCnt?inteno=${inteno }&page=${searchVO.page-1} "><i class="fa-solid fa-circle-chevron-left"></i></a>
 										</c:if>
-										
-										
 										<c:forEach begin="${searchVO.pageStart }" end="${searchVO.pageEnd }" var="i">
 											<c:choose>
 												<c:when test="${i eq searchVO.page }">
 													<span style="color:#1e90ff; font-weight:bold;">${i } &nbsp;</span>		
 												</c:when>
 												<c:otherwise>			
-													<a style="display:inline" href="bizCasesListUnder?inteno=${inteno }&page=${i }&sk=${resk}&bc_title=${bc_title==true?'bc_title':''}
-													&bc_content=${bc_content==true?'bc_content':''}"
+												<a style="display:inline" href="bizRvListUnderLikeCnt?inteno=${inteno}&page=${i }"
 													style="text-decoration: none;">${i }</a> &nbsp;		
-													
 												</c:otherwise>
 											</c:choose>
-										
-										
 										</c:forEach>
-										
 										<c:if test="${searchVO.totPage > searchVO.page}">
-											<a style="display:inline" href="bizCasesListUnder?inteno=${inteno }&page=${searchVO.page+1} "><i class="fa-solid fa-circle-chevron-right"></i></a>
-											<a style="display:inline" href="bizCasesListUnder?inteno=${inteno }&page=${searchVO.totPage}"><i class="fa-solid fa-angles-right"></i></a>
+											<a style="display:inline" href="bizRvListUnderLikeCnt?page=${searchVO.page+1}&inteno=${inteno} "><i class="fa-solid fa-circle-chevron-right"></i></a>
+											<a style="display:inline" href="bizRvListUnderLikeCnt?page=${searchVO.totPage}&inteno=${inteno}"><i class="fa-solid fa-angles-right"></i></a>
 										</c:if>
 									</c:if>
 								</div>
 							</div>
-					</div>			
+					</div>				
 				</form>
 			</div>
-			<div class="d-flex justify-content-evenly">
+		</div>
+	
+			<div class="d-flex justify-content-evenly mb-3">
 				<div class="d-flex justify-content-center" style="width: 650px;">
 					<div class="d-flex align-items-start" style="width: 40%; max-width: 260px;">
-						<button class="ms-1 btn btn-outline-primary btn-sm w-10"  onclick="location.href='../cases/bizCasesList?inteno=${inteno }'"><span style="font-size: 14px;">크게 보기</span></button>
+						<button class="ms-1 btn btn-outline-primary btn-sm w-10"  onclick="location.href='../review/bizRvList?inteno=${inteno }'"><span style="font-size: 14px;">크게 보기</span></button>
 					</div>
-				<div class="d-flex justify-content-end" style="width: 60%; max-width: 390px;">
-							<button class="btn btn-outline-primary btn-sm w-10" onclick="location.href='bizCasesListUnder?inteno=${inteno }'"><span style="font-size: 14px;">검색 초기화</span></button>
-							<c:if test="${empty loginUserDto.memno}">
-		 						<button class="btn btn-outline-primary btn-sm w-10"  onclick="redirectLogin()"><span style="font-size: 14px;">글쓰기</span></button>
-							</c:if>
-							<c:if test="${not empty loginUserDto.memno}">
-								<c:choose>
-									<c:when test="${loginUserDto.myinteriordto.inteno eq inteno}">
-										<button class="btn btn-outline-primary btn-sm w-10 ms-1" onclick="location.href='../cases/bizCasesWriteView?inteno=${inteno }'"><span style="font-size: 14px;">글쓰기</span></button>
-									</c:when>
-									<c:otherwise>
-									</c:otherwise>							
-								</c:choose>
-							</c:if>	
-				</div>
+					<div class="d-flex justify-content-end pe-1" style="width: 60%; max-width: 390px;">
+						<c:if test="${empty loginUserDto.memno}">
+	 						<button class="btn btn-outline-primary btn-sm w-10"  onclick="redirectLogin()"><span style="font-size: 14px;">리뷰쓰기</span></button>
+						</c:if>
+						<c:if test="${not empty loginUserDto.memno}">
+							<c:choose>
+								<c:when test="${loginUserDto.memtype eq 'PERSON'}">
+									<button class="btn btn-outline-primary btn-sm w-10" onclick="location.href='../review/bizRvWriteView?inteno=${inteno }'"><span style="font-size: 14px;">리뷰쓰기</span></button>
+								</c:when>
+								<c:otherwise>
+									<button class="btn btn-outline-primary btn-sm w-10" onclick="alertNo()"><span style="font-size: 14px;">리뷰쓰기</span></button>
+								</c:otherwise>							
+							</c:choose>
+						</c:if>	
+					</div>
 				</div>
 			</div>
-			
 		</div>
-	</div>	
+	</div>			
 </div>
 		
 </body>
