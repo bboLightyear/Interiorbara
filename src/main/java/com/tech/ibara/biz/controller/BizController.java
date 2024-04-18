@@ -25,10 +25,10 @@ import com.tech.ibara.biz.service.cases.BizCasesContentViewService;
 import com.tech.ibara.biz.service.cases.BizCasesDelService;
 import com.tech.ibara.biz.service.cases.BizCasesDelViewService;
 import com.tech.ibara.biz.service.cases.BizCasesListService;
-import com.tech.ibara.biz.service.cases.BizCasesListUnderService;
 import com.tech.ibara.biz.service.cases.BizCasesModService;
 import com.tech.ibara.biz.service.cases.BizCasesModViewService;
 import com.tech.ibara.biz.service.cases.BizCasesWriteService;
+import com.tech.ibara.biz.service.home.BizCasesListUnderService;
 import com.tech.ibara.biz.service.home.BizHomeBmarkService;
 import com.tech.ibara.biz.service.home.BizHomeInfoModService;
 import com.tech.ibara.biz.service.home.BizHomeInfoModViewService;
@@ -36,6 +36,10 @@ import com.tech.ibara.biz.service.home.BizHomeInfoViewService;
 import com.tech.ibara.biz.service.home.BizHomeMapService;
 import com.tech.ibara.biz.service.home.BizHomeService;
 import com.tech.ibara.biz.service.home.BizHomeUnderService;
+import com.tech.ibara.biz.service.home.BizRvListUnderLikeCntService;
+import com.tech.ibara.biz.service.home.BizRvListUnderService;
+import com.tech.ibara.biz.service.home.BizRvListUnderStarCntAscService;
+import com.tech.ibara.biz.service.home.BizRvListUnderStarCntService;
 import com.tech.ibara.biz.service.magazine.BizMgzContentViewService;
 import com.tech.ibara.biz.service.magazine.BizMgzDelService;
 import com.tech.ibara.biz.service.magazine.BizMgzDelViewService;
@@ -48,7 +52,6 @@ import com.tech.ibara.biz.service.review.BizRvDelService;
 import com.tech.ibara.biz.service.review.BizRvImgPopUpViewService;
 import com.tech.ibara.biz.service.review.BizRvLikeService;
 import com.tech.ibara.biz.service.review.BizRvListService;
-import com.tech.ibara.biz.service.review.BizRvListUnderService;
 import com.tech.ibara.biz.service.review.BizRvModDelViewService;
 import com.tech.ibara.biz.service.review.BizRvModService;
 import com.tech.ibara.biz.service.review.BizRvReportResultViewService;
@@ -57,6 +60,7 @@ import com.tech.ibara.biz.service.review.BizRvReportViewService;
 import com.tech.ibara.biz.service.review.BizRvWriteService;
 import com.tech.ibara.biz.service.search.BizAddrSearchBasicService;
 import com.tech.ibara.biz.service.search.BizAddrSearchContCntService;
+import com.tech.ibara.biz.service.search.BizAddrSearchFromHomeService;
 import com.tech.ibara.biz.service.search.BizAddrSearchMoreService;
 import com.tech.ibara.biz.service.search.BizAddrSearchRvCntService;
 import com.tech.ibara.biz.service.search.BizAddrSearchService;
@@ -119,7 +123,19 @@ public class BizController {
 	    }	
 	
 	
-	
+		@RequestMapping("/biz/search/bizAddrSearchFromHome") 
+		public String bizAddrSearchFromHome(HttpServletRequest request, BizInfiniteSearchVO searchVO, Model model) {
+			System.out.println("controller bizAddrSearchFromHome();");		
+			
+			model.addAttribute("request",request);
+			model.addAttribute("searchVO", searchVO);
+			
+			bizServiceInter=new BizAddrSearchFromHomeService(sqlSession);
+			bizServiceInter.execute(model);
+			
+			return "/biz/search/bizAddrSearchFromHome";
+		}	
+		
 	
 	 @PostMapping("/biz/search/bizAddrSearchBasic")
 	    public String bizAddrSearchBasic(@RequestParam("addrToSearch") String addrToSearch, Model model) {
@@ -305,14 +321,115 @@ public class BizController {
 		return "/biz/home/bizHomeUnder";
 	}
 	
+////	ajax로 로딩 시도
+//	@RequestMapping(value = "/biz/home/bizCasesListUnder")
+//	 public String bizCasesListUnder(@RequestParam("inteno") String inteno, BizSearchVO searchVO, Model model) {
+//		 System.out.println("controller bizCasesListUnder();");		
+//		 
+//		 model.addAttribute("inteno",inteno);
+//		 model.addAttribute("searchVO",searchVO);
+//		 
+//		 bizServiceInter=new BizCasesListUnderService(sqlSession);
+//		 bizServiceInter.execute(model);
+//		 
+//		 return "/biz/cases/bizCasesListUnder";
+//	 }
+	
+	
+	@RequestMapping(value = "/biz/home/bizCasesListUnder")
+	public String bizCasesListUnder(HttpServletRequest request,BizSearchVO searchVO,Model model) {
+		System.out.println("controller bizCasesList();");	
+		
+		model.addAttribute("request",request);
+		model.addAttribute("searchVO",searchVO);
+		
+		bizServiceInter=new BizCasesListUnderService(sqlSession, session);
+		bizServiceInter.execute(model);
+		
+		return "/biz/home/bizCasesListUnder";
+	}
+
+	
+//	 @PostMapping("/biz/review/bizRvListUnder")
+//	 public String bizRvListUnder(@RequestParam("inteno") String inteno,
+//			 @RequestParam("memno") String memno, BizSearchVO searchVO, Model model) {
+//		 System.out.println("controller bizRvListUnder();");		
+//		 
+//		 model.addAttribute("inteno",inteno);
+//		 model.addAttribute("memno",memno);
+//		 model.addAttribute("searchVO",searchVO);
+//		 
+//		 bizServiceInter=new BizRvListUnderService(sqlSession);
+//		 bizServiceInter.execute(model);
+//		 
+//		 return "/biz/review/bizRvListUnder";
+//	 }
+	 
+	@RequestMapping(value="/biz/home/bizRvListUnder", method = RequestMethod.GET)
+		public String bizRvListUnder(HttpServletRequest request,BizSearchVO searchVO,Model model) {
+			System.out.println("controller bizRvListUnder();");	
+			
+			model.addAttribute("request",request);
+			model.addAttribute("searchVO",searchVO);
+			
+			bizServiceInter=new BizRvListUnderService(sqlSession, session);
+			bizServiceInter.execute(model);
+		 
+		 return "/biz/home/bizRvListUnder";
+	 }
+
+	
+	@RequestMapping(value="/biz/home/bizRvListUnderLikeCnt", method = RequestMethod.GET)
+	public String bizRvListUnderLikeCnt(HttpServletRequest request,BizSearchVO searchVO,Model model) {
+		System.out.println("controller bizRvListUnderLikeCnt();");	
+		
+		model.addAttribute("request",request);
+		model.addAttribute("searchVO",searchVO);
+		
+		bizServiceInter=new BizRvListUnderLikeCntService(sqlSession, session);
+		bizServiceInter.execute(model);
+	 
+	 return "/biz/home/bizRvListUnderLikeCnt";
+ }
+	
+	
+	@RequestMapping(value="/biz/home/bizRvListUnderStarCnt", method = RequestMethod.GET)
+	public String bizRvListUnderStarCnt(HttpServletRequest request,BizSearchVO searchVO,Model model) {
+		System.out.println("controller bizRvListUnderStarCnt();");	
+		
+		model.addAttribute("request",request);
+		model.addAttribute("searchVO",searchVO);
+		
+		bizServiceInter=new BizRvListUnderStarCntService(sqlSession, session);
+		bizServiceInter.execute(model);
+	 
+	 return "/biz/home/bizRvListUnderStarCnt";
+ }
+
+	@RequestMapping(value="/biz/home/bizRvListUnderStarCntAsc", method = RequestMethod.GET)
+	public String bizRvListUnderStarCntAsc(HttpServletRequest request,BizSearchVO searchVO,Model model) {
+		System.out.println("controller bizRvListUnderStarCntAsc();");	
+		
+		model.addAttribute("request",request);
+		model.addAttribute("searchVO",searchVO);
+		
+		bizServiceInter=new BizRvListUnderStarCntAscService(sqlSession, session);
+		bizServiceInter.execute(model);
+	 
+	 return "/biz/home/bizRvListUnderStarCntAsc";
+ }	
+	
+	
 	
 	@RequestMapping("/biz/home/bizHomeBmark") 
-	public void bizHomeBmark(HttpServletRequest request, HttpServletResponse response, Model model) throws ServletException, IOException {
+	public String bizHomeBmark(HttpServletRequest request, HttpServletResponse response, Model model) throws ServletException, IOException {
 		System.out.println("controller bizHomeBmark();");	
 		model.addAttribute("request",request);
 		
 		bizServiceInter=new BizHomeBmarkService(sqlSession);
 		bizServiceInter.execute(model);
+		
+	return "/biz/home/bizHomeBmark";
 		
 	}
 	
@@ -345,7 +462,8 @@ public class BizController {
 	@RequestMapping("/biz/home/bizHomeInfoMod") 
 	public String bizHomeInfoMod(MultipartHttpServletRequest mftRequest, Model model) {
 		System.out.println("controller bizHomeInfoMod();");		
-		
+		String inteno=mftRequest.getParameter("inteno");
+		model.addAttribute("inteno", inteno);
 		model.addAttribute("mftRequest",mftRequest);
 		
 		bizServiceInter=new BizHomeInfoModService(sqlSession);
@@ -390,23 +508,6 @@ public class BizController {
 		
 		return "/biz/review/bizRvList";
 	}
-	
-	 @PostMapping("/biz/review/bizRvListUnder")
-	 public String bizRvListUnder(@RequestParam("inteno") String inteno,
-			 @RequestParam("memno") String memno, BizSearchVO searchVO, Model model) {
-		 System.out.println("controller bizRvListUnder();");		
-		 
-		 model.addAttribute("inteno",inteno);
-		 model.addAttribute("memno",memno);
-		 model.addAttribute("searchVO",searchVO);
-		 
-		 bizServiceInter=new BizRvListUnderService(sqlSession);
-		 bizServiceInter.execute(model);
-		 
-		 return "/biz/review/bizRvListUnder";
-	 }
-	
-	
 	
 	@RequestMapping("/biz/review/bizRvWriteView")
 	public String bizRvWriteView(HttpServletRequest request,Model model) {
@@ -618,20 +719,6 @@ public class BizController {
 		
 		return "/biz/cases/bizCasesList";
 	}
-	
-
-	@RequestMapping(value = "/biz/cases/bizCasesListUnder")
-	 public String bizCasesListUnder(@RequestParam("inteno") String inteno, BizSearchVO searchVO, Model model) {
-		 System.out.println("controller bizCasesListUnder();");		
-		 
-		 model.addAttribute("inteno",inteno);
-		 model.addAttribute("searchVO",searchVO);
-		 
-		 bizServiceInter=new BizCasesListUnderService(sqlSession);
-		 bizServiceInter.execute(model);
-		 
-		 return "/biz/cases/bizCasesListUnder";
-	 }
 	
 	
 	
@@ -926,6 +1013,13 @@ public class BizController {
 		
 		return "redirect:bizMgzList";
 	}
+	
+
+	
+	
+	
+	
+	
 	
 		
 }

@@ -322,8 +322,8 @@
 
 	
 	<select id="bizRvList" resultType="com.tech.ibara.biz.dto.BizRvDto">
-		SELECT BR_NO, SUBSTR(BR_CONTENT,1,20) BR_CONTENT, BR_WRITER, BR_LIKE_CNT, BR_DATE, BR_POINT, INTENO, MEMNO FROM 
-		(SELECT ROWNUM NUM,N.* FROM (SELECT BR_NO, SUBSTR(BR_CONTENT,1,20) BR_CONTENT, BR_WRITER, BR_LIKE_CNT, BR_DATE, BR_POINT, INTENO, MEMNO 
+		SELECT BR_NO, SUBSTR(BR_CONTENT,1,18) BR_CONTENT, BR_WRITER, BR_LIKE_CNT, BR_DATE, BR_POINT, INTENO, MEMNO FROM 
+		(SELECT ROWNUM NUM,N.* FROM (SELECT BR_NO, SUBSTR(BR_CONTENT,1,18) BR_CONTENT, BR_WRITER, BR_LIKE_CNT, BR_DATE, BR_POINT, INTENO, MEMNO 
 		FROM BIZ_RV ORDER BY BR_NO DESC) N
 		<include refid="rvIncludlist" />
 		)WHERE NUM BETWEEN #{param1} AND #{param2}
@@ -456,6 +456,11 @@
 	</insert>
 	
 	
+	
+	
+	
+	
+	
 	<!--업체홈 쿼리 -->
 
 	<select id="bizHome"
@@ -547,7 +552,58 @@
 				   BH_ADDR2=#{param8}
 			 WHERE BH_NO=#{param1} AND INTENO=#{param9}
 	</update>
+	
+	<select id="bizRvListLikeCnt" resultType="com.tech.ibara.biz.dto.BizRvDto">
+		SELECT BR_NO, SUBSTR(BR_CONTENT,1,18) BR_CONTENT, BR_WRITER, BR_LIKE_CNT, BR_DATE, BR_POINT, INTENO, MEMNO FROM 
+		(SELECT ROWNUM NUM,N.* FROM (SELECT BR_NO, SUBSTR(BR_CONTENT,1,18) BR_CONTENT, BR_WRITER, BR_LIKE_CNT, BR_DATE, BR_POINT, INTENO, MEMNO 
+		FROM BIZ_RV ORDER BY BR_LIKE_CNT DESC, BR_NO DESC) N
+		<include refid="rvIncludlist" />  
+		)WHERE NUM BETWEEN #{param1} AND #{param2}
+	</select>
+	
 
+	<select id="getRvImgJoinLikeCnt" parameterType="com.tech.ibara.biz.dto.BizRvDto" resultMap="BizRvDto">
+		SELECT RV.BR_NO, RV.BR_CONTENT, RV.BR_WRITER, RV.BR_LIKE_CNT, RV.BR_DATE, RV.BR_POINT, RV.INTENO, RV.MEMNO, IMG.BRIMG_CGN 
+				FROM BIZ_RV RV INNER JOIN BIZ_RV_IMG IMG ON RV.BR_NO=IMG.BR_NO
+				 WHERE RV.INTENO=#{param1}
+				  ORDER BY RV.BR_LIKE_CNT DESC, RV.BR_NO DESC
+	</select>
+	
+	<select id="bizRvListStarCnt" resultType="com.tech.ibara.biz.dto.BizRvDto">
+		SELECT BR_NO, SUBSTR(BR_CONTENT,1,18) BR_CONTENT, BR_WRITER, BR_LIKE_CNT, BR_DATE, BR_POINT, INTENO, MEMNO FROM 
+		(SELECT ROWNUM NUM,N.* FROM (SELECT BR_NO, SUBSTR(BR_CONTENT,1,18) BR_CONTENT, BR_WRITER, BR_LIKE_CNT, BR_DATE, BR_POINT, INTENO, MEMNO 
+		FROM BIZ_RV ORDER BY BR_POINT DESC, BR_NO DESC) N
+		<include refid="rvIncludlist" />  
+		)WHERE NUM BETWEEN #{param1} AND #{param2}
+	</select>
+	
+
+	<select id="getRvImgJoinStarCnt" parameterType="com.tech.ibara.biz.dto.BizRvDto" resultMap="BizRvDto">
+		SELECT RV.BR_NO, RV.BR_CONTENT, RV.BR_WRITER, RV.BR_LIKE_CNT, RV.BR_DATE, RV.BR_POINT, RV.INTENO, RV.MEMNO, IMG.BRIMG_CGN 
+				FROM BIZ_RV RV INNER JOIN BIZ_RV_IMG IMG ON RV.BR_NO=IMG.BR_NO
+				 WHERE RV.INTENO=#{param1}
+				  ORDER BY RV.BR_POINT DESC, RV.BR_NO DESC
+	</select>	
+		
+	<select id="bizRvListStarCntAsc" resultType="com.tech.ibara.biz.dto.BizRvDto">
+		SELECT BR_NO, SUBSTR(BR_CONTENT,1,18) BR_CONTENT, BR_WRITER, BR_LIKE_CNT, BR_DATE, BR_POINT, INTENO, MEMNO FROM 
+		(SELECT ROWNUM NUM,N.* FROM (SELECT BR_NO, SUBSTR(BR_CONTENT,1,18) BR_CONTENT, BR_WRITER, BR_LIKE_CNT, BR_DATE, BR_POINT, INTENO, MEMNO 
+		FROM BIZ_RV ORDER BY BR_POINT ASC, BR_NO DESC) N
+		<include refid="rvIncludlist" />  
+		)WHERE NUM BETWEEN #{param1} AND #{param2}
+	</select>
+	
+
+	<select id="getRvImgJoinStarCntAsc" parameterType="com.tech.ibara.biz.dto.BizRvDto" resultMap="BizRvDto">
+		SELECT RV.BR_NO, RV.BR_CONTENT, RV.BR_WRITER, RV.BR_LIKE_CNT, RV.BR_DATE, RV.BR_POINT, RV.INTENO, RV.MEMNO, IMG.BRIMG_CGN 
+				FROM BIZ_RV RV INNER JOIN BIZ_RV_IMG IMG ON RV.BR_NO=IMG.BR_NO
+				 WHERE RV.INTENO=#{param1}
+				  ORDER BY RV.BR_POINT ASC, RV.BR_NO DESC
+	</select>	
+	
+	<insert id="bizHomeCreate">
+		INSERT INTO BIZ_HOME VALUES (BIZ_HOME_SEQ.NEXTVAL, 'HOME_NEW.JPG', '이벤트를 비롯한 공지사항을 입력해 주세요. 메인 상단에 표시됩니다.', '전화번호, 찾아오시는 길을 비롯한 전반적인 업체 소개를 입력해 주세요.', #{param1}, 0, 0, '도배·페인트', '시/군/구만 입력 바랍니다.', '지도로 검색할 상세주소를 작성해 주세요.', #{param2})
+	</insert>
 	
 	
 	<!-- 주소로 검색 -->
@@ -803,6 +859,7 @@
           WHERE BR.BR_NO IN (SELECT MAX(BR.BR_NO) FROM BIZ_RV BR JOIN BIZ_HOME BH ON BH.INTENO=BR.INTENO WHERE BH.BH_PRO = #{param1} GROUP BY BR.INTENO) AND BH.BH_PRO = #{param1} 
            ORDER BY BH.BH_CONT_CNT DESC 
 	</select>
+
 
 </mapper>
 

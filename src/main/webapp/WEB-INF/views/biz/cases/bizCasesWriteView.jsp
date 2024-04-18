@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<c:set var="path" value="${pageContext.request.contextPath}"/>
 <!DOCTYPE html>
 <html>
 <head>
@@ -9,6 +10,8 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootswatch@5.3.3/dist/zephyr/bootstrap.min.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+<%@include file ="../bizHeader.jsp" %>
+<link rel="stylesheet" href="${path}/resources/css/biz/biz.css"/>
 <link  rel="stylesheet"
   href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"/>
   	<style>
@@ -24,9 +27,20 @@
 	 }
 	 
 	 th, .center{
-    	text-align: center;	 
+    	text-align: center;
 	 }
+	 
+	 a {
+	   text-decoration: none;
+	   color: #1a1f27;
+	}
+	body {
+	display: flex;
+	min-height: 100vh;
+	flex-direction: column;
+	}
 	</style>
+	
 	<script>
 		$(document).ready(function() {
 		    // memno가 없으면 로그인 페이지로 리디렉트
@@ -56,9 +70,10 @@
 	</script>
 </head>
 <body>
+<main class="Site-content">
 	<div class="pt-3 bg-light bg-opacity-75">
 	<div class="d-flex justify-content-center">
-		<div class="p-3" style="width: 750px" >
+		<div class="p-3"  onclick="location.href='bizCasesList?inteno=${inteno}'" style="width: 750px; cursor:pointer;" >
 					<ul class="list-inline">
 						<li class="list-inline-item">
 							<h4 style="--bs-text-opacity: 1; background-color: #1034a6; padding: 3px; !important;">
@@ -118,7 +133,12 @@
 			<div class="d-flex justify-content-evenly">
 				<div class="d-flex justify-content-center" style="width: 750px;">
 				<div class="d-flex justify-content-end" style="width: 99%; max-width: 720px;">
-					<input type="submit" value="글쓰기"  class="ms-1 btn btn-outline-primary btn-sm w-10">
+					<c:choose>
+						<c:when test="${loginUserDto.myinteriordto.inteno eq inteno}">
+							<input type="submit" value="글쓰기"  class="ms-1 btn btn-outline-primary btn-sm w-10">
+						</c:when>
+						<c:otherwise></c:otherwise>							
+					</c:choose>
 				</div>
 				</div>
 			</div>
@@ -127,7 +147,8 @@
 		</div>
 	</div>	
 </form>
-
+</main>
 
 </body>
+<%@include file ="../bizFooter.jsp" %>
 </html>

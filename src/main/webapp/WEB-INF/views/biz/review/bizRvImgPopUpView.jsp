@@ -41,7 +41,7 @@
 						   	</h4>
 						</li>
 						<li class="list-inline-item">
-								<small class="text-body-secondary">이미지와 함께.</small>
+								<small class="text-body-secondary">이미지만 빠르게 보기.</small>
 						</li>
 					</ul>	
 		</div>

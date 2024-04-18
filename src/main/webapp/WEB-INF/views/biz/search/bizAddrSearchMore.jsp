@@ -20,6 +20,10 @@
 	 .fa-solid:hover{
 	 	color: orange;
 	 }	 
+	 a {
+	   text-decoration: none;
+	   color: #1a1f27;
+	}	 
 	</style>
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 	<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
@@ -51,7 +55,7 @@
 								  </div>
 								  <div class="card-body">
 								    <div class="card-title">
-									    <strong style="font-size: 16px; color: #1e90ff;">${bizHome.bh_no } ${bizHome.bh_name }</strong> &nbsp; <span style="color: gold;">★</span> <span style="font-size: 13px; color: #b1b8c0;">${bizSearchRvPointAvgList[bizHomeStatus.index] }</span>
+									    <strong style="font-size: 16px; color: #1e90ff;">${bizHome.bh_name }</strong> &nbsp; <span style="color: gold;">★</span> <span style="font-size: 13px; color: #b1b8c0;">${bizSearchRvPointAvgList[bizHomeStatus.index] }</span>
 								    </div>    
 								    <div class="pb-2 card-text"  style="font-size: 13px;"><strong>${bizHome.bh_addr1 }</strong></div>    
 								    <p class="card-text" style="font-size: 12px; color: #b1b8c0">${bizRvContentList[bizHomeStatus.index] } ...</p>    

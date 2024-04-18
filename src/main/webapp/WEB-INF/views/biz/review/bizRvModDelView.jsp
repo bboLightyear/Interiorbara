@@ -13,6 +13,8 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootswatch@5.3.3/dist/zephyr/bootstrap.min.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+<%@include file ="../bizHeader.jsp" %>
+<link rel="stylesheet" href="${path}/resources/css/biz/biz.css"/>
 <link  rel="stylesheet"
   href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"/>
   	<style>
@@ -30,6 +32,17 @@
 	 th, .center{
     	text-align: center;	 
 	 }
+	 
+	 a {
+	   text-decoration: none;
+	   color: #1a1f27;
+	}
+	
+	body {
+	display: flex;
+	min-height: 100vh;
+	flex-direction: column;
+	}
 	</style>
 	<script>
 		$(document).ready(function() {
@@ -53,7 +66,6 @@
 		}
 
 		function dbpoint(target) { 
-			alert("target:"+target.value)
 			$('input[name=br_point]').attr('value', target.value);
 		}
 		
@@ -61,11 +73,20 @@
 			$('${bizRvContentView.br_point}').attr('value', target.value);
 		}
 		
+	    function confirmDelete(br_no, inteno) {
+	        var confirmation = confirm("정말로 삭제하시겠습니까?");
+	        if (confirmation) {
+	            alert("해당 게시물이 삭제되었습니다.");
+	            location.href='bizRvDel?br_no=' + br_no+'&inteno='+inteno;
+	        } else {
+	            // 사용자가 취소를 클릭한 경우 아무 작업도 수행하지 않음
+	        }
+	    }
 	</script>		
 	
 </head>
 <body onload="callpoint();">
-
+<main class="Site-content">
 	<div class="pt-3 bg-light bg-opacity-75">
 	<div class="d-flex justify-content-center">
 		<div class="p-3" style="width: 750px" >
@@ -81,7 +102,7 @@
 					</ul>	
 		</div>
 		<div class="d-flex align-items-end mb-5">
-			<div onclick="location.href='bizRvList?inteno=${inteno}'">
+			<div onclick="location.href='bizRvContentView?br_no=${bizRvContentView.br_no }'">
 				<span class="text-body-secondary" style="font-size: 12px; cursor:pointer;">뒤로 가기 <i class="fa-solid fa-rotate-left" style="cursor:pointer;"></i></span>
 			</div>
 		</div>
@@ -128,18 +149,32 @@
 					</td>
 				</tr>	 -->
 			</table>
-			
-			<div class="d-flex justify-content-evenly">
-				<div class="d-flex justify-content-center" style="width: 750px;">
-				<div class="d-flex justify-content-end" style="width: 99%; max-width: 720px;">
-					<input type="submit" value="수정"  class="ms-1 btn btn-outline-primary btn-sm w-10">
-					<button class="ms-1 btn btn-outline-primary btn-sm w-10" onclick="location.href='bizRvDel?br_no=${bizRvContentView.br_no }&inteno=${inteno }'"><span style="font-size: 14px;">삭제</span></button>
+
+		<div class="d-flex justify-content-evenly">
+			<div class="d-flex justify-content-center" style="width: 750px;">
+				<div class="d-flex align-items-start" style="width: 40%; max-width: 300px;">
+					<c:choose>
+						<c:when test="${loginUserDto.memno eq bizRvContentView.memno}">
+							<button class="ms-1 btn btn-outline-primary btn-sm w-10" onclick="confirmDelete('${bizRvContentView.br_no }', '${inteno }')"><span style="font-size: 14px;">삭제</span></button>
+						</c:when>
+						<c:otherwise></c:otherwise>							
+					</c:choose>
 				</div>
-				</div>
+			<div class="d-flex justify-content-end" style="width: 60%; max-width: 450px;">
+					<c:choose>
+						<c:when test="${loginUserDto.memno eq bizRvContentView.memno}">
+							<input type="submit" value="수정"  class="ms-1 btn btn-outline-primary btn-sm w-10">
+						</c:when>
+						<c:otherwise></c:otherwise>							
+					</c:choose>
 			</div>
+			</div>
+		</div>
+
 		</div>
 	</div>	
 </form>
-
+</main>
 </body>
+<%@include file ="../bizFooter.jsp" %>
 </html>
