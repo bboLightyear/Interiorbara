@@ -69,7 +69,7 @@ String path=request.getContextPath();
 					<span id="closeCompleteModal" class="close">&times;</span>
 				</div>
 				<div class="Modal_center2">
-					<div class="complete_modal_center_body">
+					<div class="modal_center_body complete_modal_center_body">
 						<div class="complete-row">		
 							<div class="completeEstino">
 							<span class="section-title">견적번호</span>
