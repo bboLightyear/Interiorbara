@@ -260,16 +260,16 @@
 			    ) N
 			 <trim prefix="WHERE" prefixOverrides="AND">
 				 <if test='param5 != "default"' >
-					 AND PB_RESIDENCE = #{param6}
+					 AND PB_RESIDENCE = #{param5}
 				 </if>
 				 <if test='param6 != "default"' >
-					 AND PB_ROOM = #{param7}
+					 AND PB_ROOM = #{param6}
 				 </if>						
 				 <if test='param7 != "default"' >
-					 AND PB_STYLE = #{param8}
+					 AND PB_STYLE = #{param7}
 				 </if>
 				 <if test='param8 != "default"' >
-					 AND PB_SKILL = #{param9}
+					 AND PB_SKILL = #{param8}
 				 </if>
 				 <choose>						
 					 <when test='param9 == "default"'>
@@ -295,16 +295,16 @@
 			OH_PHOTO_BOARD
 		<trim prefix="WHERE" prefixOverrides="AND">
 			<if test='param1 != "default"' >
-				AND PB_RESIDENCE = #{param2}
+				AND PB_RESIDENCE = #{param1}
 			</if>
 			<if test='param2 != "default"' >
-				AND PB_ROOM = #{param3}
+				AND PB_ROOM = #{param2}
 			</if>						
 			<if test='param3 != "default"' >
-				AND PB_STYLE = #{param4}
+				AND PB_STYLE = #{param3}
 			</if>
 			<if test='param4 != "default"' >
-				AND PB_SKILL = #{param5}
+				AND PB_SKILL = #{param4}
 			</if>
 			<choose>						
 				<when test='param5 == "default"'>
@@ -519,6 +519,7 @@
 		<result column="PR_NO" property="pr_no" />
 		<result column="MEMNO" property="memno" />	
 		<result column="PR_CONTENT" property="pr_content" />
+		<result column="PR_LIKE" property="pr_like" />
 		<result column="PR_DATE" property="pr_date" />
 		<result column="PR_GROUP" property="pr_group" />
 		<result column="PR_STEP" property="pr_step" />
@@ -536,6 +537,7 @@
 		<result column="PROFILEIMG" property="profileimg" />
 	</resultMap>		
 		
+	<!-- OHPhotoDetailView -->
 	<!-- OHPhotoReplyView -->
 	
 	<select id="ohPhotoReplyView" resultType="com.tech.ibara.oh.dto.OHPhotoReply" resultMap="OHPhotoReply">			
@@ -545,9 +547,9 @@
 	        MY_MEMBER_INFO OHA
 	    INNER JOIN
 	        (SELECT
-	            PR_NO, MEMNO, PR_CONTENT, 
+	            PR_NO, MEMNO, PR_CONTENT, PR_LIKE,
 	            TO_CHAR(PR_DATE, 'YYYY.MM.DD') AS PR_DATE,
-	            PR_GROUP, PR_INDENT, PB_NO
+	            PR_GROUP, PR_STEP, PR_INDENT, PB_NO
 	        FROM
 	            OH_PHOTO_REPLY
 	        ) OHB
@@ -558,6 +560,62 @@
 	    ORDER BY
 	        PR_NO DESC	
 	</select>
+	<select id="ohPhotoReplyLikeView" resultType="com.tech.ibara.oh.dto.OHPhotoReplyLike">
+		SELECT
+			*
+		FROM
+			OH_PHOTO_REPLY_LIKE
+		WHERE
+			MEMNO = #{param1}
+	</select>
+	
+	<!-- OHPhotoReplyLikeExecute -->
+	
+	<select id="replyLikeCheck" resultType="Integer">
+		SELECT
+			COUNT(*)
+		FROM
+			OH_PHOTO_REPLY_LIKE
+		WHERE
+			MEMNO = #{param1} AND PR_NO = #{param2}
+	</select>	
+	<insert id="replyLikeSave">
+		INSERT INTO
+			OH_PHOTO_REPLY_LIKE
+		VALUES (
+			OH_PHOTO_REPLY_LIKE_SEQ.NEXTVAL, #{param1}, SYSDATE, #{param2}
+		)
+	</insert>	
+	<update id="replyLikeIncrease">
+		UPDATE
+			OH_PHOTO_REPLY
+		SET
+			PR_LIKE = PR_LIKE + 1
+		WHERE
+			PR_NO = #{param1}
+	</update>	
+	<delete id="replyLikeDelete">
+		DELETE FROM 
+			OH_PHOTO_REPLY_LIKE
+		WHERE
+			MEMNO = #{param1} AND PR_NO = #{param2}
+	</delete>	
+	<update id="replyLikeDecrease">
+		UPDATE
+			OH_PHOTO_REPLY
+		SET
+			PR_LIKE = PR_LIKE - 1
+		WHERE
+			PR_NO = #{param1}	
+	</update>	
+	<select id="replyLikeGetNumber" resultType="Integer">
+		SELECT
+			PR_LIKE
+		FROM
+			OH_PHOTO_REPLY
+		WHERE
+			PR_NO = #{param1}		
+	</select>	
 	
 	<!-- OHPhotoReplyWriteExecute -->
 	
@@ -565,10 +623,26 @@
 		INSERT INTO
 			OH_PHOTO_REPLY
 		VALUES (
-			OH_PHOTO_REPLY_SEQ.NEXTVAL, #{param1}, #{param2}, SYSDATE,
-			0, 0, 0, #{param3}
+			OH_PHOTO_REPLY_SEQ.NEXTVAL, #{param1}, #{param2}, 
+			0, SYSDATE, 0, 0, 0, #{param3}
 		)
 	</insert>
+	<update id="ohPhotoReplyIncrease">
+		UPDATE
+			OH_PHOTO_BOARD
+		SET
+			PB_REPLY = PB_REPLY + 1
+		WHERE
+			PB_NO = #{param1}			
+	</update>
+	<select id="ohPhotoReplyGetNumber" resultType="Integer">
+		SELECT
+			COUNT(*)
+		FROM
+			OH_PHOTO_REPLY
+		WHERE
+			PB_NO = #{param1}			
+	</select>
 	
 	<!-- OHPhotoEditExecute -->
 	

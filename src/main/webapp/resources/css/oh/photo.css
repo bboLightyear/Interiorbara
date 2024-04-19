@@ -48,7 +48,8 @@ footer {
 .contents {
  	display: flex;
     justify-content: center;
-    align-items: center;	 
+    align-items: center;
+    margin: 100px 0px 100px 0px;	 
 }
 /* ----- End: .contents ----- */	
 	
@@ -62,6 +63,7 @@ footer {
     left: 10px;
     top: 50%;
     transform: translate(0, -50%);
+	border-radius: 10px;    
 }		
 .sideBar ul {
 	text-align: center;
@@ -78,9 +80,14 @@ footer {
 .sideBar ul li a {
 	text-decoration: none;
 	color: #1a1f27;
+	font-size: 15px;
+	font-weight: 500;
+	transition: font-size 0.3s ease, font-weight 0.3s ease;	
 }
 .sideBar ul li a:hover {
-
+	font-size: 16px;
+	font-weight: bold;
+	cursor:pointer;
 }		
 /* ----- End: .sideBar ----- */
 

@@ -16,10 +16,8 @@
 	position: relative;
 	text-align: center;
 	height: 100px;
-	background-color: #1e90ff;
 }
 #OHPhotoDetailView-main-1Title {
-	background-color: #7af5f3;
 	position: absolute;
 	top: 50%;
 	left: 50%;
@@ -34,7 +32,6 @@
     display: inline-block;	
 }
 #OHPhotoDetailView-main-1toWriteButton {
-	background-color: #7df76f;
     position: absolute;
     top: 50%;
 	left: 1200px;
@@ -44,9 +41,9 @@
    	border: none;
     border-radius: 10px;
     color: #1a1f27;	
+	background-color: #1e90ff;
 }
 #OHPhotoDetailView-main-1toEditButton {
-	background-color: #f28950;
 	position: absolute;
     top: 50%;
 	left: 1290px;
@@ -56,9 +53,9 @@
    	border: none;
     border-radius: 10px;
     color: #1a1f27;	
+	background-color: #1e90ff;
 }
 #OHPhotoDetailView-main-1toDeleteButton {
-	background-color: #f593c4;
 	position: absolute;
     top: 50%;
 		left: 1380px;
@@ -68,6 +65,7 @@
    	border: none;
     border-radius: 10px;
     color: #1a1f27;		
+	background-color: #1e90ff;
 }
 /* ----- End: #OHPhotoDetailView-main-1 ----- */	
 
@@ -76,14 +74,14 @@
 	position: relative;
 	text-align: center;
   	height: 150px;
-	background-color: #faed64;
 }
 #OHPhotoDetailView-main-2residence {
 	position: relative;
 	display: inline-block;
 	top: 50%;
-	transform: translate(0, -50%);    
-	background-color: #bef75c;
+	transform: translate(0, -50%);  
+	color: #1a1f27;	  
+	background-color: #e2f0fe;
 	padding: 10px 10px 10px 10px;
 	border: 1px solid #1a1f27;
 	border-radius: 10px;    
@@ -92,8 +90,9 @@
 	position: relative;
 	display: inline-block;
 	top: 50%;
-	transform: translate(0, -50%);    
-	background-color: #bef75c;
+	transform: translate(0, -50%);
+	color: #1a1f27;	    
+	background-color: #e2f0fe;
 	padding: 10px 10px 10px 10px;
 	border: 1px solid #1a1f27;
 	border-radius: 10px;    
@@ -102,8 +101,9 @@
 	position: relative;
 	display: inline-block;
 	top: 50%;
-	transform: translate(0, -50%);    
-	background-color: #bef75c;
+	transform: translate(0, -50%);
+	color: #1a1f27;	    
+	background-color: #e2f0fe;
 	padding: 10px 10px 10px 10px;
 	border: 1px solid #1a1f27;
 	border-radius: 10px;    
@@ -112,8 +112,9 @@
 	position: relative;
 	display: inline-block;
 	top: 50%;
-	transform: translate(0, -50%);    
-	background-color: #bef75c;
+	transform: translate(0, -50%);  
+	color: #1a1f27;	  
+	background-color: #e2f0fe;
 	padding: 10px 10px 10px 10px;
 	border: 1px solid #1a1f27;
 	border-radius: 10px;    
@@ -124,11 +125,9 @@
 #OHPhotoDetailView-main-3 {
 	position: relative;
 	text-align: center;
-	background-color: antiquewhite;
 }
 .OHPhotoDetailView-main-3photoSector {
 	position: relative;
-	background-color: #e36639;
 	margin-top: 50px;
 	margin-bottom: 50px;
 }
@@ -142,14 +141,13 @@
 #OHPhotoDetailView-main-4 {
 	position: relative;
 	text-align: center;
-	background-color: #7df76f;
 }
 #OHPhotoDetailView-main-4photoContent {
 	display: inline-block;
 	text-align: left;
 	width: 720px;
 	line-height: 30px;
-	background-color: #d6d4d5;
+	color: #1a1f27;
 }
 /* ----- End: #OHPhotoDetailView-main-4 ----- */
 
@@ -161,7 +159,6 @@
 	width: 720px;
 	height: 40px;
 	line-height: 40px;
-	background-color: #f28950;
 	margin: 40px 0px 10px 0px;
 }
 #OHPhotoDetailView-main-5dateLable {
@@ -171,7 +168,7 @@
 	width: 50px;
 	transform: translate(0%, -50%);  
 	display: inline-block;
-	background-color: #faed64;
+	color: #1a1f27;	
 }
 #OHPhotoDetailView-main-5date {
 	position: absolute;
@@ -181,7 +178,7 @@
 	width: 100px;
 	transform: translate(0%, -50%);  
 	display: inline-block;
-	background-color: #faed64;
+	color: #1a1f27;	
 }
 /* ----- End: #OHPhotoDetailView-main-5 ----- */
 
@@ -193,7 +190,6 @@
 	width: 720px;
 	height: 40px;
 	line-height: 40px;
-	background-color: aquamarine;
 	margin: 0px 0px 30px 0px;
 }
 #OHPhotoDetailView-main-6like {
@@ -204,9 +200,8 @@
 	width: 50px;
 	display: inline-block;
 	text-align: center;
-	font-size: 35px;
+	font-size: 30px;
 	color: #1a1f27;	
-	background-color: #e36639;
 }
 #OHPhotoDetailView-main-6like.clickColor {
 	color: #1034a6;
@@ -219,7 +214,7 @@
 	width: 60px;
 	transform: translate(0%, -50%);  
 	display: inline-block;
-	background-color: #e36639;
+	color: #1a1f27;		
 }
 #OHPhotoDetailView-main-6scrap {
 	position: absolute;
@@ -229,9 +224,8 @@
 	width: 50px;
 	display: inline-block;
 	text-align: center;
-	font-size: 35px;
+	font-size: 30px;
 	color: #1a1f27;	
-	background-color: #e36639;
 }
 #OHPhotoDetailView-main-6scrap.clickColor {
 	color: #1034a6;	
@@ -244,7 +238,7 @@
 	width: 60px;
 	transform: translate(0%, -50%);  
 	display: inline-block;
-	background-color: #558ffa;
+	color: #1a1f27;	
 }
 #OHPhotoDetailView-main-6views {
 	position: absolute;
@@ -254,7 +248,7 @@
 	width: 50px;
 	transform: translate(0%, -50%);  
 	display: inline-block;
-	background-color: #7df76f;
+	color: #1a1f27;	
 }
 #OHPhotoDetailView-main-6viewsNumber {
 	position: absolute;
@@ -264,7 +258,7 @@
 	width: 60px;
 	transform: translate(0%, -50%);  
 	display: inline-block;
-	background-color: #7df76f;
+	color: #1a1f27;	
 }
 #OHPhotoDetailView-main-6complaintButton {
 	position: absolute;
@@ -277,7 +271,8 @@
 	line-height: 30px;
 	border: none;
 	border-radius: 10px;
-	background-color: #d6d4d5;
+	color: #1a1f27;	
+	background-color: #b1b8c0;
 }
 /* ----- End: #OHPhotoDetailView-main-6 ----- */
 
@@ -288,7 +283,6 @@
 	transform: translate(-50%, 0%);   
 	width: 720px;
 	height: 80px;
-	background-color: aquamarine;
 	margin: 0px 0px 50px 0px;
 }
 #OHPhotoDetailView-main-7profileImage {
@@ -298,7 +292,6 @@
 	width: 60px;
 	height: 60px;
 	border-radius: 50%;
-	background-color: #558ffa;
 }
 #OHPhotoDetailView-main-7writerName {
 	position: absolute;
@@ -309,7 +302,19 @@
 	height: 80px;
 	line-height: 80px;
 	text-align: left;
-	background-color: #bef75c;
+	color: #1a1f27;		
+}
+#OHPhotoDetailView-main-7moveToList	{
+	position: absolute;
+	top: 50%;
+	right: 10px;
+	transform: translate(0%, -50%);		
+    width: 100px;
+    height: 50px;	
+    color: #1a1f27; 
+   	background-color: #1e90ff;	
+   	border: none;
+    border-radius: 10px;   	
 }
 #OHPhotoDetailView-main-7writerName a {
 	text-decoration: none;
@@ -324,7 +329,6 @@
 	transform: translate(-50%, 0%);   
 	width: 720px;
 	height: 60px;
-	background-color: #bef75c;
 	margin: 0px 0px 0px 0px;
 }
 #OHPhotoDetailView-main-8replyLable {
@@ -339,7 +343,7 @@
 	font-size: 20px;
 	font-weight: bold;
 	display: inline-block;
-	background-color: #d6d4d5;
+    color: #1a1f27;
 }
 #OHPhotoDetailView-main-8replyTotal {
 	position: absolute;
@@ -353,7 +357,7 @@
 	font-size: 20px;
 	font-weight: bold;
 	display: inline-block;
-	background-color: #d6d4d5;
+    color: #1a1f27;
 }
 /* ----- End: #OHPhotoDetailView-main-8 ----- */
 
@@ -364,7 +368,6 @@
 	transform: translate(-50%, 0%);  
 	width: 720px;
 	height: 60px;
-	background-color: #e36639;
 	margin: 0px 0px 30px 0px;	 	
 }
 #OHPhotoDetailView-main-9inputReply {
@@ -390,7 +393,7 @@
     width: 80px;
     height: 60px;
     color: #1a1f27; 
-   	/* background-color: #1e90ff; */
+   	/* background-color => OHPhotoDetailView.js에서 설정 */
    	border: none;
     border-radius: 10px;
 }
@@ -402,10 +405,9 @@
 	left: 50%;
 	transform: translate(-50%, 0%);  
 	width: 720px;
-	background-color: #1e90ff;
 	margin: 0px 0px 0px 0px;		
 }
-#contentReply {
+.contentReply {
 	display: flex;
     justify-content: center;
     align-items: center;
@@ -413,14 +415,12 @@
 }
 .reply-container {
 	position: relative;	
-	background-color: #d6d4d5;
 	margin: 0px 0px 15px 0px;
 	width: 650px;
 	height: 150px;
 }
 .reply-container-layer1 {
 	position: relative;
-	background-color: #b8f54e;
 	width: 650px;
 	height: 40px;
 }
@@ -431,7 +431,6 @@
 	transform: translate(0%, -50%);
 	width: 40px;
 	height: 40px;
-	background-color: #f593c4;
 }
 .reply-userName {
 	position: absolute;
@@ -443,7 +442,7 @@
 	height: 40px;
 	line-height: 40px;
 	text-align: left;
-	background-color: #7af5f3;
+    color: #1a1f27; 
 }
 .reply-userName a {
 	text-decoration: none;
@@ -457,13 +456,15 @@
 	display: inline-block;
 	padding: 5px;
 	text-align: center;
-	background-color: #f28950;
+	color: #1a1f27; 
+	background-color: #e2f0fe;
+	border: 1px solid #1a1f27;
+	border-radius: 10px
 }
 .reply-container-layer2 {
 	position: relative;
-	background-color: #f28950;
 	width: 650px;
-	height: 70px;	
+	height: 50px;	
 }
 .reply-content {
 	position: absolute;
@@ -472,12 +473,11 @@
 	transform: translate(0%, -50%);
 	width: 650px;
 	text-align: left;	
-	padding: 0px 20px 0px 20px;
-	background-color: #faed64;
+	padding: 0px 10px 0px 10px;
+	color: #1a1f27;	
 }
 .reply-container-layer3 {
 	position: relative;
-	background-color: #bef75c;
 	width: 650px;
 	height: 40px;	
 }
@@ -491,7 +491,7 @@
 	height: 40px;
 	line-height: 40px;
 	text-align: left;
-	background-color: #faed64;
+	color: #1a1f27;	
 }
 .reply-likeButton {
 	position: absolute;
@@ -499,11 +499,15 @@
 	left: 120px;
 	transform: translate(0%, -50%);  
 	display: inline-block;
-	width: 40px;
-	height: 40px;
-	line-height: 40px;
+	width: 35px;
+	height: 35px;
+	line-height: 35px;
 	text-align: center;
-	background-color: #e36639;	
+    font-size: 25px;
+	color: #1a1f27;	
+}
+.reply-likeButton.clickColor {
+    color: #1034a6;
 }
 .reply-likeNumber {
 	position: absolute;
@@ -514,8 +518,8 @@
 	width: 40px;
 	height: 40px;
 	line-height: 40px;
-	text-align: center;
-	background-color: #e36639;	
+	text-align: left;
+	color: #1a1f27;	
 }
 .reply-replyToReplyButton {
     position: absolute;
@@ -549,7 +553,7 @@
     width: 70px;
     height: 30px;
     color: #1a1f27; 
-   	background-color: #1e90ff;
+   	background-color: #b1b8c0;
    	border: none;
     border-radius: 10px;	
 }

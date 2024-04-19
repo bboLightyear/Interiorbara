@@ -36,6 +36,85 @@ public class OHPhotoEditExecuteService implements OHInterfaceService {
 		// OHInterfaceDao, SqlSession 연결
 		OHInterfaceDao dao = sqlSession.getMapper(OHInterfaceDao.class);		
 		
+		// OPVpb_no 변수 선언, 값 저장		
+		String OPVpb_no = mftRequest.getParameter("OPVpb_no");
+		// OPVpb_no 변수, 값 출력
+		System.out.println("OPVpb_no: " + OPVpb_no);
+		System.out.println("------------------------------");		
+		
+		// 모델, OPVpb_no 저장
+		model.addAttribute("pb_no", OPVpb_no);			
+		
+		// --- sorting ---
+		// --- sorting 변수 선언, 값 저장 ---
+		String OPVorderingBy = mftRequest.getParameter("OPVorderingBy");
+		String OPVorderingMethod = mftRequest.getParameter("OPVorderingMethod");
+		// --- sorting 변수 값 출력 ---
+		System.out.println("--- sorting 변수 값 출력 ---");
+		System.out.println("OPVorderingBy: " + OPVorderingBy);
+		System.out.println("OPVorderingMethod: " + OPVorderingMethod);
+		System.out.println("------------------------------");			
+		
+		// 모델, OPVorderingBy 저장
+		model.addAttribute("orderingBy", OPVorderingBy);
+		// 모델, OPVorderingMethod 저장
+		model.addAttribute("orderingMethod", OPVorderingMethod);		
+		
+		// --- filtering ---
+		// --- filtering 변수 선언, 값 저장 ---
+		String OPVpb_residence = mftRequest.getParameter("OPVpb_residence");
+		String OPVpb_room = mftRequest.getParameter("OPVpb_room");
+		String OPVpb_style = mftRequest.getParameter("OPVpb_style");
+		String OPVpb_skill = mftRequest.getParameter("OPVpb_skill");
+		// --- filtering 변수 값 출력 ---
+		System.out.println("--- filtering 변수 값 출력 ---");
+		System.out.println("OPVpb_residence: " + OPVpb_residence);
+		System.out.println("OPVpb_room: " + OPVpb_room);
+		System.out.println("OPVpb_style: " + OPVpb_style);
+		System.out.println("OPVpb_skill: " + OPVpb_skill);
+		System.out.println("------------------------------");		
+		
+		// 모델, pb_residence 저장
+		model.addAttribute("pb_residence", OPVpb_residence);
+		// 모델, pb_room 저장
+		model.addAttribute("pb_room", OPVpb_room);
+		// 모델, pb_style 저장
+		model.addAttribute("pb_style", OPVpb_style);
+		// 모델, pb_skill 저장
+		model.addAttribute("pb_skill", OPVpb_skill);		
+		
+		// --- searching ---
+		// --- searching 변수 값 출력 ---
+		String OPVsearchingType = mftRequest.getParameter("OPVsearchingType");
+		String OPVsearchingWord = mftRequest.getParameter("OPVsearchingWord");
+		// --- searching 변수 값 출력 ---
+		System.out.println("--- searching 변수 값 출력 ---");
+		System.out.println("OPVsearchingType: " + OPVsearchingType);
+		System.out.println("OPVsearchingWord: " + OPVsearchingWord);
+		System.out.println("------------------------------");		
+		
+		// 모델, searchingType 저장
+		model.addAttribute("searchingType", OPVsearchingType);
+		// 모델, searchingWord 저장
+		model.addAttribute("searchingWord", OPVsearchingWord);			
+		
+		// --- paging ---
+		// --- paging 변수 값 출력 ---
+		String stringPageSelectedNum = mftRequest.getParameter("OPVpageSelectedNum");
+		// --- paging 변수 값 출력 ---
+		System.out.println("--- paging 변수 값 출력 ---");
+		System.out.println("stringPageSelectedNum: " + stringPageSelectedNum);
+		System.out.println("------------------------------");		
+		
+		if(stringPageSelectedNum == null || stringPageSelectedNum.equals("/")) {
+			stringPageSelectedNum = "0";
+		}		
+		
+		int OPVpageSelectedNum = Integer.parseInt(stringPageSelectedNum);
+		
+		// 모델, pageSelectedNum 저장
+		model.addAttribute("pageSelectedNum", OPVpageSelectedNum);			
+		
 		// 변수 선언, 값 저장
 		String pb_no = mftRequest.getParameter("pb_no");
 		String pb_title = mftRequest.getParameter("pb_title");
@@ -62,14 +141,18 @@ public class OHPhotoEditExecuteService implements OHInterfaceService {
 		
 		// 업로드 파일 - 저장할 폴더 경로, path 변수에 저장
 		
-		// 스프링 STS - upload 폴더 경로
-		// 글쓰기 후 이미지가 바로 출력되지 않는 문제가 있다.
-		String path = "C:\\23setspring\\springwork23\\interiorbara01\\src\\main\\webapp\\resources\\upload\\oh\\photo";
+		// 메인 컴퓨터 경로
+		String path = "C:\\interiorbara01\\interiorbara01\\src\\main\\webapp\\resources\\upload\\oh\\photo";
 		System.out.println("path: " + path);
-		System.out.println("------------------------------");
+		System.out.println("------------------------------");		
+		
+		// 스프링 STS - upload 폴더 경로 => *****글쓰기 후 이미지가 바로 출력되지 않는 문제가 있다.*****
+//		String path = "C:\\23setspring\\springwork23\\interiorbara01\\src\\main\\webapp\\resources\\upload\\oh\\photo";
+//		System.out.println("path: " + path);
+//		System.out.println("------------------------------");
 		
 		// 톰캣 server - upload 폴더 경로
-		// String path = "C:\\23setspring\\springwork23\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\interiorbara\\resources\\upload\\oh\\photo";
+//		String path = "C:\\23setspring\\springwork23\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\interiorbara\\resources\\upload\\oh\\photo";
 		
 		// 업로드 파일, List 저장
 		List<MultipartFile> pa_attachList = mftRequest.getFiles("pa_attach");

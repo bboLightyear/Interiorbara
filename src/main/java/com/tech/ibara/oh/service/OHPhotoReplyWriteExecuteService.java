@@ -1,8 +1,11 @@
 package com.tech.ibara.oh.service;
 
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.ui.Model;
@@ -28,6 +31,9 @@ public class OHPhotoReplyWriteExecuteService implements OHInterfaceService {
 		// request
 		HttpServletRequest request = (HttpServletRequest) map.get("request");		
 		
+		// response
+		HttpServletResponse response =  (HttpServletResponse) map.get("response");		
+		
 		// OHInterfaceDao, SqlSession 연결
 		OHInterfaceDao dao = sqlSession.getMapper(OHInterfaceDao.class);
 		
@@ -43,7 +49,32 @@ public class OHPhotoReplyWriteExecuteService implements OHInterfaceService {
 		System.out.println("------------------------------");
 		
 		// 댓글 - DB 저장
-		dao.ohPhotoReplyWriteExecute(memno, pr_content, pb_no);		
+		dao.ohPhotoReplyWriteExecute(memno, pr_content, pb_no);	
+		
+		// OH_PHOTO_BOARD - PB_REPLY, 댓글수 1증가
+		dao.ohPhotoReplyIncrease(pb_no);
+		
+		// 해당 게시글, 총 댓글수, 변수 저장
+		int replyNumber = dao.ohPhotoReplyGetNumber(pb_no);
+		
+		// 해당 게시글, 총 댓글수, 변수 저장
+		System.out.println("replyNumber: " + replyNumber);
+		System.out.println("------------------------------");
+		
+		// JSON 형식으로 응답을 생성
+		response.setContentType("application/json");
+		response.setCharacterEncoding("UTF-8");
+		PrintWriter out = null;
+		try {
+			out = response.getWriter();
+			out.print("{\"replyNumber\": " + replyNumber + "}");
+			out.flush();
+			out.close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}		
+		
 	}	
 	
 }

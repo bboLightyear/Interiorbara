@@ -7,6 +7,7 @@ public class OHPhotoReply {
 	private int pr_no;
 	private int memno;
 	private String pr_content;
+	private int pr_like;
 	private String pr_date;
 	private int pr_group;
 	private int pr_step;
@@ -27,17 +28,19 @@ public class OHPhotoReply {
 		// TODO Auto-generated constructor stub
 	}
 
-	public OHPhotoReply(int pr_no, int memno, 
-						String pr_content, String pr_date, int pr_group,
-						int pr_step, int pr_indent, int pb_no) {
+	public OHPhotoReply(int pr_no, int memno, String pr_content, int pr_like, String pr_date, int pr_group, int pr_step,
+			int pr_indent, int pb_no, MyMemberInfoDto myMemberInfoDto) {
+		super();
 		this.pr_no = pr_no;
 		this.memno = memno;
 		this.pr_content = pr_content;
+		this.pr_like = pr_like;
 		this.pr_date = pr_date;
 		this.pr_group = pr_group;
 		this.pr_step = pr_step;
 		this.pr_indent = pr_indent;
 		this.pb_no = pb_no;
+		this.myMemberInfoDto = myMemberInfoDto;
 	}
 
 	public int getPr_no() {
@@ -62,6 +65,14 @@ public class OHPhotoReply {
 
 	public void setPr_content(String pr_content) {
 		this.pr_content = pr_content;
+	}
+
+	public int getPr_like() {
+		return pr_like;
+	}
+
+	public void setPr_like(int pr_like) {
+		this.pr_like = pr_like;
 	}
 
 	public String getPr_date() {
