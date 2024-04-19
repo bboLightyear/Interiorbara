@@ -70,7 +70,7 @@
 <main class="Site-content">
 	<div class="pt-3 bg-light bg-opacity-75">
 	<div class="d-flex justify-content-center">
-		<div class="p-3" style="width: 750px" >
+		<div class="p-3" onclick="location.href='bizMgzList'" style="width: 750px; cursor:pointer;" >
 					<ul class="list-inline">
 						<li class="list-inline-item">
 							<h4 style="--bs-text-opacity: 1; background-color: #1034a6; padding: 3px; !important;">
@@ -98,7 +98,7 @@
 			<table class="p-3 table" style="width: 100%; height: 150px; max-width: 750px">
 				<tr>
 				    <td class="align-middle">
-				    	<p style="font-size: 16px;"><span class="px-2" style="color: #ff8d1e"><strong>${bizMgzDelView.bm_title }</strong></span> 글을 삭제하시겠습니까?</p>
+				    	<p style="font-size: 16px;"><span class="px-2" style="color: #ff8d1e"><strong onclick="location.href='bizMgzContentView?bm_no=${bizMgzDelView.bm_no }'" style="cursor:pointer;">${bizMgzDelView.bm_title }</strong></span> 글을 삭제하시겠습니까?</p>
 				    </td>
 				</tr>			
 			</table>

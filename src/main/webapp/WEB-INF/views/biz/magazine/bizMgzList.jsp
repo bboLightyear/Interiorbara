@@ -46,7 +46,7 @@
 <main class="Site-content">
 	<div class="pt-3 bg-light bg-opacity-75">
 	<div class="d-flex justify-content-center">
-		<div class="p-3" style="width: 750px" >
+		<div class="p-3" onclick="location.href='bizMgzList'" style="width: 750px; cursor:pointer;" >
 					<ul class="list-inline">
 						<li class="list-inline-item">
 							<h4 style="--bs-text-opacity: 1; background-color: #1034a6; padding: 3px; !important;">
@@ -85,13 +85,13 @@
 		<c:forEach items="${bizMgzList }" var="dto">
 		
 			<tr class="">
-				<td class="">${dto.bm_no }</td>
-				<td class="">${dto.bm_writer }</td>
+				<td class="" onclick="location.href='bizMgzContentView?bm_no=${dto.bm_no }'" style="cursor:pointer;">${dto.bm_no }</td>
+				<td class="" onclick="javascript_:window.open('${path}/my/memberinfopage?nickname=${dto.bm_writer }','pop','menubar=no,status=no,scrollbars=no,resizable=no,width=560,height=700,top=50,left=50');" style="cursor: pointer;">${dto.bm_writer } <i class="fa-solid fa-user" style="font-size: 11px;"></i></td>
 				<td class="left">
 					<a href="bizMgzContentView?bm_no=${dto.bm_no }" style="text-decoration: none; color: #1a1f27;">${dto.bm_title }</a>
 				</td>
-				<td class=""><fmt:formatDate value="${dto.bm_date }" type="both" dateStyle="short" pattern="YYYY-MM-dd"/></td>
-				<td class="">${dto.bm_hit }</td>
+				<td class="" onclick="location.href='bizMgzContentView?bm_no=${dto.bm_no }'" style="cursor:pointer;"><fmt:formatDate value="${dto.bm_date }" type="both" dateStyle="short" pattern="YYYY-MM-dd"/></td>
+				<td onclick="location.href='bizMgzContentView?bm_no=${dto.bm_no }'" style="cursor:pointer;">${dto.bm_hit }</td>
 			</tr>		
 		</c:forEach>		
 	</table>

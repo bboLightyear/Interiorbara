@@ -11,6 +11,7 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootswatch@5.3.3/dist/zephyr/bootstrap.min.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <link  rel="stylesheet"
   href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"/>
   <style>
@@ -28,12 +29,20 @@
 	 th, .center{
     	text-align: center;	 
 	 }
+	 
+	#topBtn{
+   	position: fixed;
+  	 right: 4%;
+   	bottom: 5%;
+   	display: none;
+   	/* z-index: 9999; */
+	}	 
 	</style>
 </head>
 <body>
 <div class="pt-3 bg-light bg-opacity-75">
 	<div class="d-flex justify-content-center">
-		<div class="p-3" style="width: 300px; height: 60px;" >
+		<div class="p-3" onclick="location.href='bizRvImgPopUpView?br_no=${bizRvContentView.br_no }'"  style="width: 300px; height: 60px; cursor: pointer;" >
 					<ul class="list-inline">
 						<li class="list-inline-item">
 							<h4 style="--bs-text-opacity: 1; background-color: #1034a6; padding: 3px; !important;">
@@ -66,7 +75,7 @@
 				</tr>	
 				<tr class="">
 				      <th scope="row" class="table-light border-light-subtle">작성자</th>
-					<td colspan="3">${bizRvContentView.br_writer }</td>
+					<td colspan="3" onclick="javascript_:window.open('${path}/my/memberinfopage?nickname=${dto.br_writer }','pop','menubar=no,status=no,scrollbars=no,resizable=no,width=560,height=700,top=50,left=50');" style="cursor: pointer;">${bizRvContentView.br_writer } <i class="fa-solid fa-user" style="font-size: 11px;"></i></td>
 				</tr>		
 				<tr class="">
 				      <th scope="row"  class="table-light border-light-subtle">별점</th>
@@ -104,6 +113,28 @@
 </div>	
 
 
+<div>
+      <a id="topBtn" href="#"><img alt="" src="${path}/resources/img/my/fromtop.png"></a>      
+      </div>
 
+<script>
+$(function() {
+   // 보이기 | 숨기기
+   $(window).scroll(function() {
+      if ($(this).scrollTop() > 250) { //250 넘으면 버튼이 보여짐니다.
+            $('#topBtn').fadeIn();
+            } else {
+            $('#topBtn').fadeOut();
+      }
+   });
+   // 버튼 클릭시
+   $("#topBtn").click(function() {   
+   $('html, body').animate({
+     scrollTop : 0    // 0 까지 animation 이동합니다.
+    }, 400);          // 속도 400
+    return false;
+    });
+  });
+</script>
 </body>
 </html>

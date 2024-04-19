@@ -206,9 +206,8 @@
 	 a {
 	   text-decoration: none;
 	   color: #1a1f27;
-	}
+	}	
 	</style>
-<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 </head>
 <body>
 <jsp:include page="../../modal/mMain.jsp" />
@@ -420,7 +419,7 @@
 		</div>
 	</div>			
 </div>
-		
+
 </body>
 <%@include file ="../bizFooter.jsp" %>
 </html>

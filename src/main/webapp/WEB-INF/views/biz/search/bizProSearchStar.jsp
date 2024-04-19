@@ -10,6 +10,7 @@
 <title>전문시공업체 찾기</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootswatch@5.3.3/dist/zephyr/bootstrap.min.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 <%@include file ="../bizHeader.jsp" %>
 <link rel="stylesheet" href="${path}/resources/css/biz/biz.css"/>
@@ -37,13 +38,21 @@
 	   text-decoration: none;
 	   color: #1a1f27;
 	}
+	
+	#topBtn{
+   	position: fixed;
+  	 right: 4%;
+   	bottom: 5%;
+   	display: none;
+   	/* z-index: 9999; */
+	}	
 	</style>
 </head>
 <body>
 <c:set var="bh_pro" value="${bh_pro}" />
 <div id="topDiv" class="pt-3 bg-light bg-opacity-75">
 	<div class="d-flex justify-content-center">
-		<div class="p-3" style="width: 750px" >
+		<div class="p-3" onclick="location.href='bizProSearch'" style="width: 750px; cursor:pointer;" >
 					<ul class="list-inline">
 						<li class="list-inline-item">
 							<h4 style="--bs-text-opacity: 1; background-color: #1034a6; padding: 3px; !important;">
@@ -203,6 +212,30 @@
 					<img class="w-75 px-4" id="mgzBanner" style="max-width: 840px; border-radius: 5%; cursor:pointer; " src="../../resources/img/bizimg/mgz_banner.jpg" alt="mgz_banner" onclick="location.href='/ibara/biz/magazine/bizMgzContentView?bm_no=1'" />
 			</div>
 		</div>
+		
+<div>
+      <a id="topBtn" href="#"><img alt="" src="${path}/resources/img/my/fromtop.png"></a>      
+      </div>
+
+<script>
+$(function() {
+   // 보이기 | 숨기기
+   $(window).scroll(function() {
+      if ($(this).scrollTop() > 250) { //250 넘으면 버튼이 보여짐니다.
+            $('#topBtn').fadeIn();
+            } else {
+            $('#topBtn').fadeOut();
+      }
+   });
+   // 버튼 클릭시
+   $("#topBtn").click(function() {   
+   $('html, body').animate({
+     scrollTop : 0    // 0 까지 animation 이동합니다.
+    }, 400);          // 속도 400
+    return false;
+    });
+  });
+</script>		
 </body>
  <%@include file ="../bizFooter.jsp" %>   
 </html>
