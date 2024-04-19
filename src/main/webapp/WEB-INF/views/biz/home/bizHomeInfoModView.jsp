@@ -51,6 +51,14 @@ function changeBackgroundColor(color) {
 	   text-decoration: none;
 	   color: #1a1f27;
 	}
+	
+	#topBtn{
+   	position: fixed;
+  	 right: 4%;
+   	bottom: 5%;
+   	display: none;
+   	/* z-index: 9999; */
+	}	
 	</style>
 </head>
 <body>
@@ -130,6 +138,29 @@ function changeBackgroundColor(color) {
 		</div>	    
 	  </fieldset>
 	</form>
+<div>
+      <a id="topBtn" href="#"><img alt="" src="${path}/resources/img/my/fromtop.png"></a>      
+      </div>
+
+<script>
+$(function() {
+   // 보이기 | 숨기기
+   $(window).scroll(function() {
+      if ($(this).scrollTop() > 250) { //250 넘으면 버튼이 보여짐니다.
+            $('#topBtn').fadeIn();
+            } else {
+            $('#topBtn').fadeOut();
+      }
+   });
+   // 버튼 클릭시
+   $("#topBtn").click(function() {   
+   $('html, body').animate({
+     scrollTop : 0    // 0 까지 animation 이동합니다.
+    }, 400);          // 속도 400
+    return false;
+    });
+  });
+</script>
 </body>
 <%@include file ="../bizFooter.jsp" %>
 </html>

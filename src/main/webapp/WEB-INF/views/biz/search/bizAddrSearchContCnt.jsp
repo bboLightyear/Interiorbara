@@ -19,7 +19,11 @@
 	 }
 	 .fa-solid:hover{
 	 	color: #1e90ff;
-	 }	 
+	 }
+	 a {
+	   text-decoration: none;
+	   color: black;
+	} 
 	.proBtns{
 	  /* 상하좌우 정중앙 정렬하기 */
 	  display: flex;

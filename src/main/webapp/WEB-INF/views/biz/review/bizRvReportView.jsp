@@ -15,11 +15,11 @@
   href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"/>
   	<style>
 	 .fa-solid{
-	 	color: #1a1f27;
+	 	color: #1034a6;
 	 }
 	 .fa-solid:hover{
 	 	color: #1e90ff;
-	 } 
+	 }	
 	 
 	 th{
 	 	width: 20%;
@@ -70,7 +70,7 @@
 <main class="Site-content">
 	<div class="pt-3 bg-light bg-opacity-75">
 	<div class="d-flex justify-content-center">
-		<div class="p-3" style="width: 750px" >
+		<div class="p-3" onclick="location.href='bizRvReportView?br_no=${bizRvContentView.br_no }&inteno=${inteno}'" style="width: 750px; cursor: pointer;" >
 					<ul class="list-inline">
 						<li class="list-inline-item">
 							<h4 style="--bs-text-opacity: 1; background-color: #1034a6; padding: 3px; !important;">
@@ -108,8 +108,8 @@
 				</tr>
 				<tr>
 				    <th scope="row" class="table-light border-light-subtle">신고대상</th>
-					<td colspan="3">
-						${bizRvContentView.br_writer }
+					<td colspan="3" onclick="javascript_:window.open('${path}/my/memberinfopage?nickname=${bizRvContentView.br_writer }','pop','menubar=no,status=no,scrollbars=no,resizable=no,width=560,height=700,top=50,left=50');" style="cursor: pointer;">
+						${bizRvContentView.br_writer } <i class="fa-solid fa-user" style="font-size: 11px;"></i>
 					</td>
 				</tr>
 				<tr>

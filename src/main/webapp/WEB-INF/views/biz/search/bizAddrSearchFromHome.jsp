@@ -17,11 +17,11 @@
   href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"/>
   	<style>
 	 .fa-solid{
-	 	color: #1a1f27;
+	 	color: #1034a6;
 	 }
 	 .fa-solid:hover{
 	 	color: #1e90ff;
-	 } 
+	 }
 	 a {
 	   text-decoration: none;
 	   color: black;
@@ -117,7 +117,7 @@
 <body>
 <div class="pt-3 bg-light bg-opacity-75">
 	<div class="d-flex justify-content-center">
-		<div class="p-3" style="width: 750px" >
+		<div class="p-3" onclick="location.href='bizAddrSearch'" style="width: 750px; cursor:pointer;" >
 					<ul class="list-inline">
 						<li class="list-inline-item">
 							<h4 style="--bs-text-opacity: 1; background-color: #1034a6; padding: 3px; !important;">
