@@ -100,8 +100,8 @@
 						<span>📞<span> <strong>010-3017-5283</strong>
 					</p>
 
-					<a href="chat" class="chatbtn">채팅상담</a> <a href="" class="emailbtn">이메일
-						보내기<!--가능하면 할 생각-->
+					<a href="chat" class="chatbtn">채팅상담</a> 
+					<a href="mailservice" class="emailbtn">이메일보내기<!--가능하면 할 생각-->
 					</a>
 					<button onclick="copyEmail()" class="emailcopy">이메일 주소 복사</button>
 				</div>
