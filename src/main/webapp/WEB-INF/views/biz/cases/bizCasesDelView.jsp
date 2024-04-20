@@ -88,7 +88,7 @@ body {
 		</div>
 		<div class="d-flex align-items-end mb-5">
 			<div onclick="location.href='bizCasesContentView?bc_no=${bizCasesDelView.bc_no }'">
-				<span class="text-body-secondary" style="font-size: 12px; cursor:pointer;">뒤로 가기 <i class="fa-solid fa-rotate-left" style="cursor:pointer;"></i></span>
+				<span class="text-body-secondary" style="font-size: 12px; cursor:pointer;">게시물로 돌아가기 <i class="fa-solid fa-rotate-left" style="cursor:pointer;"></i></span>
 			</div>
 		</div>
 	</div>
