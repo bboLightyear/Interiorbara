@@ -54,7 +54,16 @@
 	
 	<div class="d-flex justify-content-evenly">
 		<div class="p-3 d-flex justify-content-end" style="width: 660px;">
-			<button class="btn btn-outline-primary btn-sm w-10" onclick="location.href='bizHomeInfoModView?inteno=${inteno }'"><span style="font-size: 14px;">수정하기</span></button>
+			<c:if test="${empty loginUserDto.myinteriordto.inteno}">
+				</c:if>
+				<c:if test="${not empty loginUserDto.myinteriordto.inteno}">
+					<c:choose>
+						<c:when test="${loginUserDto.myinteriordto.inteno eq bizHome.inteno}">
+							<button class="btn btn-outline-primary btn-sm w-10" onclick="location.href='bizHomeInfoModView?inteno=${inteno }'"><span style="font-size: 14px;">수정하기</span></button>
+						</c:when>
+						<c:otherwise></c:otherwise>							
+					</c:choose>
+				</c:if>
 		</div>	
 	</div>
 </div>	
