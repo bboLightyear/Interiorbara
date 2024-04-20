@@ -1,16 +1,7 @@
 package com.tech.ibara.csnotice;
 
-import java.util.Properties;
-
-import javax.mail.Address;
-import javax.mail.Authenticator;
-import javax.mail.Message;
 import javax.mail.MessagingException;
-import javax.mail.Session;
-import javax.mail.Transport;
 import javax.mail.internet.AddressException;
-import javax.mail.internet.InternetAddress;
-import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.ibatis.session.SqlSession;
@@ -21,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.tech.ibara.csnotice.service.CsHomeQnaNoticeService;
 import com.tech.ibara.csnotice.service.CsHomeService;
-import com.tech.ibara.my.util.Gmail;
+import com.tech.ibara.csnotice.service.CsMailService;
 
 
 
@@ -62,43 +53,10 @@ public class CsHomeController {
 	public String mailsend(HttpServletRequest request, Model model) throws AddressException, MessagingException {
 		System.out.println("mailsend()controller");
 		
-		String to = "bokun0502@gmail.com"; // 받는 사람의 이메일 주소
-	    String from = "bokun0502@gmail.com"; // 보내는 사람의 이메일 주소
-	    String host = "smtp.gmail.com"; // 구글 메일 서버 호스트 이름
+		model.addAttribute("request",request);
 		
-	    String subject="test";
-		String content="test";
-
-		Properties p=new Properties();
-		p.put("mail.smtp.user", from);
-		p.put("mail.smtp.host", "smtp.googlemail.com");
-		p.put("mail.smtp.port", "465");
-//		p.put("mail.smtp.port", "587");
-		
-		p.put("mail.smtp.starttls.enable", "true");
-		p.put("mail.smtp.auth", "true");
-		p.put("mail.smtp.debug", "true");
-		p.put("mail.smtp.socketFactory.port", "465");
-		p.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
-		p.put("mail.smtp.socketFactory.fallback", "false");
-		
-		try{
-			Authenticator auth=new Gmail();
-			Session ses=Session.getInstance(p,auth);
-			ses.setDebug(true);
-			MimeMessage msg=new MimeMessage(ses);
-			msg.setSubject(subject);
-			Address fromAddr=new InternetAddress(from);
-			msg.setFrom(fromAddr);
-			Address toAddr=new InternetAddress(to);
-			msg.addRecipient(Message.RecipientType.TO, toAddr);
-			msg.setContent(content, "text/html;charset=UTF-8");
-			Transport.send(msg);
-		} catch (Exception e){
-			e.printStackTrace();
-			System.out.println("실패");
-		}
-		
+		csHomeService= new CsMailService();
+		csHomeService.execute(model);
 		
 		return "redirect:cshome";
 	}//mailservice
