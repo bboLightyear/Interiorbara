@@ -356,7 +356,7 @@
 
 	<insert id="bizRvWrite" >
 		INSERT INTO BIZ_RV(BR_NO, BR_CONTENT, BR_WRITER, BR_LIKE_CNT, BR_DATE, BR_POINT, INTENO, MEMNO) 
-    	VALUES(BIZ_MGZ_SEQ.NEXTVAL,#{param1},#{param2},0,SYSDATE,#{param3},#{param4},#{param5})
+    	VALUES(BIZ_RV_SEQ.NEXTVAL,#{param1},#{param2},0,SYSDATE,#{param3},#{param4},#{param5})
 	</insert>
 	
 	<insert id="bizRvImgWrite">
