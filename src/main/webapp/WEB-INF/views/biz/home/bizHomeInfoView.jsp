@@ -21,9 +21,34 @@
 		if(currentHeight<=seventyFivePercentHeight){
 		$('.changeHeight').css('height', seventyFivePercentHeight);
 		}
+    
+    
+    
+    $(".btn-link").click(function() {
+        // 모든 span 요소에 대해 스타일 적용
+        $(this).find("span").css({
+            "font-weight": "bold",
+            "color": "#1e90ff"
+        });
+        
+        // 다른 버튼의 span 요소의 스타일 초기화
+        $(".btn-link").not(this).find("span").css({
+            "font-weight": "normal",
+            "color": "#1a1f27"
+        });
+    });		
+		
+		
 	});
 </script>
 <style>
+	 .fa-solid{
+	 	color: #1034a6;
+	 }
+	 .fa-solid:hover{
+	 	color: #1e90ff;
+	 }
+
 	 a {
 	   text-decoration: none;
 	   color: #1a1f27;

@@ -20,12 +20,12 @@
 <link  rel="stylesheet"
   href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"/>
   	<style>
-		 .fa-solid{
-		 	color: #1034a6;
-		 }
-		 .fa-solid:hover{
-		 	color: #1e90ff;
-		 }	
+	 .fa-solid{
+	 	color: #1034a6;
+	 }
+	 .fa-solid:hover{
+	 	color: #1e90ff;
+	 }	
 		 
 		 th, tr{
 	    	text-align: center;	 
@@ -132,7 +132,7 @@
 									</c:if>			
 								</c:forEach>
 						</td>
-						<td class="align-middle" onclick="javascript_:window.open('${path}/my/memberinfopage?nickname=${dto.br_writer }','pop','menubar=no,status=no,scrollbars=no,resizable=no,width=560,height=700,top=50,left=50');" style="cursor: pointer;">${dto.br_writer } <i class="fa-solid fa-user" style="font-size: 11px;"></i></td>
+						<td class="align-middle" onclick="javascript_:window.open('${path}/my/memberinfopage?memno=${dto.memno }','pop','menubar=no,status=no,scrollbars=no,resizable=no,width=560,height=700,top=50,left=50');" style="cursor: pointer;">${dto.br_writer } <i class="fa-solid fa-user" style="font-size: 11px;"></i></td>
 						
 						
 						

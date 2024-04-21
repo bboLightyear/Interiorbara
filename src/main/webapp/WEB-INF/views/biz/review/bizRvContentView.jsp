@@ -16,12 +16,12 @@
 <link  rel="stylesheet"
   href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"/>
   	<style>
-		 .fa-solid{
-		 	color: #1034a6;
-		 }
-		 .fa-solid:hover{
-		 	color: #1e90ff;
-		 }	
+	 .fa-solid{
+	 	color: #1034a6;
+	 }
+	 .fa-solid:hover{
+	 	color: #1e90ff;
+	 }
 	 
 	 th{
 	 	width: 20%;
@@ -146,7 +146,7 @@
 				</tr>	
 				<tr class="">
 				      <th scope="row" class="table-light border-light-subtle">작성자</th>
-					<td colspan="3" onclick="javascript_:window.open('${path}/my/memberinfopage?nickname=${bizRvContentView.br_writer }','pop','menubar=no,status=no,scrollbars=no,resizable=no,width=560,height=700,top=50,left=50');" style="cursor: pointer;">${bizRvContentView.br_writer } <i class="fa-solid fa-user" style="font-size: 11px;"></i></td>
+					<td colspan="3" onclick="javascript_:window.open('${path}/my/memberinfopage?memno=${bizRvContentView.memno }','pop','menubar=no,status=no,scrollbars=no,resizable=no,width=560,height=700,top=50,left=50');" style="cursor: pointer;">${bizRvContentView.br_writer } <i class="fa-solid fa-user" style="font-size: 11px;"></i></td>
 				</tr>		
 				<tr class="">
 				      <th scope="row"  class="table-light border-light-subtle">별점</th>
@@ -156,23 +156,25 @@
 				      <th scope="row" class="table-light border-light-subtle">내용</th>
 					<td colspan="3">
 					
-		 				<c:forEach items="${imglist }" var="imgdto">
-							
-							<c:if test="${imgdto.brimg_cgn ne null }">
-								<c:set value="${imgdto.brimg_cgn }" var="filename" />
-								<c:set value="${fn:toLowerCase(filename) }" var="fileNm" />
-								<c:forTokens items="${fileNm }" delims="." var="token" varStatus="status">
-								<c:if test="${status.last }">
-									<c:choose>
-										<c:when test="${token eq 'jpg' || token eq 'png' || token eq 'jpeg'}">
-											<img class="pb-3" src="../../resources/upload/biz/review/${imgdto.brimg_cgn }" alt="${imgdto.brimg_cgn }"  width="60%"  />
-										</c:when>
-									<c:otherwise>그림이 아닌 다른 형식 파일입니다.</c:otherwise>		
-									</c:choose>
-								</c:if>
-								</c:forTokens>
-							</c:if>			
-						</c:forEach>
+						<c:if test="${bizRvContentView.br_writer ne '비공개'}">
+			 				<c:forEach items="${imglist }" var="imgdto">
+								
+								<c:if test="${imgdto.brimg_cgn ne null }">
+									<c:set value="${imgdto.brimg_cgn }" var="filename" />
+									<c:set value="${fn:toLowerCase(filename) }" var="fileNm" />
+									<c:forTokens items="${fileNm }" delims="." var="token" varStatus="status">
+									<c:if test="${status.last }">
+										<c:choose>
+											<c:when test="${token eq 'jpg' || token eq 'png' || token eq 'jpeg'}">
+												<img class="pb-3" src="../../resources/upload/biz/review/${imgdto.brimg_cgn }" alt="${imgdto.brimg_cgn }"  width="60%"  />
+											</c:when>
+										<c:otherwise>그림이 아닌 다른 형식 파일입니다.</c:otherwise>		
+										</c:choose>
+									</c:if>
+									</c:forTokens>
+								</c:if>			
+							</c:forEach>
+						</c:if>									
 						<br />
 					${bizRvContentView.br_content }</td>
 				</tr>

@@ -89,7 +89,7 @@
 				</tr>	
 				<tr class="">
 				     <th scope="row"  class="table-light border-light-subtle">작성자</th>
-					<td colspan="3" onclick="javascript_:window.open('${path}/my/memberinfopage?nickname=${bizMgzContentView.bm_writer }','pop','menubar=no,status=no,scrollbars=no,resizable=no,width=560,height=700,top=50,left=50');" style="cursor: pointer;">${bizMgzContentView.bm_writer } <i class="fa-solid fa-user" style="font-size: 11px;"></i></td>
+					<td colspan="3">${bizMgzContentView.bm_writer } </td>
 				</tr>		
 				<tr class="">
 				      <th scope="row" class="table-light border-light-subtle">제목</th>

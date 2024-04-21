@@ -86,7 +86,7 @@
 		
 			<tr class="">
 				<td class="" onclick="location.href='bizMgzContentView?bm_no=${dto.bm_no }'" style="cursor:pointer;">${dto.bm_no }</td>
-				<td class="" onclick="javascript_:window.open('${path}/my/memberinfopage?nickname=${dto.bm_writer }','pop','menubar=no,status=no,scrollbars=no,resizable=no,width=560,height=700,top=50,left=50');" style="cursor: pointer;">${dto.bm_writer } <i class="fa-solid fa-user" style="font-size: 11px;"></i></td>
+				<td class="">${dto.bm_writer }</td>
 				<td class="left">
 					<a href="bizMgzContentView?bm_no=${dto.bm_no }" style="text-decoration: none; color: #1a1f27;">${dto.bm_title }</a>
 				</td>
