@@ -42,7 +42,7 @@ function changeBackgroundColor(color) {
   href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"/>
   	<style>
 	 .fa-solid{
-	 	color: #1a1f27;
+	 	color: #1034a6;
 	 }
 	 .fa-solid:hover{
 	 	color: #1e90ff;
@@ -94,13 +94,15 @@ function changeBackgroundColor(color) {
 				      	<img id="headerImg" src="../../resources/upload/biz/home/${bizHome.bh_img }" width="100%" style="max-width: 750px">
 						<input class="mt-4 form-control" type="file" name="fileNew"  />
 						<input type="hidden" name="bh_img" value="${bizHome.bh_img }" />
+				      	<small id="imgHelp" class="form-text text-muted">가로 700px, 세로 240px로 자동 조정됩니다.</small>						
 				      </div>
 				    </div>
 				    <div class="px-3 py-1">
 				      <label for="bh_name" class="form-label mt-4"><strong>업체명</strong></label>
 				      <input type="text" class="form-control" name="bh_name" id="bh_name" value="${bizHome.bh_name }"  />
+				      <small id="nameHelp" class="form-text text-muted">검색을 위해 정확한 업체명을 기입해 주세요.</small>				      
 				    </div>
-				    <div class="px-3 pt-4" style="font-size: 16px;"><strong>전문시공영역(선택 필수)</strong></div>
+				    <div class="px-3 pt-4" style="font-size: 16px;"><strong>전문시공영역</strong></div>
 				      <div class="form-check pb-1 pe-3 pt-1 ps-4">
 				      	<input type="radio" name="bh_pro" value="마루"  />마루시공 <span style="width: 20px; color: transparent;">_</span>
 						<input type="radio" name="bh_pro" value="도배·페인트"  />도배·페인트 <span style="width: 20px; color: transparent;">_</span>
@@ -109,15 +111,18 @@ function changeBackgroundColor(color) {
 						<input type="radio" name="bh_pro" value="주방"  />주방시공 <span style="width: 20px; color: transparent;">_</span>
 						<input type="radio" name="bh_pro" value="문·샷시"  />문·샷시 <span style="width: 20px; color: transparent;">_____</span>
 						<input type="radio" name="bh_pro" value="조명"  />조명시공 <span style="width: 20px; color: transparent;">__</span>
-						<input type="radio" name="bh_pro" value="시트·필름"  />시트·필름
+						<input type="radio" name="bh_pro" value="시트·필름"  />시트·필름 <br />
+				     	 <small id="proHelp" class="form-text text-muted">선택 필수 사항입니다.</small>							
 				     </div>
 				    <div class="px-3 py-1">
-				      <label for="sigungu" class="form-label mt-3"><strong>주소1 (시/군/구를 정확하게 적어 주세요.)</strong></label>
+				      <label for="sigungu" class="form-label mt-3"><strong>주소1 (시/군/구)</strong></label>
 				      <input class="form-control" id="sigungu" type="text" name="bh_addr1" value="${bizHome.bh_addr1 }"  />
+				      <small id="addr1Help" class="form-text text-muted">시/군/구만 정확하게 기입해 주세요. 주소로 검색 시 활용됩니다.</small>					      
 				    </div>
 				    <div class="px-3 py-1">
-				      <label for="detailAddr" class="form-label mt-4"><strong>주소2 (상세주소를 적어 주세요.)</strong></label>
+				      <label for="detailAddr" class="form-label mt-4"><strong>주소2 (상세주소)</strong></label>
 				      <input class="form-control" id="detailAddr" type="text" name="bh_addr2" value="${bizHome.bh_addr2 }"  />
+				      <small id="addr2Help" class="form-text text-muted">시/군/구를 제외한 상세주소를 기입해 주세요.</small>					      
 				    </div>
 				    <div class="px-3 py-1">
 				      <label for="bh_notice" class="form-label mt-4"><strong>공지</strong></label>

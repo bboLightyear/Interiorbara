@@ -17,7 +17,7 @@
   href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"/>
   	<style>
 	 .fa-solid{
-	 	color: #1a1f27;
+	 	color: #1034a6;
 	 }
 	 .fa-solid:hover{
 	 	color: #1e90ff;
@@ -231,20 +231,29 @@ $(document).ready(function () {
 <body>
 <div class="pt-3 bg-light bg-opacity-75">
 	<div class="d-flex justify-content-center">
-		<div class="p-3" onclick="location.href='bizAddrSearch'" style="width: 750px; cursor:pointer;" >
+		<div class="p-3" style="width: 750px; cursor:pointer;" >
 					<ul class="list-inline">
-						<li class="list-inline-item">
+						<li class="list-inline-item" onclick="location.href='bizAddrSearch'" style="cursor:pointer;">
 							<h4 style="--bs-text-opacity: 1; background-color: #1034a6; padding: 3px; !important;">
 						    	<strong style="color: white;">가볍게. 가까운 곳부터</strong>
 						   	</h4>
 						</li>
-						<li class="list-inline-item">
-								<small class="text-body-secondary">우리집 주변 시공업체를 모아 볼까요?</small>
-						</li>
+						<c:if test="${loginUserDto.memtype ne 'INTERIOR'}">						
+							<li class="list-inline-item" onclick="location.href='bizAddrSearch'" style="cursor:pointer;">
+									<small class="text-body-secondary">우리집 주변 시공업체를 모아 볼까요?</small>
+							</li>
+						</c:if>						
+						<c:if test="${loginUserDto.memtype eq 'INTERIOR'}">
+							<li class="list-inline-item">
+								<div class="ps-1" onclick="location.href='/ibara/biz/home/bizHome?inteno=${loginUserDto.myinteriordto.inteno}'">
+									<span class="text-body-secondary" style="font-size: 16px;"><i class="fa-solid fa-house" style="cursor: pointer;"></i></span>
+								</div>
+							</li>						
+						</c:if>
 					</ul>	
 		</div>
 		<div class="d-flex align-items-end mb-5">
-			<div onclick="location.reload()">
+			<div onclick="location.href='/ibara/biz/search/bizAddrSearch'">
 				<span class="text-body-secondary" style="font-size: 12px; cursor:pointer;">검색 초기화 <i class="fa-solid fa-rotate-left" style="cursor:pointer;"></i></span>
 			</div>
 			<div> &nbsp; &nbsp; </div>
@@ -255,12 +264,13 @@ $(document).ready(function () {
 	</div>
 	
 	<div class="d-flex justify-content-center">	
-		<div class="px-5" style="width: 900px;">
+		<div class="px-5" style="width: 750px;">
 			<div class="input-group pb-4" style="max-width: 1100px">
 			      <input type="text" class="form-control" id="addrSigungu" placeholder="시공하실 주소 검색하기" onclick="popUpAddrSearch();" readonly />
 		      <button class="btn btn-primary btn-sm" type="button" style="cursor:pointer; " onclick="popUpAddrSearch();">주소변경</button>
 		    </div>
 		</div>
+		
 		<div class="text-primary text-opacity-25">
 			<hr />
 		</div>

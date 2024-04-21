@@ -15,13 +15,12 @@
 <link  rel="stylesheet"
   href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"/>
   	<style>
-	.fa-solid{
-		color: #1a1f27;
-	}
-	 
-	.fa-solid:hover{
-		color: #1e90ff;
-	}
+	 .fa-solid{
+	 	color: #1034a6;
+	 }
+	 .fa-solid:hover{
+	 	color: #1e90ff;
+	 }
 	 
 	th{
 		width: 20%;

@@ -19,7 +19,7 @@
 	 }
 	 .fa-solid:hover{
 	 	color: #1e90ff;
-	 }	
+	 }
 	 
 	 th{
 	 	width: 20%;
@@ -84,7 +84,7 @@
 		</div>
 		<div class="d-flex align-items-end mb-5">
 			<div onclick="location.href='bizRvContentView?br_no=${bizRvContentView.br_no }'">
-				<span class="text-body-secondary" style="font-size: 12px; cursor:pointer;">뒤로 가기 <i class="fa-solid fa-rotate-left" style="cursor:pointer;"></i></span>
+				<span class="text-body-secondary" style="font-size: 12px; cursor:pointer;">게시물로 돌아가기 <i class="fa-solid fa-rotate-left" style="cursor:pointer;"></i></span>
 			</div>
 		</div>
 	</div>
@@ -108,7 +108,7 @@
 				</tr>
 				<tr>
 				    <th scope="row" class="table-light border-light-subtle">신고대상</th>
-					<td colspan="3" onclick="javascript_:window.open('${path}/my/memberinfopage?nickname=${bizRvContentView.br_writer }','pop','menubar=no,status=no,scrollbars=no,resizable=no,width=560,height=700,top=50,left=50');" style="cursor: pointer;">
+					<td colspan="3" onclick="javascript_:window.open('${path}/my/memberinfopage?memno=${bizRvContentView.memno }','pop','menubar=no,status=no,scrollbars=no,resizable=no,width=560,height=700,top=50,left=50');" style="cursor: pointer;">
 						${bizRvContentView.br_writer } <i class="fa-solid fa-user" style="font-size: 11px;"></i>
 					</td>
 				</tr>

@@ -21,7 +21,7 @@
 	 }
 	 .fa-solid:hover{
 	 	color: #1e90ff;
-	 }	 
+	 } 
 	 
 	 th, tr{
     	text-align: center;	 

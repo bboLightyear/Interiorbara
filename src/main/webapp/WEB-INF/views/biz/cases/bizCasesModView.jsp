@@ -21,7 +21,7 @@
 	 }
 	 .fa-solid:hover{
 	 	color: #1e90ff;
-	 }	 
+	 } 
 	 
 	 th{
 	 	width: 20%;

@@ -44,7 +44,7 @@
 	 }
 	 .fa-solid:hover{
 	 	color: #1e90ff;
-	 }	 
+	 } 
 	 
 	 th, tr{
     	text-align: center;	 
@@ -60,7 +60,31 @@
 
 	</style>  
 <script>  
-  
+
+$(document).ready(function() {
+    // 각 버튼 클릭 시 실행될 함수
+        $(this).find("#casesSpn").css({
+            "font-weight": "bold",
+            "color": "#1e90ff"
+        });
+    
+    
+    
+    $(".btn-link").click(function() {
+        // 모든 span 요소에 대해 스타일 적용
+        $(this).find("span").css({
+            "font-weight": "bold",
+            "color": "#1e90ff"
+        });
+        
+        // 다른 버튼의 span 요소의 스타일 초기화
+        $(".btn-link").not(this).find("span").css({
+            "font-weight": "normal",
+            "color": "#1a1f27"
+        });
+    });
+});
+
 	// 좋아요 버튼을 클릭 시 실행되는 코드
 	function bmarkChange() {
 		const bh_no = '${bizHome.bh_no }';
@@ -272,16 +296,16 @@
 
 <div class="d-flex justify-content-evenly">
 	<div class="ps-2 pe-3 d-flex justify-content-evenly" style="width: 700px;">
-			<button class="btn btn-link" style="border: 0px; text-decoration: none; color: #1a1f27; justify-content: center;" onclick="returnToHome()">홈</button>
+			<button class="btn btn-link" style="border: 0px; text-decoration: none; color: #1a1f27; justify-content: center;" onclick="returnToHome()"><span id="homeSpn">홈</span></button>
 			<c:if test="${empty loginUserDto.memno}">
-				<button class="btn btn-link" style="border: 0px; text-decoration: none; color: #1a1f27; justify-content: center;" onclick="redirectLogin()">시공사례</button>
-				<button class="btn btn-link" style="border: 0px; text-decoration: none; color: #1a1f27; justify-content: center;" onclick="redirectLogin()">시공리뷰</button>
+				<button class="btn btn-link" style="border: 0px; text-decoration: none; color: #1a1f27; justify-content: center;" onclick="redirectLogin()"><span id="casesSpn">시공사례</span></button>
+				<button class="btn btn-link" style="border: 0px; text-decoration: none; color: #1a1f27; justify-content: center;" onclick="redirectLogin()"><span id="rvSpn">시공리뷰</span></button>
 			</c:if>
 			<c:if test="${not empty loginUserDto.memno}">
-				<button class="btn btn-link" style="border: 0px; text-decoration: none; color: #1a1f27; justify-content: center;" onclick="loadCasesList()">시공사례</button>
-				<button class="btn btn-link" style="border: 0px; text-decoration: none; color: #1a1f27; justify-content: center;" onclick="loadRvList()">시공리뷰</button>
+				<button class="btn btn-link" style="border: 0px; text-decoration: none; color: #1a1f27; justify-content: center;" onclick="loadCasesList()"><span id="casesSpn">시공사례</span></button>
+				<button class="btn btn-link" style="border: 0px; text-decoration: none; color: #1a1f27; justify-content: center;" onclick="loadRvList()"><span id="rvSpn">시공리뷰</span></button>
 			</c:if>
-			<button class="btn btn-link" style="border: 0px; text-decoration: none; color: #1a1f27; justify-content: center;" onclick="loadHomeInfo()">정보</button>
+			<button class="btn btn-link" style="border: 0px; text-decoration: none; color: #1a1f27; justify-content: center;" onclick="loadHomeInfo()"><span id="infoSpn">정보</span></button>
 	</div>
 </div>
 <div class="d-flex justify-content-center" style="height: 1px; margin: 1px; padding: 0px;">

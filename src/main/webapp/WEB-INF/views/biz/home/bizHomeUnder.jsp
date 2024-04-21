@@ -25,6 +25,13 @@
         -webkit-line-clamp: 4 ;
         -webkit-box-orient: vertical;
     }
+
+	 .fa-solid{
+	 	color: #1034a6;
+	 }
+	 .fa-solid:hover{
+	 	color: #1e90ff;
+	 }
     
     a {
 	   text-decoration: none;
