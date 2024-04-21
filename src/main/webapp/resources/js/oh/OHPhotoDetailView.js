@@ -47,6 +47,9 @@ $(document).ready(function() {
 	// 페이지 정보, 값 출력	
 	console.log("pageSelectedNum: " + pageSelectedNum);		
 	
+    // 페이지 로드 시 기본적으로 버튼을 비활성화합니다.
+    document.getElementById("OHPhotoDetailView-main-9inputReplyButton").disabled = true;	
+	
 	// 글쓰기 버튼 - Click	
 	$("#OHPhotoDetailView-main-1toWriteButton").click(function() {
 		// Login Check
@@ -364,21 +367,14 @@ $(document).ready(function() {
 			alert("로그인 페이지로 이동합니다.");
 			window.location.href = "../my/loginform";
 		}	
-	});		
-	
-    // 페이지 로드 시 기본적으로 버튼을 비활성화합니다.
-    document.getElementById("OHPhotoDetailView-main-9inputReplyButton").disabled = true;	
-    document.getElementById("OHPhotoDetailView-main-9inputReplyButton").style.backgroundColor = "#b1b8c0";
+	});			
     
 	// 활성화된 입력버튼 클릭 => DB에 저장
 	$("#OHPhotoDetailView-main-9inputReplyButton").click(function() {
 		// Login Check						
-		if(memno !== null && memno !== "" && memno !== "/") {
+		if(memno !== null && memno !== 	"" && memno !== "/") {
 			// 로그인 정보, 값 출력	
 			console.log("memno: " + memno);		
-			
-			// 입력 버튼 - 배경색 회색으로 변경
-		    document.getElementById("OHPhotoDetailView-main-9inputReplyButton").style.backgroundColor = "#b1b8c0";
 		
 			var inputValue = $("#OHPhotoDetailView-main-9inputReply").val();
 			
@@ -545,7 +541,7 @@ $(document).ready(function() {
 		            	
 });
 
-//입력창에 입력하면 입력버튼이 활성화된다.
+// 입력창에 입력하면 입력버튼이 활성화된다.
 function checkTextarea() {
     // textarea 요소와 버튼 요소를 선택합니다.
     var textarea = document.getElementById("OHPhotoDetailView-main-9inputReply");
@@ -554,11 +550,9 @@ function checkTextarea() {
     if (textarea.value.trim() !== "") {
         // 입력된 값이 있을 경우 버튼을 활성화합니다.
         button.disabled = false;
-        button.style.backgroundColor = "#1e90ff";
     } else {
         // 입력된 값이 없을 경우 버튼을 비활성화합니다.
-        button.disabled = true;
-        button.style.backgroundColor = "#b1b8c0";        
+        button.disabled = true;        
     }
 }
 

@@ -3,6 +3,8 @@
     
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
+<c:set var="path" value="${pageContext.request.contextPath}"/>
+
 <!DOCTYPE html>
 
 <html>
@@ -29,9 +31,9 @@
 	
 	<!-- header, footer -->
 	<link rel="stylesheet" 
-	href="../resources/css/main/main.css" />
-	<link rel="stylesheet"
-	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css" />	
+		  href="${path}/resources/css/main/main.css" />
+	<link rel="stylesheet" 
+	      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css" />
 	
 </head>
 
@@ -169,8 +171,8 @@
 	
 			<div class="sideBar">
 				<ul >
-					<li><a href="OHMainView">우리 집 자랑하기</a></li>
-					<li><a href="OHPhotoView">집사진</a></li>
+					<a href="OHMainView"><li class="sideBar-OHMainView">우리 집 자랑하기</li></a>
+					<a href="OHPhotoView"><li class="sideBar-OHPhotoView">집사진</li></a>
 					<!-- 집영상 -->
 					<!-- <li><a href="#">집영상</a></li> -->
 					<!-- <li><a href="#">#category</a></li> -->
@@ -451,7 +453,15 @@
 	                                <div id="OHPhotoView-photoHitCount">${dto.pb_hit }</div>
 	                                
 									<!-- 게시글 내용 -->
-	                                <div id="OHPhotoView-photoContent">${dto.pb_content }</div>
+	                                <div id="OHPhotoView-photoContent">
+	                                	<!-- 게시글 상세 페이지로 이동하는 링크 -->
+	                                	<a id="OHPhotoView-moveToDetailContent" onclick="moveToPhotoDetailView(event)">
+	                                		<!-- 게시글 내용 -->
+	                                		${dto.pb_content }
+											<!-- 게시물 번호 -->
+											<input type="hidden" class="OHPhotoViewPbNo" value=${dto.pb_no } />
+										</a>		                                	
+	                                </div>
 	                                
 	                            </div>
 	                            
