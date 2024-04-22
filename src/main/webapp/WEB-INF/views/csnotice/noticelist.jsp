@@ -58,16 +58,6 @@
 			<div class="header_category_list list_5">고객센터</div>
 		</div>
 	</header>
-
-	<%
-	String userId = (String) session.getAttribute("userId");
-	if (userId != null && userId.equals("cus")) {
-	    session.setAttribute("userId", "admin");
-	} else {
-		session.setAttribute("userId", "admin"); 
-	}
-	%>
-	<p style="margin: 0;">userId: <%= session.getAttribute("userId") %></p>
 	
 	<div class="cs_qnaboard_whitespace"> <!--여백--></div>
 	

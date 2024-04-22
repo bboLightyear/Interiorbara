@@ -82,12 +82,7 @@
 </header>
 
 <body>
-	<%
-	if (session.getAttribute("userId") == null) {
-		 session.setAttribute("userId", "cus");
-		/* session.removeAttribute("userId"); */
-	}
-	%>
+
 <div class="cs_write_wrap_all">
 	<div class="cs_write_wrap_form">
 		<div class="cs_write_wrap_form_back"><a class="cs_write_wrap_form_back_a" href="noticelist">&lt;목록으로</a></div>

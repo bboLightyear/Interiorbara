@@ -68,16 +68,6 @@
 </header>
 
 <body>
-	<%-- <%session.setAttribute("userId",null);%> --%>
-	<%
-		session.setAttribute("userId", "cus");
-	%>
-
-	<p style="margin: 0">
-		userId 값 :<%=session.getAttribute("userId")%></p>
-	<%
-		System.out.println("userId 값 : " + session.getAttribute("userId"));
-	%>
 
 	<div class="cs_qnaboard_whitespace">
 		<!--여백-->

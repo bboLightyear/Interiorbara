@@ -53,7 +53,7 @@
 		    	ORDER BY QBHIT DESC
 			) N
 		)
-		WHERE ROWNUM &lt;= 15 <include refid="cshomeqnalistinclude" />
+		WHERE ROWNUM &lt;= 10 <include refid="cshomeqnalistinclude" />
 	</select>
 
 </mapper>
