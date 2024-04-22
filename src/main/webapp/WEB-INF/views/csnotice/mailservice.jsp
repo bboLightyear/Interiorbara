@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<c:set var="path" value="${pageContext.request.contextPath}" />
 <!DOCTYPE html>
 <html>
 <head>
@@ -111,12 +112,14 @@
 				    	<option value="inc">불편신고</option>
 				    	<option value="oth">기타</option>
 			  		</select>
-			  		<span class="icoArrow"><img src="https://freepikpsd.com/media/2019/10/down-arrow-icon-png-7-Transparent-Images.png" alt="1"></span>
+			  		<span class="icoArrow"><img src="${path }/resources/img/csimg/아래화살표.png" alt="아래화살표"></span>
 				</div><!--selectBox  -->
 			</div><!--  cs_mail_wrap_selectBox-->
 			
-			<div class="cs_write_wrap_form_title">
-				<div class="cs_mail_wrap_title_it"><h4 style="margin: 0;">제목입력</h4></div>
+			<div class="cs_mail_wrap_form_title">
+				<div class="cs_mail_wrap_title_it">
+					<h4 style="margin: 0;">제목입력</h4>
+				</div>
 				<input type="text" class="cs_mail_wrap_form_title_it" name="mailtitle" value="제목을 입력해주세요." onfocus="clearInput(this)"/>
 				
 				<script>// 글제목 커서 올릴 때 제목입력 문구 사라지게 하는 스크립트

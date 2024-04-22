@@ -41,6 +41,8 @@
 	height: 28px;
 	margin: 44px 0px 20px;
 	text-decoration: none;
+	color: gray;
+	font-size: 15px;
 }
 .cs_home_notice_ul{/*공지사할 ul*/
  	margin-top: 20px; 
@@ -89,6 +91,15 @@
     position: relative;
     padding-left: 20px;
     margin: 0;
+}
+.cs_wrap_mailbtn{
+    display: flex;
+    flex-direction: row; /* 요소들을 세로로 배치할 때 */
+    margin-top: 10px;
+}
+.emailbtn:hover, .emailcopy:hover {
+    background-color: #1034a6;  /* 마우스를 올렸을 때의 배경 색상 설정 */
+    color: white;               /* 텍스트 색상을 흰색으로 설정 */
 }
 .chatbtn{
 	width: 372px;
@@ -203,6 +214,16 @@
 .cs_home_qnaboard_nav_label_a{
 	text-decoration: none;
 	color: gray;
+}
+.cs_home_qnaboard_nav_label:hover, .cs_home_qnaboard_nav_label_a:hover {
+    background-color: #1034a6;  /* 마우스를 올렸을 때의 배경 색상 설정 */
+    color: white;               /* 텍스트 색상을 흰색으로 설정 */
+    border: none;
+}
+
+/* Link specific styles, might require stronger specificity or !important to override defaults */
+.cs_home_qnaboard_nav_label_a:hover {
+    text-decoration: none;     /* 링크의 밑줄 제거 */
 }
 
 .cs_home_section2{
@@ -804,13 +825,23 @@
 .cs_mail_wrap_title{
 	width: 750px;
 }
+.cs_mail_wrap_form_title{
+	height: 80px;
+	margin-top: 30px;
+}
 .cs_mail_wrap_form_title_it{
 	width: 750px;
 	height: 30px;
 	font-size: 18px;
 	color : gray;
 	padding: 0;
-	border-color: #1034a6;
+	border: 2px solid #1034a6;
+	margin-top: 5px;
+	border-radius: 5px;
+}
+.cs_mail_wrap_form_title_it:focus {
+    border-color: #1034a6; /* 초기 보더 색상 유지 */
+    outline: none;        /* 브라우저 기본 포커스 테두리 제거 */
 }
 .cs_mail_wrap_title_it{
 	width: 750px;
@@ -836,6 +867,12 @@
 	resize: none;
 	/* border-color: #1034a6; */
 	border: 2px solid #1034a6;
+	border-radius: 5px;
+	margin-top: 5px;
+}
+.cs_mail_wrap_form_content_ta:focus {
+    border-color: #1034a6; /* 초기 보더 색상 유지 */
+    outline: none;        /* 브라우저 기본 포커스 테두리 제거 */
 }
 .cs_mail_wrap_selectBox{
 	width: 750px;
