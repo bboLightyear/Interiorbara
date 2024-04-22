@@ -47,7 +47,7 @@ public class MyProfileUpdateService implements VService {
 		MyDao mdao=sqlSession.getMapper(MyDao.class);
 		try {
 			if(!originFile.equals("")) {
-				file.transferTo(new File(pathfile));				
+				file.transferTo(new File(pathfile));
 				result = mdao.updateProfileimg(changeFile,memno);
 			}else {//선택한 파일이 없으면 프로필사진을 삭제
 				result = mdao.updateProfileimg(originFile, memno);

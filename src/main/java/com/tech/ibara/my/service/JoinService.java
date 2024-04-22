@@ -52,7 +52,7 @@ public class JoinService implements SService {
       
       boolean nnbool=Pattern.matches("^(?=.*[a-z0-9가-힣])[a-z0-9ㄱ-힣]{2,15}$", nickname);
       System.out.println("nnbool : "+nnbool);
-      if(!nnbool) {
+      if(!nnbool || nickname.equals("admin")|| nickname.equals("비공개")) {
     	  return "nn check";
       }
       

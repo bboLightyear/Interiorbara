@@ -78,5 +78,13 @@ public class MyMemberInfoDto {
 		this.profileimg = profileimg;
 		this.mysellerdto = mysellerdto;
 	}
+	public MyMemberInfoDto(int memno, String nickname, String email, String memtype, String profileimg) {
+		super();
+		this.memno = memno;
+		this.nickname = nickname;
+		this.email = email;
+		this.memtype = memtype;
+		this.profileimg = profileimg;
+	}
 		
 }

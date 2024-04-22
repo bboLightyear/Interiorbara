@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@include file="header.jsp"%>
 <script>
-	document.title = "Interior Info Edit";
+	document.title = "인테리어업체 회원정보수정";
 </script>
 <script defer src="${path}/resources/js/my/mypage.js"></script>
 <script defer src="${path}/resources/js/my/mypagemodify.js"></script>
@@ -31,9 +31,9 @@
 		    </div>
 		    <span id="deleteimg"><i class="fa-regular fa-circle-xmark"></i></span>
 		    <div class="profile-btn-area">
-		        <label class="radius10" for="imgInput">이미지 선택</label>
+		        <label class="radius10" style="margin:15px;" for="imgInput">이미지 선택</label>
 		        <input type="file" name="profileimg" id="imgInput" accept="image/*">
-		        <button class="radius10">변경하기</button> 
+		        <button class="radius10">변경하기</button>
 		    </div>
 		</form>
 		<form action="intemodify" id="modify" method="post">    
@@ -77,7 +77,7 @@
 		        			<input type="radio" name="gender" style="width:23px;" value="m" />남
 		        			<input type="radio" name="gender" style="width:23px;" value="fm" />여
 			        		<input type="radio" name="gender" style="width:23px;" value="notCheck" checked/>선택하지않음	        		
-		        		</c:otherwise>        	
+		        		</c:otherwise>
 		        	</c:choose>		        		        
 		        </p>
 		    </div>

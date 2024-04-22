@@ -28,8 +28,9 @@ public class MypageMainService implements VService{
 //		int likePR= mdao.countLikePhotoReply(memno);
 		int scrapPB= mdao.countScrapPhotoBoard(memno);
 		int bmarkbiz=mdao.countBizBmark(memno);
+		int likeBr=mdao.countLikeBizRv(memno);
 		
-		int mylike=likePB;
+		int mylike=likePB+likeBr;
 		int myscrap=scrapPB+bmarkbiz;
 		
 		System.out.println("mylike : "+mylike);

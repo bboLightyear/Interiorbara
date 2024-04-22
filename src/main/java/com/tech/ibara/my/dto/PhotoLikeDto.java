@@ -17,5 +17,6 @@ public class PhotoLikeDto {
 	private int pb_no;
 	
 	private PhotoBoardDto photoBoardDto;
+	private MyMemberInfoDto myMemberInfoDto;
 
 }

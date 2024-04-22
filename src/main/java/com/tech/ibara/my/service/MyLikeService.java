@@ -9,6 +9,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.ui.Model;
 
 import com.tech.ibara.my.dao.MyDao;
+import com.tech.ibara.my.dto.MyBizRvDto;
 import com.tech.ibara.my.dto.MyMemberInfoDto;
 import com.tech.ibara.my.dto.PhotoLikeDto;
 import com.tech.ibara.oh.dao.OHInterfaceDao;
@@ -29,7 +30,11 @@ public class MyLikeService implements VService{
 		int likePb= mdao.countLikePhotoBoard(memno);
 		model.addAttribute("likePb",likePb);		
 		ArrayList<PhotoLikeDto> pblikedto = mdao.getPhotoBoardLikeList(memno);
-		model.addAttribute("likelist",pblikedto);
+		model.addAttribute("pblikelist",pblikedto);
+		int likeBr=mdao.countLikeBizRv(memno);
+		model.addAttribute("likeBr",likeBr);		
+		ArrayList<MyBizRvDto> rvlikelist=mdao.rvLikedList(memno);
+		model.addAttribute("rvlikelist",rvlikelist);
 	}
 	
 

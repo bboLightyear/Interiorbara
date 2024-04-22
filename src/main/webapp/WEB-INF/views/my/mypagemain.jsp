@@ -29,19 +29,19 @@ document.title = "마이페이지";
     		</li>
     	</ul>
         <ul class="board">
-        	<li class="fl tc w150">${loginUserDto.nickname}님</li>
+        	<li class="fl tc w150"><b>${loginUserDto.nickname}</b>님</li>
         </ul>
        	<ul class="board">
-       		<li class="fl tc w80"><a href="myscrap"><img class="w50 simg" src="../resources/img/my/bookmark.png" alt="" /></a></li>
-       		<li class="fl tc w80"><a href="mylike"><img class="w50 simg" src="../resources/img/my/heart.png" alt="" /></a></li>        		
+       		<li class="fl tc w80"><a href="myscrap"><img class="simg" src="${path}/resources/img/my/bookmark.png" alt="" /></a></li>
+       		<li class="fl tc w80"><a href="mylike"><img class="simg" src="${path}/resources/img/my/heart.png" alt="" /></a></li>        		
        	</ul>
        	<ul class="board">
-       		<li class="fl tc w80"><a class="aaa" href="myscrap">스크랩북</a></li>
-       		<li class="fl tc w80"><a class="aaa" href="mylike">좋아요</a></li>
+       		<li class="fl tc w80"><a class="abc" href="myscrap">스크랩북</a></li>
+       		<li class="fl tc w80"><a class="abc" href="mylike">좋아요</a></li>
        	</ul>
        	<ul class="board">
-       		<li class="fl tc w80"><a class="aaa" href="myscrap">${myscrap}</a></li>
-       		<li class="fl tc w80"><a class="aaa" href="mylike">${mylike}</a></li>
+       		<li class="fl tc w80"><a class="abc" href="myscrap">${myscrap}</a></li>
+       		<li class="fl tc w80"><a class="abc" href="mylike">${mylike}</a></li>
        	</ul>
     </div>
         

@@ -13,8 +13,8 @@ document.title = "판매자 회원정보수정";
 	    <div class="mypage_category_list list_2"><a href="sellersale">판매</a></div> <br />
     </div> -->
     <div class="mypage_category">
-        <div class="mypage_category_list list_1_1"><a href="mypage">모두보기</a></div>
-	    <div class="mypage_category_list list_1_2"><a href="sellerinfoedit">회원정보수정</a></div>
+        <div class="mypage_category_list list_1_1"><a href="mypage">프로필</a></div>
+	    <div class="mypage_category_list list_1_2 pointcolor">회원정보수정</div>
         <div class="mypage_category_list list_1_3"><a href="sellerpasswordedit">비밀번호변경</a></div>
     </div>
     <div id="mypageedit" align="center">
@@ -33,7 +33,7 @@ document.title = "판매자 회원정보수정";
 		    </div>
 		    <span id="deleteimg"><i class="fa-regular fa-circle-xmark"></i></span>
 		    <div class="profile-btn-area">
-		        <label class="radius10" for="imgInput">이미지 선택</label>
+		        <label class="radius10"  style="margin:15px;" for="imgInput">이미지 선택</label>
 		        <input type="file" name="profileimg" id="imgInput" accept="image/*">
 		        <button class="radius10">변경하기</button> 
 		    </div>

@@ -24,6 +24,7 @@ tr:nth-child(even) {background-color: #fefefe;}
 			<div  class="formdiv pd8">
 			<select name="searchType" class="mg3pd6">
 				<option selected disabled>--검색선택--</option>
+				<option value="num" <c:if test="${mlSel=='num'}">selected</c:if>>회원번호</option>
 				<option value="nn" <c:if test="${mlSel=='nn'}">selected</c:if>>닉네임</option>
 				<option value="mt" <c:if test="${mlSel=='mt'}">selected</c:if>>멤버타입</option>
 			</select>
@@ -33,13 +34,13 @@ tr:nth-child(even) {background-color: #fefefe;}
 		</form><br/>
 		<span class="formdiv mg3pd6">총 <b>${total}</b>명</span>
 
-		<table align="center" class="scraptable">
+		<table align="center" class="admintablestyle tc mt30">
 			<tr>
-				<th class="scrapth">회원번호</th>
+				<th class="scrapth w180">회원번호</th>
 				<th class="scrapth">회원닉네임</th>
 				<th class="scrapth">이메일</th>
-				<th class="scrapth">가입일</th>
-				<th class="scrapth">회원구분</th>
+				<th class="scrapth w180">가입일</th>
+				<th class="scrapth w180">회원구분</th>
 			</tr>
 			<c:forEach items="${mlist}" var="mdto">
 			<tr>

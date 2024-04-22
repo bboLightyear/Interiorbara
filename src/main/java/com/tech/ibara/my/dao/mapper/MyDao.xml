@@ -7,248 +7,311 @@
 	<sql id="includeWhere">
 		<choose>
 			<when test="param1==1">
-				WHERE MEMNO = #{param2}			
+				WHERE MEMNO = #{param2}
 			</when>
 			<when test="param1==2">
-				WHERE NICKNAME = #{param2}			
+				WHERE NICKNAME = #{param2}
 			</when>
 			<when test="param1==3">
 				WHERE EMAIL = #{param2}
 			</when>
 			<otherwise></otherwise>
-		</choose>	
-	</sql> 
+		</choose>
+	</sql>
 	<insert id="join">
-		INSERT INTO MY_MEMBER_INFO (MEMNO,NICKNAME,SHPWD,BCPWD,EMAIL,
-		MAILCHECK,JOINDATE,MEMTYPE) VALUES(MEMNO_SEQ.NEXTVAL,#{param1},
+		INSERT INTO MY_MEMBER_INFO
+		(MEMNO,NICKNAME,SHPWD,BCPWD,EMAIL,
+		MAILCHECK,JOINDATE,MEMTYPE)
+		VALUES(MEMNO_SEQ.NEXTVAL,#{param1},
 		#{param2},#{param3},#{param4},0,SYSTIMESTAMP,'NOTMAILCHECK')
 	</insert>
 	<select id="countCheck" resultType="Integer">
-		SELECT COUNT(*) FROM MY_MEMBER_INFO <include refid="includeWhere" />
-	</select>	
-	
+		SELECT COUNT(*) FROM MY_MEMBER_INFO
+		<include refid="includeWhere" />
+	</select>
+
 	<select id="getMemberEmail" resultType="string">
-		SELECT EMAIL FROM MY_MEMBER_INFO WHERE NICKNAME = #{param1}
+		SELECT EMAIL FROM
+		MY_MEMBER_INFO WHERE NICKNAME = #{param1}
 	</select>
 	<select id="getMemberNickname" resultType="string">
-		SELECT NICKNAME FROM MY_MEMBER_INFO WHERE EMAIL = #{param1}
+		SELECT NICKNAME FROM
+		MY_MEMBER_INFO WHERE EMAIL = #{param1}
 	</select>
 	<select id="getMemberMemno" resultType="Integer">
-		SELECT MEMNO FROM MY_MEMBER_INFO WHERE NICKNAME = #{param1}
-	</select>	
+		SELECT MEMNO FROM
+		MY_MEMBER_INFO WHERE NICKNAME = #{param1}
+	</select>
 	<update id="setMemberEmailChecked">
-		UPDATE MY_MEMBER_INFO SET MAILCHECK = 1, MEMTYPE='PERSON' WHERE NICKNAME = #{param1}
-	</update>	
-	
-	<select id="getMemberInfo" resultType="com.tech.ibara.my.dto.MyMemberInfoDto">
+		UPDATE MY_MEMBER_INFO SET MAILCHECK = 1,
+		MEMTYPE='PERSON' WHERE NICKNAME = #{param1}
+	</update>
+
+	<select id="getMemberInfo"
+		resultType="com.tech.ibara.my.dto.MyMemberInfoDto">
 		SELECT MEMNO,NICKNAME,SHPWD,BCPWD,EMAIL,MAILCHECK,BIRTH,GENDER,
-		PHONE,JOINDATE,MEMTYPE,PROFILEIMG FROM MY_MEMBER_INFO <include refid="includeWhere" />
+		PHONE,JOINDATE,MEMTYPE,PROFILEIMG FROM MY_MEMBER_INFO
+		<include refid="includeWhere" />
 	</select>
 
 	<update id="updateProfileimg">
-		UPDATE MY_MEMBER_INFO SET PROFILEIMG = #{param1} WHERE MEMNO = #{param2}
+		UPDATE MY_MEMBER_INFO SET PROFILEIMG = #{param1}
+		WHERE MEMNO = #{param2}
 	</update>
 	<update id="modifyMyMemberInfo">
-		UPDATE MY_MEMBER_INFO SET NICKNAME=#{param1},PHONE=#{param2},
-		BIRTH=#{param3},GENDER=#{param4} WHERE EMAIL=#{param5}
+		UPDATE MY_MEMBER_INFO SET
+		NICKNAME=#{param1},PHONE=#{param2},
+		BIRTH=#{param3},GENDER=#{param4}
+		WHERE EMAIL=#{param5}
 	</update>
 	<insert id="insertMyWithdrawal">
-		INSERT INTO MY_WITHDRAWAL VALUES(WDNO_SEQ.NEXTVAL,#{param1},SYSTIMESTAMP,#{param2},'N')
+		INSERT INTO MY_WITHDRAWAL
+		VALUES(WDNO_SEQ.NEXTVAL,#{param1},SYSTIMESTAMP,#{param2},'N')
 	</insert>
-	
+
 	<update id="updatePassword">
-		UPDATE MY_MEMBER_INFO SET SHPWD=#{param1}, BCPWD=#{param2}  WHERE NICKNAME = #{param3}
+		UPDATE MY_MEMBER_INFO SET SHPWD=#{param1},
+		BCPWD=#{param2} WHERE NICKNAME = #{param3}
 	</update>
 	<select id="getmailcheckNum" resultType="Integer">
-		SELECT MAILCHECK FROM MY_MEMBER_INFO WHERE NICKNAME = #{param1}
+		SELECT MAILCHECK FROM
+		MY_MEMBER_INFO WHERE NICKNAME = #{param1}
 	</select>
-	<select id="getDemandWithdrawalMember" resultType="com.tech.ibara.my.dto.MyWithdrawalDto">
-		SELECT WDNO,MEMNO,WDDATE,REASON,YESNO FROM MY_WITHDRAWAL ORDER BY WDNO DESC
+	<select id="getDemandWithdrawalMember"
+		resultType="com.tech.ibara.my.dto.MyWithdrawalDto">
+		SELECT WDNO,MEMNO,WDDATE,REASON,YESNO FROM MY_WITHDRAWAL
+		ORDER BY WDNO DESC
 	</select>
 	<select id="memnoDuplCheck" resultType="Integer">
-		SELECT COUNT(*) FROM MY_WITHDRAWAL WHERE MEMNO=#{param1}
+		SELECT COUNT(*) FROM
+		MY_WITHDRAWAL WHERE MEMNO=#{param1}
 	</select>
 	<select id="yesnoCheck_Withdrawal" resultType="string">
-		SELECT YESNO FROM MY_WITHDRAWAL WHERE MEMNO=#{param1}
+		SELECT YESNO FROM
+		MY_WITHDRAWAL WHERE MEMNO=#{param1}
 	</select>
 	<update id="allowWithdrawal">
-		UPDATE MY_WITHDRAWAL SET YESNO=#{param1} WHERE MEMNO=#{param2}	
+		UPDATE MY_WITHDRAWAL SET YESNO=#{param1} WHERE
+		MEMNO=#{param2}
 	</update>
 	<select id="getMemtype" resultType="string">
-		SELECT MEMTYPE FROM MY_MEMBER_INFO WHERE MEMNO=#{param1}
+		SELECT MEMTYPE FROM
+		MY_MEMBER_INFO WHERE MEMNO=#{param1}
 	</select>
 	<update id="completedWithdrawal">
-		UPDATE MY_MEMBER_INFO SET MEMTYPE='WITHDRAWAL' WHERE MEMNO = #{param1}
+		UPDATE MY_MEMBER_INFO SET MEMTYPE='WITHDRAWAL' WHERE
+		MEMNO = #{param1}
 	</update>
 	<update id="cancelWithdrawal">
-		UPDATE MY_MEMBER_INFO SET MEMTYPE='PERSON' WHERE MEMNO = #{param1}
+		UPDATE MY_MEMBER_INFO SET MEMTYPE='PERSON' WHERE
+		MEMNO = #{param1}
 	</update>
 	<sql id="includeMemberCount">
 		<choose>
 			<when test="param1==1">
-				WHERE NICKNAME LIKE '%'||#{param2}||'%'
+				WHERE MEMNO LIKE '%'||#{param2}||'%'
 			</when>
 			<when test="param1==2">
+				WHERE NICKNAME LIKE '%'||#{param2}||'%'
+			</when>
+			<when test="param1==3">
 				WHERE MEMTYPE LIKE '%'||#{param2}||'%'
 			</when>
 			<otherwise></otherwise>
-		</choose>	
-	</sql>	
+		</choose>
+	</sql>
 	<select id="countMemberList" resultType="Integer">
-		SELECT COUNT(*) FROM MY_MEMBER_INFO <include refid="includeMemberCount" />
+		SELECT COUNT(*) FROM MY_MEMBER_INFO
+		<include refid="includeMemberCount" />
 	</select>
-	<select id="getMemberInfoList" resultType="com.tech.ibara.my.dto.MyMemberInfoDto">
+	<select id="getMemberInfoList"
+		resultType="com.tech.ibara.my.dto.MyMemberInfoDto">
 		SELECT MEMNO,NICKNAME,SHPWD,BCPWD,EMAIL,MAILCHECK,BIRTH,GENDER,
-		PHONE,JOINDATE,MEMTYPE,PROFILEIMG FROM MY_MEMBER_INFO <include refid="includeMemberCount" /> ORDER BY MEMTYPE,MEMNO
+		PHONE,JOINDATE,MEMTYPE,PROFILEIMG FROM MY_MEMBER_INFO
+		<include refid="includeMemberCount" />
+		ORDER BY MEMTYPE,MEMNO
 	</select>
 	<insert id="insertInterior">
-		INSERT INTO MY_INTERIOR VALUES(INTENO_SEQ.NEXTVAL,#{param1},#{param2})
+		INSERT INTO MY_INTERIOR
+		VALUES(INTENO_SEQ.NEXTVAL,#{param1},#{param2})
 	</insert>
 	<insert id="insertSeller">
-		INSERT INTO MY_SELLER VALUES(SELLERNO_SEQ.NEXTVAL,#{param1},#{param2})
+		INSERT INTO MY_SELLER
+		VALUES(SELLERNO_SEQ.NEXTVAL,#{param1},#{param2})
 	</insert>
 	<select id="countCheckInterior" resultType="Integer">
-		SELECT COUNT(*) FROM MY_INTERIOR WHERE INTERIORNUM=#{param1}
+		SELECT COUNT(*) FROM
+		MY_INTERIOR WHERE INTERIORNUM=#{param1}
 	</select>
-		
+
 	<select id="countCheckSeller" resultType="Integer">
-		SELECT COUNT(*) FROM MY_SELLER WHERE SELLERNUM=#{param1}
+		SELECT COUNT(*) FROM
+		MY_SELLER WHERE SELLERNUM=#{param1}
 	</select>
 	<update id="completedInterior">
-		UPDATE MY_MEMBER_INFO SET MEMTYPE='INTERIOR' WHERE MEMNO = #{param1}
+		UPDATE MY_MEMBER_INFO SET MEMTYPE='INTERIOR' WHERE
+		MEMNO = #{param1}
 	</update>
 	<update id="completedSeller">
-		UPDATE MY_MEMBER_INFO SET MEMTYPE='SELLER' WHERE MEMNO = #{param1}
+		UPDATE MY_MEMBER_INFO SET MEMTYPE='SELLER' WHERE
+		MEMNO = #{param1}
 	</update>
-	<!-- <delete id="deleteInterior">
-		DELETE FROM MY_INTERIOR WHERE MEMNO=#{param1}
-	</delete>
-	<delete id="deleteSeller">
-		DELETE FROM MY_SELLER WHERE MEMNO=#{param1}
-	</delete> -->
+	<!-- <delete id="deleteInterior"> DELETE FROM MY_INTERIOR WHERE MEMNO=#{param1} 
+		</delete> <delete id="deleteSeller"> DELETE FROM MY_SELLER WHERE MEMNO=#{param1} 
+		</delete> -->
 	<delete id="deleteDemandWithdrawal">
 		DELETE FROM MY_WITHDRAWAL WHERE MEMNO=#{param1}
 	</delete>
 	<select id="countCheckNonmember" resultType="Integer">
-		SELECT COUNT(*) FROM MY_NONMEMBER WHERE EMAIL=#{param1}
-	</select>	
-	<select id="getNonmember" resultType="com.tech.ibara.my.dto.MyNonMemberDto">
-		SELECT ESTINO,NAME,PHONE,EMAIL,PW FROM MY_NONMEMBER WHERE EMAIL=#{param1} 
+		SELECT COUNT(*) FROM
+		MY_NONMEMBER WHERE EMAIL=#{param1}
 	</select>
-	<!-- <select id="getInterior" resultType="com.tech.ibara.my.dto.MyInteriorDto">
-		SELECT INTENO,MEMNO,INTERIORNUM FROM MY_INTERIOR WHERE MEMNO=#{param1}
+	<select id="getNonmember"
+		resultType="com.tech.ibara.my.dto.MyNonMemberDto">
+		SELECT ESTINO,NAME,PHONE,EMAIL,PW FROM MY_NONMEMBER WHERE
+		EMAIL=#{param1}
 	</select>
-	<select id="getSeller" resultType="com.tech.ibara.my.dto.MySellerDto">
-		SELECT SELLERNO,MEMNO,SELLERNUM FROM MY_SELLER WHERE MEMNO=#{param1}
-	</select> -->
-	<resultMap type="com.tech.ibara.my.dto.MyInteriorDto" id="MyInteriorDto">
-		<result column="INTENO" property="inteno"/>
-		<result column="MEMNO" property="memno"/>
-		<result column="INTERIORNUM" property="interiornum"/>
+	<!-- <select id="getInterior" resultType="com.tech.ibara.my.dto.MyInteriorDto"> 
+		SELECT INTENO,MEMNO,INTERIORNUM FROM MY_INTERIOR WHERE MEMNO=#{param1} </select> 
+		<select id="getSeller" resultType="com.tech.ibara.my.dto.MySellerDto"> SELECT 
+		SELLERNO,MEMNO,SELLERNUM FROM MY_SELLER WHERE MEMNO=#{param1} </select> -->
+	<resultMap type="com.tech.ibara.my.dto.MyInteriorDto"
+		id="MyInteriorDto">
+		<result column="INTENO" property="inteno" />
+		<result column="MEMNO" property="memno" />
+		<result column="INTERIORNUM" property="interiornum" />
 	</resultMap>
-	<resultMap type="com.tech.ibara.my.dto.MySellerDto" id="MySellerDto">
-		<result column="SELLERNO" property="sellerno"/>
-		<result column="MEMNO" property="memno"/>
-		<result column="SELLERNUM" property="sellernum"/>
+	<resultMap type="com.tech.ibara.my.dto.MySellerDto"
+		id="MySellerDto">
+		<result column="SELLERNO" property="sellerno" />
+		<result column="MEMNO" property="memno" />
+		<result column="SELLERNUM" property="sellernum" />
 	</resultMap>
-	<resultMap type="com.tech.ibara.my.dto.MyMemberInfoDto" id="MyMemberInfoDtoI">
-		<result column="MEMNO" property="memno"/>
-		<result column="NICKNAME" property="nickname"/>
-		<result column="SHPWD" property="shpwd"/>
-		<result column="BCPWD" property="bcpwd"/>
-		<result column="EMAIL" property="email"/>
-		<result column="MAILCHECK" property="mailcheck"/>
-		<result column="BIRTH" property="birth"/>
-		<result column="GENDER" property="gender"/>
-		<result column="PHONE" property="phone"/>
-		<result column="JOINDATE" property="joindate"/>
-		<result column="MEMTYPE" property="memtype"/>
-		<result column="PROFILEIMG" property="profileimg"/>
-		<collection property="myinteriordto" resultMap="MyInteriorDto"></collection>
+	<resultMap type="com.tech.ibara.my.dto.MyMemberInfoDto"
+		id="MyMemberInfoDtoI">
+		<result column="MEMNO" property="memno" />
+		<result column="NICKNAME" property="nickname" />
+		<result column="SHPWD" property="shpwd" />
+		<result column="BCPWD" property="bcpwd" />
+		<result column="EMAIL" property="email" />
+		<result column="MAILCHECK" property="mailcheck" />
+		<result column="BIRTH" property="birth" />
+		<result column="GENDER" property="gender" />
+		<result column="PHONE" property="phone" />
+		<result column="JOINDATE" property="joindate" />
+		<result column="MEMTYPE" property="memtype" />
+		<result column="PROFILEIMG" property="profileimg" />
+		<collection property="myinteriordto"
+			resultMap="MyInteriorDto"></collection>
 	</resultMap>
-	<resultMap type="com.tech.ibara.my.dto.MyMemberInfoDto" id="MyMemberInfoDtoS">
-		<result column="MEMNO" property="memno"/>
-		<result column="NICKNAME" property="nickname"/>
-		<result column="SHPWD" property="shpwd"/>
-		<result column="BCPWD" property="bcpwd"/>
-		<result column="EMAIL" property="email"/>
-		<result column="MAILCHECK" property="mailcheck"/>
-		<result column="BIRTH" property="birth"/>
-		<result column="GENDER" property="gender"/>
-		<result column="PHONE" property="phone"/>
-		<result column="JOINDATE" property="joindate"/>
-		<result column="MEMTYPE" property="memtype"/>
-		<result column="PROFILEIMG" property="profileimg"/>
+	<resultMap type="com.tech.ibara.my.dto.MyMemberInfoDto"
+		id="MyMemberInfoDtoS">
+		<result column="MEMNO" property="memno" />
+		<result column="NICKNAME" property="nickname" />
+		<result column="SHPWD" property="shpwd" />
+		<result column="BCPWD" property="bcpwd" />
+		<result column="EMAIL" property="email" />
+		<result column="MAILCHECK" property="mailcheck" />
+		<result column="BIRTH" property="birth" />
+		<result column="GENDER" property="gender" />
+		<result column="PHONE" property="phone" />
+		<result column="JOINDATE" property="joindate" />
+		<result column="MEMTYPE" property="memtype" />
+		<result column="PROFILEIMG" property="profileimg" />
 		<collection property="mysellerdto" resultMap="MySellerDto"></collection>
 	</resultMap>
-	<select id="getInteriorMember" resultType="com.tech.ibara.my.dto.MyMemberInfoDto" resultMap="MyMemberInfoDtoI">
-		SELECT M.MEMNO,NICKNAME,SHPWD,BCPWD,EMAIL,MAILCHECK,BIRTH,GENDER,PHONE,
-		JOINDATE,MEMTYPE,PROFILEIMG,INTENO,INTERIORNUM FROM MY_MEMBER_INFO M JOIN
+	<select id="getInteriorMember"
+		resultType="com.tech.ibara.my.dto.MyMemberInfoDto"
+		resultMap="MyMemberInfoDtoI">
+		SELECT
+		M.MEMNO,NICKNAME,SHPWD,BCPWD,EMAIL,MAILCHECK,BIRTH,GENDER,PHONE,
+		JOINDATE,MEMTYPE,PROFILEIMG,INTENO,INTERIORNUM FROM MY_MEMBER_INFO M
+		JOIN
 		MY_INTERIOR I ON M.MEMNO=I.MEMNO WHERE M.MEMNO=#{param1}
 	</select>
-	<select id="getSellerMember" resultType="com.tech.ibara.my.dto.MyMemberInfoDto" resultMap="MyMemberInfoDtoS">
-		SELECT M.MEMNO,NICKNAME,SHPWD,BCPWD,EMAIL,MAILCHECK,BIRTH,GENDER,PHONE,
-		JOINDATE,MEMTYPE,PROFILEIMG,SELLERNO,SELLERNUM FROM MY_MEMBER_INFO M JOIN 
+	<select id="getSellerMember"
+		resultType="com.tech.ibara.my.dto.MyMemberInfoDto"
+		resultMap="MyMemberInfoDtoS">
+		SELECT
+		M.MEMNO,NICKNAME,SHPWD,BCPWD,EMAIL,MAILCHECK,BIRTH,GENDER,PHONE,
+		JOINDATE,MEMTYPE,PROFILEIMG,SELLERNO,SELLERNUM FROM MY_MEMBER_INFO M
+		JOIN
 		MY_SELLER S ON M.MEMNO=S.MEMNO WHERE S.MEMNO=#{param1}
 	</select>
-	<resultMap type="com.tech.ibara.my.dto.BizRvReportedDto" id="BizRvReportedDto">
-		<result column="BRR_NO" property="brr_no"/>
-		<result column="BRR_CONTENT" property="brr_content"/>
-		<result column="BRR_WRITER" property="brr_writer"/>
-		<result column="BR_NO" property="br_no"/>
+	<resultMap type="com.tech.ibara.my.dto.BizRvReportedDto"
+		id="BizRvReportedDto">
+		<result column="BRR_NO" property="brr_no" />
+		<result column="BRR_CONTENT" property="brr_content" />
+		<result column="BRR_WRITER" property="brr_writer" />
+		<result column="BR_NO" property="br_no" />
 	</resultMap>
-	<resultMap type="com.tech.ibara.my.dto.MyReportDto" id="MyReportDto">
-		<result column="RENO" property="reno"/>
-		<result column="TARGETNO" property="targetno"/>
-		<result column="TARGETTYPE" property="targettype"/>
-		<result column="MEMNO" property="memno"/>
-		<result column="TARGETMEMNO" property="targetmemno"/>
-		<result column="CAUSE" property="cause"/>
-		<result column="REDATE" property="redate"/>
-		<result column="YESNO" property="yesno"/>
-		<collection property="bizRvReportedDto" resultMap="BizRvReportedDto"></collection>
+	<resultMap type="com.tech.ibara.my.dto.MyReportDto"
+		id="MyReportDto">
+		<result column="RENO" property="reno" />
+		<result column="TARGETNO" property="targetno" />
+		<result column="TARGETTYPE" property="targettype" />
+		<result column="MEMNO" property="memno" />
+		<result column="TARGETMEMNO" property="targetmemno" />
+		<result column="CAUSE" property="cause" />
+		<result column="REDATE" property="redate" />
+		<result column="YESNO" property="yesno" />
+		<collection property="bizRvReportedDto"
+			resultMap="BizRvReportedDto"></collection>
 	</resultMap>
-	<select id="getReportList" resultType="com.tech.ibara.my.dto.MyReportDto" resultMap="MyReportDto">
-		SELECT MY.RENO,MY.TARGETNO,MY.TARGETTYPE,MY.MEMNO,MY.TARGETMEMNO,MY.CAUSE,MY.REDATE,
-		MY.YESNO,BIZ.BRR_CONTENT,BIZ.BRR_WRITER FROM MY_REPORT MY 
-		JOIN BIZ_RV_REPORTED BIZ ON MY.TARGETNO=BIZ.BR_NO
+	<select id="getReportList"
+		resultType="com.tech.ibara.my.dto.MyReportDto" resultMap="MyReportDto">
+		SELECT
+		MY.RENO,MY.TARGETNO,MY.TARGETTYPE,MY.MEMNO,MY.TARGETMEMNO,MY.CAUSE,MY.REDATE,
+		MY.YESNO,BIZ.BRR_CONTENT,BIZ.BRR_WRITER FROM MY_REPORT MY
+		JOIN
+		BIZ_RV_REPORTED BIZ ON MY.TARGETNO=BIZ.BR_NO
 	</select>
-	<!-- <select id="yesnoCheck_Report" resultType="string">
-		SELECT YESNO FROM MY_REPORT WHERE RENO=#{param1}
-	</select> -->
+	<!-- <select id="yesnoCheck_Report" resultType="string"> SELECT YESNO FROM 
+		MY_REPORT WHERE RENO=#{param1} </select> -->
 	<update id="allowBlind">
-		UPDATE MY_REPORT SET YESNO=#{param1} WHERE RENO=#{param2}	
+		UPDATE MY_REPORT SET YESNO=#{param1} WHERE
+		RENO=#{param2}
 	</update>
-	<select id="getReportRv" resultType="com.tech.ibara.my.dto.MyReportDto" resultMap="MyReportDto">
-		SELECT MY.RENO,MY.TARGETNO,MY.TARGETTYPE,MY.MEMNO,MY.TARGETMEMNO,MY.CAUSE,MY.REDATE,
-		MY.YESNO,BIZ.BRR_CONTENT,BIZ.BRR_WRITER,BIZ.BR_NO FROM MY_REPORT MY 
+	<select id="getReportRv"
+		resultType="com.tech.ibara.my.dto.MyReportDto" resultMap="MyReportDto">
+		SELECT
+		MY.RENO,MY.TARGETNO,MY.TARGETTYPE,MY.MEMNO,MY.TARGETMEMNO,MY.CAUSE,MY.REDATE,
+		MY.YESNO,BIZ.BRR_CONTENT,BIZ.BRR_WRITER,BIZ.BR_NO FROM MY_REPORT MY
 		JOIN BIZ_RV_REPORTED BIZ ON MY.TARGETNO=BIZ.BR_NO WHERE RENO=#{param1}
 	</select>
 	<update id="blindReview">
-		UPDATE BIZ_RV SET BR_CONTENT='신고로인해 블라인드처리된 글입니다',BR_WRITER='비공개' WHERE BR_NO=#{param1}
+		UPDATE BIZ_RV SET BR_CONTENT='신고로인해 블라인드처리된
+		글입니다',BR_WRITER='비공개' WHERE BR_NO=#{param1}
 	</update>
 	<update id="saveReview">
-		UPDATE BIZ_RV SET BR_CONTENT=#{param1},BR_WRITER=#{param2} WHERE BR_NO=#{param3}
+		UPDATE BIZ_RV SET
+		BR_CONTENT=#{param1},BR_WRITER=#{param2} WHERE BR_NO=#{param3}
 	</update>
 	<select id="countLikePhotoBoard" resultType="Integer">
-		SELECT COUNT(*) FROM OH_PHOTO_LIKE WHERE MEMNO=#{param1}
+		SELECT COUNT(*) FROM
+		OH_PHOTO_LIKE WHERE MEMNO=#{param1}
 	</select>
-	<!-- <select id="countLikePhotoReply" resultType="Integer">
-		SELECT COUNT(*) FROM OH_PHOTO_REPLY_LIKE WHERE MEMNO=#{param1}
-	</select> -->
+	<!-- <select id="countLikePhotoReply" resultType="Integer"> SELECT COUNT(*) 
+		FROM OH_PHOTO_REPLY_LIKE WHERE MEMNO=#{param1} </select> -->
 	<select id="countScrapPhotoBoard" resultType="Integer">
-		SELECT COUNT(*) FROM OH_PHOTO_SCRAP WHERE MEMNO=#{param1}
+		SELECT COUNT(*)
+		FROM OH_PHOTO_SCRAP WHERE MEMNO=#{param1}
 	</select>
 	<select id="countBizBmark" resultType="Integer">
-		SELECT COUNT(*) FROM BIZ_HOME_BMARK WHERE MEMNO=#{param1}
+		SELECT COUNT(*) FROM
+		BIZ_HOME_BMARK WHERE MEMNO=#{param1}
 	</select>
-	<!-- <select id="getBizHomeBmark" resultType="">
-		SELECT BHB_NO,INTENO FROM BIZ_HOME_BMARK WHERE MEMNO=#{param1}
-	</select> -->
-	<resultMap type="com.tech.ibara.my.dto.PhotoBoardDto" id="PhotoBoardDto">
+	<select id="countLikeBizRv" resultType="Integer">
+		SELECT COUNT(*) FROM
+		BIZ_RV_LIKE WHERE MEMNO=#{param1}
+	</select>
+	<!-- <select id="getBizHomeBmark" resultType=""> SELECT BHB_NO,INTENO FROM 
+		BIZ_HOME_BMARK WHERE MEMNO=#{param1} </select> -->
+	<resultMap type="com.tech.ibara.my.dto.PhotoBoardDto"
+		id="PhotoBoardDto">
 		<result column="NO" property="no" />
 		<result column="PB_NO" property="pb_no" />
-		<result column="PB_USER" property="pb_user" />
+		<result column="MEMNO" property="memno" />
 		<result column="PB_TITLE" property="pb_title" />
 		<result column="PB_CONTENT" property="pb_content" />
 		<result column="PB_DATE" property="pb_date" />
@@ -264,151 +327,228 @@
 		<result column="PB_SKILL" property="pb_skill" />
 		<!-- collection -->
 	</resultMap>
-	
+
 	<!-- resultMap OHPhotoAttach -->
-	
-	<resultMap type="com.tech.ibara.my.dto.PhotoAttachDto" id="PhotoAttachDto">
+
+	<resultMap type="com.tech.ibara.my.dto.PhotoAttachDto"
+		id="PhotoAttachDto">
 		<result column="PA_NO" property="pa_no" />
 		<result column="PA_ATTACH" property="pa_attach" />
 		<result column="PB_NO" property="pb_no" />
-		<collection property="photoBoardDto" resultMap="PhotoBoardDto"/>
-	</resultMap>	
-	<resultMap type="com.tech.ibara.my.dto.PhotoAttachDto" id="PhotoAttachDtoAtt">
+		<collection property="photoBoardDto"
+			resultMap="PhotoBoardDto" />
+	</resultMap>
+	<resultMap type="com.tech.ibara.my.dto.PhotoAttachDto"
+		id="PhotoAttachDtoAtt">
 		<result column="PA_NO" property="pa_no" />
 		<result column="PA_ATTACH" property="pa_attach" />
 		<result column="PB_NO" property="pb_no" />
 		<result column="ATTACHS" property="attachs" />
-		<collection property="photoBoardDto" resultMap="PhotoBoardDto"/>
+		<collection property="photoBoardDto"
+			resultMap="PhotoBoardDto" />
 	</resultMap>
-	
-	<select id="getMyPhoto" resultType="com.tech.ibara.my.dto.PhotoAttachDto" resultMap="PhotoAttachDto">
-		SELECT PB.PB_NO,PB.PB_TITLE,PA.PA_ATTACH FROM OH_PHOTO_BOARD PB JOIN OH_PHOTO_ATTACH PA 
-		ON PB.PB_NO=PA.PB_NO WHERE PB.MEMNO=#{param1} ORDER BY PB_NO DESC
+
+	<select id="getMyPhoto"
+		resultType="com.tech.ibara.my.dto.PhotoAttachDto"
+		resultMap="PhotoAttachDto">
+		SELECT PB.PB_NO,PB.PB_TITLE,PA.PA_ATTACH FROM OH_PHOTO_BOARD
+		PB JOIN OH_PHOTO_ATTACH PA
+		ON PB.PB_NO=PA.PB_NO WHERE
+		PB.MEMNO=#{param1} ORDER BY PB_NO DESC
 	</select>
-	<select id="getMyPhotoBoardList" resultType="com.tech.ibara.my.dto.PhotoAttachDto" resultMap="PhotoAttachDtoAtt">
-		SELECT PB.PB_NO,PB.PB_TITLE,LISTAGG(PA.PA_ATTACH,',') WITHIN GROUP(ORDER BY PA.PA_ATTACH DESC) ATTACHs
-		FROM OH_PHOTO_BOARD PB JOIN OH_PHOTO_ATTACH PA ON PB.PB_NO=PA.PB_NO WHERE PB.MEMNO=#{param1}
-		GROUP BY PB.PB_NO,PB.PB_TITLE
+	<select id="getMyPhotoBoardList"
+		resultType="com.tech.ibara.my.dto.PhotoAttachDto"
+		resultMap="PhotoAttachDtoAtt">
+		SELECT PB.PB_NO,PB.PB_TITLE,LISTAGG(PA.PA_ATTACH,',') WITHIN
+		GROUP(ORDER BY PA.PA_ATTACH DESC) ATTACHs
+		FROM OH_PHOTO_BOARD PB JOIN
+		OH_PHOTO_ATTACH PA ON PB.PB_NO=PA.PB_NO WHERE PB.MEMNO=#{param1}
+		GROUP
+		BY PB.PB_NO,PB.PB_TITLE
 	</select>
-	<resultMap type="com.tech.ibara.my.dto.InteriorCasesDto" id="InteriorCasesDto">
+	<resultMap type="com.tech.ibara.my.dto.InteriorCasesDto"
+		id="InteriorCasesDto">
 		<result column="BC_NO" property="bc_no" />
 		<result column="BC_TITLE" property="bc_title" />
 		<result column="BC_CONTENT" property="bc_content" />
 		<result column="BC_WRITER" property="bc_writer" />
 		<result column="BC_DATE" property="bc_date" />
 		<result column="BC_HIT" property="bc_hit" />
-		<result column="INTENO" property="inteno" />	
+		<result column="INTENO" property="inteno" />
 	</resultMap>
-	<resultMap type="com.tech.ibara.my.dto.InteriorCasesImgDto" id="InteriorCasesImgDto">
-		<result column="BCIMG_NO" property="bcimg_no" />	
-		<result column="BCIMG_OGN" property="bcimg_ogn" />	
-		<result column="BCIMG_CGN" property="bcimg_cgn" />	
-		<result column="BC_NO" property="bc_no" />	
+	<resultMap type="com.tech.ibara.my.dto.InteriorCasesImgDto"
+		id="InteriorCasesImgDto">
+		<result column="BCIMG_NO" property="bcimg_no" />
+		<result column="BCIMG_OGN" property="bcimg_ogn" />
+		<result column="BCIMG_CGN" property="bcimg_cgn" />
+		<result column="BC_NO" property="bc_no" />
 		<result column="INTENO" property="inteno" />
 		<result column="IMGS" property="imgs" />
-		<collection property="inteCasesDto" resultMap="InteriorCasesDto" />
+		<collection property="inteCasesDto"
+			resultMap="InteriorCasesDto" />
 	</resultMap>
-	<select id="getMyCasesList" resultType="com.tech.ibara.my.dto.InteriorCasesImgDto" resultMap="InteriorCasesImgDto">
-		SELECT BC.BC_NO,BC.BC_WRITER,BC.BC_TITLE,BC.BC_CONTENT,LISTAGG(BCI.BCIMG_CGN,',') WITHIN GROUP(ORDER BY BCI.BCIMG_CGN) IMGS
-		FROM BIZ_CASES BC JOIN BIZ_CASES_IMG BCI ON BC.BC_NO=BCI.BC_NO WHERE BC.INTENO=#{param1}
-		GROUP BY BC.BC_NO,BC.BC_TITLE,BC.BC_CONTENT,BC.BC_WRITER	
+	<select id="getMyCasesList"
+		resultType="com.tech.ibara.my.dto.InteriorCasesImgDto"
+		resultMap="InteriorCasesImgDto">
+		SELECT
+		BC.BC_NO,BC.BC_WRITER,BC.BC_TITLE,BC.BC_CONTENT,LISTAGG(BCI.BCIMG_CGN,',')
+		WITHIN GROUP(ORDER BY BCI.BCIMG_CGN) IMGS
+		FROM BIZ_CASES BC JOIN
+		BIZ_CASES_IMG BCI ON BC.BC_NO=BCI.BC_NO WHERE BC.INTENO=#{param1}
+		GROUP BY BC.BC_NO,BC.BC_TITLE,BC.BC_CONTENT,BC.BC_WRITER
 	</select>
-	<resultMap type="com.tech.ibara.biz.dto.BizHomeBmarkDto" id="BizHomeBmarkDto">
+	<resultMap type="com.tech.ibara.biz.dto.BizHomeBmarkDto"
+		id="BizHomeBmarkDto">
 		<!-- 칼럼명은 관습적으로 대문자로 표현 -->
-		<result column="BHB_NO" property="bhb_no"  />
-		<result column="MEMNO" property="memno"  />
-		<result column="INTENO" property="inteno"  />
+		<result column="BHB_NO" property="bhb_no" />
+		<result column="MEMNO" property="memno" />
+		<result column="INTENO" property="inteno" />
 	</resultMap>
-	<resultMap type="com.tech.ibara.biz.dto.BizHomeDto" id="BizHomeDto">
+	<resultMap type="com.tech.ibara.biz.dto.BizHomeDto"
+		id="BizHomeDto">
 		<!-- 칼럼명은 관습적으로 대문자로 표현 -->
-		<result column="BH_NO" property="bh_no"  />
-		<result column="BH_IMG" property="bh_img"  />
-		<result column="BH_NOTICE" property="bh_notice"  />
-		<result column="BH_INTRO" property="bh_intro"  />
-		<result column="BH_NAME" property="bh_name"  />
-		<result column="BH_BOOKMARKED" property="bh_bookmarked"  />
-		<result column="BH_CONT_CNT" property="bh_cont_cnt"  />
-		<result column="BH_PRO" property="bh_pro"  />
-		<result column="BH_ADDR1" property="bh_addr1"  />
-		<result column="BH_ADDR2" property="bh_addr2"  />
-		<result column="INTENO" property="inteno"  />
-		<collection property="BizHomeBmarkDto" resultMap="BizHomeBmarkDto"></collection>
+		<result column="BH_NO" property="bh_no" />
+		<result column="BH_IMG" property="bh_img" />
+		<result column="BH_NOTICE" property="bh_notice" />
+		<result column="BH_INTRO" property="bh_intro" />
+		<result column="BH_NAME" property="bh_name" />
+		<result column="BH_BOOKMARKED" property="bh_bookmarked" />
+		<result column="BH_CONT_CNT" property="bh_cont_cnt" />
+		<result column="BH_PRO" property="bh_pro" />
+		<result column="BH_ADDR1" property="bh_addr1" />
+		<result column="BH_ADDR2" property="bh_addr2" />
+		<result column="INTENO" property="inteno" />
+		<collection property="BizHomeBmarkDto"
+			resultMap="BizHomeBmarkDto"></collection>
 	</resultMap>
-	<select id="getBmarkedHomesByUserMy" resultType="com.tech.ibara.biz.dto.BizHomeDto" resultMap="BizHomeDto">
-		SELECT BH.BH_NO,BH.INTENO,BH.BH_NAME,BH.BH_INTRO FROM BIZ_HOME BH JOIN BIZ_HOME_BMARK BHB ON BH.INTENO=BHB.INTENO
+	<select id="getBmarkedHomesByUserMy"
+		resultType="com.tech.ibara.biz.dto.BizHomeDto" resultMap="BizHomeDto">
+		SELECT
+		BH.BH_NO,BH.INTENO,BH.BH_NAME,BH.BH_INTRO FROM BIZ_HOME BH JOIN
+		BIZ_HOME_BMARK BHB ON BH.INTENO=BHB.INTENO
 		WHERE BHB.MEMNO = #{param1}
 	</select>
 	<select id="getInteno" resultType="Integer">
-		SELECT INTENO FROM MY_INTERIOR WHERE MEMNO=#{param1}
+		SELECT INTENO FROM MY_INTERIOR
+		WHERE MEMNO=#{param1}
 	</select>
 	<insert id="bizHomeCreate">
-      INSERT INTO BIZ_HOME VALUES (BIZ_HOME_SEQ.NEXTVAL,'HOME_NEW.JPG',
-      '이벤트를 비롯한 공지사항을 입력해 주세요. 메인 상단에 표시됩니다.','전화번호, 찾아오시는 길을 비롯한 전반적인 업체 소개를 입력해 주세요.',
-      #{param1},0,0,'도배·페인트','시/군/구만 입력 바랍니다.','지도로 검색할 상세주소를 작성해 주세요.',#{param2})
-   	</insert>
-	<resultMap type="com.tech.ibara.my.dto.PhotoScrapDto" id="PhotoScrapDto">
+		INSERT INTO BIZ_HOME VALUES
+		(BIZ_HOME_SEQ.NEXTVAL,'HOME_NEW.JPG',
+		'이벤트를 비롯한 공지사항을 입력해 주세요. 메인 상단에
+		표시됩니다.','전화번호, 찾아오시는 길을 비롯한 전반적인 업체 소개를 입력해
+		주세요.',
+		#{param1},0,0,'도배·페인트','시/군/구만 입력 바랍니다.','지도로 검색할 상세주소를 작성해
+		주세요.',#{param2})
+	</insert>
+
+
+
+	<resultMap type="com.tech.ibara.my.dto.MyMemberInfoDto"
+		id="MyMemberInfoDto">
+		<result column="MEMNO" property="memno" />
+		<result column="NICKNAME" property="nickname" />
+		<result column="EMAIL" property="email" />
+		<result column="MEMTYPE" property="memtype" />
+		<result column="PROFILEIMG" property="profileimg" />
+	</resultMap>
+	<resultMap type="com.tech.ibara.my.dto.PhotoScrapDto"
+		id="PhotoScrapDto">
 		<result column="PS_NO" property="ps_no" />
 		<result column="MEMNO" property="memno" />
 		<result column="PS_DATE" property="ps_date" />
 		<result column="PB_NO" property="pb_no" />
-		<collection property="photoBoardDto" resultMap="PhotoBoardDto"/>
+		<collection property="myMemberInfoDto"
+			resultMap="MyMemberInfoDto" />
+		<collection property="photoBoardDto"
+			resultMap="PhotoBoardDto" />
 	</resultMap>
-	<resultMap type="com.tech.ibara.my.dto.PhotoLikeDto" id="PhotoLikeDto">
+	<resultMap type="com.tech.ibara.my.dto.PhotoLikeDto"
+		id="PhotoLikeDto">
 		<result column="PL_NO" property="pl_no" />
 		<result column="MEMNO" property="memno" />
 		<result column="Pl_DATE" property="pl_date" />
 		<result column="PB_NO" property="pb_no" />
-		<collection property="photoBoardDto" resultMap="PhotoBoardDto"/>
+		<collection property="myMemberInfoDto"
+			resultMap="MyMemberInfoDto" />
+		<collection property="photoBoardDto"
+			resultMap="PhotoBoardDto" />
 	</resultMap>
-	<select id="getPhotoBoardLikeList" resultType="com.tech.ibara.my.dto.PhotoLikeDto" resultMap="PhotoLikeDto">
-		SELECT PB.PB_NO,PB.PB_TITLE FROM OH_PHOTO_BOARD PB JOIN OH_PHOTO_LIKE PL
-		ON PB.PB_NO=PL.PB_NO WHERE PL.MEMNO=#{param1}
+	<select id="getPhotoBoardLikeList"
+		resultType="com.tech.ibara.my.dto.PhotoLikeDto"
+		resultMap="PhotoLikeDto">
+		SELECT PB.PB_NO,MI.NICKNAME,PB.PB_CONTENT,PB.PB_TITLE FROM
+		OH_PHOTO_BOARD PB JOIN OH_PHOTO_LIKE PL
+		ON PB.PB_NO=PL.PB_NO JOIN
+		MY_MEMBER_INFO MI ON PB.MEMNO=MI.MEMNO WHERE PL.MEMNO=#{param1}
 	</select>
-	<select id="getPhotoBoardScrapList" resultType="com.tech.ibara.my.dto.PhotoScrapDto" resultMap="PhotoScrapDto">
-		SELECT PB.PB_NO,PB.PB_TITLE FROM OH_PHOTO_BOARD PB JOIN OH_PHOTO_SCRAP PS
-		ON PB.PB_NO=PS.PB_NO WHERE PS.MEMNO=#{param1}
+	<select id="getPhotoBoardScrapList"
+		resultType="com.tech.ibara.my.dto.PhotoScrapDto"
+		resultMap="PhotoScrapDto">
+		SELECT PB.PB_NO,MI.NICKNAME,PB.PB_TITLE,PB.PB_CONTENT FROM
+		OH_PHOTO_BOARD PB JOIN OH_PHOTO_SCRAP PS
+		ON PB.PB_NO=PS.PB_NO JOIN
+		MY_MEMBER_INFO MI ON PB.MEMNO=MI.MEMNO WHERE PS.MEMNO=#{param1}
 	</select>
-	
-	
-	
-	
-	
-	
-	 <resultMap type="com.tech.ibara.biz.dto.BizRvDto" id="BizRvDto">
-      <!-- 칼럼명은 관습적으로 대문자로 표현 -->
-      <result column="BR_NO" property="br_no"  />
-      <result column="BR_CONTENT" property="br_content"  />
-      <result column="BR_WRITER" property="br_writer"  />
-      <result column="BR_LIKE_CNT" property="br_like_cnt"  />
-      <result column="BR_DATE" property="br_date"  />
-      <result column="BR_POINT" property="br_point"  />
-      <result column="INTENO" property="inteno"  />
-      <result column="MEMNO" property="memno"  />
-<!--          dto에 넣어놓은 BizRvImgDto 가져오기, 저 위 resultMap id=BizRvImgDto의 BizRvImgDto를 resultMap=에 넣는다. -->
-      <collection property="bizRvImgDto" resultMap="BizRvImgDto"></collection>
-      <collection property="bizHomeDto" resultMap="BizHomeDto"></collection>
-   </resultMap>
 
-   <select id="rvLikedBrNoList" resultType="com.tech.ibara.biz.dto.BizRvDto">
-      SELECT BR_NO FROM BIZ_RV_LIKE WHERE MEMNO=#{param1} ORDER BY BR_NO DESC
-   </select>
+	<resultMap type="com.tech.ibara.biz.dto.BizRvLikeDto"
+		id="BizRvLikeDto">
+		<!-- 칼럼명은 관습적으로 대문자로 표현 -->
+		<result column="BR_LIKE_NO" property="br_like_no" />
+		<result column="MEMNO" property="memno" />
+		<result column="BR_NO" property="br_no" />
+	</resultMap>
+	<resultMap type="com.tech.ibara.my.dto.MyBizRvDto"
+		id="MyBizRvLikeListDto">
+		<!-- 칼럼명은 관습적으로 대문자로 표현 -->
+		<result column="BR_NO" property="br_no" />
+		<result column="BR_CONTENT" property="br_content" />
+		<result column="BR_WRITER" property="br_writer" />
+		<result column="INTENO" property="inteno" />
+		<collection property="bizRvLikeDto"
+			resultMap="BizRvLikeDto"></collection>
+	</resultMap>
 
-   <select id="rvIlikedList" parameterType="com.tech.ibara.biz.dto.BizRvDto" resultMap="BizRvDto">
-      SELECT BR.INTENO, BH.BH_NAME, BR.BR_CONTENT 
-       FROM BIZ_RV BR JOIN BIZ_HOME BH ON BR.INTENO = BH.INTENO
-          WHERE BR.BR_NO=#{param1}
-   </select>
-   
-   <select id="rvIlikedHomeName"
-      resultType="String">
-      SELECT BH_NAME FROM BIZ_HOME WHERE INTENO=#{param1}
-   </select>
+	<!-- <select id="rvLikedBrNoList" resultType="com.tech.ibara.biz.dto.BizRvDto"> 
+		SELECT BR_NO FROM BIZ_RV_LIKE WHERE MEMNO=#{param1} ORDER BY BR_NO DESC </select> -->
 
-	
-	
-	
-	
-	
-	
-	
+	<select id="rvLikedList"
+		resultType="com.tech.ibara.my.dto.MyBizRvDto" resultMap="MyBizRvLikeListDto">
+		SELECT
+		BR.BR_NO,BR.BR_WRITER,BR.BR_CONTENT,BR.INTENO FROM BIZ_RV BR JOIN BIZ_RV_LIKE BRL
+		ON BR.BR_NO=BRL.BR_NO WHERE BRL.MEMNO=#{param1}
+	</select>
+
+	<!-- <select id="rvIlikedHomeName" resultType="String"> SELECT BH_NAME FROM 
+		BIZ_HOME WHERE INTENO=#{param1} </select> -->
+	<resultMap type="com.tech.ibara.my.dto.MyBizRvImgDto" id="MyBizRvImgDto">
+		<result column="BRIMG_NO" property="brimg_no" />
+		<result column="brimg_ogn" property="brimg_ogn" />
+		<result column="brimg_cgn" property="brimg_cgn" />
+		<result column="BR_NO" property="br_no" />
+	</resultMap>
+	<resultMap type="com.tech.ibara.my.dto.MyBizRvDto" id="MyBizRvListDto">
+		<!-- 칼럼명은 관습적으로 대문자로 표현 -->
+		<result column="BR_NO" property="br_no" />
+		<result column="BR_CONTENT" property="br_content" />
+		<result column="BR_WRITER" property="br_writer" />
+		<result column="INTENO" property="inteno" />
+		<collection property="myBizRvImgDto" resultMap="MyBizRvImgDto"></collection>
+	</resultMap>	
+
+	<select id="getBizRvList" resultType="com.tech.ibara.my.dto.MyBizRvDto" resultMap="MyBizRvListDto">
+		SELECT BR.BR_NO,BR.BR_WRITER,BR.BR_CONTENT,MAX(BRI.BRIMG_CGN) 
+		FROM BIZ_RV BR JOIN BIZ_RV_IMG BRI ON BR.BR_NO=BRI.BR_NO WHERE BR.INTENO=#{param1} 
+		GROUP BY BR.BR_NO,BR.BR_WRITER,BR.BR_CONTENT
+	</select>
+
+
+
+
+
+
+
+
+
+
 </mapper>

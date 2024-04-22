@@ -168,7 +168,7 @@ public class MyController {
 		}else if(str.equals("null") || str.length()==0) {
 			return "redirect:/";
 		}else {			
-			return str;			
+			return str;
 		}		
 	}
 	@RequestMapping("my/adminmain")
@@ -187,7 +187,7 @@ public class MyController {
 		String nickname=mdto.getNickname();
 		System.out.println("로그인유저닉넴 : "+nickname);
 		String memtype=mdto.getMemtype();
-		System.out.println("loginUser의 memtype은 : "+memtype);		
+		System.out.println("loginUser의 memtype은 : "+memtype);
 		if(memtype.equals("ADMIN")) {
 			return "my/adminmain";
 		}else if(memtype.equals("INTERIOR")) {

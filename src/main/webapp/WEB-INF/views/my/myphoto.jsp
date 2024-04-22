@@ -21,7 +21,12 @@ tr:nth-child(even) {background-color: #fefefe;}
     <div id="mypage_pictrue">
     <h3 class="tc ma" >My Photo</h3>
     	<div>
-    	<table class="tablestyle tc" align="center">
+    	<table class="admintablestyle" align="center">
+    		<colgroup> 
+     			<col style="width: 10%;"> 
+        	    <col style="width: 20%;"> 
+    	        <col style="width: 70%;">
+	        </colgroup>
     		<tr>
     			<th class="scrapth pd8">글번호</th>
     			<th class="scrapth pd8">글제목</th>
@@ -45,7 +50,7 @@ tr:nth-child(even) {background-color: #fefefe;}
     			</c:when>
     			<c:otherwise>
 		    		<tr>
-		    			<td colspan="3" class="pd8"><h3 class="container tc">등록된 사진이 없습니다.</h3></td>
+		    			<td colspan="3" class="pd8"><h3 class="container">등록된 사진이 없습니다.</h3></td>
 		    		</tr>		    		
 		    	</c:otherwise>    		
     		</c:choose>

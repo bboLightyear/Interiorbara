@@ -4,7 +4,7 @@
 <script>
 	document.title = "메일인증 완료";
 </script>
-<script type="text/javascript">
+
 <script>
 window.onload = function (){
 	alert("메일 인증이 완료되었습니다.");

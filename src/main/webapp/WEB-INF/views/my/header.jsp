@@ -71,7 +71,7 @@
 				<a href="${path}/shop/list">소품샵</a>
 			</div>
 			<div class="header_category_list list_3">
-				<a href="${path}/biz/magazine/bizMgzList">업체 둘러보기</a>
+				<a href="${path}/biz/search/bizAddrSearch">업체 둘러보기</a>
 			</div>
 			<div class="header_category_list list_4">
 				<a href="${path}/oh/OHMainView">우리 집 자랑하기</a>
