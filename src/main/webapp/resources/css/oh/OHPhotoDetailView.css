@@ -41,7 +41,14 @@
    	border: none;
     border-radius: 10px;
     color: #1a1f27;	
+	background-color: #e2f0fe;
+	font-size: 15px;
+	transition: 0.5s ease;	
+}
+#OHPhotoDetailView-main-1toWriteButton:hover {
+	font-size: 16px;
 	background-color: #1e90ff;
+	cursor:pointer;		
 }
 #OHPhotoDetailView-main-1toEditButton {
 	position: absolute;
@@ -53,7 +60,14 @@
    	border: none;
     border-radius: 10px;
     color: #1a1f27;	
+	background-color: #e2f0fe;
+	font-size: 15px;
+	transition: 0.5s ease;	
+}
+#OHPhotoDetailView-main-1toEditButton:hover {
+	font-size: 16px;
 	background-color: #1e90ff;
+	cursor:pointer;			
 }
 #OHPhotoDetailView-main-1toDeleteButton {
 	position: absolute;
@@ -65,7 +79,14 @@
    	border: none;
     border-radius: 10px;
     color: #1a1f27;		
+	background-color: #e2f0fe;
+	font-size: 15px;
+	transition: 0.5s ease;
+}
+#OHPhotoDetailView-main-1toDeleteButton:hover {
+	font-size: 16px;
 	background-color: #1e90ff;
+	cursor:pointer;		
 }
 /* ----- End: #OHPhotoDetailView-main-1 ----- */	
 
@@ -202,9 +223,14 @@
 	text-align: center;
 	font-size: 30px;
 	color: #1a1f27;	
+	transition: 0.5s ease;	
 }
 #OHPhotoDetailView-main-6like.clickColor {
 	color: #1034a6;
+}
+#OHPhotoDetailView-main-6like:hover {
+	font-size: 31px;
+	cursor:pointer;	
 }
 #OHPhotoDetailView-main-6likeNumber {
 	position: absolute;
@@ -226,9 +252,14 @@
 	text-align: center;
 	font-size: 30px;
 	color: #1a1f27;	
+	transition: 0.5s ease;		
 }
 #OHPhotoDetailView-main-6scrap.clickColor {
 	color: #1034a6;	
+}
+#OHPhotoDetailView-main-6scrap:hover {
+	font-size: 31px;
+	cursor:pointer;		
 }
 #OHPhotoDetailView-main-6scrapNumber {
 	position: absolute;
@@ -266,13 +297,20 @@
 	right: 10px;
 	transform: translate(0%, -50%);  
 	text-align: center;
-	width: 60px;
-	height: 30px;
-	line-height: 30px;
+	width: 70px;
+	height: 35px;
+	line-height: 35px;
 	border: none;
 	border-radius: 10px;
 	color: #1a1f27;	
 	background-color: #b1b8c0;
+	font-size: 15px;
+	transition: 0.5s ease;	
+}
+#OHPhotoDetailView-main-6complaintButton:hover {
+	font-size: 16px;
+	background-color: #1e90ff;
+	cursor: pointer;		
 }
 /* ----- End: #OHPhotoDetailView-main-6 ----- */
 
@@ -287,11 +325,15 @@
 }
 #OHPhotoDetailView-main-7profileImage {
 	position: absolute;
-	top: 50%;
-	transform: translate(0%, -50%);   
+	top: 10px;
 	width: 60px;
 	height: 60px;
-	border-radius: 50%;
+	border-radius: 50%;	
+	transition: 0.5s ease;
+}
+#OHPhotoDetailView-main-7profileImage:hover {
+	transform: scale(1.03);   
+	cursor:pointer;	    
 }
 #OHPhotoDetailView-main-7writerName {
 	position: absolute;
@@ -302,23 +344,36 @@
 	height: 80px;
 	line-height: 80px;
 	text-align: left;
-	color: #1a1f27;		
+	color: #1a1f27;
+}
+#OHPhotoDetailView-main-7writerName a {
+	text-decoration: none;
+	color: #1a1f27;
+	font-size: 15px;
+	transition: 0.5s ease;
+}
+#OHPhotoDetailView-main-7writerName a:hover {
+	font-size: 16px;
+	cursor: pointer;		
 }
 #OHPhotoDetailView-main-7moveToList	{
 	position: absolute;
 	top: 50%;
 	right: 10px;
 	transform: translate(0%, -50%);		
-    width: 100px;
+    width: 120px;
     height: 50px;	
     color: #1a1f27; 
-   	background-color: #1e90ff;	
+   	background-color: #e2f0fe;	
    	border: none;
     border-radius: 10px;   	
+    font-size: 15px;
+    transition: 0.5s ease;
 }
-#OHPhotoDetailView-main-7writerName a {
-	text-decoration: none;
-	color: #1a1f27;	
+#OHPhotoDetailView-main-7moveToList:hover {
+	font-size: 16px;
+	background-color: #1e90ff;
+	cursor:pointer;		
 }
 /* ----- End: #OHPhotoDetailView-main-7 ----- */
 
@@ -396,6 +451,18 @@
    	/* background-color => OHPhotoDetailView.js에서 설정 */
    	border: none;
     border-radius: 10px;
+	font-size: 15px;
+	transition: 0.5s ease;  
+	background-color: #e2f0fe;  
+}
+#OHPhotoDetailView-main-9inputReplyButton:disabled {
+    background-color: #b1b8c0;
+}
+/* disabled 속성이 false인 버튼에 대해서만 :hover 상태일 때 스타일을 적용 */
+#OHPhotoDetailView-main-9inputReplyButton:not(:disabled):hover {
+	font-size: 16px;
+	background-color: #1e90ff;
+	cursor: pointer;	
 }
 /* ----- End: #OHPhotoDetailView-main-9 ----- */
 
@@ -426,11 +493,15 @@
 }
 .reply-profileImage {
 	position: absolute;
-	top: 50%;
+	top: 0px;
 	left: 0px;	
-	transform: translate(0%, -50%);
 	width: 40px;
 	height: 40px;
+	transition: 0.5s ease;
+}
+.reply-profileImage:hover {
+	transform: scale(1.03);   
+	cursor:pointer;	
 }
 .reply-userName {
 	position: absolute;
@@ -446,7 +517,13 @@
 }
 .reply-userName a {
 	text-decoration: none;
-	color: #1a1f27;		
+	color: #1a1f27;
+	font-size: 15px;
+	transition: 0.5s ease;		
+}
+.reply-userName a:hover {
+	font-size: 16px;
+	cursor:pointer;
 }
 .reply-checkMyReply {
 	position: absolute;
@@ -459,7 +536,8 @@
 	color: #1a1f27; 
 	background-color: #e2f0fe;
 	border: 1px solid #1a1f27;
-	border-radius: 10px
+	border-radius: 10px;
+	font-size: 13px;
 }
 .reply-container-layer2 {
 	position: relative;
@@ -505,9 +583,14 @@
 	text-align: center;
     font-size: 25px;
 	color: #1a1f27;	
+	transition: 0.5s ease;
 }
 .reply-likeButton.clickColor {
     color: #1034a6;
+}
+.reply-likeButton:hover {
+	font-size: 26px;
+	cursor: pointer;		
 }
 .reply-likeNumber {
 	position: absolute;
@@ -529,9 +612,16 @@
     width: 70px;
     height: 30px;
     color: #1a1f27; 
-   	background-color: #1e90ff;
+   	background-color: #e2f0fe;
    	border: none;
-    border-radius: 10px;	
+    border-radius: 10px;
+    font-size: 15px;	
+	transition: 0.5s ease;    
+}
+.reply-replyToReplyButton:hover {
+	font-size: 16px;
+	background-color: #1e90ff;
+	cursor:pointer;		
 }
 .reply-deleteButton {
     position: absolute;
@@ -541,9 +631,16 @@
     width: 70px;
     height: 30px;
     color: #1a1f27; 
-   	background-color: #1e90ff;
+   	background-color: #e2f0fe;
    	border: none;
-    border-radius: 10px;	
+    border-radius: 10px;
+    font-size: 15px;	
+	transition: 0.5s ease;       	
+}
+.reply-deleteButton:hover {
+	font-size: 16px;
+	background-color: #1e90ff;
+	cursor:pointer;		
 }
 .reply-complaintButton {
     position: absolute;
@@ -556,6 +653,13 @@
    	background-color: #b1b8c0;
    	border: none;
     border-radius: 10px;	
+    font-size: 15px;	
+	transition: 0.5s ease;    
+}
+.reply-complaintButton:hover {
+	font-size: 16px;
+	background-color: #1e90ff;
+	cursor:pointer;		
 }
 /* ----- End: #OHPhotoDetailView-main-10 ----- */
 

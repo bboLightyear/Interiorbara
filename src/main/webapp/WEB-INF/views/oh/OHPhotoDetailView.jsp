@@ -5,6 +5,8 @@
 
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
+<c:set var="path" value="${pageContext.request.contextPath}"/>
+
 <!DOCTYPE html>
 
 <html>
@@ -31,9 +33,9 @@
 	
 	<!-- header, footer -->
 	<link rel="stylesheet" 
-	href="../resources/css/main/main.css" />
-	<link rel="stylesheet"
-	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css" />
+		  href="${path}/resources/css/main/main.css" />
+	<link rel="stylesheet" 
+	      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css" />
 			
 </head>
 
@@ -167,8 +169,8 @@
 	
 			<div class="sideBar">
 				<ul >
-					<li><a href="OHMainView">우리 집 자랑하기</a></li>
-					<li><a href="OHPhotoView">집사진</a></li>
+					<a href="OHMainView"><li class="sideBar-OHMainView">우리 집 자랑하기</li></a>
+					<a href="OHPhotoView"><li class="sideBar-OHPhotoView">집사진</li></a>
 					<!-- 집영상 -->
 					<!-- <li><a href="">집영상</a></li> -->
 					<!-- <li><a href="#">#category</a></li> -->
@@ -304,7 +306,7 @@
 					</span>
 					
 					<button id="OHPhotoDetailView-main-6complaintButton">
-						신고하기
+						신고
 					</button>
 					
 				</div>
@@ -349,11 +351,11 @@
 					<!-- 입력창 -->
 					<textarea id="OHPhotoDetailView-main-9inputReply" oninput="checkTextarea()" maxlength="60" cols="30" rows="10" placeholder="칭찬과 격려의 댓글은 작성자에게 큰 힘이 됩니다. &#13;&#10;최대 60자 까지 작성할 수 있습니다."></textarea>
 					<!-- 입력버튼 -->
-					<button id="OHPhotoDetailView-main-9inputReplyButton" disabled>입력</button>								
+					<button id="OHPhotoDetailView-main-9inputReplyButton">입력</button>								
 				</div>				
 				
 				<div id="OHPhotoDetailView-main-10">
-
+					
 					<div class="contentReply">				
 					
 						<!-- 댓글 추가 영역 -->					
@@ -431,9 +433,9 @@
 										${dto.pr_like }
 									</div>
 									
-									<!-- 답글 달기 -->
+									<!-- 답글 버튼 -->
 									<button class="reply-replyToReplyButton">
-										답글 달기
+										답글
 									</button>
 									
 									<!-- 삭제 버튼 -->
@@ -451,6 +453,8 @@
 							<!-- 댓글 1개 영역 - 끝 -->						
 						
 						</c:forEach>		
+				
+						<%-- <jsp:include page="OHPhotoReplyView.jsp"/> --%>
 				
 					</div>
 				

@@ -34,18 +34,17 @@
     transform: translate(0, -50%);    
     width: 80px;
     height: 50px;
-   	background-color: #1e90ff;
+   	background-color: #e2f0fe;
    	border: none;
     border-radius: 10px;
     margin-right: 10px;
     color: #1a1f27;
-	font-size: 15px;
-	font-weight: 500;
-	transition: font-size 0.3s ease, font-weight 0.3s ease;	    
+    font-size: 15px;
+	transition: 0.5s ease; 
 }
 #OHMainView-toWriteButton:hover {
-	font-size: 16px;
-	font-weight: bold;
+	font-size: 16px;	
+	background-color: #1e90ff;		
 	cursor:pointer;	
 }
 /* ----- End: #OHMainView-main-1 ----- */
@@ -65,19 +64,17 @@
     width: 200px;
     height: 50px;
     color: #1a1f27;
-   	background-color: #1e90ff;
+   	background-color: #e2f0fe;
    	border: none;
     border-radius: 10px;
-    margin-left: 10px;	
-	font-size: 15px;
-	font-weight: 500;
-	transition: font-size 0.3s ease, font-weight 0.3s ease
-				width 0.3s ease, height 0.3s ease;	    
+    margin-left: 10px;		
+	font-size: 15px;    
+	transition: 0.5s ease; 
 }
 #OHMainView-2toOHPhotoViewButton:hover {
-	font-size: 16px;
-	font-weight: bold;
-	cursor:pointer;
+	font-size: 16px;	
+	background-color: #1e90ff;	
+	cursor:pointer;	
 }
 #OHMainView-2toMoreOHPhotoViewButton {
     position: absolute;
@@ -87,14 +84,17 @@
     width: 130px;
     height: 50px;
     color: #1a1f27;
-   	background-color: #1e90ff;
+   	background-color: #e2f0fe;
    	border: none;
     border-radius: 10px;
     margin-right: 10px;	
-    
+    font-size: 15px;	
+	transition: 0.5s ease;   
 }
 #OHMainView-2toMoreOHPhotoViewButton:hover {
-	
+	font-size: 16px;	
+	background-color: #1e90ff;	
+	cursor:pointer;		
 }
 /* ----- End: #OHMainView-main-2 ----- */
 
@@ -120,6 +120,11 @@
     width: 350px;
     height: 350px;
     border-radius: 5%;
+	transition: 0.5s ease;    
+}
+#OHMainView-3photoImage:hover {
+	transform: scale(1.03);
+	cursor:pointer;
 }
 .OHMainView-3boxLayer {
     position: relative;
@@ -143,6 +148,12 @@
 #OHMainView-3photoTitle a {
 	text-decoration: none;
 	color: #1a1f27;
+	font-size: 15px;
+	transition: 0.5s ease;	
+}
+#OHMainView-3photoTitle a:hover {
+	font-size: 16px;
+	cursor:pointer;	
 }
 #OHMainView-3photoProfileImage {
     margin-top: 10px;
@@ -151,6 +162,11 @@
     width: 60px;
     height: 60px;
     border-radius: 50%;
+	transition: 0.5s ease;	    
+}
+#OHMainView-3photoProfileImage:hover {
+	transform: scale(1.03);	
+	cursor:pointer;		
 }
 #OHMainView-3photoUserName {
     margin-top: 10px;
@@ -172,7 +188,13 @@
 #OHMainView-3photoUserName a {
 	text-decoration: none;
 	color: #1a1f27;	
-}	
+	font-size: 15px;
+	transition: 0.5s ease;	
+}
+#OHMainView-3photoUserName a:hover {
+	font-size: 16px;
+	cursor:pointer;	
+}		
 #OHMainView-3photoHit {
     margin-top: 10px;
     position: absolute;
@@ -234,10 +256,17 @@
     width: 200px;
     height: 50px;
     color: #1a1f27;
-   	background-color: #1e90ff;
+   	background-color: #e2f0fe;
    	border: none;
     border-radius: 10px;
     margin-left: 10px;	
+	font-size: 15px;
+	transition: 0.5s ease;    
+}
+#OHMainView-4toOHPhotoViewButton:hover {
+	background-color: #1e90ff;	
+	font-size: 16px;
+	cursor:pointer;		
 }
 #OHMainView-4toMoreOHPhotoViewButton {
     position: absolute;
@@ -247,10 +276,17 @@
     width: 130px;
     height: 50px;
     color: #1a1f27;
-   	background-color: #1e90ff;
+   	background-color: #e2f0fe;
    	border: none;
     border-radius: 10px;
     margin-right: 10px;	
+	font-size: 15px;
+	transition: 0.5s ease;      
+}
+#OHMainView-4toMoreOHPhotoViewButton:hover {
+	background-color: #1e90ff;	
+	font-size: 16px;
+	cursor:pointer;	
 }
 /* ----- End: #OHMainView-main-4 ----- */
 
@@ -276,6 +312,11 @@
     width: 350px;
     height: 350px;
     border-radius: 5%;
+	transition: 0.5s ease;     
+}
+#OHMainView-5photoImage:hover {
+	transform: scale(1.03);    	
+	cursor:pointer;	
 }
 .OHMainView-5boxLayer {
     position: relative;
@@ -299,6 +340,11 @@
 #OHMainView-5photoTitle a {
 	text-decoration: none;
 	color: #1a1f27;
+	font-size: 15px;
+	transition: 0.5s ease;
+}
+#OHMainView-5photoTitle a:hover {
+	font-size: 16px;	
 }
 #OHMainView-5photoProfileImage {
     margin-top: 10px;
@@ -307,6 +353,11 @@
     width: 60px;
     height: 60px;
     border-radius: 50%;
+    transition: 0.5s ease;
+}
+#OHMainView-5photoProfileImage:hover {
+	transform: scale(1.03); 
+	cursor:pointer;	      
 }
 #OHMainView-5photoUserName {
     margin-top: 10px;
@@ -328,6 +379,12 @@
 #OHMainView-5photoUserName a {
 	text-decoration: none;
 	color: #1a1f27;	
+	font-size: 15px;
+	transition: 0.5s ease;	
+}	
+#OHMainView-5photoUserName a:hover {
+	font-size: 16px;
+	cursor:pointer;	
 }	
 #OHMainView-5photoHit {
     margin-top: 10px;
@@ -390,10 +447,17 @@
     width: 200px;
     height: 50px;
     color: #1a1f27;
-   	background-color: #1e90ff;
+   	background-color: #e2f0fe;
    	border: none;
     border-radius: 10px;
     margin-left: 10px;	
+	font-size: 15px;
+	transition: 0.5s ease;    
+}
+#OHMainView-6toOHPhotoViewButton:hover {
+	background-color: #1e90ff;	
+	font-size: 16px;
+	cursor:pointer;		
 }
 #OHMainView-6toMoreOHPhotoViewButton {
     position: absolute;
@@ -403,10 +467,17 @@
     width: 130px;
     height: 50px;
     color: #1a1f27;
-   	background-color: #1e90ff;
+   	background-color: #e2f0fe;
    	border: none;
     border-radius: 10px;
-    margin-right: 10px;	
+    margin-right: 10px;
+	font-size: 15px;
+	transition: 0.5s ease;     	
+}
+#OHMainView-6toMoreOHPhotoViewButton:hover {
+	background-color: #1e90ff;	
+	font-size: 16px;
+	cursor:pointer;		
 }
 /* ----- End: #OHMainView-main-6 ----- */
 
@@ -432,6 +503,11 @@
     width: 350px;
     height: 350px;
     border-radius: 5%;
+	transition: 0.5s ease;     
+}
+#OHMainView-7photoImage:hover {
+	transform: scale(1.03);	
+	cursor:pointer;	
 }
 .OHMainView-7boxLayer {
     position: relative;
@@ -455,6 +531,12 @@
 #OHMainView-7photoTitle a {
 	text-decoration: none;
 	color: #1a1f27;
+	font-size: 15px;
+	transition: 0.5s ease; 
+}
+#OHMainView-7photoTitle a:hover {
+	font-size: 16px;
+	cursor:pointer;	
 }
 #OHMainView-7photoProfileImage {
     margin-top: 10px;
@@ -463,6 +545,11 @@
     width: 60px;
     height: 60px;
     border-radius: 50%;
+	transition: 0.5s ease;    
+}
+#OHMainView-7photoProfileImage:hover {
+	transform: scale(1.03);
+	cursor:pointer;		
 }
 #OHMainView-7photoUserName {
     margin-top: 10px;
@@ -484,6 +571,12 @@
 #OHMainView-7photoUserName a {
 	text-decoration: none;
 	color: #1a1f27;	
+	font-size: 15px;
+	transition: 0.5s ease;
+}
+#OHMainView-7photoUserName a:hover {
+	font-size: 16px;
+	cursor:pointer;	
 }
 #OHMainView-7photoHit {
     margin-top: 10px;
