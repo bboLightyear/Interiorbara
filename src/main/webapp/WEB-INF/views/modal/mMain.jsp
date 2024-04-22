@@ -69,7 +69,7 @@ String path=request.getContextPath();
             </div>
             <div class="mainModal_center_body">
                 <div class="row">
-                    <a href="${path}/biz/search/bizAddrSearch">
+                    <a href="${pageContext.request.contextPath}/biz/search/bizAddrSearch">
                     <div class="item1">
                         <img src="${pageContext.request.contextPath}/resources/img/modalimg/company.png" alt="Icon 1" class="icon1"> <span>업체 먼저 둘러보기</span>
                     </div>
