@@ -64,6 +64,12 @@ public class CsQnaContentService implements CsQnaService {
 			System.out.println("imglist : " + imglist);
 			model.addAttribute("imglist", imglist);			
 		}
+		//작성자 닉네임 조회
+		String qbwriter=dao.selqbwriter(Integer.parseInt(qbno));
+		
+		//작성자 닉네임을 이용해서 프로필 이미지 조회
+		String profileimg=dao.qnaprofileimg(qbwriter);
+		model.addAttribute("profileimg",profileimg);
 
 	}
 }

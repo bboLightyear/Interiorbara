@@ -17,8 +17,13 @@
 	href="resources/css/cs/csboard.css" />
 <script>
 	function reta() {
-		alert("aa");
-		document.getElementById("retarea").blur();
+		
+		var nickname = ${loginDto.nickname};
+		
+			if (nickname === null) {
+				alert("aa");
+				document.getElementById("retarea").blur();			
+			}
 	}
 </script>
 </head>
@@ -34,12 +39,12 @@
 			                            <!-- 게시글 작성자 프로필 이미지 -->         
 			<div class="cs_list_head_wrap_h">
             <%-- 프로필 이미지가 없으면 기본 이미지 --%>
-            <c:if test="${empty loginUserDto.profileimg}" >
+            <c:if test="${empty profileimg}" >
               <img src="${path }/resources/img/my/user.png" id="OHMainView-photoProfileImage" style="width: 25px; height: 25px;">
               </c:if>
               <%-- 프로필 이미지가 있으면 있는 이미지 --%>
-              <c:if test="${!empty loginUserDto.profileimg}" >
-              <img src="${path }/resources/upload/my/${loginUserDto.profileimg}" id="OHMainView-photoProfileImage">
+              <c:if test="${!empty profileimg}" >
+              <img src="${path }/resources/upload/my/${profileimg}" id="OHMainView-photoProfileImage" style="width: 25px; height: 25px;">
               </c:if>   
 			 <h3 class="cs_list_head_h">${qna_content.qbtitle }</h3></div>
 
@@ -111,7 +116,7 @@
 	              	</c:if>
 	              	
 	              	<c:if test="${!empty loginUserDto.profileimg}" >
-	              	<img src="${path }/resources/upload/my/${loginUserDto.profileimg}" id="OHMainView-photoProfileImage">
+	              	<img src="${path }/resources/upload/my/${loginUserDto.profileimg}" id="OHMainView-photoProfileImage" style="width: 25px; height: 25px;">
 	              	</c:if>   
 				</span>
 
@@ -131,30 +136,35 @@
 			<div class="cs_content_section4_wrap_rreply">
 				<div class="cs_content_section4_wrap_rreply_c">
 					<div class="cs_content_section4_wrap_rreply_ni">
-						<c:if test="${empty loginUserDto.profileimg}" >
+						<c:if test="${empty dto.memberInfo.profileimg}" >
 				        	<img src="${path }/resources/img/my/user.png" id="OHMainView-photoProfileImage" style="width: 30px; height: 30px;">
 				            </c:if>
 				            <%-- 프로필 이미지가 있으면 있는 이미지 --%>
-				            <c:if test="${!empty loginUserDto.profileimg}" >
-				           	<img src="${path }/resources/upload/my/${loginUserDto.profileimg}" id="OHMainView-photoProfileImage">
-				        </c:if> <h4 class="cs_content_section4_wrap_rreply_ni_h4">${dto.rqbwriter }</h4></div>
+				            <c:if test="${!empty dto.memberInfo.profileimg}" >
+				           	<img src="${path }/resources/upload/my/${dto.memberInfo.profileimg}" id="OHMainView-photoProfileImage" style="width: 25px; height: 25px;">
+				        </c:if> 
+				        <h4 class="cs_content_section4_wrap_rreply_ni_h4">${dto.rqbwriter }</h4>
+				        </div>
 					<div class="cs_content_section4_wrap_rreply_content">${dto.rqbcontent }</div>
 	
 					<!--답글 달기 버튼을 클릭 시에 아래에 입력 창이 나타나도록 하는 스크립트-->
-					<%
-						if (session.getAttribute("userId") == null) {
-					%>
-					<c:if test="${!empty loginUserDto.email}"> </c:if>
-					<div class="cs_content_section4_wrap_rreply_btn">
-					<%
+<%-- 					<%
+						if ( == null) {
+					%> --%>
+					<c:if test="${empty loginUserDto.email}"> 
+						<div class="cs_content_section4_wrap_rreply_btn">
+					</c:if>
+<%-- 					<%
 					} else {
-					%>
-					<div class="cs_content_section4_wrap_rreply_wrap_btn">
+					%> --%>
+					<c:if test="${!empty loginUserDto.email}"> 
+						<div class="cs_content_section4_wrap_rreply_wrap_btn">
 					
-					<button  class="cs_content_section4_wrap_rreply_btn" onclick="replyform()" data-rqbno="${dto.rqbno }">답글달기</button>
-					<%
+						<button  class="cs_content_section4_wrap_rreply_btn" onclick="replyform()" data-rqbno="${dto.rqbno }">답글달기</button>
+					</c:if>
+<%-- 					<%
 						}
-					%>
+					%> --%>
 	
 					<input class="cs_content_section4_wrap_rreply_btn" type="button" onclick="replyrview()" id="${dto.rqbno }replyvbtn" name="${dto.rqbno }replyvbtn" data-rqbno="${dto.rqbno }" value="답글보기" />
 					
@@ -172,7 +182,7 @@
 								<input type="hidden" id="rqbstep" name="rqbstep" value="${dto.rqbstep }" /> 
 								<input type="hidden" id="rqbgroup" name="rqbgroup" value="${dto.rqbgroup }" /> 
 								<input type="hidden" id="rqbindent" name="rqbindent" value="${dto.rqbindent }" />
-								<input type="hidden" name="rwriter" id="rwriter" value="<%=session.getAttribute("userId")%>" /> 
+								<input type="hidden" name="rwriter" id="rwriter" value="${loginUserDto.nickname }" /> 
 		
 								<textarea id="rcontent" name="rcontent" class=cs_content_section4_replyrview_inputform_ta></textarea>
 								<input class="reply_input_btn" type="button" value="입력" onclick="reply()" data-rqbno="${dto.rqbno }" />
@@ -217,6 +227,10 @@
 
 					for (var i = 0; i < data.length; i++) {
 
+						var profileImgUrl = data[i].profileimg || '/resources/img/my/user.png';  // 기본 이미지 사용
+		                var writer = data[i].rqbwriter;
+		                var content = data[i].rqbcontent;
+		                
 						console.log(data[i].rqbcontent);
 						
 						

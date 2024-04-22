@@ -59,5 +59,9 @@ public interface QnaBoardIDao {
 
 	public ArrayList<QnaImgDto> imglist(Integer selfilecode);
 
+	public String selqbwriter(int qbno);
+
+	public String qnaprofileimg(String qbwriter);
+
 	
 }
