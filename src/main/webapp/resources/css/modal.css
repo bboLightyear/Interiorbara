@@ -38,7 +38,7 @@
 }
 
 
-.modal_leftside_img,
+/* .modal_leftside_img,
 .modal_leftside_content{
   position: relative;
   animation: slideFromLeft 0.5s ease-in-out;
@@ -48,14 +48,61 @@
 .rightside-ani{
 	position: relative;
   animation: scale-up-hor-left 0.5s ease-in-out;
-}
+} */
 
-.modal_center_body,
+/* .modal_center_body,
+.mainModal_center_body,
 .complete_modal_center_body{
   position: relative;
   animation: slideFromBottom 0.5s ease-in-out;
+} */
+
+
+.modal_leftside_img,
+.modal_leftside_content,
+.rightside-ani {
+  transition: all .4s cubic-bezier(.05,.45,.1,1);
 }
 
+.modal_leftside_img,
+.modal_leftside_content {
+  opacity: 0;
+  transform: translateX(-20px);
+}
+
+.rightside-ani {
+  opacity: 0;
+  transform: scale(0.9);
+}
+
+.modal_center_body,
+.complete_modal_center_body,
+.mainModal_center_body {
+
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+.modal_leftside_img.show,
+.modal_leftside_content.show,
+.rightside-ani.show,
+.modal_center_body.show,
+.complete_modal_center_body.show,
+.mainModal_center_body.show {
+  opacity: 1;
+  transform: translateX(0);
+  transform: scale(1);
+  transform: translateY(0);
+}
+
+.modal_leftside_img,
+.modal_leftside_content,
+.rightside-ani,
+.modal_center_body,
+.complete_modal_center_body,
+.mainModal_center_body{
+  transition: opacity 0.2s ease-in-out, transform 0.2s ease-in-out;
+}
 
 
 #modal {
@@ -81,19 +128,50 @@
     margin-right: 10px;
     margin-top: 5px;
 }
+
+.mainModal_content{
+    display: flex;
+    background-color: #fefefe;
+
+    border: 0px solid #888;
+    width: 800px;
+    max-width: 800px;
+    max-height: 80vh;
+    overflow-y: auto;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);  
+}
+
+.completeModal_content{
+	display: flex;
+    background-color: #fefefe;
+
+    border: 0px solid #888;
+    width: 800px;
+    max-width: 800px;
+    max-height: 80vh;
+    overflow-y: auto;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%); 
+}
 .modal_content{
     display: flex;
     background-color: #fefefe;
-    margin: 10vh auto;
-    margin-right: 35%;
-    padding: 0px;
+    margin: auto;
     border: 0px solid #888;
-    width: 80%;
-    max-width: 800px;
-    
-    
-    
+    width: 1080px;
+    max-height: 80vh;
+    overflow-y: auto;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);  
 }
+
 .modal_leftside{
     display:flex;
     flex-direction: column;
@@ -106,15 +184,12 @@
     display:flex;
     flex-direction: column;
     background-color: #fefefe;
-    margin: 15% auto;
-    padding: 20px;
     border: 0px solid #888;
     width:550px;
     max-height: 70vh;
     margin-top:0;
     margin-bottom:0;
     flex:1;
-    padding: 10px 0px;
     height: auto;
     
 }
@@ -209,9 +284,17 @@ position: absolute;
     flex:1 1 auto;
     overflow-y:auto;
     text-align: center;
-    width:550px;
-    
+    width:550px;    
 }
+
+.mainModal_center_body{
+    display:flex;
+    overflow-y:auto;
+    text-align: center;
+  
+    margin-top: 10px;
+}
+
 .row{
     display: flex;
     flex-direction:column;
@@ -708,6 +791,7 @@ margin-bottom: 15px;
 #nonMemberForm{
 	margin-left: 40px;
 	padding: 10px;
+	margin-top: 40px;
 }
 
 
@@ -800,14 +884,12 @@ border-color: #1e90ff;
     flex-direction: column;
     background-color: #fefefe;
     margin: 15% auto;
-    padding: 20px;
     border: 0px solid #888;
     width:550px;
     max-height: 70vh;
     margin-top:0;
     margin-bottom:0;
     flex:1;
-    padding: 10px 0px;
     height: auto;
 }
 
@@ -955,21 +1037,29 @@ header {
 	padding: 0;
 	width: 100%;
 	height: 65px;
-	border-bottom: 1px solid gray;
+	border-bottom: 1px solid #b1b8c0;
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
-	background-color: lightskyblue;
+	background-color: white;
 }
 
 /* 로고 이미지 */
 .header_logo {
 	display: inline-block;
-	margin-top: 10px;
-	width: 50px;
-	height: 30px;
+	margin-top: 2px;
+	margin-left: 150px;
+	width: 400px;
+	height: 63px;
 	object-fit: fill;
 	cursor: pointer;
+}
+
+.header_logo img{
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	object-position: center;
 }
 
 /* 검색 창 */
@@ -978,9 +1068,15 @@ header {
 	display: inline-block;
 	width: 40%;
 	height: 30px;
-	border: 1px solid gray;
+	border: 1px solid #b1b8c0;
 	border-radius: 10px;
-	background-color: lightgray;
+	background-color: #f9fafb;
+}
+.header_search_box:hover {
+	background-color: #e2f0fe;
+}
+.header_search_box:click {
+	background-color: #e2f0fe;
 }
 /* 검색 부분 */
 .header_search_box_input {
@@ -991,9 +1087,15 @@ header {
 	font-size: 15px;
 	width: 80%;
 	height: 60%;
-	background-color: lightgray;
+	background-color: #f9fafb;
 	text-align: center;
 	cursor: pointer;
+}
+.header_search_box_input:hover {
+	background-color: #e2f0fe;
+}
+.header_search_box_input:click {
+	background-color: #e2f0fe;
 }
 
 /* 회원관리부분 */
@@ -1004,14 +1106,23 @@ header {
 	height: 30px;
 	font-size: 12px;
 }
+.header_nickname{
+	float: left;
+	padding-right: 10px;
+	width: fit-content;
+	height: fit-content;
+	cursor: pointer;
+}
 /* 로그인 */
 .header_login {
 	float: left;
 	margin-right: 10px;
+	padding-left: 10px;
 	padding-right: 10px;
 	width: fit-content;
 	height: fit-content;
-	border-right: 1px solid gray;
+	border-left: 1px solid #b1b8c0;
+	border-right: 1px solid #b1b8c0;
 	cursor: pointer;
 }
 /* 회원가입 */
@@ -1021,7 +1132,7 @@ header {
 	padding-right: 10px;
 	width: fit-content;
 	height: fit-content;
-	border-right: 1px solid gray;
+	border-right: 1px solid #b1b8c0;
 	cursor: pointer;
 }
 /* 마이페이지 */
@@ -1036,21 +1147,12 @@ header {
 	padding: 0;
 	width: 100%;
 	height: 65px;
-	border-bottom: 1px solid gray;
+	border-bottom: 1px solid #b1b8c0;
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	background-color: lightskyblue;
+	background-color: white;
     transition: 0.1s;
-}
-
-/* 카테고리 아이콘 */
-.header_category_icon {
-	margin-top: 12px;
-	display: inline-block;
-	width: fit-content;
-	height: 40px;
-	cursor: pointer;
 }
 
 /* 카테고리 list */
@@ -1058,14 +1160,26 @@ header {
 	margin-top: -5px;
 	margin-left: 10px;
 	padding-left: 10px;
-	border-left: 1px solid gray;
+	border-left: 1px solid #b1b8c0;
 	display: inline-block;
 	width: fit-content;
 	height: fit-content;
 	font-size: 15px;
 	font-weight: bold;
 	font-family: sans-serif;
+	text-decoration: none;
 	cursor: pointer;
+}
+.header_category_list:hover {
+	padding-right: 10px;
+	transform: scale(1.1);
+    letter-spacing: 2px;
+	background-color: #e2f0fe;
+	transition: 0.1s;
+	font-size: 18px;
+}
+.list_1{
+	border-left: none;
 }
 
 .body_section {
@@ -1222,22 +1336,31 @@ footer {
 	height: 130px;
 	position: relative;
 	transform: translateY(10%);
-	border-top: 1px solid gray;
+	border-top: 1px solid #b1b8c0;
 	display: flex;
-	background-color: lightskyblue;
+	background-color: #b1b8c0;
 }
 
 /* 푸터 로고 */
 .footer_logo {
-	margin-top: 15px;
+	margin-top: 5px;
 	margin-left: 30px;
-	width: 10%;
-	height: 100px;
-	border: 1px solid gray;
+	width: 120px;
+	height: 120px;
+	border: 1px solid #b1b8c0;
+	cursor: pointer;
+}
+
+.footer_logo img {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	object-position: center;
 }
 
 /* 푸터 내용 */
 .footer_content {
+	margin-top: 10px;
 	margin-left: 50px;
 	width: 60%;
 	white-space: pre-line;
@@ -1245,11 +1368,22 @@ footer {
 
 /* sns 아이콘 */
 .footer_sns {
+	position: absolute;
+	right: 50px;
+	bottom: 10px;
 	text-align: right;
 	margin-top: 100px;
-	width: 20%;
+	width: 150px;
+	height: 25px;
 }
-
+.footer_sns a{
+	float: left;
+	margin-left: 5px;
+	margin-right: 5px;
+	width: 20px;
+	height: 20px;
+	text-decoration: none;
+}
 
 /* ---------반응형 모달창------------ */
 .summary-button {
@@ -1269,7 +1403,7 @@ footer {
 	display: block;
 }
 
-@media screen and (min-width: 1025px) {
+@media screen and (min-width: 951px) {
 
 .rightside{
 	display: flex;
@@ -1334,11 +1468,14 @@ right: 0;
 
 
 
-@media screen and (max-width: 1024px) {
+@media screen and (max-width: 950px) {
   .rightside {
     display: none;
   }
+  .modal_content{
+      width: 790px;
   
+  }
   .modal_center_header {
     position: relative;
   }
@@ -1355,14 +1492,19 @@ right: 0;
   .modal_leftside {
     display: none;
   }
+  .modal_content{
+      width: 550px;
+  
+  }
 }
 @media screen and (max-width: 480px) {
   .modal_content {
     flex-direction: column;
   }
   
+  
   .modal_center {
-    width: 100%;
+    
   }
 }
 
