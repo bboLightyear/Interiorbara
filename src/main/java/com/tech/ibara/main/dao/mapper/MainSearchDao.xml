@@ -5,82 +5,85 @@
     "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
     
 <mapper namespace="com.tech.ibara.main.dao.MainSearchDao">
-	<resultMap type="com.tech.ibara.main.dto.BizSearchDto" id="biz_temp">
-		<result column="BIZ_NO" property="biz_no" />
-		<result column="BIZ_NAME" property="biz_name" />
-		<result column="BIZ_ADDR" property="biz_addr" />
-		<result column="BIZ_IMG" property="biz_img" />
+	<resultMap type="com.tech.ibara.main.dto.BizSearchDto" id="biz_search">
+		<result column="BH_NO" property="bh_no" />
+		<result column="BH_NAME" property="bh_name" />
+		<result column="BH_ADDR1" property="bh_addr1" />
+		<result column="BH_ADDR2" property="bh_addr2" />
 	</resultMap>
-	<resultMap type="com.tech.ibara.main.dto.ShopSearchDto" id="shop_temp">
-		<result column="SHOP_NO" property="shop_no" />
-		<result column="SHOP_NAME" property="shop_name" />
-		<result column="SHOP_PRICE" property="shop_price" />
-		<result column="SHOP_IMG" property="shop_img" />
+	<resultMap type="com.tech.ibara.main.dto.ShopSearchDto" id="shop_search">
+		<result column="PRODUCT_ID" property="shop_no" />
+		<result column="NAME" property="shop_name" />
+		<result column="REP_PRICE" property="shop_price" />
 	</resultMap>
-	<resultMap type="com.tech.ibara.main.dto.OHSearchDto" id="oh_temp">
-		<result column="OH_NO" property="oh_no" />
-		<result column="OH_NAME" property="oh_name" />
-		<result column="OH_CONTNET" property="oh_content" />
-		<result column="OH_IMG" property="oh_img" />
+	<resultMap type="com.tech.ibara.main.dto.OHSearchDto" id="oh_search">
+		<result column="PB_NO" property="oh_no" />
+		<result column="PB_TITLE" property="oh_name" />
+		<result column="PB_CONTENT" property="oh_content" />
 	</resultMap>
-	<resultMap type="com.tech.ibara.main.dto.NoticeSearchDto" id="notice_temp">
-		<result column="NOTICE_NO" property="notice_no" />
-		<result column="NOTICE_TITLE" property="notice_title" />
-		<result column="NOTICE_HIT" property="notice_hit" />
-		<result column="NOTICE_DATE" property="notice_date" />
+	<resultMap type="com.tech.ibara.main.dto.NoticeSearchDto" id="notice_search">
+		<result column="NBNO" property="notice_no" />
+		<result column="NBTITLE" property="notice_title" />
+		<result column="NBDATE" property="notice_date" />
 	</resultMap>
-	<resultMap type="com.tech.ibara.main.dto.QnASearchDto" id="qna_temp">
+	<resultMap type="com.tech.ibara.main.dto.QnASearchDto" id="qna_search">
 		<result column="QNA_NO" property="qna_no" />
-		<result column="QNA_TITLE" property="qna_title" />
-		<result column="QNA_WRITER" property="qna_writer" />
-		<result column="QNA_HIT" property="qna_hit" />
-		<result column="QNA_DATE" property="qna_date" />
+		<result column="QBTITLE" property="qna_title" />
+		<result column="QBWRITER" property="qna_writer" />
+		<result column="QBDATE" property="qna_date" />
 	</resultMap>
-	<select id="bizSearchContent" resultType="com.tech.ibara.main.dto.BizSearchDto" resultMap="biz_temp">
+	<select id="bizSearchContent" resultType="com.tech.ibara.main.dto.BizSearchDto" resultMap="biz_search">
 		SELECT
-			BIZ_NAME, BIZ_ADDR
+			BH_NAME, BH_ADDR1, BH_ADDR2
 		FROM
-			BIZ_TEMP
+			BIZ_HOME
 		WHERE
-			BIZ_NAME LIKE '%' || #{param1} || '%'
+			BH_NAME LIKE '%' || #{param1} || '%'
 			OR
-			BIZ_ADDR LIKE '%' || #{param1} || '%'
+			BH_ADDR1 LIKE '%' || #{param1} || '%'
+			OR
+			BH_ADDR2 LIKE '%' || #{param1} || '%'
+		ORDER BY BH_NO DESC
 	</select>
-	<select id="shopSearchContent" resultType="com.tech.ibara.main.dto.ShopSearchDto" resultMap="shop_temp">
+	<select id="shopSearchContent" resultType="com.tech.ibara.main.dto.ShopSearchDto" resultMap="shop_search">
 		SELECT
-			SHOP_NAME, SHOP_PRICE
+			NAME, REP_PRICE
 		FROM
-			SHOP_TEMP
+			SHOP_PRODUCT
 		WHERE
-			SHOP_NAME LIKE '%' || #{param1} || '%'
+			NAME LIKE '%' || #{param1} || '%'
+		ORDER BY PRODUCT_ID DESC
 	</select>
-	<select id="ohSearchContent" resultType="com.tech.ibara.main.dto.OHSearchDto" resultMap="oh_temp">
+	<select id="ohSearchContent" resultType="com.tech.ibara.main.dto.OHSearchDto" resultMap="oh_search">
    		SELECT
-			OH_NAME, OH_CONTENT
+			PB_TITLE, PB_CONTENT
 		FROM
-			OH_TEMP
+			OH_PHOTO_BOARD
 		WHERE
-			OH_NAME LIKE '%' || #{param1} || '%'
+			PB_TITLE LIKE '%' || #{param1} || '%'
 			OR
-			OH_CONTENT LIKE '%' || #{param1} || '%'
+			PB_CONTENT LIKE '%' || #{param1} || '%'
+		ORDER BY PB_NO DESC
 	</select>
-	<select id="noticeSearchContent" resultType="com.tech.ibara.main.dto.NoticeSearchDto" resultMap="notice_temp">
+	<select id="noticeSearchContent" resultType="com.tech.ibara.main.dto.NoticeSearchDto" resultMap="notice_search">
    		SELECT
-			NOTICE_TITLE, NOTICE_DATE
+			NBTITLE, NBDATE
 		FROM
-			NOTICE_TEMP
+			CS_NOTICEBOARD
 		WHERE
-			NOTICE_TITLE LIKE '%' || #{param1} || '%'
+			NBTITLE LIKE '%' || #{param1} || '%'
+		ORDER BY NBNO DESC
 	</select>
-	<select id="qnaSearchContent" resultType="com.tech.ibara.main.dto.QnASearchDto" resultMap="qna_temp">
+	<select id="qnaSearchContent" resultType="com.tech.ibara.main.dto.QnASearchDto" resultMap="qna_search">
    		SELECT
-			QNA_TITLE, QNA_WRITER, QNA_DATE
+			QBTITLE, QBWRITER, QBDATE
 		FROM
-			QNA_TEMP
+			CS_QNABOARD
 		WHERE
-			QNA_TITLE LIKE '%' || #{param1} || '%'
+			QBTITLE LIKE '%' || #{param1} || '%'
 			OR
-			QNA_WRITER LIKE '%' || #{param1} || '%'
+			QBWRITER LIKE '%' || #{param1} || '%'
+		ORDER BY QBNO DESC
 	</select>
 
 </mapper>

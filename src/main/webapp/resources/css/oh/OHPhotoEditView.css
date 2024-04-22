@@ -29,15 +29,16 @@
 /* ----- End: #OHPhotoEditView-main-1 ----- */
 
 /* ----- Start: #OHPhotoEditView-main-2 ----- */
-#OHPhotoEditView-main-2 {
+/* #OHPhotoEditView-main-2 {
 	position: relative; 
     text-align: center;
     height: 100px;
     margin-top: 50px;   
     border-top: 1px solid #1a1f27;
     border-bottom: 1px solid #1a1f27;
-}
-#OHPhotoEditView-photoBoardButton {
+} */
+/* 집사진 */
+/* #OHPhotoEditView-photoBoardButton {
     position: absolute;
     top: 50%;
     left: 50%;
@@ -48,7 +49,7 @@
    	background-color: #1e90ff;
    	border: none;
     border-radius: 10px;
-}
+} */
 /* 집영상 */
 /* #OHPhotoEditView-videoBoardButton {
     position: absolute;
@@ -82,9 +83,16 @@
     width: 80px;
     height: 50px;
     color: #1a1f27; 
-   	background-color: #1e90ff;
+   	background-color: #e2f0fe;
    	border: none;
     border-radius: 10px;
+	font-size: 15px;
+	transition: 0.5s ease;    
+}
+#OHPhotoEditView-editPostButton:hover {
+	font-size: 16px;
+	background-color: #1e90ff;
+	cursor:pointer;
 }
 #OHPhotoEditView-cancelPostButton {
     position: absolute;
@@ -94,9 +102,16 @@
     width: 80px;
     height: 50px;
     color: #1a1f27; 
-   	background-color: #1e90ff;
+   	background-color: #e2f0fe;
    	border: none;
     border-radius: 10px;
+	font-size: 15px;
+	transition: 0.5s ease;      
+}
+#OHPhotoEditView-cancelPostButton:hover {
+	font-size: 16px;
+	background-color: #1e90ff;
+	cursor:pointer;	
 }
 #OHPhotoEditView-main-sector2 {
     display: flex;
@@ -269,6 +284,13 @@
     -webkit-appearance: none;
     -moz-appearance: none;
     appearance: none;
+	font-size: 15px;
+	transition: 0.5s ease;	    
+}
+#layer3-pb_residence:hover {
+	font-size: 16px;
+	background-color: #1e90ff;
+	cursor:pointer;		
 }
 #layer3-pb_room-Lable {
     position: absolute;
@@ -295,6 +317,13 @@
     -webkit-appearance: none;
     -moz-appearance: none;
     appearance: none;
+	font-size: 15px;
+	transition: 0.5s ease;    
+}
+#layer3-pb_room:hover {
+	font-size: 16px;
+	background-color: #1e90ff;
+	cursor:pointer;		
 }
 #layer3-pb_style-Lable {
     position: absolute;
@@ -321,6 +350,13 @@
     -webkit-appearance: none;
     -moz-appearance: none;
     appearance: none;
+	font-size: 15px;
+	transition: 0.5s ease;    
+}
+#layer3-pb_style:hover {
+	font-size: 16px;
+	background-color: #1e90ff;
+	cursor:pointer;		
 }
 #layer3-pb_skill-Lable {
     position: absolute;
@@ -347,6 +383,13 @@
     -webkit-appearance: none;
     -moz-appearance: none;
     appearance: none;
+	font-size: 15px;
+	transition: 0.5s ease;    
+}
+#layer3-pb_skill:hover {
+	font-size: 16px;
+	background-color: #1e90ff;
+	cursor:pointer;		
 }
 /* ----- End: #OHPhotoEditView-main-3 ----- */
 

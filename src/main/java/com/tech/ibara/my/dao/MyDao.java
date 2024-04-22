@@ -2,12 +2,15 @@ package com.tech.ibara.my.dao;
 
 import java.util.ArrayList;
 
+import com.tech.ibara.biz.dto.BizHomeDto;
 import com.tech.ibara.my.dto.InteriorCasesImgDto;
 import com.tech.ibara.my.dto.MyMemberInfoDto;
 import com.tech.ibara.my.dto.MyNonMemberDto;
 import com.tech.ibara.my.dto.MyReportDto;
 import com.tech.ibara.my.dto.MyWithdrawalDto;
 import com.tech.ibara.my.dto.PhotoAttachDto;
+import com.tech.ibara.my.dto.PhotoLikeDto;
+import com.tech.ibara.my.dto.PhotoScrapDto;
 
 public interface MyDao {
 	public void join(String nickname,String shpwd,String bcpwd,String email);
@@ -18,6 +21,7 @@ public interface MyDao {
 		
 	public String getMemberEmail(String nickname);
 	public String getMemberNickname(String email);
+	public int getMemberMemno(String nickname);
 	
 	public void setMemberEmailChecked(String nickname);
 	
@@ -38,7 +42,6 @@ public interface MyDao {
 	public void allowWithdrawal(String yn,String memno);
 	public void completedWithdrawal(String memno);
 	public void cancelWithdrawal(String memno);
-	public ArrayList<MyMemberInfoDto> getMemberInfoList();
 	public int insertInterior(String memno,String interiornum);
 	public int insertSeller(String memno,String sellernum);
 	public int countCheckInterior(String interiorNum);
@@ -67,6 +70,12 @@ public interface MyDao {
 	public ArrayList<PhotoAttachDto> getMyPhoto(int memno);
 	public ArrayList<PhotoAttachDto> getMyPhotoBoardList(int memno);
 	public ArrayList<InteriorCasesImgDto> getMyCasesList(int inteno);
-	
+	public ArrayList<BizHomeDto> getBmarkedHomesByUserMy(int memno);
+	public int getInteno(String memno);
+	public void bizHomeCreate(String nickname, int inteno);
+	public int countMemberList(String mlSelNum,String searchKeyword);
+	public ArrayList<MyMemberInfoDto> getMemberInfoList(String selNum,String searchKeyword);
+	public ArrayList<PhotoLikeDto> getPhotoBoardLikeList(int memno);
+	public ArrayList<PhotoScrapDto> getPhotoBoardScrapList(int memno);	
 	
 }

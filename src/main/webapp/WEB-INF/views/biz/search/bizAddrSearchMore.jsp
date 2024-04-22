@@ -15,14 +15,14 @@
   href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"/>
   	<style>
 	 .fa-solid{
-	 	color: #333;
+	 	color: #1034a6;
 	 }
 	 .fa-solid:hover{
-	 	color: orange;
-	 }	 
+	 	color: #1e90ff;
+	 }
 	 a {
 	   text-decoration: none;
-	   color: #1a1f27;
+	   color: black;
 	}	 
 	</style>
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
@@ -44,10 +44,10 @@
 										<c:forTokens items="${fileNm }" delims="." var="token" varStatus="status">
 										<c:if test="${status.last }">
 											<c:choose>
-												<c:when test="${token eq 'jpg' || token eq 'png'}">		
+												<c:when test="${token eq 'jpg' || token eq 'png' || token eq 'jpeg'}">		
 														<img src="../../resources/upload/biz/home/${bizHome.bh_img }" alt="${bizHome.bh_img }" width="250" height="150" style="border-top-left-radius: 3.5%; border-top-right-radius: 3.5%;"/>
 												</c:when>
-											<c:otherwise> <img src="#" alt="엑스박스" value="엑스박스" /></c:otherwise>		
+											<c:otherwise> <img src="#" alt="잘못된 파일 형식" value="잘못된 파일 형식" /></c:otherwise>		
 											</c:choose>
 										</c:if>
 										</c:forTokens>

@@ -54,7 +54,7 @@ public class BizRvWriteService implements BizServiceInter {
 		System.out.println("br_no: "+br_no);
 		
 		//show in sys explorer로 열어서 주소복사함
-		String path="C:\\23setspring\\springwork23\\interiorbara_simi\\src\\main\\webapp\\resources\\upload\\biz\\review";
+		String path="C:\\interiorbara01\\interiorbara01\\src\\main\\webapp\\resources\\upload\\biz\\review";
 //		MultipartRequest req=
 //				new MultipartRequest(mftRequest, path, 1024*1024*10,"utf-8", new DefaultFileRenamePolicy());
 //		

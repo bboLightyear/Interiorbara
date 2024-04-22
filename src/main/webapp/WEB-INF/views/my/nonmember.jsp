@@ -1,52 +1,25 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<c:set var="path" value="${pageContext.request.contextPath}"/>
-<!DOCTYPE html>
-<html>
-<head>
-   <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>내 견적 조회</title>
-    <style>
-    label{
-       display:inline-block;
-      padding: 10px;
-      width: 80px;
-      height: 20px;
-      margin: 10px;
-   }
-   input{
-      padding:10px;
-      margin: 10px;
-   }
-   #btn{
-         padding: 10px;
-         width: 380px;
-         background-color: #e2f0fe;
-   }
-   #btn:hover{
-      background-color: #1e90ff;
-      cursor: pointer;
-   } 
-   h3{
-      margin-top: 30px;
-   }
-   
-    </style>
-</head>
-<body>
-    <form action="${path}/modal/mBoard" method="post">
-    	<div align="center">
-    		<h3>내 견적조회</h3>
-	        <label for="email">이메일</label>
-	        <input type="text" id="email" name="email" size="35" placeholder="이메일주소를 입력해주세요" /><br />
-	        <label for="pw">비밀번호</label>       
-	        <input type="text" id="pw" name="pw" size="35" placeholder="비밀번호를 입력해주세요" /><br />
-	        <input type="submit" id="btn" value="확인" />
-    	</div>
-    </form><br />
-    
+<%@include file="header.jsp"%>
+<script>
+	document.title = "내 견적 조회";
+</script>
+<main class="Site-content">
+   <div>
+      <form action="${path}/modal/mBoard" method="post">
+         <div align="center">
+            <h3 class="mt30">내 견적조회</h3>
+            <label class="nonmemberlabel radius10" for="email">이메일</label>
+            <input class="nonmemberinput radius10" type="email" id="email" name="email" size="35" placeholder="이메일을 입력해주세요" /><br /> 
+            <label class="nonmemberlabel radius10" for="pw">비밀번호</label>
+            <input class="nonmemberinput radius10" type="password" id="pw" name="pw" size="35" placeholder="비밀번호를 입력해주세요" title="비밀번호를 입력해주세요" /><br />
+            <input class="nonmemberinput radius10" type="submit" id="nonmemberbtn" value="확인" />
+         </div>
+      </form>
+      <c:if test="${not empty error}">
+         <p style="color: red;">${error}</p>
+      </c:if>
+   </div>
+</main>
+<%@include file ="footer.jsp" %>
 
-</body>
-</html>

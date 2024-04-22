@@ -119,6 +119,11 @@
 		WHERE BC_NO=#{param1}
 	</select>
 	
+	<select id="bizCasesContentViewNickname"
+		resultType="String">
+		SELECT
+	</select>
+	
 	<select id="bizCasesDelView"
 		resultType="com.tech.ibara.biz.dto.BizCasesDto">
 		SELECT BC_NO, BC_TITLE, INTENO 
@@ -356,7 +361,7 @@
 
 	<insert id="bizRvWrite" >
 		INSERT INTO BIZ_RV(BR_NO, BR_CONTENT, BR_WRITER, BR_LIKE_CNT, BR_DATE, BR_POINT, INTENO, MEMNO) 
-    	VALUES(BIZ_MGZ_SEQ.NEXTVAL,#{param1},#{param2},0,SYSDATE,#{param3},#{param4},#{param5})
+    	VALUES(BIZ_RV_SEQ.NEXTVAL,#{param1},#{param2},0,SYSDATE,#{param3},#{param4},#{param5})
 	</insert>
 	
 	<insert id="bizRvImgWrite">
@@ -689,21 +694,21 @@
 	</select>
 
 	<select id="bizRvContentListJoin" parameterType="com.tech.ibara.biz.dto.BizRvDto" resultMap="BizRvDto">
-		SELECT BR.BR_NO, SUBSTR(BR.BR_CONTENT, 1, 38) BR_CONTENT, BR.INTENO 
+		SELECT BR.BR_NO, SUBSTR(BR.BR_CONTENT, 1, 37) BR_CONTENT, BR.INTENO 
 		 FROM BIZ_RV BR JOIN BIZ_HOME BH ON BH.INTENO=BR.INTENO
           WHERE BR.BR_NO IN (SELECT MAX(BR_NO) FROM BIZ_RV GROUP BY INTENO)
            ORDER BY BH.BH_NO DESC
 	</select>
 	
 	<select id="bizRvContentListJoinAddr" parameterType="com.tech.ibara.biz.dto.BizRvDto" resultMap="BizRvDto">
-		SELECT BR.BR_NO, SUBSTR(BR.BR_CONTENT, 1, 38) BR_CONTENT, BR.INTENO 
+		SELECT BR.BR_NO, SUBSTR(BR.BR_CONTENT, 1, 37) BR_CONTENT, BR.INTENO 
 		 FROM BIZ_RV BR JOIN BIZ_HOME BH ON BH.INTENO=BR.INTENO
           WHERE BR.BR_NO IN (SELECT MAX(BR.BR_NO) FROM BIZ_RV BR JOIN BIZ_HOME BH ON BH.INTENO=BR.INTENO WHERE BH.BH_ADDR1 LIKE '%'||#{param1}||'%' GROUP BY BR.INTENO) AND BH.BH_ADDR1 LIKE '%'||#{param1}||'%'  
            ORDER BY BH.BH_NO DESC
 	</select>
 
  	<select id="bizRvContentListJoinStar" parameterType="com.tech.ibara.biz.dto.BizRvDto" resultMap="BizRvDto">
-		SELECT BR.BR_NO, SUBSTR(BR.BR_CONTENT, 1, 38) BR_CONTENT, BR.INTENO 
+		SELECT BR.BR_NO, SUBSTR(BR.BR_CONTENT, 1, 37) BR_CONTENT, BR.INTENO 
 		 FROM BIZ_RV BR JOIN BIZ_HOME BH ON BH.INTENO=BR.INTENO
          JOIN BIZ_SEARCH_TEMP BST ON BR.INTENO=BST.INTENO
           WHERE BR.BR_NO IN (SELECT MAX(BR.BR_NO) FROM BIZ_RV BR JOIN BIZ_HOME BH ON BH.INTENO=BR.INTENO WHERE BH.BH_ADDR1 LIKE '%'||#{param1}||'%' GROUP BY BR.INTENO) AND BH.BH_ADDR1 LIKE '%'||#{param1}||'%' 
@@ -711,7 +716,7 @@
 	</select>
 
  	<select id="bizRvContentListJoinRvCnt" parameterType="com.tech.ibara.biz.dto.BizRvDto" resultMap="BizRvDto">
-		SELECT BR.BR_NO, SUBSTR(BR.BR_CONTENT, 1, 38) BR_CONTENT, BR.INTENO  
+		SELECT BR.BR_NO, SUBSTR(BR.BR_CONTENT, 1, 37) BR_CONTENT, BR.INTENO  
 		 FROM BIZ_RV BR JOIN BIZ_HOME BH ON BH.INTENO=BR.INTENO 
          JOIN BIZ_SEARCH_TEMP BST ON BR.INTENO=BST.INTENO 
           WHERE BR.BR_NO IN (SELECT MAX(BR.BR_NO) FROM BIZ_RV BR JOIN BIZ_HOME BH ON BH.INTENO=BR.INTENO WHERE BH.BH_ADDR1 LIKE '%'||#{param1}||'%' GROUP BY BR.INTENO) AND BH.BH_ADDR1 LIKE '%'||#{param1}||'%'  
@@ -719,7 +724,7 @@
 	</select>
 	
  	<select id="bizRvContentListJoinContCnt" parameterType="com.tech.ibara.biz.dto.BizRvDto" resultMap="BizRvDto">
-		SELECT BR.BR_NO, SUBSTR(BR.BR_CONTENT, 1, 38) BR_CONTENT, BR.INTENO  
+		SELECT BR.BR_NO, SUBSTR(BR.BR_CONTENT, 1, 37) BR_CONTENT, BR.INTENO  
 		 FROM BIZ_RV BR JOIN BIZ_HOME BH ON BH.INTENO=BR.INTENO 
          JOIN BIZ_SEARCH_TEMP BST ON BR.INTENO=BST.INTENO 
           WHERE BR.BR_NO IN (SELECT MAX(BR.BR_NO) FROM BIZ_RV BR JOIN BIZ_HOME BH ON BH.INTENO=BR.INTENO WHERE BH.BH_ADDR1 LIKE '%'||#{param1}||'%' GROUP BY BR.INTENO) AND BH.BH_ADDR1 LIKE '%'||#{param1}||'%'  
@@ -795,7 +800,7 @@
 	</select>
 	
 	<select id="bizRvContentListJoinPro" parameterType="com.tech.ibara.biz.dto.BizRvDto" resultMap="BizRvDto">
-		SELECT BR.BR_NO, SUBSTR(BR.BR_CONTENT, 1, 38) BR_CONTENT, BR.INTENO 
+		SELECT BR.BR_NO, SUBSTR(BR.BR_CONTENT, 1, 37) BR_CONTENT, BR.INTENO 
 		 FROM BIZ_RV BR JOIN BIZ_HOME BH ON BH.INTENO=BR.INTENO
           WHERE BR.BR_NO IN (SELECT MAX(BR.BR_NO) FROM BIZ_RV BR JOIN BIZ_HOME BH ON BH.INTENO=BR.INTENO WHERE BH.BH_PRO = #{param1} GROUP BY BR.INTENO) AND BH.BH_PRO = #{param1}  
            ORDER BY BH.BH_NO DESC
@@ -837,7 +842,7 @@
 	</select>
 	
 	 <select id="bizRvContentListJoinProStar" parameterType="com.tech.ibara.biz.dto.BizRvDto" resultMap="BizRvDto">
-		SELECT BR.BR_NO, SUBSTR(BR.BR_CONTENT, 1, 38) BR_CONTENT, BR.INTENO 
+		SELECT BR.BR_NO, SUBSTR(BR.BR_CONTENT, 1, 37) BR_CONTENT, BR.INTENO 
 		 FROM BIZ_RV BR JOIN BIZ_HOME BH ON BH.INTENO=BR.INTENO
          JOIN BIZ_SEARCH_TEMP BST ON BR.INTENO=BST.INTENO
           WHERE BR.BR_NO IN (SELECT MAX(BR.BR_NO) FROM BIZ_RV BR JOIN BIZ_HOME BH ON BH.INTENO=BR.INTENO WHERE BH.BH_PRO = #{param1} GROUP BY BR.INTENO) AND BH.BH_PRO = #{param1} 
@@ -845,7 +850,7 @@
 	</select>
 
  	<select id="bizRvContentListJoinProRvCnt" parameterType="com.tech.ibara.biz.dto.BizRvDto" resultMap="BizRvDto">
-		SELECT BR.BR_NO, SUBSTR(BR.BR_CONTENT, 1, 38) BR_CONTENT, BR.INTENO  
+		SELECT BR.BR_NO, SUBSTR(BR.BR_CONTENT, 1, 37) BR_CONTENT, BR.INTENO  
 		 FROM BIZ_RV BR JOIN BIZ_HOME BH ON BH.INTENO=BR.INTENO 
          JOIN BIZ_SEARCH_TEMP BST ON BR.INTENO=BST.INTENO 
           WHERE BR.BR_NO IN (SELECT MAX(BR.BR_NO) FROM BIZ_RV BR JOIN BIZ_HOME BH ON BH.INTENO=BR.INTENO WHERE BH.BH_PRO = #{param1} GROUP BY BR.INTENO) AND BH.BH_PRO = #{param1}  
@@ -853,7 +858,7 @@
 	</select>
 	
  	<select id="bizRvContentListJoinProContCnt" parameterType="com.tech.ibara.biz.dto.BizRvDto" resultMap="BizRvDto">
-		SELECT BR.BR_NO, SUBSTR(BR.BR_CONTENT, 1, 38) BR_CONTENT, BR.INTENO  
+		SELECT BR.BR_NO, SUBSTR(BR.BR_CONTENT, 1, 37) BR_CONTENT, BR.INTENO  
 		 FROM BIZ_RV BR JOIN BIZ_HOME BH ON BH.INTENO=BR.INTENO 
          JOIN BIZ_SEARCH_TEMP BST ON BR.INTENO=BST.INTENO 
           WHERE BR.BR_NO IN (SELECT MAX(BR.BR_NO) FROM BIZ_RV BR JOIN BIZ_HOME BH ON BH.INTENO=BR.INTENO WHERE BH.BH_PRO = #{param1} GROUP BY BR.INTENO) AND BH.BH_PRO = #{param1} 

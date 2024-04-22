@@ -1,12 +1,14 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
-<%@ page session="false"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<c:set var="path" value="${pageContext.request.contextPath}"/>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
+<link rel="stylesheet" href="resources/css/header_footer.css" />
+<link rel="stylesheet" href="mainCSS/sidebar.css" />
 <link rel="stylesheet" type="text/css" href="mainCSS/mainSearchView.css" />
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css" />
@@ -21,11 +23,11 @@
 			<div></div>
 			<!-- header_logo : 로고 -->
 			<div class="header_logo">
-				<img src="resources/img/mainimg/main_logo.jpg" alt="#" onclick="location.href='main'" />
+				<img src="${path}/resources/img/mainimg/logo_1_small_1459x344.jpg" alt="#" onclick="location.href='${path}/main'" />
 			</div>
 			<!-- header_search_box : 검색창 -->
 			<div class="header_search_box">
-				<form action="searchView" method="get">
+				<form action="${path}/mainSearchView" method="get">
 					<i class="fas fa-search header_search_box_icon"></i> <input
 						type="text" name="mainSearchContent" value="${mainSearchContent }"
 						class="header_search_box_input" placeholder="검색">
@@ -37,50 +39,46 @@
 				<c:choose>
 				   <c:when test="${loginUserDto eq null }">
 		   				<div class="header_login">
-							<a href="my/loginform">로그인</a>
+							<a href="${path}/my/loginform">로그인</a>
 						</div>
 						<div class="header_join">
-							<a href="my/joinform">회원가입</a>
+							<a href="${path}/my/joinform">회원가입</a>
 						</div>
 				   </c:when>
 				   <c:otherwise>
-				      ${loginUserDto.nickname }님 로그인 되었습니다. <br />
-				      ${loginUserDto.memno}번 회원님 로그인 되었습니다. <br />   
-				      ${loginUserDto.email}님 로그인 되었습니다.<br />
+				   		<div class="header_nickname">
+						   	${loginUserDto.nickname }님 <br />
+				   		</div>
 	   					<div class="header_login">
-							<a href="my/logout">로그아웃</a>
+							<a href="${path}/my/logout">로그아웃</a>
 						</div>
 						<div class="header_join">
-							<a href="my/mypage">mypage</a>
+							<a href="${path}/my/mypage">mypage</a>
 						</div>
 				   </c:otherwise>
 				</c:choose>
 			</div>
+
 			<!-- 오른쪽 여백 -->
 			<div></div>
 		</div>
 		<!-- header_bottom : 헤더 아랫부분 -->
 		<div id="header_bottom" class="header_bottom">
-			<!-- header_category_icon : 카테고리 아이콘 -->
-			<div class="header_category_icon">
-				<i class="fas fa-bars"></i>
-			</div>
-			<!-- header_category_list : 카테고리 / list_1~5 : list에 각각 들어갈 내용 -->
 			<div class="header_category_list list_1">
 				<a href="#" class="openModal">퀵견적</a>
 			</div>
 			<jsp:include page="../modal/mMain.jsp" />
 			<div class="header_category_list list_2">
-				<a href="shop/list">소품샵</a>
+				<a href="${path}/shop/list">소품샵</a>
 			</div>
 			<div class="header_category_list list_3">
-				<a href="biz/magazine/bizMgzList">업체 둘러보기</a>
+				<a href="${path}/biz/search/bizAddrSearch">업체 둘러보기</a>
 			</div>
 			<div class="header_category_list list_4">
-				<a href="oh/OHMainView">우리 집 자랑하기</a>
+				<a href="${path}/oh/OHMainView">우리 집 자랑하기</a>
 			</div>
 			<div class="header_category_list list_5">
-				<a href="cshome">고객센터</a>
+				<a href="${path}/cshome">고객센터</a>
 			</div>
 		</div>
 	</header>
@@ -96,15 +94,15 @@
 		              	 검색 결과 ${loop.index + 1}
 		            </div>
 					<div class="result_content">
-						업체 이름 : ${bizSearch.biz_name }
+						업체 이름 : ${bizSearch.bh_name }
 					</div>
 					<div class="result_content">
-						업체 주소 : ${bizSearch.biz_addr }
+						업체 주소 : ${bizSearch.bh_addr1 } ${bizSearch.bh_addr2 }
 					</div>
 				</c:forEach>
             </div>
             <div class="result_more biz_more">
-                <a href="#"> &#183;&#183;&gt; 검색 결과 더보기 &lt;&#183;&#183; </a>
+                <a href="${path}/biz/search/bizAddrSearch"> &#183;&#183;&gt; 검색 결과 더보기 &lt;&#183;&#183; </a>
             </div>
             <div class="result_none biz_none"> 검색 결과 없음 </div>
 		</div>
@@ -125,7 +123,7 @@
 				</c:forEach>
             </div>
             <div class="result_more shop_more">
-                <a href="#"> &#183;&#183;&gt; 검색 결과 더보기 &lt;&#183;&#183; </a>
+                <a href="${path}/shop/list"> &#183;&#183;&gt; 검색 결과 더보기 &lt;&#183;&#183; </a>
             </div>
             <div class="result_none shop_none"> 검색 결과 없음 </div>
 		</div>
@@ -146,7 +144,7 @@
 				</c:forEach>
             </div>
             <div class="result_more oh_more">
-                <a href="#"> &#183;&#183;&gt; 검색 결과 더보기 &lt;&#183;&#183; </a>
+                <a href="${path}/oh/OHMainView"> &#183;&#183;&gt; 검색 결과 더보기 &lt;&#183;&#183; </a>
             </div>
             <div class="result_none oh_none"> 검색 결과 없음 </div>
 		</div>
@@ -167,7 +165,7 @@
 				</c:forEach>
             </div>
             <div class="result_more notice_more">
-                <a href="#"> &#183;&#183;&gt; 검색 결과 더보기 &lt;&#183;&#183; </a>
+                <a href="${path}/noticelist"> &#183;&#183;&gt; 검색 결과 더보기 &lt;&#183;&#183; </a>
             </div>
             <div class="result_none notice_none"> 검색 결과 없음 </div>
 		</div>
@@ -191,7 +189,7 @@
 				</c:forEach>
             </div>
             <div class="result_more qna_more">
-                <a href="#"> &#183;&#183;&gt; 검색 결과 더보기 &lt;&#183;&#183; </a>
+                <a href="${path}/qnalist"> &#183;&#183;&gt; 검색 결과 더보기 &lt;&#183;&#183; </a>
             </div>
             <div class="result_none qna_none"> 검색 결과 없음 </div>
 		</div>
@@ -264,47 +262,54 @@
             <button class="openModal side_bar_button button_1">
 				<span>퀵견적</span>
 			</button>
-			<button onclick="location.href='shop/list'"	class="side_bar_button button_2">
+			<button onclick="location.href='${path}/shop/list'"	class="side_bar_button button_2">
 				<span>소품 샵</span>
 			</button>
-			<button class="side_bar_button button_3" onclick="location.href='biz/magazine/bizMgzList'" >
+			<button class="side_bar_button button_3" onclick="location.href='${path}/biz/search/bizAddrSearch'" >
 				<span>업체 <br> 둘러보기
 				</span>
 			</button>
-			<button onclick="location.href='oh/OHMainView'"	class="side_bar_button button_4">
+			<button onclick="location.href='${path}/oh/OHMainView'"	class="side_bar_button button_4">
 				<span>우리 집 <br> 자랑하기
 				</span>
 			</button>
-			<button onclick="location.href='cshome'" class="side_bar_button button_5">
+			<button onclick="location.href='${path}/cshome'" class="side_bar_button button_5">
 				<span>고객센터</span>
 			</button>
         </div>
 
         <script>
-	        window.addEventListener('scroll', function() {
-	            var scrollHeight = window.scrollY;
-	            var headerBottom = document.getElementById('header_bottom');
-	            var mainLeftSideBar = document.getElementById('main_left_side_bar');
-	
-	            if(scrollHeight > 10) {
-	                headerBottom.style.visibility = 'hidden';
-	                headerBottom.style.opacity ='0';
-	                mainLeftSideBar.style.visibility = 'visible';
-	                mainLeftSideBar.style.opacity = '1';
-	            } else {
-	                headerBottom.style.visibility = 'visible';
-	                headerBottom.style.opacity ='1';
-	                mainLeftSideBar.style.visibility = 'hidden';
-	                mainLeftSideBar.style.opacity = '0';
-	            }
-	        });
+        window.addEventListener('scroll', function() {
+            var scrollHeight = window.scrollY;
+            var headerBottom = document.getElementById('header_bottom');
+            var mainLeftSideBar = document.getElementById('main_left_side_bar');
+
+            if(scrollHeight > 10) {
+                headerBottom.style.visibility = 'hidden';
+                headerBottom.style.opacity ='0';
+            } else {
+                headerBottom.style.visibility = 'visible';
+                headerBottom.style.opacity ='1';
+            }
+            
+            if(scrollHeight > 700) {
+                mainLeftSideBar.style.visibility = 'visible';
+                mainLeftSideBar.style.opacity = '1';
+            } else {
+                mainLeftSideBar.style.visibility = 'hidden';
+                mainLeftSideBar.style.opacity = '0';
+            }
+        });
         </script>
+		<hr />
+	</div>
+	<br />
 	<br />
 	<!-- 푸터 -->
 	<footer>
 		<!-- 푸터 로고 -->
 		<div class="footer_logo">
-			<img src="resources/img/mainimg/footer_logo.PNG" alt="#" onclick="location.href='main'"  />
+			<img src="resources/img/mainimg/logo_3_1500x1500.jpg" alt="#" onclick="location.href='${path}/main'"  />
 		</div>
 		<!-- 푸터 내용 -->
 		<div class="footer_content">(주) 카피바라 주소 : 대한민국 서울시 양천구 목동 655-19

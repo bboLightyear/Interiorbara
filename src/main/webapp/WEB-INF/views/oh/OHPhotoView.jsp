@@ -3,6 +3,8 @@
     
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
+<c:set var="path" value="${pageContext.request.contextPath}"/>
+
 <!DOCTYPE html>
 
 <html>
@@ -11,7 +13,7 @@
 	
 	<meta charset="UTF-8">	
 	
-	<title>OH - OHPhotoView.jsp</title>
+	<title>우리 집 자랑하기</title>
 	
 	<!-- photo.css -->
 	<link rel="stylesheet" href="../resources/css/oh/photo.css?after" />
@@ -25,11 +27,20 @@
 	<!-- https://jquery.com/ -->		
 	<script src="https://code.jquery.com/jquery-3.7.1.js" ></script>
 	
+	<!-- ----------------------------------------------------- -->
+	
+	<!-- header, footer -->
+	<link rel="stylesheet" 
+		  href="${path}/resources/css/main/main.css" />
+	<link rel="stylesheet" 
+	      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css" />
+	
 </head>
 
 <body>
 
-	<!-- 데이터 표시 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+<!-- 데이터 표시 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+<%-- 	
 	<table border="1">
 		<tr>
 			<th colspan="16">OHPhotoBoard</th>
@@ -117,9 +128,9 @@
 			<td>${ohPageVO.pageStartNum }</td>
 			<td>${ohPageVO.pageEndNum }</td>
 		</tr>							
-	</table>
-	<!-- 데이터 표시 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->	
-
+	</table> 
+--%>
+<%-- 	
 	<h3>OHPhotoView.jsp</h3>
 
 	<!-- 회원, 비회원 구분 후 메세지 출력 -->
@@ -131,6 +142,8 @@
 			<h3>비회원님</h3>					
 		</c:otherwise>
 	</c:choose>
+--%>
+<!-- 데이터 표시 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->	
 
 	<!-- 로그인 정보 -->
  	<input type="hidden" id="memno" value=${loginUserDto.memno } />
@@ -145,22 +158,21 @@
 	<!-- 검색 정보 -->
 	<input type="hidden" id="keepSearchingType" value=${keepSearchingType } />
 	<input type="hidden" id="keepSearchingWord" value=${keepSearchingWord } />
-	<!-- 페이지 번호 -->
+	<!-- 페이지 정보 -->
 	<input type="hidden" id="pageSelectedNum" value=${ohPageVO.pageSelectedNum } />
 	<input type="hidden" id="pageTotalNum" value=${ohPageVO.pageTotalNum } />
 
 	<div class="container">
 		
-		<header>
-			<h1>header</h1>
-		</header>
+		<!-- header -->
+		<%@ include file="header.jsp" %>
 		
 		<div class="contents">
 	
 			<div class="sideBar">
 				<ul >
-					<li><a href="OHMainView">우리 집 자랑하기</a></li>
-					<li><a href="OHPhotoView">집사진</a></li>
+					<a href="OHMainView"><li class="sideBar-OHMainView">우리 집 자랑하기</li></a>
+					<a href="OHPhotoView"><li class="sideBar-OHPhotoView">집사진</li></a>
 					<!-- 집영상 -->
 					<!-- <li><a href="#">집영상</a></li> -->
 					<!-- <li><a href="#">#category</a></li> -->
@@ -331,39 +343,46 @@
 										
 									<%-- 프로필 이미지가 없으면 기본 이미지 --%>
 									<c:if test="${empty dto.myMemberInfoDto.profileimg}" >
-										<a href="../my/memberinfopage?memno=${dto.myMemberInfoDto.memno }">
+										<a href="#" onclick="javascript_:window.open('../my/memberinfopage?memno=${dto.myMemberInfoDto.memno }','pop','menubar=no,status=no,scrollbars=no,resizable=no,width=560,height=700,top=50,left=50');">
 											<img src="../resources/img/my/user.png" id="OHPhotoView-photoProfileImage">
 										</a>
 							        </c:if>
 							        
 							        <%-- 프로필 이미지가 있으면 있는 이미지 --%>
 							        <c:if test="${!empty dto.myMemberInfoDto.profileimg}" >
-							        	<a href="../my/memberinfopage?memno=${dto.myMemberInfoDto.memno }">
+							        	<a href="#" onclick="javascript_:window.open('../my/memberinfopage?memno=${dto.myMemberInfoDto.memno }','pop','menubar=no,status=no,scrollbars=no,resizable=no,width=560,height=700,top=50,left=50');">
 							            	<img src="../resources/upload/my/${dto.myMemberInfoDto.profileimg }" id="OHPhotoView-photoProfileImage">
 							            </a>
 							        </c:if>		          
 							                              
 	                                <!-- 게시글 작성자 이름 -->
 	                                <div id="OHPhotoView-photoUserName">
-	                                	<a href="../my/memberinfopage?memno=${dto.myMemberInfoDto.memno }">
+	                                	<a href="#" onclick="javascript_:window.open('../my/memberinfopage?memno=${dto.myMemberInfoDto.memno }','pop','menubar=no,status=no,scrollbars=no,resizable=no,width=560,height=700,top=50,left=50');">
 	                                		${dto.myMemberInfoDto.nickname }
 	                                	</a>
 	                                </div>
 	                                
 	                                <!-- 게시글 제목 -->
 	                                <div id="OHPhotoView-photoTitle">
-	                                	<a href="OHPhotoDetailView?pb_no=${dto.pb_no }">
+	                                    <!-- 게시글 상세 페이지로 이동하는 링크 -->
+	                                	<a id="OHPhotoView-moveToDetailTitle" onclick="moveToPhotoDetailView(event)">
+	                                		<!-- 게시글 제목 -->
 	                                		${dto.pb_title }
-										</a>	                                
+                        					<!-- 게시물 번호 -->
+											<input type="hidden" class="OHPhotoViewPbNo" value=${dto.pb_no } />
+										</a>											                                
 	                                </div>
 	                                
 	                            </div>								
 								
 	                            <div class="OHPhotoView-boxLayer-2">
-									<!-- 게시글 대표 이미지 --> 
-									<a href="OHPhotoDetailView?pb_no=${dto.pb_no }">
+									<!-- 게시글 상세 페이지로 이동하는 링크 -->
+									<a id="OHPhotoView-moveToDetailImage" onclick="moveToPhotoDetailView(event)">
+										<!-- 게시글 대표 이미지 --> 
 		                                <img id="OHPhotoView-photoImage" src="../resources/upload/oh/photo/${dto.ohPhotoAttach.pa_attach }" alt="해당 게시글 대표사진">
-									</a>								
+										<!-- 게시물 번호 -->
+										<input type="hidden" class="OHPhotoViewPbNo" value=${dto.pb_no } />		                                
+									</a>																	
 	                            </div>								
 								
 	                            <div class="OHPhotoView-boxLayer-3">                    
@@ -415,8 +434,10 @@
 	                                
 	                                <!-- 댓글, 이미지 -->
 	                                <span class="OHPhotoView-replyImage" id="${dto.pb_no }">
-	                                	<a href="OHPhotoDetailView?pb_no=${dto.pb_no }#OHPhotoDetailView-main-8">
+	                                	<a id="OHPhotoView-moveToDetailReply" onclick="moveToPhotoDetailViewReply(event)">
 	                                		<i class="fa-regular fa-comment"></i>
+											<!-- 게시물 번호 -->
+											<input type="hidden" class="OHPhotoViewPbNo" value=${dto.pb_no } />	                                		
 	                                	</a>
 	                                </span>
 	                                <!-- 댓글, 이미지 End -->
@@ -432,7 +453,15 @@
 	                                <div id="OHPhotoView-photoHitCount">${dto.pb_hit }</div>
 	                                
 									<!-- 게시글 내용 -->
-	                                <div id="OHPhotoView-photoContent">${dto.pb_content }</div>
+	                                <div id="OHPhotoView-photoContent">
+	                                	<!-- 게시글 상세 페이지로 이동하는 링크 -->
+	                                	<a id="OHPhotoView-moveToDetailContent" onclick="moveToPhotoDetailView(event)">
+	                                		<!-- 게시글 내용 -->
+	                                		${dto.pb_content }
+											<!-- 게시물 번호 -->
+											<input type="hidden" class="OHPhotoViewPbNo" value=${dto.pb_no } />
+										</a>		                                	
+	                                </div>
 	                                
 	                            </div>
 	                            
@@ -497,9 +526,8 @@
 			
 		</div>
 		
-		<footer>
-			<h1>footer</h1>
-		</footer>
+		<!-- footer -->
+		<%@ include file="footer.jsp" %>
 		
 	</div>	
 	

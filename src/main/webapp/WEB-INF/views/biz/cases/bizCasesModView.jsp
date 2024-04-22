@@ -10,13 +10,14 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootswatch@5.3.3/dist/zephyr/bootstrap.min.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <%@include file ="../bizHeader.jsp" %>
 <link rel="stylesheet" href="${path}/resources/css/biz/biz.css"/>
 <link  rel="stylesheet"
   href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"/>
   	<style>
 	 .fa-solid{
-	 	color: #1a1f27;
+	 	color: #1034a6;
 	 }
 	 .fa-solid:hover{
 	 	color: #1e90ff;
@@ -37,7 +38,15 @@
 		display: flex;
 		min-height: 100vh;
 		flex-direction: column;
-	}	
+	}
+	
+	#topBtn{
+	   position: fixed;
+	   right: 4%;
+	   bottom: 5%;
+	   display: none;
+	   /* z-index: 9999; */
+	}		
 	</style>
 	<script>
 		$(document).ready(function() {
@@ -76,7 +85,7 @@
 		</div>
 		<div class="d-flex align-items-end mb-5">
 			<div onclick="location.href='bizCasesContentView?bc_no=${bizCasesContentView.bc_no }'">
-				<span class="text-body-secondary" style="font-size: 12px; cursor:pointer;">뒤로 가기 <i class="fa-solid fa-rotate-left" style="cursor:pointer;"></i></span>
+				<span class="text-body-secondary" style="font-size: 12px; cursor:pointer;">게시물로 돌아가기 <i class="fa-solid fa-rotate-left" style="cursor:pointer;"></i></span>
 			</div>
 		</div>
 	</div>
@@ -94,13 +103,13 @@
 			<table class="table" style="width: 100%; max-width: 750px">
 				<tr>
 				    <th scope="row" class="table-light border-light-subtle">번호</th>
-					<td  style="width:25%">${bizCasesContentView.bc_no }</td>
+					<td class="center" style="width:25%">${bizCasesContentView.bc_no }</td>
 					<th scope="row"  class="table-light border-light-subtle">HIT</th>
-					<td  style="width:25%">${bizCasesContentView.bc_hit }</td>
+					<td class="center" style="width:25%">${bizCasesContentView.bc_hit }</td>
 				</tr>		
 				<tr class="">
 				      <th scope="row"  class="table-light border-light-subtle">이름</th>
-					<td colspan="3" onclick="javascript_:window.open('${path}/my/memberinfopage?nickname=${dto.bc_writer }','pop','menubar=no,status=no,scrollbars=no,resizable=no,width=560,height=700,top=50,left=50');" style="cursor: pointer;">${bizCasesContentView.bc_writer } <i class="fa-solid fa-user" style="font-size: 11px;"></i></td>
+					<td colspan="3" onclick="javascript_:window.open('${path}/my/memberinfopage?nickname=${bizCasesContentView.bc_writer }','pop','menubar=no,status=no,scrollbars=no,resizable=no,width=560,height=700,top=50,left=50');" style="cursor: pointer;">${bizCasesContentView.bc_writer } <i class="fa-solid fa-user" style="font-size: 11px;"></i></td>
 				</tr>		
 				<tr>
 				    <th scope="row" class="table-light border-light-subtle">제목</th>
@@ -132,6 +141,29 @@
 </form>
 
 </main>
+<div>
+      <a id="topBtn" href="#"><img alt="" src="${path}/resources/img/my/fromtop.png"></a>      
+      </div>
+
+<script>
+$(function() {
+   // 보이기 | 숨기기
+   $(window).scroll(function() {
+      if ($(this).scrollTop() > 250) { //250 넘으면 버튼이 보여짐니다.
+            $('#topBtn').fadeIn();
+            } else {
+            $('#topBtn').fadeOut();
+      }
+   });
+   // 버튼 클릭시
+   $("#topBtn").click(function() {   
+   $('html, body').animate({
+     scrollTop : 0    // 0 까지 animation 이동합니다.
+    }, 400);          // 속도 400
+    return false;
+    });
+  });
+</script>
 </body>
 <%@include file ="../bizFooter.jsp" %>
 </html>

@@ -14,6 +14,7 @@ CREATE TABLE OH_PHOTO_REPLY (
                                               -- TABLE: my_member_info, COLUMN: memno
 
     PR_CONTENT         VARCHAR2(200),         -- 내용
+    PR_LIKE            NUMBER DEFAULT 0,     -- 좋아요수
     PR_DATE            DATE DEFAULT SYSDATE,  -- 날짜
     PR_GROUP           NUMBER,                -- GROUP
     PR_STEP            NUMBER,                -- STEP
@@ -44,9 +45,9 @@ INSERT INTO OH_PHOTO_REPLY (PR_NO, MEMNO, PR_CONTENT, PR_DATE, PR_GROUP, PR_STEP
 SELECT * FROM OH_PHOTO_REPLY;
 
 SELECT
-    PR_NO, MEMNO, PR_CONTENT, 
+    PR_NO, MEMNO, PR_CONTENT, PR_LIKE,
     TO_CHAR(PR_DATE, 'YYYY.MM.DD') AS PR_DATE,
-    PR_GROUP, PR_INDENT, PB_NO
+    PR_GROUP, PR_STEP, PR_INDENT, PB_NO
 FROM
     OH_PHOTO_REPLY
 ;

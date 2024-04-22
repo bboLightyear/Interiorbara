@@ -1,7 +1,7 @@
 package com.tech.ibara.csnotice;
 
-import java.util.ArrayList;
-
+import javax.mail.MessagingException;
+import javax.mail.internet.AddressException;
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.ibatis.session.SqlSession;
@@ -10,10 +10,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.tech.ibara.csnotice.dao.CsHomeIDao;
-import com.tech.ibara.csnotice.dto.NoticeDto;
 import com.tech.ibara.csnotice.service.CsHomeQnaNoticeService;
 import com.tech.ibara.csnotice.service.CsHomeService;
+import com.tech.ibara.csnotice.service.CsMailService;
+
 
 
 @Controller
@@ -36,4 +36,30 @@ public class CsHomeController {
 		
 		return "csnotice/cshome";
 	}//cshome
+	
+	@RequestMapping("/mailservice")
+	public String emailservice(HttpServletRequest request, Model model) {
+		System.out.println("mailservice()controller");
+		
+		model.addAttribute("request",request);
+		
+		csHomeService= new CsHomeQnaNoticeService(sqlSession);
+		csHomeService.execute(model);
+		
+		return "csnotice/mailservice";
+	}//mailservice
+	
+	@RequestMapping("/mailsend")
+	public String mailsend(HttpServletRequest request, Model model) throws AddressException, MessagingException {
+		System.out.println("mailsend()controller");
+		
+		model.addAttribute("request",request);
+		
+		csHomeService= new CsMailService();
+		csHomeService.execute(model);
+		
+		return "redirect:cshome";
+	}//mailservice
+	
+	
 }

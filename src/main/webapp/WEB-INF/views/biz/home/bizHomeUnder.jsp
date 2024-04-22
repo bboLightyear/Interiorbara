@@ -25,6 +25,13 @@
         -webkit-line-clamp: 4 ;
         -webkit-box-orient: vertical;
     }
+
+	 .fa-solid{
+	 	color: #1034a6;
+	 }
+	 .fa-solid:hover{
+	 	color: #1e90ff;
+	 }
     
     a {
 	   text-decoration: none;
@@ -69,7 +76,7 @@
 						<c:forTokens items="${fileNm }" delims="." var="token" varStatus="status">
 						<c:if test="${status.last }">
 							<c:choose>
-								<c:when test="${token eq 'jpg' || token eq 'png'}">											
+								<c:when test="${token eq 'jpg' || token eq 'png' || token eq 'jpeg'}">											
 									<img src="../../resources/upload/biz/cases/${hc_img.bcimg_cgn }" alt="${hc_img.bcimg_cgn }" width="29%" height="102px" style="cursor:pointer;"
 									onclick="location.href='../cases/bizCasesContentView?bc_no=${hc_img.bc_no }'"/>
 								</c:when>
@@ -115,7 +122,7 @@
 										<c:forTokens items="${fileNm }" delims="." var="token" varStatus="status">
 										<c:if test="${status.last }">
 											<c:choose>
-												<c:when test="${token eq 'jpg' || token eq 'png'}">											
+												<c:when test="${token eq 'jpg' || token eq 'png' || token eq 'jpeg'}">											
 													<span onclick="location.href='../review/bizRvContentView?br_no=${hr_img.br_no }'" style="cursor:pointer;">
 															<img src="../../resources/upload/biz/review/${hr_img.bizRvImgDto.brimg_cgn }" alt="${hr_img.bizRvImgDto.brimg_cgn }" style="cursor:pointer; width: 100%; height:100px"/>
 													</span>

@@ -22,9 +22,11 @@ public class MyInteriorCasesService implements VService{
 
 	@Override
 	public void execute(Model model) {
+		System.out.println("MyInteriorCasesService()");
 		Map<String, Object> map=model.asMap();
 		MyMemberInfoDto mdto=(MyMemberInfoDto) map.get("mdto");
 		int inteno=mdto.getMyinteriordto().getInteno();
+		System.out.println("inteno : "+inteno);
 		MyDao mdao=sqlSession.getMapper(MyDao.class);
 		ArrayList<InteriorCasesImgDto> cdto= mdao.getMyCasesList(inteno);
 		

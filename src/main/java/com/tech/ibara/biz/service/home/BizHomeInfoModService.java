@@ -52,7 +52,7 @@ public class BizHomeInfoModService implements BizServiceInter {
 		model.addAttribute("inteno");
 		
 		String bhImgNew="";
-		String path="C:\\23setspring\\springwork23\\interiorbara_simi\\src\\main\\webapp\\resources\\upload\\biz\\home";
+		String path="C:\\interiorbara01\\interiorbara01\\src\\main\\webapp\\resources\\upload\\biz\\home";
 		String originFile=file.getOriginalFilename();
 		System.out.println("오리진 파일 이름: "+originFile);
 		long longtime=System.currentTimeMillis();

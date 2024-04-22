@@ -66,16 +66,6 @@
 </header>
 
 <body>
-	<%-- <%session.setAttribute("userId",null);%> --%>
-	<%
-		session.setAttribute("userId", "cus");
-	%>
-
-	<p style="margin: 0">
-		userId 값 :<%=session.getAttribute("userId")%></p>
-	<%
-		System.out.println("userId 값 : " + session.getAttribute("userId"));
-	%>
 
 	<div class="cs_qnaboard_whitespace">
 		<!--여백-->
@@ -148,102 +138,7 @@
 		</div>
 	</div>
 
-	<%
-		if (session.getAttribute("userId") == null) {
-
-	} else {
-	%>
-	<section class="cs_content_section3">
-
-		<div class="cs_content_section3_rcnt">
-			<h3 style="margin: 0">답글 <span class="cs_content_section3_rcnt_span">${replycnt}</span>개</h3>
-		</div>
-
-		<form action="noticereply?nbno=${notice_content.nbno }" method="post">
-			<div class="cs_content_section3_replyform">
-				<span>
-					
-	           		<c:if test="${empty loginUserDto.profileimg}" >
-	              	<img src="${path }/resources/img/my/user.png" id="OHMainView-photoProfileImage" style="width: 35px; height: 35px;">
-	              	</c:if>
-	              	
-	              	<c:if test="${!empty loginUserDto.profileimg}" >
-	              	<img src="${path }/resources/upload/my/${loginUserDto.profileimg}" id="OHMainView-photoProfileImage">
-	              	</c:if>   
-				</span>
-
-				<div class="cs_content_section3_replyform_ti">
-					<textarea class="cs_content_section3_replyform_textarea" name="noticereply"></textarea>
-					<input type="hidden" name="noticerewriter" value="<%=session.getAttribute("userId")%>" /> 
-					<input class="reply_input_btn" type="submit" value="답변" />
-				</div>
-			</div>
-		</form>
-	</section>
-	<%
-		}
-	%>
-
-	<section class="cs_content_section4">
-		<!--전체 글에 대한 답글 조회  -->
-		<c:forEach items="${replylist }" var="dto">
-			<div class="cs_content_section4_wrap_rreply">
-				<div class="cs_content_section4_wrap_rreply_c">
-					<div class="cs_content_section4_wrap_rreply_ni">
-						<c:if test="${empty loginUserDto.profileimg}" >
-				        	<img src="${path }/resources/img/my/user.png" id="OHMainView-photoProfileImage" style="width: 30px; height: 30px;">
-				            </c:if>
-				            <%-- 프로필 이미지가 있으면 있는 이미지 --%>
-				            <c:if test="${!empty loginUserDto.profileimg}" >
-				           	<img src="${path }/resources/upload/my/${loginUserDto.profileimg}" id="OHMainView-photoProfileImage">
-				        </c:if> <h4 class="cs_content_section4_wrap_rreply_ni_h4">${dto.rnbwriter }</h4></div>
-					<div class="cs_content_section4_wrap_rreply_content">${dto.rnbcontent }</div>
-	
-					<!--답글 달기 버튼을 클릭 시에 아래에 입력 창이 나타나도록 하는 스크립트-->
-					<%
-						if (session.getAttribute("userId") == null) {
-					%>
-					<div class="cs_content_section4_wrap_rreply_btn">
-					<%
-					} else {
-					%>
-					<div class="cs_content_section4_wrap_rreply_wrap_btn">
-					
-					<button  class="cs_content_section4_wrap_rreply_btn" onclick="replyform()" data-rnbno="${dto.rnbno }">답글달기</button>
-					<%
-						}
-					%>
-	
-					<input class="cs_content_section4_wrap_rreply_btn" type="button" onclick="replyrview()" id="${dto.rnbno }replyvbtn" name="${dto.rnbno }replyvbtn" data-rnbno="${dto.rnbno }" value="답글보기" />
-					
-					</div>
-					<!-- </div> -->
-	
-					<div class="cs_content_section4_replyrview">
-						<div id="${dto.rnbno }replyrview"> </div>
-		
-						<!--숨겨진 div, id 값을 조회한 답글 번호로 지정하여 위의 스크립트에서 버튼을 각각의 div를 따로 적용-->
-						<div id="${dto.rnbno }replyform" class="cs_content_section4_replyrview_wrap_inputform">
-							<div class="cs_content_section4_replyrview_inputform">
-								<input type="hidden" id="rnbno" name="rnbno" value="${dto.rnbno }" />
-								<input type="hidden" id="nbno" name="nbno" value="${dto.nbno }" />
-								<input type="hidden" id="rnbstep" name="rnbstep" value="${dto.rnbstep }" /> 
-								<input type="hidden" id="rnbgroup" name="rnbgroup" value="${dto.rnbgroup }" /> 
-								<input type="hidden" id="rnbindent" name="rnbindent" value="${dto.rnbindent }" />
-								<input type="hidden" name="rwriter" id="rwriter" value="<%=session.getAttribute("userId")%>" /> 
-		
-								<textarea id="rcontent" name="rcontent" class=cs_content_section4_replyrview_inputform_ta></textarea>
-								<input class="reply_input_btn" type="button" value="입력" onclick="reply()" data-rnbno="${dto.rnbno }" />
-							</div>
-							<button class="cs_content_section4_wrap_rreply_btn" onclick="replyformclose()" data-rnbno="${dto.rnbno }">접기</button>
-						</div>
-					</div>
-				
-			</div>
-		</c:forEach>
-	</section>
-
-	<script>
+	<!-- <script>
 		var viewbtn = false;
 
 		// 답글보기 버튼 처리
@@ -404,7 +299,7 @@
 				}
 			})
 		}
-	</script>
+	</script> -->
 </body>
 <footer>
 	<!-- 푸터 로고 -->

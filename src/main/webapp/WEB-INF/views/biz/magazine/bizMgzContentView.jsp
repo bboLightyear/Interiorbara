@@ -11,6 +11,7 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootswatch@5.3.3/dist/zephyr/bootstrap.min.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <%@include file ="../bizHeader.jsp" %>
 <link rel="stylesheet" href="${path}/resources/css/biz/biz.css"/>
 <link  rel="stylesheet"
@@ -41,12 +42,20 @@
 	   text-decoration: none;
 	   color: #1a1f27;
 	}
+	
+	#topBtn{
+   	position: fixed;
+  	 right: 4%;
+   	bottom: 5%;
+   	display: none;
+   	/* z-index: 9999; */
+	}	
 	</style>
 </head>
 <body>
 	<div class="pt-3 bg-light bg-opacity-75">
 	<div class="d-flex justify-content-center">
-		<div class="p-3" style="width: 750px" >
+		<div class="p-3" onclick="location.href='bizMgzList'" style="width: 750px; cursor:pointer;" >
 					<ul class="list-inline">
 						<li class="list-inline-item">
 							<h4 style="--bs-text-opacity: 1; background-color: #1034a6; padding: 3px; !important;">
@@ -80,7 +89,7 @@
 				</tr>	
 				<tr class="">
 				     <th scope="row"  class="table-light border-light-subtle">작성자</th>
-					<td colspan="3">${bizMgzContentView.bm_writer }</td>
+					<td colspan="3">${bizMgzContentView.bm_writer } </td>
 				</tr>		
 				<tr class="">
 				      <th scope="row" class="table-light border-light-subtle">제목</th>
@@ -96,7 +105,7 @@
 								<c:forTokens items="${fileNm }" delims="." var="token" varStatus="status">
 								<c:if test="${status.last }">
 									<c:choose>
-										<c:when test="${token eq 'jpg' || token eq 'png'}">
+										<c:when test="${token eq 'jpg' || token eq 'png' || token eq 'jpeg'}">
 											<img class="pb-3" src="../../resources/upload/biz/mgz/${imgdto.bmimg_cgn }" alt="${imgdto.bmimg_cgn }" width="60%" />
 										</c:when>
 									<c:otherwise>그림이 아닌 다른 형식 파일입니다.</c:otherwise>		
@@ -161,7 +170,29 @@
 		</div>
 	</div>
 
+<div>
+      <a id="topBtn" href="#"><img alt="" src="${path}/resources/img/my/fromtop.png"></a>      
+      </div>
 
+<script>
+$(function() {
+   // 보이기 | 숨기기
+   $(window).scroll(function() {
+      if ($(this).scrollTop() > 250) { //250 넘으면 버튼이 보여짐니다.
+            $('#topBtn').fadeIn();
+            } else {
+            $('#topBtn').fadeOut();
+      }
+   });
+   // 버튼 클릭시
+   $("#topBtn").click(function() {   
+   $('html, body').animate({
+     scrollTop : 0    // 0 까지 animation 이동합니다.
+    }, 400);          // 속도 400
+    return false;
+    });
+  });
+</script>
 </body>
 <%@include file ="../bizFooter.jsp" %>
 </html>

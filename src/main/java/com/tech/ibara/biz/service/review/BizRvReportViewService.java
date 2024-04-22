@@ -46,6 +46,7 @@ public class BizRvReportViewService implements BizServiceInter {
 		
 		model.addAttribute("bizRvContentView",dto);
 		model.addAttribute("inteno",inteno);
+		model.addAttribute("br_no",br_no);
 		
 //		이미지 테이블에서 파일 이름 가져오기
 //		그림이 여러 개 있을 수 있으니 어레이리스트에 담는다.

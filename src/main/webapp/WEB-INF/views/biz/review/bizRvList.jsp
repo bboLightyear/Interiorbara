@@ -20,12 +20,12 @@
 <link  rel="stylesheet"
   href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"/>
   	<style>
-		 .fa-solid{
-		 	color: #1034a6;
-		 }
-		 .fa-solid:hover{
-		 	color: #1e90ff;
-		 }	
+	 .fa-solid{
+	 	color: #1034a6;
+	 }
+	 .fa-solid:hover{
+	 	color: #1e90ff;
+	 }	
 		 
 		 th, tr{
 	    	text-align: center;	 
@@ -85,7 +85,7 @@
 					</ul>	
 		</div>
 		<div class="d-flex align-items-end mb-5">
-			<div onclick="location.href='../home/bizHome?inteno=${inteno }'">
+			<div onclick="location.href='../home/bizRvListUnder?inteno=${inteno}'">
 				<span class="text-body-secondary" style="font-size: 12px; cursor:pointer;">HOME <i class="fa-solid fa-rotate-left" style="cursor:pointer;"></i></span>
 			</div>
 		</div>
@@ -118,7 +118,7 @@
 										<c:forTokens items="${fileNm }" delims="." var="token" varStatus="status">
 										<c:if test="${status.last }">
 											<c:choose>
-												<c:when test="${token eq 'jpg' || token eq 'png'}">											
+												<c:when test="${token eq 'jpg' || token eq 'png' || token eq 'jpeg'}">											
 													<c:if test="${dto.br_no eq rv.bizRvImgDto.br_no }">
 														<img src="../../resources/upload/biz/review/${rv.bizRvImgDto.brimg_cgn }" alt="${rv.bizRvImgDto.brimg_cgn }" width="52" height="29" style="cursor:pointer"
 														onclick="window.open('bizRvImgPopUpView?br_no=${dto.br_no }',
@@ -132,7 +132,7 @@
 									</c:if>			
 								</c:forEach>
 						</td>
-						<td class="align-middle" onclick="javascript_:window.open('${path}/my/memberinfopage?nickname=${dto.br_writer }','pop','menubar=no,status=no,scrollbars=no,resizable=no,width=560,height=700,top=50,left=50');" style="cursor: pointer;">${dto.br_writer } <i class="fa-solid fa-user" style="font-size: 11px;"></i></td>
+						<td class="align-middle" onclick="javascript_:window.open('${path}/my/memberinfopage?memno=${dto.memno }','pop','menubar=no,status=no,scrollbars=no,resizable=no,width=560,height=700,top=50,left=50');" style="cursor: pointer;">${dto.br_writer } <i class="fa-solid fa-user" style="font-size: 11px;"></i></td>
 						
 						
 						

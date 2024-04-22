@@ -11,6 +11,7 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootswatch@5.3.3/dist/zephyr/bootstrap.min.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <%@include file ="../bizHeader.jsp" %>
 <link rel="stylesheet" href="${path}/resources/css/biz/biz.css"/>
 <link  rel="stylesheet"
@@ -37,6 +38,14 @@
 	   text-decoration: none;
 	   color: #1a1f27;
 	}
+	
+	#topBtn{
+   	position: fixed;
+  	 right: 4%;
+   	bottom: 5%;
+   	display: none;
+   	/* z-index: 9999; */
+	}	
 	</style>
 </head>
 <body>
@@ -44,17 +53,26 @@
 
 <div id="topDiv" class="pt-3 bg-light bg-opacity-75">
 	<div class="d-flex justify-content-center">
-		<div class="p-3" style="width: 750px" >
-					<ul class="list-inline">
-						<li class="list-inline-item">
-							<h4 style="--bs-text-opacity: 1; background-color: #1034a6; padding: 3px; !important;">
-						    	<strong style="color: white;">원하는 공간만. 전문가의 터치로</strong>
-						   	</h4>
-						</li>
-						<li class="list-inline-item">
-								<small class="text-body-secondary">전문시공업체를 모아 볼까요?</small>
-						</li>
-					</ul>	
+		<div class="p-3" style="width: 750px;" >
+			<ul class="list-inline">
+				<li class="list-inline-item" onclick="location.href='bizProSearch'" style="cursor: pointer;">
+					<h4 style="--bs-text-opacity: 1; background-color: #1034a6; padding: 3px; !important;">
+				    	<strong style="color: white;">원하는 공간만. 전문가의 터치로</strong>
+				   	</h4>
+				</li>
+				<c:if test="${loginUserDto.memtype ne 'INTERIOR'}">						
+					<li class="list-inline-item" onclick="location.href='bizProSearch'" style="cursor: pointer;">
+							<small class="text-body-secondary">전문시공업체를 모아 볼까요?</small>
+					</li>
+				</c:if>						
+				<c:if test="${loginUserDto.memtype eq 'INTERIOR'}">
+					<li class="list-inline-item">
+						<div class="ps-1" onclick="location.href='/ibara/biz/home/bizHome?inteno=${loginUserDto.myinteriordto.inteno}'">
+							<span class="text-body-secondary" style="font-size: 16px;"><i class="fa-solid fa-house" style="cursor: pointer;"></i></span>
+						</div>
+					</li>						
+				</c:if>
+			</ul>	
 		</div>
 		<div class="d-flex align-items-end mb-5">
 			<div onclick="location.href='/ibara/biz/search/bizProSearch'">
@@ -73,16 +91,16 @@
 			      <div class="d-flex justify-content-center">
 						<table style="display: flex; justify-content: center; align-items: center; width: 75%">
 							<tr class="proBtns">
-								<td class="proBtn"><div onclick="location.href='/ibara/biz/search/bizProSearchBasic?bh_pro=도배·페인트'"><img src="../../resources/img/bizimg/wallpaint.png" alt="wallpaint.png" style="width: 75%;"/></div></td>
-								<td class="proBtn"><div onclick="location.href='/ibara/biz/search/bizProSearchBasic?bh_pro=장판·타일'"><img src="../../resources/img/bizimg/tilefloor.png" alt="tilefloor.png" style="width: 75%;"/></div></td>
-								<td class="proBtn"><div onclick="location.href='/ibara/biz/search/bizProSearchBasic?bh_pro=욕실'"><img src="../../resources/img/bizimg/bathroom.png" alt="bathroom.png" style="width: 75%;"/></div></td>
-								<td class="proBtn"><div onclick="location.href='/ibara/biz/search/bizProSearchBasic?bh_pro=주방'"><img src="../../resources/img/bizimg/kitchen.png" alt="kitchen.png" style="width: 75%;"/></div></td>	
+								<td class="proBtn"><div onclick="location.href='/ibara/biz/search/bizProSearchBasic?bh_pro=도배·페인트'"><img src="../../resources/img/bizimg/wallpaint.png" alt="wallpaint.png" style="width: 95%;"/></div></td>
+								<td class="proBtn"><div onclick="location.href='/ibara/biz/search/bizProSearchBasic?bh_pro=장판·타일'"><img src="../../resources/img/bizimg/tilefloor.png" alt="tilefloor.png" style="width: 95%;"/></div></td>
+								<td class="proBtn"><div onclick="location.href='/ibara/biz/search/bizProSearchBasic?bh_pro=욕실'"><img src="../../resources/img/bizimg/bathroom.png" alt="bathroom.png" style="width: 95%;"/></div></td>
+								<td class="proBtn"><div onclick="location.href='/ibara/biz/search/bizProSearchBasic?bh_pro=주방'"><img src="../../resources/img/bizimg/kitchen.png" alt="kitchen.png" style="width: 95%;"/></div></td>	
 							</tr>
 							<tr class="proBtns">
-								<td class="proBtn"><div onclick="location.href='/ibara/biz/search/bizProSearchBasic?bh_pro=마루'"><img src="../../resources/img/bizimg/wdfloor.png" alt="wdfloor.png" style="width: 75%;"/></div></td>
-								<td class="proBtn"><div onclick="location.href='/ibara/biz/search/bizProSearchBasic?bh_pro=문·샷시'"><img src="../../resources/img/bizimg/door.png" alt="door.png" style="width: 75%;"/></div></td>
-								<td class="proBtn"><div onclick="location.href='/ibara/biz/search/bizProSearchBasic?bh_pro=시트·필름'"><img src="../../resources/img/bizimg/sheetfilm.png" alt="sheetfilm.png" style="width: 75%;"/></div></td>
-								<td class="proBtn"><div onclick="location.href='/ibara/biz/search/bizProSearchBasic?bh_pro=조명'"><img src="../../resources/img/bizimg/lighting.png" alt="lighting.png" style="width: 75%;"/></div></td>	
+								<td class="proBtn"><div onclick="location.href='/ibara/biz/search/bizProSearchBasic?bh_pro=마루'"><img src="../../resources/img/bizimg/wdfloor.png" alt="wdfloor.png" style="width: 95%;"/></div></td>
+								<td class="proBtn"><div onclick="location.href='/ibara/biz/search/bizProSearchBasic?bh_pro=문·샷시'"><img src="../../resources/img/bizimg/door.png" alt="door.png" style="width: 95%;"/></div></td>
+								<td class="proBtn"><div onclick="location.href='/ibara/biz/search/bizProSearchBasic?bh_pro=시트·필름'"><img src="../../resources/img/bizimg/sheetfilm.png" alt="sheetfilm.png" style="width: 95%;"/></div></td>
+								<td class="proBtn"><div onclick="location.href='/ibara/biz/search/bizProSearchBasic?bh_pro=조명'"><img src="../../resources/img/bizimg/lighting.png" alt="lighting.png" style="width: 95%;"/></div></td>	
 							</tr>
 						</table>
 				</div>
@@ -133,7 +151,7 @@
 								varStatus="status">
 								<c:if test="${status.last }">
 									<c:choose>
-										<c:when test="${token eq 'jpg' || token eq 'png'}">
+										<c:when test="${token eq 'jpg' || token eq 'png' || token eq 'jpeg'}">
 											<img src="../../resources/upload/biz/home/${bizHome.bh_img }"
 												alt="${bizHome.bh_img }" width="250" height="150"
 												style="border-top-left-radius: 3.5%; border-top-right-radius: 3.5%;" />
@@ -148,8 +166,7 @@
 					</div>
 					<div class="card-body">
 						<div class="card-title">
-							<strong style="font-size: 16px; color: #1e90ff;">${bizHome.bh_no }
-								${bizHome.bh_name }</strong> &nbsp; <span style="color: gold;">★</span> <span
+							<strong style="font-size: 16px; color: #1e90ff;">${bizHome.bh_name }</strong> &nbsp; <span style="color: gold;">★</span> <span
 								style="font-size: 13px; color: #b1b8c0;"> ${bizHome.bizSearchTempDto.bst_staravg }</span>
 						</div>
 						<div class="pb-2 card-text" style="font-size: 13px;">
@@ -207,7 +224,29 @@
 	
 
 
-    
+  <div>
+      <a id="topBtn" href="#"><img alt="" src="${path}/resources/img/my/fromtop.png"></a>      
+      </div>
+
+<script>
+$(function() {
+   // 보이기 | 숨기기
+   $(window).scroll(function() {
+      if ($(this).scrollTop() > 250) { //250 넘으면 버튼이 보여짐니다.
+            $('#topBtn').fadeIn();
+            } else {
+            $('#topBtn').fadeOut();
+      }
+   });
+   // 버튼 클릭시
+   $("#topBtn").click(function() {   
+   $('html, body').animate({
+     scrollTop : 0    // 0 까지 animation 이동합니다.
+    }, 400);          // 속도 400
+    return false;
+    });
+  });
+</script>  
     
 </body>
 <%@include file ="../bizFooter.jsp" %>

@@ -5,6 +5,8 @@
 
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
+<c:set var="path" value="${pageContext.request.contextPath}"/>
+
 <!DOCTYPE html>
 
 <html>
@@ -13,7 +15,7 @@
 	
 	<meta charset="UTF-8">
 	
-	<title>OH - PhotoDetailView.jsp</title>
+	<title>우리 집 자랑하기</title>
 	
 	<!-- oh.css -->
 	<link rel="stylesheet" href="../resources/css/oh/photo.css?after" />
@@ -26,12 +28,21 @@
 	  	   
 	<!-- https://jquery.com/ -->		
 	<script src="https://code.jquery.com/jquery-3.7.1.js" ></script>
-		
+
+	<!-- ----------------------------------------------------- -->
+	
+	<!-- header, footer -->
+	<link rel="stylesheet" 
+		  href="${path}/resources/css/main/main.css" />
+	<link rel="stylesheet" 
+	      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css" />
+			
 </head>
 
 <body>
 	
-	<!-- 데이터 표시 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+<!-- 데이터 표시 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+<%-- 	
 	<table border="1">
 		<tr>
 			<th colspan="15">OHPhotoBoard</th>
@@ -114,9 +125,9 @@
 			<td>${ohPhotoDetailScrap.pb_no }</td>
 		</tr>		
 	
-	</table>
-	<!-- 데이터 표시 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-
+	</table> 
+--%>
+<%-- 	
 	<h3>OHPhotoDetailView.jsp</h3>
 
 	<!-- 회원, 비회원 구분 후 메세지 출력 -->
@@ -127,25 +138,39 @@
 		<c:otherwise>
 			<h3>비회원님</h3>					
 		</c:otherwise>
-	</c:choose>	
+	</c:choose>	 
+--%>
+<!-- 데이터 표시 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
 
-	<!-- 로그인 정보 -->
+	<!-- 로그인 번호 -->
  	<input type="hidden" id="memno" value=${loginUserDto.memno } />
-	<!-- 게시글 정보 -->
+	<!-- 게시글 번호 -->
 	<input type="hidden" id="pb_no" value=${pb_dto.pb_no } />
+	<!-- sorting -->
+	<input type="hidden" id="orderingBy" value=${orderingBy } />
+	<input type="hidden" id="orderingMethod" value=${orderingMethod } />
+	<!-- filtering -->
+	<input type="hidden" id="pb_residence" value=${pb_residence } />
+	<input type="hidden" id="pb_room" value=${pb_room } />
+	<input type="hidden" id="pb_style" value=${pb_style } />
+	<input type="hidden" id="pb_skill" value=${pb_skill } />
+	<!-- searching -->
+	<input type="hidden" id="searchingType" value=${searchingType } />
+	<input type="hidden" id="searchingWord" value=${searchingWord } />
+	<!-- paging -->
+	<input type="hidden" id="pageSelectedNum" value=${pageSelectedNum } />
 
 	<div class="container">
 	
-		<header>
-			<h1>header</h1>
-		</header>
+		<!-- header -->
+		<%@ include file="header.jsp" %>	
 		
 		<div class="contents">
 	
 			<div class="sideBar">
 				<ul >
-					<li><a href="OHMainView">우리 집 자랑하기</a></li>
-					<li><a href="OHPhotoView">집사진</a></li>
+					<a href="OHMainView"><li class="sideBar-OHMainView">우리 집 자랑하기</li></a>
+					<a href="OHPhotoView"><li class="sideBar-OHPhotoView">집사진</li></a>
 					<!-- 집영상 -->
 					<!-- <li><a href="">집영상</a></li> -->
 					<!-- <li><a href="#">#category</a></li> -->
@@ -166,9 +191,9 @@
 					<c:choose>
 						<c:when test="${loginUserDto.memno eq pb_dto.memno }">					
 							<!-- 수정 버튼 -->
-							<button id="OHPhotoDetailView-main-1toEditButton" onclick="location.href='OHPhotoEditView?pb_no=${pb_dto.pb_no }'">수정</button>
+							<button id="OHPhotoDetailView-main-1toEditButton">수정</button>
 							<!-- 삭제 버튼 -->
-							<button id="OHPhotoDetailView-main-1toDeleteButton" onclick="location.href='OHPhotoDeleteExecute?pb_no=${pb_dto.pb_no }'">삭제</button>					
+							<button id="OHPhotoDetailView-main-1toDeleteButton">삭제</button>					
 						</c:when>
 						<c:otherwise></c:otherwise>
 					</c:choose>	
@@ -281,7 +306,7 @@
 					</span>
 					
 					<button id="OHPhotoDetailView-main-6complaintButton">
-						신고하기
+						신고
 					</button>
 					
 				</div>
@@ -292,24 +317,28 @@
 								
 					<%-- 프로필 이미지가 없으면 기본 이미지 --%>
 					<c:if test="${empty pb_dto.myMemberInfoDto.profileimg}" >
-						<a href="../my/memberinfopage?memno=${pb_dto.myMemberInfoDto.memno }">
+						<a href="#" onclick="javascript_:window.open('../my/memberinfopage?memno=${pb_dto.myMemberInfoDto.memno }','pop','menubar=no,status=no,scrollbars=no,resizable=no,width=560,height=700,top=50,left=50');">
 							<img src="../resources/img/my/user.png" id="OHPhotoDetailView-main-7profileImage">
 			        	</a>
 			        </c:if>
 			        
 			        <%-- 프로필 이미지가 있으면 있는 이미지 --%>
 			        <c:if test="${!empty pb_dto.myMemberInfoDto.profileimg}" >
-			        	<a href="../my/memberinfopage?memno=${pb_dto.myMemberInfoDto.memno }">
+			        	<a href="#" onclick="javascript_:window.open('../my/memberinfopage?memno=${pb_dto.myMemberInfoDto.memno }','pop','menubar=no,status=no,scrollbars=no,resizable=no,width=560,height=700,top=50,left=50');">
 			            	<img src="../resources/upload/my/${pb_dto.myMemberInfoDto.profileimg }" id="OHPhotoDetailView-main-7profileImage">
 			        	</a>
 			        </c:if>						
 					
 					<!-- 게시글 작성자명 -->
 					<div id="OHPhotoDetailView-main-7writerName">
-						<a href="../my/memberinfopage?memno=${pb_dto.myMemberInfoDto.memno }">
+						<a href="#" onclick="javascript_:window.open('../my/memberinfopage?memno=${pb_dto.myMemberInfoDto.memno }','pop','menubar=no,status=no,scrollbars=no,resizable=no,width=560,height=700,top=50,left=50');">
 							${pb_dto.myMemberInfoDto.nickname }
 						</a>
 					</div>
+					
+					<button id="OHPhotoDetailView-main-7moveToList" onclick="moveToPhotoView(event)">
+						목록으로 이동
+					</button>
 
 				</div>
 
@@ -322,12 +351,12 @@
 					<!-- 입력창 -->
 					<textarea id="OHPhotoDetailView-main-9inputReply" oninput="checkTextarea()" maxlength="60" cols="30" rows="10" placeholder="칭찬과 격려의 댓글은 작성자에게 큰 힘이 됩니다. &#13;&#10;최대 60자 까지 작성할 수 있습니다."></textarea>
 					<!-- 입력버튼 -->
-					<button id="OHPhotoDetailView-main-9inputReplyButton" disabled>입력</button>								
+					<button id="OHPhotoDetailView-main-9inputReplyButton">입력</button>								
 				</div>				
 				
 				<div id="OHPhotoDetailView-main-10">
-
-					<div id=contentReply>				
+					
+					<div class="contentReply">				
 					
 						<!-- 댓글 추가 영역 -->					
 					
@@ -341,55 +370,91 @@
  									<!-- 댓글 작성자 프로필 이미지 -->
 									<!-- 프로필 이미지가 없으면 기본 이미지 -->
 									<c:if test="${empty dto.myMemberInfoDto.profileimg}" >		
-										<a href="../my/memberinfopage?memno=${dto.memno }">					
+										<a href="#" onclick="javascript_:window.open('../my/memberinfopage?memno=${dto.memno }','pop','menubar=no,status=no,scrollbars=no,resizable=no,width=560,height=700,top=50,left=50');">				
 											<img src="../resources/img/my/user.png" class="reply-profileImage">
 										</a>
 									</c:if>
 									<!-- 프로필 이미지가 있으면 있는 이미지 -->
 									<c:if test="${!empty dto.myMemberInfoDto.profileimg}" >
-										<a href="../my/memberinfopage?memno=${dto.memno }">
-											<img src="../resources/img/my/${dto.myMemberInfoDto.profileimg }" class="reply-profileImage">
+										<a href="#" onclick="javascript_:window.open('../my/memberinfopage?memno=${dto.memno }','pop','menubar=no,status=no,scrollbars=no,resizable=no,width=560,height=700,top=50,left=50');">
+											<img src="../resources/upload/my/${dto.myMemberInfoDto.profileimg }" class="reply-profileImage">
 							        	</a>
 							        </c:if>	
 								
 									<!-- 사용자 이름 -->
 									<div class="reply-userName">
-										<a href="../my/memberinfopage?memno=${dto.memno }">
+										<a href="#" onclick="javascript_:window.open('../my/memberinfopage?memno=${dto.memno }','pop','menubar=no,status=no,scrollbars=no,resizable=no,width=560,height=700,top=50,left=50');">
 											${dto.myMemberInfoDto.nickname }
 										</a>
 									</div>
 								
 									<!-- 내댓글 표시 -->
 									<c:if test="${loginUserDto.memno eq dto.memno }">
-										<div class="reply-checkMyReply">내 댓글</div>
+										<div class="reply-checkMyReply">
+											내 댓글
+										</div>
 									</c:if>
 									
 								</div>
 	
 								<div class="reply-container-layer2">
 									<!-- 댓글 내용 -->
-									<span class="reply-content">${dto.pr_content }</span>
+									<span class="reply-content">
+										${dto.pr_content }
+									</span>
 								</div>
 	
 								<div class="reply-container-layer3">
 									<!-- 작성된 시간 -->
-									<div class="reply-writtenDate">${dto.pr_date }</div>
-									<!-- 좋아요 버튼 -->
-									<div class="reply-likeButton">하트</div>
+									<div class="reply-writtenDate">
+										${dto.pr_date }
+									</div>
+									
+									<!-- 좋아요, 이미지 -->
+									<c:set var="likeLoopFlag" value="false" />
+									<c:forEach items="${ohPhotoReplyLike }" var="like" varStatus="status">
+										<c:if test="${not likeLoopFlag }">
+											<c:if test="${dto.pr_no eq like.pr_no }">																			
+												<span class="reply-likeButton clickColor" id="${dto.pr_no }">
+													<i class="fa-solid fa-heart"></i>
+												</span>
+												<c:set var="likeLoopFlag" value="true" />
+											</c:if>							
+										</c:if>	
+									</c:forEach>
+									<c:if test="${likeLoopFlag eq false }">
+										<span class="reply-likeButton" id="${dto.pr_no }">
+											<i class="fa-regular fa-heart"></i>
+										</span>						
+									</c:if>																		
+									
 									<!-- 좋아요 횟수 -->
-									<div class="reply-likeNumber">999</div>
-									<!-- 답글 달기 -->
-									<button class="reply-replyToReplyButton">답글 달기</button>
+									<div class="reply-likeNumber" id="${dto.pr_no }">
+										${dto.pr_like }
+									</div>
+									
+									<!-- 답글 버튼 -->
+									<button class="reply-replyToReplyButton">
+										답글
+									</button>
+									
 									<!-- 삭제 버튼 -->
-									<button class="reply-deleteButton">삭제</button>
+									<button class="reply-deleteButton">
+										삭제
+									</button>
+									
 									<!-- 신고 버튼 -->
-									<button class="reply-complaintButton">신고</button>
+									<button class="reply-complaintButton">
+										신고
+									</button>
 								</div>
 	
 							</div>
 							<!-- 댓글 1개 영역 - 끝 -->						
 						
 						</c:forEach>		
+				
+						<%-- <jsp:include page="OHPhotoReplyView.jsp"/> --%>
 				
 					</div>
 				
@@ -399,9 +464,8 @@
 			
 		</div>
 				
-		<footer>
-			<h1>footer</h1>
-		</footer>
+		<!-- footer -->
+		<%@ include file="footer.jsp" %>
 		
 	</div>
 

@@ -10,8 +10,8 @@ import com.tech.ibara.main.dto.ShopPreviewDto;
 
 public interface MainDao {
 	ArrayList<BizPreviewDto> bizPreview();
-	ArrayList<OHPreviewDto> ohPreview();
 	ArrayList<ShopPreviewDto> shopPreview();
+	ArrayList<OHPreviewDto> ohPreview();
 	ArrayList<NoticePreviewDto> noticePreview();
 	ArrayList<QnAPreviewDto> qnaPreview();
 }

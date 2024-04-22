@@ -10,7 +10,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 public class BizSearchDto {
-	private String searchContent;
-	private String biz_name;
-	private String biz_addr;
+	private String bh_name;
+	private String bh_addr1;
+	private String bh_addr2;
 }

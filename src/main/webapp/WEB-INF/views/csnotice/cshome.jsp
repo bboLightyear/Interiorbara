@@ -100,8 +100,8 @@
 						<span>📞<span> <strong>010-3017-5283</strong>
 					</p>
 
-					<a href="chat" class="chatbtn">채팅상담</a> <a href="" class="emailbtn">이메일
-						보내기<!--가능하면 할 생각-->
+					<a href="chat" class="chatbtn">채팅상담</a> 
+					<a href="mailservice" class="emailbtn">이메일보내기<!--가능하면 할 생각-->
 					</a>
 					<button onclick="copyEmail()" class="emailcopy">이메일 주소 복사</button>
 				</div>
@@ -133,6 +133,7 @@
 		<div class="cs_home_white_space">
 			<!--qna 위 공백-->
 		</div>
+		
 
 		<div class="cs_home_wrap_qnaboard">
 
@@ -142,7 +143,6 @@
 					<a href="qnalist" class="cs_home_qnaboard_head_h2_a2">더보기</a>
 				</h2>
 			</div><!--cs_home_wrap_qnaboard-->
-
 			<div class="cs_home_qnaboard_nav_wrap">
 				
 			<nav class="cs_home_qnaboard_nav">

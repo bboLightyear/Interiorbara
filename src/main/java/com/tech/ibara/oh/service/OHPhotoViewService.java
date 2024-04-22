@@ -87,7 +87,7 @@ public class OHPhotoViewService implements OHInterfaceService {
 		System.out.println("------------------------------");
 		
 		// 정렬기준 - orderingBy, null Check
-		if(orderingBy == null) {
+		if(orderingBy == null || orderingBy.equals("/")) {
 			orderingBy = "pb_date";
 			System.out.println("orderingBy is null therefore assigned [pb_date] to it");
 			System.out.println("------------------------------");
@@ -96,7 +96,7 @@ public class OHPhotoViewService implements OHInterfaceService {
 		model.addAttribute("keepOrderingBy", orderingBy);
 		
 		// 정렬기준 - orderingMethod, null Check
-		if(orderingMethod == null) {
+		if(orderingMethod == null || orderingMethod.equals("/")) {
 			orderingMethod = "desc";
 			System.out.println("orderingMethod is null therefore assigned [desc] to it");
 			System.out.println("------------------------------");
@@ -105,7 +105,7 @@ public class OHPhotoViewService implements OHInterfaceService {
 		model.addAttribute("keepOrderingMethod", orderingMethod);						
 		
 		// 정렬기준 - pb_residence, null Check
-		if(pb_residence == null) {
+		if(pb_residence == null || pb_residence.equals("/")) {
 			pb_residence = "default";
 			System.out.println("pb_residence is null therefore assigned [default] to it");
 			System.out.println("------------------------------");
@@ -114,7 +114,7 @@ public class OHPhotoViewService implements OHInterfaceService {
 		model.addAttribute("keepPb_residence", pb_residence);			
 		
 		// 정렬기준 - pb_room, null Check
-		if(pb_room == null) {
+		if(pb_room == null || pb_room.equals("/")) {
 			pb_room = "default";
 			System.out.println("pb_room is null therefore assigned [default] to it");
 			System.out.println("------------------------------");
@@ -123,7 +123,7 @@ public class OHPhotoViewService implements OHInterfaceService {
 		model.addAttribute("keepPb_room", pb_room);			
 
 		// 정렬기준 - pb_style, null Check
-		if(pb_style == null) {
+		if(pb_style == null || pb_style.equals("/")) {
 			pb_style = "default";
 			System.out.println("pb_style is null therefore assigned [default] to it");
 			System.out.println("------------------------------");
@@ -132,7 +132,7 @@ public class OHPhotoViewService implements OHInterfaceService {
 		model.addAttribute("keepPb_style", pb_style);	
 		
 		// 정렬기준 - pb_skill, null Check
-		if(pb_skill == null) {
+		if(pb_skill == null || pb_skill.equals("/")) {
 			pb_skill = "default";
 			System.out.println("pb_skill is null therefore assigned [default] to it");
 			System.out.println("------------------------------");
@@ -141,7 +141,7 @@ public class OHPhotoViewService implements OHInterfaceService {
 		model.addAttribute("keepPb_skill", pb_skill);			
 		
 		// 검색기준 - searchingType, null Check
-		if(searchingType == null) {
+		if(searchingType == null || searchingType.equals("/")) {
 			searchingType = "default";
 			System.out.println("searchingType is null therefore assigned [default] to it");
 			System.out.println("------------------------------");
@@ -165,7 +165,7 @@ public class OHPhotoViewService implements OHInterfaceService {
 		System.out.println("stringPageSelectedNum: " + stringPageSelectedNum);
 		System.out.println("------------------------------");
 		// stringPageSelectedNum, null Check
-		if(stringPageSelectedNum == null) {
+		if(stringPageSelectedNum == null || stringPageSelectedNum.equals("0")) {
 			stringPageSelectedNum = "1";
 		}
 		// stringPageSelectedNum 값, int 자료형으로 변환 후 저장

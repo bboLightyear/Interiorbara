@@ -1013,7 +1013,6 @@ border-color: #1e90ff;
 /* -------------mBoard-------------- */
 
 
-
 /* 헤더 */
 body {
 	margin: 0;
@@ -1190,6 +1189,7 @@ header {
 	min-height: 100%;
 	padding-bottom: 130px;
 }
+
 /* 바디 */
 .body{
 	background: #e2f0fe;
@@ -1327,7 +1327,6 @@ margin-top: 10px;
 }
 
 
-
 /* 푸터 */
 footer {
 	margin: 0;
@@ -1384,6 +1383,7 @@ footer {
 	height: 20px;
 	text-decoration: none;
 }
+
 
 /* ---------반응형 모달창------------ */
 .summary-button {

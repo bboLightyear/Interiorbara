@@ -13,6 +13,7 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootswatch@5.3.3/dist/zephyr/bootstrap.min.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <%@include file ="../bizHeader.jsp" %>
 <link rel="stylesheet" href="${path}/resources/css/biz/biz.css"/>
 <link  rel="stylesheet"
@@ -60,7 +61,30 @@
 	 
 	</style>
 <script>  
-  
+
+$(document).ready(function() {
+    // 각 버튼 클릭 시 실행될 함수
+        $(this).find("#rvSpn").css({
+            "font-weight": "bold",
+            "color": "#1e90ff"
+        });
+    
+    
+    
+    $(".btn-link").click(function() {
+        // 모든 span 요소에 대해 스타일 적용
+        $(this).find("span").css({
+            "font-weight": "bold",
+            "color": "#1e90ff"
+        });
+        
+        // 다른 버튼의 span 요소의 스타일 초기화
+        $(".btn-link").not(this).find("span").css({
+            "font-weight": "normal",
+            "color": "#1a1f27"
+        });
+    });
+});  
 	// 좋아요 버튼을 클릭 시 실행되는 코드
 	function bmarkChange() {
 		const bh_no = '${bizHome.bh_no }';
@@ -287,16 +311,16 @@
 
 <div class="d-flex justify-content-evenly">
 	<div class="ps-2 pe-3 d-flex justify-content-evenly" style="width: 700px;">
-			<button class="btn btn-link" style="border: 0px; text-decoration: none; color: #1a1f27; justify-content: center;" onclick="returnToHome()">홈</button>
+			<button class="btn btn-link" style="border: 0px; text-decoration: none; color: #1a1f27; justify-content: center;" onclick="returnToHome()"><span id="homeSpn">홈</span></button>
 			<c:if test="${empty loginUserDto.memno}">
-				<button class="btn btn-link" style="border: 0px; text-decoration: none; color: #1a1f27; justify-content: center;" onclick="redirectLogin()">시공사례</button>
-				<button class="btn btn-link" style="border: 0px; text-decoration: none; color: #1a1f27; justify-content: center;" onclick="redirectLogin()">시공리뷰</button>
+				<button class="btn btn-link" style="border: 0px; text-decoration: none; color: #1a1f27; justify-content: center;" onclick="redirectLogin()"><span id="casesSpn">시공사례</span></button>
+				<button class="btn btn-link" style="border: 0px; text-decoration: none; color: #1a1f27; justify-content: center;" onclick="redirectLogin()"><span id="rvSpn">시공리뷰</span></button>
 			</c:if>
 			<c:if test="${not empty loginUserDto.memno}">
-				<button class="btn btn-link" style="border: 0px; text-decoration: none; color: #1a1f27; justify-content: center;" onclick="loadCasesList()">시공사례</button>
-				<button class="btn btn-link" style="border: 0px; text-decoration: none; color: #1a1f27; justify-content: center;" onclick="loadRvList()">시공리뷰</button>
+				<button class="btn btn-link" style="border: 0px; text-decoration: none; color: #1a1f27; justify-content: center;" onclick="loadCasesList()"><span id="casesSpn">시공사례</span></button>
+				<button class="btn btn-link" style="border: 0px; text-decoration: none; color: #1a1f27; justify-content: center;" onclick="loadRvList()"><span id="rvSpn">시공리뷰</span></button>
 			</c:if>
-			<button class="btn btn-link" style="border: 0px; text-decoration: none; color: #1a1f27; justify-content: center;" onclick="loadHomeInfo()">정보</button>
+			<button class="btn btn-link" style="border: 0px; text-decoration: none; color: #1a1f27; justify-content: center;" onclick="loadHomeInfo()"><span id="infoSpn">정보</span></button>
 	</div>
 </div>
 <div class="d-flex justify-content-center" style="height: 1px; margin: 1px; padding: 0px;">
@@ -329,7 +353,7 @@
 										<c:forTokens items="${fileNm }" delims="." var="token" varStatus="status">
 										<c:if test="${status.last }">
 											<c:choose>
-												<c:when test="${token eq 'jpg' || token eq 'png'}">											
+												<c:when test="${token eq 'jpg' || token eq 'png' || token eq 'jpeg'}">											
 													<c:if test="${dto.br_no eq rv.bizRvImgDto.br_no }">
 														<img src="../../resources/upload/biz/review/${rv.bizRvImgDto.brimg_cgn }" alt="${rv.bizRvImgDto.brimg_cgn }" width="48" height="27" style="cursor:pointer"
 														onclick="window.open('../review/bizRvImgPopUpView?br_no=${dto.br_no }',
@@ -343,7 +367,7 @@
 									</c:if>			
 								</c:forEach>
 						</td>
-						<td class="align-middle" width=15%; onclick="javascript_:window.open('${path}/my/memberinfopage?nickname=${dto.br_writer }','pop','menubar=no,status=no,scrollbars=no,resizable=no,width=560,height=700,top=50,left=50');" style="cursor: pointer;">${dto.br_writer } <i class="fa-solid fa-user" style="font-size: 10px;"></i></td>
+						<td class="align-middle" width=15%; onclick="javascript_:window.open('${path}/my/memberinfopage?memno=${dto.memno }','pop','menubar=no,status=no,scrollbars=no,resizable=no,width=560,height=700,top=50,left=50');" style="cursor: pointer;">${dto.br_writer } <i class="fa-solid fa-user" style="font-size: 10px;"></i></td>
 						<td class="align-middle" id="left">
 							<a href="../review/bizRvContentView?br_no=${dto.br_no }" style="text-align: left; text-decoration: none; color: #1a1f27;">${dto.br_content }</a>
 						</td>

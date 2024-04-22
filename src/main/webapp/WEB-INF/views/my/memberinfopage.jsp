@@ -7,31 +7,24 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-	<link rel="stylesheet" href="${path}/resources/css/my/mypageinfoedit.css" />
-	<script src="https://code.jquery.com/jquery-latest.min.js"></script>
-	<style>
-	.imgsize{
-		width: 200px;
-		height: 150px;
-	}
-	td{
-		padding: 8px;
-	}
-	</style>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>회원정보</title>
+<link rel="stylesheet" href="${path}/resources/css/my/mypage.css" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+<script src="https://code.jquery.com/jquery-latest.min.js"></script>
 </head>
 <body>
-<h3>memberinfopage.jsp</h3>
+<main class="Site-content textcenter">
+<h3 class="mt30">${mdto.nickname}님 회원정보</h3>
     <div id="mypageedit" align="center">
 		    <div class="profile-image-area">
 		        <%-- 프로필 이미지가 없으면 기본 이미지 --%>
 		        <c:if test="${empty mdto.profileimg}" >
-		            <img src="../resources/img/my/user.png" id="profileimg">
+		            <img src="${path}/resources/img/my/user.png" id="profileimg">
 		        </c:if>
 		        <%-- 프로필 이미지가 있으면 있는 이미지 --%>
 		        <c:if test="${!empty mdto.profileimg}" >
-		            <img src="../resources/upload/my/${mdto.profileimg}" id="profileimg">
+		            <img src="${path}/resources/upload/my/${mdto.profileimg}" id="profileimg">
 		        </c:if>	
 		    </div>
 		    <div class="myPage-row">
@@ -56,17 +49,32 @@
 		        <p>${mdto.gender}</p>
 		    </div>		    
 		    </c:if>
-    </div>
-    <div>
-    	<table align="center">
-    		
-    		<tr>
-    			<c:forEach items="${palist}" var="pa" end="2">
-    				<td><img class="imgsize" src="${path}/resources/upload/oh/photo/${pa.pa_attach}" alt="" /></td>
-    			</c:forEach>
-    		</tr>
-	  	</table>
-	</div>	    
+		    <div  class="myPage-row">
+		    	<label>멤버타입<br /></label>
+		    	<p id="memtype"></p>		    
+		    </div>
+		    <!-- <div  class="myPage-row">
+		    	<label>최근로그인 날짜<br /></label>
+		    	<p></p>		    
+		    </div> -->
+		    <div  class="myPage-row">
+		    	<label>최근올린사진<br /></label>
+		    </div>
+		    <div class="mt30">
+		    	<c:choose>
+		    		<c:when test="${!empty palist}">
+				    	<c:forEach items="${palist}" var="pa" end="3">
+		   				<a href="#" onclick="javascript_:opener.document.location.href='${path}/oh/OHPhotoDetailView?pb_no=${pa.pb_no}';window.close();">
+		   				<div style='display:inline-flex;justify-content: center;border-radius: 10px;overflow: hidden;'>
+		   				<img class="imgsmall" src="${path}/resources/upload/oh/photo/${pa.pa_attach}" alt="" /></div></a>
+				    	</c:forEach>
+		    		</c:when>
+		    		<c:otherwise>
+		    		<h3>올린 사진이 없습니다.</h3>
+		    		</c:otherwise>	
+		    	</c:choose>
+			 </div>
+	   </div>
     <script>
 
 $(document).ready(function() {
@@ -81,6 +89,25 @@ $(document).ready(function() {
 	$("#birth").text(replacebirth);
 });
 
+window.onload = function (){
+	var membertype="${mdto.memtype}";
+	var memtype = document.getElementById("memtype");
+	if(membertype == "PERSON"){
+		memtype.innerHTML = "개인회원"
+	}else if (membertype=="INTERIOR"){
+		memtype.innerHTML = "인테리어업체"
+	}else if (membertype=="SELLER"){
+		memtype.innerHTML = "판매자"
+	}else if(membertype=="ADMIN"){
+		memtype.innerHTML = "관리자"
+	}else if(membertype=="WITHDRAWAL"){
+		memtype.innerHTML = "탈퇴회원"
+	}else if(membertype=="NOTMAILCHECK"){
+		memtype.innerHTML = "메일인증안된회원"
+	}
+}
+
 </script>
+</main>
 </body>
 </html>

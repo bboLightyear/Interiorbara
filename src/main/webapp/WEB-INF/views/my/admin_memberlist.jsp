@@ -1,64 +1,81 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<c:set var="path" value="${pageContext.request.contextPath}" />
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-<link rel="stylesheet" href="${path}/resources/css/my/mypageinfoedit.css" />
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<%@include file ="header.jsp" %>
+<script src="https://code.jquery.com/jquery-latest.min.js"></script>
+<script>
+document.title = "회원관리";
+</script>
 <style>
-table{
-	width: 60%;
-	text-align: center;
-	margin-top: 30px;
-	font-size: 15px;
-}
-th, td{
-	height: 30px;
-	border-bottom: 1px solid gray;
-}
-th{
-	background-color: #e2f0fe;
-}
+tr:nth-child(odd) {background-color: #f9fafb;}
+tr:nth-child(even) {background-color: #fefefe;}
 </style>
-</head>
-<body>
-	<h3>admin_memberlist.jsp</h3>
+	<main class="Site-content" id="top">
 	<div class="mypage_category">
-		<div class="mypage_category_list list_1"><a href="mypage">메인</a></div>
-		<div class="mypage_category_list list_2"><a href="#">회원관리</a></div>
-		<!-- <div class="mypage_category_list list_3">업체신청관리</div> -->
+		<div class="mypage_category_list list_1"><a href="mypage">관리자메인</a></div>
+		<div class="mypage_category_list list_2 pointcolor">회원관리</div>
 		<div class="mypage_category_list list_3"><a href="admin_report">신고게시판</a></div>
-		<!-- <div class="mypage_category_list list_4">컨텐츠관리</div> -->
 	</div>
 	<div class="mypage_category">
-        <div class="mypage_category_list list_2_1"><a href="#">회원리스트</a></div>
+        <div class="mypage_category_list list_2_1 pointcolor">회원리스트</div>
 	    <div class="mypage_category_list list_2_2"><a href="admin_demandwithdrawal">탈퇴신청회원리스트</a></div>
     </div>
-	
-		<table align="center">
+<div>
+	<form action="admin_memberlist" method="post">
+			<div  class="formdiv pd8">
+			<select name="searchType" class="mg3pd6">
+				<option selected disabled>--검색선택--</option>
+				<option value="nn" <c:if test="${mlSel=='nn'}">selected</c:if>>닉네임</option>
+				<option value="mt" <c:if test="${mlSel=='mt'}">selected</c:if>>멤버타입</option>
+			</select>
+			<input class="mg3pd6" type="text" name="sk" value="${resk }" />
+			<input id="minibtn" type="submit" value="검색" />			
+			</div>
+		</form><br/>
+		<span class="formdiv mg3pd6">총 <b>${total}</b>명</span>
+
+		<table align="center" class="scraptable">
 			<tr>
-				<th>회원번호</th>
-				<th>회원닉네임</th>
-				<th>이메일</th>
-				<th>가입일</th>
-				<th>회원구분</th>
-			</tr>			
-			<c:forEach items="${list}" var="mdto">
+				<th class="scrapth">회원번호</th>
+				<th class="scrapth">회원닉네임</th>
+				<th class="scrapth">이메일</th>
+				<th class="scrapth">가입일</th>
+				<th class="scrapth">회원구분</th>
+			</tr>
+			<c:forEach items="${mlist}" var="mdto">
 			<tr>
-				<td><a href="memberinfopage?memno=${mdto.memno}">${mdto.memno}</a></td>
-				<td>${mdto.nickname}</td>
-				<td>${mdto.email}</td>
-				<td><fmt:formatDate value="${mdto.joindate}" type="both" dateStyle="short" pattern="YYYY-MM-dd"/></td>
-				<td>${mdto.memtype}</td>
+				<td class="scraptd">${mdto.memno}</td>
+				<td class="scraptd">
+				<span class="abc" onclick="javascript_:window.open('${path}/my/memberinfopage?memno=${mdto.memno}','pop','menubar=no,status=no,scrollbars=no,resizable=no,width=560,height=780,top=50,left=50');">
+				${mdto.nickname} <i class="fa-solid fa-user fa-2xs"></i></span></td>
+				<td class="scraptd">${mdto.email}</td>
+				<td class="scraptd"><fmt:formatDate value="${mdto.joindate}" type="both" dateStyle="short" pattern="YYYY-MM-dd"/></td>
+				<td class="scraptd">${mdto.memtype}</td>
 			</tr>
 			</c:forEach>
 		</table>
-	
+		</div>
+		<div>
+		<a id="topBtn" href="#"><img alt="" src="${path}/resources/img/my/fromtop.png"></a>		
+		</div>
 
-</body>
-</html>
+<script>
+$(function() {
+   // 보이기 | 숨기기
+   $(window).scroll(function() {
+      if ($(this).scrollTop() > 250) { //250 넘으면 버튼이 보여짐니다.
+            $('#topBtn').fadeIn();
+            } else {
+            $('#topBtn').fadeOut();
+      }
+   });
+   // 버튼 클릭시
+   $("#topBtn").click(function() {   
+   $('html, body').animate({
+     scrollTop : 0    // 0 까지 animation 이동합니다.
+    }, 400);          // 속도 400
+    return false;
+    });
+  });
+</script>
+</main>
+<%@include file ="footer.jsp" %>

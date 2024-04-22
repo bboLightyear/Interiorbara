@@ -3,6 +3,8 @@
     
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
+<c:set var="path" value="${pageContext.request.contextPath}"/>
+
 <!DOCTYPE html>
 
 <html>
@@ -11,7 +13,7 @@
 
 	<meta charset="UTF-8">
 
-	<title>OH - OHPhotoEditView.jsp</title>
+	<title>우리 집 자랑하기</title>
 
 	<!-- oh.css -->
 	<link rel="stylesheet" href="../resources/css/oh/photo.css?after" />
@@ -25,11 +27,20 @@
 	<!-- https://jquery.com/ -->		
 	<script src="https://code.jquery.com/jquery-3.7.1.js" ></script>
 
+	<!-- ----------------------------------------------------- -->
+	
+	<!-- header, footer -->
+	<link rel="stylesheet" 
+		  href="${path}/resources/css/main/main.css" />
+	<link rel="stylesheet" 
+	      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css" />
+
 </head>
 
 <body>
 
-	<!-- 데이터 표시 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+<!-- 데이터 표시 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+<%-- 	
 	<table border="1">
 		<tr>
 			<th colspan="15">OHPhotoBoard</th>
@@ -81,10 +92,9 @@
 				<td>${dto.pb_no }</td>
 			</tr>
 		</c:forEach>			
-	</table>
-	
-	<!-- 데이터 표시 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-
+	</table> 
+--%>
+<%-- 	
 	<h3>OHPhotoEditView.jsp</h3>
 
 	<!-- 회원, 비회원 구분 후 메세지 출력 -->
@@ -95,20 +105,37 @@
 		<c:otherwise>
 			<h3>비회원님</h3>					
 		</c:otherwise>
-	</c:choose>
+	</c:choose> 
+--%>
+<!-- 데이터 표시 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+
+	<!-- 게시글 번호 -->
+	<input type="hidden" id="pb_no" value=${pb_no } />
+	<!-- sorting -->
+	<input type="hidden" id="orderingBy" value=${orderingBy } />
+	<input type="hidden" id="orderingMethod" value=${orderingMethod } />
+	<!-- filtering -->
+	<input type="hidden" id="pb_residence" value=${pb_residence } />
+	<input type="hidden" id="pb_room" value=${pb_room } />
+	<input type="hidden" id="pb_style" value=${pb_style } />
+	<input type="hidden" id="pb_skill" value=${pb_skill } />
+	<!-- searching -->
+	<input type="hidden" id="searchingType" value=${searchingType } />
+	<input type="hidden" id="searchingWord" value=${searchingWord } />
+	<!-- paging -->
+	<input type="hidden" id="pageSelectedNum" value=${pageSelectedNum } />	
 
 	<div class="container">
 	
-		<header>
-			<h1>header</h1>
-		</header>
+		<!-- header -->
+		<%@ include file="header.jsp" %>
 		
 		<div class="contents">
 		
 			<div class="sideBar">
 				<ul >
-					<li><a href="OHMainView">우리 집 자랑하기</a></li>
-					<li><a href="OHPhotoView">집사진</a></li>
+					<a href="OHMainView"><li class="sideBar-OHMainView">우리 집 자랑하기</li></a>
+					<a href="OHPhotoView"><li class="sideBar-OHPhotoView">집사진</li></a>
 					<!-- 집영상 -->
 					<!-- <li><a href="">집영상</a></li> -->
 					<!-- <li><a href="">#category</a></li> -->
@@ -123,14 +150,15 @@
 				
 				</div>					
 				
-				<div id="OHPhotoEditView-main-2">
+				<!-- <div id="OHPhotoEditView-main-2"> -->
 
-					<button id="OHPhotoEditView-photoBoardButton">집사진</button> 
+					<!-- 집사진 -->
+					<!-- <button id="OHPhotoEditView-photoBoardButton">집사진</button> --> 
 					
                     <!-- 집영상 -->
 					<!-- <button id="OHPhotoEditView-videoBoardButton">집영상</button> -->				    
 
-                </div>				
+                <!-- </div> -->				
 			
                 <div id="OHPhotoEditView-main-3">			
 			
@@ -258,14 +286,31 @@
                                 </div>
                             </div>
                         </div>
+                        
+                        <!-- OHPhotoView 검색 설정 값 -->
+						<!-- 게시글 번호 -->
+						<input type="hidden" name="OPVpb_no" value=${pb_no } />
+						<!-- sorting -->
+						<input type="hidden" name="OPVorderingBy" value=${orderingBy } />
+						<input type="hidden" name="OPVorderingMethod" value=${orderingMethod } />
+						<!-- filtering -->
+						<input type="hidden" name="OPVpb_residence" value=${pb_residence } />
+						<input type="hidden" name="OPVpb_room" value=${pb_room } />
+						<input type="hidden" name="OPVpb_style" value=${pb_style } />
+						<input type="hidden" name="OPVpb_skill" value=${pb_skill } />
+						<!-- searching -->
+						<input type="hidden" name="OPVsearchingType" value=${searchingType } />
+						<input type="hidden" name="OPVsearchingWord" value=${searchingWord } />
+						<!-- paging -->
+						<input type="hidden" name="OPVpageSelectedNum" value=${pageSelectedNum } />	                        
+                        
 					</form>	
                 </div>
             </div>
 		</div>							
 		
-		<footer>
-			<h1>footer</h1>
-		</footer>
+		<!-- footer -->
+		<%@ include file="footer.jsp" %>
 		
 	</div>	
 	

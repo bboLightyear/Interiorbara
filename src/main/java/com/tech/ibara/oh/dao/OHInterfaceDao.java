@@ -6,6 +6,7 @@ import com.tech.ibara.oh.dto.OHPhotoAttach;
 import com.tech.ibara.oh.dto.OHPhotoBoard;
 import com.tech.ibara.oh.dto.OHPhotoLike;
 import com.tech.ibara.oh.dto.OHPhotoReply;
+import com.tech.ibara.oh.dto.OHPhotoReplyLike;
 import com.tech.ibara.oh.dto.OHPhotoScrap;
 
 public interface OHInterfaceDao {
@@ -56,15 +57,27 @@ public interface OHInterfaceDao {
 	public void updatePb_hit(String pb_no);
 	public OHPhotoBoard getDtoOHPhotoBoard(String pb_no);
 	public ArrayList<OHPhotoAttach> getDtoOHPhotoAttach(String pa_no);
-	public int getOHPhotoReplyNumber(String pb_no);
 	public OHPhotoLike ohPhotoDetailLikeView(int memno, String pb_no);
 	public OHPhotoScrap ohPhotoDetailScrapView(int memno, String pb_no); 	
+	public int getOHPhotoReplyNumber(String pb_no);
 	
-	// ---------- OHPhotoReplyView ----------
+	// ---------- OHPhotoDetailView.jsp ----------
+	// ---------- OHPhotoReplyView.jsp ----------	
 	public ArrayList<OHPhotoReply> ohPhotoReplyView(String pb_no);
+	public ArrayList<OHPhotoReplyLike> ohPhotoReplyLikeView(int memno);
+	
+	// ---------- OHPhotoReplyLikeExecute ----------
+	public int replyLikeCheck(String memno, String pr_no);
+	public void replyLikeSave(String memno, String pr_no);
+	public void replyLikeIncrease(String pr_no);
+	public void replyLikeDelete(String memno, String pr_no);
+	public void replyLikeDecrease(String pr_no);
+	public int replyLikeGetNumber(String pr_no);
 	
 	// ---------- OHPhotoReplyWriteExecute ----------
 	public void ohPhotoReplyWriteExecute(String memno,String pr_content,String pb_no);
+	public void ohPhotoReplyIncrease(String pb_no);
+	public int ohPhotoReplyGetNumber(String pb_no);
 	
 	// ---------- OHPhotoEditExecute ----------
 	public void ohPBEditUpdate(String pb_no, String pb_title, 
