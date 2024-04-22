@@ -515,6 +515,16 @@
 	font-size: 17px;
 	margin-left: 10px;
 }
+.cs_content_section3_replyform_textarea_x{
+	width: 700px;
+	height: 25px;
+	border: none;
+	outline: none;
+	resize: none;
+	overflow-y: auto;
+	font-size: 17px;
+	margin-left: 10px;
+}
 .cs_content_section4{
 	width: 100%;
 	height: auto;
