@@ -111,11 +111,11 @@
 
 				</div>
 			</div>
-			<div class="rightside rightside-ani">
+			<div class="rightside">
 				<div class="modal_rightside_header">
 					<span>요약</span>
 				</div>
-			<div class="modal_rightside">
+			<div class="modal_rightside rightside-ani">
 				<div class="modal_rightside_body">
 					<div class="service_box">
 						<div class="selectedSize complete-selectedSize" id="complete-selectedSize"></div>
@@ -174,14 +174,19 @@ var checkedItems = {};
 $(document).ready(function() {
 				var infoModal = $('.infoModal');
 				
-				function openModal(modalId) {
-					$(modalId).css('display', 'block');	
+				  function openModal(modalId) {
+			    	  $(modalId).css('display', 'block');
+			    	  setTimeout(function() {
+			    	    $(modalId).find('.modal_leftside_img, .modal_leftside_content, .rightside-ani, .modal_center_body, .complete_modal_center_body, .mainModal_center_body').addClass('show');
+			    	  }, 130);
+			    	}
 
-				}
-
-				function closeModal(modalId) {
-					$(modalId).css('display', 'none');
-				}
+				  function closeModal(modalId) {
+			    	  $(modalId).find('.modal_leftside_img, .modal_leftside_content, .rightside-ani, .modal_center_body, .complete_modal_center_body, .mainModal_center_body').removeClass('show');
+			    	  setTimeout(function() {
+			    	    $(modalId).css('display', 'none');
+			    	  }, 50);
+			    	}
 
 				$(document).on('click', '.close', function() {
 					closeModal('.infoModal');

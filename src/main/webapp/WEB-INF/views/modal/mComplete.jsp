@@ -18,7 +18,7 @@ String path=request.getContextPath();
 
 <!-- 평수 선택 모달 창 영역 -->
 	<div class="completeModal" id="modal" data-prev-modal="">
-		<div class="modal_content">
+		<div class="completeModal_content modal_content">
 			<div class="modal_leftside">
 				<div class=modal_leftside_progress>
 					<!-- <ul>
@@ -147,14 +147,17 @@ String path=request.getContextPath();
 			
 			var completeModal = $('.completeModal');
 			 
-			function openModal(modalId) {
-				$(modalId).css('display', 'block');
+			  function openModal(modalId) {
+		    	  $(modalId).css('display', 'block');
+		    	  setTimeout(function() {
+		    	    $(modalId).find('.modal_leftside_img, .modal_leftside_content, .rightside-ani, .modal_center_body, .complete_modal_center_body, .mainModal_center_body').addClass('show');
+		    	  }, 130);
+		    	}
 
-			}
-
-			function closeModal(modalId) {
-				$(modalId).css('display', 'none');
-			}
+		    function closeModal(modalId) {
+		        $(modalId).css('display', 'none');
+		        
+		    	}
 
 			$(document).on('click', '.close', function() {
 				closeModal('.completeModal');
