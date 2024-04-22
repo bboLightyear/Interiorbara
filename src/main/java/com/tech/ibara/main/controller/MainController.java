@@ -32,9 +32,10 @@ public class MainController {
 	private MainDataService shopDataService;
 	private MainDataService noticeDataService;
 	private MainDataService qnaDataService;
-
+	
 	@RequestMapping("/")
 	public String main(HttpServletRequest request, Model model) {
+		
 		model.addAttribute("request", request);
 		
 		bizDataService=new BizPreviewService(sqlSession);
@@ -56,7 +57,24 @@ public class MainController {
 	}
 	
 	@RequestMapping("main")
-	public String Home() {
+	public String Home(HttpServletRequest request, Model model) {
+		model.addAttribute("request", request);
+		
+		bizDataService=new BizPreviewService(sqlSession);
+		bizDataService.execute(model);
+		
+		ohDataService=new OHPreviewService(sqlSession);
+		ohDataService.execute(model);
+		
+		shopDataService=new ShopPreviewService(sqlSession);
+		shopDataService.execute(model);
+		
+		noticeDataService=new NoticePreviewService(sqlSession);
+		noticeDataService.execute(model);
+		
+		qnaDataService=new QnAPreviewService(sqlSession);
+		qnaDataService.execute(model);
+		
 		return "redirect:/";
 	}
 	
@@ -68,6 +86,7 @@ public class MainController {
 	
 	@RequestMapping("mainSearchView")
 	public String mainSearchView(HttpServletRequest request, Model model) {
+		
 		model.addAttribute("request", request);
 		
 		bizSearchService=new BizSearchService(sqlSession);
@@ -90,6 +109,7 @@ public class MainController {
 	
 	@RequestMapping("searchView")
 	public String SearchView(HttpServletRequest request, Model model) {
+
 		model.addAttribute("request", request);
 		
 		bizSearchService=new BizSearchService(sqlSession);

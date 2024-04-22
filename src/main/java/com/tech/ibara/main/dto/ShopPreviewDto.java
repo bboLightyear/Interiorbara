@@ -10,9 +10,9 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ShopPreviewDto {
-	private int shop_no;
-	private String shop_name;
-	private int shop_price;
-	private String shop_img;
+	private int product_id;
+	private String name;
+	private int rep_price;
+	private String file_src;
 
 }

@@ -1,11 +1,14 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ page session="false"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<c:set var="path" value="${pageContext.request.contextPath}"/>
 <html>
 <head>
 <meta charset="UTF-8">
-<link rel="stylesheet" type="text/css" href="mainCSS/main.css" />
+<link rel="stylesheet" href="resources/css/header_footer.css" />
+<link rel="stylesheet" href="mainCSS/sidebar.css" />
+<link rel="stylesheet" href="mainCSS/main.css" />
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css" />
 <title>Main</title>
@@ -19,11 +22,11 @@
 			<div></div>
 			<!-- header_logo : 로고 -->
 			<div class="header_logo">
-				<img src="resources/img/mainimg/main_logo.jpg" alt="#" onclick="location.href='main'" />
+				<img src="${path}/resources/img/mainimg/logo_1_small_1459x344.jpg" alt="#" onclick="location.href='${path}/main'" />
 			</div>
 			<!-- header_search_box : 검색창 -->
 			<div class="header_search_box">
-				<form action="mainSearchView" method="get">
+				<form action="${path}/mainSearchView" method="get">
 					<i class="fas fa-search header_search_box_icon"></i> <input
 						type="text" name="mainSearchContent" value="${mainSearchContent }"
 						class="header_search_box_input" placeholder="검색">
@@ -35,21 +38,21 @@
 				<c:choose>
 				   <c:when test="${loginUserDto eq null }">
 		   				<div class="header_login">
-							<a href="my/loginform">로그인</a>
+							<a href="${path}/my/loginform">로그인</a>
 						</div>
 						<div class="header_join">
-							<a href="my/joinform">회원가입</a>
+							<a href="${path}/my/joinform">회원가입</a>
 						</div>
 				   </c:when>
 				   <c:otherwise>
-					${loginUserDto.nickname }님 로그인 되었습니다. <br />
-					${loginUserDto.memno}번 회원님 로그인 되었습니다. <br />   
-					${loginUserDto.email}님 로그인 되었습니다.<br />
+				   		<div class="header_nickname">
+						   	${loginUserDto.nickname }님 <br />
+				   		</div>
 	   					<div class="header_login">
-							<a href="my/logout">로그아웃</a>
+							<a href="${path}/my/logout">로그아웃</a>
 						</div>
 						<div class="header_join">
-							<a href="my/mypage">mypage</a>
+							<a href="${path}/my/mypage">mypage</a>
 						</div>
 				   </c:otherwise>
 				</c:choose>
@@ -60,25 +63,20 @@
 		</div>
 		<!-- header_bottom : 헤더 아랫부분 -->
 		<div id="header_bottom" class="header_bottom">
-			<!-- header_category_icon : 카테고리 아이콘 -->
-			<div class="header_category_icon">
-				<i class="fas fa-bars"></i>
-			</div>
-			<!-- header_category_list : 카테고리 / list_1~5 : list에 각각 들어갈 내용 -->
 			<div class="header_category_list list_1">
 				<a href="#" class="openModal">퀵견적</a>
 			</div>
 			<div class="header_category_list list_2">
-				<a href="shop/list">소품샵</a>
+				<a href="${path}/shop/list">소품샵</a>
 			</div>
 			<div class="header_category_list list_3">
-				<a href="biz/magazine/bizMgzList">업체 둘러보기</a>
+				<a href="${path}/biz/search/bizAddrSearch">업체 둘러보기</a>
 			</div>
 			<div class="header_category_list list_4">
-				<a href="oh/OHMainView">우리 집 자랑하기</a>
+				<a href="${path}/oh/OHMainView">우리 집 자랑하기</a>
 			</div>
 			<div class="header_category_list list_5">
-				<a href="cshome">고객센터</a>
+				<a href="${path}/cshome">고객센터</a>
 			</div>
 		</div>
 	</header>
@@ -95,28 +93,28 @@
 			<div class="carousel_main">
 				<div class="carousel_wrapper">
 					<div class="carousel_slide">
-						<img src="resources/img/mainimg/footer_logo.PNG" alt="#" />
+						<img src="${path}/resources/img/mainimg/logo_3_1500x1500.jpg" alt="#" />
 					</div>
 					<div class="carousel_slide">
-						<img src="resources/img/mainimg/0.gif" alt="#" />
+						<img src="${path}/resources/img/mainimg/logo_2_hat_driver_1500x1500.jpg" alt="#"
+						onclick="location.href='${path}/biz/magazine/bizMgzList'" />
 					</div>
 					<div class="carousel_slide">
-						<img src="resources/img/mainimg/1.gif" alt="#" />
+						<img src="${path}/resources/img/mainimg/logo_2_no_hat_driver_1500x1500.jpg" alt="#"
+						onclick="location.href='${path}/biz/magazine/bizMgzList'" />
 					</div>
 					<div class="carousel_slide">
-						<img src="resources/img/mainimg/2.gif" alt="#" />
+						<img src="${path}/resources/img/mainimg/logo_2_hat_hammer_1500x1500.jpg" alt="#"
+						onclick="location.href='${path}/biz/magazine/bizMgzList'" />
 					</div>
 					<div class="carousel_slide">
-						<img src="resources/img/mainimg/3.gif" alt="#" />
-					</div>
-					<div class="carousel_slide">
-						<img src="resources/img/mainimg/4.gif" alt="#" />
+						<img src="${path}/resources/img/mainimg/logo_2_no_hat_hammer_1500x1500.jpg" alt="#"
+						onclick="location.href='${path}/biz/magazine/bizMgzList" />
 					</div>
 				</div>
 			</div>
 			<!-- 캐러셀 중앙 버튼 -->
 			<div class="carousel_pagination">
-				<div class="carousel_circle"></div>
 				<div class="carousel_circle"></div>
 				<div class="carousel_circle"></div>
 				<div class="carousel_circle"></div>
@@ -147,10 +145,10 @@
 				});
 				showSlide(0);
 				setInterval(function(intervalSlide){
-					if (currentSlide < 6) {
+					if (currentSlide < 5) {
 						showSlide(currentSlide + 1);
 					}
-					if (currentSlide == 6) {
+					if (currentSlide == 5) {
 						showSlide(0);
 					}
 				}, 2000);
@@ -159,29 +157,25 @@
 			<div class="carousel_main2">
 				<div class="carousel_wrapper2">
 					<div class="carousel_slide2">
-						<img src="resources/img/mainimg/footer_logo.PNG" alt="#" />
+						<img src="${path}/resources/img/mainimg/oh_preview_001.jpg" alt="#"
+						onclick="location.href='${path}/oh/OHMainView'" />
 					</div>
 					<div class="carousel_slide2">
-						<img src="resources/img/mainimg/0.gif" alt="#" />
+						<img src="${path}/resources/img/mainimg/oh_preview_002.jpg" alt="#"
+						onclick="location.href='${path}/oh/OHMainView'" />
 					</div>
 					<div class="carousel_slide2">
-						<img src="resources/img/mainimg/1.gif" alt="#" />
+						<img src="${path}/resources/img/mainimg/oh_preview_003.jpg" alt="#"
+						onclick="location.href='${path}/oh/OHMainView'" />
 					</div>
 					<div class="carousel_slide2">
-						<img src="resources/img/mainimg/2.gif" alt="#" />
-					</div>
-					<div class="carousel_slide2">
-						<img src="resources/img/mainimg/3.gif" alt="#" />
-					</div>
-					<div class="carousel_slide2">
-						<img src="resources/img/mainimg/4.gif" alt="#" />
+						<img src="${path}/resources/img/mainimg/oh_preview_004.jpg" alt="#"
+						onclick="location.href='${path}/oh/OHMainView" />
 					</div>
 				</div>
 			</div>
 			<!-- 캐러셀 중앙 버튼 -->
 			<div class="carousel_pagination2">
-				<div class="carousel_circle2"></div>
-				<div class="carousel_circle2"></div>
 				<div class="carousel_circle2"></div>
 				<div class="carousel_circle2"></div>
 				<div class="carousel_circle2"></div>
@@ -212,10 +206,10 @@
 			});
 			showSlide2(0);
 			setInterval(function(intervalSlide2){
-				if (currentSlide2 < 6) {
+				if (currentSlide2 < 4) {
 					showSlide2(currentSlide2 + 1);
 				}
-				if (currentSlide2 == 6) {
+				if (currentSlide2 == 4) {
 					showSlide2(0);
 				}
 			}, 3000);
@@ -226,99 +220,81 @@
 				<span>퀵견적</span>
 			</button>
 			<jsp:include page="../modal/mMain.jsp" />
-			<button onclick="location.href='shop/list'" id="category_button" class="category_button category_2">
+			<button onclick="location.href='${path}/shop/list'" id="category_button" class="category_button category_2">
 				<span>소품 샵</span>
 			</button>
-			<button onclick="location.href='biz/magazine/bizMgzList'" id="category_button" class="category_button category_3">
+			<button onclick="location.href='${path}/biz/search/bizAddrSearch'" id="category_button" class="category_button category_3">
 				<span>업체 <br> 둘러보기
 				</span>
 			</button>
-			<button onclick="location.href='oh/OHMainView'" id="category_button" class="category_button category_4">
+			<button onclick="location.href='${path}/oh/OHMainView'" id="category_button" class="category_button category_4">
 				<span>우리 집 <br> 자랑하기
 				</span>
 			</button>
-			<button onclick="location.href='cshome'" id="category_button" class="category_button category_5">
+			<button onclick="location.href='${path}/cshome'" id="category_button" class="category_button category_5">
 				<span>고객센터</span>
 			</button>
 			<br />
 		</div>
 		<div class="main_preview_wrap">
 			<div class="main_preview">
-				<h1 class="main_preview_title"><a href="biz/magazine/bizMgzList">입점 업체 보기</a></h1>
+				<h1 class="main_preview_title"><a href="${path}/biz/search/bizAddrSearch">입점 업체 보기</a></h1>
 				<hr />
 				<div class="main_preview_biz">
 					<c:forEach items="${bizPreviewList }" var="biz">
 						<div class="main_preview_biz_list">
 							<ul>
 								<li class="main_preview_biz_img">
-									<img src="resources/upload/main/${biz.biz_img }" alt="#" />
+									<img src="${path}/resources/upload/biz/home/${biz.bh_img }" alt="#" onclick="location.href='${path}/biz/search/bizAddrSearch'" />
 								</li>
 							</ul>
 							<ul>
-								<li class="main_preview_biz_name">${biz.biz_name }</li>
+								<li class="main_preview_biz_name"><a href="${path}/biz/search/bizAddrSearch">${biz.bh_name }</a></li>
 							</ul>
 							<ul>
-								<li class="main_preview_biz_addr">${biz.biz_addr }</li>
-							</ul>
-							<ul>
-								<li class="main_preview_biz_chat"><a
-									href="https://www.naver.com" class="main_preview_biz_chat_link">채팅
-										바로가기 <i class="far fa-comment-alt"></i>
-								</a></li>
+								<li class="main_preview_biz_addr"><a href="${path}/biz/search/bizAddrSearch">${biz.bh_addr1 } <br /> ${biz.bh_addr2 } </a></li>
 							</ul>
 						</div>
 					</c:forEach>
 				</div>
 			</div>
 			<div class="main_preview">
-				<h1 class="main_preview_title"><a href="shop/list">소품 샵</a></h1>
+				<h1 class="main_preview_title"><a href="${path}/shop/list">소품 샵</a></h1>
 				<hr />
 				<div class="main_preview_shop">
 					<c:forEach items="${shopPreviewList }" var="shop">
 						<div class="main_preview_shop_list">
 							<ul>
 								<li class="main_preview_shop_img">
-									<img src="resources/upload/main/${shop.shop_img }" alt="#" />
+									<img src="${path}/resources/upload/shop/${shop.file_src }" alt="#" onclick="location.href='${path}/shop/list'" />
 								</li>
 							</ul>
 							<ul>
-								<li class="main_preview_shop_name">${shop.shop_name }</li>
+								<li class="main_preview_shop_name"><a href="${path}/shop/list">${shop.name }</a></li>
 							</ul>
 							<ul>
-								<li class="main_preview_shop_price">\ ${shop.shop_price }</li>
-							</ul>
-							<ul>
-								<li class="main_preview_shop_chat"><a
-									href="https://www.naver.com" class="main_preview_shop_chat_link">채팅
-										바로가기 <i class="far fa-comment-alt"></i>
-								</a></li>
+								<li class="main_preview_shop_price"><a href="${path}/shop/list">\ ${shop.rep_price }</a></li>
 							</ul>
 						</div>
 					</c:forEach>
 				</div>
 			</div>
 			<div class="main_preview">
-				<h1 class="main_preview_title"><a href="oh/OHMainView">우리집 자랑하기</a></h1>
+				<h1 class="main_preview_title"><a href="${path}/oh/OHMainView">우리집 자랑하기</a></h1>
 				<hr />
 				<div class="main_preview_OH">
 					<c:forEach items="${ohPreviewList }" var="oh">
 						<div class="main_preview_OH_list">
 							<ul>
 								<li class="main_preview_OH_img">
-									<img src="resources/upload/main/${oh.oh_img }" alt="#" />
+									<img src="${path}/resources/upload/oh/photo/${oh.pa_attach }" alt="#" onclick="location.href='${path}/oh/OHMainView'" />
 								</li>
 							</ul>
 							<ul>
-								<li class="main_preview_OH_name">${oh.oh_name }</li>
+								<li class="main_preview_OH_name"><a href="${path}/oh/OHMainView">${oh.pb_title }</a></li>
 							</ul>
 							<ul>
-								<li class="main_preview_OH_content">${oh.oh_content }</li>
-							</ul>
-							<ul>
-								<li class="main_preview_OH_chat"><a
-									href="https://www.naver.com" class="main_preview_OH_chat_link">채팅
-										바로가기 <i class="far fa-comment-alt"></i>
-								</a></li>
+								<li class="main_preview_OH_content"><a href="${path}/oh/OHMainView">${oh.pb_content }</a></li>
 							</ul>
 						</div>
 					</c:forEach>
@@ -326,7 +302,7 @@
 			</div>
 			<div class="main_preview_cs">
 				<div class="main_preview_cs_notice">
-					<h1 class="main_preview_title"><a href="noticelist">공지사항</a></h1>
+					<h1 class="main_preview_title"><a href="${path}/noticelist">공지사항</a></h1>
 					<hr>
 					<div class="main_preview_cs_notice_board">
 						<ul>
@@ -338,17 +314,17 @@
 						</ul>
 						<c:forEach items="${noticePreviewList }" var="notice">
 							<ul>
-								<li class="main_preview_cs_notice_category w10">${notice.notice_no }</li>
-								<li class="main_preview_cs_notice_category w30">${notice.notice_title }</li>
-								<li class="main_preview_cs_notice_category w20">${notice.notice_writer }</li>
-								<li class="main_preview_cs_notice_category w15">${notice.notice_hit }</li>
-								<li class="main_preview_cs_notice_category w24">${notice.notice_date }</li>
+								<li class="main_preview_cs_notice_category w10"><a href="${path}/noticelist">${notice.notice_no }</a></li>
+								<li class="main_preview_cs_notice_category w30"><a href="${path}/noticelist">${notice.notice_title }</a></li>
+								<li class="main_preview_cs_notice_category w20"><a href="${path}/noticelist">${notice.notice_writer }</a></li>
+								<li class="main_preview_cs_notice_category w15"><a href="${path}/noticelist">${notice.notice_hit }</a></li>
+								<li class="main_preview_cs_notice_category w24"><a href="${path}/noticelist"><fmt:formatDate value="${notice.notice_date }" pattern="yyyy-MM-dd" /></a></li>
 							</ul>
 						</c:forEach>
 					</div>
 				</div>
 				<div class="main_preview_cs_qna">
-					<h1 class="main_preview_title"><a href="qnalist">QnA</a></h1>
+					<h1 class="main_preview_title"><a href="${path}/qnalist">QnA</a></h1>
 					<hr>
 					<div class="main_preview_cs_qna_board">
 						<ul>
@@ -360,11 +336,11 @@
 						</ul>
 						<c:forEach items="${qnaPreviewList }" var="qna">
 							<ul>
-								<li class="main_preview_cs_qna_category w10">${qna.qna_no }</li>
-								<li class="main_preview_cs_qna_category w30">${qna.qna_title }</li>
-								<li class="main_preview_cs_qna_category w20">${qna.qna_writer }</li>
-								<li class="main_preview_cs_qna_category w15">${qna.qna_hit }</li>
-								<li class="main_preview_cs_qna_category w24">${qna.qna_date }</li>
+								<li class="main_preview_cs_qna_category w10"><a href="${path}/qnalist">${qna.qna_no }</a></li>
+								<li class="main_preview_cs_qna_category w30"><a href="${path}/qnalist">${qna.qna_title }</a></li>
+								<li class="main_preview_cs_qna_category w20"><a href="${path}/qnalist">${qna.qna_writer }</a></li>
+								<li class="main_preview_cs_qna_category w15"><a href="${path}/qnalist">${qna.qna_hit }</a></li>
+								<li class="main_preview_cs_qna_category w24"><a href="${path}/qnalist"><fmt:formatDate value="${qna.qna_date }" pattern="yyyy-MM-dd" /></a></li>
 							</ul>
 						</c:forEach>
 					</div>
@@ -375,18 +351,18 @@
             <button class="openModal side_bar_button button_1">
 				<span>퀵견적</span>
 			</button>
-			<button onclick="location.href='shop/list'"	class="side_bar_button button_2">
+			<button onclick="location.href='${path}/shop/list'"	class="side_bar_button button_2">
 				<span>소품 샵</span>
 			</button>
-			<button class="side_bar_button button_3" onclick="location.href='biz/magazine/bizMgzList'" >
+			<button class="side_bar_button button_3" onclick="location.href='${path}/biz/search/bizAddrSearch'" >
 				<span>업체 <br> 둘러보기
 				</span>
 			</button>
-			<button onclick="location.href='oh/OHMainView'"	class="side_bar_button button_4">
+			<button onclick="location.href='${path}/oh/OHMainView'"	class="side_bar_button button_4">
 				<span>우리 집 <br> 자랑하기
 				</span>
 			</button>
-			<button onclick="location.href='cshome'" class="side_bar_button button_5">
+			<button onclick="location.href='${path}/cshome'" class="side_bar_button button_5">
 				<span>고객센터</span>
 			</button>
         </div>
@@ -422,7 +398,7 @@
 	<footer>
 		<!-- 푸터 로고 -->
 		<div class="footer_logo">
-			<img src="resources/img/mainimg/footer_logo.PNG" alt="#" onclick="location.href='main'"  />
+			<img src="resources/img/mainimg/logo_3_1500x1500.jpg" alt="#" onclick="location.href='${path}/main'"  />
 		</div>
 		<!-- 푸터 내용 -->
 		<div class="footer_content">(주) 카피바라 주소 : 대한민국 서울시 양천구 목동 655-19

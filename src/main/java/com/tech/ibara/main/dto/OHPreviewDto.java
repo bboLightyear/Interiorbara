@@ -10,8 +10,8 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 public class OHPreviewDto {
-	private int oh_no;
-	private String oh_name;
-	private String oh_content;
-	private String oh_img;
+	private int pb_no;
+	private String pb_title;
+	private String pb_content;
+	private String pa_attach;
 }
