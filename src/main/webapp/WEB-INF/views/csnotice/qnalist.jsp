@@ -95,30 +95,30 @@
 		
 		<div class="cs_qnaboard_whitespace"> <!--여백--></div>
 	
-<!-- 		<div class=""> -->
-			<table class="cs_list_table">
-			<thead class="cs_list_table_thead">
-				<tr class="">
-					<th class="cs_list_table_th">NO</th>
-					<th class="cs_list_table_th">제목</th>
-					<th class="cs_list_table_th">이름</th>
-					<th class="cs_list_table_th">날짜</th>
-					<th class="cs_list_table_th">조회수</th>
-				</tr>
-			</thead>
-			<tbody class="cs_list_table_tbody">
-				<c:forEach items="${list }" var="dto">
-					<tr class="">
-						<td class="">${dto.qbno }</td>
-						<td class=""><a href="qnacontent?qbno=${dto.qbno }" class="cs_list_table_title">${dto.qbtitle }</a></td>
-						<td class="">${dto.qbwriter }</td>
-						<td class=""><fmt:formatDate value="${dto.qbdate}" pattern="yy/MM/dd" /></td>
-						<td class="">${dto.qbhit }</td>
-					</tr>
-				</c:forEach>
-			</tbody>
-			</table>
-<!-- 		</div> -->
+
+		<table class="cs_list_table">
+		    <thead class="cs_list_table_thead">
+		        <tr>
+		            <th class="cs_list_table_th cs_list_table_th_no">NO</th>
+		            <th class="cs_list_table_th cs_list_table_th_title">제목</th>
+		            <th class="cs_list_table_th cs_list_table_th_name">이름</th>
+		            <th class="cs_list_table_th cs_list_table_th_date">날짜</th>
+		            <th class="cs_list_table_th cs_list_table_th_hits">조회수</th>
+		        </tr>
+		    </thead>
+		    <tbody class="cs_list_table_tbody">
+		        <c:forEach items="${list }" var="dto">
+		            <tr>
+		                <td class="cs_list_table_th_no">${dto.qbno}</td>
+		                <td class="cs_list_table_th_title"><a href="qnacontent?qbno=${dto.qbno }" class="cs_list_table_title">${dto.qbtitle}</a></td>
+		                <td class="cs_list_table_th_name">${dto.qbwriter}</td>
+		                <td class="cs_list_table_th_date"><fmt:formatDate value="${dto.qbdate}" pattern="yy/MM/dd" /></td>
+		                <td class="cs_list_table_th_hits">${dto.qbhit}</td>
+		            </tr>
+		        </c:forEach>
+		    </tbody>
+		</table>
+
 		
 <div class="cs_qnaboard_whitespace"> <!--여백--></div>
 		<div class="cs_list_wrap_writebtn">
@@ -162,7 +162,7 @@ function linkwritebtn() {
 					<c:choose>
 					
 						<c:when test="${i eq searchVo.page }">
-							<span style="color: lightskyblue; font-weight: bold;">&nbsp;${i }&nbsp;</span>
+							<span style="color: #1034a6; font-weight: bold;">&nbsp;${i }&nbsp;</span>
 						</c:when>
 						
 						<c:otherwise>

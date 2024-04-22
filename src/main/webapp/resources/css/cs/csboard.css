@@ -300,7 +300,7 @@
 	display: flex;
     align-items: center;
     justify-content: center;
-    background-color: lightskyblue;
+    background-color: #1034a6;
     border-radius: 5px;
   	box-shadow: 0 2px 5px rgba(0,0,0,.10);
 }
@@ -314,21 +314,40 @@
   	border-radius: 5px;
   	overflow: hidden;
 }
+/* 열 너비 설정 */
+.cs_list_table_th_no {
+    width: 50px; /* 첫 번째 열 */
+}
+
+.cs_list_table_th_title {
+    width: 500px; /* 두 번째 열 */
+}
+
+.cs_list_table_th_name {
+    width: 120px; /* 세 번째 열 */
+}
+
+.cs_list_table_th_date, .cs_list_table_th_hits {
+    width: 90px; /* 네 번째와 다섯 번째 열 */
+}
 .cs_list_table_thead{
 	font-weight: bold;
   	color: #fff;
- 	background: lightskyblue;
+ 	background: #1034a6;
  	height: 30px;
 }
 .cs_list_table_th{
 	text-align: center;
-	}
+}
+.cs_list_table td {
+    text-align: center;
+}
 .cs_list_table_title{
 	text-decoration: none;
 	color: black;
 }
 .cs_list_table_title:hover {
-    color: lightskyblue; /* 마우스를 올렸을 때 링크 텍스트의 색을 빨간색으로 변경 */
+    color: #1034a6; /* 마우스를 올렸을 때 링크 텍스트의 색을 빨간색으로 변경 */
 }
 .cs_list_wrap_writebtn{
 	width: 100%;
