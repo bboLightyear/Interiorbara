@@ -10,8 +10,9 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 public class BizPreviewDto {
-	private int biz_no;
-	private String biz_name;
-	private String biz_addr;
-	private String biz_img;
+	private int bh_no;
+	private String bh_name;
+	private String bh_addr1;
+	private String bh_addr2;
+	private String bh_img;
 }
