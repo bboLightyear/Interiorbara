@@ -57,7 +57,7 @@ public class CsQnaWriteService implements CsQnaService {
 
 		// 글 작성
 		dao.qnawrite(qbwriter, qbtitle, qbcontent, sqbno, qnadiv);
-
+		
 		// 파일 이름 업로드 당시 밀리초로 변경
 		for (MultipartFile mf : fileList) {
 			String originFile = mf.getOriginalFilename();

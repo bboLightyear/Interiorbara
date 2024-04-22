@@ -133,6 +133,7 @@
 		<div class="cs_home_white_space">
 			<!--qna 위 공백-->
 		</div>
+		
 
 		<div class="cs_home_wrap_qnaboard">
 
@@ -142,7 +143,6 @@
 					<a href="qnalist" class="cs_home_qnaboard_head_h2_a2">더보기</a>
 				</h2>
 			</div><!--cs_home_wrap_qnaboard-->
-
 			<div class="cs_home_qnaboard_nav_wrap">
 				
 			<nav class="cs_home_qnaboard_nav">

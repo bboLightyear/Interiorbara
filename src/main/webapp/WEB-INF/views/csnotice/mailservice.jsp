@@ -132,6 +132,9 @@
 			<div class="cs_home_white_space"></div>
 			
 			<div class="cs_write_mail_form_wrap_content">
+				<input type="hidden" name="nickname" value="${ loginUserDto.nickname}" />
+				<input type="hidden" name="id" value="${ loginUserDto.email}" />
+				
 				<div class="cs_write_mail_form_content">
 					<h4 style="margin: 0;">내용 입력</h4>
 					<textarea type="text" class="cs_mail_wrap_form_content_ta" name="mailcontent"></textarea>
