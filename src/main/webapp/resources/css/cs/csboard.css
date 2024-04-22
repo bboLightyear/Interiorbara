@@ -757,11 +757,15 @@
 	height: 35px;
 	border: none;
 	border-radius:10px;
-	background-color: #1e90ff;
+	background-color: #1034a6;
 	color: white;
+	font-size: 15px;
 }
 .cs_write_wrap_form_writebtn:hover {
-	background: #0b7dda;
+	background: white;
+	color: #1034a6;
+	border: 2px solid #1034a6;
+	font-weight: bold;
 }
 .cs_write_wrap_form_wrap_filebtn{
 	width:100%;
@@ -784,7 +788,7 @@
     height: 35px;
     display: inline-block;
     cursor: pointer;
-    background: #2196F3;
+    background: #1034a6;
     color: #fff;
     border: none;
     border-radius: 10px;
@@ -794,7 +798,10 @@
 	font-size: 15px;
 }
 .custom-file-upload:hover {
-    background: #0b7dda;
+    background: white;
+    color: #1034a6;
+    border: 2px solid #1034a6;
+    font-weight: bold;
 }
 .cs_write_wrap_form_file_wrap_display{
 	width: 100%;
@@ -831,7 +838,7 @@
 }
 .cs_mail_wrap_form_title_it{
 	width: 750px;
-	height: 30px;
+	height: 35px;
 	font-size: 18px;
 	color : gray;
 	padding: 0;
