@@ -43,8 +43,8 @@
 	
 	#topBtn{
    	position: fixed;
-  	 right: 4%;
-   	bottom: 5%;
+	   right: 12.5%;
+	   bottom: 3%;
    	display: none;
    	/* z-index: 9999; */
 	}		
@@ -67,7 +67,7 @@
 <main class="Site-content">
 	<div class="pt-3 bg-light bg-opacity-75">
 	<div class="d-flex justify-content-center">
-		<div class="p-3" onclick="location.href='bizMgzList'" style="width: 750px; cursor:pointer;" >
+		<div class="p-3" onclick="location.href='bizMgzList'" style="width: 1150px; cursor:pointer;" >
 					<ul class="list-inline">
 						<li class="list-inline-item">
 							<h4 style="--bs-text-opacity: 1; background-color: #1034a6; padding: 3px; !important;">
@@ -94,8 +94,8 @@
 <form action="bizMgzMod" method="post">
 <input type="hidden" name="bm_no" value="${bizMgzContentView.bm_no }" />
 	<div class="d-flex justify-content-center">
-		<div class="p-3" style="width: 750px">
-			<table class="table" style="width: 100%; max-width: 750px">
+		<div class="p-3" style="width: 1050px">
+			<table class="table" style="width: 100%; max-width: 1050px">
 				<tr>
 				    <th scope="row" class="table-light border-light-subtle">번호</th>
 					<td class="center" style="width:25%">${bizMgzContentView.bm_no }</td>
@@ -120,8 +120,8 @@
 				</tr>	
 			</table>
 			<div class="d-flex justify-content-evenly">
-				<div class="d-flex justify-content-center" style="width: 750px;">			
-				<div class="d-flex justify-content-end" style="width: 99%; max-width: 750px;">
+				<div class="d-flex justify-content-center" style="width: 1150px;">			
+				<div class="d-flex justify-content-end" style="width: 99%; max-width: 1120px;">
 								<c:choose>
 									<c:when test="${loginUserDto.memtype eq 'ADMIN'}">
 										<input type="submit" value="수정"  class="ms-1 btn btn-outline-primary btn-sm w-10">

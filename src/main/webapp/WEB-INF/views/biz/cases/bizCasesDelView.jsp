@@ -73,7 +73,7 @@ body {
 <main class="Site-content">
 	<div class="pt-3 bg-light bg-opacity-75">
 	<div class="d-flex justify-content-center">
-		<div class="p-3" onclick="location.href='bizCasesList?inteno=${bizCasesDelView.inteno}'" style="width: 750px; cursor:pointer;"  >
+		<div class="p-3" onclick="location.href='bizCasesList?inteno=${bizCasesDelView.inteno}'" style="width: 1150px; cursor:pointer;"  >
 					<ul class="list-inline">
 						<li class="list-inline-item">
 							<h4 style="--bs-text-opacity: 1; background-color: #1034a6; padding: 3px; !important;">
@@ -103,8 +103,8 @@ body {
 	
 	
 		<div class="d-flex justify-content-center">
-		<div class="p-3" style="width: 750px">
-			<table class="p-3 table" style="width: 100%; height: 150px; max-width: 750px">
+		<div class="p-3" style="width: 1050px">
+			<table class="p-3 table" style="width: 100%; height: 150px; max-width: 1050px">
 				<tr>
 				    <td class="align-middle">
 				    	<p style="font-size: 16px;"><span class="px-2" style="color: #ff8d1e"><strong onclick="location.href='bizCasesContentView?bc_no=${bizCasesDelView.bc_no }'" style="cursor:pointer;">${bizCasesDelView.bc_title }</strong></span> 글을 삭제하시겠습니까?</p>
@@ -114,13 +114,13 @@ body {
 			
 								
 			<div class="d-flex justify-content-evenly">
-				<div class="d-flex justify-content-center" style="width: 750px;">
-					<div class="d-flex align-items-start" style="width: 40%; max-width: 300px;">
+				<div class="d-flex justify-content-center" style="width: 1150px;">
+					<div class="d-flex align-items-start" style="width: 40%; max-width: 440px;">
 						<button class="ms-1 btn btn-outline-primary btn-sm w-10"  onclick="location.href='bizCasesContentView?bc_no=${bizCasesDelView.bc_no }'"><span style="font-size: 14px;">이전 화면</span></button>
 					</div>
 			
 			
-				<div class="d-flex justify-content-end" style="width: 60%; max-width: 450px;">
+				<div class="d-flex justify-content-end" style="width: 60%; max-width: 660px;">
 					<c:choose>
 						<c:when test="${loginUserDto.myinteriordto.inteno eq bizCasesDelView.inteno}">
 							<button class="ms-1 btn btn-outline-primary btn-sm w-10" onclick="confirmDelete('${bizCasesDelView.bc_no }')"><span style="font-size: 14px;">삭제</span></button>

@@ -70,7 +70,7 @@
 <main class="Site-content">
 	<div class="pt-3 bg-light bg-opacity-75">
 	<div class="d-flex justify-content-center">
-		<div class="p-3" onclick="location.href='bizRvReportView?br_no=${bizRvContentView.br_no }&inteno=${inteno}'" style="width: 750px; cursor: pointer;" >
+		<div class="p-3" onclick="location.href='bizRvReportView?br_no=${bizRvContentView.br_no }&inteno=${inteno}'" style="width: 1150px; cursor: pointer;" >
 					<ul class="list-inline">
 						<li class="list-inline-item">
 							<h4 style="--bs-text-opacity: 1; background-color: #1034a6; padding: 3px; !important;">
@@ -98,8 +98,8 @@
 <input type="hidden" name="memno" value="${bizRvContentView.memno }" />
 <input type="hidden" name="inteno" value="${bizRvContentView.inteno }" />
 	<div class="d-flex justify-content-center">
-		<div class="p-3" style="width: 750px">
-			<table class="table" style="width: 100%; max-width: 750px">
+		<div class="p-3" style="width: 1050px">
+			<table class="table" style="width: 100%; max-width: 1050px">
 				<tr>
 				    <th scope="row" class="table-light border-light-subtle">신고할 리뷰 번호</th>
 					<td colspan="3">
@@ -122,8 +122,8 @@
 			
 						
 			<div class="d-flex justify-content-evenly">
-				<div class="d-flex justify-content-center" style="width: 750px;">
-					<div class="d-flex justify-content-end" style="width: 99%; max-width: 740px;">
+				<div class="d-flex justify-content-center" style="width: 1050px;">
+					<div class="d-flex justify-content-end" style="width: 99%; max-width: 1040px;">
 						<c:choose>
 							<c:when test="${loginUserDto.memtype eq 'PERSON'}">
 								<input type="submit" value="제출"  class="btn btn-outline-primary btn-sm w-10">

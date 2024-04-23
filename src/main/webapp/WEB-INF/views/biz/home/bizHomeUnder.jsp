@@ -46,7 +46,7 @@
 <div class="clickResult">
 	
 	<div class="d-flex justify-content-evenly pb-2">
-		<div class="px-3 d-flex justify-content-evenly" style="width: 660px;">
+		<div class="px-3 d-flex justify-content-evenly" style="width: 920px;">
 			<div class="card" style="width: 100%; background-color: #e2f0fe; border:#f9fafb; cursor: pointer;" onclick="loadHomeInfo()" >
 			  <div class="card-body">
 			    <p class="card-text px-5 text-center" style="font-size: 14px;">${bizHome.bh_notice }</p>
@@ -56,7 +56,7 @@
 	</div>
 	
 	<div class="d-flex justify-content-evenly">
-		<div class="p-3 d-flex" style="width: 660px;">
+		<div class="p-3 d-flex" style="width: 940px;">
 					<c:if test="${empty loginUserDto.memno}">
 						<span onclick="redirectLogin()" style="font-size: 14px; cursor: pointer;"><strong style="background-color: #f9fafb">시공사례 (${bizHomeCasesCnt }+)</strong></span>
 					</c:if>
@@ -67,7 +67,7 @@
 	</div>
 	
 	<div class="d-flex justify-content-evenly">
-		<div class="p-3 d-flex justify-content-evenly" style="width: 700px;">
+		<div class="p-3 d-flex justify-content-evenly" style="width: 1000px;">
 			<div width="100%">
 				<c:forEach items="${bizHomeCasesImgList }" var="hc_img">
 					<c:if test="${hc_img.bcimg_cgn ne null }">
@@ -77,7 +77,7 @@
 						<c:if test="${status.last }">
 							<c:choose>
 								<c:when test="${token eq 'jpg' || token eq 'png' || token eq 'jpeg'}">											
-									<img src="../../resources/upload/biz/cases/${hc_img.bcimg_cgn }" alt="${hc_img.bcimg_cgn }" width="29%" height="102px" style="cursor:pointer;"
+									<img src="../../resources/upload/biz/cases/${hc_img.bcimg_cgn }" alt="${hc_img.bcimg_cgn }" width="29%" height="151px" style="cursor:pointer;"
 									onclick="location.href='../cases/bizCasesContentView?bc_no=${hc_img.bc_no }'"/>
 								</c:when>
 								<c:otherwise> </c:otherwise>		
@@ -99,7 +99,7 @@
 	</div>
 	
 	<div class="d-flex justify-content-evenly">
-		<div class="p-3 d-flex" style="width: 660px;">
+		<div class="p-3 d-flex" style="width: 940px;">
 					<c:if test="${empty loginUserDto.memno}">
 						<span onclick="redirectLogin()"  style="font-size: 14px; cursor: pointer;"><strong style="background-color: #f9fafb">시공리뷰 (${bizHomeRvCnt })</strong></span>
 					</c:if>
@@ -110,7 +110,7 @@
 	</div>
 	
 	<div class="d-flex justify-content-evenly">
-		<div class="px-3 pb-3 d-flex justify-content-evenly" style="width: 700px;">
+		<div class="px-3 pb-3 d-flex justify-content-evenly" style="width: 1000px;">
 			<div style="width: 83%">
 				<table style="border-collapse: separate; border-spacing: 10px;">
 					<c:forEach items="${bizHomeRvImgList }" var="hr_img">

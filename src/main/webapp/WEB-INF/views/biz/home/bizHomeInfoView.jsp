@@ -58,7 +58,7 @@
 <body>
 <div class="changeHeight">
 	<div class="mb-4 d-flex justify-content-evenly">
-		<div class="ps-2 pe-3 d-flex justify-content-evenly" style="width: 660px;">
+		<div class="ps-2 pe-3 d-flex justify-content-evenly" style="width: 920px;">
 			<div class="card" style="width: 100%; background-color: #e2f0fe; border:#f9fafb">
 			  <div class="card-body">
 			    <p class="card-text px-5 text-center" style="font-size: 14px;">${bizHome.bh_notice }</p>
@@ -68,7 +68,7 @@
 	</div>
 
 	<div class="d-flex justify-content-evenly">
-		<div class="px-3 d-flex justify-content-evenly" style="width: 660px;">
+		<div class="px-3 d-flex justify-content-evenly" style="width: 920px;">
 			<div class="card" style="width: 100%; background-color: #f9fafb; border:#e2f0fe">
 			  <div class="card-body">
 			    <p class="card-text px-5 text-center" style="font-size: 14px;">${bizHome.bh_intro }</p>
@@ -78,7 +78,7 @@
 	</div>
 	
 	<div class="d-flex justify-content-evenly">
-		<div class="p-3 d-flex justify-content-end" style="width: 660px;">
+		<div class="p-3 d-flex justify-content-end" style="width: 920px;">
 			<c:if test="${empty loginUserDto.myinteriordto.inteno}">
 				</c:if>
 				<c:if test="${not empty loginUserDto.myinteriordto.inteno}">

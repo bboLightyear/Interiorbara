@@ -54,8 +54,8 @@ function changeBackgroundColor(color) {
 	
 	#topBtn{
    	position: fixed;
-  	 right: 4%;
-   	bottom: 5%;
+	   right: 12.5%;
+	   bottom: 3%;
    	display: none;
    	/* z-index: 9999; */
 	}	
@@ -70,7 +70,7 @@ function changeBackgroundColor(color) {
 	  <fieldset>
 			<div class="pt-3 bg-light bg-opacity-75">
 					<div class="d-flex justify-content-center">
-						<div class="px-3" onclick="location.href='bizHome?inteno=${bizHome.inteno}'" style="width: 750px; cursor:pointer;" >
+						<div class="px-3" onclick="location.href='bizHome?inteno=${bizHome.inteno}'" style="width: 1100px; cursor:pointer;" >
 									<ul class="list-inline">
 										<li class="list-inline-item">
 											<h4><span style="--bs-text-opacity: 1; background-color: #1034a6; padding: 3px; !important;">
@@ -87,14 +87,14 @@ function changeBackgroundColor(color) {
 						</div>
 					</div>
 			<div class="d-flex justify-content-center">
-				<div class="px-3" style="width: 750px" >						
+				<div class="px-3" style="width: 1150px" >						
 				    <div class="px-3 py-1">
 				      <label for="headerImg" class="col-sm-2 col-form-label"><strong>헤더 이미지</strong></label>
 				      <div class="px-3 py-1">
-				      	<img id="headerImg" src="../../resources/upload/biz/home/${bizHome.bh_img }" width="100%" style="max-width: 750px">
+				      	<img id="headerImg" src="../../resources/upload/biz/home/${bizHome.bh_img }" width="100%" style="max-width: 1150px">
 						<input class="mt-4 form-control" type="file" name="fileNew"  />
 						<input type="hidden" name="bh_img" value="${bizHome.bh_img }" />
-				      	<small id="imgHelp" class="form-text text-muted">가로 700px, 세로 240px로 자동 조정됩니다.</small>						
+				      	<small id="imgHelp" class="form-text text-muted">가로 1000px, 세로 240px로 자동 조정됩니다.</small>						
 				      </div>
 				    </div>
 				    <div class="px-3 py-1">

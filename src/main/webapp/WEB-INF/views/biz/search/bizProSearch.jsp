@@ -41,8 +41,8 @@
 	
 	#topBtn{
    	position: fixed;
-  	 right: 4%;
-   	bottom: 5%;
+	   right: 12.5%;
+	   bottom: 3%;
    	display: none;
    	/* z-index: 9999; */
 	}	
@@ -57,7 +57,7 @@
 <c:set var="bh_pro" value="${bh_pro }" />
 <div id="topDiv" class="pt-3 bg-light bg-opacity-75">
 	<div class="d-flex justify-content-center">
-		<div class="p-3" style="width: 750px;" >
+		<div class="p-3" style="width: 1000px;" >
 			<ul class="list-inline">
 				<li class="list-inline-item" onclick="location.href='bizProSearch'" style="cursor: pointer;">
 					<h4 style="--bs-text-opacity: 1; background-color: #1034a6; padding: 3px; !important;">
@@ -90,17 +90,17 @@
 	</div>
 	
 	<div class="d-flex justify-content-center">	
-		<div class="px-5" style="width: 900px;">
-			<div class="input-group pb-4" style="max-width: 1100px">
+		<div class="px-5" style="width: 1150px;">
+			<div class="input-group pb-4 d-flex justify-content-center" style="max-width: 1100px">
 			      <div class="d-flex justify-content-center">
 						<table style="display: flex; justify-content: center; align-items: center; width: 75%">
-							<tr class="proBtns">
+							<tr class="proBtns gap-3">
 								<td class="proBtn"><div onclick="location.href='/ibara/biz/search/bizProSearchBasic?bh_pro=도배·페인트'"><img src="../../resources/img/bizimg/wallpaint.png" alt="wallpaint.png" style="width: 95%;"/></div></td>
 								<td class="proBtn"><div onclick="location.href='/ibara/biz/search/bizProSearchBasic?bh_pro=장판·타일'"><img src="../../resources/img/bizimg/tilefloor.png" alt="tilefloor.png" style="width: 95%;"/></div></td>
 								<td class="proBtn"><div onclick="location.href='/ibara/biz/search/bizProSearchBasic?bh_pro=욕실'"><img src="../../resources/img/bizimg/bathroom.png" alt="bathroom.png" style="width: 95%;"/></div></td>
 								<td class="proBtn"><div onclick="location.href='/ibara/biz/search/bizProSearchBasic?bh_pro=주방'"><img src="../../resources/img/bizimg/kitchen.png" alt="kitchen.png" style="width: 95%;"/></div></td>	
 							</tr>
-							<tr class="proBtns">
+							<tr class="proBtns gap-3">
 								<td class="proBtn"><div onclick="location.href='/ibara/biz/search/bizProSearchBasic?bh_pro=마루'"><img src="../../resources/img/bizimg/wdfloor.png" alt="wdfloor.png" style="width: 95%;"/></div></td>
 								<td class="proBtn"><div onclick="location.href='/ibara/biz/search/bizProSearchBasic?bh_pro=문·샷시'"><img src="../../resources/img/bizimg/door.png" alt="door.png" style="width: 95%;"/></div></td>
 								<td class="proBtn"><div onclick="location.href='/ibara/biz/search/bizProSearchBasic?bh_pro=시트·필름'"><img src="../../resources/img/bizimg/sheetfilm.png" alt="sheetfilm.png" style="width: 95%;"/></div></td>
@@ -120,7 +120,7 @@
 
 
 <div id="midDiv" class="w-100 d-flex justify-content-center">
-		<div class="p-3" style="width: 900px;">
+		<div class="p-3" style="width: 1150px;">
 			<ul class="w-100 list-inline">
 					<div class="float-start">
 						<li class="list-inline-item">
@@ -144,7 +144,7 @@
 	
 	<div class="sortResult">
 
-		<div ID="sortResultDiv" class="px-5 pt-2 container-md" style="max-width: 900px">
+		<div ID="sortResultDiv" class="px-5 pt-2 container-md" style="max-width: 1190px">
 			<c:forEach items="${bizHomeSearch }" var="bizHome" varStatus="bizHomeStatus">
 							<div style="float: left; margin: 1%; cursor:pointer;" onclick="location.href='/ibara/biz/home/bizHome?inteno=${bizHome.inteno}'" class="home${searchVO.rowEndMore}">
 								<div class="card border-light mb-2" style="width: 250px; height: 280px;">
@@ -216,7 +216,7 @@
 
 		<div class="p-3 container-md" style="width: 99%">	
 			<div class="w-100 d-flex justify-content-center">
-					<img class="w-75 px-4" id="mgzBanner" style="max-width: 840px; border-radius: 5%; cursor:pointer; " src="../../resources/img/bizimg/mgz_banner.jpg" alt="mgz_banner" onclick="location.href='/ibara/biz/magazine/bizMgzContentView?bm_no=1'" />
+					<img class="w-100 px-4" id="mgzBanner" style="max-width: 1100px; border-radius: 5%; cursor:pointer; " src="../../resources/img/bizimg/mgz_banner.jpg" alt="mgz_banner" onclick="location.href='/ibara/biz/magazine/bizMgzContentView?bm_no=1'" />
 			</div>
 		</div>
 

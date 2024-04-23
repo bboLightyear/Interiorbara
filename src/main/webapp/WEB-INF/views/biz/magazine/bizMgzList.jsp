@@ -46,7 +46,7 @@
 <main class="Site-content">
 	<div class="pt-3 bg-light bg-opacity-75">
 	<div class="d-flex justify-content-center">
-		<div class="p-3" onclick="location.href='bizMgzList'" style="width: 750px; cursor:pointer;" >
+		<div class="p-3" onclick="location.href='bizMgzList'" style="width: 1150px; cursor:pointer;" >
 					<ul class="list-inline">
 						<li class="list-inline-item">
 							<h4 style="--bs-text-opacity: 1; background-color: #1034a6; padding: 3px; !important;">
@@ -70,8 +70,8 @@
 	</div>
 
 	<div class="d-flex justify-content-center">
-		<div class="p-3" style="width: 750px">
-			<table class="table table-hover" style="width: 100%; max-width: 750px">
+		<div class="p-3" style="width: 1050px">
+			<table class="table table-hover" style="width: 100%; max-width: 1050px">
 				<thead>
 				    <tr class="table-light">
 				      <th scope="col">NO.</th>
@@ -97,7 +97,7 @@
 	</table>
 	
 		<div class="d-flex justify-content-evenly">
-			<form action="bizMgzList"  method="post" style="width: 750px;">
+			<form action="bizMgzList"  method="post" style="width: 1050px;">
 					<div class="d-flex justify-content-center">
 						<div class="d-flex align-items-start" style="width: 57%; max-width: 428px;">
 								<div>
@@ -160,11 +160,11 @@
 				</form>
 			</div>
 			<div class="d-flex justify-content-evenly">
-				<div class="d-flex justify-content-center" style="width: 750px;">
-					<div class="d-flex align-items-start" style="width: 40%; max-width: 300px;">
+				<div class="d-flex justify-content-center" style="width: 1050px;">
+					<div class="d-flex align-items-start" style="width: 40%; max-width: 420px;">
 						<button class="ms-1 btn btn-outline-primary btn-sm w-10"  onclick="location.href='../search/bizAddrSearch'"><span style="font-size: 14px;">업체검색</span></button>
 					</div>
-				<div class="d-flex justify-content-end" style="width: 60%; max-width: 450px;">
+				<div class="d-flex justify-content-end" style="width: 60%; max-width: 630px;">
 							<button class="btn btn-outline-primary btn-sm w-10 me-1" onclick="location.href='bizMgzList'"><span style="font-size: 14px;">검색 초기화</span></button>
 							<c:if test="${empty loginUserDto.memno}">
 		 					</c:if>
