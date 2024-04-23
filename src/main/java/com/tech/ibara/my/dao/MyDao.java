@@ -3,7 +3,9 @@ package com.tech.ibara.my.dao;
 import java.util.ArrayList;
 
 import com.tech.ibara.biz.dto.BizHomeDto;
+import com.tech.ibara.biz.dto.BizRvDto;
 import com.tech.ibara.my.dto.InteriorCasesImgDto;
+import com.tech.ibara.my.dto.MyBizRvDto;
 import com.tech.ibara.my.dto.MyMemberInfoDto;
 import com.tech.ibara.my.dto.MyNonMemberDto;
 import com.tech.ibara.my.dto.MyReportDto;
@@ -67,6 +69,7 @@ public interface MyDao {
 //	public int countLikePhotoReply(int memno);
 	public int countScrapPhotoBoard(int memno);
 	public int countBizBmark(int memno);
+	public int countLikeBizRv(int memno);
 	public ArrayList<PhotoAttachDto> getMyPhoto(int memno);
 	public ArrayList<PhotoAttachDto> getMyPhotoBoardList(int memno);
 	public ArrayList<InteriorCasesImgDto> getMyCasesList(int inteno);
@@ -77,5 +80,6 @@ public interface MyDao {
 	public ArrayList<MyMemberInfoDto> getMemberInfoList(String selNum,String searchKeyword);
 	public ArrayList<PhotoLikeDto> getPhotoBoardLikeList(int memno);
 	public ArrayList<PhotoScrapDto> getPhotoBoardScrapList(int memno);	
-	
+	public ArrayList<MyBizRvDto> rvLikedList(int memno);
+	public ArrayList<MyBizRvDto> getBizRvList(int inteno);
 }

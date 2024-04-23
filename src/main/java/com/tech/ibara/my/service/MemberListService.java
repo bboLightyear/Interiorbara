@@ -32,15 +32,18 @@ public class MemberListService implements VService{
 		if(mlSel==null) {
 			mlSel="";
 		}
-		if(mlSel.equals("nn")) {
+		if(mlSel.equals("num")) {
 			total=mdao.countMemberList("1",searchKeyword);
 			model.addAttribute("mlist",mdao.getMemberInfoList("1",searchKeyword));
-		}else if(mlSel.equals("mt")) {
+		}else if(mlSel.equals("nn")) {
 			total=mdao.countMemberList("2",searchKeyword);
 			model.addAttribute("mlist",mdao.getMemberInfoList("2",searchKeyword));
-		}else if(mlSel.equals("")) {
+		}else if(mlSel.equals("mt")) {
 			total=mdao.countMemberList("3",searchKeyword);
 			model.addAttribute("mlist",mdao.getMemberInfoList("3",searchKeyword));
+		}else if(mlSel.equals("")) {
+			total=mdao.countMemberList("4",searchKeyword);
+			model.addAttribute("mlist",mdao.getMemberInfoList("4",searchKeyword));
 		}
 		model.addAttribute("total",total);
 

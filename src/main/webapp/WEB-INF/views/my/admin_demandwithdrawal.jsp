@@ -2,7 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@include file ="header.jsp" %>
 <script>
-document.title = "Admin Demand Withdrawal";
+document.title = "탈퇴신청회원관리";
 </script>
 <style>
 tr:nth-child(odd) {background-color: #f9fafb;}
@@ -16,12 +16,12 @@ tr:nth-child(even) {background-color: #fefefe;}
 		<div class="mypage_category_list list_2 pointcolor">회원관리</div>
 		<div class="mypage_category_list list_3"><a href="admin_report">신고게시판</a></div>
 	</div>
-	<div class="mypage_category">
+	<div class="mypage_category mb30">
         <div class="mypage_category_list list_2_1"><a href="admin_memberlist">회원리스트</a></div>
 	    <div class="mypage_category_list list_2_2 pointcolor">탈퇴신청회원리스트</div>
     </div>
 	
-		<table align="center" class="scraptable">
+		<table align="center" class="admintablestyle">
 			<tr>
 				<th class="scrapth">회원번호</th>
 				<th class="scrapth">탈퇴사유</th>

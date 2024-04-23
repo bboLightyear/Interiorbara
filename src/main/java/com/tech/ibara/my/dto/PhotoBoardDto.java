@@ -14,7 +14,7 @@ public class PhotoBoardDto {
 	
 	private int no;
 	private int pb_no;
-	private String pb_user;
+	private int memno;
 	private String pb_title;
 	private String pb_content;
 	private Date pb_date;

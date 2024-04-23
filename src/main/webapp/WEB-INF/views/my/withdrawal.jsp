@@ -29,8 +29,8 @@
 		<input type="radio" name="withdrawalCheck" class="radio_align" value="개인정보보호" />개인정보보호 <br />
 		<input type="radio" name="withdrawalCheck" class="radio_align" value="회원특혜/쇼핑혜택 부족" />회원특혜/쇼핑혜택 부족 <br />
 		<input type="radio" name="withdrawalCheck" class="radio_align" value="기타" />기타 <br />
-		<input class="withdrawal_btn mt30" type="submit" value="탈퇴신청" /> 
-		<a class="withdrawal_btn textcenter" href="cancelwithdrawal?memno=${loginUserDto.memno}">취소하기</a>
+		<input class="withdrawal_btn mt30 radius10" type="submit" value="탈퇴신청" /> 
+		<a class="withdrawal_btn textcenter radius10" href="cancelwithdrawal?memno=${loginUserDto.memno}">취소하기</a>
 		<input type="hidden" name="memno" value="${loginUserDto.memno}" />
 		<input type="hidden" name="memtype" value="${loginUserDto.memtype}" />
 	</form>

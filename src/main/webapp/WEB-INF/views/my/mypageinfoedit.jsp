@@ -35,7 +35,7 @@ document.title = "회원정보수정";
 		    </div>
 		    <span id="deleteimg"><i class="fa-regular fa-circle-xmark"></i></span>
 		    <div class="profile-btn-area">
-		        <label class="radius10" for="imgInput">이미지 선택</label>
+		        <label class="radius10" style="margin:15px;" for="imgInput">이미지 선택</label>
 		        <input type="file" name="profileimg" id="imgInput" accept="image/*">
 		        <button class="radius10">변경하기</button>
 		    </div>

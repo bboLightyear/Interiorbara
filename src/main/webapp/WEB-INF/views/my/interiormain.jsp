@@ -19,53 +19,85 @@ document.title = "인테리어업체 마이페이지";
     	<ul class="board">
     		<li class="fl tc box w150">
     			<c:if test="${empty loginUserDto.profileimg}" >
-	            <img class="profile" src="../resources/img/my/user.png" id="profileimg">
+	            <img class="profile" src="${path}/resources/img/my/user.png" id="profileimg">
 	        </c:if>
 	        <%-- 프로필 이미지가 있으면 있는 이미지 --%>
 	        <c:if test="${!empty loginUserDto.profileimg}" >
-	            <img class="profile" src="../resources/upload/my/${loginUserDto.profileimg}" id="profileimg">
+	            <img class="profile" src="${path}/resources/upload/my/${loginUserDto.profileimg}" id="profileimg">
 	        </c:if>	
     			<%-- <img class="profile" src="../resources/upload/my/${loginUserDto.profileimg}" alt=""> --%>
     		</li>
     	</ul>
         <ul class="board">
-        	<li class="fl tc w150">${loginUserDto.nickname}님</li>
+        	<li class="fl tc w150"><b>${loginUserDto.nickname}</b>님</li>
         </ul>
         <ul class="board">
-        	<li class="fl tc w150"><a href="${path}/biz/home/bizHome?inteno=${loginUserDto.myinteriordto.inteno}"><b>MY HOME</b></a></li>
+        	<li class="fl tc w150"><a href="${path}/biz/home/bizHome?inteno=${loginUserDto.myinteriordto.inteno}"><b>MY HOME</b> <i class="fa-solid fa-house fa-2xs"></i></a></li>
         </ul>
-        
+
     </div>
-   
-	<div>
-    <table class="maintable">
-    	<tr>
-    		<td class="pd8 signuplabel pb20" colspan="4"><b>내 시공사례</b></td>
-    	</tr>
+	<div id="divtable" style="display:inline-block;margin-left: 6%;">
+	<span class="pd8 signuplabel pb20 mb30" style="display:inline-block;"><b>내 시공사례</b></span>
+    <table class="tablestyle">
+    	<colgroup> 
+   			<col style="width: 14%;"> 
+      	    <col style="width: 20%;"> 
+   	        <col style="width: 66%;">
+        </colgroup>
     	<tr>
     		<th class="scrapth pd8">메인이미지</th>
-    		<th class="scrapth pd8">작성자</th>
-    		<th class="scrapth pd8">제목</th>
-    		<th class="scrapth pd8">내용</th>
+    		<th class="scrapth pd8">제&nbsp;&nbsp;목</th>
+    		<th class="scrapth pd8">내&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;용</th>
     	</tr>
     	<c:forEach items="${cdto}" var="caseslist">
     	<tr>
     		<%-- <td class="pd8">${caseslist.inteCasesDto.bc_no}</td> --%>
-    		<td class="scraptd pd8">
+    		<td class="scraptd pd8 tc">
     			<c:forTokens items="${caseslist.imgs}" delims="," var="casesimg" end="0">	
-    				<a href="${path}/biz/cases/bizCasesContentView?bc_no=${caseslist.inteCasesDto.bc_no}"><img class="imgsmall" src="${path}/resources/upload/biz/cases/${casesimg}" alt="" /></a>
+    				<a href="${path}/biz/cases/bizCasesContentView?bc_no=${caseslist.inteCasesDto.bc_no}">
+    				<div style='display:inline-flex;justify-content: center;border-radius: 10px;overflow: hidden;'>
+    				<img class="imgsmall" src="${path}/resources/upload/biz/cases/${casesimg}" alt="" /></div></a>
     			</c:forTokens>
     		</td>
-    		<td class="scraptd pd8">
+    		<%-- <td class="scraptd pd8">
     		<span class="abc" onclick="javascript_:window.open('${path}/my/memberinfopage?nickname=${caseslist.inteCasesDto.bc_writer}','pop','menubar=no,status=no,scrollbars=no,resizable=no,width=560,height=780,top=50,left=50');">
 			${caseslist.inteCasesDto.bc_writer} <i class="fa-solid fa-user fa-2xs"></i></span>    		
-    		</td>
-    		<td class="scraptd pd8">${caseslist.inteCasesDto.bc_title}</td>
-    		<td class="scraptd pd8"><p class="w20 s">${caseslist.inteCasesDto.bc_content}</p></td>
-    		
+    		</td> --%>
+    		<td class="scraptd pd8"><p class="s">${caseslist.inteCasesDto.bc_title}</p></td>
+    		<td class="scraptd pd8"><p class="s">${caseslist.inteCasesDto.bc_content}</p></td>
     	</tr>
     	</c:forEach>
-    </table>  
+    </table>
+    <span class="pd8 signuplabel pb20 mt30 mb30" style="display:inline-block;"><b>내 시공리뷰</b></span>
+    <table class="tablestyle">
+    	<colgroup> 
+   			<col style="width: 14%;"> 
+      	    <col style="width: 20%;"> 
+   	        <col style="width: 66%;">
+        </colgroup>
+    	<tr>
+    		<th class="scrapth pd8">메인이미지</th>
+    		<th class="scrapth pd8">작 성 자</th>
+    		<!-- <th class="scrapth pd8">제목</th> -->
+    		<th class="scrapth pd8">내&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;용</th>
+    	</tr>
+    	<c:forEach items="${brdto}" var="brlist">
+    	<tr>
+    		<td class="scraptd pd8 tc">
+    				<a href="${path}/biz/review/bizRvList?inteno=${loginUserDto.myinteriordto.inteno}">
+    				<div style='display:inline-flex;justify-content: center;border-radius: 10px;overflow: hidden;'>
+    				<img class="imgsmall" src="${path}/resources/upload/biz/cases/${brlist.myBizRvImgDto.brimg_cgn}" alt="" /></div></a>
+    		</td>
+    		<td class="scraptd pd8 tc">
+    		<span class="abc" onclick="javascript_:window.open('${path}/my/memberinfopage?nickname=${brlist.br_writer}','pop','menubar=no,status=no,scrollbars=no,resizable=no,width=560,height=780,top=50,left=50');">
+			${brlist.br_writer} <i class="fa-solid fa-user fa-2xs"></i></span>    		
+    		</td>
+    		<td class="scraptd pd8"><p class="s">${brlist.br_content}</p></td>
+    	</tr>
+    	</c:forEach>
+    </table>
+    
+      
     </div>
 	</div>
 	<div>

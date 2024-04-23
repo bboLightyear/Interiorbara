@@ -12,7 +12,7 @@ document.title = "판매자 마이페이지";
 	    <div class="mypage_category_list list_2"><a href="sellersale">판매</a></div> <br />
     </div> -->
     <div class="mypage_category">
-        <div class="mypage_category_list list_1_1"><a href="#">모두보기</a></div>
+        <div class="mypage_category_list list_1_1 pointcolor">프로필</div>
 	    <div class="mypage_category_list list_1_2"><a href="sellerinfoedit">회원정보수정</a></div>
         <div class="mypage_category_list list_1_3"><a href="sellerpasswordedit">비밀번호변경</a></div>
     </div>
@@ -31,7 +31,7 @@ document.title = "판매자 마이페이지";
     		</li>
     	</ul>
         <ul class="board">
-        	<li class="fl tc w150">${loginUserDto.nickname}님</li>
+        	<li class="fl tc w150"><b>${loginUserDto.nickname}</b>님</li>
         </ul>
         <ul class="board">
         	<li class="fl tc w150">판매자회원번호 ${loginUserDto.mysellerdto.sellerno}번 님</li>

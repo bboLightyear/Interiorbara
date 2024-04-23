@@ -8,8 +8,10 @@ import javax.servlet.http.HttpSession;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.ui.Model;
 
+import com.tech.ibara.biz.dto.BizRvDto;
 import com.tech.ibara.my.dao.MyDao;
 import com.tech.ibara.my.dto.InteriorCasesImgDto;
+import com.tech.ibara.my.dto.MyBizRvDto;
 import com.tech.ibara.my.dto.MyMemberInfoDto;
 
 public class MyInteriorCasesService implements VService{
@@ -29,9 +31,10 @@ public class MyInteriorCasesService implements VService{
 		System.out.println("inteno : "+inteno);
 		MyDao mdao=sqlSession.getMapper(MyDao.class);
 		ArrayList<InteriorCasesImgDto> cdto= mdao.getMyCasesList(inteno);
-		
+		ArrayList<MyBizRvDto> brdto=mdao.getBizRvList(inteno);
 		model.addAttribute("cdto",cdto);
-			
+		model.addAttribute("brdto",brdto);			
+		System.out.println("brdto.size : "+brdto.size());
 	}
 
 }

@@ -246,7 +246,7 @@ a {
 }
 .abc {
 	color: #1a1f27;
-	font-weight: bold;
+	/* font-weight: bold; */
 	cursor: pointer;
 }
 .abc:hover {
@@ -322,7 +322,7 @@ a {
 }
 
 #mypage_profile {
-	padding-left: 25%;
+	padding-left: 20%;
 }
 
 .mypage_area {
@@ -373,9 +373,23 @@ ul li {
 .w80 {
 	width: 80px;
 }
+.w110{
+	width: 110px;
+}
 
 .w150 {
 	width: 150px;
+}
+
+.w180{
+	width: 180px;
+}
+.w220{
+	width: 220px;
+}
+
+.w400{
+	width: 400px;
 }
 
 .w20 {
@@ -386,16 +400,19 @@ ul li {
 	width: 40%;
 }
 
+.w700{
+	width: 700px;
+}
+.w800{
+	width: 800px;
+}
+
 .casestable {
 	margin-top: 50px;
 	border: 1px;
 }
 
-.s {
-	overflow: hidden;
-	white-space: nowrap;
-	text-overflow: ellipsis;
-}
+
 
 #mypageedit {
 	margin-top: 30px;
@@ -436,8 +453,8 @@ form[name='myPageFrm'] {
 }
 
 .imgsize {
-	width: 200px;
-	height: 150px;
+	width: 160px;
+	height: 110px;
 }
 .imgsmall {
 	width: 100px;
@@ -446,8 +463,8 @@ form[name='myPageFrm'] {
 
 
 .simg {
-	width: 2em;
-	height: 2em;
+	width: 1.5em;
+	height: 1.5em;
 }
 
 #withdrawal {
@@ -585,12 +602,49 @@ input[type="number"]::-webkit-outer-spin-button, input[type="number"]::-webkit-i
 	table-layout: fixed;
 	border-spacing: 1;
 	border-radius:20px;
-	overflow:hidden;	
+	overflow:hidden;
+	width: 830px;	
 }
+.admintablestyle{
+	table-layout: fixed;
+	border-spacing: 1;
+	border-radius:20px;
+	overflow:hidden;
+	width: 1200px;
+	font-size: 15px;
+	text-align: center;
+}
+.shortcontent {
+    width: 400px;                /* 가로 길이 고정*/
+    display: inline-flex;
+    text-overflow: ellipsis;     /* 생략 처리 ( ... )*/
+    white-space: nowrap;         /* 줄바꿈 하지 않고 잘림*/
+    overflow: hidden;            /* 스크롤 처리 하지 않음*/
+}
+
+.s {
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	padding: 3px 5px;
+}
+
+.floatright{
+	float: right;
+	display: flex;
+	align-items: flex-end;
+	height: 100%;
+	shape-outside: inset(calc(100% - 24px) 0 0 0);
+}
+
 .maintable{
 	margin-left: 40%;
 }
 
+.df{
+	display: flex;
+	
+}
 .mt30 {
 	margin-top: 30px;
 }
@@ -598,16 +652,21 @@ input[type="number"]::-webkit-outer-spin-button, input[type="number"]::-webkit-i
 .ma{
 	margin: 30px;
 }
+.ma50{
+	margin: 50px;
+}
 .pb20{
 	padding-bottom: 20px;
 }
-
+.mb30{
+	margin-bottom: 30px;
+}
 .lh2 {
 	line-height: 2.5em;
 }
 
 .scraptable {
-	width: 60%;
+	width: 1200px;
 	margin-top: 30px;
 	font-size: 15px;
 	text-align: center;
@@ -824,7 +883,7 @@ footer {
 /* 푸터 로고 */
 .footer_logo {
 	margin-top: 5px;
-	margin-left: 30px;
+	margin-left: 15%;
 	width: 120px;
 	height: 120px;
 	border: 1px solid #b1b8c0;
@@ -840,8 +899,8 @@ footer {
 
 /* 푸터 내용 */
 .footer_content {
-	margin-top: 10px;
-	margin-left: 50px;
+	margin-top: 20px;
+	margin-left: 5%;
 	width: 60%;
 	white-space: pre-line;
 }
@@ -849,7 +908,7 @@ footer {
 /* sns 아이콘 */
 .footer_sns {
 	position: absolute;
-	right: 50px;
+	right: 15%;
 	bottom: 10px;
 	text-align: right;
 	margin-top: 100px;
@@ -871,8 +930,8 @@ footer {
 }
 #topBtn{
 	position: fixed;
-	right: 4%;
-	bottom: 5%;
+	right: 12.5%;
+	bottom: 3%;
 	display: none;
 	/* z-index: 9999; */
 }

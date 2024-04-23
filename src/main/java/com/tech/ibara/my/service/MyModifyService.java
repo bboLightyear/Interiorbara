@@ -44,7 +44,7 @@ public class MyModifyService implements SService{
 		boolean nnbool=Pattern.matches("^(?=.*[a-z0-9가-힣])[a-z0-9ㄱ-힣]{2,15}$", nickname);
 		boolean phonebool=Pattern.matches("^(010)-?[0-9]{3,4}-?[0-9]{4}$", phone);
 		boolean birthbool=Pattern.matches("^(19|20)\\d{2}(0[1-9]|1[0-2])(0[1-9]|[12]\\d|3[01])$", birth);
-		if(!nnbool) {
+		if(!nnbool || nickname.equals("admin")|| nickname.equals("비공개")) {
 			return "nn check";
 		}
 		

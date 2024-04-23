@@ -16,5 +16,6 @@ public class PhotoScrapDto {
 	private Date ps_date;
 	private int pb_no;
 	
-	private PhotoBoardDto photoBoardDto;
+	private PhotoBoardDto photoBoardDto; 
+	private MyMemberInfoDto myMemberInfoDto;
 }

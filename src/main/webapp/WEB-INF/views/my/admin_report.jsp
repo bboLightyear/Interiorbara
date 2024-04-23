@@ -2,18 +2,13 @@
 	pageEncoding="UTF-8"%>
 <%@include file="header.jsp"%>
 <script>
-	document.title = "Admin Report";
+	document.title = "신고글관리";
 </script>
 <script src="https://code.jquery.com/jquery-latest.min.js"></script>
 <style>
 tr:nth-child(odd) {background-color: #f9fafb;}
 tr:nth-child(even) {background-color: #fefefe;}
-/* .shortcontent {
-    width: 50px;                /* 가로 길이 고정*/
-    text-overflow: ellipsis;     /* 생략 처리 ( ... )*/
-    white-space: nowrap;         /* 줄바꿈 하지 않고 잘림*/
-    overflow: hidden;            /* 스크롤 처리 하지 않음*/
-} */
+
 </style>
 <main class="Site-content" style="margin-top:10px;">
 	<div class="mypage_category">
@@ -21,16 +16,16 @@ tr:nth-child(even) {background-color: #fefefe;}
 		<div class="mypage_category_list list_2"><a href="admin_memberlist">회원관리</a></div>
 		<div class="mypage_category_list list_3 pointcolor">신고게시판</div>
 	</div>
-	<table align="center" class="scraptable">
+	<table align="center" class="admintablestyle tc mt30">
 		<tr>
-			<th class="scrapth">신고글번호</th>
-			<th class="scrapth">신고대상자</th>
-			<th class="scrapth">신고한회원</th>
-			<th class="scrapth">신고게시판</th>
-			<th class="scrapth">신고글내용</th>
-			<th class="scrapth">신고사유</th>
-			<th class="scrapth">신고날짜</th>
-			<th class="scrapth">승인여부</th>
+			<th class="scrapth w110">신고글번호</th>
+			<th class="scrapth w110">신고대상자</th>
+			<th class="scrapth w110">신고한회원</th>
+			<th class="scrapth w110">신고게시판</th>
+			<th class="scrapth w400">신고글내용</th>
+			<th class="scrapth w110">신고사유</th>
+			<th class="scrapth w110">신고날짜</th>
+			<th class="scrapth w110">승인여부</th>
 		</tr>
 		<c:forEach items="${list }" var="reportdto">
 		<tr>
@@ -44,7 +39,7 @@ tr:nth-child(even) {background-color: #fefefe;}
 			${reportdto.memno} <i class="fa-solid fa-user fa-2xs"></i></span>
 			</td>
 			<td class="scraptd">${reportdto.targettype}</td>
-			<td class="scraptd s"><a class="abc" href="${path}/biz/review/bizRvContentView?br_no=${reportdto.targetno}">${reportdto.bizRvReportedDto.brr_content}</a></td>
+			<td class="scraptd s"><a class="abc" href="${path}/biz/review/bizRvContentView?br_no=${reportdto.targetno}"><i class="fa-solid fa-list-ul fa-2xs"></i> ${reportdto.bizRvReportedDto.brr_content}</a></td>
 			<td class="scraptd">${reportdto.cause}</td>
 			<td class="scraptd"><fmt:formatDate value="${reportdto.redate}" type="both" dateStyle="short" pattern="YYYY-MM-dd"/></td>
 			<c:choose>
