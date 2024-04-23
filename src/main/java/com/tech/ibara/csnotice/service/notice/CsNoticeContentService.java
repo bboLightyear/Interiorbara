@@ -62,8 +62,14 @@ public class CsNoticeContentService implements CsNoticeService {
 		if (selfilecode!=null) {
 			ArrayList<NoticeImgDto> imglist = dao.imglist(selfilecode);
 			System.out.println("imglist : " + imglist);
-			model.addAttribute("imglist", imglist);			
+			model.addAttribute("imglist", imglist);		
 		}
-
+		//작성자 닉네임 조회
+		String nbwriter=dao.selnbwriter(Integer.parseInt(nbno));
+		System.out.println("nbwriter : "+nbwriter);
+		//작성자 닉네임을 이용해서 프로필 이미지 조회
+		String profileimg=dao.noticeprofileimg(nbwriter);
+		model.addAttribute("profileimg",profileimg);
+		System.out.println("profileimg :"+profileimg);
 	}
 }

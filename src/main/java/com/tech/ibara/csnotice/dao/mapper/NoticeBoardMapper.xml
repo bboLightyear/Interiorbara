@@ -159,11 +159,20 @@
 		WHERE B.NBNO=#{param1}
 	</select> 
 
-	<resultMap type="com.tech.ibara.csnotice.dto.NoticeImgDto" id="NoticeImgDto">
-		<result column="NBNO" property="nbno" />
-		<result column="NBFILECODE" property="nbfilecode" />
-		<result column="FILESRC" property="filesrc" />
-	</resultMap>
+   <resultMap type="com.tech.ibara.my.dto.MyMemberInfoDto" id="MyMemberInfoDto">
+      <result column="MEMNO" property="memno" />
+      <result column="NICKNAME" property="nickname" />
+      <result column="SHPWD" property="shpwd" />
+      <result column="BCPWD" property="bcpwd" />
+      <result column="EMAIL" property="email" />
+      <result column="MAILCHECK" property="mailcheck" />
+      <result column="BIRTH" property="birth" />
+      <result column="GENDER" property="gender" />
+      <result column="PHONE" property="phone" />
+      <result column="JOINDATE" property="joindate" />
+      <result column="MEMTYPE" property="memtype" />
+      <result column="PROFILEIMG" property="profileimg" />
+   </resultMap>
 
 	<resultMap type="com.tech.ibara.csnotice.dto.NoticeDto" id="NoticeDto">
 		<result column="NBNO" property="nbno" />
@@ -177,20 +186,26 @@
 		<result column="NBINDENT" property="nbindent" />
 		<result column="NBFILECODE" property="nbfilecode" />
 		<result column="NBQNADIV" property="nbqnadiv" />
-		<collection property="noticeImgDto" resultMap="NoticeImgDto" />
+		<collection property="myMemberInfoDto" resultMap="MyMemberInfoDto" />
 	</resultMap>
 
 
 
-	<select id="noticecontentimgview" parameterType="com.tech.ibara.csnotice.dto.NoticeImgDto" resultMap="NoticeImgDto">
-		SELECT I.FILESRC
-		FROM CS_NOTICEBOARD B LEFT OUTER JOIN CS_NOTICEBOARD_IMG I
-		ON B.NBFILECODE=I.NBFILECODE
-		WHERE B.NBNO=#{param1}
-	</select>
+   <select id="noticeprofileimg" parameterType="String" resultType="String">
+      SELECT I.PROFILEIMG
+      FROM CS_NOTICEBOARD B LEFT OUTER JOIN MY_MEMBER_INFO I
+      ON B.NBWRITER=I.NICKNAME
+      WHERE NBWRITER=#{param1}
+   </select>
 
 	<!-- =================================================================================== -->
 
+	<select id="selnbwriter" resultType="string">
+		SELECT NBWRITER
+		FROM CS_NOTICEBOARD
+		WHERE NBNO=#{param1}
+	</select>
+	
 	<update id="imgdelete">
 		DELETE FROM CS_NOTICEBOARD_IMG WHERE
 		NBFILECODE=#{param1}

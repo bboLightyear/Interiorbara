@@ -59,5 +59,9 @@ public interface NoticeBoardIDao {
 
 	public ArrayList<NoticeImgDto> imglist(Integer selfilecode);
 
+	public String selnbwriter(int parseInt);
+
+	public String noticeprofileimg(String nbwriter);
+
 	
 }

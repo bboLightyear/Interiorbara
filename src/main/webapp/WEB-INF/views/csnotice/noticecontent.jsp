@@ -71,17 +71,18 @@
 		<!--여백-->
 	</div>
 
+            pimg: ${profileimg}
 	<section class="cs_content_section1">
 		<div class="cs_content_head">
 			                            <!-- 게시글 작성자 프로필 이미지 -->         
 			<div class="cs_list_head_wrap_h">
             <%-- 프로필 이미지가 없으면 기본 이미지 --%>
-            <c:if test="${empty loginUserDto.profileimg}" >
+            <c:if test="${empty profileimg}" >
               <img src="${path }/resources/img/my/user.png" id="OHMainView-photoProfileImage" style="width: 25px; height: 25px;">
               </c:if>
               <%-- 프로필 이미지가 있으면 있는 이미지 --%>
-              <c:if test="${!empty loginUserDto.profileimg}" >
-              <img src="${path }/resources/upload/my/${loginUserDto.profileimg}" id="OHMainView-photoProfileImage">
+              <c:if test="${!empty profileimg}" >
+              <img src="${path }/resources/upload/my/${profileimg}" id="OHMainView-photoProfileImage" style="width: 25px; height: 25px;">
               </c:if>   
 			 <h3 class="cs_list_head_h">${notice_content.nbtitle }</h3></div>
 

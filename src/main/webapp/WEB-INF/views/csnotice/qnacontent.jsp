@@ -90,15 +90,17 @@
 
 	
 	<div class="cs_content_wrap_edbtn">
-		<div class="cs_content_edbtn">
-			<div class="cs_content_editbtn">
-				<a href="qnaeditview?qbno=${qna_content.qbno }" class="cs_content_editbtn_a">수정하기</a>
+		<c:if test="${loginDto.nickname eq qna_content.qbwriter}">
+			<div class="cs_content_edbtn">
+				<div class="cs_content_editbtn">
+					<a href="qnaeditview?qbno=${qna_content.qbno }" class="cs_content_editbtn_a">수정하기</a>
+				</div>
+				
+				<div class="cs_content_delbtn">
+					<a href="qnadelete?qbno=${qna_content.qbno }" class="cs_content_delbtn_a">삭제하기</a>
+				</div>
 			</div>
-			
-			<div class="cs_content_delbtn">
-				<a href="qnadelete?qbno=${qna_content.qbno }" class="cs_content_delbtn_a">삭제하기</a>
-			</div>
-		</div>
+		</c:if>
 	</div>
 
 	<section class="cs_content_section3">
@@ -119,7 +121,7 @@
 	              	<img src="${path }/resources/upload/my/${loginUserDto.profileimg}" id="OHMainView-photoProfileImage" style="width: 25px; height: 25px;">
 	              	</c:if>   
 				</span>
-
+				
 				<div class="cs_content_section3_replyform_ti">
 					<textarea class="cs_content_section3_replyform_textarea" id="retarea" onfocus="reta()" name="qnareply"></textarea>
 					<input type="hidden" name="qnarewriter" value="${loginUserDto.nickname }" /> 
