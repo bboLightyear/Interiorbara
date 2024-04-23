@@ -19,48 +19,9 @@
 </style>
 <title>Insert title here</title>
 </head>
-<!-- 헤더 -->
-<header>
-	<!-- header_top : 헤더 윗부분 -->
-	<div class="header_top">
-		<!-- 왼쪽 여백 -->
-		<div></div>
-		<!-- header_logo : 로고 -->
-		<div class="header_logo">
-			<i class="fas fa-paw"></i>
-		</div>
-		<!-- header_search_box : 검색창 -->
-		<div class="header_search_box">
-			<i class="fas fa-search header_search_box_icon"></i> <input
-				type="text" class="header_search_box_input" placeholder="검색">
-		</div>
-		<!-- header_login_box : 회원관리부분 -->
-		<div class="header_login_box">
-			<div class="header_login">로그인</div>
-			<div class="header_join">회원가입</div>
-			<div class="header_cs">마이페이지</div>
-		</div>
-		<!-- 오른쪽 여백 -->
-		<div></div>
-	</div>
-	<!-- header_bottom : 헤더 아랫부분 -->
-	<div class="header_bottom">
-		<!-- header_category_icon : 카테고리 아이콘 -->
-		<div class="header_category_icon">
-			<i class="fas fa-bars"></i>
-		</div>
-		<!-- header_category_list : 카테고리 / list_1~5 : list에 각각 들어갈 내용 -->
-		<div class="header_category_list list_1">퀵견적</div>
-		<div class="header_category_list list_2">업체 둘러보기</div>
-		<div class="header_category_list list_3">소품샵</div>
-		<div class="header_category_list list_4">우리 집 자랑하기</div>
-		<div class="header_category_list list_5">고객센터</div>
-	</div>
-</header>
-<body>
+<%@include file ="header.jsp" %>
 
-	<p style="margin: 0;">userId: <%= session.getAttribute("userId") %></p>
-	
+<body>
 	<div class="cs_qnaboard_whitespace"> <!--여백--></div>
 	
 	<section class="cs_list_section1">
@@ -95,41 +56,42 @@
 		
 		<div class="cs_qnaboard_whitespace"> <!--여백--></div>
 	
-<!-- 		<div class=""> -->
-			<table class="cs_list_table">
-			<thead class="cs_list_table_thead">
-				<tr class="">
-					<th class="cs_list_table_th">NO</th>
-					<th class="cs_list_table_th">제목</th>
-					<th class="cs_list_table_th">이름</th>
-					<th class="cs_list_table_th">날짜</th>
-					<th class="cs_list_table_th">조회수</th>
-				</tr>
-			</thead>
-			<tbody class="cs_list_table_tbody">
-				<c:forEach items="${list }" var="dto">
-					<tr class="">
-						<td class="">${dto.qbno }</td>
-						<td class=""><a href="qnacontent?qbno=${dto.qbno }" class="cs_list_table_title">${dto.qbtitle }</a></td>
-						<td class="">${dto.qbwriter }</td>
-						<td class=""><fmt:formatDate value="${dto.qbdate}" pattern="yy/MM/dd" /></td>
-						<td class="">${dto.qbhit }</td>
-					</tr>
-				</c:forEach>
-			</tbody>
-			</table>
-<!-- 		</div> -->
+
+		<table class="cs_list_table">
+		    <thead class="cs_list_table_thead">
+		        <tr>
+		            <th class="cs_list_table_th cs_list_table_th_no">NO</th>
+		            <th class="cs_list_table_th cs_list_table_th_title">제목</th>
+		            <th class="cs_list_table_th cs_list_table_th_name">이름</th>
+		            <th class="cs_list_table_th cs_list_table_th_date">날짜</th>
+		            <th class="cs_list_table_th cs_list_table_th_hits">조회수</th>
+		        </tr>
+		    </thead>
+		    <tbody class="cs_list_table_tbody">
+		        <c:forEach items="${list }" var="dto">
+		            <tr>
+		                <td class="cs_list_table_th_no">${dto.qbno}</td>
+		                <td class="cs_list_table_th_title"><a href="qnacontent?qbno=${dto.qbno }" class="cs_list_table_title">${dto.qbtitle}</a></td>
+		                <td class="cs_list_table_th_name">${dto.qbwriter}</td>
+		                <td class="cs_list_table_th_date"><fmt:formatDate value="${dto.qbdate}" pattern="yy/MM/dd" /></td>
+		                <td class="cs_list_table_th_hits">${dto.qbhit}</td>
+		            </tr>
+		        </c:forEach>
+		    </tbody>
+		</table>
+
 		
 <div class="cs_qnaboard_whitespace"> <!--여백--></div>
 		<div class="cs_list_wrap_writebtn">
 			<div class="cs_list_writebtn_loc">
-				<% if(session.getAttribute("userId") == null){ %>
-				<% } else {%>
+				<%-- <% if(session.getAttribute("userId") == null){ %>
+				<% } else {%> --%>
+				<c:if test="${!empty loginUserDto.nickname }">
 					<!--로그인 안 한 상태로는 글 쓰기 버튼 안 보이게 처리-->
 				<div class="cs_list_writebtn" onclick="linkwritebtn()">
 					<a href="qnawriteview" class="cs_list_writebtn_a">글쓰기</a>
 				</div>
-				<% } %>
+				</c:if>
 			</div>
 		</div>
 
@@ -162,7 +124,7 @@ function linkwritebtn() {
 					<c:choose>
 					
 						<c:when test="${i eq searchVo.page }">
-							<span style="color: lightskyblue; font-weight: bold;">&nbsp;${i }&nbsp;</span>
+							<span style="color: #1034a6; font-weight: bold;">&nbsp;${i }&nbsp;</span>
 						</c:when>
 						
 						<c:otherwise>
@@ -182,21 +144,6 @@ function linkwritebtn() {
 			</div>
 		</section>
 	
-	
-	
-	<!-- 푸터 -->
-	<footer>
-		<!-- 푸터 로고 -->
-		<div class="footer_logo">logo</div>
-		<!-- 푸터 내용 -->
-		<div class="footer_content">(주) 카피바라 주소 : 대한민국 서울시 양천구 목동 655-19
-			대표 : 조보근 전화번호 : 010-3017-5283</div>
-		<!-- sns 아이콘 -->
-		<div class="footer_sns">
-			<i class="fab fa-facebook fa-lg"></i> <i class="fab fa-youtube fa-lg"></i>
-			<i class="fab fa-twitter fa-lg"></i> <i class="fab fa-twitch fa-lg"></i>
-			<i class="fab fa-instagram fa-lg"></i>
-		</div>
-	</footer>
+<%@include file ="footer.jsp" %>
 </body>
 </html>

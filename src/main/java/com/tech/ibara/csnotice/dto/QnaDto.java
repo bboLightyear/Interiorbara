@@ -2,6 +2,8 @@ package com.tech.ibara.csnotice.dto;
 
 import java.util.Date;
 
+import com.tech.ibara.my.dto.MyMemberInfoDto;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -25,4 +27,5 @@ public class QnaDto {
 	private int qbindent;
 	private String qbfilecode;
 	private QnaImgDto qnaImgDto;
+	private MyMemberInfoDto myMemberInfoDto;
 }

@@ -6,10 +6,13 @@ import java.util.Properties;
 import javax.mail.Address;
 import javax.mail.Authenticator;
 import javax.mail.Message;
+import javax.mail.Multipart;
 import javax.mail.Session;
 import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
+import javax.mail.internet.MimeMultipart;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.ui.Model;
@@ -53,22 +56,44 @@ public class CsMailService implements CsHomeService {
 		p.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
 		p.put("mail.smtp.socketFactory.fallback", "false");
 		
-		try{
-			Authenticator auth=new Gmail(from);
-			Session ses=Session.getInstance(p,auth);
-			ses.setDebug(true);
-			MimeMessage msg=new MimeMessage(ses);
-			msg.setSubject(subject);
-			Address fromAddr=new InternetAddress(from,id);
-			msg.setFrom(fromAddr);
-			Address toAddr=new InternetAddress(to);
-			msg.addRecipient(Message.RecipientType.TO, toAddr);
-			msg.setContent(content, "text/html;charset=UTF-8");
-			Transport.send(msg);
-		} catch (Exception e){
-			e.printStackTrace();
-			System.out.println("실패");
-		}
+		try {
+            Authenticator auth = new Gmail(from);
+            Session ses = Session.getInstance(p, auth);
+            ses.setDebug(true);
+            MimeMessage msg = new MimeMessage(ses);
+            msg.setSubject(subject);
+            Address fromAddr = new InternetAddress(from, id);
+            msg.setFrom(fromAddr);
+            Address toAddr = new InternetAddress(to);
+            msg.addRecipient(Message.RecipientType.TO, toAddr);
+
+            // Create a multipart message for attachment
+            Multipart multipart = new MimeMultipart();
+
+            // Create a message part to add content
+            MimeBodyPart messageBodyPart = new MimeBodyPart();
+            messageBodyPart.setContent(content, "text/html;charset=UTF-8");
+            multipart.addBodyPart(messageBodyPart);
+
+            // Second part (the image)
+            MimeBodyPart imagePart = new MimeBodyPart();
+            imagePart.attachFile("C:\\23setspring\\springwork23\\interiorbara\\src\\main\\webapp\\resources\\img\\csimg\\아래화살표.png"); // 이미지 파일 경로 지정
+            imagePart.setContentID("<image>");
+            imagePart.setDisposition(MimeBodyPart.INLINE);
+
+            // Add the image part to the multipart
+            multipart.addBodyPart(imagePart);
+
+            // Set the complete message parts
+            msg.setContent(multipart);
+
+            // Send the message
+            Transport.send(msg);
+            System.out.println("이메일 발송 성공!");
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println("이메일 발송 실패");
+        }
 	}
 	
 	

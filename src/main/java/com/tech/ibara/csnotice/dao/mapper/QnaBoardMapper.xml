@@ -41,16 +41,12 @@
    </sql>
 
 
-   <select id="qnalist" resultType="com.tech.ibara.csnotice.dto.QnaDto">
-      SELECT
-      QBNO,QBWRITER,QBTITLE,QBCONTENT,QBDATE,QBHIT,QBGROUP,QBSTEP,QBINDENT,QBQNADIV
-      FROM (SELECT ROWNUM NUM,N.*
-      FROM (SELECT
-      QBNO,QBWRITER,QBTITLE,QBCONTENT,QBDATE,QBHIT,QBGROUP,QBSTEP,QBINDENT,QBQNADIV
-      FROM CS_QNABOARD
-      ORDER BY QBGROUP DESC,QBSTEP ASC)N
-      <include refid="includqnalist" />
-      )WHERE NUM BETWEEN #{param1} AND #{param2}
+   <select id="qnalist" resultType="com.tech.ibara.csnotice.dto.QnaDto">      
+         SELECT 
+        QBNO, QBWRITER, QBTITLE, QBCONTENT, QBDATE, QBHIT, QBGROUP, QBSTEP, QBINDENT, QBQNADIV FROM 
+        (SELECT ROWNUM NUM,N.* FROM (SELECT QBNO, QBWRITER, QBTITLE, QBCONTENT, QBDATE, QBHIT, QBGROUP, QBSTEP, QBINDENT, QBQNADIV 
+        FROM CS_QNABOARD <include refid="includqnalist" /> ORDER BY QBNO DESC ) N
+        )WHERE NUM BETWEEN #{param1} AND #{param2}
    </select>
 
    <select id="selectBoardTotalCount1" resultType="Integer">
@@ -162,10 +158,19 @@
       WHERE B.QBNO=#{param1}
    </select> 
 
-   <resultMap type="com.tech.ibara.csnotice.dto.QnaImgDto" id="QnaImgDto">
-      <result column="QBNO" property="qbno" />
-      <result column="QBFILECODE" property="qbfilecode" />
-      <result column="FILESRC" property="filesrc" />
+   <resultMap type="com.tech.ibara.my.dto.MyMemberInfoDto" id="MyMemberInfoDto">
+      <result column="MEMNO" property="memno" />
+      <result column="NICKNAME" property="nickname" />
+      <result column="SHPWD" property="shpwd" />
+      <result column="BCPWD" property="bcpwd" />
+      <result column="EMAIL" property="email" />
+      <result column="MAILCHECK" property="mailcheck" />
+      <result column="BIRTH" property="birth" />
+      <result column="GENDER" property="gender" />
+      <result column="PHONE" property="phone" />
+      <result column="JOINDATE" property="joindate" />
+      <result column="MEMTYPE" property="memtype" />
+      <result column="PROFILEIMG" property="profileimg" />
    </resultMap>
 
    <resultMap type="com.tech.ibara.csnotice.dto.QnaDto" id="QnaDto">
@@ -180,19 +185,25 @@
       <result column="QBINDENT" property="qbindent" />
       <result column="QBFILECODE" property="qbfilecode" />
       <result column="QBQNADIV" property="qbqnadiv" />
-      <collection property="qnaImgDto" resultMap="QnaImgDto" />
+      <collection property="myMemberInfoDto" resultMap="MyMemberInfoDto" />
    </resultMap>
 
 
 
-   <select id="qnacontentimgview" parameterType="com.tech.ibara.csnotice.dto.QnaImgDto" resultMap="QnaImgDto">
-      SELECT I.FILESRC
-      FROM CS_QNABOARD B LEFT OUTER JOIN CS_QNABOARD_IMG I
-      ON B.QBFILECODE=I.QBFILECODE
-      WHERE B.QBNO=#{param1}
+   <select id="qnaprofileimg" parameterType="String" resultType="String">
+      SELECT I.PROFILEIMG
+      FROM CS_QNABOARD B LEFT OUTER JOIN MY_MEMBER_INFO I
+      ON B.QBWRITER=I.NICKNAME
+      WHERE QBWRITER=#{param1}
    </select>
 
    <!-- =================================================================================== -->
+
+	<select id="selqbwriter" resultType="string">
+		SELECT QBWRITER
+		FROM CS_QNABOARD
+		WHERE QBNO=#{param1}
+	</select>
 
    <update id="imgdelete">
       DELETE FROM CS_QNABOARD_IMG WHERE
@@ -209,20 +220,55 @@
       VALUES(#{param1},CS_QNABOARD_REPLY_SEQ.NEXTVAL,#{param3},#{param2},0,CS_QNABOARD_REPLY_SEQ.NEXTVAL,0)
    </insert>
 
-   <select id="replylist" resultType="com.tech.ibara.csnotice.dto.QnaReplyDto">
-      SELECT
-      QBNO,RQBNO,RQBWRITER,RQBCONTENT,RQBSTEP,RQBGROUP,RQBINDENT
-      FROM CS_QNABOARD_REPLY
-      WHERE QBNO=#{param1} AND RQBSTEP=0
-      ORDER BY RQBNO DESC
-   </select>
+	<resultMap id="replyDetailMap" type="com.tech.ibara.csnotice.dto.QnaReplyDto">
+	    <result property="rqbno" column="RQBNO" />
+	    <result property="rqbwriter" column="RQBWRITER" />
+	    <result property="rqbcontent" column="RQBCONTENT" />
+	    <result property="rqbstep" column="RQBSTEP" />
+	    <result property="rqbgroup" column="RQBGROUP" />
+	    <result property="rqbindent" column="RQBINDENT" />
+    <!-- 추가 정보 매핑 -->
+	    <association property="memberInfo" javaType="com.tech.ibara.my.dto.MyMemberInfoDto">
+	        <result property="nickname" column="NICKNAME" />
+	        <result property="profileimg" column="PROFILEIMG" />
+	    </association>
+	</resultMap>
 
-   <select id="replyrlist" resultType="com.tech.ibara.csnotice.dto.QnaReplyDto">
-      SELECT
-      QBNO,RQBNO,RQBWRITER,RQBCONTENT,RQBSTEP,RQBGROUP,RQBINDENT
+	<resultMap id="replyRDetailMap" type="com.tech.ibara.csnotice.dto.QnaReplyDto">
+	    <result property="rqbno" column="RQBNO" />
+	    <result property="rqbwriter" column="RQBWRITER" />
+	    <result property="rqbcontent" column="RQBCONTENT" />
+	    <result property="rqbstep" column="RQBSTEP" />
+	    <result property="rqbgroup" column="RQBGROUP" />
+	    <result property="rqbindent" column="RQBINDENT" />
+    <!-- 추가 정보 매핑 -->
+	    <association property="memberInfo" javaType="com.tech.ibara.my.dto.MyMemberInfoDto">
+	        <result property="nickname" column="NICKNAME" />
+	        <result property="profileimg" column="PROFILEIMG" />
+	    </association>
+	</resultMap>
+	
+   <select id="replylist" resultMap="replyDetailMap">
+    SELECT B.RQBNO, B.RQBWRITER, B.RQBCONTENT, B.RQBSTEP, B.RQBGROUP, B.RQBINDENT, I.NICKNAME, I.PROFILEIMG
+    FROM CS_QNABOARD_REPLY B
+    LEFT OUTER JOIN MY_MEMBER_INFO I ON B.RQBWRITER = I.NICKNAME
+    WHERE QBNO = #{param1} AND RQBSTEP = 0
+    ORDER BY RQBNO DESC
+</select>
+      
+
+   <select id="replyrlist" resultMap="replyRDetailMap">
+     <!--  SELECT QBNO,RQBNO,RQBWRITER,RQBCONTENT,RQBSTEP,RQBGROUP,RQBINDENT
       FROM CS_QNABOARD_REPLY
       WHERE RQBGROUP=#{param1} AND RQBSTEP>=1
       ORDER BY RQBNO ASC
+      --> 
+      
+	SELECT B.QBNO,B.RQBNO, B.RQBWRITER, B.RQBCONTENT, B.RQBSTEP, B.RQBGROUP, B.RQBINDENT, I.NICKNAME, I.PROFILEIMG
+	FROM CS_QNABOARD_REPLY B
+    LEFT OUTER JOIN MY_MEMBER_INFO I ON B.RQBWRITER = I.NICKNAME
+    WHERE RQBGROUP=#{param1} AND RQBSTEP>=1
+    ORDER BY RQBNO DESC 
    </select>
 
    <select id="replycnt" resultType="Integer">

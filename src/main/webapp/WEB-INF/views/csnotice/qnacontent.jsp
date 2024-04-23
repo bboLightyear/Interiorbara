@@ -15,58 +15,19 @@
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <link rel="stylesheet" type="text/css"
 	href="resources/css/cs/csboard.css" />
+<script>
+	function reta() {
+		
+		var nickname = ${loginUserDto.nickname};
+		
+			if (nickname === null) {
+				alert("로그인 후 작성해주세요");
+				document.getElementById("retarea").blur();			
+			}
+	}
+</script>
 </head>
-<header>
-	<!-- header_top : 헤더 윗부분 -->
-	<div class="header_top">
-		<!-- 왼쪽 여백 -->
-		<div></div>
-		<!-- header_logo : 로고 -->
-		<div class="header_logo">
-			<i class="fas fa-paw"></i>
-		</div>
-		<!-- header_search_box : 검색창 -->
-		<div class="header_search_box">
-			<form action="mainSearchView">
-				<i class="fas fa-search header_search_box_icon"></i> <input
-					type="text" class="header_search_box_input" placeholder="검색">
-			</form>
-		</div>
-		<!-- header_login_box : 회원관리부분 -->
-		<div class="header_login_box">
-			<div class="header_login">로그인</div>
-			<div class="header_join">회원가입</div>
-			<div class="header_cs">마이페이지</div>
-		</div>
-		<!-- 로그인 세션 부분 -->
-		<!--<c:choose>
-				<c:when test="${sessionNickname eq null }">
-					<a href="my/joinform">join</a> | <a href="my/loginform">login</a>
-				</c:when>
-				<c:otherwise>
-    				${sessionNickname }님 로그인 되었습니다.
-    				<br />
-					<a href="my/mypagemain">mypage</a> | <a href="my/logout">logout</a>
-				</c:otherwise>
-			</c:choose> -->
-		<!-- 오른쪽 여백 -->
-		<div></div>
-	</div>
-	<!-- header_bottom : 헤더 아랫부분 -->
-	<div id="header_bottom" class="header_bottom">
-		<!-- header_category_icon : 카테고리 아이콘 -->
-		<div class="header_category_icon">
-			<i class="fas fa-bars"></i>
-		</div>
-		<!-- header_category_list : 카테고리 / list_1~5 : list에 각각 들어갈 내용 -->
-		<div class="header_category_list list_1">퀵견적</div>
-		<div class="header_category_list list_2">업체 둘러보기</div>
-		<div class="header_category_list list_3">소품샵</div>
-		<div class="header_category_list list_4">우리 집 자랑하기</div>
-		<div class="header_category_list list_5">고객센터</div>
-	</div>
-</header>
-
+<%@include file ="header.jsp" %>
 <body>
 
 	<div class="cs_qnaboard_whitespace">
@@ -78,21 +39,32 @@
 			                            <!-- 게시글 작성자 프로필 이미지 -->         
 			<div class="cs_list_head_wrap_h">
             <%-- 프로필 이미지가 없으면 기본 이미지 --%>
-            <c:if test="${empty loginUserDto.profileimg}" >
+            <c:if test="${empty profileimg}" >
               <img src="${path }/resources/img/my/user.png" id="OHMainView-photoProfileImage" style="width: 25px; height: 25px;">
               </c:if>
               <%-- 프로필 이미지가 있으면 있는 이미지 --%>
-              <c:if test="${!empty loginUserDto.profileimg}" >
-              <img src="${path }/resources/upload/my/${loginUserDto.profileimg}" id="OHMainView-photoProfileImage">
+              <c:if test="${!empty profileimg}" >
+              <img src="${path }/resources/upload/my/${profileimg}" id="OHMainView-photoProfileImage" style="width: 25px; height: 25px;">
               </c:if>   
 			 <h3 class="cs_list_head_h">${qna_content.qbtitle }</h3></div>
 
 
 			<div class="cs_list_head_wrap_span">
-				<span>작성자 : ${qna_content.qbwriter }&nbsp;</span> 
-				<span>조회수 : ${qna_content.qbhit }&nbsp;</span> 
-				<span>${qna_content.qbqnadiv } &nbsp;</span> 
-				<span>
+				<span class="cs_list_head_span">작성자 : ${qna_content.qbwriter }&nbsp;</span>
+				<span class="cs_list_head_span">조회수 : ${qna_content.qbhit }&nbsp;</span>  
+				<c:if test="${qna_content.qbqnadiv eq 'qq'}">
+					<span class="cs_list_head_span">퀵견적 관련 &nbsp;</span>
+				</c:if> 
+				<c:if test="${qna_content.qbqnadiv eq 'oh'}">
+					<span class="cs_list_head_span">우리집 자랑 관련 &nbsp;</span>
+				</c:if> 
+				<c:if test="${qna_content.qbqnadiv eq 'pf'}">
+					<span class="cs_list_head_span">로그인/회원정보 &nbsp;</span>
+				</c:if> 
+				<c:if test="${qna_content.qbqnadiv eq 'sh'}">
+					<span class="cs_list_head_span">소품샵 관련 &nbsp;</span>
+				</c:if> 
+				<span class="cs_list_head_span">
 					<fmt:formatDate value="${qna_content.qbdate}" pattern="yy/MM/dd" />&nbsp;
 				</span>
 			</div>
@@ -102,11 +74,14 @@
 	<div class="cs_qnaboard_whitespace">
 		<!--여백-->
 	</div>
+	<div class="cs_qnaboard_whitespace">
+		<!--여백-->
+	</div>
 
 	<section class="cs_content_section2">
 
 		<div class="cs_content_section2_content">
-			<p style="margin: 0">${qna_content.qbcontent }</p>
+			<p style="margin: 0" class="cs_content_section2_content_p">${qna_content.qbcontent }</p>
 		</div>
 
 		<div class="cs_qnaboard_whitespace">
@@ -129,22 +104,19 @@
 
 	
 	<div class="cs_content_wrap_edbtn">
-		<div class="cs_content_edbtn">
-			<div class="cs_content_editbtn">
-				<a href="qnaeditview?qbno=${qna_content.qbno }" class="cs_content_editbtn_a">수정하기</a>
+		<c:if test="${loginUserDto.nickname eq qna_content.qbwriter}">
+			<div class="cs_content_edbtn">
+				<div class="cs_content_editbtn">
+					<a href="qnaeditview?qbno=${qna_content.qbno }" class="cs_content_editbtn_a">수정하기</a>
+				</div>
+				
+				<div class="cs_content_delbtn">
+					<a href="qnadelete?qbno=${qna_content.qbno }" class="cs_content_delbtn_a">삭제하기</a>
+				</div>
 			</div>
-			
-			<div class="cs_content_delbtn">
-				<a href="qnadelete?qbno=${qna_content.qbno }" class="cs_content_delbtn_a">삭제하기</a>
-			</div>
-		</div>
+		</c:if>
 	</div>
 
-	<%
-		if (session.getAttribute("userId") == null) {
-
-	} else {
-	%>
 	<section class="cs_content_section3">
 
 		<div class="cs_content_section3_rcnt">
@@ -160,21 +132,19 @@
 	              	</c:if>
 	              	
 	              	<c:if test="${!empty loginUserDto.profileimg}" >
-	              	<img src="${path }/resources/upload/my/${loginUserDto.profileimg}" id="OHMainView-photoProfileImage">
+	              	<img src="${path }/resources/upload/my/${loginUserDto.profileimg}" id="OHMainView-photoProfileImage" style="width: 25px; height: 25px;">
 	              	</c:if>   
 				</span>
-
+				
 				<div class="cs_content_section3_replyform_ti">
-					<textarea class="cs_content_section3_replyform_textarea" name="qnareply"></textarea>
-					<input type="hidden" name="qnarewriter" value="<%=session.getAttribute("userId")%>" /> 
+					<textarea class="cs_content_section3_replyform_textarea" id="retarea" onfocus="reta()" name="qnareply"></textarea>
+					<input type="hidden" name="qnarewriter" value="${loginUserDto.nickname }" /> 
 					<input class="reply_input_btn" type="submit" value="답변" />
 				</div>
 			</div>
 		</form>
 	</section>
-	<%
-		}
-	%>
+
 
 	<section class="cs_content_section4">
 		<!--전체 글에 대한 답글 조회  -->
@@ -182,29 +152,35 @@
 			<div class="cs_content_section4_wrap_rreply">
 				<div class="cs_content_section4_wrap_rreply_c">
 					<div class="cs_content_section4_wrap_rreply_ni">
-						<c:if test="${empty loginUserDto.profileimg}" >
+						<c:if test="${empty dto.memberInfo.profileimg}" >
 				        	<img src="${path }/resources/img/my/user.png" id="OHMainView-photoProfileImage" style="width: 30px; height: 30px;">
 				            </c:if>
 				            <%-- 프로필 이미지가 있으면 있는 이미지 --%>
-				            <c:if test="${!empty loginUserDto.profileimg}" >
-				           	<img src="${path }/resources/upload/my/${loginUserDto.profileimg}" id="OHMainView-photoProfileImage">
-				        </c:if> <h4 class="cs_content_section4_wrap_rreply_ni_h4">${dto.rqbwriter }</h4></div>
+				            <c:if test="${!empty dto.memberInfo.profileimg}" >
+				           	<img src="${path }/resources/upload/my/${dto.memberInfo.profileimg}" id="OHMainView-photoProfileImage" style="width: 25px; height: 25px;">
+				        </c:if> 
+				        <h4 class="cs_content_section4_wrap_rreply_ni_h4">${dto.rqbwriter }</h4>
+				        </div>
 					<div class="cs_content_section4_wrap_rreply_content">${dto.rqbcontent }</div>
 	
 					<!--답글 달기 버튼을 클릭 시에 아래에 입력 창이 나타나도록 하는 스크립트-->
-					<%
-						if (session.getAttribute("userId") == null) {
-					%>
-					<div class="cs_content_section4_wrap_rreply_btn">
-					<%
+<%-- 					<%
+						if ( == null) {
+					%> --%>
+					<c:if test="${empty loginUserDto.email}"> 
+						<div class="cs_content_section4_wrap_rreply_btn">
+					</c:if>
+<%-- 					<%
 					} else {
-					%>
-					<div class="cs_content_section4_wrap_rreply_wrap_btn">
+					%> --%>
+					<c:if test="${!empty loginUserDto.email}"> 
+						<div class="cs_content_section4_wrap_rreply_wrap_btn">
 					
-					<button  class="cs_content_section4_wrap_rreply_btn" onclick="replyform()" data-rqbno="${dto.rqbno }">답글달기</button>
-					<%
+						<button  class="cs_content_section4_wrap_rreply_btn" onclick="replyform()" data-rqbno="${dto.rqbno }">답글달기</button>
+					</c:if>
+<%-- 					<%
 						}
-					%>
+					%> --%>
 	
 					<input class="cs_content_section4_wrap_rreply_btn" type="button" onclick="replyrview()" id="${dto.rqbno }replyvbtn" name="${dto.rqbno }replyvbtn" data-rqbno="${dto.rqbno }" value="답글보기" />
 					
@@ -218,11 +194,11 @@
 						<div id="${dto.rqbno }replyform" class="cs_content_section4_replyrview_wrap_inputform">
 							<div class="cs_content_section4_replyrview_inputform">
 								<input type="hidden" id="rqbno" name="rqbno" value="${dto.rqbno }" />
-								<input type="hidden" id="qbno" name="qbno" value="${dto.qbno }" />
+								<input type="hidden" id="qbno" name="qbno" value="${qna_content.qbno }" />
 								<input type="hidden" id="rqbstep" name="rqbstep" value="${dto.rqbstep }" /> 
 								<input type="hidden" id="rqbgroup" name="rqbgroup" value="${dto.rqbgroup }" /> 
 								<input type="hidden" id="rqbindent" name="rqbindent" value="${dto.rqbindent }" />
-								<input type="hidden" name="rwriter" id="rwriter" value="<%=session.getAttribute("userId")%>" /> 
+								<input type="hidden" name="rwriter" id="rwriter" value="${loginUserDto.nickname }" /> 
 		
 								<textarea id="rcontent" name="rcontent" class=cs_content_section4_replyrview_inputform_ta></textarea>
 								<input class="reply_input_btn" type="button" value="입력" onclick="reply()" data-rqbno="${dto.rqbno }" />
@@ -236,6 +212,7 @@
 	</section>
 
 	<script>
+	
 		var viewbtn = false;
 
 		// 답글보기 버튼 처리
@@ -266,19 +243,26 @@
 
 					for (var i = 0; i < data.length; i++) {
 
+						var profileImgUrl = data[i].memberInfo?.profileimg || 'user.png';  // 기본 이미지 사용
+		                var writer = data[i].rqbwriter;
+		                var content = data[i].rqbcontent;
+		                
 						console.log(data[i].rqbcontent);
+						console.log(data[i].memberInfo?.profileimg);
+						
 						
 						
 						htmlText += "<div class='cs_content_section4_wrap_replyrview'>";
 						
 						
 						htmlText += "<div class='cs_content_section4_replyrview_rni'>";
-						htmlText += "<c:if test='${empty loginUserDto.profileimg}' > "+
+						/* htmlText += "<c:if test='${empty loginUserDto.profileimg}' > "+
 						"<img src='${path }/resources/img/my/user.png' id='OHMainView-photoProfileImage' style='width: 30px; height: 30px;'> "+
 						"</c:if> "+
 			            "<c:if test='${!empty loginUserDto.profileimg}'> "+
 			           	"<img src='${path }/resources/upload/my/${loginUserDto.profileimg}' id='OHMainView-photoProfileImage'> "+
-			        	"</c:if>";
+			        	"</c:if>"; */
+			        	htmlText += "<img src=${path }/resources/upload/my/"+profileImgUrl+" id='OHMainView-photoProfileImage' style='width: 30px; height: 30px;'> "
 						
 						htmlText += "<h4 class='cs_content_section4_wrap_rreply_ni_h4'>";
 						htmlText += data[i].rqbwriter;
@@ -398,17 +382,5 @@
 		}
 	</script>
 </body>
-<footer>
-	<!-- 푸터 로고 -->
-	<div class="footer_logo">logo</div>
-	<!-- 푸터 내용 -->
-	<div class="footer_content">(주) 카피바라 주소 : 대한민국 서울시 양천구 목동 655-19
-		대표 : 조보근 전화번호 : 010-3017-5283</div>
-	<!-- sns 아이콘 -->
-	<div class="footer_sns">
-		<i class="fab fa-facebook fa-lg"></i> <i class="fab fa-youtube fa-lg"></i>
-		<i class="fab fa-twitter fa-lg"></i> <i class="fab fa-twitch fa-lg"></i>
-		<i class="fab fa-instagram fa-lg"></i>
-	</div>
-</footer>
+<%@include file ="footer.jsp" %>
 </html>

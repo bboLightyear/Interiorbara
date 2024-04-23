@@ -46,6 +46,7 @@ public class CsQnaRestController {
 		
 		// 전체 답글 달기
 		dao.qnareply_r(qbno,rqbno,rwriter,rcontent,rqbgroup,rqbstep,rqbindent);
+		System.out.println("답글에 답글 : "+qbno);
 
 		ArrayList<QnaReplyDto> list = dao.replyrlist(rqbno);
 		System.out.println(list.size());

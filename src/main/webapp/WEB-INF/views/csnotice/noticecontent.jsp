@@ -71,26 +71,38 @@
 		<!--여백-->
 	</div>
 
+            pimg: ${profileimg}
 	<section class="cs_content_section1">
 		<div class="cs_content_head">
 			                            <!-- 게시글 작성자 프로필 이미지 -->         
 			<div class="cs_list_head_wrap_h">
             <%-- 프로필 이미지가 없으면 기본 이미지 --%>
-            <c:if test="${empty loginUserDto.profileimg}" >
+            <c:if test="${empty profileimg}" >
               <img src="${path }/resources/img/my/user.png" id="OHMainView-photoProfileImage" style="width: 25px; height: 25px;">
               </c:if>
               <%-- 프로필 이미지가 있으면 있는 이미지 --%>
-              <c:if test="${!empty loginUserDto.profileimg}" >
-              <img src="${path }/resources/upload/my/${loginUserDto.profileimg}" id="OHMainView-photoProfileImage">
+              <c:if test="${!empty profileimg}" >
+              <img src="${path }/resources/upload/my/${profileimg}" id="OHMainView-photoProfileImage" style="width: 25px; height: 25px;">
               </c:if>   
 			 <h3 class="cs_list_head_h">${notice_content.nbtitle }</h3></div>
 
 
 			<div class="cs_list_head_wrap_span">
-				<span>작성자 : ${notice_content.nbwriter }&nbsp;</span> 
-				<span>조회수 : ${notice_content.nbhit }&nbsp;</span> 
-				<span>${notice_content.nbqnadiv } &nbsp;</span> 
-				<span>
+				<span class="cs_list_head_span">작성자 : ${notice_content.nbwriter }&nbsp;</span> 
+				<span class="cs_list_head_span">조회수 : ${notice_content.nbhit }&nbsp;</span> 
+				<c:if test="${notice_content.nbqnadiv eq 'qq'}">
+					<span class="cs_list_head_span">퀵견적 관련 &nbsp;</span>
+				</c:if> 
+				<c:if test="${notice_content.nbqnadiv eq 'oh'}">
+					<span class="cs_list_head_span">우리집 자랑 관련 &nbsp;</span>
+				</c:if> 
+				<c:if test="${notice_content.nbqnadiv eq 'pf'}">
+					<span class="cs_list_head_span">로그인/회원정보 &nbsp;</span>
+				</c:if> 
+				<c:if test="${notice_content.nbqnadiv eq 'sh'}">
+					<span class="cs_list_head_span">소품샵 관련 &nbsp;</span>
+				</c:if>  
+				<span class="cs_list_head_span">
 					<fmt:formatDate value="${notice_content.nbdate}" pattern="yy/MM/dd" />&nbsp;
 				</span>
 			</div>
@@ -104,7 +116,7 @@
 	<section class="cs_content_section2">
 
 		<div class="cs_content_section2_content">
-			<p style="margin: 0">${notice_content.nbcontent }</p>
+			<p style="margin: 0" class="cs_content_section2_content_p">${notice_content.nbcontent }</p>
 		</div>
 
 		<div class="cs_qnaboard_whitespace">
