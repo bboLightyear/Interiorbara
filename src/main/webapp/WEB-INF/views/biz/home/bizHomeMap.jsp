@@ -36,7 +36,7 @@
 <body>
 <div class="pt-4  bg-light bg-opacity-75">
 	<div class="d-flex justify-content-center">
-		<div class="px-3" style="width: 750px; cursor: pointer;" onclick="location.href='/ibara/biz/home/bizHome?inteno=${bizHome.inteno}'">
+		<div class="px-3" style="width: 1050px; cursor: pointer;" onclick="location.href='/ibara/biz/home/bizHome?inteno=${bizHome.inteno}'">
 					<ul class="list-inline">
 						<li class="list-inline-item">
 							<h4><span style="--bs-text-opacity: 1; background-color: #1034a6; padding: 3px; !important;">
@@ -54,12 +54,12 @@
 	</div>	
 		
 		<div class="text-primary text-opacity-25">
-			<hr style="height: 1px; width: 680px; margin: 5px;"/>
+			<hr style="height: 1px; width: 960px; margin: 5px;"/>
 		</div>
 </div>
 <main class="Site-content">
 	<div class="d-flex justify-content-center">
-		<div class="px-3 pt-4" style="width: 750px" >
+		<div class="px-3 pt-4" style="width: 1050px" >
 			<div id="map" style="width:100%; height:500px;"></div>
 		</div>
 	</div>

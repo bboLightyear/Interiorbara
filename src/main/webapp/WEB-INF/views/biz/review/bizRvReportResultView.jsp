@@ -44,7 +44,7 @@
 <main class="Site-content">
 	<div class="pt-3 bg-light bg-opacity-75">
 	<div class="d-flex justify-content-center">
-		<div class="p-3" onclick="location.href='bizRvList?inteno=${inteno}'" style="width: 750px; cursor:pointer;" >
+		<div class="p-3" onclick="location.href='bizRvList?inteno=${inteno}'" style="width: 1150px; cursor:pointer;" >
 					<ul class="list-inline">
 						<li class="list-inline-item">
 							<h4 style="--bs-text-opacity: 1; background-color: #1034a6; padding: 3px; !important;">
@@ -68,8 +68,8 @@
 	</div>
 	
 	<div class="d-flex justify-content-center">
-		<div class="p-3 pb-0" style="width: 750px">
-			<table class="p-3 pb-1 table" style="width: 100%; height: 150px; max-width: 750px">
+		<div class="p-3 pb-0" style="width: 1050px">
+			<table class="p-3 pb-1 table" style="width: 100%; height: 150px; max-width: 1050px">
 				<tr>
 				    <td class="align-middle">
 				    	<p class="p-3 pt-4" style="font-size: 16px; text-align: center;">하기 요청하신 리뷰가 신고되었습니다.</p>
@@ -81,8 +81,8 @@
 		</div>
 	</div>	
 	<div class="d-flex justify-content-evenly">
-		<div class="d-flex justify-content-center" style="width: 750px;">			
-		<div class="d-flex justify-content-end" style="width: 99%; max-width: 720px;">
+		<div class="d-flex justify-content-center" style="width: 1050px;">			
+		<div class="d-flex justify-content-end" style="width: 99%; max-width: 1020px;">
 			<button class="ms-1 btn btn-outline-primary btn-sm w-10" onclick="location.href='bizRvList?inteno=${inteno}'"><span style="font-size: 14px;">목록으로 돌아가기</span></button>
 		</div>
 		</div>

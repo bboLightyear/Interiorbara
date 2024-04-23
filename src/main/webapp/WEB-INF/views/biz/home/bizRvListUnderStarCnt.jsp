@@ -235,7 +235,7 @@ $(document).ready(function() {
 <jsp:include page="../../modal/mMain.jsp" />
 <div class="pt-3 bg-light bg-opacity-75">
 	<div class="d-flex justify-content-center">
-		<div class="px-3 pb-1" style="width: 750px" >
+		<div class="px-3 pb-1" style="width: 1050px" >
 					<ul class="list-inline">
 						<li class="list-inline-item">
 							<h4 style="--bs-text-opacity: 1; background-color: #1034a6; padding: 3px; !important;">
@@ -250,15 +250,15 @@ $(document).ready(function() {
 	</div>
 	
 	<div class="d-flex justify-content-center">	
-		<div class="px-5" style="width: 900px;">
+		<div class="px-5" style="width: 1200px;">
 			<div class="input-group d-flex justify-content-center" style="max-width: 1100px">
-			    <img src="../../resources/upload/biz/home/${bizHome.bh_img }" onclick="location.href='/ibara/biz/home/bizHome?inteno=${bizHome.inteno}'"  style="width: 700px; height: 240px; border-top-left-radius: 1%; border-top-right-radius: 1%; cursor:pointer;">  
+			    <img src="../../resources/upload/biz/home/${bizHome.bh_img }" onclick="location.href='/ibara/biz/home/bizHome?inteno=${bizHome.inteno}'"  style="width: 1000px; height: 240px; border-top-left-radius: 1%; border-top-right-radius: 1%; cursor:pointer;">  
 			</div>   
 		</div>
 	</div>
 		
 		<div class="d-flex justify-content-center" >
-			<div class="ps-2 pe-3 py-3" style="width: 700px;  background-color: #e2f0fe; border-bottom-left-radius: 3.5%; border-bottom-right-radius: 3.5%;">
+			<div class="ps-2 pe-3 py-3" style="width: 1000px;  background-color: #e2f0fe; border-bottom-left-radius: 3.5%; border-bottom-right-radius: 3.5%;">
 				<div class="px-2">
 					<div onclick="location.href='/ibara/biz/home/bizRvListUnder?inteno=${bizHome.inteno}'" style="display: inline; cursor: pointer;"><span style="color: gold; font-size: 14px;">★</span> <strong style="font-size: 14px;">${bizHomeRvPointAvg }</strong></div>
 					&nbsp;
@@ -272,7 +272,7 @@ $(document).ready(function() {
 		</div>
 		
 		<div class="d-flex justify-content-evenly" >
-			<div class="py-2" style="width: 700px;">		
+			<div class="py-2" style="width: 1000px;">		
 				<div class="gap-2 d-flex justify-content-evenly">
 					<div style="display: inline; width: 33%">
 						<button class="btn btn-secondary btn-lg w-100" onclick="location.href='../home/bizHomeMap?inteno=${inteno }'"><span style="font-size: 16px;">지도 보기</span> </button>
@@ -315,7 +315,7 @@ $(document).ready(function() {
 </div>
 
 <div class="d-flex justify-content-evenly">
-	<div class="ps-2 pe-3 d-flex justify-content-evenly" style="width: 700px;">
+	<div class="ps-2 pe-3 d-flex justify-content-evenly" style="width: 1000px;">
 			<button class="btn btn-link" style="border: 0px; text-decoration: none; color: #1a1f27; justify-content: center;" onclick="returnToHome()"><span id="homeSpn">홈</span></button>
 			<c:if test="${empty loginUserDto.memno}">
 				<button class="btn btn-link" style="border: 0px; text-decoration: none; color: #1a1f27; justify-content: center;" onclick="redirectLogin()"><span id="casesSpn">시공사례</span></button>
@@ -329,14 +329,14 @@ $(document).ready(function() {
 	</div>
 </div>
 <div class="d-flex justify-content-center" style="height: 1px; margin: 1px; padding: 0px;">
-	<hr style="height: 1px; width: 680px; margin: 5px;"/>
+	<hr style="height: 1px; width: 960px; margin: 5px;"/>
 </div>
 <br />
 
 <div class="clickResult">
 	<div class="d-flex justify-content-center">
-		<div class="p-3 pt-1 pb-0" style="width: 650px">
-			<table class="table table-hover" style="width: 100%; max-width: 650px">
+		<div class="p-3 pt-1 pb-0" style="width: 950px">
+			<table class="table table-hover" style="width: 100%; max-width: 950px">
 				<thead>
 				    <tr class="table-light">
 				      <th scope="col" class="align-middle" style="cursor:pointer;" onclick="location.href='bizRvListUnderStarCntAsc?inteno=${inteno}'"><i class="fa-solid fa-star"></i>↓</th>
@@ -344,12 +344,12 @@ $(document).ready(function() {
 				      <th scope="col" class="align-middle">작성자</th>
 				      <th scope="col" class="align-middle">내용</th>
 				      <th scope="col" class="align-middle" style="cursor:pointer;" onclick="location.href='bizRvListUnder?inteno=${inteno}'">날짜</th>
-				      <th scope="col" class="align-middle" width="10%" style="cursor:pointer;" onclick="location.href='bizRvListUnderLikeCnt?inteno=${inteno}'"><i class="fa-solid fa-heart"></i></th>
+				      <th scope="col" class="align-middle" style="cursor:pointer;" onclick="location.href='bizRvListUnderLikeCnt?inteno=${inteno}'"><i class="fa-solid fa-heart"></i></th>
 				    </tr>
 				  </thead>
 				<c:forEach items="${bizRvList }" var="dto">
 					<tr class="">
-						<td class="align-middle" width="10%"  onclick="location.href='../review/bizRvContentView?br_no=${dto.br_no }'" style="cursor:pointer;"><span style="color: gold;">★</span> ${dto.br_point }</td>
+						<td class="align-middle" onclick="location.href='../review/bizRvContentView?br_no=${dto.br_no }'" style="cursor:pointer;"><span style="color: gold;">★</span> ${dto.br_point }</td>
 						<td class="align-middle">
 			 				 	<c:forEach items="${joinList }" var="rv">
 									<c:if test="${rv.bizRvImgDto.brimg_cgn ne null }">
@@ -372,18 +372,18 @@ $(document).ready(function() {
 									</c:if>			
 								</c:forEach>
 						</td>
-						<td class="align-middle" width=15%; onclick="javascript_:window.open('${path}/my/memberinfopage?memno=${dto.memno }','pop','menubar=no,status=no,scrollbars=no,resizable=no,width=560,height=700,top=50,left=50');" style="cursor: pointer;">${dto.br_writer } <i class="fa-solid fa-user" style="font-size: 10px;"></i></td>
+						<td class="align-middle" onclick="javascript_:window.open('${path}/my/memberinfopage?memno=${dto.memno }','pop','menubar=no,status=no,scrollbars=no,resizable=no,width=560,height=700,top=50,left=50');" style="cursor: pointer;">${dto.br_writer } <i class="fa-solid fa-user" style="font-size: 10px;"></i></td>
 						<td class="align-middle" id="left">
 							<a href="../review/bizRvContentView?br_no=${dto.br_no }" style="text-align: left; text-decoration: none; color: #1a1f27;">${dto.br_content }</a>
 						</td>
 						<td class="align-middle" onclick="location.href='../review/bizRvContentView?br_no=${dto.br_no }'" style="cursor:pointer;"><fmt:formatDate value="${dto.br_date }" type="both" dateStyle="short" pattern="MM-dd"/></td>
-						<td class="align-middle" width=7% onclick="location.href='../review/bizRvContentView?br_no=${dto.br_no }'" style="cursor:pointer;">${dto.br_like_cnt }</td>
+						<td class="align-middle" onclick="location.href='../review/bizRvContentView?br_no=${dto.br_no }'" style="cursor:pointer;">${dto.br_like_cnt }</td>
 					</tr>		
 				</c:forEach>		
 			</table>
 		<div class="d-flex justify-content-center">
-		<div style="width: 650px">				
-			<form action="bizRvListUnderStarCnt" method="get" style="width: 650px;">
+		<div style="width: 950px">				
+			<form action="bizRvListUnderStarCnt" method="get" style="width: 950px;">
 				<input type="hidden" name="inteno" value="${inteno }" />
 					<div class="p-3 container-md pt-1 pb-0 mb-0" style="width: 99%">	
 					<div class="w-100 d-flex justify-content-center">
@@ -417,11 +417,11 @@ $(document).ready(function() {
 		</div>
 	
 			<div class="d-flex justify-content-evenly mb-3">
-				<div class="d-flex justify-content-center" style="width: 650px;">
-					<div class="d-flex align-items-start" style="width: 40%; max-width: 260px;">
+				<div class="d-flex justify-content-center" style="width: 950px;">
+					<div class="d-flex align-items-start" style="width: 40%; max-width: 380px;">
 						<button class="ms-1 btn btn-outline-primary btn-sm w-10"  onclick="location.href='../review/bizRvList?inteno=${inteno }'"><span style="font-size: 14px;">크게 보기</span></button>
 					</div>
-					<div class="d-flex justify-content-end pe-1" style="width: 60%; max-width: 390px;">
+					<div class="d-flex justify-content-end pe-1" style="width: 60%; max-width: 570px;">
 						<c:if test="${empty loginUserDto.memno}">
 	 						<button class="btn btn-outline-primary btn-sm w-10"  onclick="redirectLogin()"><span style="font-size: 14px;">리뷰쓰기</span></button>
 						</c:if>

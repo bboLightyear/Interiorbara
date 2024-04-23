@@ -48,8 +48,8 @@
 	
 	#topBtn{
    	position: fixed;
-  	 right: 4%;
-   	bottom: 5%;
+	   right: 12.5%;
+	   bottom: 3%;
    	display: none;
    	/* z-index: 9999; */
 	}	
@@ -99,7 +99,7 @@
 <main class="Site-content">
 	<div class="pt-3 bg-light bg-opacity-75">
 	<div class="d-flex justify-content-center">
-		<div class="p-3" onclick="location.href='bizRvList?inteno=${inteno}'" style="width: 750px; cursor:pointer;" >
+		<div class="p-3" onclick="location.href='bizRvList?inteno=${inteno}'" style="width: 1150px; cursor:pointer;" >
 					<ul class="list-inline">
 						<li class="list-inline-item">
 							<h4 style="--bs-text-opacity: 1; background-color: #1034a6; padding: 3px; !important;">
@@ -128,8 +128,8 @@
 	<input type="hidden" name="br_point" value="" size="20" />
 	<input type="hidden" name="orgPoint" value="${bizRvContentView.br_point}" size="20" />
 	<div class="d-flex justify-content-center">
-		<div class="p-3 pt-0 mt-0" style="width: 750px">
-			<table class="table" style="width: 100%; max-width: 750px">
+		<div class="p-3 pt-0 mt-0" style="width: 1050px">
+			<table class="table" style="width: 100%; max-width: 1050px">
 				<tr>
 					<th scope="row" class="table-light border-light-subtle align-middle">별점</th>
 						<td>
@@ -161,8 +161,8 @@
 			</table>
 
 		<div class="d-flex justify-content-evenly">
-			<div class="d-flex justify-content-center" style="width: 750px;">
-				<div class="d-flex align-items-start" style="width: 40%; max-width: 300px;">
+			<div class="d-flex justify-content-center" style="width: 1050px;">
+				<div class="d-flex align-items-start" style="width: 40%; max-width: 420px;">
 					<c:choose>
 						<c:when test="${loginUserDto.memno eq bizRvContentView.memno}">
 							<button class="ms-1 btn btn-outline-primary btn-sm w-10" onclick="confirmDelete('${bizRvContentView.br_no }', '${inteno }')"><span style="font-size: 14px;">삭제</span></button>
@@ -170,7 +170,7 @@
 						<c:otherwise></c:otherwise>							
 					</c:choose>
 				</div>
-			<div class="d-flex justify-content-end" style="width: 60%; max-width: 450px;">
+			<div class="d-flex justify-content-end" style="width: 60%; max-width: 630px;">
 					<c:choose>
 						<c:when test="${loginUserDto.memno eq bizRvContentView.memno}">
 							<input type="submit" value="수정"  class="ms-1 btn btn-outline-primary btn-sm w-10">

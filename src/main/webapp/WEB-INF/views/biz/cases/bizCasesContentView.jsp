@@ -38,8 +38,8 @@
 	}
 	#topBtn{
 	   position: fixed;
-	   right: 4%;
-	   bottom: 5%;
+	   right: 12.5%;
+	   bottom: 3%;
 	   display: none;
 	   /* z-index: 9999; */
 	}	
@@ -55,7 +55,7 @@
 <body>
 	<div class="pt-3 bg-light bg-opacity-75">
 	<div class="d-flex justify-content-center">
-		<div class="p-3"  onclick="location.href='bizCasesList?inteno=${bizCasesContentView.inteno}'" style="width: 750px; cursor:pointer;" >
+		<div class="p-3"  onclick="location.href='bizCasesList?inteno=${bizCasesContentView.inteno}'" style="width: 1150px; cursor:pointer;" >
 					<ul class="list-inline">
 						<li class="list-inline-item">
 							<h4 style="--bs-text-opacity: 1; background-color: #1034a6; padding: 3px; !important;">
@@ -79,22 +79,22 @@
 	</div>
 
 	<div class="d-flex justify-content-center">
-		<div class="p-3" style="width: 750px">
-			<table class="table" style="width: 100%; max-width: 750px">
+		<div class="p-3" style="width: 1050px">
+			<table class="table" style="width: 100%; max-width: 1050px">
 
 	
 				<tr class="">
-				    <th scope="row" class="table-light border-light-subtle">번호</th>
+				    <th scope="row" class="table-light border-light-subtle align-middle">번호</th>
 					<td  class="center" style="width:25%">${bizCasesContentView.bc_no }</td>
-					<th scope="row"  class="table-light border-light-subtle">HIT</th>
+					<th scope="row"  class="table-light border-light-subtle align-middle">HIT</th>
 					<td  class="center" style="width:25%">${bizCasesContentView.bc_hit }</td>
 				</tr>	
 				<tr class="">
-				      <th scope="row"  class="table-light border-light-subtle">작성자</th>
+				      <th scope="row"  class="table-light border-light-subtle align-middle">작성자</th>
 					<td colspan="3" onclick="javascript_:window.open('${path}/my/memberinfopage?nickname=${bizCasesContentView.bc_writer }','pop','menubar=no,status=no,scrollbars=no,resizable=no,width=560,height=700,top=50,left=50');" style="cursor: pointer;">${bizCasesContentView.bc_writer } <i class="fa-solid fa-user" style="font-size: 11px;"></i></td>
 				</tr>		
 				<tr class="">
-				      <th scope="row" class="table-light border-light-subtle">제목</th>
+				      <th scope="row" class="table-light border-light-subtle align-middle">제목</th>
 					<td colspan="3">${bizCasesContentView.bc_title }</td>
 				</tr>		
 				<tr class="">
@@ -122,7 +122,7 @@
 					${bizCasesContentView.bc_content }</td>
 				</tr>
 				<tr class="">
-					<td class="table-light border-light-subtle">첨부</td>
+					<td class="center table-light border-light-subtle align-middle">첨부</td>
 					<td colspan="3">
 					<%-- <a href="bizCasesDownload?p=resources/upload/biz/cases/&f=${bizCasesContentView.bc_img }
 						&bc_no=${bizCasesContentView.bc_no }">${bizCasesContentView.bc_img }</a> --%>
@@ -138,8 +138,8 @@
 			
 								
 			<div class="d-flex justify-content-evenly">
-				<div class="d-flex justify-content-center" style="width: 750px;">
-					<div class="d-flex align-items-start" style="width: 40%; max-width: 300px;">
+				<div class="d-flex justify-content-center" style="width: 1150px;">
+					<div class="d-flex align-items-start" style="width: 40%; max-width: 440px;">
 						<c:if test="${empty loginUserDto.memno}">
 							<button class="ms-1 btn btn-outline-primary btn-sm w-10" onclick="redirectLogin()"><span style="font-size: 14px;">목록</span></button>
 						</c:if>
@@ -149,7 +149,7 @@
 					</div>
 			
 			
-				<div class="d-flex justify-content-end" style="width: 60%; max-width: 450px;">
+				<div class="d-flex justify-content-end" style="width: 60%; max-width: 660px;">
 						<c:if test="${empty loginUserDto.memno}">
 							<button class="ms-1 btn btn-outline-primary btn-sm w-10" onclick="redirectLogin()"><span style="font-size: 14px;">수정</span></button>
 						</c:if>

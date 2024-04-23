@@ -72,7 +72,7 @@
 <main class="Site-content">
 	<div class="pt-3 bg-light bg-opacity-75">
 	<div class="d-flex justify-content-center">
-		<div class="p-3" onclick="location.href='bizRvList?inteno=${inteno}'" style="width: 750px; cursor:pointer;" >
+		<div class="p-3" onclick="location.href='bizRvList?inteno=${inteno}'" style="width: 1150px; cursor:pointer;" >
 					<ul class="list-inline">
 						<li class="list-inline-item">
 							<h4 style="--bs-text-opacity: 1; background-color: #1034a6; padding: 3px; !important;">
@@ -96,8 +96,8 @@
 	</div>
 
 	<div class="d-flex justify-content-center">
-		<div class="p-3 pb-0" style="width: 750px">
-			<table class="table table-hover" style="width: 100%; max-width: 750px">
+		<div class="p-3 pb-0" style="width: 1050px">
+			<table class="table table-hover" style="width: 100%; max-width: 1050px">
 				<thead>
 				    <tr class="table-light">
 				      <th scope="col" class="align-middle">이미지</th>
@@ -149,8 +149,8 @@
 
 	
 	<div class="d-flex justify-content-center">
-		<div style="width: 750px">				
-			<form action="bizRvList" method="get" style="width: 750px;">
+		<div style="width: 1050px">				
+			<form action="bizRvList" method="get" style="width: 1050px;">
 				<input type="hidden" name="inteno" value="${inteno }" />
 					<div class="p-3 container-md" style="width: 99%">	
 					<div class="w-100 d-flex justify-content-center">
@@ -185,11 +185,11 @@
 		</div>	
 	
 		<div class="d-flex justify-content-evenly">
-			<div class="d-flex justify-content-center" style="width: 750px;">
-				<div class="d-flex align-items-start" style="width: 40%; max-width: 300px;">
+			<div class="d-flex justify-content-center" style="width: 1050px;">
+				<div class="d-flex align-items-start" style="width: 40%; max-width: 420px;">
 					<button class="ms-1 btn btn-outline-primary btn-sm w-10"  onclick="location.href='../home/bizRvListUnder?inteno=${inteno }'"><span style="font-size: 14px;">홈에서 보기</span></button>
 				</div>
-				<div class="d-flex justify-content-end pe-1" style="width: 60%; max-width: 450px;">
+				<div class="d-flex justify-content-end pe-1" style="width: 60%; max-width: 630px;">
 					<c:if test="${empty loginUserDto.memno}">
  						<button class="btn btn-outline-primary btn-sm w-10"  onclick="redirectLogin()"><span style="font-size: 14px;">리뷰쓰기</span></button>
 					</c:if>

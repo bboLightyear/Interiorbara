@@ -7,7 +7,7 @@
 			<div></div>
 			<!-- header_logo : 로고 -->
 			<div class="header_logo">
-				<img src="${path}/resources/img/mainimg/main_logo.jpg" alt="#" onclick="location.href='${path}'" />
+				<img src="${path}/resources/img/mainimg/main_logo.jpg" alt="#" onclick="location.href='${path}/main'" />
 				
 			</div>
 			<!-- header_search_box : 검색창 -->

@@ -33,7 +33,7 @@
 	<div class="sortResult">
 
 
-		<div class="p-5 container-md" style="max-width: 900px">
+		<div class="p-5 container-md" style="max-width: 1190px">
 			<c:forEach items="${bizHomeSearch }" var="bizHome" varStatus="bizHomeStatus">
 							<div style="float: left; margin: 1%; cursor:pointer;" onclick="location.href='/ibara/biz/home/bizHome?inteno=${bizHome.inteno}'" class="home${searchVO.rowEndMore}">
 								<div class="card border-light mb-2" style="width: 250px; height: 280px;">

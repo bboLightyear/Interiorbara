@@ -42,8 +42,8 @@
 	
 	#topBtn{
    	position: fixed;
-  	 right: 4%;
-   	bottom: 5%;
+	   right: 12.5%;
+	   bottom: 3%;
    	display: none;
    	/* z-index: 9999; */
 	}			 
@@ -114,7 +114,7 @@
 <main class="Site-content">
 	<div class="pt-3 bg-light bg-opacity-75">
 	<div class="d-flex justify-content-center">
-		<div class="p-3" onclick="location.href='bizRvList?inteno=${inteno}'" style="width: 750px; cursor:pointer;" >
+		<div class="p-3" onclick="location.href='bizRvList?inteno=${inteno}'" style="width: 1150px; cursor:pointer;" >
 					<ul class="list-inline">
 						<li class="list-inline-item">
 							<h4 style="--bs-text-opacity: 1; background-color: #1034a6; padding: 3px; !important;">
@@ -138,18 +138,18 @@
 	</div>
 	
 	<div class="d-flex justify-content-center">
-		<div class="p-3" style="width: 750px">
-			<table class="table" style="width: 100%; max-width: 750px">
+		<div class="p-3" style="width: 1050px">
+			<table class="table" style="width: 100%; max-width: 1050px">
 				<tr class="">
-				    <th scope="row" class="table-light border-light-subtle">번호</th>
+				    <th scope="row" class="table-light border-light-subtle align-middle">번호</th>
 					<td colspan="3">${bizRvContentView.br_no }</td>
 				</tr>	
 				<tr class="">
-				      <th scope="row" class="table-light border-light-subtle">작성자</th>
+				      <th scope="row" class="table-light border-light-subtle align-middle">작성자</th>
 					<td colspan="3" onclick="javascript_:window.open('${path}/my/memberinfopage?memno=${bizRvContentView.memno }','pop','menubar=no,status=no,scrollbars=no,resizable=no,width=560,height=700,top=50,left=50');" style="cursor: pointer;">${bizRvContentView.br_writer } <i class="fa-solid fa-user" style="font-size: 11px;"></i></td>
 				</tr>		
 				<tr class="">
-				      <th scope="row"  class="table-light border-light-subtle">별점</th>
+				      <th scope="row"  class="table-light border-light-subtle align-middle">별점</th>
 					<td colspan="3"><span style="color: gold;">★</span>${bizRvContentView.br_point }</td>
 				</tr>		
 				<tr class="">
@@ -179,7 +179,7 @@
 					${bizRvContentView.br_content }</td>
 				</tr>
 				<tr class="">
-					<td class="table-light border-light-subtle">좋아요</td>
+					<td class="center table-light border-light-subtle align-middle">좋아요</td>
 					<td colspan="3">
 						<c:if test="${empty loginUserDto.memno}">
 							<span style="font-size: 16px;" onclick="redirectLogin()">
@@ -199,8 +199,8 @@
 			
 								
 			<div class="d-flex justify-content-evenly">
-				<div class="d-flex justify-content-center" style="width: 750px;">
-					<div class="d-flex align-items-start" style="width: 40%; max-width: 300px;">
+				<div class="d-flex justify-content-center" style="width: 1050px;">
+					<div class="d-flex align-items-start" style="width: 40%; max-width: 420px;">
 						<c:if test="${empty loginUserDto.memno}">
 							<button class="ms-1 btn btn-outline-primary btn-sm w-10" onclick="redirectLogin()"><span style="font-size: 14px;">목록</span></button>
 						</c:if>
@@ -210,7 +210,7 @@
 					</div>
 			
 			
-				<div class="d-flex justify-content-end" style="width: 60%; max-width: 450px;">
+				<div class="d-flex justify-content-end" style="width: 60%; max-width: 630px;">
 						<c:if test="${empty loginUserDto.memno}">
 							<button class="ms-1 btn btn-outline-primary btn-sm w-10" onclick="redirectLogin()"><span style="font-size: 14px;">신고하기</span></button>
 						</c:if>

@@ -28,7 +28,7 @@
 <c:set var="addrToSearch" value="${addrToSearch}" />
 
 	<div class="w-100 d-flex justify-content-center">
-		<div class="p-3" style="width: 850px;">
+		<div class="p-3" style="width: 1150px;">
 			<ul class="w-100 list-inline">
 					<div class="float-start">
 						<li class="list-inline-item">
@@ -52,7 +52,7 @@
 	</div>
 
 
-	<div class="px-5 container-md" style="max-width: 900px">
+	<div class="px-5 container-md" style="max-width: 1190px">
  		<c:forEach items="${bizHomeSearch }" var="bizHome" varStatus="bizHomeStatus">
 			<div style="float: left; margin: 1%; cursor: pointer;"
 				onclick="location.href='/ibara/biz/home/bizHome?inteno=${bizHome.inteno}'">
@@ -98,7 +98,7 @@
 
 	<div class="p-3 container-md" style="width: 99%">	
 		<div class="w-100 d-flex justify-content-center">
-				<img class="w-75 px-4" id="mgzBanner" style="max-width: 840px; border-radius: 5%; cursor:pointer; " src="../../resources/img/bizimg/mgz_banner.jpg" alt="mgz_banner" onclick="location.href='/ibara/biz/magazine/bizMgzContentView?bm_no=1'" />
+				<img class="w-100 px-4" id="mgzBanner" style="max-width: 1100px; border-radius: 5%; cursor:pointer; " src="../../resources/img/bizimg/mgz_banner.jpg" alt="mgz_banner" onclick="location.href='/ibara/biz/magazine/bizMgzContentView?bm_no=1'" />
 		</div>
 	</div>
 

@@ -28,8 +28,8 @@
 	}
 	#topBtn{
 	   position: fixed;
-	   right: 4%;
-	   bottom: 5%;
+	   right: 12.5%;
+	   bottom: 3%;
 	   display: none;
 	   /* z-index: 9999; */
 	}	
@@ -231,7 +231,7 @@ $(document).ready(function () {
 <body>
 <div class="pt-3 bg-light bg-opacity-75">
 	<div class="d-flex justify-content-center">
-		<div class="p-3" style="width: 750px; cursor:pointer;" >
+		<div class="p-3" style="width: 1000px; cursor:pointer;" >
 					<ul class="list-inline">
 						<li class="list-inline-item" onclick="location.href='bizAddrSearch'" style="cursor:pointer;">
 							<h4 style="--bs-text-opacity: 1; background-color: #1034a6; padding: 3px; !important;">
@@ -264,8 +264,8 @@ $(document).ready(function () {
 	</div>
 	
 	<div class="d-flex justify-content-center">	
-		<div class="px-5" style="width: 750px;">
-			<div class="input-group pb-4" style="max-width: 1100px">
+		<div class="px-5" style="width: 1150px;">
+			<div class="input-group pb-4" style="max-width: 1150px">
 			      <input type="text" class="form-control" id="addrSigungu" placeholder="시공하실 주소 검색하기" onclick="popUpAddrSearch();" readonly />
 		      <button class="btn btn-primary btn-sm" type="button" style="cursor:pointer; " onclick="popUpAddrSearch();">주소변경</button>
 		    </div>
@@ -280,7 +280,7 @@ $(document).ready(function () {
 
 <div class="sortResult">
 	<div class="w-100 d-flex justify-content-center">
-		<div class="p-3" style="width: 850px;">
+		<div class="p-3" style="width: 1150px;">
 			<ul class="w-100 list-inline">
 					<div class="float-start">
 						<li class="list-inline-item">
@@ -302,7 +302,7 @@ $(document).ready(function () {
 		</div>
 	</div>
 
-		<div class="px-5 pt-2 container-md" style="max-width: 900px">
+		<div class="px-5 pt-2 container-md" style="max-width: 1190px">
 			<c:forEach items="${bizHomeSearch }" var="bizHome" varStatus="bizHomeStatus">
 							<div style="float: left; margin: 1%; cursor:pointer;" onclick="location.href='/ibara/biz/home/bizHome?inteno=${bizHome.inteno}'" class="home${searchVO.rowEndMore}">
 								<div class="card border-light mb-2" style="width: 250px; height: 280px;">
@@ -314,7 +314,7 @@ $(document).ready(function () {
 										<c:if test="${status.last }">
 											<c:choose>
 												<c:when test="${token eq 'jpg' || token eq 'png' || token eq 'jpeg'}">		
-														<img src="../../resources/upload/biz/home/${bizHome.bh_img }" alt="${bizHome.bh_img }" width="250" height="150" style="border-top-left-radius: 3.5%; border-top-right-radius: 3.5%;"/>
+														<img src="../../resources/upload/biz/home/${bizHome.bh_img }" alt="${bizHome.bh_img }" width="248" height="150" style="border-top-left-radius: 3.5%; border-top-right-radius: 3.5%;"/>
 												</c:when>
 											<c:otherwise> <img src="#" alt="엑스박스" value="엑스박스" /></c:otherwise>		
 											</c:choose>
@@ -336,7 +336,7 @@ $(document).ready(function () {
 		
 		<div class="p-3 container-md" style="width: 99%">	
 			<div class="w-100 d-flex justify-content-center">
-					<img class="w-75 px-4" id="mgzBanner" style="max-width: 840px; border-radius: 5%; cursor:pointer; " src="../../resources/img/bizimg/mgz_banner.jpg" alt="mgz_banner" onclick="location.href='/ibara/biz/magazine/bizMgzContentView?bm_no=1'" />
+					<img class="w-100 px-4" id="mgzBanner" style="max-width: 1100px; border-radius: 5%; cursor:pointer; " src="../../resources/img/bizimg/mgz_banner.jpg" alt="mgz_banner" onclick="location.href='/ibara/biz/magazine/bizMgzContentView?bm_no=1'" />
 			</div>
 		</div>
 	</div>

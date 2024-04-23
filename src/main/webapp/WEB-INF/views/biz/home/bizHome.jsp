@@ -210,7 +210,7 @@ $(document).ready(function() {
 <jsp:include page="../../modal/mMain.jsp" />
 <div class="pt-3 bg-light bg-opacity-75">
 	<div class="d-flex justify-content-center">
-		<div class="px-3 pb-1" style="width: 750px" >
+		<div class="px-3 pb-1" style="width: 1050px" >
 					<ul class="list-inline">
 						<li class="list-inline-item">
 							<h4 style="--bs-text-opacity: 1; background-color: #1034a6; padding: 3px; !important;">
@@ -225,15 +225,15 @@ $(document).ready(function() {
 	</div>
 	
 	<div class="d-flex justify-content-center">	
-		<div class="px-5" style="width: 900px;">
+		<div class="px-5" style="width: 1100px;">
 			<div class="input-group d-flex justify-content-center" style="max-width: 1100px">
-			    <img src="../../resources/upload/biz/home/${bizHome.bh_img }" onclick="location.href='/ibara/biz/home/bizHome?inteno=${bizHome.inteno}'"  style="width: 700px; height: 240px; border-top-left-radius: 1%; border-top-right-radius: 1%; cursor:pointer;">  
+			    <img src="../../resources/upload/biz/home/${bizHome.bh_img }" onclick="location.href='/ibara/biz/home/bizHome?inteno=${bizHome.inteno}'"  style="width: 1000px; height: 240px; border-top-left-radius: 1%; border-top-right-radius: 1%; cursor:pointer;">  
 			</div>   
 		</div>
 	</div>
 		
 		<div class="d-flex justify-content-center" >
-			<div class="ps-2 pe-3 py-3" style="width: 700px;  background-color: #e2f0fe; border-bottom-left-radius: 3.5%; border-bottom-right-radius: 3.5%;">
+			<div class="ps-2 pe-3 py-3" style="width: 1000px;  background-color: #e2f0fe; border-bottom-left-radius: 3.5%; border-bottom-right-radius: 3.5%;">
 				<div class="px-2">
 					<div onclick="location.href='/ibara/biz/home/bizRvListUnder?inteno=${bizHome.inteno}'" style="display: inline; cursor: pointer;"><span style="color: gold; font-size: 14px;">★</span> <strong style="font-size: 14px;">${bizHomeRvPointAvg }</strong></div>
 					&nbsp;
@@ -247,7 +247,7 @@ $(document).ready(function() {
 		</div>
 		
 		<div class="d-flex justify-content-evenly" >
-			<div class="py-2" style="width: 700px;">		
+			<div class="py-2" style="width: 1000px;">		
 				<div class="gap-2 d-flex justify-content-evenly">
 					<div style="display: inline; width: 33%">
 						<button class="btn btn-secondary btn-lg w-100" onclick="location.href='../home/bizHomeMap?inteno=${inteno }'"><span style="font-size: 16px;">지도 보기</span> </button>
@@ -290,7 +290,7 @@ $(document).ready(function() {
 </div>
 
 <div class="d-flex justify-content-evenly">
-	<div class="ps-2 pe-3 d-flex justify-content-evenly" style="width: 700px;">
+	<div class="ps-2 pe-3 d-flex justify-content-evenly" style="width: 1000px;">
 			<button class="btn btn-link" style="border: 0px; text-decoration: none; color: #1a1f27; justify-content: center;" onclick="returnToHome()"><span id="homeSpn">홈</span></button>
 			<c:if test="${empty loginUserDto.memno}">
 				<button class="btn btn-link" style="border: 0px; text-decoration: none; color: #1a1f27; justify-content: center;" onclick="redirectLogin()"><span id="casesSpn">시공사례</span></button>
@@ -304,13 +304,13 @@ $(document).ready(function() {
 	</div>
 </div>
 <div class="d-flex justify-content-center" style="height: 1px; margin: 1px; padding: 0px;">
-	<hr style="height: 1px; width: 680px; margin: 5px;"/>
+	<hr style="height: 1px; width: 960px; margin: 5px;"/>
 </div>
 <br />
 <div class="clickResult">
 	
 	<div class="d-flex justify-content-evenly pb-2">
-		<div class="px-3 d-flex justify-content-evenly" style="width: 660px;">
+		<div class="px-3 d-flex justify-content-evenly" style="width: 920px;">
 			<div class="card" style="width: 100%; background-color: #e2f0fe; border:#f9fafb; cursor: pointer;" onclick="loadHomeInfo()" >
 			  <div class="card-body">
 			    <p class="card-text px-5 text-center" style="font-size: 14px;">${bizHome.bh_notice }</p>
@@ -320,7 +320,7 @@ $(document).ready(function() {
 	</div>
 	
 	<div class="d-flex justify-content-evenly">
-		<div class="p-3 d-flex" style="width: 660px;">
+		<div class="p-3 d-flex" style="width: 940px;">
 					<c:if test="${empty loginUserDto.memno}">
 						<span onclick="redirectLogin()" style="font-size: 14px; cursor: pointer;"><strong style="background-color: #f9fafb">시공사례 (${bizHomeCasesCnt })</strong></span>
 					</c:if>
@@ -331,7 +331,7 @@ $(document).ready(function() {
 	</div>
 	
 	<div class="d-flex justify-content-evenly">
-		<div class="p-3 d-flex justify-content-evenly" style="width: 700px;">
+		<div class="p-3 d-flex justify-content-evenly" style="width: 1000px;">
 			<div width="100%">
 				<c:forEach items="${bizHomeCasesImgList }" var="hc_img">
 					<c:if test="${hc_img.bcimg_cgn ne null }">
@@ -341,7 +341,7 @@ $(document).ready(function() {
 						<c:if test="${status.last }">
 							<c:choose>
 								<c:when test="${token eq 'jpg' || token eq 'png' || token eq 'jpeg'}">											
-									<img src="../../resources/upload/biz/cases/${hc_img.bcimg_cgn }" alt="${hc_img.bcimg_cgn }" width="29%" height="102px" style="cursor:pointer;"
+									<img src="../../resources/upload/biz/cases/${hc_img.bcimg_cgn }" alt="${hc_img.bcimg_cgn }" width="29%" height="151px" style="cursor:pointer;"
 									onclick="location.href='../cases/bizCasesContentView?bc_no=${hc_img.bc_no }'"/>
 								</c:when>
 								<c:otherwise> </c:otherwise>		
@@ -363,7 +363,7 @@ $(document).ready(function() {
 	</div>
 	
 	<div class="d-flex justify-content-evenly">
-		<div class="p-3 d-flex" style="width: 660px;">
+		<div class="p-3 d-flex" style="width: 940px;">
 					<c:if test="${empty loginUserDto.memno}">
 						<span onclick="redirectLogin()"  style="font-size: 14px; cursor: pointer;"><strong style="background-color: #f9fafb">시공리뷰 (${bizHomeRvCnt })</strong></span>
 					</c:if>
@@ -374,7 +374,7 @@ $(document).ready(function() {
 	</div>
 	
 	<div class="d-flex justify-content-evenly">
-		<div class="px-3 pb-3 d-flex justify-content-evenly" style="width: 700px;">
+		<div class="px-3 pb-3 d-flex justify-content-evenly" style="width: 1000px;">
 			<div style="width: 83%">
 				<table style="border-collapse: separate; border-spacing: 10px;">
 					<c:forEach items="${bizHomeRvImgList }" var="hr_img">

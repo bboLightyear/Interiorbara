@@ -32,8 +32,8 @@
 	 
 	#topBtn{
    	position: fixed;
-  	 right: 4%;
-   	bottom: 5%;
+	   right: 12.5%;
+	   bottom: 3%;
    	display: none;
    	/* z-index: 9999; */
 	}	 

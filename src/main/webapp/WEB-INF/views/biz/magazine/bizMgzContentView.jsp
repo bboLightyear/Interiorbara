@@ -45,8 +45,8 @@
 	
 	#topBtn{
    	position: fixed;
-  	 right: 4%;
-   	bottom: 5%;
+	   right: 12.5%;
+	   bottom: 3%;
    	display: none;
    	/* z-index: 9999; */
 	}	
@@ -55,7 +55,7 @@
 <body>
 	<div class="pt-3 bg-light bg-opacity-75">
 	<div class="d-flex justify-content-center">
-		<div class="p-3" onclick="location.href='bizMgzList'" style="width: 750px; cursor:pointer;" >
+		<div class="p-3" onclick="location.href='bizMgzList'" style="width: 1150px; cursor:pointer;" >
 					<ul class="list-inline">
 						<li class="list-inline-item">
 							<h4 style="--bs-text-opacity: 1; background-color: #1034a6; padding: 3px; !important;">
@@ -79,20 +79,20 @@
 	</div>
 
 	<div class="d-flex justify-content-center">
-		<div class="p-3" style="width: 750px">
-			<table class="table" style="width: 100%; max-width: 750px">
+		<div class="p-3" style="width: 1050px">
+			<table class="table" style="width: 100%; max-width: 1050px">
 				<tr class="">
-				    <th style="width:25%" scope="row" class="table-light border-light-subtle">번호</th>
+				    <th style="width:25%" scope="row" class="table-light border-light-subtle align-middle">번호</th>
 					<td class="center" style="width:25%">${bizMgzContentView.bm_no }</td>
-					<th style="width:25%" scope="row"  class="table-light border-light-subtle">HIT</th>
+					<th style="width:25%" scope="row"  class="table-light border-light-subtle align-middle">HIT</th>
 					<td class="center" style="width:25%">${bizMgzContentView.bm_hit }</td>
 				</tr>	
 				<tr class="">
-				     <th scope="row"  class="table-light border-light-subtle">작성자</th>
+				     <th scope="row"  class="table-light border-light-subtle align-middle">작성자</th>
 					<td colspan="3">${bizMgzContentView.bm_writer } </td>
 				</tr>		
 				<tr class="">
-				      <th scope="row" class="table-light border-light-subtle">제목</th>
+				      <th scope="row" class="table-light border-light-subtle align-middle">제목</th>
 					<td colspan="3">${bizMgzContentView.bm_title }</td>
 				</tr>		
 				<tr class="">
@@ -106,7 +106,7 @@
 								<c:if test="${status.last }">
 									<c:choose>
 										<c:when test="${token eq 'jpg' || token eq 'png' || token eq 'jpeg'}">
-											<img class="pb-3" src="../../resources/upload/biz/mgz/${imgdto.bmimg_cgn }" alt="${imgdto.bmimg_cgn }" width="60%" />
+											<img class="pb-3" src="../../resources/upload/biz/mgz/${imgdto.bmimg_cgn }" alt="${imgdto.bmimg_cgn }" width="100%" />
 										</c:when>
 									<c:otherwise>그림이 아닌 다른 형식 파일입니다.</c:otherwise>		
 									</c:choose>
@@ -118,7 +118,7 @@
 					${bizMgzContentView.bm_content }</td>
 				</tr>
 				<tr class="">
-					<td class="table-light border-light-subtle">첨부</td>
+					<td class="center table-light border-light-subtle align-middle">첨부</td>
 					<td colspan="3">
 					<%-- <a href="bizCasesDownload?p=resources/upload/biz/cases/&f=${bizCasesContentView.bc_img }
 						&bc_no=${bizCasesContentView.bc_no }">${bizCasesContentView.bc_img }</a> --%>
@@ -133,13 +133,13 @@
 			
 									
 			<div class="d-flex justify-content-evenly">
-				<div class="d-flex justify-content-center" style="width: 750px;">
-					<div class="d-flex align-items-start" style="width: 40%; max-width: 300px;">
+				<div class="d-flex justify-content-center" style="width: 1050px;">
+					<div class="d-flex align-items-start" style="width: 40%; max-width: 420px;">
 							<button class="ms-1 btn btn-outline-primary btn-sm w-10" onclick="location.href='bizMgzList'"><span style="font-size: 14px;">목록</span></button>	
 					</div>
 			
 			
-				<div class="d-flex justify-content-end" style="width: 60%; max-width: 450px;">
+				<div class="d-flex justify-content-end" style="width: 60%; max-width: 630px;">
 						<c:if test="${empty loginUserDto.memno}">
 						</c:if>
 						<c:if test="${not empty loginUserDto.memno}">

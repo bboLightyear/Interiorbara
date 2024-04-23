@@ -43,8 +43,8 @@
 	
 	#topBtn{
 	   position: fixed;
-	   right: 4%;
-	   bottom: 5%;
+	   right: 12.5%;
+	   bottom: 3%;
 	   display: none;
 	   /* z-index: 9999; */
 	}	
@@ -82,7 +82,7 @@
 <main class="Site-content">
 	<div class="pt-3 bg-light bg-opacity-75">
 	<div class="d-flex justify-content-center">
-		<div class="p-3"  onclick="location.href='bizCasesList?inteno=${inteno}'" style="width: 750px; cursor:pointer;" >
+		<div class="p-3"  onclick="location.href='bizCasesList?inteno=${inteno}'" style="width: 1150px; cursor:pointer;" >
 					<ul class="list-inline">
 						<li class="list-inline-item">
 							<h4 style="--bs-text-opacity: 1; background-color: #1034a6; padding: 3px; !important;">
@@ -110,8 +110,8 @@
 <input type="hidden" name="inteno" value="${loginUserDto.myinteriordto.inteno }" />
 <input type="hidden" name="bc_writer" value="${loginUserDto.nickname }" />
 	<div class="d-flex justify-content-center">
-		<div class="p-3" style="width: 750px">
-			<table class="table" style="width: 100%; max-width: 750px">
+		<div class="p-3" style="width: 1050px">
+			<table class="table" style="width: 100%; max-width: 1050px">
 				<tr>
 				    <th scope="row" class="table-light border-light-subtle">이름</th>
 					<td colspan="3">
@@ -127,7 +127,7 @@
 				<tr>
 				    <th scope="row" class="table-light border-light-subtle">내용</th>
 					<td colspan="3">
-						<textarea class="form-control" name="bc_content" id="bc_content" rows="10" onfocus="this.value='';">내용을 입력해 주세요.</textarea>
+						<textarea class="form-control" name="bc_content" id="bc_content" rows="10"> </textarea>
 					</td>
 				</tr>
 				<tr>
@@ -140,8 +140,8 @@
 			
 						
 			<div class="d-flex justify-content-evenly">
-				<div class="d-flex justify-content-center" style="width: 750px;">
-				<div class="d-flex justify-content-end" style="width: 99%; max-width: 720px;">
+				<div class="d-flex justify-content-center" style="width: 1150px;">
+				<div class="d-flex justify-content-end" style="width: 99%; max-width: 1120px;">
 					<c:choose>
 						<c:when test="${loginUserDto.myinteriordto.inteno eq inteno}">
 							<input type="submit" value="글쓰기"  class="ms-1 btn btn-outline-primary btn-sm w-10">
