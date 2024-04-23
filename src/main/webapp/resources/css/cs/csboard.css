@@ -373,10 +373,10 @@
     display: flex;
 }
 .cs_list_writebtn:hover {
-    border-color: lightskyblue; /* 마우스를 올렸을 때 링크 텍스트의 색을 빨간색으로 변경 */
+    border-color: #1034a6; /* 마우스를 올렸을 때 링크 텍스트의 색을 빨간색으로 변경 */
 }
  .cs_list_writebtn:hover .cs_list_writebtn_a {
-    color: lightskyblue;
+    color: #1034a6;
   }
 .cs_list_writebtn_a{
 	text-decoration: none;
@@ -411,8 +411,13 @@
 	margin-top: 20px;
 }
 .cs_list_head_wrap_span{
-	margin-top: 5px;
-	margin-left: 5px;
+	margin-top: 10px;
+	margin-left: 0px;
+}
+.cs_list_head_span{
+	color: darkgray;
+	font-size: 15px;
+	font-weight: 600;
 }
 .cs_content_head{
 	width: 850px;
@@ -442,6 +447,11 @@
 	display: flex;
 	flex-direction: column;
     align-items: center;
+}
+.cs_content_section2_content_p{
+	color: black;
+	font-size: 17px;
+	font-weight: 600;
 }
 .cs_content_section2_img{
 	max-width: 350px;
@@ -642,19 +652,19 @@
     display: flex;
 }
 .cs_content_editbtn:hover {
-    border-color: lightskyblue; /* 마우스를 올렸을 때 링크 텍스트의 색을 빨간색으로 변경 */
+    border-color: #1034a6; /* 마우스를 올렸을 때 링크 텍스트의 색을 빨간색으로 변경 */
 }
 .cs_content_editbtn_a{
 	text-decoration: none;
 	color: gray;
 }
  .cs_content_editbtn:hover .cs_content_editbtn_a {
-    color: lightskyblue;
+    color: #1034a6;
 }
 .cs_content_delbtn{
 	width: 80px; 
     height: 38px;
-    border: 1px solid lightskyblue;
+    border: 1px solid #1034a6;
     border-radius: 40px;
     align-items: center;
     padding-left: 10px;
@@ -668,7 +678,7 @@
 }
 .cs_content_delbtn_a{
 	text-decoration: none;
-	color: lightskyblue;
+	color: #1034a6;
 }
  .cs_content_delbtn:hover .cs_content_delbtn_a {
     color: gray;

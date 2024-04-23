@@ -50,10 +50,21 @@
 
 
 			<div class="cs_list_head_wrap_span">
-				<span>작성자 : ${qna_content.qbwriter }&nbsp;</span> 
-				<span>조회수 : ${qna_content.qbhit }&nbsp;</span> 
-				<span>${qna_content.qbqnadiv } &nbsp;</span> 
-				<span>
+				<span class="cs_list_head_span">작성자 : ${qna_content.qbwriter }&nbsp;</span>
+				<span class="cs_list_head_span">조회수 : ${qna_content.qbhit }&nbsp;</span>  
+				<c:if test="${qna_content.qbqnadiv eq 'qq'}">
+					<span class="cs_list_head_span">퀵견적 관련 &nbsp;</span>
+				</c:if> 
+				<c:if test="${qna_content.qbqnadiv eq 'oh'}">
+					<span class="cs_list_head_span">우리집 자랑 관련 &nbsp;</span>
+				</c:if> 
+				<c:if test="${qna_content.qbqnadiv eq 'pf'}">
+					<span class="cs_list_head_span">로그인/회원정보 &nbsp;</span>
+				</c:if> 
+				<c:if test="${qna_content.qbqnadiv eq 'sh'}">
+					<span class="cs_list_head_span">소품샵 관련 &nbsp;</span>
+				</c:if> 
+				<span class="cs_list_head_span">
 					<fmt:formatDate value="${qna_content.qbdate}" pattern="yy/MM/dd" />&nbsp;
 				</span>
 			</div>
@@ -63,11 +74,14 @@
 	<div class="cs_qnaboard_whitespace">
 		<!--여백-->
 	</div>
+	<div class="cs_qnaboard_whitespace">
+		<!--여백-->
+	</div>
 
 	<section class="cs_content_section2">
 
 		<div class="cs_content_section2_content">
-			<p style="margin: 0">${qna_content.qbcontent }</p>
+			<p style="margin: 0" class="cs_content_section2_content_p">${qna_content.qbcontent }</p>
 		</div>
 
 		<div class="cs_qnaboard_whitespace">

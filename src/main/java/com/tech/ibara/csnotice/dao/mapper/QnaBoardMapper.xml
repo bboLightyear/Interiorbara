@@ -41,16 +41,12 @@
    </sql>
 
 
-   <select id="qnalist" resultType="com.tech.ibara.csnotice.dto.QnaDto">
-      SELECT
-      QBNO,QBWRITER,QBTITLE,QBCONTENT,QBDATE,QBHIT,QBGROUP,QBSTEP,QBINDENT,QBQNADIV
-      FROM (SELECT ROWNUM NUM,N.*
-      FROM (SELECT
-      QBNO,QBWRITER,QBTITLE,QBCONTENT,QBDATE,QBHIT,QBGROUP,QBSTEP,QBINDENT,QBQNADIV
-      FROM CS_QNABOARD
-      ORDER BY QBGROUP DESC,QBSTEP ASC)N
-      <include refid="includqnalist" />
-      )WHERE NUM BETWEEN #{param1} AND #{param2}
+   <select id="qnalist" resultType="com.tech.ibara.csnotice.dto.QnaDto">      
+         SELECT 
+        QBNO, QBWRITER, QBTITLE, QBCONTENT, QBDATE, QBHIT, QBGROUP, QBSTEP, QBINDENT, QBQNADIV FROM 
+        (SELECT ROWNUM NUM,N.* FROM (SELECT QBNO, QBWRITER, QBTITLE, QBCONTENT, QBDATE, QBHIT, QBGROUP, QBSTEP, QBINDENT, QBQNADIV 
+        FROM CS_QNABOARD <include refid="includqnalist" /> ORDER BY QBNO DESC ) N
+        )WHERE NUM BETWEEN #{param1} AND #{param2}
    </select>
 
    <select id="selectBoardTotalCount1" resultType="Integer">
