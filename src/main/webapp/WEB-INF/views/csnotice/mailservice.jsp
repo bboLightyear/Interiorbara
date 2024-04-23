@@ -11,77 +11,8 @@
 <!-- <link rel="stylesheet" type="text/css" href="mainCSS/main.css" /> -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css" />
 </head>
-<!-- 헤더 -->
-<header>
-	<!-- header_top : 헤더 윗부분 -->
-	<div class="header_top">
-		<!-- 왼쪽 여백 -->
-		<div></div>
-		<!-- header_logo : 로고 -->
-		<div class="header_logo">
-			<img src="resources/img/mainimg/main_logo.jpg" alt="#" onclick="location.href='main'" />
-		</div>
-		<!-- header_search_box : 검색창 -->
-		<div class="header_search_box">
-			<form action="mainSearchView" method="get">
-				<i class="fas fa-search header_search_box_icon"></i> <input
-					type="text" name="mainSearchContent" value="${mainSearchContent }"
-					class="header_search_box_input" placeholder="검색">
-			</form>
-		</div>
-		<!-- header_login_box : 회원관리부분 -->
-		<div class="header_login_box">
-		<!-- 로그인 세션 부분 -->
-			<c:choose>
-			   <c:when test="${loginUserDto eq null }">
-	   				<div class="header_login">
-						<a href="my/loginform">로그인</a>
-					</div>
-					<div class="header_join">
-						<a href="my/joinform">회원가입</a>
-					</div>
-			   </c:when>
-			   <c:otherwise>
-				${loginUserDto.nickname }님 로그인 되었습니다. <br />
-				${loginUserDto.memno}번 회원님 로그인 되었습니다. <br />   
-				${loginUserDto.email}님 로그인 되었습니다.<br />
-   					<div class="header_login">
-						<a href="my/logout">로그아웃</a>
-					</div>
-					<div class="header_join">
-						<a href="my/mypage">mypage</a>
-					</div>
-			   </c:otherwise>
-			</c:choose>
-		</div>
+<%@include file ="header.jsp" %>
 
-		<!-- 오른쪽 여백 -->
-		<div></div>
-	</div>
-	<!-- header_bottom : 헤더 아랫부분 -->
-	<div id="header_bottom" class="header_bottom">
-		<!-- header_category_icon : 카테고리 아이콘 -->
-		<div class="header_category_icon">
-			<i class="fas fa-bars"></i>
-		</div>
-		<!-- header_category_list : 카테고리 / list_1~5 : list에 각각 들어갈 내용 -->
-		<div class="header_category_list list_1">
-			<a href="#" class="openModal">퀵견적</a>
-		</div>
-		<div class="header_category_list list_2">
-			<a href="shop/list">소품샵</a>
-		</div>
-		<div class="header_category_list list_3">
-			<a href="biz/magazine/bizMgzList">업체 둘러보기</a>
-		</div>
-		<div class="header_category_list list_4">
-			<a href="oh/OHMainView">우리 집 자랑하기</a>
-		</div>
-		<div class="header_category_list list_5">
-			<a href="cshome">고객센터</a>
-		</div>
-	</div>
-</header>
 <body>
 
 	<div class="cs_mail_wrap_all">
@@ -144,21 +75,21 @@
 				</div><!--cs_write_wrap_form_content-->
 			</div><!--cs_write_wrap_form_wrap_content-->
 		
-			<div class="cs_write_wrap_form_wrap_filebtn">
+			<!-- <div class="cs_write_wrap_form_wrap_filebtn">
 				<label for="file-upload" class="custom-file-upload">
 	   				<i class="fa fa-cloud-upload"></i> 파일 첨부하기
 				</label>
 						
 				<input id="file-upload" type="file" class="cs_write_wrap_form_filebtn" name="mailfile" multiple="multiple" style="display: none;" onchange="displayFileName(this)"/>
-							<!-- <input type="file" class="cs_write_wrap_form_filebtn" name="qbfile" multiple="multiple" /> -->
-			</div><!--cs_write_wrap_form_wrap_filebtn-->
+							<input type="file" class="cs_write_wrap_form_filebtn" name="qbfile" multiple="multiple" />
+			</div>cs_write_wrap_form_wrap_filebtn
 					
 			<div class="cs_write_wrap_form_file_wrap_display">
 				<div id="file-name-display-a" class="cs_write_wrap_form_file_display">
 					<p style="margin: 0; border-bottom: 1px;">첨부된 파일</p>
 					<div class="" id="file-name-display"> </div>					
 				</div>
-			</div>
+			</div> -->
 					
 			<script>// 사진 첨부 후에 첨부한 사진 리스트 나오도록 하는 스크립트
 				function displayFileName(input) {
@@ -194,26 +125,5 @@
 	
 	</div><!--cs_mail_wrap_all  -->
 </body>
-<!-- 푸터 -->
-<footer>
-	<!-- 푸터 로고 -->
-	<div class="footer_logo">
-		<img src="resources/img/mainimg/footer_logo.PNG" alt="#"
-			onclick="location.href='main'" />
-	</div>
-	<!-- 푸터 내용 -->
-	<div class="footer_content">(주) 카피바라 주소 : 대한민국 서울시 양천구 목동 655-19
-		대표 : 조보근 전화번호 : 010-3017-5283</div>
-	<!-- sns 아이콘 -->
-	<div class="footer_sns">
-		<a href="https://www.facebook.com/"><i
-			class="fab fa-facebook fa-lg"></i></a> <a
-			href="https://www.youtube.com/"><i class="fab fa-youtube fa-lg"></i></a>
-		<a href="https://www.twitter.com/"><i
-			class="fab fa-twitter fa-lg"></i></a> <a href="https://www.twitch.tv/"><i
-			class="fab fa-twitch fa-lg"></i></a> <a
-			href="https://www.instagram.com/"><i
-			class="fab fa-instagram fa-lg"></i></a>
-	</div>
-</footer>
+<%@include file ="footer.jsp" %>
 </html>
