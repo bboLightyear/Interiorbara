@@ -41,10 +41,10 @@ header {
 /* 로고 이미지 */
 .header_logo {
 	display: inline-block;
-	margin-top: 5px;
-	margin-left: 150px;
+	margin-top: 2px;
+	margin-left: 125px;
 	width: 400px;
-	height: 50px;
+	height: 63px;
 	object-fit: fill;
 	cursor: pointer;
 }
@@ -60,7 +60,7 @@ header {
 .header_search_box {
 	margin-top: 5px;
 	display: inline-block;
-	width: 40%;
+	width: 700px;
 	height: 30px;
 	border: 1px solid #b1b8c0;
 	border-radius: 10px;
@@ -96,9 +96,6 @@ header {
 	background-color: #e2f0fe;
 }
 
-.header_search_box_icon {
-	margin-right: 10px;
-}
 /* 회원관리부분 */
 .header_login_box {
 	margin-top: 25px;
@@ -106,6 +103,13 @@ header {
 	width: fit-content;
 	height: 30px;
 	font-size: 12px;
+}
+.header_nickname{
+	float: left;
+	padding-right: 10px;
+	width: fit-content;
+	height: fit-content;
+	cursor: pointer;
 }
 /* 로그인 */
 .header_login {
@@ -182,7 +186,9 @@ header {
 	transition: 0.1s;
 	font-size: 18px;
 }
-
+.list_1{
+	border-left: none;
+}
 .mypage_category {
 	margin: 0;
 	padding: 0;
