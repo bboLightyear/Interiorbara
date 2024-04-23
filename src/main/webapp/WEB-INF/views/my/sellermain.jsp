@@ -40,9 +40,9 @@ document.title = "판매자 마이페이지";
     </div>
     <div class="company_container">
 		<div class="row">
-			<div class="col-md-6">
+			<!-- <div class="col-md-6">
 				<canvas id="myChart1"></canvas>
-			</div>
+			</div> -->
 			<%-- <div class="col-md-6">
 				<canvas id="myChart2"></canvas>
 			</div> --%>

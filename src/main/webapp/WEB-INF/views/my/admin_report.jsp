@@ -58,7 +58,7 @@ tr:nth-child(even) {background-color: #fefefe;}
 		</c:forEach>	
 	</table>
 	<div>
-		<a id="topBtn" href="#"><img alt="" src="${path}/resources/img/my/fromtop.png"></a>		
+		<a id="topBtn" href="#"><img alt="" src="${path}/resources/img/my/fromtop.png"></a>
 	</div>
 <script>
 $(function() {

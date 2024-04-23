@@ -53,10 +53,6 @@
 		    	<label>멤버타입<br /></label>
 		    	<p id="memtype"></p>		    
 		    </div>
-		    <!-- <div  class="myPage-row">
-		    	<label>최근로그인 날짜<br /></label>
-		    	<p></p>		    
-		    </div> -->
 		    <div  class="myPage-row">
 		    	<label>최근올린사진<br /></label>
 		    </div>
