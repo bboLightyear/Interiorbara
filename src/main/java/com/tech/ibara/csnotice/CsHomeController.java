@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.tech.ibara.csnotice.service.CsHomeQnaNoticeService;
 import com.tech.ibara.csnotice.service.CsHomeService;
@@ -50,10 +51,10 @@ public class CsHomeController {
 	}//mailservice
 	
 	@RequestMapping("/mailsend")
-	public String mailsend(HttpServletRequest request, Model model) throws AddressException, MessagingException {
+	public String mailsend(MultipartHttpServletRequest mftrequest, Model model) throws AddressException, MessagingException {
 		System.out.println("mailsend()controller");
 		
-		model.addAttribute("request",request);
+		model.addAttribute("mftrequest",mftrequest);
 		
 		csHomeService= new CsMailService();
 		csHomeService.execute(model);
