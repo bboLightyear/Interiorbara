@@ -67,7 +67,6 @@
     line-height: 50px;
     text-align: center;
     background-color: #1e90ff;
-    font-weight: bold;
     color: #1a1f27;
 	border-top-left-radius: 10px;
 	border-top-right-radius: 10px;    
@@ -148,8 +147,7 @@
     height: 50px;
     line-height: 50px;
     text-align: center;
-    background-color: #1e90ff;
-    font-weight: bold;  
+    background-color: #1e90ff;  
     color: #1a1f27;	  
 }
 #OHPhotoView-main-2-filtering-pb_residence-lable {
@@ -291,8 +289,7 @@
     height: 50px;
     line-height: 50px;
     text-align: center;
-    background-color: #1e90ff;    
-    font-weight: bold;    
+    background-color: #1e90ff;      
 	color: #1a1f27;   
 	border-bottom-left-radius: 10px;
 	border-bottom-right-radius: 10px;	     
@@ -478,10 +475,10 @@
 }
 #OHPhotoView-photoProfileImage {
     position: absolute;
-    top: 0px;
-    left: 0px;
-    width: 60px;
-    height: 60px;
+    top: 10px;
+    left: 10px;
+    width: 40px;
+    height: 40px;
     border-radius: 50%;
 	transition: 0.5s ease;
 }
@@ -565,67 +562,75 @@
 }
 .OHPhotoView-likeImage {
     position: absolute;
+    top: 10px;
     left: 20px;
-    width: 40px;
-    height: 40px;
+    width: 25px;
+    height: 25px;
     line-height: 100%;
-    font-size: 40px;
+    text-align: center;
+    font-size: 25px;
     display: inline-block;
     color: #1a1f27;
-	transition: 0.5s ease;    
+	transition: 0.5s ease; 
 }	
 .OHPhotoView-likeImage.clickColor {
     color: #1034a6;
 }
 .OHPhotoView-likeImage:hover {
-	font-size: 41px;
+	font-size: 26px;
 	cursor:pointer;	
 }
 .OHPhotoView-likeNumber {
     position: absolute;
-    left: 70px;
-    width: 50px;
-    height: 40px;
-    line-height: 40px; 
+    top: 10px;
+    left: 50px;
+    width: 40px;
+    height: 25px;
+    line-height: 25px; 
     text-align: center;   
-    color: #1a1f27; 
+    color: #1a1f27;
 }
 .OHPhotoView-scrapImage {
     position: absolute;
-    left: 130px;
-    width: 40px;
-    height: 40px;
+    top: 10px;
+    left: 140px;
+    width: 25px;
+    height: 25px;
     line-height: 100%;
-    font-size: 40px;
+    text-align: center;
+    font-size: 25px;
     display: inline-block;
     color: #1a1f27;
-	transition: 0.5s ease;        
+	transition: 0.5s ease;      
 }
 .OHPhotoView-scrapImage.clickColor {
     color: #1034a6;
 }
 .OHPhotoView-scrapImage:hover {
-	font-size: 41px;
+	font-size: 26px;
 	cursor:pointer;	
 }
 .OHPhotoView-scrapNumber {
     position: absolute;
-    left: 180px;
-    width: 50px;
-    height: 40px;
-    line-height: 40px; 
+	top: 10px;    
+    left: 170px;
+    width: 40px;
+    height: 25px;
+    line-height: 25px; 
     text-align: center;   
-    color: #1a1f27; 
+    color: #1a1f27;
 }
 .OHPhotoView-replyImage {
     position: absolute;
-    left: 240px;
-    width: 40px;
-    height: 40px;
+    top: 10px;
+    left: 260px;
+    width: 25px;
+    height: 25px;
     line-height: 100%;
-    font-size: 40px;
+    text-align: center;
+    font-size: 25px;
     display: inline-block;    
-    color: #1a1f27;
+    color: #1a1f27;   
 }
 .OHPhotoView-replyImage a {
 	text-decoration: none;
@@ -633,17 +638,18 @@
 	transition: 0.5s ease;		
 }
 .OHPhotoView-replyImage a:hover {
-	font-size: 41px;	
+	font-size: 26px;	
 	cursor:pointer;	
 }
 .OHPhotoView-replyNumber {
     position: absolute;
+	top: 10px;       
     left: 290px;
-    width: 50px;
-    height: 40px;
-    line-height: 40px; 
+    width: 40px;
+    height: 25px;
+    line-height: 25px; 
     text-align: center;   
-    color: #1a1f27; 
+    color: #1a1f27;  
 }
 #OHPhotoView-photoHit {
     position: absolute;

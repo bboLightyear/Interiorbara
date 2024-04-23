@@ -218,10 +218,12 @@
 	top: 50%;
 	left: 0px;
 	transform: translate(0%, -50%);  
-	width: 50px;
+	width: 25px;
+	height: 25px;
+	line-height: 25px;
 	display: inline-block;
 	text-align: center;
-	font-size: 30px;
+	font-size: 25px;
 	color: #1a1f27;	
 	transition: 0.5s ease;	
 }
@@ -229,28 +231,32 @@
 	color: #1034a6;
 }
 #OHPhotoDetailView-main-6like:hover {
-	font-size: 31px;
+	font-size: 26px;
 	cursor:pointer;	
 }
 #OHPhotoDetailView-main-6likeNumber {
 	position: absolute;
 	top: 50%;
-	left: 60px;
-	text-align: left;
-	width: 60px;
+	left: 30px;
+    width: 40px;
+    height: 25px;
+    line-height: 25px;     
+	text-align: center;
 	transform: translate(0%, -50%);  
 	display: inline-block;
-	color: #1a1f27;		
+	color: #1a1f27;			
 }
 #OHPhotoDetailView-main-6scrap {
 	position: absolute;
 	top: 50%;
-	left: 130px;
+	left: 120px;
 	transform: translate(0%, -50%);  
-	width: 50px;
+	width: 25px;
+	height: 25px;
+	line-height: 25px;
 	display: inline-block;
 	text-align: center;
-	font-size: 30px;
+	font-size: 25px;
 	color: #1a1f27;	
 	transition: 0.5s ease;		
 }
@@ -258,15 +264,17 @@
 	color: #1034a6;	
 }
 #OHPhotoDetailView-main-6scrap:hover {
-	font-size: 31px;
+	font-size: 26px;
 	cursor:pointer;		
 }
 #OHPhotoDetailView-main-6scrapNumber {
 	position: absolute;
 	top: 50%;
-	left: 190px;
-	text-align: left;
-	width: 60px;
+	left: 150px;
+    width: 40px;
+    height: 25px;
+    line-height: 25px;     
+	text-align: center;
 	transform: translate(0%, -50%);  
 	display: inline-block;
 	color: #1a1f27;	
@@ -274,9 +282,11 @@
 #OHPhotoDetailView-main-6views {
 	position: absolute;
 	top: 50%;
-	left: 260px;
-	text-align: left;
+	left: 240px;
+	text-align: center;
 	width: 50px;
+	height: 25px;
+    line-height: 25px;	
 	transform: translate(0%, -50%);  
 	display: inline-block;
 	color: #1a1f27;	
@@ -284,9 +294,11 @@
 #OHPhotoDetailView-main-6viewsNumber {
 	position: absolute;
 	top: 50%;
-	left: 320px;
-	text-align: left;
-	width: 60px;
+	left: 295px;
+	text-align: center;
+    width: 40px;
+	height: 25px;
+    line-height: 25px;		
 	transform: translate(0%, -50%);  
 	display: inline-block;
 	color: #1a1f27;	
@@ -325,9 +337,9 @@
 }
 #OHPhotoDetailView-main-7profileImage {
 	position: absolute;
-	top: 10px;
-	width: 60px;
-	height: 60px;
+	top: 20px;
+    width: 40px;
+    height: 40px;
 	border-radius: 50%;	
 	transition: 0.5s ease;
 }
@@ -338,13 +350,13 @@
 #OHPhotoDetailView-main-7writerName {
 	position: absolute;
 	top: 50%;
-	left: 80px;
+	left: 60px;
 	transform: translate(0%, -50%);
 	width: 300px;
 	height: 80px;
 	line-height: 80px;
 	text-align: left;
-	color: #1a1f27;
+	color: #1a1f27;	
 }
 #OHPhotoDetailView-main-7writerName a {
 	text-decoration: none;
@@ -493,10 +505,11 @@
 }
 .reply-profileImage {
 	position: absolute;
-	top: 0px;
+	top: 5px;
 	left: 0px;	
-	width: 40px;
-	height: 40px;
+	width: 30px;
+	height: 30px;
+	border-radius: 50%;	
 	transition: 0.5s ease;
 }
 .reply-profileImage:hover {
@@ -506,14 +519,14 @@
 .reply-userName {
 	position: absolute;
 	top: 50%;
-	left: 50px;
+	left: 40px;
 	transform: translate(0%, -50%);
 	display: inline-block;
 	width: 350px;
 	height: 40px;
 	line-height: 40px;
 	text-align: left;
-    color: #1a1f27; 
+    color: #1a1f27;     
 }
 .reply-userName a {
 	text-decoration: none;
@@ -577,11 +590,11 @@
 	left: 120px;
 	transform: translate(0%, -50%);  
 	display: inline-block;
-	width: 35px;
-	height: 35px;
-	line-height: 35px;
+	width: 20px;
+	height: 20px;
+	line-height: 20px;
 	text-align: center;
-    font-size: 25px;
+    font-size: 20px;
 	color: #1a1f27;	
 	transition: 0.5s ease;
 }
@@ -589,19 +602,19 @@
     color: #1034a6;
 }
 .reply-likeButton:hover {
-	font-size: 26px;
+	font-size: 21px;
 	cursor: pointer;		
 }
 .reply-likeNumber {
 	position: absolute;
 	top: 50%;
-	left: 170px;
+	left: 145px;
 	transform: translate(0%, -50%);  
 	display: inline-block;
 	width: 40px;
-	height: 40px;
-	line-height: 40px;
-	text-align: left;
+	height: 20px;
+	line-height: 20px;
+	text-align: center;
 	color: #1a1f27;	
 }
 .reply-replyToReplyButton {

@@ -28,7 +28,7 @@
 	
 	<!-- header, footer -->
 	<link rel="stylesheet" 
-		  href="${path}/resources/css/main/main.css" />
+		  href="${path}/resources/css/header_footer.css" />
 	<link rel="stylesheet" 
 	      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css" />
 	
