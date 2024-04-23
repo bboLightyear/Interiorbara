@@ -33,10 +33,10 @@
 				<c:choose>
 				   <c:when test="${loginUserDto eq null }">
 		   				<div class="header_login">
-							<a href="${path}/my/loginform">로그인</a>
+							<a href="${path}/my/loginform" style="text-decoration: none; color: inherit;">로그인</a>
 						</div>
 						<div class="header_join">
-							<a href="${path}/my/joinform">회원가입</a>
+							<a href="${path}/my/joinform" style="text-decoration: none; color: inherit;">회원가입</a>
 						</div>
 				   </c:when>
 				   <c:otherwise>
@@ -44,10 +44,10 @@
 						   	${loginUserDto.nickname }님 <br />
 				   		</div>
 	   					<div class="header_login">
-							<a href="${path}/my/logout">로그아웃</a>
+							<a href="${path}/my/logout" style="text-decoration: none; color: inherit;">로그아웃</a>
 						</div>
 						<div class="header_join">
-							<a href="${path}/my/mypage">mypage</a>
+							<a href="${path}/my/mypage" style="text-decoration: none; color: inherit;">mypage</a>
 						</div>
 				   </c:otherwise>
 				</c:choose>
@@ -59,19 +59,19 @@
 		<!-- header_bottom : 헤더 아랫부분 -->
 		<div id="header_bottom" class="header_bottom">
 			<div class="header_category_list list_1">
-				<a href="#" class="openModal">퀵견적</a>
+				<a href="#" style="text-decoration: none; color: inherit;" class="openModal">퀵견적</a>
 			</div>
 			<div class="header_category_list list_2">
-				<a href="${path}/shop/list">소품샵</a>
+				<a href="${path}/shop/list" style="text-decoration: none; color: inherit;">소품샵</a>
 			</div>
 			<div class="header_category_list list_3">
-				<a href="${path}/biz/search/bizAddrSearch">업체 둘러보기</a>
+				<a href="${path}/biz/search/bizAddrSearch" style="text-decoration: none; color: inherit;">업체 둘러보기</a>
 			</div>
 			<div class="header_category_list list_4">
-				<a href="${path}/oh/OHMainView">우리 집 자랑하기</a>
+				<a href="${path}/oh/OHMainView" style="text-decoration: none; color: inherit;">우리 집 자랑하기</a>
 			</div>
 			<div class="header_category_list list_5">
-				<a href="${path}/cshome">고객센터</a>
+				<a href="${path}/cshome" style="text-decoration: none; color: inherit;">고객센터</a>
 			</div>
 		</div>
 	</header>

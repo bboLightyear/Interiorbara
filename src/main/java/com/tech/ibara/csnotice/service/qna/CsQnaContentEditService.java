@@ -36,10 +36,10 @@ public class CsQnaContentEditService implements CsQnaService {
 
 		QnaDto qna = dao.qnacontent(qbno);
 
-		ArrayList<QnaImgDto> qnaimg = dao.qnacontentimgview(qbno);
+//		ArrayList<QnaImgDto> qnaimg = dao.qnacontentimgview(qbno);
 
 		model.addAttribute("qna_content", qna);
-		model.addAttribute("qnaimg", qnaimg);
+//		model.addAttribute("qnaimg", qnaimg);
 
 		System.out.println("qbno: " + qbno);
 
