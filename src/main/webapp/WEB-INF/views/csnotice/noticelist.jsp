@@ -122,13 +122,15 @@
 
 		<div class="cs_list_wrap_writebtn">
 			<div class="cs_list_writebtn_loc">
-				<% if(session.getAttribute("userId") == null){ %>
-				<% } else if(session.getAttribute("userId").equals("admin")) {%> <!--admin 계정일 때만 글 작성 가능하도록 함-->
+<%-- 				<% if(session.getAttribute("userId") == null){ %>
+				<% } else if(session.getAttribute("userId").equals("admin")) {%>  --%><!--admin 계정일 때만 글 작성 가능하도록 함-->
+					
+				<c:if test="${loginUserDto.nickname eq 'admin'}">
 					<!--로그인 안 한 상태로는 글 쓰기 버튼 안 보이게 처리-->
 				<div class="cs_list_writebtn" onclick="linkwritebtn()">
 					<a href="noticewriteview" class="cs_list_writebtn_a">글쓰기</a>
 				</div>
-				<% } %>
+				</c:if>	
 			</div>
 		</div>
 

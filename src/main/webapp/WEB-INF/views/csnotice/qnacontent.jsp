@@ -18,10 +18,10 @@
 <script>
 	function reta() {
 		
-		var nickname = ${loginDto.nickname};
+		var nickname = ${loginUserDto.nickname};
 		
 			if (nickname === null) {
-				alert("aa");
+				alert("로그인 후 작성해주세요");
 				document.getElementById("retarea").blur();			
 			}
 	}
@@ -90,7 +90,7 @@
 
 	
 	<div class="cs_content_wrap_edbtn">
-		<c:if test="${loginDto.nickname eq qna_content.qbwriter}">
+		<c:if test="${loginUserDto.nickname eq qna_content.qbwriter}">
 			<div class="cs_content_edbtn">
 				<div class="cs_content_editbtn">
 					<a href="qnaeditview?qbno=${qna_content.qbno }" class="cs_content_editbtn_a">수정하기</a>
