@@ -15,11 +15,11 @@
 		
 	<!-- sns 아이콘 -->
 	<div class="footer_sns">
-		<a href="https://www.facebook.com/"><i class="fab fa-facebook fa-lg"></i></a>
-		<a href="https://www.youtube.com/"><i class="fab fa-youtube fa-lg"></i></a>
-		<a href="https://www.twitter.com/"><i class="fab fa-twitter fa-lg"></i></a>
-		<a href="https://www.twitch.tv/"><i class="fab fa-twitch fa-lg"></i></a>
-		<a href="https://www.instagram.com/"><i class="fab fa-instagram fa-lg"></i></a>
+		<a href="https://www.facebook.com/" style="text-decoration:none;color:#1a1f27"><i class="fab fa-facebook fa-lg"></i></a>
+		<a href="https://www.youtube.com/" style="text-decoration:none;color:#1a1f27"><i class="fab fa-youtube fa-lg"></i></a>
+		<a href="https://www.twitter.com/" style="text-decoration:none;color:#1a1f27"><i class="fab fa-twitter fa-lg"></i></a>
+		<a href="https://www.twitch.tv/" style="text-decoration:none;color:#1a1f27"><i class="fab fa-twitch fa-lg"></i></a>
+		<a href="https://www.instagram.com/" style="text-decoration:none;color:#1a1f27"><i class="fab fa-instagram fa-lg"></i></a>
 	</div>
 	
 </footer>
