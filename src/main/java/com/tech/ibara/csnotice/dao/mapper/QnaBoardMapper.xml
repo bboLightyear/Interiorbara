@@ -233,6 +233,20 @@
 	        <result property="profileimg" column="PROFILEIMG" />
 	    </association>
 	</resultMap>
+
+	<resultMap id="replyRDetailMap" type="com.tech.ibara.csnotice.dto.QnaReplyDto">
+	    <result property="rqbno" column="RQBNO" />
+	    <result property="rqbwriter" column="RQBWRITER" />
+	    <result property="rqbcontent" column="RQBCONTENT" />
+	    <result property="rqbstep" column="RQBSTEP" />
+	    <result property="rqbgroup" column="RQBGROUP" />
+	    <result property="rqbindent" column="RQBINDENT" />
+    <!-- 추가 정보 매핑 -->
+	    <association property="memberInfo" javaType="com.tech.ibara.my.dto.MyMemberInfoDto">
+	        <result property="nickname" column="NICKNAME" />
+	        <result property="profileimg" column="PROFILEIMG" />
+	    </association>
+	</resultMap>
 	
    <select id="replylist" resultMap="replyDetailMap">
     SELECT B.RQBNO, B.RQBWRITER, B.RQBCONTENT, B.RQBSTEP, B.RQBGROUP, B.RQBINDENT, I.NICKNAME, I.PROFILEIMG
@@ -243,12 +257,18 @@
 </select>
       
 
-   <select id="replyrlist" resultType="com.tech.ibara.csnotice.dto.QnaReplyDto">
-      SELECT
-      QBNO,RQBNO,RQBWRITER,RQBCONTENT,RQBSTEP,RQBGROUP,RQBINDENT
+   <select id="replyrlist" resultMap="replyRDetailMap">
+     <!--  SELECT QBNO,RQBNO,RQBWRITER,RQBCONTENT,RQBSTEP,RQBGROUP,RQBINDENT
       FROM CS_QNABOARD_REPLY
       WHERE RQBGROUP=#{param1} AND RQBSTEP>=1
       ORDER BY RQBNO ASC
+      --> 
+      
+	SELECT B.QBNO,B.RQBNO, B.RQBWRITER, B.RQBCONTENT, B.RQBSTEP, B.RQBGROUP, B.RQBINDENT, I.NICKNAME, I.PROFILEIMG
+	FROM CS_QNABOARD_REPLY B
+    LEFT OUTER JOIN MY_MEMBER_INFO I ON B.RQBWRITER = I.NICKNAME
+    WHERE RQBGROUP=#{param1} AND RQBSTEP>=1
+    ORDER BY RQBNO DESC 
    </select>
 
    <select id="replycnt" resultType="Integer">

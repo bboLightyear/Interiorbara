@@ -194,7 +194,7 @@
 						<div id="${dto.rqbno }replyform" class="cs_content_section4_replyrview_wrap_inputform">
 							<div class="cs_content_section4_replyrview_inputform">
 								<input type="hidden" id="rqbno" name="rqbno" value="${dto.rqbno }" />
-								<input type="hidden" id="qbno" name="qbno" value="${dto.qbno }" />
+								<input type="hidden" id="qbno" name="qbno" value="${qna_content.qbno }" />
 								<input type="hidden" id="rqbstep" name="rqbstep" value="${dto.rqbstep }" /> 
 								<input type="hidden" id="rqbgroup" name="rqbgroup" value="${dto.rqbgroup }" /> 
 								<input type="hidden" id="rqbindent" name="rqbindent" value="${dto.rqbindent }" />
@@ -243,23 +243,26 @@
 
 					for (var i = 0; i < data.length; i++) {
 
-						var profileImgUrl = data[i].profileimg || '/resources/img/my/user.png';  // 기본 이미지 사용
+						var profileImgUrl = data[i].memberInfo?.profileimg || 'user.png';  // 기본 이미지 사용
 		                var writer = data[i].rqbwriter;
 		                var content = data[i].rqbcontent;
 		                
 						console.log(data[i].rqbcontent);
+						console.log(data[i].memberInfo?.profileimg);
+						
 						
 						
 						htmlText += "<div class='cs_content_section4_wrap_replyrview'>";
 						
 						
 						htmlText += "<div class='cs_content_section4_replyrview_rni'>";
-						htmlText += "<c:if test='${empty loginUserDto.profileimg}' > "+
+						/* htmlText += "<c:if test='${empty loginUserDto.profileimg}' > "+
 						"<img src='${path }/resources/img/my/user.png' id='OHMainView-photoProfileImage' style='width: 30px; height: 30px;'> "+
 						"</c:if> "+
 			            "<c:if test='${!empty loginUserDto.profileimg}'> "+
 			           	"<img src='${path }/resources/upload/my/${loginUserDto.profileimg}' id='OHMainView-photoProfileImage'> "+
-			        	"</c:if>";
+			        	"</c:if>"; */
+			        	htmlText += "<img src=${path }/resources/upload/my/"+profileImgUrl+" id='OHMainView-photoProfileImage' style='width: 30px; height: 30px;'> "
 						
 						htmlText += "<h4 class='cs_content_section4_wrap_rreply_ni_h4'>";
 						htmlText += data[i].rqbwriter;
