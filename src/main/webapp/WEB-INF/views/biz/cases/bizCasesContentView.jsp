@@ -50,6 +50,30 @@
 		alert('로그인 후 이용하실 수 있습니다. 로그인 화면으로 이동합니다.');
 		window.location.href = "../../my/loginform";
 	}
+	
+	function simfunc(bc_title) {
+		alert("sign!!!"+bc_title.value);
+		console.log(bc_title)
+			var htmltxt="";
+			$.ajax({
+				type:"post",
+				//컨트롤러로 보냄
+				url:"/ibara/biz/cases/simcases?bt="+bc_title.value,
+				success:function(result){
+					console.log(result);
+					htmltxt="<table>";
+					 htmltxt = htmltxt + "<tr><td class='pe-2' style='width: 33%'><img style='width: 100%' src='../../resources/upload/biz/cases/" + result[4].simtitle.trim() + " (1).jpg" + "' onclick='location.href=\"bizCasesContentView?bc_no=" + result[4].simtitle.trim() + "\"'></td>";
+					 htmltxt = htmltxt + "<td class='px-2'  style='width: 33%'><img style='width: 100%' src='../../resources/upload/biz/cases/" + result[5].simtitle.trim() + " (1).jpg" + "' onclick='location.href=\"bizCasesContentView?bc_no=" + result[5].simtitle.trim() + "\"'></td>";
+					 htmltxt = htmltxt + "<td class='ps-2'  style='width: 33%'><img style='width: 100%' src='../../resources/upload/biz/cases/" + result[6].simtitle.trim() + " (1).jpg" + "' onclick='location.href=\"bizCasesContentView?bc_no=" + result[6].simtitle.trim() + "\"'></td></tr>";
+					
+					 htmltxt = htmltxt + "<tr><td class='pe-2' style='width: 33%'><button style='width: 100%' class='ms-1 btn btn-outline-primary btn-sm w-10' onclick='location.href=\"bizCasesContentView?bc_no=" + result[4].simtitle.trim() + "\"'><span style='font-size: 14px;'>" + result[0].simtitle + "</span></button></td>";
+					 htmltxt = htmltxt + "<td class='px-2'  style='width: 33%'><button style='width: 100%' class='ms-1 btn btn-outline-primary btn-sm w-10' onclick='location.href=\"bizCasesContentView?bc_no=" + result[5].simtitle.trim() + "\"'><span style='font-size: 14px;'>" + result[1].simtitle + "</span></button></td>";
+					 htmltxt = htmltxt + "<td class='ps-2'  style='width: 33%'><button style='width: 100%' class='ms-1 btn btn-outline-primary btn-sm w-10' onclick='location.href=\"bizCasesContentView?bc_no=" + result[6].simtitle.trim() + "\"'><span style='font-size: 14px;'>" + result[2].simtitle + "</span></button></td></tr>";
+					htmltxt=htmltxt+"</table>";
+					$("#display").html(htmltxt);
+				}
+			});	
+	}
 	</script>
 </head>
 <body>
@@ -189,6 +213,20 @@
 
 		</div>
 	</div>
+	
+<div class="d-flex justify-content-evenly">
+	<div class="d-flex justify-content-center" style="width: 1150px;">	
+		<input type="button"  onclick="simfunc(this);" value="${bizCasesContentView.bc_title }" /> 
+</div>
+</div>		
+
+<div class="d-flex justify-content-evenly">
+	<div class="d-flex justify-content-center" style="width: 1010px;">			
+		<div id="display">
+		</div>
+	</div>
+</div>	
+	
 <div>
       <a id="topBtn" href="#"><img alt="" src="${path}/resources/img/my/fromtop.png"></a>      
       </div>
