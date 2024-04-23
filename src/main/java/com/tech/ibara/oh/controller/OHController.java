@@ -44,27 +44,27 @@ public class OHController {
 	public String OHMainView(HttpServletRequest request, HttpSession session,  Model model) {
 		
 		// -----------------------------------------------
-		// session 내장객체 - 로그인 정보 임시 설정
-		MyMemberInfoDto loginUserDto = new MyMemberInfoDto();
-		// 회원 번호, 값 설정 
-		loginUserDto.setMemno(1238);
-		// MyMemberInfoDto loginUserDto 객체 - session 저장
-		session.setAttribute("loginUserDto", loginUserDto);
-		// 변수 선언
-		int memno = 0;
-		// 로그인 정보, null Check
-		if(session.getAttribute("loginUserDto") != null) {
-			// 사용자 로그인 정보 출력
-			MyMemberInfoDto loginUserDto2 = (MyMemberInfoDto) session.getAttribute("loginUserDto");
-			memno = loginUserDto2.getMemno();
-			System.out.println("로그인 정보가 있습니다.");
-			System.out.println("memno: " + memno);
-			System.out.println("------------------------------");
-		} else {
-			System.out.println("로그인 정보가 없습니다.");
-			System.out.println("memno: " + memno);
-			System.out.println("------------------------------");
-		}		
+//		// session 내장객체 - 로그인 정보 임시 설정
+//		MyMemberInfoDto loginUserDto = new MyMemberInfoDto();
+//		// 회원 번호, 값 설정 
+//		loginUserDto.setMemno(1238);
+//		// MyMemberInfoDto loginUserDto 객체 - session 저장
+//		session.setAttribute("loginUserDto", loginUserDto);
+//		// 변수 선언
+//		int memno = 0;
+//		// 로그인 정보, null Check
+//		if(session.getAttribute("loginUserDto") != null) {
+//			// 사용자 로그인 정보 출력
+//			MyMemberInfoDto loginUserDto2 = (MyMemberInfoDto) session.getAttribute("loginUserDto");
+//			memno = loginUserDto2.getMemno();
+//			System.out.println("로그인 정보가 있습니다.");
+//			System.out.println("memno: " + memno);
+//			System.out.println("------------------------------");
+//		} else {
+//			System.out.println("로그인 정보가 없습니다.");
+//			System.out.println("memno: " + memno);
+//			System.out.println("------------------------------");
+//		}		
 		// -----------------------------------------------		
 		
 		// Console 출력
