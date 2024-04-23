@@ -76,7 +76,7 @@ tr:nth-child(even) {background-color: #fefefe;}
     				<span class="abc" onclick="javascript_:window.open('${path}/my/memberinfopage?nickname=${scrap.myMemberInfoDto.nickname}','pop','menubar=no,status=no,scrollbars=no,resizable=no,width=560,height=700,top=50,left=50');">
 					${scrap.myMemberInfoDto.nickname} <i class="fa-solid fa-user fa-2xs"></i></span>    				
     				</td>
-    				<td class="scraptd"><a class="abc" href="${path}/oh/OHPhotoDetailView?pb_no=${scrap.photoBoardDto.pb_no}"><i class="fa-solid fa-list-ul fa-2xs"></i> ${scrap.photoBoardDto.pb_title}</a></td>
+    				<td class="scraptd"><a class="abc" href="${path}/oh/OHMainView?pb_no=${scrap.photoBoardDto.pb_no}"><i class="fa-solid fa-list-ul fa-2xs"></i> ${scrap.photoBoardDto.pb_title}</a></td>
     				<td class="scraptd s">${scrap.photoBoardDto.pb_content}</td>
     			</tr>
     		</c:forEach>

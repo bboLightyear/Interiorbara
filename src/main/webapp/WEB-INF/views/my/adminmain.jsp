@@ -20,9 +20,8 @@ a {
 	color: black;
 }
 </style>
-
 <%
-String sql = "select round(to_char(m_date,'yyyymm')) ym ,count(*) cnt from modal_complete where m_date>=add_months(sysdate,-6) group by round(to_char(m_date,'yyyymm')) order by ym asc";
+	String sql = "select round(to_char(m_date,'yyyymm')) ym ,count(*) cnt from modal_complete where m_date>=add_months(sysdate,-6) group by round(to_char(m_date,'yyyymm')) order by ym asc";
 //최근 6개월간 견적횟수
 Connection con = DBCon.getconConnection();
 PreparedStatement pstmt = con.prepareStatement(sql);
@@ -43,135 +42,45 @@ rs.close();
 pstmt.close();
 con.close();
 
-String sql4 = "select round(to_char(m_date,'yyyymm')) ym ,count(*) cnt from modal_complete where m_date>=add_months(sysdate,-6) and m_type like '%스탠다드%' group by round(to_char(m_date,'yyyymm')) order by ym asc";
-//최근 6개월간 스탠다드견적 횟수
-Connection con4 = DBCon.getconConnection();
-PreparedStatement pstmt4 = con4.prepareStatement(sql4);
-ResultSet rs4 = pstmt4.executeQuery();
+String sql1 = "select round(to_char(order_date,'yyyymm')) ymm ,count(*) cnt1 from shop_order where order_date>=add_months(sysdate,-6) group by round(to_char(order_date,'yyyymm')) order by ymm asc";
+//최근 6개월간 판매횟수
+Connection con2 = DBCon.getconConnection();
+PreparedStatement pstmt2 = con2.prepareStatement(sql1);
+ResultSet rs2 = pstmt2.executeQuery();
 
-JSONArray arr4 = new JSONArray();
-while (rs4.next()) {
-	JSONObject obj4 = new JSONObject();
-	String ym = rs4.getString("ym");
-	String cnt = rs4.getString("cnt");
-	obj4.put("ym", ym);
-	obj4.put("cnt", cnt);
-	if (obj4 != null) {
-		arr4.add(obj4);
+JSONArray arr2 = new JSONArray();
+while (rs2.next()) {
+	JSONObject obj2 = new JSONObject();
+	String ym = rs2.getString("ymm");
+	String cnt = rs2.getString("cnt1");
+	obj2.put("ym", ym);
+	obj2.put("cnt", cnt);
+	if (obj2 != null) {
+		arr2.add(obj2);
 	}
 }
 
-rs4.close();
-pstmt4.close();
-con4.close();
+rs2.close();
+pstmt2.close();
+con2.close();
 
+String sql2 = "select round(to_char(order_date,'yyyymm')) ym, sum(total_price) sum from shop_order where order_date>=add_months(sysdate,-6) group by round(to_char(order_date,'yyyymm')) order by ym asc";
 
-String sql5 = "select round(to_char(m_date,'yyyymm')) ym ,count(*) cnt from modal_complete where m_date>=add_months(sysdate,-6) and m_type like '%프리미엄%' group by round(to_char(m_date,'yyyymm')) order by ym asc";
-//최근 6개월간 프리미엄견적 횟수
-Connection con5 = DBCon.getconConnection();
-PreparedStatement pstmt5 = con5.prepareStatement(sql5);
-ResultSet rs5 = pstmt5.executeQuery();
+Connection con3 = DBCon.getconConnection();
+PreparedStatement pstmt3 = con3.prepareStatement(sql2);
+ResultSet rs3 = pstmt3.executeQuery();
 
-JSONArray arr5 = new JSONArray();
-while (rs5.next()) {
-	JSONObject obj5 = new JSONObject();
-	String ym = rs5.getString("ym");
-	String cnt = rs5.getString("cnt");
-	obj5.put("ym", ym);
-	obj5.put("cnt", cnt);
-	if (obj5 != null) {
-		arr5.add(obj5);
+JSONArray arr3 = new JSONArray();
+while (rs3.next()) {
+	JSONObject obj3 = new JSONObject();
+	String ym = rs3.getString("ym");
+	String sum = rs3.getString("sum");
+	obj3.put("ym", ym);
+	obj3.put("sum", sum);
+	if (obj3 != null) {
+		arr3.add(obj3);
 	}
 }
-
-rs5.close();
-pstmt5.close();
-con5.close();
-
-String sql11 = "select round(to_char(m_date,'yyyymm')) ym ,count(*) cnt from modal_complete where m_date>=add_months(sysdate,-6) and m_place like '%아파트%' group by round(to_char(m_date,'yyyymm')),m_place order by ym asc";
-//최근 6개월간 아파트 견적횟수
-Connection con11 = DBCon.getconConnection();
-PreparedStatement pstmt11 = con11.prepareStatement(sql11);
-ResultSet rs11 = pstmt11.executeQuery();
-
-JSONArray arr11 = new JSONArray();
-while (rs11.next()) {
-	JSONObject obj11 = new JSONObject();
-	String ym = rs11.getString("ym");
-	String cnt = rs11.getString("cnt");
-	obj11.put("ym", ym);
-	obj11.put("cnt", cnt);
-	if (obj11 != null) {
-		arr11.add(obj11);
-	}
-}
-rs11.close();
-pstmt11.close();
-con11.close();
-
-String sql12 = "select round(to_char(m_date,'yyyymm')) ym ,count(*) cnt from modal_complete where m_date>=add_months(sysdate,-6) and m_place like '%빌라%' group by round(to_char(m_date,'yyyymm')),m_place order by ym asc";
-//최근 6개월간 빌라 견적횟수
-Connection con12 = DBCon.getconConnection();
-PreparedStatement pstmt12 = con12.prepareStatement(sql12);
-ResultSet rs12 = pstmt12.executeQuery();
-
-JSONArray arr12 = new JSONArray();
-while (rs12.next()) {
-	JSONObject obj12 = new JSONObject();
-	String ym = rs12.getString("ym");
-	String cnt = rs12.getString("cnt");
-	obj12.put("ym", ym);
-	obj12.put("cnt", cnt);
-	if (obj12 != null) {
-		arr12.add(obj12);
-	}
-}
-rs12.close();
-pstmt12.close();
-con12.close();
-
-String sql13 = "select round(to_char(m_date,'yyyymm')) ym ,count(*) cnt from modal_complete where m_date>=add_months(sysdate,-6) and m_place like '%오피스텔%' group by round(to_char(m_date,'yyyymm')),m_place order by ym asc";
-//최근 6개월간 오피스텔 견적횟수
-Connection con13 = DBCon.getconConnection();
-PreparedStatement pstmt13 = con13.prepareStatement(sql13);
-ResultSet rs13 = pstmt13.executeQuery();
-
-JSONArray arr13 = new JSONArray();
-while (rs13.next()) {
-	JSONObject obj13 = new JSONObject();
-	String ym = rs13.getString("ym");
-	String cnt = rs13.getString("cnt");
-	obj13.put("ym", ym);
-	obj13.put("cnt", cnt);
-	if (obj13 != null) {
-		arr13.add(obj13);
-	}
-}
-rs13.close();
-pstmt13.close();
-con13.close();
-
-String sql14 = "select round(to_char(m_date,'yyyymm')) ym ,count(*) cnt from modal_complete where m_date>=add_months(sysdate,-6) and m_place like '%단독주택%' group by round(to_char(m_date,'yyyymm')),m_place order by ym asc";
-//최근 6개월간 단독주택 견적횟수
-Connection con14 = DBCon.getconConnection();
-PreparedStatement pstmt14 = con14.prepareStatement(sql14);
-ResultSet rs14 = pstmt14.executeQuery();
-
-JSONArray arr14 = new JSONArray();
-while (rs14.next()) {
-	JSONObject obj14 = new JSONObject();
-	String ym = rs14.getString("ym");
-	String cnt = rs14.getString("cnt");
-	obj14.put("ym", ym);
-	obj14.put("cnt", cnt);
-	if (obj14 != null) {
-		arr14.add(obj14);
-	}
-}
-rs14.close();
-pstmt14.close();
-con14.close();
-
 %>
 
 <main class="Site-content">
@@ -191,6 +100,8 @@ con14.close();
 				<canvas id="myChart"></canvas>
 			</div>
 			<div class="col-md-6">
+				<button onclick="updateData();">업데이트</button>
+				<button onclick="updateData2();">되돌리기</button>
 				<canvas id="myChart2"></canvas>
 			</div>
 		</div>
@@ -201,185 +112,147 @@ jArray1 = '<%=arr1%>';
 /* 파싱 */
 jArray1 = JSON.parse(jArray1);
 
-var jArray4 = new Array();
-jArray4 = '<%=arr4%>';
+var jArray2 = new Array();
+jArray2 = '<%=arr2%>';
 /* 파싱 */
-jArray4 = JSON.parse(jArray4);
+jArray2 = JSON.parse(jArray2);
 
-var jArray5 = new Array();
-jArray5 = '<%=arr5%>';
+var jArray3 = new Array();
+jArray3 = '<%=arr3%>';
 /* 파싱 */
-jArray5 = JSON.parse(jArray5);
+jArray3 = JSON.parse(jArray3);
 
 
-var jArray11 = new Array();
-jArray11 = '<%=arr11%>';
-/* 파싱 */
-jArray11 = JSON.parse(jArray11);
+const ctx = document.getElementById('myChart');
 
-var jArray12 = new Array();
-jArray12 = '<%=arr12%>';
-/* 파싱 */
-jArray12 = JSON.parse(jArray12);
-
-var jArray13 = new Array();
-jArray13 = '<%=arr13%>';
-/* 파싱 */
-jArray13 = JSON.parse(jArray13);
-
-var jArray14 = new Array();
-jArray14 = '<%=arr14%>';
-/* 파싱 */
-jArray14 = JSON.parse(jArray14);
-
-const esticount={
-		type:'line',
-		label:"월별견적수",
-		data:[
-			jArray1[0].cnt,
-			jArray1[1].cnt,
-			jArray1[2].cnt,
-			jArray1[3].cnt,
-			jArray1[4].cnt,
-			jArray1[5].cnt],
-			backgroundColor:['rgba(16, 52, 166, 0.7)'],
-			borderColor:['rgba(16, 52, 166, 0.7)'],
-            borderWidth:1
-}
-const apart = {
-        label:'아파트견적수',
-        data:[
-        	jArray11[0].cnt,
-			jArray11[1].cnt,
-			jArray11[2].cnt,
-			jArray11[3].cnt,
-			jArray11[4].cnt,
-			jArray11[5].cnt],
-        backgroundColor:['rgba(30, 144, 255, 0.7)'],
-        borderWidth:0
-}
-const villa = {
-    label:'빌라견적수',
-    data:[
-    	jArray12[0].cnt,
-		jArray12[1].cnt,
-		jArray12[2].cnt,
-		jArray12[3].cnt,
-		jArray12[4].cnt,
-		jArray12[5].cnt],
-    backgroundColor:['rgba(30, 144, 255, 0.5)'],
-    borderWidth:0
-}
-
-const officetel = {
-	    label:'오피스텔견적수',
-	    data:[
-	    	jArray13[0].cnt,
-			jArray13[1].cnt,
-			jArray13[2].cnt,
-			jArray13[3].cnt,
-			jArray13[4].cnt,
-			jArray13[5].cnt],
-	    backgroundColor:['rgba(30, 144, 255, 0.35)'],
-	    borderWidth:0
-	}
-
-const detachedhouse = {
-	    label:'단독주택견적수',
-	    data:[
-	    	jArray14[0].cnt,
-			jArray14[1].cnt,
-			jArray14[2].cnt,
-			jArray14[3].cnt,
-			jArray14[4].cnt,
-			jArray14[5].cnt],
-	    backgroundColor:['rgba(30, 144, 255, 0.15)'],
-	    borderWidth:0
-	}
-
-const standard = {
-            label:'스탠다드견적수',
-            data:[
-            	jArray4[0].cnt,
-				jArray4[1].cnt,
-				jArray4[2].cnt,
-				jArray4[3].cnt,
-				jArray4[4].cnt,
-				jArray4[5].cnt],
-            backgroundColor:['rgba(30, 144, 255, 0.7)'],
-            borderWidth:0
-}
-const premium = {
-        label:'프리미엄견적수',
-        data:[
-        	jArray5[0].cnt,
-			jArray5[1].cnt,
-			jArray5[2].cnt,
-			jArray5[3].cnt,
-			jArray5[4].cnt,
-			jArray5[5].cnt],
-        backgroundColor:['rgba(30, 144, 255, 0.4)'],
-        borderWidth:0
-}
-const data1 = {
-	    labels:[
-	    	jArray1[0].ym,
+new Chart(ctx, {
+	type: 'line',
+	data : {
+		labels : [ 
+			jArray1[0].ym,
 			jArray1[1].ym,
 			jArray1[2].ym,
 			jArray1[3].ym,
 			jArray1[4].ym,
 			jArray1[5].ym
 			],
-	    datasets:[
-	    	esticount,
-	    	apart,
-	    	villa,
-	    	officetel,
-	    	detachedhouse	    	
-	    ]
+		datasets : [{
+			label : '#월별견적수',
+			backgroundColor : [	'#1e90ff' ],
+			borderColor : [	'#1e90ff' ],
+			borderWidth : 1,
+			fill:false,
+			data : [
+				jArray1[0].cnt,
+				jArray1[1].cnt,
+				jArray1[2].cnt,
+				jArray1[3].cnt,
+				jArray1[4].cnt,
+				jArray1[5].cnt
+				],
+		} , {
+			label : '#월별판매수',
+			backgroundColor : [ '#1034a6' ],
+			borderColor : ['#1034a6'],
+			borderWidth : 1,
+			fill:false,
+			data : [
+				jArray2[0].cnt,
+				jArray2[1].cnt,
+				jArray2[2].cnt,
+				jArray2[3].cnt,
+				jArray2[4].cnt,
+				jArray2[5].cnt
+				],
+		} ]
+	},
+	options : {
+		responsive : true,
+		plugins : {
+			legend : {
+				position : 'top',
+			},
+			title : {
+			}
+		}
+	
 	}
-const data2 = {
-    labels:[
-    	jArray1[0].ym,
-		jArray1[1].ym,
-		jArray1[2].ym,
-		jArray1[3].ym,
-		jArray1[4].ym,
-		jArray1[5].ym
-		],
-    datasets:[
-    	esticount,
-    	standard,
-    	premium
-    ]
-}
-const options = {
-        /* maintainAspectRatio :false,//그래프의 비율 유지 */
-        scales:{
-            x:{ //x축값 누적
-                stacked:true
-            },
-            y:{ //y축값 누적
-                stacked:true
-            },
-        }
-}
-const ctx = document.getElementById('myChart');
-const Chart1 = new Chart(ctx, {
-    type:'bar',
-    data:data1,
-    options:options
 });
 
-
 const ctx2 = document.getElementById('myChart2');
-const Chart2 = new Chart(ctx2, {
-     type:'bar',
-     data:data2,
-     options:options     
- });
- 
- </script>
-</main>
+/* 
+new Chart(ctx2, {
+	type : 'bar',
+	data : {
+		labels : [
+			jArray3[0].ym,
+			jArray3[1].ym,
+			jArray3[2].ym,
+			jArray3[3].ym,
+			jArray3[4].ym,
+			jArray3[5].ym
+			],
+		datasets : [ {
+			label : '#월별판매금액',
+			data : [ 
+				jArray3[0].sum,
+				jArray3[1].sum,
+				jArray3[2].sum,
+				jArray3[3].sum,
+				jArray3[4].sum,
+				jArray3[5].sum
+				],
+			backgroundColor : [ '#0a1c32', '#13345d', '#235899', '#4982c8',
+					'#7eabe1', '#c6d9f1' ],
+			borderWidth : 0
+		} ]
+	},
+	options : {
+		responsive : true,
+		plugins : {
+			legend : {
+				position : 'top',
+			},
+			title : {
+			}
+		}
+	}
+}); */
 
+const data = {
+		  labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+		  datasets: [{
+		    label: 'Example Dataset',
+		    data: [12, 19, 3, 5, 2, 3],
+		    backgroundColor: ['red', 'blue', 'yellow', 'green', 'purple', 'orange'],
+		  }]
+		};
+
+function updateData() {
+	  const newData = [25, 10, 5, 15, 20, 12];
+
+	  chart.data.datasets[0].data = newData;
+	  chart.update();
+	}
+	
+function updateData2(){
+	const oldData= [12, 19, 3, 5, 2, 3];
+	chart.data.datasets[0].data = oldData;
+	chart.update();
+}
+const chart = new Chart(ctx2, {
+	  type: 'bar',
+	  data: data,
+	  options: {
+	    responsive: true,
+	    scales: {
+	      y: {
+	        beginAtZero: true
+	      }
+	    }
+	  }
+	});
+
+</script>
+</main>
 <%@include file="footer.jsp"%>

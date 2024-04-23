@@ -41,7 +41,7 @@ tr:nth-child(even) {background-color: #fefefe;}
 						${likerv.br_writer} <i class="fa-solid fa-user fa-2xs"></i></span>
 			    		</td>
 			    		<td colspan="2" class="scraptd s">
-			    		<a class="abc" href="${path}/biz/review/bizRvContentView?br_no=${likerv.br_no}"><i class="fa-solid fa-list-ul fa-2xs"></i> ${likerv.br_content}</a></td>
+			    		<a class="abc" href="${path}/biz/review/bizRvList?inteno=${likerv.inteno}"><i class="fa-solid fa-list-ul fa-2xs"></i> ${likerv.br_content}</a></td>
 			    	</tr>
 		    	</c:forEach>    		
     		</c:when>
@@ -75,7 +75,7 @@ tr:nth-child(even) {background-color: #fefefe;}
 			    		<span class="abc" onclick="javascript_:window.open('${path}/my/memberinfopage?nickname=${likepb.myMemberInfoDto.nickname}','pop','menubar=no,status=no,scrollbars=no,resizable=no,width=560,height=700,top=50,left=50');">
 						${likepb.myMemberInfoDto.nickname} <i class="fa-solid fa-user fa-2xs"></i></span>
 			    		</td>
-			    		<td class="scraptd"><a class="abc" href="${path}/oh/OHPhotoDetailView?pb_no=${likepb.photoBoardDto.pb_no}"><i class="fa-solid fa-list-ul fa-2xs"></i> ${likepb.photoBoardDto.pb_title}</a></td>
+			    		<td class="scraptd"><a class="abc" href="${path}/oh/OHMainView?pb_no=${likepb.photoBoardDto.pb_no}"><i class="fa-solid fa-list-ul fa-2xs"></i> ${likepb.photoBoardDto.pb_title}</a></td>
 			    		<td class="scraptd s">${likepb.photoBoardDto.pb_content}</td>
 			    	</tr>
 		    	</c:forEach>    		

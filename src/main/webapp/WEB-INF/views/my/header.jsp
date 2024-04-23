@@ -20,7 +20,7 @@
 			<div></div>
 			<!-- header_logo : 로고 -->
 			<div class="header_logo">
-				<img src="${path}/resources/img/mainimg/logo_1_small_1459x344.jpg" alt="#" onclick="location.href='${path}/main'" />
+				<img src="${path}/resources/img/mainimg/main_logo.jpg" alt="#" onclick="location.href='${path}/main'" />
 				
 			</div>
 			<!-- header_search_box : 검색창 -->
@@ -44,9 +44,6 @@
 						</div>
 				   </c:when>
 				   <c:otherwise>
-				   		<div class="header_nickname">
-						   	${loginUserDto.nickname }님 <br />
-				   		</div>
 	   					<div class="header_login">
 							<a href="${path}/my/logout">로그아웃</a>
 						</div>
@@ -62,8 +59,13 @@
 		</div>
 		<!-- header_bottom : 헤더 아랫부분 -->
 		<div id="header_bottom" class="header_bottom">
+			<!-- header_category_icon : 카테고리 아이콘 -->
+			<div class="header_category_icon">
+				<i class="fas fa-bars"></i>
+			</div>
+			<!-- header_category_list : 카테고리 / list_1~5 : list에 각각 들어갈 내용 -->
 			<div class="header_category_list list_1">
-				<a href="#" class="openModal">퀵견적</a>
+				<a href="#" class="openModal">퀵견적</a>				
 			</div>
 			<div class="header_category_list list_2">
 				<a href="${path}/shop/list">소품샵</a>
