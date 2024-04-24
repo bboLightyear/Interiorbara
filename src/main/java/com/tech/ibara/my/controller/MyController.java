@@ -91,16 +91,24 @@ public class MyController {
 		System.out.println("loginform()");
 		String referer = request.getHeader("Referer");
 		System.out.println("referer : "+referer);
-		String str = referer.substring(28);
-		System.out.println("str : "+str);
-		model.addAttribute("str",str);
+		String ref = referer.substring(28);
+		System.out.println("ref : "+ref);
+		model.addAttribute("ref",ref);
 		return "my/loginform";
 	}
 	@RequestMapping("my/login")
 	public String login(HttpServletRequest request,Model model) {
 		System.out.println("login()");
-		String str=request.getParameter("str");
-		System.out.println("referer : "+str);
+		String ref=request.getParameter("ref");
+		System.out.println("referer : "+ref);
+		String str;
+		if(ref.equals("") || ref==null) {
+			String referer = request.getHeader("Referer");
+			str = referer.substring(28);
+			System.out.println("str : "+str);
+		}else {
+			str=ref;
+		}
 		model.addAttribute("request",request);
 		sservice=new LoginService(sqlSession);
 		String userNickname=sservice.execute(model);
@@ -266,9 +274,8 @@ public class MyController {
 			model.addAttribute("msg","로그인정보가 없습니다. 로그인해주세요");
 			return "my/loginform";
 		}else {
-			return "my/mypagepasswordedit";
-		}
-		
+			return "my/mypagepasswordedit";		
+		}		
 	}
 			
 	@RequestMapping(method=RequestMethod.POST,value="my/passedit")
