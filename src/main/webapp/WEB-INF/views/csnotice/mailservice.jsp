@@ -81,8 +81,8 @@
 				</label>
 						
 				<input id="file-upload" type="file" class="cs_write_wrap_form_filebtn" name="mailfile" multiple="multiple" style="display: none;" onchange="displayFileName(this)"/>
-				<input type="file" class="cs_write_wrap_form_filebtn" name="mailfile1" multiple="multiple" />
-			</div>cs_write_wrap_form_wrap_filebtn
+				<input type="file" class="cs_write_wrap_form_filebtn" name="mailfile1" style="display: none;" multiple="multiple" />
+			</div>
 					
 			<div class="cs_write_wrap_form_file_wrap_display">
 				<div id="file-name-display-a" class="cs_write_wrap_form_file_display">

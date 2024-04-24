@@ -7,10 +7,36 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<%-- <%@include file ="header.jsp" %> --%>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <link rel="stylesheet" type="text/css" href="resources/css/cs/csboard.css" />
 <link rel="stylesheet" type="text/css" href="resources/css/main/main.css" />
-<!-- <link rel="stylesheet" type="text/css" href="resources/css/header_footer.css" /> -->
+<script>
+	/* function sendEmail(event) { // 이벤트 객체를 매개변수로 명시적으로 받음
+		var target = event.target; // 이벤트 대상을 가져옴
+		var nickname = $(target).data("nickname"); // jQuery를 사용하여 데이터 속성 값 가져옴
+		console.log(nickname); // 콘솔에 로그 출력
+		
+		if (!nickname) { // nickname 값이 null, undefined, 빈 문자열인 경우 체크
+			alert("로그인 후 작성해주세요");
+			document.getElementById("retarea").blur(); // 입력 필드 포커스 해제
+		}
+	} */
+	function sendEmail(event) {
+		event.preventDefault(); // 링크의 기본 동작을 중지
+		var target = event.target;
+		var nickname = $(target).data("nickname");
+		console.log(nickname);
+
+		if (!nickname) {
+			alert("로그인 후 작성해주세요");
+			// 로그인 페이지로 리다이렉트하거나 다른 적절한 액션 수행
+			window.location.href = 'my/login'; // 예시로 로그인 페이지로 이동
+		} else {
+			// 사용자가 로그인했다면 이메일 페이지로 리다이렉트하거나 이메일을 발송하는 함수 호출
+			window.location.href = 'mailservice'; // 예시로 이메일 보내기 페이지로 이동
+		}
+	}
+</script>
 </head>
 <%@include file ="header.jsp" %>
 <body>
@@ -53,7 +79,7 @@
 
 					<!-- <a href="chat" class="chatbtn">채팅상담</a>  -->
 					<div class="cs_wrap_mailbtn">
-					<a href="mailservice" class="emailbtn">이메일보내기</a>
+					<a href="mailservice" class="emailbtn" onclick="sendEmail(event)" data-nickname="${loginUserDto.nickname }">이메일보내기</a>
 					<button onclick="copyEmail()" class="emailcopy">이메일 주소 복사</button>
 					</div>
 				</div>
