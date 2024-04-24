@@ -51,29 +51,31 @@
 		window.location.href = "../../my/loginform";
 	}
 	
-	function simfunc(bc_title) {
-		alert("sign!!!"+bc_title.value);
-		console.log(bc_title)
-			var htmltxt="";
-			$.ajax({
-				type:"post",
-				//컨트롤러로 보냄
-				url:"/ibara/biz/cases/simcases?bt="+bc_title.value,
-				success:function(result){
-					console.log(result);
-					htmltxt="<table>";
-					 htmltxt = htmltxt + "<tr><td class='pe-2' style='width: 33%'><img style='width: 100%' src='../../resources/upload/biz/cases/" + result[4].simtitle.trim() + " (1).jpg" + "' onclick='location.href=\"bizCasesContentView?bc_no=" + result[4].simtitle.trim() + "\"'></td>";
-					 htmltxt = htmltxt + "<td class='px-2'  style='width: 33%'><img style='width: 100%' src='../../resources/upload/biz/cases/" + result[5].simtitle.trim() + " (1).jpg" + "' onclick='location.href=\"bizCasesContentView?bc_no=" + result[5].simtitle.trim() + "\"'></td>";
-					 htmltxt = htmltxt + "<td class='ps-2'  style='width: 33%'><img style='width: 100%' src='../../resources/upload/biz/cases/" + result[6].simtitle.trim() + " (1).jpg" + "' onclick='location.href=\"bizCasesContentView?bc_no=" + result[6].simtitle.trim() + "\"'></td></tr>";
-					
-					 htmltxt = htmltxt + "<tr><td class='pe-2' style='width: 33%'><button style='width: 100%' class='ms-1 btn btn-outline-primary btn-sm w-10' onclick='location.href=\"bizCasesContentView?bc_no=" + result[4].simtitle.trim() + "\"'><span style='font-size: 14px;'>" + result[0].simtitle + "</span></button></td>";
-					 htmltxt = htmltxt + "<td class='px-2'  style='width: 33%'><button style='width: 100%' class='ms-1 btn btn-outline-primary btn-sm w-10' onclick='location.href=\"bizCasesContentView?bc_no=" + result[5].simtitle.trim() + "\"'><span style='font-size: 14px;'>" + result[1].simtitle + "</span></button></td>";
-					 htmltxt = htmltxt + "<td class='ps-2'  style='width: 33%'><button style='width: 100%' class='ms-1 btn btn-outline-primary btn-sm w-10' onclick='location.href=\"bizCasesContentView?bc_no=" + result[6].simtitle.trim() + "\"'><span style='font-size: 14px;'>" + result[2].simtitle + "</span></button></td></tr>";
-					htmltxt=htmltxt+"</table>";
-					$("#display").html(htmltxt);
-				}
-			});	
+	function simfunc(div) {
+	    var bc_title = div.getAttribute("data-bc-title");
+//	    alert("sign!!!" + bc_title);
+	    console.log(bc_title);
+	    var htmltxt = "";
+	    $.ajax({
+	        type: "post",
+	        //컨트롤러로 보냄
+	        url: "/ibara/biz/cases/simcases?bt=" + bc_title,
+	        success: function (result) {
+	            console.log(result);
+	            htmltxt = "<table>";
+	            htmltxt += "<tr><td class='ps-1 pe-2 py-2' style='width: 33%; cursor: pointer;'><img class='center align-middle' style='width: 100%; height: 150px; border-radius: 10px;' src='../../resources/upload/biz/cases/" + result[4].simtitle.trim() + " (1).jpg" + "' onclick='location.href=\"bizCasesContentView?bc_no=" + result[4].simtitle.trim() + "\"'></td>";
+	            htmltxt += "<td class='ps-3 px-2 py-2'  style='width: 33%; cursor: pointer;'><img class='center align-middle' style='width: 100%; height: 150px;  border-radius: 10px;' src='../../resources/upload/biz/cases/" + result[5].simtitle.trim() + " (1).jpg" + "' onclick='location.href=\"bizCasesContentView?bc_no=" + result[5].simtitle.trim() + "\"'></td>";
+	            htmltxt += "<td class='ps-3 py-2'  style='width: 33%; cursor: pointer;'><img class='center align-middle' style='width: 100%; height: 150px;  border-radius: 10px;' src='../../resources/upload/biz/cases/" + result[6].simtitle.trim() + " (1).jpg" + "' onclick='location.href=\"bizCasesContentView?bc_no=" + result[6].simtitle.trim() + "\"'></td></tr>";
+
+	            htmltxt += "<tr><td class='pe-2' style='width: 33%'><button style='width: 100%' class='ms-1 btn btn-outline-primary btn-sm w-10' onclick='location.href=\"bizCasesContentView?bc_no=" + result[4].simtitle.trim() + "\"'><span style='font-size: 14px;'>" + result[0].simtitle + "</span></button></td>";
+	            htmltxt += "<td class='px-2'  style='width: 33%'><button style='width: 100%' class='ms-1 btn btn-outline-primary btn-sm w-10' onclick='location.href=\"bizCasesContentView?bc_no=" + result[5].simtitle.trim() + "\"'><span style='font-size: 14px;'>" + result[1].simtitle + "</span></button></td>";
+	            htmltxt += "<td class='ps-2'  style='width: 33%'><button style='width: 100%' class='ms-1 btn btn-outline-primary btn-sm w-10' onclick='location.href=\"bizCasesContentView?bc_no=" + result[6].simtitle.trim() + "\"'><span style='font-size: 14px;'>" + result[2].simtitle + "</span></button></td></tr>";
+	            htmltxt += "</table>";
+	            $("#display").html(htmltxt);
+	        }
+	    });
 	}
+
 	</script>
 </head>
 <body>
@@ -214,11 +216,21 @@
 		</div>
 	</div>
 	
-<div class="d-flex justify-content-evenly">
+		<div class="text-primary text-opacity-25">
+			<hr />
+		</div>		
+	
+<div class="d-flex justify-content-evenly" style="cursor: pointer;">
 	<div class="d-flex justify-content-center" style="width: 1150px;">	
-		<input type="button"  onclick="simfunc(this);" value="${bizCasesContentView.bc_title }" /> 
+		<div class="clickable-div text-primary" onclick="simfunc(this);" data-bc-title="${bizCasesContentView.bc_title}">
+		    <span style="color: #1e90ff"><strong>${bizCasesContentView.bc_title}</strong></span> 시공사례와 비슷한 케이스가 궁금하다면? &nbsp; <i class="fa-solid fa-angles-down"></i>
+		</div>
 </div>
-</div>		
+</div>
+
+		<div class="text-primary text-opacity-25">
+			<hr />
+		</div>		
 
 <div class="d-flex justify-content-evenly">
 	<div class="d-flex justify-content-center" style="width: 1010px;">			
