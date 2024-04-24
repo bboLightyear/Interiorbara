@@ -9,7 +9,7 @@ document.title = "업체신청";
 	<div class="mypage_category mb30">
         <div class="mypage_category_list list_1_1"><a href="mypage">프로필</a></div>
 	    <div class="mypage_category_list list_1_2"><a href="myphoto">내사진</a></div>
-        <div class="mypage_category_list list_1_3"><a href="myscrap">스크랩북</a></div>
+        <div class="mypage_category_list list_1_3"><a href="myscrap">스크랩</a></div>
         <div class="mypage_category_list list_1_4"><a href="mylike">좋아요</a></div>
         <div class="mypage_category_list list_1_5 pointcolor">업체신청</div>
         <div class="mypage_category_list list_1_6"><a href="mypageinfoedit">회원정보수정</a></div>

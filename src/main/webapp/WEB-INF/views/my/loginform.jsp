@@ -7,6 +7,7 @@
 </script>
 <main class="Site-content textcenter">
     <form action="login" method="post">
+    <input type="hidden" name="str" id="str" value="${str}" />
     	<table align="center" class="classtable" style="margin-top:50px;">
     		<tr>
     			<td class="tdheight">

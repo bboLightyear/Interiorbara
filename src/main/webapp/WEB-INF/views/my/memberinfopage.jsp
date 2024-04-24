@@ -15,7 +15,14 @@
 </head>
 <body>
 <main class="Site-content textcenter">
-<h3 class="mt30">${mdto.nickname}님 회원정보</h3>
+<c:choose>
+	<c:when test="${msg eq null }">
+		<h3 class="mt30">${mdto.nickname}님 회원정보</h3>	
+	</c:when>
+	<c:otherwise>
+		<h3 class="mt30"><c:out value="${msg }" default="" /></h3>
+	</c:otherwise>
+</c:choose>
     <div id="mypageedit" align="center">
 		    <div class="profile-image-area">
 		        <%-- 프로필 이미지가 없으면 기본 이미지 --%>
@@ -66,7 +73,9 @@
 				    	</c:forEach>
 		    		</c:when>
 		    		<c:otherwise>
+		    		<c:if test="${msg eq null}">
 		    		<h3>올린 사진이 없습니다.</h3>
+		    		</c:if>
 		    		</c:otherwise>	
 		    	</c:choose>
 			 </div>

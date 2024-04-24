@@ -247,7 +247,7 @@ const esticount={
             borderWidth:1
 }
 const apart = {
-        label:'아파트견적수',
+        label:'아파트',
         data:[
         	jArray11[0].cnt,
 			jArray11[1].cnt,
@@ -255,11 +255,11 @@ const apart = {
 			jArray11[3].cnt,
 			jArray11[4].cnt,
 			jArray11[5].cnt],
-        backgroundColor:['rgba(30, 144, 255, 0.7)'],
+        backgroundColor:['rgba(30, 144, 255, 0.8)'],
         borderWidth:0
 }
 const villa = {
-    label:'빌라견적수',
+    label:'빌라',
     data:[
     	jArray12[0].cnt,
 		jArray12[1].cnt,
@@ -267,12 +267,12 @@ const villa = {
 		jArray12[3].cnt,
 		jArray12[4].cnt,
 		jArray12[5].cnt],
-    backgroundColor:['rgba(30, 144, 255, 0.5)'],
+    backgroundColor:['rgba(30, 144, 255, 0.6)'],
     borderWidth:0
 }
 
 const officetel = {
-	    label:'오피스텔견적수',
+	    label:'오피스텔',
 	    data:[
 	    	jArray13[0].cnt,
 			jArray13[1].cnt,
@@ -280,12 +280,12 @@ const officetel = {
 			jArray13[3].cnt,
 			jArray13[4].cnt,
 			jArray13[5].cnt],
-	    backgroundColor:['rgba(30, 144, 255, 0.35)'],
+	    backgroundColor:['rgba(30, 144, 255, 0.4)'],
 	    borderWidth:0
 	}
 
 const detachedhouse = {
-	    label:'단독주택견적수',
+	    label:'단독주택',
 	    data:[
 	    	jArray14[0].cnt,
 			jArray14[1].cnt,
@@ -293,12 +293,12 @@ const detachedhouse = {
 			jArray14[3].cnt,
 			jArray14[4].cnt,
 			jArray14[5].cnt],
-	    backgroundColor:['rgba(30, 144, 255, 0.15)'],
+	    backgroundColor:['rgba(30, 144, 255, 0.2)'],
 	    borderWidth:0
 	}
 
 const standard = {
-            label:'스탠다드견적수',
+            label:'스탠다드',
             data:[
             	jArray4[0].cnt,
 				jArray4[1].cnt,
@@ -306,11 +306,11 @@ const standard = {
 				jArray4[3].cnt,
 				jArray4[4].cnt,
 				jArray4[5].cnt],
-            backgroundColor:['rgba(30, 144, 255, 0.7)'],
+            backgroundColor:['rgba(30, 144, 255, 0.8)'],
             borderWidth:0
 }
 const premium = {
-        label:'프리미엄견적수',
+        label:'프리미엄',
         data:[
         	jArray5[0].cnt,
 			jArray5[1].cnt,
