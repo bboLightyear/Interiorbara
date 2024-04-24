@@ -11,19 +11,19 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-<link rel="stylesheet" type="text/css"
-	href="resources/css/cs/csboard.css" />
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<link rel="stylesheet" type="text/css" href="resources/css/cs/csboard.css" />
+
 <script>
-	function reta() {
+	function reta(event) { // 이벤트 객체를 매개변수로 명시적으로 받음
+		var target = event.target; // 이벤트 대상을 가져옴
+		var nickname = $(target).data("nickname"); // jQuery를 사용하여 데이터 속성 값 가져옴
+		console.log(nickname); // 콘솔에 로그 출력
 		
-		var nickname = ${loginUserDto.nickname};
-		
-			if (nickname === null) {
-				alert("로그인 후 작성해주세요");
-				document.getElementById("retarea").blur();			
-			}
+		if (!nickname) { // nickname 값이 null, undefined, 빈 문자열인 경우 체크
+			alert("로그인 후 작성해주세요");
+			document.getElementById("retarea").blur(); // 입력 필드 포커스 해제
+		}
 	}
 </script>
 </head>
@@ -137,7 +137,7 @@
 				</span>
 				
 				<div class="cs_content_section3_replyform_ti">
-					<textarea class="cs_content_section3_replyform_textarea" id="retarea" onfocus="reta()" name="qnareply"></textarea>
+					<textarea class="cs_content_section3_replyform_textarea" id="retarea" onfocus="reta(event)" data-nickname="${loginUserDto.nickname }" name="qnareply"></textarea>
 					<input type="hidden" name="qnarewriter" value="${loginUserDto.nickname }" /> 
 					<input class="reply_input_btn" type="submit" value="답변" />
 				</div>
@@ -164,23 +164,14 @@
 					<div class="cs_content_section4_wrap_rreply_content">${dto.rqbcontent }</div>
 	
 					<!--답글 달기 버튼을 클릭 시에 아래에 입력 창이 나타나도록 하는 스크립트-->
-<%-- 					<%
-						if ( == null) {
-					%> --%>
 					<c:if test="${empty loginUserDto.email}"> 
 						<div class="cs_content_section4_wrap_rreply_btn">
 					</c:if>
-<%-- 					<%
-					} else {
-					%> --%>
 					<c:if test="${!empty loginUserDto.email}"> 
 						<div class="cs_content_section4_wrap_rreply_wrap_btn">
 					
 						<button  class="cs_content_section4_wrap_rreply_btn" onclick="replyform()" data-rqbno="${dto.rqbno }">답글달기</button>
 					</c:if>
-<%-- 					<%
-						}
-					%> --%>
 	
 					<input class="cs_content_section4_wrap_rreply_btn" type="button" onclick="replyrview()" id="${dto.rqbno }replyvbtn" name="${dto.rqbno }replyvbtn" data-rqbno="${dto.rqbno }" value="답글보기" />
 					
@@ -338,6 +329,8 @@
 
 					var htmlText = "";
 					var lastIndex = data.length - 1;
+					var firstIndex = 0;
+					
 
 					console.log('lastindex' + lastIndex);
 
@@ -351,19 +344,19 @@
 						
 						htmlText += "<div class='cs_content_section4_replyrview_rni'>";
 						htmlText += "<c:if test='${empty loginUserDto.profileimg}' > "+
-						"<img src='${path }/resources/img/my/user.png' id='OHMainView-photoProfileImage' style='width: 30px; height: 30px;'> "+
+						"<img src='${path }/resources/img/my/user.png' id='OHMainView-photoProfileImage' style='width: 25px; height: 25px;'> "+
 						"</c:if> "+
 			            "<c:if test='${!empty loginUserDto.profileimg}'> "+
-			           	"<img src='${path }/resources/upload/my/${loginUserDto.profileimg}' id='OHMainView-photoProfileImage'> "+
+			           	"<img src='${path }/resources/upload/my/${loginUserDto.profileimg}' id='OHMainView-photoProfileImage' style='width: 25px; height: 25px;'> "+
 			        	"</c:if>";
 						
 						htmlText += "<h4 class='cs_content_section4_wrap_rreply_ni_h4'>";
-						htmlText += data[lastIndex].rqbwriter;
+						htmlText += data[firstIndex].rqbwriter;
 						htmlText += "</h4>";
 						htmlText += "</div>";
 		
 						htmlText += "<p>";
-						htmlText += data[lastIndex].rqbcontent;
+						htmlText += data[firstIndex].rqbcontent;
 						htmlText += "</p>";
 						htmlText += "</div>";
 						
