@@ -30,7 +30,7 @@
 		if (!nickname) {
 			alert("로그인 후 작성해주세요");
 			// 로그인 페이지로 리다이렉트하거나 다른 적절한 액션 수행
-			window.location.href = 'my/login'; // 예시로 로그인 페이지로 이동
+			window.location.href = 'my/loginform'; // 예시로 로그인 페이지로 이동
 		} else {
 			// 사용자가 로그인했다면 이메일 페이지로 리다이렉트하거나 이메일을 발송하는 함수 호출
 			window.location.href = 'mailservice'; // 예시로 이메일 보내기 페이지로 이동
