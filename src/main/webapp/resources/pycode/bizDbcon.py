@@ -4,7 +4,7 @@ import sys
 import pandas as pd
 import numpy as np
 
-casesdf1=pd.read_csv('C:/23setspring/springwork23/interiorbara01/src/main/webapp/resources/pycode/casesinfo.csv')
+casesdf1=pd.read_csv('C:/interiorbara01/interiorbara01/src/main/webapp/resources/pycode/casesinfo.csv')
 
 
 from sklearn.feature_extraction.text import TfidfVectorizer
