@@ -12,7 +12,7 @@ tr:nth-child(even) {background-color: #fefefe;}
     <div class="mypage_category">
         <div class="mypage_category_list list_1_1"><a href="mypage">프로필</a></div>
 	    <div class="mypage_category_list list_1_2"><a href="myphoto">내사진</a></div>
-        <div class="mypage_category_list list_1_3"><a href="myscrap">스크랩북</a></div>
+        <div class="mypage_category_list list_1_3"><a href="myscrap">스크랩</a></div>
         <div class="mypage_category_list list_1_4 pointcolor">좋아요</div>
         <div class="mypage_category_list list_1_5"><a href="mypagecompanysignup">업체신청</a></div>
         <div class="mypage_category_list list_1_6"><a href="mypageinfoedit">회원정보수정</a></div>

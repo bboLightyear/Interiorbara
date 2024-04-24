@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.tech.ibara.my.dao.MyDao;
 import com.tech.ibara.my.dto.MyMemberInfoDto;
-import com.tech.ibara.my.service.AdminmainService;
 import com.tech.ibara.my.service.AllowCheckWithdrawalService;
 import com.tech.ibara.my.service.BlindCheckService;
 import com.tech.ibara.my.service.CancelWithdrawalService;
@@ -35,7 +34,6 @@ import com.tech.ibara.my.service.MypageMainService;
 import com.tech.ibara.my.service.PassResetService;
 import com.tech.ibara.my.service.ReportService;
 import com.tech.ibara.my.service.SService;
-import com.tech.ibara.my.service.SellerSaleService;
 import com.tech.ibara.my.service.SignUpService;
 import com.tech.ibara.my.service.VService;
 
@@ -89,28 +87,28 @@ public class MyController {
 		return str;
 	}
 	@RequestMapping("my/loginform")
-	public String loginform(Model model) {
+	public String loginform(HttpServletRequest request,Model model) {
 		System.out.println("loginform()");
+		String referer = request.getHeader("Referer");
+		System.out.println("referer : "+referer);
+		String ref = referer.substring(28);
+		System.out.println("ref : "+ref);
+		model.addAttribute("ref",ref);
 		return "my/loginform";
 	}
 	@RequestMapping("my/login")
 	public String login(HttpServletRequest request,Model model) {
 		System.out.println("login()");
-		
-		String referer = request.getHeader("Referer");
-	    // 이전 페이지 주소 값 확인
-		System.out.println("referer : "+ referer);
-		
-		String str = referer.substring(28);
-		System.out.println("str : "+str);
-		
-		// 세션에 저장
-		/*
-		 * session.setAttribute("refUrl", referer); // 세션에서 값 불러오기 String refUrl =
-		 * (String) session.getAttribute("refUrl"); // 세션에 저장되어 있는 주소 값 확인
-		 * System.out.println("refUrl : " + refUrl);
-		 */
-		
+		String ref=request.getParameter("ref");
+		System.out.println("referer : "+ref);
+		String str;
+		if(ref.equals("") || ref==null) {
+			String referer = request.getHeader("Referer");
+			str = referer.substring(28);
+			System.out.println("str : "+str);
+		}else {
+			str=ref;
+		}
 		model.addAttribute("request",request);
 		sservice=new LoginService(sqlSession);
 		String userNickname=sservice.execute(model);
@@ -141,7 +139,7 @@ public class MyController {
 		session.setAttribute("loginUserDto",memdto);
 		if(str.equals("my/passeditMC") || str.equals("my/loginform") || str.equals("my/passedit") || str.equals("my/intepassedit") || str.equals("my/sellerpassedit") || str.equals("my/login")) {
 			return "redirect:/";
-		}else if(str.equals("my/mypage")) {
+		}else if(str.equals("my/mypage") || str.equals("my/mypagemain") || str.equals("my/interiormain") || str.equals("my/sellermain") || str.equals("my/adminmain")) {
 			MyMemberInfoDto mdto= (MyMemberInfoDto) session.getAttribute("loginUserDto");
 			if(mdto==null) {
 				model.addAttribute("msg","로그인 정보가 없습니다. 로그인해주세요");
@@ -165,16 +163,22 @@ public class MyController {
 				vservice.execute(model);
 				return "my/mypagemain";
 			}
-		}else if(str.equals("null") || str.length()==0) {
-			return "redirect:/";
 		}else {			
-			return str;
+			return "redirect:/"+str;
 		}		
 	}
 	@RequestMapping("my/adminmain")
 	public String adminmain(HttpServletRequest request,Model model) {
-		System.out.println("adminmain()");		
+		System.out.println("adminmain()");
+		MyMemberInfoDto mdto=(MyMemberInfoDto) session.getAttribute("loginUserDto");
+		if(mdto==null) {
+			model.addAttribute("msg","로그인 정보가 없습니다. 로그인해주세요");
+			return "my/loginform";
+		}else if(!mdto.getMemtype().equals("ADMIN")){
+			return "redirect:/";
+		}else {
 		return "my/adminmain";
+		}
 	}
 	@RequestMapping("my/mypage")
 	public String mypage(HttpServletRequest request,Model model) {
@@ -270,9 +274,8 @@ public class MyController {
 			model.addAttribute("msg","로그인정보가 없습니다. 로그인해주세요");
 			return "my/loginform";
 		}else {
-			return "my/mypagepasswordedit";
-		}
-		
+			return "my/mypagepasswordedit";		
+		}		
 	}
 			
 	@RequestMapping(method=RequestMethod.POST,value="my/passedit")
@@ -361,8 +364,7 @@ public class MyController {
 
 	@RequestMapping("my/withdrawal")
 	public String withdrawal(HttpServletRequest request,Model model) {
-		System.out.println("withdrawal()");
-		
+		System.out.println("withdrawal()");		
 		return "my/withdrawal";
 	}
 	@RequestMapping(method=RequestMethod.POST, value="my/demandwithdrawal")
@@ -438,7 +440,9 @@ public class MyController {
 		if(mdto==null) {
 			model.addAttribute("msg","로그인정보가 없습니다. 로그인해주세요");
 			return "my/loginform";
-		}else {
+		}else if(!mdto.getMemtype().equals("INTERIOR")) {
+			return "redirect:/";
+		}else{
 			model.addAttribute("mdto",mdto);
 			vservice = new MyInteriorCasesService(sqlSession,session);
 			vservice.execute(model);
@@ -610,19 +614,35 @@ public class MyController {
 	@RequestMapping("my/admin_memberlist")
 	public String memberlist(HttpServletRequest request,Model model) {
 		System.out.println("admin_memberlist()");
+		MyMemberInfoDto mdto=(MyMemberInfoDto) session.getAttribute("loginUserDto");
+		if(mdto==null) {
+			model.addAttribute("msg","로그인 정보가 없습니다. 로그인해주세요");
+			return "my/loginform";
+		}else if(!mdto.getMemtype().equals("ADMIN")){
+			return "redirect:/";
+		}else {		
 		model.addAttribute("request",request);
 		vservice=new MemberListService(sqlSession);
 		vservice.execute(model);
 		return "my/admin_memberlist";
+		}
 	}
 	
 	@RequestMapping("my/admin_demandwithdrawal")
 	public String admin_demandwithdrawal(HttpServletRequest request,Model model) {
 		System.out.println("admin_demandwithdrawal()");
 //		model.addAttribute("request",request);
+		MyMemberInfoDto mdto=(MyMemberInfoDto) session.getAttribute("loginUserDto");
+		if(mdto==null) {
+			model.addAttribute("msg","로그인 정보가 없습니다. 로그인해주세요");
+			return "my/loginform";
+		}else if(!mdto.getMemtype().equals("ADMIN")){
+			return "redirect:/";
+		}else {
 		vservice=new DemandWithdrawalMemberService(sqlSession);
 		vservice.execute(model);
 		return "my/admin_demandwithdrawal";
+		}
 	}
 	
 	@RequestMapping("my/allowCheckWithdrawal")
@@ -637,9 +657,17 @@ public class MyController {
 	public String admin_report(HttpServletRequest request,Model model) {
 		System.out.println("admin_report()");
 //		model.addAttribute("request",request);
+		MyMemberInfoDto mdto=(MyMemberInfoDto) session.getAttribute("loginUserDto");
+		if(mdto==null) {
+			model.addAttribute("msg","로그인 정보가 없습니다. 로그인해주세요");
+			return "my/loginform";
+		}else if(!mdto.getMemtype().equals("ADMIN")){
+			return "redirect:/";
+		}else {
 		vservice=new ReportService(sqlSession);
 		vservice.execute(model);
 		return "my/admin_report";
+		}
 	}
 	@RequestMapping("my/blindCheck")
 	public String blindCheck(HttpServletRequest request,Model model) {
@@ -657,28 +685,7 @@ public class MyController {
 		vservice.execute(model);
 		return "my/memberinfopage";
 	}
-	@RequestMapping("my/sellersale")
-	public String sellersale(Model model) {
-		System.out.println("sellersale()");
-		vservice = new SellerSaleService(sqlSession);
-		vservice.execute(model);
-		return "my/sellersale";
-	}
-	@RequestMapping("my/sellersalelist")
-	public String sellersalelist(Model model) {
-		System.out.println("sellersalelist()");
-		return "my/sellersalelist";
-	}
-	@RequestMapping("my/interiorestimate")
-	public String interiorestimate(Model model) {
-		System.out.println("interiorestimate()");
-		return "my/interiorestimate";
-	}
-	@RequestMapping("my/myshopping")
-	public String myshopping(Model model) {
-		System.out.println("myshopping()");
-		return "my/myshopping";
-	}
+	
 	@RequestMapping("my/mylike")
 	public String mylike(HttpServletRequest request,Model model) {
 		System.out.println("mylike()");
@@ -723,21 +730,6 @@ public class MyController {
 		return "my/myphoto";
 		}
 	}
-	@RequestMapping("my/interiorcases")
-	public String interiorcases(Model model) {
-		System.out.println("interiorcases()");
-		MyMemberInfoDto mdto=(MyMemberInfoDto) session.getAttribute("loginUserDto");
-		if(mdto==null) {
-			model.addAttribute("msg","로그인정보가 없습니다. 로그인해주세요");
-			return "my/loginform";
-		}else {
-			model.addAttribute("mdto",mdto);
-			vservice = new MyInteriorCasesService(sqlSession,session);
-			vservice.execute(model);		
-		return "my/interiorcases";
-		}
-	}
-	
-	
+		
 	
 }

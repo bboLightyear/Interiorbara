@@ -30,7 +30,7 @@ public class DemandWithdrawalInsertService implements VService {
 		MyDao mdao=sqlSession.getMapper(MyDao.class);
 		int memnoDupl=mdao.memnoDuplCheck(memno);
 		if(memno.equals("")) {
-			model.addAttribute("msg","로그인해주세요");			
+			model.addAttribute("msg","로그인해주세요");
 		}else if(memtype.equals("ADMIN")) {
 			model.addAttribute("msg","관리자는 탈퇴할수 없습니다.");
 		}else {
