@@ -84,13 +84,13 @@ document.title = "인테리어업체 마이페이지";
     	<c:forEach items="${brdto}" var="brlist">
     	<tr>
     		<td class="scraptd pd8 tc">
-    				<a href="${path}/biz/review/bizRvList?inteno=${loginUserDto.myinteriordto.inteno}">
+    				<a href="${path}/biz/review/bizRvContentView?br_no=${brlist.br_no}">
     				<div style='display:inline-flex;justify-content: center;border-radius: 10px;overflow: hidden;'>
-    				<img class="imgsmall" src="${path}/resources/upload/biz/cases/${brlist.myBizRvImgDto.brimg_cgn}" alt="" /></div></a>
+    				<img class="imgsmall" src="${path}/resources/upload/biz/review/${brlist.myBizRvImgDto.brimg_cgn}" alt="" /></div></a>
     		</td>
     		<td class="scraptd pd8 tc">
     		<span class="abc" onclick="javascript_:window.open('${path}/my/memberinfopage?nickname=${brlist.br_writer}','pop','menubar=no,status=no,scrollbars=no,resizable=no,width=560,height=780,top=50,left=50');">
-			${brlist.br_writer} <i class="fa-solid fa-user fa-2xs"></i></span>    		
+			${brlist.br_writer} <i class="fa-solid fa-user fa-2xs"></i></span>
     		</td>
     		<td class="scraptd pd8"><p class="s">${brlist.br_content}</p></td>
     	</tr>
