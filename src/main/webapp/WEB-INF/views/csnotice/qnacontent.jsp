@@ -247,12 +247,6 @@
 						
 						
 						htmlText += "<div class='cs_content_section4_replyrview_rni'>";
-						/* htmlText += "<c:if test='${empty loginUserDto.profileimg}' > "+
-						"<img src='${path }/resources/img/my/user.png' id='OHMainView-photoProfileImage' style='width: 30px; height: 30px;'> "+
-						"</c:if> "+
-			            "<c:if test='${!empty loginUserDto.profileimg}'> "+
-			           	"<img src='${path }/resources/upload/my/${loginUserDto.profileimg}' id='OHMainView-photoProfileImage'> "+
-			        	"</c:if>"; */
 			        	htmlText += "<img src=${path }/resources/upload/my/"+profileImgUrl+" id='OHMainView-photoProfileImage' style='width: 30px; height: 30px;'> "
 						
 						htmlText += "<h4 class='cs_content_section4_wrap_rreply_ni_h4'>";
@@ -330,13 +324,6 @@
 					var htmlText = "";
 					var lastIndex = data.length - 1;
 					var firstIndex = 0;
-					
-
-					console.log('lastindex' + lastIndex);
-
-					console.log(data[lastIndex].rqbcontent);
-
-					console.log(viewbtn);
 
 					if (viewbtn == true) {
 						

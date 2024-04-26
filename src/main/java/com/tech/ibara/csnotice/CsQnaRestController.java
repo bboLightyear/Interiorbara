@@ -34,14 +34,6 @@ public class CsQnaRestController {
 		String rqbgroup=request.getParameter("rqbgroup");		
 		String rqbindent=request.getParameter("rqbindent");		
 		
-		System.out.println("qbno :"+qbno);
-		System.out.println("rqbno :"+rqbno);
-		System.out.println("rwriter :"+rwriter);
-		System.out.println("rcontent :"+rcontent);
-		System.out.println("rqbstep :"+rqbstep);
-		System.out.println("rqbgroup :"+rqbgroup);
-		System.out.println("rqbindent :"+rqbindent);
-		
 		dao.replyShape(rqbgroup,rqbstep);
 		
 		// 전체 답글 달기

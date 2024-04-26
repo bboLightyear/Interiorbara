@@ -27,7 +27,7 @@ public class BizCasesRestController {
 	        BufferedReader br;
 	        List<SimDto> simlist=new ArrayList<SimDto>();
 
-	        arg1 = "C:\\23setspring\\springwork23\\interiorbara01\\src\\main\\webapp\\resources\\pycode\\bizDbcon.py";
+	        arg1 = "C:\\interiorbara01\\interiorbara01\\src\\main\\webapp\\resources\\pycode\\bizDbcon.py";
 
 	        builder = new ProcessBuilder("python",arg1,bt); //python3 error
 	        

@@ -11,16 +11,6 @@
 <link rel="stylesheet" type="text/css" href="resources/css/cs/csboard.css" />
 <link rel="stylesheet" type="text/css" href="resources/css/main/main.css" />
 <script>
-	/* function sendEmail(event) { // 이벤트 객체를 매개변수로 명시적으로 받음
-		var target = event.target; // 이벤트 대상을 가져옴
-		var nickname = $(target).data("nickname"); // jQuery를 사용하여 데이터 속성 값 가져옴
-		console.log(nickname); // 콘솔에 로그 출력
-		
-		if (!nickname) { // nickname 값이 null, undefined, 빈 문자열인 경우 체크
-			alert("로그인 후 작성해주세요");
-			document.getElementById("retarea").blur(); // 입력 필드 포커스 해제
-		}
-	} */
 	function sendEmail(event) {
 		event.preventDefault(); // 링크의 기본 동작을 중지
 		var target = event.target;
