@@ -294,6 +294,15 @@ public class OHController {
 		return "redirect:OHPhotoView";
 	}	
 	
+	// ---------- 의미 없음 ----------
+	@RequestMapping("oh/lectest")
+	public String lectest(HttpServletRequest request, HttpSession session, Model model) {
+		// Console 출력
+		System.out.println("lectest");
+		System.out.println("------------------------------");
+		return "lectest";
+	}
+	
 }
 
 
