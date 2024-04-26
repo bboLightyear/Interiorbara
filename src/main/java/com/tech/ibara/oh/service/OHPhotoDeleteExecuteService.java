@@ -117,14 +117,14 @@ public class OHPhotoDeleteExecuteService implements OHInterfaceService {
 		// upload 폴더 - 이미지 파일 삭제, path 변수에 저장
 		
 		// 메인 컴퓨터 경로
-		String path = "C:\\interiorbara01\\interiorbara01\\src\\main\\webapp\\resources\\upload\\oh\\photo";
-		System.out.println("path: " + path);
-		System.out.println("------------------------------");
-		
-		// 스프링 STS - upload 폴더 경로 => *****글쓰기 후 이미지가 바로 출력되지 않는 문제가 있다.*****
-//		String path = "C:\\23setspring\\springwork23\\interiorbara01\\src\\main\\webapp\\resources\\upload\\oh\\photo";
+//		String path = "C:\\interiorbara01\\interiorbara01\\src\\main\\webapp\\resources\\upload\\oh\\photo";
 //		System.out.println("path: " + path);
 //		System.out.println("------------------------------");
+		
+		// 스프링 STS - upload 폴더 경로 => *****글쓰기 후 이미지가 바로 출력되지 않는 문제가 있다.*****
+		String path = "C:\\23setspring\\springwork23\\interiorbara01\\src\\main\\webapp\\resources\\upload\\oh\\photo";
+		System.out.println("path: " + path);
+		System.out.println("------------------------------");
 		
 		// 톰캣 server - upload 폴더 경로
 //		String path = "C:\\23setspring\\springwork23\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\interiorbara\\resources\\upload\\oh\\photo";

@@ -35,10 +35,10 @@
 			   </c:when>
 			   <c:otherwise>
    					<div class="header_login">
-						<a href="${path}/my/logout">로그아웃</a>
+						<a href="${path}/my/logout" style="text-decoration:none;color:#1a1f27">로그아웃</a>
 					</div>
 					<div class="header_join">
-						<a href="${path}/my/mypage">mypage</a>
+						<a href="${path}/my/mypage" style="text-decoration:none;color:#1a1f27">mypage</a>
 					</div>
 			   </c:otherwise>
 			</c:choose>
