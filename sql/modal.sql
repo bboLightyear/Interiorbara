@@ -1,122 +1,183 @@
 create table modal_check(
 m_type varchar2(40),
-m_pname varchar(70),
-m_pexp varchar(100),
-m_ppice number
+m_pname varchar2(70),
+m_pexp varchar2(100),
+m_pprice number
 );
---½ºÅÄ´ÙµåÄ¿½ºÅÒÀÎÅ×¸®¾î
-insert into modal_check values('½ºÅÄ´Ùµå Ä¿½ºÅÒ ÀÎÅ×¸®¾î','Ã¶°Å-¸¶·ç¹Ù´Ú(Æò´ç)','°Å½Ç ¹× ¹æ¹Ù´Ú ¸¶·çÃ¶°Å',3);
-insert into modal_check values('½ºÅÄ´Ùµå Ä¿½ºÅÒ ÀÎÅ×¸®¾î','È®Àå-¹ßÄÚ´Ï(°³¼Ò´ç)','´Ü¿­/³­¹æ¹è°ü Æ÷ÇÔ°¡',110);
-insert into modal_check values('½ºÅÄ´Ùµå Ä¿½ºÅÒ ÀÎÅ×¸®¾î','Àü±â-¹è¼±°ø»ç(Æò´ç)','ÅäÅ» ¸®¸ğµ¨¸µ °ø»ç½Ã ÇÊ¼ö ¼±ÅÃ',4);
-insert into modal_check values('½ºÅÄ´Ùµå Ä¿½ºÅÒ ÀÎÅ×¸®¾î','½ºÀ§Ä¡/ÄÜ¼¾Æ®±³Ã¼(°³´ç)','¸£±×¶ûÁ¦Ç° ±âÁØ(ÀÎ°ÇºñÆ÷ÇÔ)',2);
-insert into modal_check values('½ºÅÄ´Ùµå Ä¿½ºÅÒ ÀÎÅ×¸®¾î','¼¦½Ã-±³Ã¼','¼¦½Ã´Â ½ÇÃø ÈÄ º°µµ ¿ä±İ ¾È³»',null);
-insert into modal_check values('½ºÅÄ´Ùµå Ä¿½ºÅÒ ÀÎÅ×¸®¾î','¿¡¾îÄÁ','º°µµ ¿ä±İ ¾È³»',null);
-insert into modal_check values('½ºÅÄ´Ùµå Ä¿½ºÅÒ ÀÎÅ×¸®¾î','¹æ¹®±³Ã¼(°³´ç)','±âº» ÇÃ·§Çü(¼ÕÀâÀÌ/°æÃ¸ Æ÷ÇÔ)',25);
-insert into modal_check values('½ºÅÄ´Ùµå Ä¿½ºÅÒ ÀÎÅ×¸®¾î','¹æ¹®+¹®Æ²±³Ã¼(°³´ç)','ÇÃ·§µµ¾î,ºê·£µå(¼ÕÀâÀÌ/°æÃ¸ Æ÷ÇÔ)',40);
-insert into modal_check values('½ºÅÄ´Ùµå Ä¿½ºÅÒ ÀÎÅ×¸®¾î','Áß¹®','±âº»Çü ÀÌ¿Ü Ãß°¡ºñ¿ë ¹ß»ı',100);
-insert into modal_check values('½ºÅÄ´Ùµå Ä¿½ºÅÒ ÀÎÅ×¸®¾î','µµ¹è-ÇÕÁö(Æò´ç°¡)','LXº®Áö ±âÁØ,ÀÎ°Çºñ Æ÷ÇÔ',4);
-insert into modal_check values('½ºÅÄ´Ùµå Ä¿½ºÅÒ ÀÎÅ×¸®¾î','µµ¹è-½ÇÅ©(Æò´ç°¡)','LXº®Áö ±âÁØ,ÀÎ°Çºñ Æ÷ÇÔ',8);
-insert into modal_check values('½ºÅÄ´Ùµå Ä¿½ºÅÒ ÀÎÅ×¸®¾î','¹Ù´Ú-¸¶·ç(Æò´ç°¡)','½ºÅÄ´Ùµå °­¸¶·ç(±¸Á¤¸¶·ç ±âÁØ)',11);
-insert into modal_check values('½ºÅÄ´Ùµå Ä¿½ºÅÒ ÀÎÅ×¸®¾î','¹Ù´Ú-ÀåÆÇ(Æò´ç°¡)','LXÀåÆÇ(3T)±âÁØ',5);
-insert into modal_check values('½ºÅÄ´Ùµå Ä¿½ºÅÒ ÀÎÅ×¸®¾î','¿å½Ç-½ºÅÄ´Ùµå(°³¼Ò´ç)','±â¼ººñÁ¦Ç°(µµ±â/½½¶óÀÌµåÀå/¿å½ÇÁ¦Ç°/Å¸ÀÏ°ø»ç Æ÷ÇÔ)',380);
-insert into modal_check values('½ºÅÄ´Ùµå Ä¿½ºÅÒ ÀÎÅ×¸®¾î','ÇÊ¸§-¹æ¹®(°³´ç)','µµ¾î ±³Ã¼½Ã ¼±ÅÃ ±İÁö',12);
-insert into modal_check values('½ºÅÄ´Ùµå Ä¿½ºÅÒ ÀÎÅ×¸®¾î','ÇÊ¸§-Çö°ü¹®³»Ãø',null,20);
-insert into modal_check values('½ºÅÄ´Ùµå Ä¿½ºÅÒ ÀÎÅ×¸®¾î','ÁÖ¹æ°¡±¸-½ºÅÄ´Ùµå(¹ÌÅÍ´ç)','»ó/ÇÏºÎÀå,±âº»½ÌÅ©º¼/¼öÀü,ÈÄµå Æ÷ÇÔ(ÁÖ¹æ º® Å¸ÀÏ ºñÆ÷ÇÔ)',95);
-insert into modal_check values('½ºÅÄ´Ùµå Ä¿½ºÅÒ ÀÎÅ×¸®¾î','¾ÆÀÏ·£µå(¹ÌÅÍ´ç)','±âº» ÀÎÁ¶´ë¸®¼® »óÆÇ Æ÷ÇÔ',75);
-insert into modal_check values('½ºÅÄ´Ùµå Ä¿½ºÅÒ ÀÎÅ×¸®¾î','½Å¹ßÀå/Çö°üÀå(¹ÌÅÍ´ç)','½Å¹ßÀå ÇÏºÎ ¶ç¿ò½Ã Ãß°¡ ºñ¿ë ¹ß»ı',45);
-insert into modal_check values('½ºÅÄ´Ùµå Ä¿½ºÅÒ ÀÎÅ×¸®¾î','ºÙ¹ÚÀÌÀå(¹ÌÅÍ´ç)','±âº»E0 PETÀå',35);
-insert into modal_check values('½ºÅÄ´Ùµå Ä¿½ºÅÒ ÀÎÅ×¸®¾î','Åº¼ºÄÚÆ®(°³¼Ò´ç)','¹ßÄÚ´Ï ¿À¿°/°õÆÎÀÌ ¹æÁö ÆäÀÎÆ®',35);
-insert into modal_check values('½ºÅÄ´Ùµå Ä¿½ºÅÒ ÀÎÅ×¸®¾î','Å¸ÀÏ°ø»ç-¹ßÄÚ´Ï(°³¼Ò´ç)','±âº» ±¹»êÅ¸ÀÏ',50);
-insert into modal_check values('½ºÅÄ´Ùµå Ä¿½ºÅÒ ÀÎÅ×¸®¾î','Å¸ÀÏ°ø»ç-Çö°ü¹Ù´Ú','±âº» ±¹»êÅ¸ÀÏ(ÀÎ°Çºñ Æ÷ÇÔ)',45);
-insert into modal_check values('½ºÅÄ´Ùµå Ä¿½ºÅÒ ÀÎÅ×¸®¾î','¸¶°¨Ã»¼Ò(Æò´ç°¡)','±âº» ÀÔÁÖ Ã»¼Ò',1);
+--ìŠ¤íƒ ë‹¤ë“œì»¤ìŠ¤í…€ì¸í…Œë¦¬ì–´
+insert into modal_check values('standard','ì² ê±°-ë§ˆë£¨ë°”ë‹¥(í‰ë‹¹)','ê±°ì‹¤ ë° ë°©ë°”ë‹¥ ë§ˆë£¨ì² ê±°',3);
+insert into modal_check values('standard','í™•ì¥-ë°œì½”ë‹ˆ(ê°œì†Œë‹¹)','ë‹¨ì—´/ë‚œë°©ë°°ê´€ í¬í•¨ê°€',110);
+insert into modal_check values('standard','ì „ê¸°-ë°°ì„ ê³µì‚¬(í‰ë‹¹)','í† íƒˆ ë¦¬ëª¨ë¸ë§ ê³µì‚¬ì‹œ í•„ìˆ˜ ì„ íƒ',4);
+insert into modal_check values('standard','ìŠ¤ìœ„ì¹˜/ì½˜ì„¼íŠ¸êµì²´(ê°œë‹¹)','ë¥´ê·¸ë‘ì œí’ˆ ê¸°ì¤€(ì¸ê±´ë¹„í¬í•¨)',2);
+insert into modal_check values('standard','ìƒ·ì‹œ-êµì²´','ìƒ·ì‹œëŠ” ì‹¤ì¸¡ í›„ ë³„ë„ ìš”ê¸ˆ ì•ˆë‚´','');
+insert into modal_check values('standard','ì—ì–´ì»¨','ë³„ë„ ìš”ê¸ˆ ì•ˆë‚´','');
+insert into modal_check values('standard','ë°©ë¬¸êµì²´(ê°œë‹¹)','ê¸°ë³¸ í”Œë«í˜•(ì†ì¡ì´/ê²½ì²© í¬í•¨)',25);
+insert into modal_check values('standard','ë°©ë¬¸+ë¬¸í‹€êµì²´(ê°œë‹¹)','í”Œë«ë„ì–´,ë¸Œëœë“œ(ì†ì¡ì´/ê²½ì²© í¬í•¨)',40);
+insert into modal_check values('standard','ì¤‘ë¬¸','ê¸°ë³¸í˜• ì´ì™¸ ì¶”ê°€ë¹„ìš© ë°œìƒ',100);
+insert into modal_check values('standard','ë„ë°°-í•©ì§€(í‰ë‹¹ê°€)','LXë²½ì§€ ê¸°ì¤€,ì¸ê±´ë¹„ í¬í•¨',4);
+insert into modal_check values('standard','ë„ë°°-ì‹¤í¬(í‰ë‹¹ê°€)','LXë²½ì§€ ê¸°ì¤€,ì¸ê±´ë¹„ í¬í•¨',8);
+insert into modal_check values('standard','ë°”ë‹¥-ë§ˆë£¨(í‰ë‹¹ê°€)','ìŠ¤íƒ ë‹¤ë“œ ê°•ë§ˆë£¨(êµ¬ì •ë§ˆë£¨ ê¸°ì¤€)',11);
+insert into modal_check values('standard','ë°”ë‹¥-ì¥íŒ(í‰ë‹¹ê°€)','LXì¥íŒ(3T)ê¸°ì¤€',5);
+insert into modal_check values('standard','ìš•ì‹¤-ìŠ¤íƒ ë‹¤ë“œ(ê°œì†Œë‹¹)','ê¸°ì„±ë¹„ì œí’ˆ(ë„ê¸°/ìŠ¬ë¼ì´ë“œì¥/ìš•ì‹¤ì œí’ˆ/íƒ€ì¼ê³µì‚¬ í¬í•¨)',380);
+insert into modal_check values('standard','í•„ë¦„-ë°©ë¬¸(ê°œë‹¹)','ë„ì–´ êµì²´ì‹œ ì„ íƒ ê¸ˆì§€',12);
+insert into modal_check values('standard','í•„ë¦„-í˜„ê´€ë¬¸ë‚´ì¸¡','',20);
+insert into modal_check values('standard','ì£¼ë°©ê°€êµ¬-ìŠ¤íƒ ë‹¤ë“œ(ë¯¸í„°ë‹¹)','ìƒ/í•˜ë¶€ì¥,ê¸°ë³¸ì‹±í¬ë³¼/ìˆ˜ì „,í›„ë“œ í¬í•¨(ì£¼ë°© ë²½ íƒ€ì¼ ë¹„í¬í•¨)',95);
+insert into modal_check values('standard','ì•„ì¼ëœë“œ(ë¯¸í„°ë‹¹)','ê¸°ë³¸ ì¸ì¡°ëŒ€ë¦¬ì„ ìƒíŒ í¬í•¨',75);
+insert into modal_check values('standard','ì‹ ë°œì¥/í˜„ê´€ì¥(ë¯¸í„°ë‹¹)','ì‹ ë°œì¥ í•˜ë¶€ ë„ì›€ì‹œ ì¶”ê°€ ë¹„ìš© ë°œìƒ',45);
+insert into modal_check values('standard','ë¶™ë°•ì´ì¥(ë¯¸í„°ë‹¹)','ê¸°ë³¸E0 PETì¥',35);
+insert into modal_check values('standard','íƒ„ì„±ì½”íŠ¸(ê°œì†Œë‹¹)','ë°œì½”ë‹ˆ ì˜¤ì—¼/ê³°íŒ¡ì´ ë°©ì§€ í˜ì¸íŠ¸',35);
+insert into modal_check values('standard','íƒ€ì¼ê³µì‚¬-ë°œì½”ë‹ˆ(ê°œì†Œë‹¹)','ê¸°ë³¸ êµ­ì‚°íƒ€ì¼',50);
+insert into modal_check values('standard','íƒ€ì¼ê³µì‚¬-í˜„ê´€ë°”ë‹¥','ê¸°ë³¸ êµ­ì‚°íƒ€ì¼(ì¸ê±´ë¹„ í¬í•¨)',45);
+insert into modal_check values('standard','ë§ˆê°ì²­ì†Œ(í‰ë‹¹ê°€)','ê¸°ë³¸ ì…ì£¼ ì²­ì†Œ',1);
 
 
---ÇÁ¸®¹Ì¾öÄ¿½ºÅÒÀÎÅ×¸®¾î
-insert into modal_check values('ÇÁ¸®¹Ì¾ö Ä¿½ºÅÒ ÀÎÅ×¸®¾î','Ã¶°Å-³»ºÎÀüÃ¼(Æò´ç)','Å¸ÀÏ,ºÙ¹ÚÀÌÀå,ÁÖ¹æ°¡±¸,¸ôµù,µµ¾î(³¯°³º® Ã¶°Å ºñÆ÷ÇÔ)',7);
-insert into modal_check values('ÇÁ¸®¹Ì¾ö Ä¿½ºÅÒ ÀÎÅ×¸®¾î','Ã¶°Å-¸¶·ç¹Ù´Ú(Æò´ç)','°Å½Ç ¹× ¹æ¹Ù´Ú ¸¶·çÃ¶°Å',3);
-insert into modal_check values('ÇÁ¸®¹Ì¾ö Ä¿½ºÅÒ ÀÎÅ×¸®¾î','È®Àå-¹ßÄÚ´Ï(°³¼Ò´ç)','´Ü¿­/³­¹æ¹è°ü Æ÷ÇÔ°¡',110);
-insert into modal_check values('ÇÁ¸®¹Ì¾ö Ä¿½ºÅÒ ÀÎÅ×¸®¾î','Àü±â-¹è¼±°ø»ç(Æò´ç)','ÅäÅ» ¸®¸ğµ¨¸µ °ø»ç½Ã ÇÊ¼ö ¼±ÅÃ',4);
-insert into modal_check values('ÇÁ¸®¹Ì¾ö Ä¿½ºÅÒ ÀÎÅ×¸®¾î','½ºÀ§Ä¡/ÄÜ¼¾Æ®±³Ã¼(°³´ç)','¸£±×¶ûÁ¦Ç° ±âÁØ(ÀÎ°ÇºñÆ÷ÇÔ)',2);
-insert into modal_check values('ÇÁ¸®¹Ì¾ö Ä¿½ºÅÒ ÀÎÅ×¸®¾î','¼¦½Ã-±³Ã¼','¼¦½Ã´Â ½ÇÃø ÈÄ º°µµ ¿ä±İ ¾È³»',null);
-insert into modal_check values('ÇÁ¸®¹Ì¾ö Ä¿½ºÅÒ ÀÎÅ×¸®¾î','Á¶¸í-ÃµÀå¸ÅÀÔµî ½Ã°ø(Æò´ç)','LED 2/3ÀÎÄ¡ Æ÷ÇÔ(ÀÎ°Çºñ Æ÷ÇÔ)',3);
-insert into modal_check values('ÇÁ¸®¹Ì¾ö Ä¿½ºÅÒ ÀÎÅ×¸®¾î','¿¡¾îÄÁ','º°µµ ¿ä±İ ¾È³»',null);
-insert into modal_check values('ÇÁ¸®¹Ì¾ö Ä¿½ºÅÒ ÀÎÅ×¸®¾î','¹æ¹®±³Ã¼(°³´ç)','ºê·£µå(¼ÕÀâÀÌ/°æÃ¸ Æ÷ÇÔ)',28);
-insert into modal_check values('ÇÁ¸®¹Ì¾ö Ä¿½ºÅÒ ÀÎÅ×¸®¾î','¹æ¹®+¹®Æ²±³Ã¼(°³´ç)','ÇÃ·§µµ¾î,ºê·£µå(¼ÕÀâÀÌ/°æÃ¸ Æ÷ÇÔ)',40);
-insert into modal_check values('ÇÁ¸®¹Ì¾ö Ä¿½ºÅÒ ÀÎÅ×¸®¾î','¹æ¹®±³Ã¼(È÷µçµµ¾î/°³´ç)','ºê·£µå(¼ÕÀâÀÌ/°æÃ¸ Æ÷ÇÔ)',55);
-insert into modal_check values('ÇÁ¸®¹Ì¾ö Ä¿½ºÅÒ ÀÎÅ×¸®¾î','Áß¹®-ÇÁ¸®¹Ì¾ö','ºê·£µå Áß¹®',130);
-insert into modal_check values('ÇÁ¸®¹Ì¾ö Ä¿½ºÅÒ ÀÎÅ×¸®¾î','µµ¹è-½ÇÅ©(Æò´ç°¡)','LXº®Áö ±âÁØ,ÀÎ°Çºñ Æ÷ÇÔ',8);
-insert into modal_check values('ÇÁ¸®¹Ì¾ö Ä¿½ºÅÒ ÀÎÅ×¸®¾î','¹Ù´Ú-¸¶·ç(Æò´ç°¡)','ÇÁ¸®¹Ì¾ö °­¸¶·ç(±¸Á¤¸¶·ç ±âÁØ)',13);
-insert into modal_check values('ÇÁ¸®¹Ì¾ö Ä¿½ºÅÒ ÀÎÅ×¸®¾î','¿å½Ç-ÇÁ¸®¹Ì¾ö(°³¼Ò´ç)','ºê·£µåÁ¦Ç°(µµ±â/½½¶óÀÌµåÀå/¿å½ÇÁ¦Ç°/Å¸ÀÏ°ø»ç Æ÷ÇÔ)',480);
-insert into modal_check values('ÇÁ¸®¹Ì¾ö Ä¿½ºÅÒ ÀÎÅ×¸®¾î','ÇÊ¸§-¹æ¹®(°³´ç)','µµ¾î ±³Ã¼½Ã ¼±ÅÃ ±İÁö',12);
-insert into modal_check values('ÇÁ¸®¹Ì¾ö Ä¿½ºÅÒ ÀÎÅ×¸®¾î','ÇÊ¸§-Çö°ü¹®³»Ãø',null,20);
-insert into modal_check values('ÇÁ¸®¹Ì¾ö Ä¿½ºÅÒ ÀÎÅ×¸®¾î','ÁÖ¹æ°¡±¸-½ºÅÄ´Ùµå(¹ÌÅÍ´ç)','»ó/ÇÏºÎÀå,±âº»½ÌÅ©º¼/¼öÀü,ÈÄµå Æ÷ÇÔ(ÁÖ¹æ º® Å¸ÀÏ ºñÆ÷ÇÔ)',95);
-insert into modal_check values('ÇÁ¸®¹Ì¾ö Ä¿½ºÅÒ ÀÎÅ×¸®¾î','ÁÖ¹æ°¡±¸-ÇÁ¸®¹Ì¾ö(¹ÌÅÍ´ç)','»ó/ÇÏºÎÀå,ºê·£µå½ÌÅ©º¼/¼öÀü,ÈÄµå Æ÷ÇÔ(ÁÖ¹æ º® Å¸ÀÏ ºñÆ÷ÇÔ)',125);
-insert into modal_check values('ÇÁ¸®¹Ì¾ö Ä¿½ºÅÒ ÀÎÅ×¸®¾î','¾ÆÀÏ·£µå(¹ÌÅÍ´ç)','±âº» ÀÎÁ¶´ë¸®¼® »óÆÇ Æ÷ÇÔ',75);
-insert into modal_check values('ÇÁ¸®¹Ì¾ö Ä¿½ºÅÒ ÀÎÅ×¸®¾î','½Å¹ßÀå/Çö°üÀå(¹ÌÅÍ´ç)','½Å¹ßÀå ÇÏºÎ ¶ç¿ò½Ã Ãß°¡ ºñ¿ë ¹ß»ı',45);
-insert into modal_check values('ÇÁ¸®¹Ì¾ö Ä¿½ºÅÒ ÀÎÅ×¸®¾î','ºÙ¹ÚÀÌÀå(¹ÌÅÍ´ç)','Á¦·ÎÁ¶ÀÎÆ® PETÀå',65);
-insert into modal_check values('ÇÁ¸®¹Ì¾ö Ä¿½ºÅÒ ÀÎÅ×¸®¾î','Åº¼ºÄÚÆ®(°³¼Ò´ç)','¹ßÄÚ´Ï ¿À¿°/°õÆÎÀÌ ¹æÁö ÆäÀÎÆ®',35);
-insert into modal_check values('ÇÁ¸®¹Ì¾ö Ä¿½ºÅÒ ÀÎÅ×¸®¾î','Å¸ÀÏ°ø»ç-¹ßÄÚ´Ï(°³¼Ò´ç)','±âº» ±¹»êÅ¸ÀÏ',50);
-insert into modal_check values('ÇÁ¸®¹Ì¾ö Ä¿½ºÅÒ ÀÎÅ×¸®¾î','Å¸ÀÏ°ø»ç-Çö°ü¹Ù´Ú','±âº» ±¹»êÅ¸ÀÏ(ÀÎ°Çºñ Æ÷ÇÔ)',45);
-insert into modal_check values('ÇÁ¸®¹Ì¾ö Ä¿½ºÅÒ ÀÎÅ×¸®¾î','¸¶°¨Ã»¼Ò(Æò´ç°¡)','±âº» ÀÔÁÖ Ã»¼Ò',1);
+--í”„ë¦¬ë¯¸ì—„ì»¤ìŠ¤í…€ì¸í…Œë¦¬ì–´
+insert into modal_check values('premium','ì² ê±°-ë‚´ë¶€ì „ì²´(í‰ë‹¹)','íƒ€ì¼,ë¶™ë°•ì´ì¥,ì£¼ë°©ê°€êµ¬,ëª°ë”©,ë„ì–´(ë‚ ê°œë²½ ì² ê±° ë¹„í¬í•¨)',7);
+insert into modal_check values('premium','ì² ê±°-ë§ˆë£¨ë°”ë‹¥(í‰ë‹¹)','ê±°ì‹¤ ë° ë°©ë°”ë‹¥ ë§ˆë£¨ì² ê±°',3);
+insert into modal_check values('premium','í™•ì¥-ë°œì½”ë‹ˆ(ê°œì†Œë‹¹)','ë‹¨ì—´/ë‚œë°©ë°°ê´€ í¬í•¨ê°€',110);
+insert into modal_check values('premium','ì „ê¸°-ë°°ì„ ê³µì‚¬(í‰ë‹¹)','í† íƒˆ ë¦¬ëª¨ë¸ë§ ê³µì‚¬ì‹œ í•„ìˆ˜ ì„ íƒ',4);
+insert into modal_check values('premium','ìŠ¤ìœ„ì¹˜/ì½˜ì„¼íŠ¸êµì²´(ê°œë‹¹)','ë¥´ê·¸ë‘ì œí’ˆ ê¸°ì¤€(ì¸ê±´ë¹„í¬í•¨)',2);
+insert into modal_check values('premium','ìƒ·ì‹œ-êµì²´','ìƒ·ì‹œëŠ” ì‹¤ì¸¡ í›„ ë³„ë„ ìš”ê¸ˆ ì•ˆë‚´','');
+insert into modal_check values('premium','ì¡°ëª…-ì²œì¥ë§¤ì…ë“± ì‹œê³µ(í‰ë‹¹)','LED 2/3ì¸ì¹˜ í¬í•¨(ì¸ê±´ë¹„ í¬í•¨)',3);
+insert into modal_check values('premium','ì—ì–´ì»¨','ë³„ë„ ìš”ê¸ˆ ì•ˆë‚´','');
+insert into modal_check values('premium','ë°©ë¬¸êµì²´(ê°œë‹¹)','ë¸Œëœë“œ(ì†ì¡ì´/ê²½ì²© í¬í•¨)',28);
+insert into modal_check values('premium','ë°©ë¬¸+ë¬¸í‹€êµì²´(ê°œë‹¹)','í”Œë«ë„ì–´,ë¸Œëœë“œ(ì†ì¡ì´/ê²½ì²© í¬í•¨)',40);
+insert into modal_check values('premium','ë°©ë¬¸êµì²´(íˆë“ ë„ì–´/ê°œë‹¹)','ë¸Œëœë“œ(ì†ì¡ì´/ê²½ì²© í¬í•¨)',55);
+insert into modal_check values('premium','ì¤‘ë¬¸-í”„ë¦¬ë¯¸ì—„','ë¸Œëœë“œ ì¤‘ë¬¸',130);
+insert into modal_check values('premium','ë„ë°°-ì‹¤í¬(í‰ë‹¹ê°€)','LXë²½ì§€ ê¸°ì¤€,ì¸ê±´ë¹„ í¬í•¨',8);
+insert into modal_check values('premium','ë°”ë‹¥-ë§ˆë£¨(í‰ë‹¹ê°€)','í”„ë¦¬ë¯¸ì—„ ê°•ë§ˆë£¨(êµ¬ì •ë§ˆë£¨ ê¸°ì¤€)',13);
+insert into modal_check values('premium','ìš•ì‹¤-í”„ë¦¬ë¯¸ì—„(ê°œì†Œë‹¹)','ë¸Œëœë“œì œí’ˆ(ë„ê¸°/ìŠ¬ë¼ì´ë“œì¥/ìš•ì‹¤ì œí’ˆ/íƒ€ì¼ê³µì‚¬ í¬í•¨)',480);
+insert into modal_check values('premium','í•„ë¦„-ë°©ë¬¸(ê°œë‹¹)','ë„ì–´ êµì²´ì‹œ ì„ íƒ ê¸ˆì§€',12);
+insert into modal_check values('premium','í•„ë¦„-í˜„ê´€ë¬¸ë‚´ì¸¡','',20);
+insert into modal_check values('premium','ì£¼ë°©ê°€êµ¬-ìŠ¤íƒ ë‹¤ë“œ(ë¯¸í„°ë‹¹)','ìƒ/í•˜ë¶€ì¥,ê¸°ë³¸ì‹±í¬ë³¼/ìˆ˜ì „,í›„ë“œ í¬í•¨(ì£¼ë°© ë²½ íƒ€ì¼ ë¹„í¬í•¨)',95);
+insert into modal_check values('premium','ì£¼ë°©ê°€êµ¬-í”„ë¦¬ë¯¸ì—„(ë¯¸í„°ë‹¹)','ìƒ/í•˜ë¶€ì¥,ë¸Œëœë“œì‹±í¬ë³¼/ìˆ˜ì „,í›„ë“œ í¬í•¨(ì£¼ë°© ë²½ íƒ€ì¼ ë¹„í¬í•¨)',125);
+insert into modal_check values('premium','ì•„ì¼ëœë“œ(ë¯¸í„°ë‹¹)','ê¸°ë³¸ ì¸ì¡°ëŒ€ë¦¬ì„ ìƒíŒ í¬í•¨',75);
+insert into modal_check values('premium','ì‹ ë°œì¥/í˜„ê´€ì¥(ë¯¸í„°ë‹¹)','ì‹ ë°œì¥ í•˜ë¶€ ë„ì›€ì‹œ ì¶”ê°€ ë¹„ìš© ë°œìƒ',45);
+insert into modal_check values('premium','ë¶™ë°•ì´ì¥(ë¯¸í„°ë‹¹)','ì œë¡œì¡°ì¸íŠ¸ PETì¥',65);
+insert into modal_check values('premium','íƒ„ì„±ì½”íŠ¸(ê°œì†Œë‹¹)','ë°œì½”ë‹ˆ ì˜¤ì—¼/ê³°íŒ¡ì´ ë°©ì§€ í˜ì¸íŠ¸',35);
+insert into modal_check values('premium','íƒ€ì¼ê³µì‚¬-ë°œì½”ë‹ˆ(ê°œì†Œë‹¹)','ê¸°ë³¸ êµ­ì‚°íƒ€ì¼',50);
+insert into modal_check values('premium','íƒ€ì¼ê³µì‚¬-í˜„ê´€ë°”ë‹¥','ê¸°ë³¸ êµ­ì‚°íƒ€ì¼(ì¸ê±´ë¹„ í¬í•¨)',45);
+insert into modal_check values('premium','ë§ˆê°ì²­ì†Œ(í‰ë‹¹ê°€)','ê¸°ë³¸ ì…ì£¼ ì²­ì†Œ',1);
 
---ÁÖ¹æ°¡±¸ ÀÎÅ×¸®¾î
-insert into modal_check values('ÁÖ¹æ°¡±¸ ÀÎÅ×¸®¾î','»óºÎÀå(¹ÌÅÍ´ç)','EO(PET)Á¦·ÎÁ¶ÀÎÆ®(³ôÀÌ600),ºí·ë°æÃ¸,Çª½Ãµµ¾î',50);
-insert into modal_check values('ÁÖ¹æ°¡±¸ ÀÎÅ×¸®¾î','ÇÏºÎÀå(¹ÌÅÍ´ç)','EO(PET)Á¦·ÎÁ¶ÀÎÆ®(³ôÀÌ850),ºí·ë°æÃ¸,Çª½Ãµµ¾î',60);
-insert into modal_check values('ÁÖ¹æ°¡±¸ ÀÎÅ×¸®¾î','³ÃÀå°íÀå(¹ÌÅÍ´ç)','EO(PET)±âÁØ',50);
-insert into modal_check values('ÁÖ¹æ°¡±¸ ÀÎÅ×¸®¾î','¾ÆÀÏ·£µå(¹ÌÅÍ´ç)','EO(PET)±âÁØ(³ôÀÌ850)',65);
-insert into modal_check values('ÁÖ¹æ°¡±¸ ÀÎÅ×¸®¾î','ÀÎÁ¶´ë¸®¼® »óÆÇ(¹ÌÅÍ´ç)','»ó/ÇÏºÎÀå ±æÀÌ ÀÔ·Â, LX ÇÏÀÌ¸·½º(12T/Æø90cm±âÁØ)',35);
-insert into modal_check values('ÁÖ¹æ°¡±¸ ÀÎÅ×¸®¾î','´ë¸®¼® »óÆÇ(¹ÌÅÍ´ç)','»ó/ÇÏºÎÀå ±æÀÌ ÀÔ·Â(12T/Æø90cm±âÁØ)',55);
-insert into modal_check values('ÁÖ¹æ°¡±¸ ÀÎÅ×¸®¾î','½ÌÅ©¼öÀü-±âº»','ÇÏÃ÷ ¼öÀü FC-US 100',9);
-insert into modal_check values('ÁÖ¹æ°¡±¸ ÀÎÅ×¸®¾î','½ÌÅ©¼öÀü-ÇÁ¸®¹Ì¾ö','½´Æ¼¿¡ ¼öÀü',25);
-insert into modal_check values('ÁÖ¹æ°¡±¸ ÀÎÅ×¸®¾î','½ÌÅ©º¼','¹éÁ¶½ÌÅ©º¼ 780',38);
-insert into modal_check values('ÁÖ¹æ°¡±¸ ÀÎÅ×¸®¾î','º®Å¸ÀÏ º¯°æ(¹ÌÅÍ´ç)','±¹»êÅ¸ÀÏ(300/600°¢ ¼±ÅÃ/ÀÎ°ÇºñÆ÷ÇÔ)',25);
-insert into modal_check values('ÁÖ¹æ°¡±¸ ÀÎÅ×¸®¾î','ÈÄµå','ÇÏÀÌµå ºôÆ®ÀÎ ÈÄµå(¹è°ü¼³Ä¡ Æ÷ÇÔ)',30);
+--ì£¼ë°©ì¸í…Œë¦¬ì–´
+insert into modal_check values('kitchen','ìƒë¶€ì¥(ë¯¸í„°ë‹¹)','EO(PET)ì œë¡œì¡°ì¸íŠ¸(ë†’ì´600),ë¸”ë£¸ê²½ì²©,í‘¸ì‹œë„ì–´',50);
+insert into modal_check values('kitchen','í•˜ë¶€ì¥(ë¯¸í„°ë‹¹)','EO(PET)ì œë¡œì¡°ì¸íŠ¸(ë†’ì´850),ë¸”ë£¸ê²½ì²©,í‘¸ì‹œë„ì–´',60);
+insert into modal_check values('kitchen','ëƒ‰ì¥ê³ ì¥(ë¯¸í„°ë‹¹)','EO(PET)ê¸°ì¤€',50);
+insert into modal_check values('kitchen','ì•„ì¼ëœë“œ(ë¯¸í„°ë‹¹)','EO(PET)ê¸°ì¤€(ë†’ì´850)',65);
+insert into modal_check values('kitchen','ì¸ì¡°ëŒ€ë¦¬ì„ ìƒíŒ(ë¯¸í„°ë‹¹)','ìƒ/í•˜ë¶€ì¥ ê¸¸ì´ ì…ë ¥, LX í•˜ì´ë§‰ìŠ¤(12T/í­90cmê¸°ì¤€)',35);
+insert into modal_check values('kitchen','ëŒ€ë¦¬ì„ ìƒíŒ(ë¯¸í„°ë‹¹)','ìƒ/í•˜ë¶€ì¥ ê¸¸ì´ ì…ë ¥(12T/í­90cmê¸°ì¤€)',55);
+insert into modal_check values('kitchen','ì‹±í¬ìˆ˜ì „-ê¸°ë³¸','í•˜ì¸  ìˆ˜ì „ FC-US 100',9);
+insert into modal_check values('kitchen','ì‹±í¬ìˆ˜ì „-í”„ë¦¬ë¯¸ì—„','ìŠˆí‹°ì— ìˆ˜ì „',25);
+insert into modal_check values('kitchen','ì‹±í¬ë³¼','ë°±ì¡°ì‹±í¬ë³¼ 780',38);
+insert into modal_check values('kitchen','ë²½íƒ€ì¼ ë³€ê²½(ë¯¸í„°ë‹¹)','êµ­ì‚°íƒ€ì¼(300/600ê° ì„ íƒ/ì¸ê±´ë¹„í¬í•¨)',25);
+insert into modal_check values('kitchen','í›„ë“œ','í•˜ì´ë“œ ë¹ŒíŠ¸ì¸ í›„ë“œ(ë°°ê´€ì„¤ì¹˜ í¬í•¨)',30);
 
---¿å½Ç ´ÜÇ° ½Ã°ø
-insert into modal_check values('¿å½Ç ´ÜÇ° ½Ã°ø','¿å½Ç-ÀüÃ¼Ã¶°Å','Å¸ÀÏÆ÷ÇÔ ÀüÃ¼ Ã¶°Å',75);
-insert into modal_check values('¿å½Ç ´ÜÇ° ½Ã°ø','¿å½Ç-ÀÏºÎÃ¶°Å','µµ±â/¼öÀü/¿åÁ¶/ÃµÀå Ã¶°Å',55);
-insert into modal_check values('¿å½Ç ´ÜÇ° ½Ã°ø','¿å½Ç¹æ¼ö','µµ¸·¹æ¼ö/ÀüÃ¼Ã¶°Å ¼±ÅÃ½Ã ÇÊ¼öÃ¼Å©',30);
-insert into modal_check values('¿å½Ç ´ÜÇ° ½Ã°ø','¿å½ÇÅ¸ÀÏ-µ¡¹æ','Å¸ÀÏ¼±ÅÃ ÈÄ ½Ã°ø(¿å½ÇÅ©±â 1500*2300±âÁØ)',80);
-insert into modal_check values('¿å½Ç ´ÜÇ° ½Ã°ø','¿å½ÇÅ¸ÀÏ-ÀüÃ¼½Ã°ø','Å¸ÀÏ¼±ÅÃ ÈÄ ½Ã°ø(¿å½ÇÅ©±â 1500*2300±âÁØ)',110);
-insert into modal_check values('¿å½Ç ´ÜÇ° ½Ã°ø','¾çº¯±â','¾Æ¸Ş¸®Ä­½ºÅÄ´Ùµå ¿øÇÇ½º(Å¸ Á¦Ç° ¼±ÅÃ °¡´É)',55);
-insert into modal_check values('¿å½Ç ´ÜÇ° ½Ã°ø','¾çº¯±âºñµ¥ÀÏÃ¼Çü','¾Æ¸Ş¸®Ä­½ºÅÄ´Ùµå ÇÃ·§(Å¸ Á¦Ç° ¼±ÅÃ °¡´É)',110);
-insert into modal_check values('¿å½Ç ´ÜÇ° ½Ã°ø','¼¼¸é´ë ¼öÀü','¾Æ¸Ş¸®Ä­½ºÅÄ´Ùµå ±âÁØ(Å¸ Á¦Ç° ¼±ÅÃ °¡´É)',15);
-insert into modal_check values('¿å½Ç ´ÜÇ° ½Ã°ø','»ş¿ö±â ¼öÀü','¾Æ¸Ş¸®Ä­½ºÅÄ´Ùµå ±âÁØ(Å¸ Á¦Ç° ¼±ÅÃ °¡´É)',25);
-insert into modal_check values('¿å½Ç ´ÜÇ° ½Ã°ø','¼¼¸é´ë','¾Æ¸Ş¸®Ä­½ºÅÄ´Ùµå ±âÁØ(Å¸ Á¦Ç° ¼±ÅÃ °¡´É)',25);
-insert into modal_check values('¿å½Ç ´ÜÇ° ½Ã°ø','¿å½Ç¾Ç¼¼»ç¸®','5Ç°¼¼Æ®(ºñ´©´ë/¿Ê°ÉÀÌ/ÄÅ,ÄÅ´ë/ÈŞÁö°ÉÀÌ/¼ö°Ç°ÉÀÌ)',20);
-insert into modal_check values('¿å½Ç ´ÜÇ° ½Ã°ø','¿åÁ¶','±âº» ÇÃ·§ ¿åÁ¶(1500*700)',35);
-insert into modal_check values('¿å½Ç ´ÜÇ° ½Ã°ø','»ş¿öºÎ½º','ÀÏ¹İ À¯¸® »ş¿öºÎ½º',50);
-insert into modal_check values('¿å½Ç ´ÜÇ° ½Ã°ø','°Å¿ï½½¶óÀÌµåÀå','¼ö°Ç ¼ö³³ µî(500*1000 ±âÁØ)',30);
-insert into modal_check values('¿å½Ç ´ÜÇ° ½Ã°ø','¿å½ÇÃµÀå','ÀÏÀÚÇü/SMCÅ¸ÀÔ(¿å½ÇÅ©±â 1500*2300±âÁØ)',40);
+--ìš•ì‹¤ì¸í…Œë¦¬ì–´
+insert into modal_check values('bath','ìš•ì‹¤-ì „ì²´ì² ê±°','íƒ€ì¼í¬í•¨ ì „ì²´ ì² ê±°',75);
+insert into modal_check values('bath','ìš•ì‹¤-ì¼ë¶€ì² ê±°','ë„ê¸°/ìˆ˜ì „/ìš•ì¡°/ì²œì¥ ì² ê±°',55);
+insert into modal_check values('bath','ìš•ì‹¤ë°©ìˆ˜','ë„ë§‰ë°©ìˆ˜/ì „ì²´ì² ê±° ì„ íƒì‹œ í•„ìˆ˜ì²´í¬',30);
+insert into modal_check values('bath','ìš•ì‹¤íƒ€ì¼-ë§ë°©','íƒ€ì¼ì„ íƒ í›„ ì‹œê³µ(ìš•ì‹¤í¬ê¸° 1500*2300ê¸°ì¤€)',80);
+insert into modal_check values('bath','ìš•ì‹¤íƒ€ì¼-ì „ì²´ì‹œê³µ','íƒ€ì¼ì„ íƒ í›„ ì‹œê³µ(ìš•ì‹¤í¬ê¸° 1500*2300ê¸°ì¤€)',110);
+insert into modal_check values('bath','ì–‘ë³€ê¸°','ì•„ë©”ë¦¬ì¹¸ìŠ¤íƒ ë‹¤ë“œ ì›í”¼ìŠ¤(íƒ€ ì œí’ˆ ì„ íƒ ê°€ëŠ¥)',55);
+insert into modal_check values('bath','ì–‘ë³€ê¸°ë¹„ë°ì¼ì²´í˜•','ì•„ë©”ë¦¬ì¹¸ìŠ¤íƒ ë‹¤ë“œ í”Œë«(íƒ€ ì œí’ˆ ì„ íƒ ê°€ëŠ¥)',110);
+insert into modal_check values('bath','ì„¸ë©´ëŒ€ ìˆ˜ì „','ì•„ë©”ë¦¬ì¹¸ìŠ¤íƒ ë‹¤ë“œ ê¸°ì¤€(íƒ€ ì œí’ˆ ì„ íƒ ê°€ëŠ¥)',15);
+insert into modal_check values('bath','ìƒ¤ì›Œê¸° ìˆ˜ì „','ì•„ë©”ë¦¬ì¹¸ìŠ¤íƒ ë‹¤ë“œ ê¸°ì¤€(íƒ€ ì œí’ˆ ì„ íƒ ê°€ëŠ¥)',25);
+insert into modal_check values('bath','ì„¸ë©´ëŒ€','ì•„ë©”ë¦¬ì¹¸ìŠ¤íƒ ë‹¤ë“œ ê¸°ì¤€(íƒ€ ì œí’ˆ ì„ íƒ ê°€ëŠ¥)',25);
+insert into modal_check values('bath','ìš•ì‹¤ì•…ì„¸ì‚¬ë¦¬','5í’ˆì„¸íŠ¸(ë¹„ëˆ„ëŒ€/ì˜·ê±¸ì´/ì»µ,ì»µëŒ€/íœ´ì§€ê±¸ì´/ìˆ˜ê±´ê±¸ì´)',20);
+insert into modal_check values('bath','ìš•ì¡°','ê¸°ë³¸ í”Œë« ìš•ì¡°(1500*700)',35);
+insert into modal_check values('bath','ìƒ¤ì›Œë¶€ìŠ¤','ì¼ë°˜ ìœ ë¦¬ ìƒ¤ì›Œë¶€ìŠ¤',50);
+insert into modal_check values('bath','ê±°ìš¸ìŠ¬ë¼ì´ë“œì¥','ìˆ˜ê±´ ìˆ˜ë‚© ë“±(500*1000 ê¸°ì¤€)',30);
+insert into modal_check values('bath','ìš•ì‹¤ì²œì¥','ì¼ìí˜•/SMCíƒ€ì…(ìš•ì‹¤í¬ê¸° 1500*2300ê¸°ì¤€)',40);
 
-select * from modal_check;
-delete from modal_check;
-commit;
+
 ---------------------------------------------------------
 
 create table modal_complete(
-m_no number,
-m_addr varchar(100),
-m_tel varchar(60),
-m_content varchar(300),
-m_size varchar(20),
-m_request varchar(200),
-m_price number,
-m_date date,
-m_wanttime varchar(30),
-m_wantdate varchar(50),
-m_circs varchar(20),
-m_place varchar(30)
+estino varchar2(100),
+m_date DATE,
+m_addr varchar2(100),
+phone varchar2(100),
+m_content varchar2(1000),
+m_size varchar2(100),
+m_request varchar2(300),
+m_price varchar2(100),
+m_wanttime varchar2(30),
+m_wantdate varchar2(50),
+m_circs varchar2(100),
+m_place varchar2(100),
+m_type varchar2(100),
+m_contentprice varchar2(1000)
 );
-CREATE SEQUENCE m_no_seq
-START WITH 20000
-INCREMENT BY 1;
 
-select * from modal_complete;
-delete from modal_complete;
-drop sequence m_no_seq;
 
-insert into modal_complete values(m_no_seq.nextval,'ÁÖ¼Ò','ÀüÈ­¹øÈ£','°ßÀû³»¿ë','Æò¼ö','Ãß°¡¿äÃ»»çÇ×',500,sysdate,'13½Ã 30ºĞ','yyyy-mm-dd','½ÅÃà(5³â ¹Ì¸¸)','¾ÆÆÄÆ®');
+--------------------------------
+
+CREATE TABLE my_nonmember (
+    name VARCHAR2(30),
+    email VARCHAR2(100),
+    phone VARCHAR2(30),
+    pw VARCHAR2(20)
+);
+
+ ---modal_completeì™€ my_nonmember ì¡°ì¸í•´ì„œ ê°€ì¥ ìµœê·¼ëª©ë¡ë§Œ ê°€ì ¸ì˜¤ê¸° view
+ CREATE VIEW nonmember_complete_view AS
+SELECT 
+    mn.name,
+    mn.email,
+    mn.phone,
+    mn.pw,
+    mc.estino,
+    mc.m_date,
+    mc.m_addr,
+    mc.m_content,
+    mc.m_size,
+    mc.m_request,
+    mc.m_price,
+    mc.m_wanttime,
+    mc.m_wantdate,
+    mc.m_circs,
+    mc.m_place,
+    mc.m_type,
+    mc.m_contentprice
+FROM
+    my_nonmember mn
+INNER JOIN (
+    SELECT 
+        phone,
+        MAX(m_date) AS max_date
+    FROM 
+        modal_complete
+    GROUP BY 
+        phone
+) latest_mc ON mn.phone = latest_mc.phone
+INNER JOIN modal_complete mc ON latest_mc.phone = mc.phone AND latest_mc.max_date = mc.m_date;
+
+---modal_complete ì˜ˆì‹œ ì¸ì„œíŠ¸
+
+INSERT INTO modal_complete
+VALUES (
+    'M' || 
+    TO_CHAR(SYSDATE, 'YYYYMMDD') ||
+    LPAD(COALESCE(TO_NUMBER((SELECT MAX(SUBSTR(estino, 10, 4)) FROM my_nonmember WHERE TRUNC(m_date) = TRUNC(SYSDATE))), 0) + 1, 4, '0') ||
+    LPAD(FLOOR(DBMS_RANDOM.VALUE(0, 100)), 2, '0'),
+    SYSDATE,
+    'ì•ˆì‚°ì‹œ ìƒë¡êµ¬ ìˆ˜ì•”ë™',
+    '01012341234',
+    'ìì¬ìƒí’ˆë‚´ìš© ë¸”ë¼ë¸”ë¼ë¸”ë¼ë¸”ë¼',
+    'í‰ìˆ˜',
+    'ì¶”ê°€ë‚´ìš©',
+    'ì´í•©ê°€ê²©',
+    'í¬ë§ìƒë‹´ì‹œê°„',
+    'í¬ë§ì‹œê³µì¼ì',
+    'ì‹œê³µí™˜ê²½',
+    'ì‹œê³µê³µê°„ì¢…ë¥˜',
+    'í”„ë¦¬ë¯¸ì—„ ì¸í…Œë¦¬ì–´',
+    'ì¶”ê°€ë‚´ìš©ê³¼ê°€ê²©'
+);
+
+--my_nonmember ì˜ˆì‹œ ì¸ì„œíŠ¸
+insert into my_nonmember values('í™ê¸¸ë™','eee@eee.eee','01012341234','1234');
+
+
 
 commit;
-

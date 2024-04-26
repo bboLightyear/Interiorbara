@@ -1,0 +1,870 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    
+<mapper namespace="com.tech.ibara.biz.dao.BizIDao">
+	<resultMap type="com.tech.ibara.biz.dto.BizRvImgDto" id="BizRvImgDto">
+		<!-- 칼럼명은 관습적으로 대문자로 표현 -->
+		<result column="BRIMG_NO" property="brimg_no"  />
+		<result column="BRIMG_OGN" property="brimg_ogn"  />
+		<result column="BRIMG_CGN" property="brimg_cgn"  />
+		<result column="BR_NO" property="br_no"  />
+	</resultMap>
+	<resultMap type="com.tech.ibara.biz.dto.BizRvDto" id="BizRvDto">
+		<!-- 칼럼명은 관습적으로 대문자로 표현 -->
+		<result column="BR_NO" property="br_no"  />
+		<result column="BR_CONTENT" property="br_content"  />
+		<result column="BR_WRITER" property="br_writer"  />
+		<result column="BR_LIKE_CNT" property="br_like_cnt"  />
+		<result column="BR_DATE" property="br_date"  />
+		<result column="BR_POINT" property="br_point"  />
+		<result column="INTENO" property="inteno"  />
+		<result column="MEMNO" property="memno"  />
+<!-- 			dto에 넣어놓은 BizRvImgDto 가져오기, 저 위 resultMap id=BizRvImgDto의 BizRvImgDto를 resultMap=에 넣는다. -->
+		<collection property="bizRvImgDto" resultMap="BizRvImgDto"></collection>
+		<collection property="bizHomeDto" resultMap="BizHomeDto"></collection>
+	</resultMap>
+	
+		<!-- 	<resultMap type="com.tech.ibara.biz.dto.BizCasesImgDto" id="BizCasesImgDto">
+		칼럼명은 관습적으로 대문자로 표현
+		<result column="BCIMG_NO" property="bcimg_no"  />
+		<result column="BCIMG_OGN" property="bcimg_ogn"  />
+		<result column="BCIMG_CGN" property="bcimg_cgn"  />
+		<result column="BC_NO" property="bc_no"  />
+					dto에 넣어놓은 BizCasesImgDto 가져오기, 아래 resultMap id=BizCasesDto의 BizCasesDto를 resultMap=에 넣는다.
+		<collection property="bizCasesDto" resultMap="BizCasesDto"></collection>
+	</resultMap>
+	<resultMap type="com.tech.ibara.biz.dto.BizCasesDto" id="BizCasesDto">
+		칼럼명은 관습적으로 대문자로 표현
+		<result column="BC_NO" property="bc_no"  />
+		<result column="BC_TITLE" property="bc_title"  />
+		<result column="BC_CONTENT" property="bc_content"  />
+		<result column="BC_WRITER" property="bc_writer"  />
+		<result column="BC_DATE" property="bc_date"  />
+		<result column="BC_HIT" property="bc_hit"  />
+		<result column="INTENO" property="inteno"  />
+	</resultMap> -->
+	
+	
+	<resultMap type="com.tech.ibara.biz.dto.BizHomeBmarkDto" id="BizHomeBmarkDto">
+		<!-- 칼럼명은 관습적으로 대문자로 표현 -->
+		<result column="BHB_NO" property="bhb_no"  />
+		<result column="MEMNO" property="memno"  />
+		<result column="INTENO" property="inteno"  />
+	</resultMap>
+	<resultMap type="com.tech.ibara.biz.dto.BizSearchTempDto" id="BizSearchTempDto">
+		<!-- 칼럼명은 관습적으로 대문자로 표현 -->
+		<result column="BST_NO" property="bst_no"  />
+		<result column="BST_STARAVG" property="bst_staravg"  />
+		<result column="BST_RVCONT" property="bst_rvcnt"  />
+		<result column="INTENO" property="inteno"  />
+	</resultMap>
+	<resultMap type="com.tech.ibara.biz.dto.BizHomeDto" id="BizHomeDto">
+		<!-- 칼럼명은 관습적으로 대문자로 표현 -->
+		<result column="BH_NO" property="bh_no"  />
+		<result column="BH_IMG" property="bh_img"  />
+		<result column="BH_NOTICE" property="bh_notice"  />
+		<result column="BH_INTRO" property="bh_intro"  />
+		<result column="BH_NAME" property="bh_name"  />
+		<result column="BH_BOOKMARKED" property="bh_bookmarked"  />
+		<result column="BH_CONT_CNT" property="bh_cont_cnt"  />
+		<result column="BH_PRO" property="bh_pro"  />
+		<result column="BH_ADDR1" property="bh_addr1"  />
+		<result column="BH_ADDR2" property="bh_addr2"  />
+		<result column="INTENO" property="inteno"  />
+<!-- 			dto에 넣어놓은 BizHomeBmarkDto 가져오기, 저 위 resultMap id=BizHomeBmarkDto의 BizHomeBmarkDto를 resultMap=에 넣는다. -->
+		<collection property="BizHomeBmarkDto" resultMap="BizHomeBmarkDto"></collection>
+		<collection property="bizSearchTempDto" resultMap="BizSearchTempDto"></collection>
+	</resultMap>
+
+
+
+
+<!-- 시공사례 게시판 쿼리 -->
+
+	<sql id="casesIncludlist">
+		<choose>
+			<when test="param4==1">
+				WHERE BC_TITLE LIKE '%'||#{param3}||'%' AND INTENO = #{param5}
+			</when>
+			<when test="param4==2">
+				WHERE BC_CONTENT LIKE '%'||#{param3}||'%' AND INTENO = #{param5}
+			</when>
+			<when test="param4==3">
+				WHERE (BC_TITLE LIKE '%'||#{param3}||'%' OR BC_CONTENT LIKE '%'||#{param3}||'%') AND INTENO = #{param5}
+			</when>
+			<when test="param4==4">
+				WHERE INTENO = #{param5}
+			</when>
+			<otherwise></otherwise>
+		</choose>
+	</sql>
+
+
+	
+	<select id="bizCasesList" resultType="com.tech.ibara.biz.dto.BizCasesDto">
+		SELECT BC_NO,BC_TITLE,BC_CONTENT,BC_WRITER,BC_DATE,BC_HIT,INTENO FROM 
+		(SELECT ROWNUM NUM,N.* FROM (SELECT BC_NO,BC_TITLE,BC_CONTENT,BC_WRITER,BC_DATE,BC_HIT,INTENO 
+		FROM BIZ_CASES ORDER BY BC_NO DESC) N
+		<include refid="casesIncludlist" />
+		)WHERE NUM BETWEEN #{param1} AND #{param2}
+	</select>
+
+	<select id="bizCasesContentView"
+		resultType="com.tech.ibara.biz.dto.BizCasesDto">
+		SELECT BC_NO,BC_TITLE,BC_CONTENT,BC_WRITER,BC_DATE,BC_HIT,INTENO 
+		FROM BIZ_CASES
+		WHERE BC_NO=#{param1}
+	</select>
+	
+	<select id="bizCasesContentViewNickname"
+		resultType="String">
+		SELECT
+	</select>
+	
+	<select id="bizCasesDelView"
+		resultType="com.tech.ibara.biz.dto.BizCasesDto">
+		SELECT BC_NO, BC_TITLE, INTENO 
+		FROM BIZ_CASES
+		WHERE BC_NO=#{param1}
+	</select>
+
+	<update id="bizCasesUpHit">
+		UPDATE BIZ_CASES SET BC_HIT=BC_HIT+1 WHERE
+		BC_NO=#{PARAM1}
+	</update>
+
+	<update id="bizCasesMod">
+		UPDATE BIZ_CASES SET
+		BC_TITLE=#{param2},BC_CONTENT=#{param3}
+		WHERE BC_NO=#{param1}
+	</update>
+
+	<update id="bizCasesDel">
+		DELETE FROM BIZ_CASES WHERE BC_NO=#{param1}
+	</update>
+	
+	<update id="bizCasesImgDel">
+		DELETE FROM BIZ_CASES_IMG WHERE BC_NO=#{param1}
+	</update>
+
+	<insert id="bizCasesWrite" >
+		INSERT INTO BIZ_CASES(BC_NO,BC_TITLE,BC_CONTENT,BC_WRITER,BC_DATE,BC_HIT,INTENO) 
+    	VALUES(BIZ_CASES_SEQ.NEXTVAL,#{param1},#{param2},#{param3},SYSDATE,0,#{param4})
+	</insert>
+	
+	<insert id="bizCasesImgWrite">
+		INSERT INTO BIZ_CASES_IMG
+		VALUES(BIZ_CASES_IMG_SEQ.NEXTVAL,#{param2},#{param3},#{param1}, #{param4})
+	</insert>
+
+	<select id="selBc_no" resultType="Integer">
+		SELECT MAX(BC_NO) FROM BIZ_CASES
+	</select>
+
+	<select id="selectBizCasesImg" resultType="com.tech.ibara.biz.dto.BizCasesImgDto">
+		SELECT * FROM BIZ_CASES_IMG WHERE BC_NO=#{param1}
+	</select>	
+	
+	<select id="selectCasesTotalCount1" resultType="Integer">
+		SELECT COUNT(*)
+		 FROM BIZ_CASES 
+		 WHERE BC_TITLE LIKE '%'||#{param1}||'%'
+		 AND INTENO = #{param2}
+	</select>
+
+	<select id="selectCasesTotalCount2" resultType="Integer">
+		SELECT COUNT(*)
+		 FROM BIZ_CASES 
+		 WHERE BC_CONTENT LIKE '%'||#{param1}||'%'
+		 AND INTENO = #{param2}
+	</select>
+
+	<select id="selectCasesTotalCount3" resultType="Integer">
+		SELECT COUNT(*)
+		 FROM BIZ_CASES 
+		 WHERE (BC_TITLE LIKE '%'||#{param1}||'%' OR BC_CONTENT LIKE '%'||#{param1}||'%')
+		 AND INTENO = #{param2}
+	</select>
+	
+	<select id="selectCasesTotalCount4" resultType="Integer">
+		SELECT COUNT(*)
+		 FROM BIZ_CASES 
+		 WHERE INTENO = #{param2}
+	</select>
+	
+	<select id="selectCasesTotalCount5" resultType="Integer">
+		SELECT COUNT(*)
+		 FROM BIZ_CASES 
+		 WHERE INTENO = #{param1}
+	</select>
+
+
+
+<!-- 매거진 게시판 쿼리 -->
+
+	<sql id="mgzIncludlist">
+		<choose>
+			<when test="param4==1">
+				WHERE BM_TITLE LIKE '%'||#{param3}||'%'
+			</when>
+			<when test="param4==2">
+				WHERE BM_CONTENT LIKE '%'||#{param3}||'%'
+			</when>
+			<when test="param4==3">
+				WHERE BM_TITLE LIKE '%'||#{param3}||'%' OR BM_CONTENT LIKE '%'||#{param3}||'%'
+			</when>
+			<otherwise></otherwise>
+		</choose>
+	</sql>
+
+	
+	<select id="bizMgzList" resultType="com.tech.ibara.biz.dto.BizMgzDto">
+		SELECT BM_NO,BM_TITLE,BM_CONTENT,BM_WRITER,BM_DATE,BM_HIT,MEMNO FROM 
+		(SELECT ROWNUM NUM,N.* FROM (SELECT BM_NO,BM_TITLE,BM_CONTENT,BM_WRITER,BM_DATE,BM_HIT,MEMNO 
+		FROM BIZ_MGZ ORDER BY BM_NO DESC) N
+		<include refid="mgzIncludlist" />
+		)WHERE NUM BETWEEN #{param1} AND #{param2}
+	</select>
+
+	<select id="bizMgzContentView"
+		resultType="com.tech.ibara.biz.dto.BizMgzDto">
+		SELECT BM_NO,BM_TITLE,BM_CONTENT,BM_WRITER,BM_DATE,BM_HIT,MEMNO  
+		FROM BIZ_MGZ
+		WHERE BM_NO=#{param1}
+	</select>
+	
+	<select id="bizMgzDelView"
+		resultType="com.tech.ibara.biz.dto.BizMgzDto">
+		SELECT BM_NO, BM_TITLE 
+		FROM BIZ_MGZ
+		WHERE BM_NO=#{param1}
+	</select>
+
+	<update id="bizMgzUpHit">
+		UPDATE BIZ_MGZ SET BM_HIT=BM_HIT+1 WHERE
+		BM_NO=#{PARAM1}
+	</update>
+
+	<update id="bizMgzMod">
+		UPDATE BIZ_MGZ SET
+		BM_TITLE=#{param2},BM_CONTENT=#{param3}
+		WHERE BM_NO=#{param1}
+	</update>
+
+	<update id="bizMgzDel">
+		DELETE FROM BIZ_MGZ WHERE BM_NO=#{param1}
+	</update>
+	
+	<update id="bizMgzImgDel">
+		DELETE FROM BIZ_MGZ_IMG WHERE BM_NO=#{param1}
+	</update>
+
+	<insert id="bizMgzWrite" >
+		INSERT INTO BIZ_MGZ(BM_NO,BM_TITLE,BM_CONTENT,BM_WRITER,BM_DATE,BM_HIT,MEMNO) 
+    	VALUES(BIZ_MGZ_SEQ.NEXTVAL,#{param1},#{param2},#{param3},SYSDATE,0,#{param4})
+	</insert>
+	
+	<insert id="bizMgzImgWrite">
+		INSERT INTO BIZ_MGZ_IMG
+		VALUES(BIZ_MGZ_IMG_SEQ.NEXTVAL,#{param2},#{param3},#{param1})
+	</insert>
+
+	<select id="selBm_no" resultType="Integer">
+		SELECT MAX(BM_NO) FROM BIZ_MGZ
+	</select>
+
+	<select id="selectBizMgzImg" resultType="com.tech.ibara.biz.dto.BizMgzImgDto">
+		SELECT * FROM BIZ_MGZ_IMG WHERE BM_NO=#{param1}
+	</select>	
+	
+	<select id="selectMgzTotalCount1" resultType="Integer">
+		SELECT COUNT(*)
+		FROM BIZ_MGZ 
+		WHERE BM_TITLE LIKE '%'||#{param1}||'%'
+	</select>
+
+	<select id="selectMgzTotalCount2" resultType="Integer">
+		SELECT COUNT(*)
+		FROM BIZ_MGZ 
+		WHERE BM_CONTENT LIKE '%'||#{param1}||'%'
+	</select>
+
+	<select id="selectMgzTotalCount3" resultType="Integer">
+		SELECT COUNT(*)
+		FROM BIZ_MGZ 
+		WHERE BM_TITLE LIKE '%'||#{param1}||'%' OR BM_CONTENT LIKE '%'||#{param1}||'%'
+	</select>
+	
+	<select id="selectMgzTotalCount4" resultType="Integer">
+		SELECT COUNT(*)
+		FROM BIZ_MGZ 
+	</select>
+
+
+
+<!-- 리뷰 기능 쿼리 -->
+
+	<sql id="rvIncludlist">
+		<choose>
+			<when test="param4==1">
+				WHERE BR_CONTENT LIKE '%'||#{param3}||'%' AND INTENO = #{param5}
+			</when>
+			<when test="param4==2">
+				WHERE BR_WRITER LIKE '%'||#{param3}||'%' AND INTENO = #{param5}
+			</when>
+			<when test="param4==3">
+				WHERE (BR_CONTENT LIKE '%'||#{param3}||'%' OR BR_WRITER LIKE '%'||#{param3}||'%') AND INTENO = #{param5}
+			</when>
+			<when test="param4==4">
+				WHERE INTENO = #{param5}
+			</when>
+			<otherwise></otherwise>
+		</choose>
+	</sql>
+
+	
+	<select id="bizRvList" resultType="com.tech.ibara.biz.dto.BizRvDto">
+		SELECT BR_NO, SUBSTR(BR_CONTENT,1,18) BR_CONTENT, BR_WRITER, BR_LIKE_CNT, BR_DATE, BR_POINT, INTENO, MEMNO FROM 
+		(SELECT ROWNUM NUM,N.* FROM (SELECT BR_NO, SUBSTR(BR_CONTENT,1,18) BR_CONTENT, BR_WRITER, BR_LIKE_CNT, BR_DATE, BR_POINT, INTENO, MEMNO 
+		FROM BIZ_RV ORDER BY BR_NO DESC) N
+		<include refid="rvIncludlist" />
+		)WHERE NUM BETWEEN #{param1} AND #{param2}
+	</select>
+
+	<select id="bizRvContentView"
+		resultType="com.tech.ibara.biz.dto.BizRvDto">
+		SELECT BR_NO, BR_CONTENT, BR_WRITER, BR_LIKE_CNT, BR_DATE, BR_POINT, INTENO, MEMNO  
+		FROM BIZ_RV
+		WHERE BR_NO=#{param1}
+	</select>
+
+<!-- 	<update id="bizMgzUpHit">
+		UPDATE BIZ_MGZ SET BM_HIT=BM_HIT+1 WHERE
+		BM_NO=#{PARAM1}
+	</update> -->
+
+	<update id="bizRvMod">
+		UPDATE BIZ_RV SET BR_POINT=#{param2}, BR_CONTENT=#{param3} 
+		WHERE BR_NO=#{param1}
+	</update>
+
+	<update id="bizRvDel">
+		DELETE FROM BIZ_RV WHERE BR_NO=#{param1}
+	</update>
+	
+	<update id="bizRvImgDel">
+		DELETE FROM BIZ_RV_IMG WHERE BR_NO=#{param1}
+	</update>
+
+	<insert id="bizRvWrite" >
+		INSERT INTO BIZ_RV(BR_NO, BR_CONTENT, BR_WRITER, BR_LIKE_CNT, BR_DATE, BR_POINT, INTENO, MEMNO) 
+    	VALUES(BIZ_RV_SEQ.NEXTVAL,#{param1},#{param2},0,SYSDATE,#{param3},#{param4},#{param5})
+	</insert>
+	
+	<insert id="bizRvImgWrite">
+		INSERT INTO BIZ_RV_IMG
+		VALUES(BIZ_RV_IMG_SEQ.NEXTVAL,#{param2},#{param3},#{param1})
+	</insert>
+
+	<select id="selBr_no" resultType="Integer">
+		SELECT MAX(BR_NO) FROM BIZ_RV
+	</select>
+
+	<select id="selectBizRvImg" resultType="com.tech.ibara.biz.dto.BizRvImgDto">
+		SELECT * FROM BIZ_RV_IMG WHERE BR_NO=#{param1}
+	</select>	
+	
+	<select id="selectRvTotalCount1" resultType="Integer">
+		SELECT COUNT(*)
+		FROM BIZ_RV 
+		WHERE BR_CONTENT LIKE '%'||#{param1}||'%' 
+		AND INTENO = #{param2}		
+	</select>
+
+	<select id="selectRvTotalCount2" resultType="Integer">
+		SELECT COUNT(*)
+		FROM BIZ_RV 
+		WHERE BR_WRITER LIKE '%'||#{param1}||'%' 
+		AND INTENO = #{param2}		
+	</select>
+
+	<select id="selectRvTotalCount3" resultType="Integer">
+		SELECT COUNT(*)
+		FROM BIZ_RV 
+		WHERE (BR_CONTENT LIKE '%'||#{param1}||'%' OR BR_WRITER LIKE '%'||#{param1}||'%') 
+		AND INTENO = #{param2}
+	</select>
+	
+	<select id="selectRvTotalCount4" resultType="Integer">
+		SELECT COUNT(*) 
+		FROM BIZ_RV 
+		 WHERE INTENO = #{param2} 
+	</select>
+
+
+	<select id="getRvImgJoin" parameterType="com.tech.ibara.biz.dto.BizRvDto" resultMap="BizRvDto">
+		SELECT RV.BR_NO, RV.BR_CONTENT, RV.BR_WRITER, RV.BR_LIKE_CNT, RV.BR_DATE, RV.BR_POINT, RV.INTENO, RV.MEMNO, IMG.BRIMG_CGN 
+				FROM BIZ_RV RV INNER JOIN BIZ_RV_IMG IMG ON RV.BR_NO=IMG.BR_NO
+				 WHERE RV.INTENO=#{param1}
+	</select>
+
+	<insert id="bizRvReport" >
+		INSERT INTO MY_REPORT(RENO, TARGETNO, TARGETTYPE, MEMNO, TARGETMEMNO, CAUSE, REDATE) 
+    	VALUES(MY_REPORT_SEQ.NEXTVAL,#{param1}, 'BIZ_RV', 1, #{param2}, #{param3}, SYSDATE)
+	</insert>	
+	
+	<select id="bizRvReportResultView"
+		resultType="com.tech.ibara.biz.dto.BizRvDto">
+		SELECT BR_NO, BR_WRITER, BR_CONTENT 
+		FROM BIZ_RV 
+		WHERE BR_NO=#{param1}
+	</select>
+
+	<select id="bizRvLikeCnt" resultType="Integer">
+		SELECT COUNT(*) 
+		 FROM BIZ_RV_LIKE 
+		 WHERE BR_NO=#{param1} AND MEMNO=#{param2}
+	</select>
+	
+	<update id="bizRvLikeDel">
+		DELETE FROM BIZ_RV_LIKE WHERE MEMNO=#{param1} AND BR_NO=#{param2}
+	</update>
+	
+	<insert id="bizRvLikeAdd">
+		INSERT INTO BIZ_RV_LIKE(BR_LIKE_NO, MEMNO, BR_NO) 
+		 VALUES(BIZ_RV_LIKE_SEQ.NEXTVAL,#{param1},#{param2})
+	</insert>
+	
+	<update id="bizRvLikeSubt">
+		UPDATE BIZ_RV SET BR_LIKE_CNT=BR_LIKE_CNT-1
+		 WHERE BR_NO=#{param1}
+	</update>
+
+	<update id="bizRvLikePlus">
+		UPDATE BIZ_RV SET BR_LIKE_CNT=BR_LIKE_CNT+1
+		 WHERE BR_NO=#{param1}
+	</update>
+	
+	<select id="bizRvAllUserLikeCnt" resultType="Integer">
+		SELECT COUNT(*) 
+		 FROM BIZ_RV_LIKE 
+		 WHERE BR_NO=#{param1}
+	</select>
+	
+	
+	<insert id="bizRvReportedWrite" >
+		INSERT INTO BIZ_RV_REPORTED(BRR_NO, BRR_CONTENT, BRR_WRITER, BR_NO) 
+    	VALUES(BIZ_RV_REPORTED_SEQ.NEXTVAL,#{param1},#{param2},#{param3})
+	</insert>
+	
+	
+	
+	
+	
+	
+	
+	<!--업체홈 쿼리 -->
+
+	<select id="bizHome"
+		resultType="com.tech.ibara.biz.dto.BizHomeDto">
+		SELECT BH_NO,BH_IMG,BH_NOTICE,BH_INTRO,BH_NAME,
+		 BH_BOOKMARKED,BH_CONT_CNT,BH_PRO,BH_ADDR1,BH_ADDR2, INTENO
+		 FROM BIZ_HOME
+		 WHERE INTENO=#{param1}
+	</select>
+	
+	
+	<select id="bizHomeRvPointAvg"
+		resultType="float">
+		SELECT ROUND(AVG(BR_POINT), 1) FROM BIZ_RV WHERE INTENO=#{param1}
+	</select>
+
+	<select id="bizHomeRvCnt"
+		resultType="Integer">
+		SELECT COUNT(*) FROM BIZ_RV WHERE INTENO=#{param1}
+	</select>
+	
+	<select id="bizHomeCheckBmarkedCnt" 
+		resultType="Integer">
+		SELECT COUNT(*) FROM BIZ_HOME_BMARK WHERE MEMNO = #{param1} AND INTENO = #{param2}
+	</select>
+	
+	<insert id="bizHomeBmarkAdd">
+		INSERT INTO BIZ_HOME_BMARK(BHB_NO, MEMNO, INTENO) 
+		 VALUES(BIZ_HOME_BMARK_SEQ.NEXTVAL,#{param1},#{param2})
+	</insert>
+	
+	<update id="bizHomeBmarkDel">
+		DELETE FROM BIZ_HOME_BMARK WHERE MEMNO=#{param1} AND INTENO=#{param2}
+	</update>
+	
+	<select id="getBmarkedHomesByUser"
+		parameterType="com.tech.ibara.biz.dto.BizHomeDto" resultMap="BizHomeDto"
+		resultType="Integer"
+		>
+		SELECT BH.BH_NO FROM BIZ_HOME BH JOIN BIZ_HOME_BMARK BHB ON BH.INTENO=BHB.INTENO
+		 WHERE BHB.MEMNO = #{param1}
+	</select>
+		
+	<update id="bizHomeBmarkSubt">
+		UPDATE BIZ_HOME SET BH_BOOKMARKED=BH_BOOKMARKED-1
+		 WHERE BH_NO=#{param1}
+	</update>
+
+	<update id="bizHomeBmarkPlus">
+		UPDATE BIZ_HOME SET BH_BOOKMARKED=BH_BOOKMARKED+1
+		 WHERE BH_NO=#{param1}
+	</update>
+	
+	<select id="bizHomeCasesCnt"
+		resultType="Integer">
+		SELECT COUNT(*) FROM BIZ_CASES WHERE INTENO=#{param1}
+	</select>
+	
+	<select id="bizHomeCasesImgList"
+	resultType="com.tech.ibara.biz.dto.BizCasesImgDto">
+		SELECT ROWNUM, N.* FROM (
+    		 SELECT * FROM BIZ_CASES_IMG WHERE BCIMG_NO IN (SELECT MIN(BCIMG_NO) FROM BIZ_CASES_IMG WHERE INTENO=#{param1} GROUP BY BC_NO) ORDER BY BC_NO DESC) N
+			 WHERE ROWNUM BETWEEN 1 AND 3
+	</select>
+	
+	<select id="bizHomeRvImgList"
+	 parameterType="com.tech.ibara.biz.dto.BizRvDto" resultMap="BizRvDto">
+		SELECT ROWNUM, N.*
+			FROM(
+                SELECT *
+                 FROM BIZ_RV RV INNER JOIN BIZ_RV_IMG IMG ON RV.BR_NO=IMG.BR_NO
+                 WHERE IMG.BRIMG_NO IN
+                    (SELECT MIN(IMG.BRIMG_NO)
+                     FROM BIZ_RV RV INNER JOIN BIZ_RV_IMG IMG ON RV.BR_NO=IMG.BR_NO 
+                     WHERE RV.INTENO=#{param1}
+                     GROUP BY RV.BR_NO)
+                 ORDER BY RV.BR_NO DESC) N
+             WHERE ROWNUM BETWEEN 1 AND 3
+	</select>
+
+	<update id="BizHomeInfoMod">
+			UPDATE BIZ_HOME SET
+			 BH_IMG=#{param2},
+			  BH_NOTICE=#{param3},
+			   BH_INTRO=#{param4},
+				BH_NAME=#{param5},
+				 BH_PRO=#{param6},
+				  BH_ADDR1=#{param7},
+				   BH_ADDR2=#{param8}
+			 WHERE BH_NO=#{param1} AND INTENO=#{param9}
+	</update>
+	
+	<select id="bizRvListLikeCnt" resultType="com.tech.ibara.biz.dto.BizRvDto">
+		SELECT BR_NO, SUBSTR(BR_CONTENT,1,18) BR_CONTENT, BR_WRITER, BR_LIKE_CNT, BR_DATE, BR_POINT, INTENO, MEMNO FROM 
+		(SELECT ROWNUM NUM,N.* FROM (SELECT BR_NO, SUBSTR(BR_CONTENT,1,18) BR_CONTENT, BR_WRITER, BR_LIKE_CNT, BR_DATE, BR_POINT, INTENO, MEMNO 
+		FROM BIZ_RV ORDER BY BR_LIKE_CNT DESC, BR_NO DESC) N
+		<include refid="rvIncludlist" />  
+		)WHERE NUM BETWEEN #{param1} AND #{param2}
+	</select>
+	
+
+	<select id="getRvImgJoinLikeCnt" parameterType="com.tech.ibara.biz.dto.BizRvDto" resultMap="BizRvDto">
+		SELECT RV.BR_NO, RV.BR_CONTENT, RV.BR_WRITER, RV.BR_LIKE_CNT, RV.BR_DATE, RV.BR_POINT, RV.INTENO, RV.MEMNO, IMG.BRIMG_CGN 
+				FROM BIZ_RV RV INNER JOIN BIZ_RV_IMG IMG ON RV.BR_NO=IMG.BR_NO
+				 WHERE RV.INTENO=#{param1}
+				  ORDER BY RV.BR_LIKE_CNT DESC, RV.BR_NO DESC
+	</select>
+	
+	<select id="bizRvListStarCnt" resultType="com.tech.ibara.biz.dto.BizRvDto">
+		SELECT BR_NO, SUBSTR(BR_CONTENT,1,18) BR_CONTENT, BR_WRITER, BR_LIKE_CNT, BR_DATE, BR_POINT, INTENO, MEMNO FROM 
+		(SELECT ROWNUM NUM,N.* FROM (SELECT BR_NO, SUBSTR(BR_CONTENT,1,18) BR_CONTENT, BR_WRITER, BR_LIKE_CNT, BR_DATE, BR_POINT, INTENO, MEMNO 
+		FROM BIZ_RV ORDER BY BR_POINT DESC, BR_NO DESC) N
+		<include refid="rvIncludlist" />  
+		)WHERE NUM BETWEEN #{param1} AND #{param2}
+	</select>
+	
+
+	<select id="getRvImgJoinStarCnt" parameterType="com.tech.ibara.biz.dto.BizRvDto" resultMap="BizRvDto">
+		SELECT RV.BR_NO, RV.BR_CONTENT, RV.BR_WRITER, RV.BR_LIKE_CNT, RV.BR_DATE, RV.BR_POINT, RV.INTENO, RV.MEMNO, IMG.BRIMG_CGN 
+				FROM BIZ_RV RV INNER JOIN BIZ_RV_IMG IMG ON RV.BR_NO=IMG.BR_NO
+				 WHERE RV.INTENO=#{param1}
+				  ORDER BY RV.BR_POINT DESC, RV.BR_NO DESC
+	</select>	
+		
+	<select id="bizRvListStarCntAsc" resultType="com.tech.ibara.biz.dto.BizRvDto">
+		SELECT BR_NO, SUBSTR(BR_CONTENT,1,18) BR_CONTENT, BR_WRITER, BR_LIKE_CNT, BR_DATE, BR_POINT, INTENO, MEMNO FROM 
+		(SELECT ROWNUM NUM,N.* FROM (SELECT BR_NO, SUBSTR(BR_CONTENT,1,18) BR_CONTENT, BR_WRITER, BR_LIKE_CNT, BR_DATE, BR_POINT, INTENO, MEMNO 
+		FROM BIZ_RV ORDER BY BR_POINT ASC, BR_NO DESC) N
+		<include refid="rvIncludlist" />  
+		)WHERE NUM BETWEEN #{param1} AND #{param2}
+	</select>
+	
+
+	<select id="getRvImgJoinStarCntAsc" parameterType="com.tech.ibara.biz.dto.BizRvDto" resultMap="BizRvDto">
+		SELECT RV.BR_NO, RV.BR_CONTENT, RV.BR_WRITER, RV.BR_LIKE_CNT, RV.BR_DATE, RV.BR_POINT, RV.INTENO, RV.MEMNO, IMG.BRIMG_CGN 
+				FROM BIZ_RV RV INNER JOIN BIZ_RV_IMG IMG ON RV.BR_NO=IMG.BR_NO
+				 WHERE RV.INTENO=#{param1}
+				  ORDER BY RV.BR_POINT ASC, RV.BR_NO DESC
+	</select>	
+	
+	<insert id="bizHomeCreate">
+		INSERT INTO BIZ_HOME VALUES (BIZ_HOME_SEQ.NEXTVAL, 'HOME_NEW.JPG', '이벤트를 비롯한 공지사항을 입력해 주세요. 메인 상단에 표시됩니다.', '전화번호, 찾아오시는 길을 비롯한 전반적인 업체 소개를 입력해 주세요.', #{param1}, 0, 0, '도배·페인트', '시/군/구만 입력 바랍니다.', '지도로 검색할 상세주소를 작성해 주세요.', #{param2})
+	</insert>
+	
+	
+	<!-- 주소로 검색 -->
+	
+<!-- 	<select id="bizHomeSearch"
+		resultType="com.tech.ibara.biz.dto.BizHomeDto">
+		SELECT BH_NO,BH_IMG,BH_NOTICE,BH_INTRO,BH_NAME,
+		 BH_BOOKMARKED,BH_CONT_CNT,BH_PRO,BH_ADDR1,BH_ADDR2, INTENO
+		 FROM BIZ_HOME
+		  ORDER BY BH_NO DESC
+	</select> -->
+	
+	<select id="bizSearchRvPointAvg"
+		resultType="Float">
+		SELECT ROUND(AVG(BR_POINT), 1) FROM BIZ_RV WHERE INTENO=#{param1}
+	</select>
+	
+	<select id="findHomeLikeInputAddr"
+		resultType="com.tech.ibara.biz.dto.BizHomeDto">
+		SELECT BH_NO,BH_IMG,BH_NOTICE,BH_INTRO,BH_NAME, 
+		 BH_BOOKMARKED,BH_CONT_CNT,BH_PRO,BH_ADDR1,BH_ADDR2, INTENO 
+		  FROM BIZ_HOME WHERE BH_ADDR1 LIKE '%'||#{param1}||'%'
+		   ORDER BY BH_NO DESC
+	</select>
+	
+	<select id="findHomeLikeInputStar"
+		parameterType="com.tech.ibara.biz.dto.BizHomeDto" resultMap="BizHomeDto">
+		SELECT BH.BH_NO,BH.BH_IMG,BH.BH_NOTICE,BH.BH_INTRO,BH.BH_NAME, 
+		 BH.BH_BOOKMARKED,BH.BH_CONT_CNT,BH.BH_PRO,BH.BH_ADDR1,BH.BH_ADDR2, BH.INTENO, BST.BST_STARAVG 
+		  FROM BIZ_HOME BH JOIN BIZ_SEARCH_TEMP BST ON BH.INTENO = BST.INTENO
+          WHERE BH.BH_ADDR1 LIKE '%'||#{param1}||'%' 
+		   ORDER BY BST.BST_STARAVG DESC
+	</select>
+	
+	<select id="findHomeLikeInputRvCnt"
+		parameterType="com.tech.ibara.biz.dto.BizHomeDto" resultMap="BizHomeDto">
+		SELECT BH.BH_NO,BH.BH_IMG,BH.BH_NOTICE,BH.BH_INTRO,BH.BH_NAME, 
+		 BH.BH_BOOKMARKED,BH.BH_CONT_CNT,BH.BH_PRO,BH.BH_ADDR1,BH.BH_ADDR2, BH.INTENO, BST.BST_STARAVG, BST.BST_RVCNT  
+		  FROM BIZ_HOME BH JOIN BIZ_SEARCH_TEMP BST ON BH.INTENO = BST.INTENO
+          WHERE BH.BH_ADDR1 LIKE '%'||#{param1}||'%' 
+		   ORDER BY BST.BST_RVCNT DESC
+	</select>
+	
+	<select id="findHomeLikeInputContCnt"
+		parameterType="com.tech.ibara.biz.dto.BizHomeDto" resultMap="BizHomeDto">
+		SELECT BH.BH_NO,BH.BH_IMG,BH.BH_NOTICE,BH.BH_INTRO,BH.BH_NAME, 
+		 BH.BH_BOOKMARKED,BH.BH_CONT_CNT,BH.BH_PRO,BH.BH_ADDR1,BH.BH_ADDR2, BH.INTENO, BST.BST_STARAVG   
+		  FROM BIZ_HOME BH JOIN BIZ_SEARCH_TEMP BST ON BH.INTENO = BST.INTENO
+          WHERE BH.BH_ADDR1 LIKE '%'||#{param1}||'%' 
+		   ORDER BY BH.BH_CONT_CNT DESC
+	</select>
+	
+	<select id="bizStarAvgNoList"
+		resultType="com.tech.ibara.biz.dto.BizSearchTempDto">
+		SELECT BR.INTENO INTENO, ROUND(AVG(BR.BR_POINT), 1) BST_STARAVG 
+           FROM BIZ_RV BR JOIN BIZ_HOME BH ON BH.INTENO=BR.INTENO
+            WHERE BH.BH_ADDR1 LIKE '%'||#{param1}||'%'
+             GROUP BY BR.INTENO
+	</select>
+	
+	<select id="bizRvCntNoList"
+		resultType="com.tech.ibara.biz.dto.BizSearchTempDto">
+		SELECT BR.INTENO INTENO, COUNT(*) BST_RVCNT 
+			FROM BIZ_RV BR JOIN BIZ_HOME BH ON BH.INTENO=BR.INTENO 
+			 WHERE BH.BH_ADDR1 LIKE '%'||#{param1}||'%' 
+			  GROUP BY BR.INTENO 
+	</select>
+	
+	<select id="bizRvCntNoListPro"
+		resultType="com.tech.ibara.biz.dto.BizSearchTempDto">
+		SELECT BR.INTENO INTENO, COUNT(*) BST_RVCNT 
+			FROM BIZ_RV BR JOIN BIZ_HOME BH ON BH.INTENO=BR.INTENO 
+			 WHERE BH.BH_PRO = #{param1}
+			  GROUP BY BR.INTENO 
+	</select>
+	
+	<select id="sortAddrHomeContCnt"
+		resultType="com.tech.ibara.biz.dto.BizHomeDto">
+		SELECT BH_NO,BH_IMG,BH_NOTICE,BH_INTRO,BH_NAME,
+		 BH_BOOKMARKED,BH_CONT_CNT,BH_PRO,BH_ADDR1,BH_ADDR2, INTENO
+		  FROM BIZ_HOME WHERE BH_ADDR1 LIKE '%'||#{param1}||'%'
+		   ORDER BY BH_CONT_CNT DESC
+	</select>
+
+	<select id="bizRvContentListJoin" parameterType="com.tech.ibara.biz.dto.BizRvDto" resultMap="BizRvDto">
+		SELECT BR.BR_NO, SUBSTR(BR.BR_CONTENT, 1, 37) BR_CONTENT, BR.INTENO 
+		 FROM BIZ_RV BR JOIN BIZ_HOME BH ON BH.INTENO=BR.INTENO
+          WHERE BR.BR_NO IN (SELECT MAX(BR_NO) FROM BIZ_RV GROUP BY INTENO)
+           ORDER BY BH.BH_NO DESC
+	</select>
+	
+	<select id="bizRvContentListJoinAddr" parameterType="com.tech.ibara.biz.dto.BizRvDto" resultMap="BizRvDto">
+		SELECT BR.BR_NO, SUBSTR(BR.BR_CONTENT, 1, 37) BR_CONTENT, BR.INTENO 
+		 FROM BIZ_RV BR JOIN BIZ_HOME BH ON BH.INTENO=BR.INTENO
+          WHERE BR.BR_NO IN (SELECT MAX(BR.BR_NO) FROM BIZ_RV BR JOIN BIZ_HOME BH ON BH.INTENO=BR.INTENO WHERE BH.BH_ADDR1 LIKE '%'||#{param1}||'%' GROUP BY BR.INTENO) AND BH.BH_ADDR1 LIKE '%'||#{param1}||'%'  
+           ORDER BY BH.BH_NO DESC
+	</select>
+
+ 	<select id="bizRvContentListJoinStar" parameterType="com.tech.ibara.biz.dto.BizRvDto" resultMap="BizRvDto">
+		SELECT BR.BR_NO, SUBSTR(BR.BR_CONTENT, 1, 37) BR_CONTENT, BR.INTENO 
+		 FROM BIZ_RV BR JOIN BIZ_HOME BH ON BH.INTENO=BR.INTENO
+         JOIN BIZ_SEARCH_TEMP BST ON BR.INTENO=BST.INTENO
+          WHERE BR.BR_NO IN (SELECT MAX(BR.BR_NO) FROM BIZ_RV BR JOIN BIZ_HOME BH ON BH.INTENO=BR.INTENO WHERE BH.BH_ADDR1 LIKE '%'||#{param1}||'%' GROUP BY BR.INTENO) AND BH.BH_ADDR1 LIKE '%'||#{param1}||'%' 
+           ORDER BY BST.BST_STARAVG DESC
+	</select>
+
+ 	<select id="bizRvContentListJoinRvCnt" parameterType="com.tech.ibara.biz.dto.BizRvDto" resultMap="BizRvDto">
+		SELECT BR.BR_NO, SUBSTR(BR.BR_CONTENT, 1, 37) BR_CONTENT, BR.INTENO  
+		 FROM BIZ_RV BR JOIN BIZ_HOME BH ON BH.INTENO=BR.INTENO 
+         JOIN BIZ_SEARCH_TEMP BST ON BR.INTENO=BST.INTENO 
+          WHERE BR.BR_NO IN (SELECT MAX(BR.BR_NO) FROM BIZ_RV BR JOIN BIZ_HOME BH ON BH.INTENO=BR.INTENO WHERE BH.BH_ADDR1 LIKE '%'||#{param1}||'%' GROUP BY BR.INTENO) AND BH.BH_ADDR1 LIKE '%'||#{param1}||'%'  
+           ORDER BY BST.BST_RVCNT DESC 
+	</select>
+	
+ 	<select id="bizRvContentListJoinContCnt" parameterType="com.tech.ibara.biz.dto.BizRvDto" resultMap="BizRvDto">
+		SELECT BR.BR_NO, SUBSTR(BR.BR_CONTENT, 1, 37) BR_CONTENT, BR.INTENO  
+		 FROM BIZ_RV BR JOIN BIZ_HOME BH ON BH.INTENO=BR.INTENO 
+         JOIN BIZ_SEARCH_TEMP BST ON BR.INTENO=BST.INTENO 
+          WHERE BR.BR_NO IN (SELECT MAX(BR.BR_NO) FROM BIZ_RV BR JOIN BIZ_HOME BH ON BH.INTENO=BR.INTENO WHERE BH.BH_ADDR1 LIKE '%'||#{param1}||'%' GROUP BY BR.INTENO) AND BH.BH_ADDR1 LIKE '%'||#{param1}||'%'  
+           ORDER BY BH.BH_CONT_CNT DESC 
+	</select>
+	
+	<select id="bizRvTempBizIdnoCheck" 
+		resultType="Integer">
+		SELECT COUNT(*) FROM BIZ_SEARCH_TEMP WHERE INTENO = #{param1}
+	</select>
+	
+	<update id="bizStarAvgUpdate">
+		UPDATE BIZ_SEARCH_TEMP SET BST_STARAVG=#{param1}
+		 WHERE INTENO=#{param2}
+	</update>
+	
+	<insert id="bizStarAvgInsert">
+		INSERT INTO BIZ_SEARCH_TEMP(BST_NO,BST_STARAVG,INTENO) 
+    	VALUES(BIZ_SEARCH_TEMP_SEQ.NEXTVAL,#{param1},#{param2})
+	</insert>
+	
+	<update id="bizRvCntUpdate">
+		UPDATE BIZ_SEARCH_TEMP SET BST_STARAVG=#{param1}, BST_RVCNT=#{param2}
+		 WHERE INTENO=#{param3}
+	</update>
+	
+	<insert id="bizRvCntInsert">
+		INSERT INTO BIZ_SEARCH_TEMP(BST_NO,BST_STARAVG,BST_RVCNT,INTENO) 
+    	VALUES(BIZ_SEARCH_TEMP_SEQ.NEXTVAL,#{param1},#{param2},#{param3})
+	</insert>
+	
+	<select id="selectAddrSearchTotalCount1" resultType="Integer">
+		SELECT COUNT(*) 
+		 FROM BIZ_HOME 
+		  WHERE BH_NAME LIKE '%'||#{param1}||'%'
+	</select>
+
+	<select id="selectAddrSearchTotalCount2" resultType="Integer">
+		SELECT COUNT(*) 
+		 FROM BIZ_HOME 
+	</select>
+	
+	<sql id="addrSearchIncludlist">
+		<choose>
+			<when test="param4==1">
+				WHERE BH_NAME LIKE '%'||#{param3}||'%'
+			</when>
+			<when test="param4==4">
+			</when>
+			<otherwise></otherwise>
+		</choose>
+	</sql>
+	
+	
+	<select id="bizSearchHomeList" resultType="com.tech.ibara.biz.dto.BizHomeDto">
+		SELECT BH_NO,BH_IMG,BH_NOTICE,BH_INTRO,BH_NAME,
+		 BH_BOOKMARKED,BH_CONT_CNT,BH_PRO,BH_ADDR1,BH_ADDR2, INTENO FROM
+			(SELECT ROWNUM NUM,N.* FROM (SELECT
+				BH_NO,BH_IMG,BH_NOTICE,BH_INTRO,BH_NAME,
+				 BH_BOOKMARKED,BH_CONT_CNT,BH_PRO,BH_ADDR1,BH_ADDR2, INTENO
+				  FROM BIZ_HOME ORDER BY BH_NO DESC) N
+			<include refid="addrSearchIncludlist" />
+			 )WHERE NUM BETWEEN #{param1} AND #{param2}
+	</select>
+	
+	
+	<select id="findHomeLikeInputPro" resultType="com.tech.ibara.biz.dto.BizHomeDto">
+		SELECT BH_NO,BH_IMG,BH_NOTICE,BH_INTRO,BH_NAME,
+		 BH_BOOKMARKED,BH_CONT_CNT,BH_PRO,BH_ADDR1,BH_ADDR2, INTENO
+		  FROM BIZ_HOME
+		   WHERE BH_PRO=#{param1}
+		   	ORDER BY BH_NO DESC
+	</select>
+	
+	<select id="bizRvContentListJoinPro" parameterType="com.tech.ibara.biz.dto.BizRvDto" resultMap="BizRvDto">
+		SELECT BR.BR_NO, SUBSTR(BR.BR_CONTENT, 1, 37) BR_CONTENT, BR.INTENO 
+		 FROM BIZ_RV BR JOIN BIZ_HOME BH ON BH.INTENO=BR.INTENO
+          WHERE BR.BR_NO IN (SELECT MAX(BR.BR_NO) FROM BIZ_RV BR JOIN BIZ_HOME BH ON BH.INTENO=BR.INTENO WHERE BH.BH_PRO = #{param1} GROUP BY BR.INTENO) AND BH.BH_PRO = #{param1}  
+           ORDER BY BH.BH_NO DESC
+	</select>
+
+		<select id="bizStarAvgNoListPro"
+		resultType="com.tech.ibara.biz.dto.BizSearchTempDto">
+		SELECT BR.INTENO INTENO, ROUND(AVG(BR.BR_POINT), 1) BST_STARAVG 
+           FROM BIZ_RV BR JOIN BIZ_HOME BH ON BH.INTENO=BR.INTENO
+            WHERE BH.BH_PRO = #{param1}
+             GROUP BY BR.INTENO
+	</select>
+
+		<select id="findHomeLikeInputProStar"
+		parameterType="com.tech.ibara.biz.dto.BizHomeDto" resultMap="BizHomeDto">
+		SELECT BH.BH_NO,BH.BH_IMG,BH.BH_NOTICE,BH.BH_INTRO,BH.BH_NAME, 
+		 BH.BH_BOOKMARKED,BH.BH_CONT_CNT,BH.BH_PRO,BH.BH_ADDR1,BH.BH_ADDR2, BH.INTENO, BST.BST_STARAVG 
+		  FROM BIZ_HOME BH JOIN BIZ_SEARCH_TEMP BST ON BH.INTENO = BST.INTENO
+          WHERE BH.BH_PRO = #{param1}
+		   ORDER BY BST.BST_STARAVG DESC
+	</select>
+	
+	<select id="findHomeLikeInputProRvCnt"
+		parameterType="com.tech.ibara.biz.dto.BizHomeDto" resultMap="BizHomeDto">
+		SELECT BH.BH_NO,BH.BH_IMG,BH.BH_NOTICE,BH.BH_INTRO,BH.BH_NAME, 
+		 BH.BH_BOOKMARKED,BH.BH_CONT_CNT,BH.BH_PRO,BH.BH_ADDR1,BH.BH_ADDR2, BH.INTENO, BST.BST_STARAVG, BST.BST_RVCNT  
+		  FROM BIZ_HOME BH JOIN BIZ_SEARCH_TEMP BST ON BH.INTENO = BST.INTENO
+           WHERE BH.BH_PRO = #{param1}
+		   ORDER BY BST.BST_RVCNT DESC
+	</select>
+	
+	<select id="findHomeLikeInputProContCnt"
+		parameterType="com.tech.ibara.biz.dto.BizHomeDto" resultMap="BizHomeDto">
+		SELECT BH.BH_NO,BH.BH_IMG,BH.BH_NOTICE,BH.BH_INTRO,BH.BH_NAME, 
+		 BH.BH_BOOKMARKED,BH.BH_CONT_CNT,BH.BH_PRO,BH.BH_ADDR1,BH.BH_ADDR2, BH.INTENO, BST.BST_STARAVG   
+		  FROM BIZ_HOME BH JOIN BIZ_SEARCH_TEMP BST ON BH.INTENO = BST.INTENO
+           WHERE BH.BH_PRO = #{param1}
+		   ORDER BY BH.BH_CONT_CNT DESC
+	</select>
+	
+	 <select id="bizRvContentListJoinProStar" parameterType="com.tech.ibara.biz.dto.BizRvDto" resultMap="BizRvDto">
+		SELECT BR.BR_NO, SUBSTR(BR.BR_CONTENT, 1, 37) BR_CONTENT, BR.INTENO 
+		 FROM BIZ_RV BR JOIN BIZ_HOME BH ON BH.INTENO=BR.INTENO
+         JOIN BIZ_SEARCH_TEMP BST ON BR.INTENO=BST.INTENO
+          WHERE BR.BR_NO IN (SELECT MAX(BR.BR_NO) FROM BIZ_RV BR JOIN BIZ_HOME BH ON BH.INTENO=BR.INTENO WHERE BH.BH_PRO = #{param1} GROUP BY BR.INTENO) AND BH.BH_PRO = #{param1} 
+           ORDER BY BST.BST_STARAVG DESC
+	</select>
+
+ 	<select id="bizRvContentListJoinProRvCnt" parameterType="com.tech.ibara.biz.dto.BizRvDto" resultMap="BizRvDto">
+		SELECT BR.BR_NO, SUBSTR(BR.BR_CONTENT, 1, 37) BR_CONTENT, BR.INTENO  
+		 FROM BIZ_RV BR JOIN BIZ_HOME BH ON BH.INTENO=BR.INTENO 
+         JOIN BIZ_SEARCH_TEMP BST ON BR.INTENO=BST.INTENO 
+          WHERE BR.BR_NO IN (SELECT MAX(BR.BR_NO) FROM BIZ_RV BR JOIN BIZ_HOME BH ON BH.INTENO=BR.INTENO WHERE BH.BH_PRO = #{param1} GROUP BY BR.INTENO) AND BH.BH_PRO = #{param1}  
+           ORDER BY BST.BST_RVCNT DESC 
+	</select>
+	
+ 	<select id="bizRvContentListJoinProContCnt" parameterType="com.tech.ibara.biz.dto.BizRvDto" resultMap="BizRvDto">
+		SELECT BR.BR_NO, SUBSTR(BR.BR_CONTENT, 1, 37) BR_CONTENT, BR.INTENO  
+		 FROM BIZ_RV BR JOIN BIZ_HOME BH ON BH.INTENO=BR.INTENO 
+         JOIN BIZ_SEARCH_TEMP BST ON BR.INTENO=BST.INTENO 
+          WHERE BR.BR_NO IN (SELECT MAX(BR.BR_NO) FROM BIZ_RV BR JOIN BIZ_HOME BH ON BH.INTENO=BR.INTENO WHERE BH.BH_PRO = #{param1} GROUP BY BR.INTENO) AND BH.BH_PRO = #{param1} 
+           ORDER BY BH.BH_CONT_CNT DESC 
+	</select>
+
+
+</mapper>
+

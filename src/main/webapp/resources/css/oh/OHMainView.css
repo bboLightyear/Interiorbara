@@ -1,0 +1,693 @@
+@charset "UTF-8";
+
+/* ---------------------------------------------------------------- */
+/* ----- Start: OHMainView.jsp ----- */
+/* ---------------------------------------------------------------- */
+
+/* ----- Start: #OHMainView-main ----- */
+#OHMainView-main {
+	position: relative;
+	width: 1480px;
+}
+/* ----- End: #OHMainView-main ----- */	
+
+/* ----- Start: #OHMainView-main-1 ----- */
+#OHMainView-main-1 {
+	position: relative;
+	text-align: center;
+	height: 100px;
+}
+#OHMainView-title {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+    transform: translate(-50%, -50%);  
+	font-size: 50px;
+    font-weight: bold;
+    color: #1a1f27;
+    display: inline-block;
+}
+#OHMainView-toWriteButton {
+    position: absolute;
+    right: 0%;
+    top: 50%;
+    transform: translate(0, -50%);    
+    width: 80px;
+    height: 50px;
+   	background-color: #e2f0fe;
+   	border: none;
+    border-radius: 10px;
+    margin-right: 10px;
+    color: #1a1f27;
+    font-size: 15px;
+	transition: 0.5s ease; 
+}
+#OHMainView-toWriteButton:hover {
+	font-size: 16px;	
+	background-color: #1e90ff;		
+	cursor:pointer;	
+}
+/* ----- End: #OHMainView-main-1 ----- */
+
+/* ----- Start: #OHMainView-main-2 ----- */
+#OHMainView-main-2 {
+	position: relative;
+	text-align: center;
+    height: 100px;
+	margin-top: 40px;
+}
+#OHMainView-2toOHPhotoViewButton {
+    position: absolute;
+    left: 0%;
+    top: 50%;
+    transform: translate(0, -50%);    
+    width: 200px;
+    height: 50px;
+    color: #1a1f27;
+   	background-color: #e2f0fe;
+   	border: none;
+    border-radius: 10px;
+    margin-left: 10px;		
+	font-size: 15px;    
+	transition: 0.5s ease; 
+}
+#OHMainView-2toOHPhotoViewButton:hover {
+	font-size: 16px;	
+	background-color: #1e90ff;	
+	cursor:pointer;	
+}
+#OHMainView-2toMoreOHPhotoViewButton {
+    position: absolute;
+    right: 0%;
+    top: 50%;
+    transform: translate(0, -50%);    
+    width: 130px;
+    height: 50px;
+    color: #1a1f27;
+   	background-color: #e2f0fe;
+   	border: none;
+    border-radius: 10px;
+    margin-right: 10px;	
+    font-size: 15px;	
+	transition: 0.5s ease;   
+}
+#OHMainView-2toMoreOHPhotoViewButton:hover {
+	font-size: 16px;	
+	background-color: #1e90ff;	
+	cursor:pointer;		
+}
+/* ----- End: #OHMainView-main-2 ----- */
+
+/* ----- Start: #OHMainView-main-3 ----- */
+#OHMainView-main-3 {
+	position: relative;
+}
+#OHMainView-3flexContainer {
+	display:flex;
+	align-content: center;
+	flex-direction: row;
+	flex-wrap: wrap;
+}
+.OHMainView-3box {
+    position: relative;
+    margin-right: 10px;
+    margin-left: 10px;
+	width: 350px;
+    height: 500px;
+}
+#OHMainView-3photoImage {
+    position: relative;
+    width: 350px;
+    height: 350px;
+    border-radius: 5%;
+	transition: 0.5s ease;    
+}
+#OHMainView-3photoImage:hover {
+	transform: scale(1.03);
+	cursor:pointer;
+}
+.OHMainView-3boxLayer {
+    position: relative;
+}
+#OHMainView-3photoTitle {
+    margin-top: 10px;
+    position: absolute;
+    width: 350px;
+    height: 50px;
+    line-height: 50px;
+    text-align: center;
+	color: #1a1f27;
+	padding: 0px 10px 0px 10px;
+	/* 요소 내의 텍스트가 줄 바꿈 없이 한 줄로 표시되도록 지정 */ 
+	white-space: nowrap;
+	/* 요소의 콘텐츠가 요소의 크기를 초과할 때, 초과된 부분을 숨기도록 지정 */
+	overflow: hidden;
+	/* 요소의 콘텐츠가 요소의 크기를 초과할 때 초과된 부분을 생략하고 말줄임표(ellipsis, ...)로 표시하도록 지정 */
+	text-overflow: ellipsis;
+}
+#OHMainView-3photoTitle a {
+	text-decoration: none;
+	color: #1a1f27;
+	font-size: 15px;
+	transition: 0.5s ease;	
+}
+#OHMainView-3photoTitle a:hover {
+	font-size: 16px;
+	cursor:pointer;	
+}
+#OHMainView-3photoProfileImage {
+    margin-top: 10px;
+    margin-left: 10px;
+    position: absolute;
+    top: 70px;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+	transition: 0.5s ease;	 
+}
+#OHMainView-3photoProfileImage:hover {
+	transform: scale(1.03);	
+	cursor:pointer;		
+}
+#OHMainView-3photoUserName {
+    margin-top: 10px;
+    position: absolute;
+    top: 60px;
+    left: 70px;
+    color: #1a1f27;
+    width: 150px;
+    height: 60px;
+    line-height: 60px;
+    text-align: center;
+	/* 요소 내의 텍스트가 줄 바꿈 없이 한 줄로 표시되도록 지정 */ 
+	white-space: nowrap;
+	/* 요소의 콘텐츠가 요소의 크기를 초과할 때, 초과된 부분을 숨기도록 지정 */
+	overflow: hidden;
+	/* 요소의 콘텐츠가 요소의 크기를 초과할 때 초과된 부분을 생략하고 말줄임표(ellipsis, ...)로 표시하도록 지정 */
+	text-overflow: ellipsis;  
+}
+#OHMainView-3photoUserName a {
+	text-decoration: none;
+	color: #1a1f27;	
+	font-size: 15px;
+	transition: 0.5s ease;	
+}
+#OHMainView-3photoUserName a:hover {
+	font-size: 16px;
+	cursor:pointer;	
+}		
+#OHMainView-3photoHit {
+    margin-top: 10px;
+    position: absolute;
+    top: 60px;
+    left: 230px;
+    width: 60px;
+    height: 30px;
+    line-height: 30px;
+    text-align: center;
+    color: #1a1f27;
+}
+#OHMainView-3photoHitCount {
+    margin-top: 10px;
+    position: absolute;
+    top: 60px;
+    left: 290px;
+    width: 60px;
+    height: 30px;
+    line-height: 30px;
+    text-align: center;
+    color: #1a1f27; 
+}
+#OHMainView-3photoScrap {
+    margin-top: 10px;
+    position: absolute;
+    top: 90px;
+    left: 230px;
+    width: 60px;
+    height: 30px;
+    line-height: 30px;
+    text-align: center;
+    color: #1a1f27;  
+}
+#OHMainView-3photoScrapCount {
+    margin-top: 10px;
+    position: absolute;
+    top: 90px;
+    left: 290px;
+    width: 60px;
+    height: 30px;
+    line-height: 30px;
+    text-align: center;
+    color: #1a1f27;
+}
+/* ----- End: #OHMainView-main-3 ----- */
+
+/* ----- Start: #OHMainView-main-4 ----- */
+#OHMainView-main-4 {
+	position: relative;
+	text-align: center;
+    height: 100px;
+	margin-top: 40px;    
+}
+#OHMainView-4toOHPhotoViewButton {
+    position: absolute;
+    left: 0%;
+    top: 50%;
+    transform: translate(0, -50%);    
+    width: 200px;
+    height: 50px;
+    color: #1a1f27;
+   	background-color: #e2f0fe;
+   	border: none;
+    border-radius: 10px;
+    margin-left: 10px;	
+	font-size: 15px;
+	transition: 0.5s ease;    
+}
+#OHMainView-4toOHPhotoViewButton:hover {
+	background-color: #1e90ff;	
+	font-size: 16px;
+	cursor:pointer;		
+}
+#OHMainView-4toMoreOHPhotoViewButton {
+    position: absolute;
+    right: 0%;
+    top: 50%;
+    transform: translate(0, -50%);    
+    width: 130px;
+    height: 50px;
+    color: #1a1f27;
+   	background-color: #e2f0fe;
+   	border: none;
+    border-radius: 10px;
+    margin-right: 10px;	
+	font-size: 15px;
+	transition: 0.5s ease;      
+}
+#OHMainView-4toMoreOHPhotoViewButton:hover {
+	background-color: #1e90ff;	
+	font-size: 16px;
+	cursor:pointer;	
+}
+/* ----- End: #OHMainView-main-4 ----- */
+
+/* ----- Start: #OHMainView-main-5 ----- */
+#OHMainView-main-5 {
+	position: relative;
+}
+#OHMainView-5flexContainer {
+	display:flex;
+	align-content: center;
+	flex-direction: row;
+	flex-wrap: wrap;
+}
+.OHMainView-5box {
+    position: relative;
+    margin-right: 10px;
+    margin-left: 10px;
+	width: 350px;
+    height: 500px;
+}
+#OHMainView-5photoImage {
+    position: relative;
+    width: 350px;
+    height: 350px;
+    border-radius: 5%;
+	transition: 0.5s ease;     
+}
+#OHMainView-5photoImage:hover {
+	transform: scale(1.03);    	
+	cursor:pointer;	
+}
+.OHMainView-5boxLayer {
+    position: relative;
+}
+#OHMainView-5photoTitle {
+    margin-top: 10px;
+    position: absolute;
+    width: 350px;
+    height: 50px;
+    line-height: 50px;
+    text-align: center;
+	color: #1a1f27;
+	padding: 0px 10px 0px 10px;
+	/* 요소 내의 텍스트가 줄 바꿈 없이 한 줄로 표시되도록 지정 */ 
+	white-space: nowrap;
+	/* 요소의 콘텐츠가 요소의 크기를 초과할 때, 초과된 부분을 숨기도록 지정 */
+	overflow: hidden;
+	/* 요소의 콘텐츠가 요소의 크기를 초과할 때 초과된 부분을 생략하고 말줄임표(ellipsis, ...)로 표시하도록 지정 */
+	text-overflow: ellipsis;
+}
+#OHMainView-5photoTitle a {
+	text-decoration: none;
+	color: #1a1f27;
+	font-size: 15px;
+	transition: 0.5s ease;
+}
+#OHMainView-5photoTitle a:hover {
+	font-size: 16px;	
+}
+#OHMainView-5photoProfileImage {
+    margin-top: 10px;
+    margin-left: 10px;      
+    position: absolute;
+    top: 70px;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    transition: 0.5s ease;  
+}
+#OHMainView-5photoProfileImage:hover {
+	transform: scale(1.03); 
+	cursor:pointer;	      
+}
+#OHMainView-5photoUserName {
+    margin-top: 10px;
+    position: absolute;
+    top: 60px;
+    left: 70px;
+    color: #1a1f27;
+    width: 150px;
+    height: 60px;
+    line-height: 60px;
+    text-align: center;
+	/* 요소 내의 텍스트가 줄 바꿈 없이 한 줄로 표시되도록 지정 */ 
+	white-space: nowrap;
+	/* 요소의 콘텐츠가 요소의 크기를 초과할 때, 초과된 부분을 숨기도록 지정 */
+	overflow: hidden;
+	/* 요소의 콘텐츠가 요소의 크기를 초과할 때 초과된 부분을 생략하고 말줄임표(ellipsis, ...)로 표시하도록 지정 */
+	text-overflow: ellipsis;     	
+}
+#OHMainView-5photoUserName a {
+	text-decoration: none;
+	color: #1a1f27;	
+	font-size: 15px;
+	transition: 0.5s ease;	
+}	
+#OHMainView-5photoUserName a:hover {
+	font-size: 16px;
+	cursor:pointer;	
+}	
+#OHMainView-5photoHit {
+    margin-top: 10px;
+    position: absolute;
+    top: 60px;
+    left: 230px;
+    width: 60px;
+    height: 30px;
+    line-height: 30px;
+    text-align: center;
+    color: #1a1f27;
+}
+#OHMainView-5photoHitCount {
+    margin-top: 10px;
+    position: absolute;
+    top: 60px;
+    left: 290px;
+    width: 60px;
+    height: 30px;
+    line-height: 30px;
+    text-align: center;
+    color: #1a1f27; 
+}
+#OHMainView-5photoScrap {
+    margin-top: 10px;
+    position: absolute;
+    top: 90px;
+    left: 230px;
+    width: 60px;
+    height: 30px;
+    line-height: 30px;
+    text-align: center;
+    color: #1a1f27;  
+}
+#OHMainView-5photoScrapCount {
+    margin-top: 10px;
+    position: absolute;
+    top: 90px;
+    left: 290px;
+    width: 60px;
+    height: 30px;
+    line-height: 30px;
+    text-align: center;
+    color: #1a1f27;
+}
+/* ----- End: #OHMainView-main-5 ----- */
+
+/* ----- Start: #OHMainView-main-6 ----- */
+#OHMainView-main-6 {
+	position: relative;
+	text-align: center;
+    height: 100px;
+	margin-top: 40px;    
+}
+#OHMainView-6toOHPhotoViewButton {
+    position: absolute;
+    left: 0%;
+    top: 50%;
+    transform: translate(0, -50%);    
+    width: 200px;
+    height: 50px;
+    color: #1a1f27;
+   	background-color: #e2f0fe;
+   	border: none;
+    border-radius: 10px;
+    margin-left: 10px;	
+	font-size: 15px;
+	transition: 0.5s ease;    
+}
+#OHMainView-6toOHPhotoViewButton:hover {
+	background-color: #1e90ff;	
+	font-size: 16px;
+	cursor:pointer;		
+}
+#OHMainView-6toMoreOHPhotoViewButton {
+    position: absolute;
+    right: 0%;
+    top: 50%;
+    transform: translate(0, -50%);    
+    width: 130px;
+    height: 50px;
+    color: #1a1f27;
+   	background-color: #e2f0fe;
+   	border: none;
+    border-radius: 10px;
+    margin-right: 10px;
+	font-size: 15px;
+	transition: 0.5s ease;     	
+}
+#OHMainView-6toMoreOHPhotoViewButton:hover {
+	background-color: #1e90ff;	
+	font-size: 16px;
+	cursor:pointer;		
+}
+/* ----- End: #OHMainView-main-6 ----- */
+
+/* ----- Start: #OHMainView-main-7 ----- */
+#OHMainView-main-7 {
+	position: relative;
+}
+#OHMainView-7flexContainer {
+	display:flex;
+	align-content: center;
+	flex-direction: row;
+	flex-wrap: wrap;
+}
+.OHMainView-7box {
+    position: relative;
+    margin-right: 10px;
+    margin-left: 10px;
+	width: 350px;
+    height: 500px;
+}
+#OHMainView-7photoImage {
+    position: relative;
+    width: 350px;
+    height: 350px;
+    border-radius: 5%;
+	transition: 0.5s ease;     
+}
+#OHMainView-7photoImage:hover {
+	transform: scale(1.03);	
+	cursor:pointer;	
+}
+.OHMainView-7boxLayer {
+    position: relative;
+}
+#OHMainView-7photoTitle {
+    margin-top: 10px;
+    position: absolute;
+    width: 350px;
+    height: 50px;
+    line-height: 50px;
+    text-align: center;
+	color: #1a1f27;
+	padding: 0px 10px 0px 10px;
+	/* 요소 내의 텍스트가 줄 바꿈 없이 한 줄로 표시되도록 지정 */ 
+	white-space: nowrap;
+	/* 요소의 콘텐츠가 요소의 크기를 초과할 때, 초과된 부분을 숨기도록 지정 */
+	overflow: hidden;
+	/* 요소의 콘텐츠가 요소의 크기를 초과할 때 초과된 부분을 생략하고 말줄임표(ellipsis, ...)로 표시하도록 지정 */
+	text-overflow: ellipsis;
+}
+#OHMainView-7photoTitle a {
+	text-decoration: none;
+	color: #1a1f27;
+	font-size: 15px;
+	transition: 0.5s ease; 
+}
+#OHMainView-7photoTitle a:hover {
+	font-size: 16px;
+	cursor:pointer;	
+}
+#OHMainView-7photoProfileImage {
+    margin-top: 10px;
+    margin-left: 10px;        
+    position: absolute;
+    top: 70px;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+	transition: 0.5s ease;    
+}
+#OHMainView-7photoProfileImage:hover {
+	transform: scale(1.03);
+	cursor:pointer;		
+}
+#OHMainView-7photoUserName {
+    margin-top: 10px;
+    position: absolute;
+    top: 60px;
+    left: 70px;
+    color: #1a1f27;
+    width: 150px;
+    height: 60px;
+    line-height: 60px;
+    text-align: center;
+	/* 요소 내의 텍스트가 줄 바꿈 없이 한 줄로 표시되도록 지정 */ 
+	white-space: nowrap;
+	/* 요소의 콘텐츠가 요소의 크기를 초과할 때, 초과된 부분을 숨기도록 지정 */
+	overflow: hidden;
+	/* 요소의 콘텐츠가 요소의 크기를 초과할 때 초과된 부분을 생략하고 말줄임표(ellipsis, ...)로 표시하도록 지정 */
+	text-overflow: ellipsis;    
+}
+#OHMainView-7photoUserName a {
+	text-decoration: none;
+	color: #1a1f27;	
+	font-size: 15px;
+	transition: 0.5s ease;
+}
+#OHMainView-7photoUserName a:hover {
+	font-size: 16px;
+	cursor:pointer;	
+}
+#OHMainView-7photoHit {
+    margin-top: 10px;
+    position: absolute;
+    top: 60px;
+    left: 230px;
+    width: 60px;
+    height: 30px;
+    line-height: 30px;
+    text-align: center;
+    color: #1a1f27;
+}
+#OHMainView-7photoHitCount {
+    margin-top: 10px;
+    position: absolute;
+    top: 60px;
+    left: 290px;
+    width: 60px;
+    height: 30px;
+    line-height: 30px;
+    text-align: center;
+    color: #1a1f27; 
+}
+#OHMainView-7photoScrap {
+    margin-top: 10px;
+    position: absolute;
+    top: 90px;
+    left: 230px;
+    width: 60px;
+    height: 30px;
+    line-height: 30px;
+    text-align: center;
+    color: #1a1f27;  
+}
+#OHMainView-7photoScrapCount {
+    margin-top: 10px;
+    position: absolute;
+    top: 90px;
+    left: 290px;
+    width: 60px;
+    height: 30px;
+    line-height: 30px;
+    text-align: center;
+    color: #1a1f27;
+}
+/* ----- End: #OHMainView-main-7 ----- */
+
+/* ----- Start: #OHMainView-main-8 ----- */
+/* 집영상 */
+/* #OHMainView-main-8 {
+	position: relative;
+	text-align: center;
+	background-color: crimson;
+    height: 100px;
+}
+#OHMainView-8toOHVideoViewButton {
+    position: absolute;
+    left: 0%;
+    top: 50%;
+    transform: translate(0, -50%);    
+    width: 80px;
+    height: 50px;
+   	background-color: powderblue;
+   	border: none;
+    border-radius: 10px;
+    margin-left: 10px;	
+}
+#OHMainView-8toMoreOHVideoViewButton {
+    position: absolute;
+    right: 0%;
+    top: 50%;
+    transform: translate(0, -50%);    
+    width: 80px;
+    height: 50px;
+   	background-color: powderblue;
+   	border: none;
+    border-radius: 10px;
+    margin-right: 10px;	
+}  */
+/* ----- End: #OHMainView-main-8 ----- */
+
+/* ----- Start: #OHMainView-main-9 ----- */
+/* #OHMainView-main-9 {
+	position: relative;
+	text-align: center;
+    height: 100px;
+    margin-top: 40px;  
+}
+#OHMainView-9toCategoryView {
+    position: absolute;
+    left: 0%;
+    top: 50%;
+    transform: translate(0, -50%);    
+    width: 150px;
+    height: 50px;
+   	background-color: #1e90ff;
+   	border: none;
+    border-radius: 10px;
+    margin-left: 10px;	
+}
+#OHMainView-9toCategoryText {
+    position: absolute;
+    left: 15%;
+    top: 50%;
+    transform: translate(0, -50%);    
+} */
+/* ----- End: #OHMainView-main-9 ----- */
+
+/* ---------------------------------------------------------------- */
+/* ----- End: OHMainView.jsp ----- */
+/* ---------------------------------------------------------------- */

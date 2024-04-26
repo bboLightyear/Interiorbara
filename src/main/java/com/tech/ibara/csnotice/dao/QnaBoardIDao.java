@@ -17,28 +17,51 @@ public interface QnaBoardIDao {
 	public int selectBoardTotalCount5();
 	public int selectBoardTotalCount6();
 
-	public Integer selsnbno();
+	public Integer selsqbno();
 
-	public void qnawrite(String nbwrite, String nbtitle, String nbcontent, int snbno, String qnadiv);
+	public Integer selfilecode(String qbno);
 
-	public void imgwrite(int snbno, String changeFile);
+	public void qnawrite(String qbwrite, String qbtitle, String qbcontent, int sqbno, String qnadiv);
 
-	public void uphit(String nbno);
+	public void imgwrite(int sqbno, String changeFile);
 
-	public QnaDto qnacontent(String nbno);
+	public void uphit(String qbno);
 
-	public QnaDto qnacontentview(String nbno);
+	public QnaDto qnacontent(String qbno);
 
-	public int selfilecode(String nbno);
+	public QnaDto qnacontentview(String qbno);
 
 	public void imgdelete(int filecode);
 
-	public void qnadelete(String nbno);
+	public void qnadelete(String qbno);
 
-	public ArrayList<QnaImgDto> qnacontentimgview(String nbno);
+	public ArrayList<QnaImgDto> qnacontentimgview(String qbno);
 
-	public void qnareply(String nbno, String qnareply, String qnarewriter);
+	public void qnareply(String qbno, String qnareply, String qnarewriter);
 
-	public ArrayList<QnaReplyDto> replylist(String nbno);
+	public ArrayList<QnaReplyDto> replylist(String qbno);
+
+	public ArrayList<QnaReplyDto> replyrlist(String rqbno);
+
+	public Integer replycnt(String qbno);
+
+	public void qnareply_r(String qbno, String rqbno, String rwriter, String rcontent, String rqbgroup, String rqbstep, String rqbindent);
+
+	public void replyShape(String rqbgroup, String rqbstep);
+
+	public void qnaeditproc(String qbno, String qbtitle, String qbcontent, String qnadiv);
+
+	public ArrayList<String> getfileListbefore(Integer selfilecode);
+
+	public void deletefilebefore(Integer filecode);
+
+	public void editimg(int sqbno, String changeFile);
+
+	public ArrayList<QnaImgDto> imglist(Integer selfilecode);
+
+	public String selqbwriter(int qbno);
+
+	public String qnaprofileimg(String qbwriter);
+
 	
 }

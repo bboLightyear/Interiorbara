@@ -7,190 +7,288 @@
 <mapper namespace="com.tech.ibara.csnotice.dao.QnaBoardIDao">
 
 
-<!-- 
-리스트 검색 결과 include문 qq일때 검색, 전체 검색, 우리집 자랑 검색 등등
- -->
-	<sql id="includqnalist">
-		<choose>
-			<when test="param4==1">
-				WHERE NBQNADIV='qq' 
-				AND NBTITLE LIKE '%'||#{param3}||'%'
-			</when>
-			<when test="param4==2">
-				WHERE NBTITLE LIKE '%'||#{param3}||'%'
-			</when>
-			<when test="param4==3">
-				WHERE NBQNADIV='oh' 
-				AND NBTITLE LIKE '%'||#{param3}||'%'
-			</when>
-			<when test="param4==4">
-				WHERE NBQNADIV='biz' 
-				AND NBTITLE LIKE '%'||#{param3}||'%'
-			</when>
-			<when test="param4==5">
-				WHERE NBQNADIV='pf' 
-				AND NBTITLE LIKE '%'||#{param3}||'%'
-			</when>
-			<when test="param4==6">
-				WHERE NBQNADIV='sh' 
-				AND NBTITLE LIKE '%'||#{param3}||'%'
-			</when>
-			<otherwise>
+   <!-- 리스트 검색 결과 include문 qq일때 검색, 전체 검색, 우리집 자랑 검색 등등 -->
+   <sql id="includqnalist">
+      <choose>
+         <when test="param4==1">
+            WHERE QBQNADIV='qq'
+            AND QBTITLE LIKE '%'||#{param3}||'%'
+         </when>
+         <when test="param4==2">
+            WHERE QBTITLE LIKE '%'||#{param3}||'%'
+         </when>
+         <when test="param4==3">
+            WHERE QBQNADIV='oh'
+            AND QBTITLE LIKE '%'||#{param3}||'%'
+         </when>
+         <when test="param4==4">
+            WHERE QBQNADIV='biz'
+            AND QBTITLE LIKE '%'||#{param3}||'%'
+         </when>
+         <when test="param4==5">
+            WHERE QBQNADIV='pf'
+            AND QBTITLE LIKE '%'||#{param3}||'%'
+         </when>
+         <when test="param4==6">
+            WHERE QBQNADIV='sh'
+            AND QBTITLE LIKE '%'||#{param3}||'%'
+         </when>
+         <otherwise>
 
 
-			</otherwise>
-		</choose>
-	</sql>
+         </otherwise>
+      </choose>
+   </sql>
 
 
-	<select id="qnalist"
-		resultType="com.tech.ibara.csnotice.dto.QnaDto">
-		SELECT NBNO,NBWRITER,NBTITLE,NBCONTENT,NBDATE,NBHIT,NBGROUP,NBSTEP,NBINDENT,NBQNADIV
-		FROM (SELECT ROWNUM NUM,N.*
-				FROM (SELECT NBNO,NBWRITER,NBTITLE,NBCONTENT,NBDATE,NBHIT,NBGROUP,NBSTEP,NBINDENT,NBQNADIV
-		FROM CS_NOTICEBOARD
-		ORDER BY NBGROUP DESC,NBSTEP ASC)N
-		<include refid="includqnalist" />
-		)WHERE NUM BETWEEN #{param1} AND #{param2}
+   <select id="qnalist" resultType="com.tech.ibara.csnotice.dto.QnaDto">      
+         SELECT 
+        QBNO, QBWRITER, QBTITLE, QBCONTENT, QBDATE, QBHIT, QBGROUP, QBSTEP, QBINDENT, QBQNADIV FROM 
+        (SELECT ROWNUM NUM,N.* FROM (SELECT QBNO, QBWRITER, QBTITLE, QBCONTENT, QBDATE, QBHIT, QBGROUP, QBSTEP, QBINDENT, QBQNADIV 
+        FROM CS_QNABOARD <include refid="includqnalist" /> ORDER BY QBNO DESC ) N
+        )WHERE NUM BETWEEN #{param1} AND #{param2}
+   </select>
+
+   <select id="selectBoardTotalCount1" resultType="Integer">
+      SELECT COUNT(*)
+      FROM CS_QNABOARD
+      WHERE QBQNADIV='qq'
+   </select>
+
+   <select id="selectBoardTotalCount2" resultType="Integer">
+      SELECT COUNT(*)
+      FROM CS_QNABOARD
+   </select>
+
+   <select id="selectBoardTotalCount3" resultType="Integer">
+      SELECT COUNT(*)
+      FROM CS_QNABOARD
+      WHERE QBQNADIV='oh'
+   </select>
+
+   <select id="selectBoardTotalCount4" resultType="Integer">
+      SELECT COUNT(*)
+      FROM CS_QNABOARD
+      WHERE QBQNADIV='biz'
+   </select>
+
+   <select id="selectBoardTotalCount5" resultType="Integer">
+      SELECT COUNT(*)
+      FROM CS_QNABOARD
+      WHERE QBQNADIV='pf'
+   </select>
+
+   <select id="selectBoardTotalCount6" resultType="Integer">
+      SELECT COUNT(*)
+      FROM CS_QNABOARD
+      WHERE QBQNADIV='sh'
+   </select>
+
+   <select id="qnawrite"
+      resultType="com.tech.ibara.csnotice.dto.QnaDto">
+      INSERT INTO
+      CS_QNABOARD(QBNO,QBTITLE,QBCONTENT,QBWRITER,QBHIT,QBDATE,QBGROUP,QBSTEP,QBINDENT,QBFILECODE,QBQNADIV)
+      VALUES(CS_QNABOARD_SEQ.NEXTVAL,#{param2},#{param3},#{param1},0,SYSDATE,0,0,0,#{param4}+1,#{param5})
+   </select>
+
+   <select id="imgwrite">
+      INSERT INTO CS_QNABOARD_IMG
+      VALUES(CS_QNABOARD_IMG_SEQ.NEXTVAL,#{param1}+1,#{param2})
+   </select>
+
+   <select id="selsqbno" resultType="Integer">
+      SELECT MAX(QBFILECODE) FROM
+      CS_QNABOARD_IMG
+   </select>
+
+   <update id="uphit">
+      UPDATE CS_QNABOARD SET QBHIT=QBHIT+1 WHERE
+      QBNO=#{PARAM1}
+   </update>
+
+   <update id="qnaeditproc">
+      UPDATE CS_QNABOARD SET QBTITLE=#{param2},QBCONTENT=#{param3},QBQNADIV=#{param4} WHERE
+      QBNO=#{param1}
+   </update>
+
+   <select id="qnacontent"
+      resultType="com.tech.ibara.csnotice.dto.QnaDto">
+      SELECT
+      QBNO,QBQNADIV,QBWRITER,QBTITLE,QBCONTENT,QBDATE,QBHIT,QBGROUP,QBSTEP,QBINDENT,QBFILECODE
+      FROM
+      CS_QNABOARD
+      WHERE QBNO=#{param1}
+   </select>
+   
+   <select id="getfileListbefore" resultType="String">
+      SELECT FILESRC 
+      FROM CS_QNABOARD_IMG
+      WHERE QBFILECODE=#{param1}
+   </select>   
+
+   <select id="selfilecode" resultType="Integer">
+      SELECT QBFILECODE 
+      FROM CS_QNABOARD
+      WHERE QBNO=#{param1}
+   </select>   
+   
+   <delete id="deletefilebefore">
+      DELETE FROM CS_QNABOARD_IMG
+      WHERE QBFILECODE=#{param1}
+   </delete>
+   
+   <insert id="editimg">
+      INSERT INTO CS_QNABOARD_IMG
+      VALUES(CS_QNABOARD_IMG_SEQ.NEXTVAL,#{param1},#{param2})
+   </insert>
+   
+   <select id="imglist" resultType="com.tech.ibara.csnotice.dto.QnaImgDto">
+      SELECT *
+      FROM CS_QNABOARD_IMG
+      WHERE QBFILECODE=#{param1}
+   </select>   
+
+   <!-- ================================================================================= -->
+    <select id="qnacontentview"
+      resultType="com.tech.ibara.csnotice.dto.QnaDto">
+      SELECT
+      B.QBNO,B.QBTITLE,B.QBQNADIV,B.QBCONTENT,B.QBWRITER,B.QBHIT,B.QBDATE,B.QBGROUP,B.QBSTEP,B.QBFILECODE,I.FILESRC
+      FROM CS_QNABOARD B LEFT OUTER JOIN CS_QNABOARD_IMG I
+      ON B.QBFILECODE=I.QBFILECODE
+      WHERE B.QBNO=#{param1}
+   </select> 
+
+   <resultMap type="com.tech.ibara.my.dto.MyMemberInfoDto" id="MyMemberInfoDto">
+      <result column="MEMNO" property="memno" />
+      <result column="NICKNAME" property="nickname" />
+      <result column="SHPWD" property="shpwd" />
+      <result column="BCPWD" property="bcpwd" />
+      <result column="EMAIL" property="email" />
+      <result column="MAILCHECK" property="mailcheck" />
+      <result column="BIRTH" property="birth" />
+      <result column="GENDER" property="gender" />
+      <result column="PHONE" property="phone" />
+      <result column="JOINDATE" property="joindate" />
+      <result column="MEMTYPE" property="memtype" />
+      <result column="PROFILEIMG" property="profileimg" />
+   </resultMap>
+
+   <resultMap type="com.tech.ibara.csnotice.dto.QnaDto" id="QnaDto">
+      <result column="QBNO" property="qbno" />
+      <result column="QBTITLE" property="qbtitle" />
+      <result column="QBCONTENT" property="qbcontent" />
+      <result column="QBWRITER" property="qbwriter" />
+      <result column="QBHIT" property="qbhit" />
+      <result column="QBDATE" property="qbdate" />
+      <result column="QBGROUP" property="qbgroup" />
+      <result column="QBSTEP" property="qbstep" />
+      <result column="QBINDENT" property="qbindent" />
+      <result column="QBFILECODE" property="qbfilecode" />
+      <result column="QBQNADIV" property="qbqnadiv" />
+      <collection property="myMemberInfoDto" resultMap="MyMemberInfoDto" />
+   </resultMap>
+
+
+
+   <select id="qnaprofileimg" parameterType="String" resultType="String">
+      SELECT I.PROFILEIMG
+      FROM CS_QNABOARD B LEFT OUTER JOIN MY_MEMBER_INFO I
+      ON B.QBWRITER=I.NICKNAME
+      WHERE QBWRITER=#{param1}
+   </select>
+
+   <!-- =================================================================================== -->
+
+	<select id="selqbwriter" resultType="string">
+		SELECT QBWRITER
+		FROM CS_QNABOARD
+		WHERE QBNO=#{param1}
 	</select>
 
-	<select id="selectBoardTotalCount1" resultType="Integer">
-		SELECT COUNT(*)
-		FROM CS_NOTICEBOARD
-		WHERE NBQNADIV='qq' 
-	</select>
+   <update id="imgdelete">
+      DELETE FROM CS_QNABOARD_IMG WHERE
+      QBFILECODE=#{param1}
+   </update>
 
-	<select id="selectBoardTotalCount2" resultType="Integer">
-		SELECT COUNT(*)
-		FROM CS_NOTICEBOARD  
-	</select>
+   <update id="qnadelete">
+      DELETE FROM CS_QNABOARD WHERE
+      QBNO=#{param1}
+   </update>
 
-	<select id="selectBoardTotalCount3" resultType="Integer">
-		SELECT COUNT(*)
-		FROM CS_NOTICEBOARD
-		WHERE NBQNADIV='oh' 
-	</select>
+   <insert id="qnareply">
+      INSERT INTO CS_QNABOARD_REPLY
+      VALUES(#{param1},CS_QNABOARD_REPLY_SEQ.NEXTVAL,#{param3},#{param2},0,CS_QNABOARD_REPLY_SEQ.NEXTVAL,0)
+   </insert>
 
-	<select id="selectBoardTotalCount4" resultType="Integer">
-		SELECT COUNT(*)
-		FROM CS_NOTICEBOARD
-		WHERE NBQNADIV='biz' 
-	</select>
+	<resultMap id="replyDetailMap" type="com.tech.ibara.csnotice.dto.QnaReplyDto">
+	    <result property="rqbno" column="RQBNO" />
+	    <result property="rqbwriter" column="RQBWRITER" />
+	    <result property="rqbcontent" column="RQBCONTENT" />
+	    <result property="rqbstep" column="RQBSTEP" />
+	    <result property="rqbgroup" column="RQBGROUP" />
+	    <result property="rqbindent" column="RQBINDENT" />
+    <!-- 추가 정보 매핑 -->
+	    <association property="memberInfo" javaType="com.tech.ibara.my.dto.MyMemberInfoDto">
+	        <result property="nickname" column="NICKNAME" />
+	        <result property="profileimg" column="PROFILEIMG" />
+	    </association>
+	</resultMap>
 
-	<select id="selectBoardTotalCount5" resultType="Integer">
-		SELECT COUNT(*)
-		FROM CS_NOTICEBOARD
-		WHERE NBQNADIV='pf' 
-	</select>
-
-	<select id="selectBoardTotalCount6" resultType="Integer">
-		SELECT COUNT(*)
-		FROM CS_NOTICEBOARD
-		WHERE NBQNADIV='sh'  
-	</select>
-
-	<select id="qnawrite"
-		resultType="com.tech.ibara.csnotice.dto.QnaDto">
-		INSERT INTO
-		CS_NOTICEBOARD(NBNO,NBTITLE,NBCONTENT,NBWRITER,NBHIT,NBDATE,NBGROUP,NBSTEP,NBINDENT,NBFILECODE,NBQNADIV)
-		VALUES(CS_NOTICEBOARD_SEQ.NEXTVAL,#{param2},#{param3},#{param1},0,SYSDATE,0,0,0,#{param4}+1,#{param5})
-	</select>
-
-	<select id="imgwrite"
-		resultType="com.tech.ibara.csnotice.dto.QnaImgDto">
-		INSERT INTO CS_NOTICEBOARD_IMG
-		VALUES(CS_NOTICEBOARD_IMG_SEQ.NEXTVAL,#{param1}+1,#{param2})
-	</select>
-
-	<select id="selsnbno" resultType="Integer">
-		SELECT MAX(NBFILECODE) FROM
-		CS_NOTICEBOARD_IMG
-	</select>
-
-	<update id="uphit">
-		UPDATE CS_NOTICEBOARD SET NBHIT=NBHIT+1 WHERE
-		NBNO=#{PARAM1}
-	</update>
-
-	<select id="qnacontent" resultType="com.tech.ibara.csnotice.dto.QnaDto">
-		SELECT
-		NBNO,NBQNADIV,NBWRITER,NBTITLE,NBCONTENT,NBDATE,NBHIT,NBGROUP,NBSTEP,NBINDENT,NBFILECODE
-		FROM
-		CS_NOTICEBOARD
-		WHERE NBNO=#{param1}
-	</select>
-
-<!-- ================================================================================= -->
- 	<select id="qnacontentview" resultType="com.tech.ibara.csnotice.dto.QnaDto">
-        SELECT B.NBNO,B.NBTITLE,B.NBQNADIV,B.NBCONTENT,B.NBWRITER,B.NBHIT,B.NBDATE,B.NBGROUP,B.NBSTEP,B.NBFILECODE,I.FILESRC
-        FROM CS_NOTICEBOARD B LEFT OUTER JOIN CS_NOTICEBOARD_IMG I
-        ON B.NBFILECODE=I.NBFILECODE
-        WHERE B.NBNO=#{param1}
-	</select>
-
-<!--  	<select id="qnacontentimgview" resultType="com.tech.ibara.csnotice.dto.QnaImgDto">
-        SELECT B.NBNO,B.NBTITLE,B.NBQNADIV,B.NBCONTENT,B.NBWRITER,B.NBHIT,B.NBDATE,B.NBGROUP,B.NBSTEP,B.NBFILECODE,I.FILESRC
-        FROM CS_NOTICEBOARD B LEFT OUTER JOIN CS_NOTICEBOARD_IMG I
-        ON B.NBFILECODE=I.NBFILECODE
-        WHERE B.NBNO=#{param1}
-	</select> -->
- 
-
- 	<resultMap type="com.tech.ibara.csnotice.dto.QnaImgDto" id="QnaImgDto">
-		<result column="NBNO" property="nbno" />
-		<result column="NBFILECODE" property="nbfilecode" />
-		<result column="FILESRC" property="filesrc" />		
+	<resultMap id="replyRDetailMap" type="com.tech.ibara.csnotice.dto.QnaReplyDto">
+	    <result property="rqbno" column="RQBNO" />
+	    <result property="rqbwriter" column="RQBWRITER" />
+	    <result property="rqbcontent" column="RQBCONTENT" />
+	    <result property="rqbstep" column="RQBSTEP" />
+	    <result property="rqbgroup" column="RQBGROUP" />
+	    <result property="rqbindent" column="RQBINDENT" />
+    <!-- 추가 정보 매핑 -->
+	    <association property="memberInfo" javaType="com.tech.ibara.my.dto.MyMemberInfoDto">
+	        <result property="nickname" column="NICKNAME" />
+	        <result property="profileimg" column="PROFILEIMG" />
+	    </association>
 	</resultMap>
 	
-	<resultMap type="com.tech.ibara.csnotice.dto.QnaDto" id="QnaDto">
-		<result column="NBNO" property="nbno" />
-		<result column="NBTITLE" property="nbtitle" />
-		<result column="NBCONTENT" property="nbcontent" />		
-		<result column="NBWRITER" property="nbwriter" />		
-		<result column="NBHIT" property="nbhit" />		
-		<result column="NBDATE" property="nbdate" />		
-		<result column="NBGROUP" property="nbgroup" />		
-		<result column="NBSTEP" property="nbstep" />	
-		<result column="NBINDENT" property="nbindent" />	
-		<result column="NBFILECODE" property="nbfilecode" />	
-		<result column="NBQNADIV" property="nbqnadiv" />	
-		<collection property="qnaImgDto" resultMap="QnaImgDto"/>	
-	</resultMap>
-	
+   <select id="replylist" resultMap="replyDetailMap">
+    SELECT B.RQBNO, B.RQBWRITER, B.RQBCONTENT, B.RQBSTEP, B.RQBGROUP, B.RQBINDENT, I.NICKNAME, I.PROFILEIMG
+    FROM CS_QNABOARD_REPLY B
+    LEFT OUTER JOIN MY_MEMBER_INFO I ON B.RQBWRITER = I.NICKNAME
+    WHERE QBNO = #{param1} AND RQBSTEP = 0
+    ORDER BY RQBNO DESC
+</select>
+      
+
+   <select id="replyrlist" resultMap="replyRDetailMap">
+     <!--  SELECT QBNO,RQBNO,RQBWRITER,RQBCONTENT,RQBSTEP,RQBGROUP,RQBINDENT
+      FROM CS_QNABOARD_REPLY
+      WHERE RQBGROUP=#{param1} AND RQBSTEP>=1
+      ORDER BY RQBNO ASC
+      --> 
+      
+	SELECT B.QBNO,B.RQBNO, B.RQBWRITER, B.RQBCONTENT, B.RQBSTEP, B.RQBGROUP, B.RQBINDENT, I.NICKNAME, I.PROFILEIMG
+	FROM CS_QNABOARD_REPLY B
+    LEFT OUTER JOIN MY_MEMBER_INFO I ON B.RQBWRITER = I.NICKNAME
+    WHERE RQBGROUP=#{param1} AND RQBSTEP>=1
+    ORDER BY RQBNO DESC 
+   </select>
+
+   <select id="replycnt" resultType="Integer">
+      SELECT COUNT(*)
+      FROM CS_QNABOARD_REPLY
+      WHERE QBNO=#{param1} AND RQBSTEP=0
+   </select>
 
 
-	<select id="qnacontentimgview" parameterType="com.tech.ibara.csnotice.dto.QnaImgDto" resultMap="QnaImgDto">
-		SELECT I.FILESRC
-        FROM CS_NOTICEBOARD B LEFT OUTER JOIN CS_NOTICEBOARD_IMG I
-        ON B.NBFILECODE=I.NBFILECODE
-        WHERE B.NBNO=#{param1}
-	</select> 
+   <insert id="qnareply_r">
+      INSERT INTO
+      CS_QNABOARD_REPLY(QBNO,RQBNO,RQBWRITER,RQBCONTENT,RQBSTEP,RQBGROUP,RQBINDENT)
+      VALUES(#{param1},CS_QNABOARD_REPLY_SEQ.NEXTVAL,#{param3},#{param4},#{param6}+1,#{param2},#{param7}+1)
+   </insert>
 
-<!-- =================================================================================== -->
+   <update id="replyShape">
+      UPDATE CS_QNABOARD_REPLY
+      SET RQBSTEP=RQBSTEP+1
+      WHERE RQBGROUP=#{param1} AND RQBSTEP>#{param2}
+   </update>
 
-	<select id="selfilecode" resultType="Integer">
-		SELECT NBFILECODE 
-		FROM CS_NOTICEBOARD
-		WHERE NBNO=#{param1}
-	</select>
-	
-	<update id="imgdelete" >
-		DELETE FROM CS_NOTICEBOARD_IMG WHERE NBFILECODE=#{param1}
-	</update>
-	
-	<update id="qnadelete" >
-		DELETE FROM CS_NOTICEBOARD WHERE NBNO=#{param1}
-	</update>
-	
-	<insert id="qnareply">
-		INSERT INTO CS_QNABOARD_REPLY VALUES(#{param1},CS_QNABOARD_REPLY_SEQ.NEXTVAL,#{param3},#{param2},0,0,0)
-	</insert>
-	
- 	<select id="replylist" resultType="com.tech.ibara.csnotice.dto.QnaReplyDto">
-		SELECT NBNO,RNBNO,RNBWRITER,RNBCONTENT,RNBSTEP,RNBGROUP,RNBINDENT
-        FROM CS_QNABOARD_REPLY
-        WHERE NBNO=#{param1}
-	</select>
 
-	
 </mapper>

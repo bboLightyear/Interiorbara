@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    
+<mapper namespace="com.tech.ibara.main.dao.MainSearchDao">
+	<resultMap type="com.tech.ibara.main.dto.BizSearchDto" id="biz_search">
+		<result column="BH_NO" property="bh_no" />
+		<result column="BH_NAME" property="bh_name" />
+		<result column="BH_ADDR1" property="bh_addr1" />
+		<result column="BH_ADDR2" property="bh_addr2" />
+	</resultMap>
+	<resultMap type="com.tech.ibara.main.dto.ShopSearchDto" id="shop_search">
+		<result column="PRODUCT_ID" property="shop_no" />
+		<result column="NAME" property="shop_name" />
+		<result column="REP_PRICE" property="shop_price" />
+	</resultMap>
+	<resultMap type="com.tech.ibara.main.dto.OHSearchDto" id="oh_search">
+		<result column="PB_NO" property="oh_no" />
+		<result column="PB_TITLE" property="oh_name" />
+		<result column="PB_CONTENT" property="oh_content" />
+	</resultMap>
+	<resultMap type="com.tech.ibara.main.dto.NoticeSearchDto" id="notice_search">
+		<result column="NBNO" property="notice_no" />
+		<result column="NBTITLE" property="notice_title" />
+		<result column="NBDATE" property="notice_date" />
+	</resultMap>
+	<resultMap type="com.tech.ibara.main.dto.QnASearchDto" id="qna_search">
+		<result column="QNA_NO" property="qna_no" />
+		<result column="QBTITLE" property="qna_title" />
+		<result column="QBWRITER" property="qna_writer" />
+		<result column="QBDATE" property="qna_date" />
+	</resultMap>
+	<select id="bizSearchContent" resultType="com.tech.ibara.main.dto.BizSearchDto" resultMap="biz_search">
+		SELECT
+			BH_NAME, BH_ADDR1, BH_ADDR2
+		FROM
+			BIZ_HOME
+		WHERE
+			BH_NAME LIKE '%' || #{param1} || '%'
+			OR
+			BH_ADDR1 LIKE '%' || #{param1} || '%'
+			OR
+			BH_ADDR2 LIKE '%' || #{param1} || '%'
+		ORDER BY BH_NO DESC
+	</select>
+	<select id="shopSearchContent" resultType="com.tech.ibara.main.dto.ShopSearchDto" resultMap="shop_search">
+		SELECT
+			NAME, REP_PRICE
+		FROM
+			SHOP_PRODUCT
+		WHERE
+			NAME LIKE '%' || #{param1} || '%'
+		ORDER BY PRODUCT_ID DESC
+	</select>
+	<select id="ohSearchContent" resultType="com.tech.ibara.main.dto.OHSearchDto" resultMap="oh_search">
+   		SELECT
+			PB_TITLE, PB_CONTENT
+		FROM
+			OH_PHOTO_BOARD
+		WHERE
+			PB_TITLE LIKE '%' || #{param1} || '%'
+			OR
+			PB_CONTENT LIKE '%' || #{param1} || '%'
+		ORDER BY PB_NO DESC
+	</select>
+	<select id="noticeSearchContent" resultType="com.tech.ibara.main.dto.NoticeSearchDto" resultMap="notice_search">
+   		SELECT
+			NBTITLE, NBDATE
+		FROM
+			CS_NOTICEBOARD
+		WHERE
+			NBTITLE LIKE '%' || #{param1} || '%'
+		ORDER BY NBNO DESC
+	</select>
+	<select id="qnaSearchContent" resultType="com.tech.ibara.main.dto.QnASearchDto" resultMap="qna_search">
+   		SELECT
+			QBTITLE, QBWRITER, QBDATE
+		FROM
+			CS_QNABOARD
+		WHERE
+			QBTITLE LIKE '%' || #{param1} || '%'
+			OR
+			QBWRITER LIKE '%' || #{param1} || '%'
+		ORDER BY QBNO DESC
+	</select>
+
+</mapper>

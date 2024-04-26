@@ -1,0 +1,398 @@
+@charset "UTF-8";
+
+/* ---------------------------------------------------------------- */
+/* ----- Start: OHPhotoEditView.jsp ----- */
+/* ---------------------------------------------------------------- */
+
+/* ----- Start: #OHPhotoEditView-main ----- */
+#OHPhotoEditView-main {
+	position: relative;
+    width: 1480px;     
+}
+/* ----- End: #OHPhotoEditView-main ----- */
+
+/* ----- Start: #OHPhotoEditView-main-1 ----- */
+#OHPhotoEditView-main-1 {
+	position: relative;
+	text-align: center;
+	height: 100px;
+}
+#OHPhotoEditView-title {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+    transform: translate(-50%, -50%);  
+    color: #1a1f27;      
+	font-size: 50px;
+    font-weight: bold;
+}
+/* ----- End: #OHPhotoEditView-main-1 ----- */
+
+/* ----- Start: #OHPhotoEditView-main-2 ----- */
+/* #OHPhotoEditView-main-2 {
+	position: relative; 
+    text-align: center;
+    height: 100px;
+    margin-top: 50px;   
+    border-top: 1px solid #1a1f27;
+    border-bottom: 1px solid #1a1f27;
+} */
+/* 집사진 */
+/* #OHPhotoEditView-photoBoardButton {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);     
+    width: 80px;
+    height: 50px;
+    color: #1a1f27; 
+   	background-color: #1e90ff;
+   	border: none;
+    border-radius: 10px;
+} */
+/* 집영상 */
+/* #OHPhotoEditView-videoBoardButton {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);     
+    width: 80px;
+    height: 50px;
+   	background-color: powderblue;
+   	border: none;
+    border-radius: 10px;
+} */
+/* ----- End: #OHPhotoEditView-main-2 ----- */
+
+/* ----- End: #OHPhotoEditView-main-3 ----- */
+#OHPhotoEditView-main-3 {
+    position: relative;
+    text-align: center;
+}
+#OHPhotoEditView-main-sector1 {
+    position: relative;
+    margin-top: 50px;
+    text-align: center; 
+    height: 50px;   
+}
+#OHPhotoEditView-editPostButton {
+    position: absolute;
+    top: 50%;
+    left: 45%;
+    transform: translate(-50%, -50%);     
+    width: 80px;
+    height: 50px;
+    color: #1a1f27; 
+   	background-color: #e2f0fe;
+   	border: none;
+    border-radius: 10px;
+	font-size: 15px;
+	transition: 0.5s ease;    
+}
+#OHPhotoEditView-editPostButton:hover {
+	font-size: 16px;
+	background-color: #1e90ff;
+	cursor:pointer;
+}
+#OHPhotoEditView-cancelPostButton {
+    position: absolute;
+    top: 50%;
+    left: 55%;
+    transform: translate(-50%, -50%);     
+    width: 80px;
+    height: 50px;
+    color: #1a1f27; 
+   	background-color: #e2f0fe;
+   	border: none;
+    border-radius: 10px;
+	font-size: 15px;
+	transition: 0.5s ease;      
+}
+#OHPhotoEditView-cancelPostButton:hover {
+	font-size: 16px;
+	background-color: #1e90ff;
+	cursor:pointer;	
+}
+#OHPhotoEditView-main-sector2 {
+    display: flex;
+    align-content: center;
+    justify-content: center;
+    flex-direction: row;
+    flex-wrap: wrap;
+    margin-top: 50px;
+}
+#OHPhotoEditView-main-sector2-1 {
+    position: relative;
+    margin: 0px 0px 0px 0px;
+    padding: 0px 0px 0px 0px;
+    width: 650px;
+    display: inline-block;
+    margin-right: 50px;
+}
+#sector2-1-layer1 {
+    position: relative;
+    width: 650px;
+    height: 200px;
+}
+#OHPhotoEditView-fileUploadInput-guide {
+	position: absolute;
+    top: 17%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: left;  	
+    color: #1a1f27;
+}
+#OHPhotoEditView-fileUploadInput {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);     
+}
+#sector2-1-layer2 {
+    display: flex;
+    justify-content: space-evenly;
+    align-content: center;
+    flex-direction: row;
+    flex-wrap: wrap;
+    width: 650px;    
+}
+.sector2-1-layer2-uploadImage {
+    position: relative;
+    margin-top: 10px;
+    width: 300px;
+    height: 420px;
+}
+#uploadImage-numberLable {
+    position: absolute;
+    top: 0px;
+    left: 50%;
+    transform: translate(-50%, 0%); 
+    width: 100%;
+    height: 30px;
+    line-height: 30px;
+    color: #1a1f27; 	  
+}
+#uploadImage-number {
+    position: absolute;
+    top: 30px;
+    left: 50%;
+    transform: translate(-50%, 0%); 
+    width: 100%;
+    height: 30px;
+    line-height: 30px;
+    color: #1a1f27;         
+}
+#uploadImage-nameLable {
+    position: absolute;
+    top: 60px;
+    left: 50%;
+    transform: translate(-50%, 0%); 
+    width: 100%;
+    height: 30px;
+    line-height: 30px;
+    color: #1a1f27;  
+}
+#uploadImage-name {
+    position: absolute;
+    top: 90px;
+    left: 50%;
+    transform: translate(-50%, 0%); 
+    width: 100%;
+    height: 30px;
+    line-height: 30px;
+    color: #1a1f27;  
+}
+#uploadImage-Image {
+    position: absolute;
+    top: 120px;
+    left: 50%;
+    transform: translate(-50%, 0%);
+    width: 300px;
+    height: 300px;
+    border-radius: 10px;
+}
+#OHPhotoEditView-main-sector2-2 {
+    position: relative;
+    width: 650px;
+    height: 700px;
+    display: inline-block;    
+}
+#sector2-2-layer1 {
+    position: relative;
+    width: 650px;
+    height: 100px;
+}
+#layer1-title {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 500px;
+    height: 50px;
+    line-height: 50px;
+    border: 1px solid #1a1f27;
+    border-radius: 10px;
+    padding: 10px;
+    color: #1a1f27;    
+}
+#sector2-2-layer2 {
+    position: relative;
+    width: 650px;
+    height: 200px;    
+}
+#layer2-content {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 500px;
+    height: 200px;
+    line-height: 30px;
+    border: 1px solid #1a1f27;
+    border-radius: 10px;
+    padding: 10px;
+	color: #1a1f27;
+	resize: none;  	    
+}
+#sector2-2-layer3 {
+    position: relative;
+    width: 650px;
+    height: 300px;
+}
+#layer3-pb_residence-Lable {
+    position: absolute;
+    top: 50px;
+    left: 34px;
+    height: 50px;
+    line-height: 50px;
+    width: 120px;
+    text-align: center;
+	color: #1a1f27; 
+}
+#layer3-pb_residence {
+    position: absolute;    
+    top: 100px;
+    left: 34px;
+    height: 50px;
+    line-height: 50px;
+    width: 120px;
+    text-align: center;
+    background-color: #e2f0fe;
+	color: #1a1f27;
+    border-radius: 10px;    
+    -o-appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+	font-size: 15px;
+	transition: 0.5s ease;	    
+}
+#layer3-pb_residence:hover {
+	font-size: 16px;
+	background-color: #1e90ff;
+	cursor:pointer;		
+}
+#layer3-pb_room-Lable {
+    position: absolute;
+    top: 50px;
+    left: 188px;
+    height: 50px;
+    line-height: 50px;
+    width: 120px;
+    text-align: center;
+	color: #1a1f27;
+}
+#layer3-pb_room {
+    position: absolute;    
+    top: 100px;
+    left: 188px;
+    height: 50px;
+    line-height: 50px;
+    width: 120px;
+    text-align: center;
+    background-color: #e2f0fe;
+	color: #1a1f27;
+    border-radius: 10px;    
+    -o-appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+	font-size: 15px;
+	transition: 0.5s ease;    
+}
+#layer3-pb_room:hover {
+	font-size: 16px;
+	background-color: #1e90ff;
+	cursor:pointer;		
+}
+#layer3-pb_style-Lable {
+    position: absolute;
+    top: 50px;
+    left: 342px;
+    height: 50px;
+    line-height: 50px;
+    width: 120px;
+    text-align: center;
+	color: #1a1f27;
+}
+#layer3-pb_style {
+    position: absolute;    
+    top: 100px;
+    left: 342px;
+    height: 50px;
+    line-height: 50px;
+    width: 120px;
+    text-align: center;
+    background-color: #e2f0fe;
+	color: #1a1f27;
+    border-radius: 10px;    
+    -o-appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+	font-size: 15px;
+	transition: 0.5s ease;    
+}
+#layer3-pb_style:hover {
+	font-size: 16px;
+	background-color: #1e90ff;
+	cursor:pointer;		
+}
+#layer3-pb_skill-Lable {
+    position: absolute;
+    top: 50px;
+    left: 496px;
+    height: 50px;
+    line-height: 50px;
+    width: 120px;
+    text-align: center;
+	color: #1a1f27; 
+}
+#layer3-pb_skill {
+    position: absolute;    
+    top: 100px;
+    left: 496px;
+    height: 50px;
+    line-height: 50px;
+    width: 120px;
+    text-align: center;
+    background-color: #e2f0fe;
+	color: #1a1f27;
+    border-radius: 10px;    
+    -o-appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+	font-size: 15px;
+	transition: 0.5s ease;    
+}
+#layer3-pb_skill:hover {
+	font-size: 16px;
+	background-color: #1e90ff;
+	cursor:pointer;		
+}
+/* ----- End: #OHPhotoEditView-main-3 ----- */
+
+/* ---------------------------------------------------------------- */
+/* ----- End: OHPhotoEditView.jsp ----- */
+/* ---------------------------------------------------------------- */

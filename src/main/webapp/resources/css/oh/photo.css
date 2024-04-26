@@ -1,0 +1,107 @@
+@charset "UTF-8";
+
+/* ---------------------------------------------------------------- */
+/* ----- Start: 공통부분 ----- */
+/* ---------------------------------------------------------------- */
+
+/* ----- Start: 모든 요소 기본적용 ----- */	
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+/* ----- End: 모든 요소 기본적용 ----- */
+
+/* ----- Start: .container ----- */	
+/* 
+			header
+			
+			footer
+			
+			.contents
+				.sideBar
+				#각 페이지 Main 범위 
+*/ 
+/* ----- End: .container ----- */	
+
+/* ---------------------------------------------------------------- */
+
+/* ----- Start: header ----- */
+/* header {
+	border: 1px solid #333;
+	text-align: center;
+} */
+/* ----- End: header ----- */
+
+/* ---------------------------------------------------------------- */
+
+/* ----- Start: footer ----- */
+/* footer {
+	border: 1px solid #333;
+	text-align: center;
+} */		
+/* ----- End: footer ----- */
+	
+/* ---------------------------------------------------------------- */		
+	
+/* ----- Start: .contents ----- */
+.contents {
+ 	display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 100px 0px 100px 0px;	 
+}
+/* ----- End: .contents ----- */	
+	
+/* ---------------------------------------------------------------- */	
+	
+/* ----- Start: .sideBar ----- */
+.sideBar {
+	margin: 10px;
+	position: fixed;
+    left: 10px;
+    top: 50%;
+    transform: translate(0, -50%);
+	border-radius: 10px;    
+}		
+.sideBar ul {
+	text-align: center;
+	margin: 0px;
+	padding: 0px;
+}
+.sideBar ul li {
+	margin: 0px 0px 0px 0px;
+	padding: 0px 0px 0px 0px;
+    line-height: 50px;
+    height: 50px;
+    width: 150px;
+	list-style-type: none;
+	background-color: #e2f0fe;
+	font-size: 15px;
+	transition: 0.5s ease;
+}		
+.sideBar ul li:hover {	
+	font-size: 16px;	
+	background-color: #1e90ff;
+}
+.sideBar-OHMainView {
+	border-top-left-radius: 10px;
+	border-top-right-radius: 10px;
+}	
+.sideBar-OHPhotoView {
+	border-bottom-left-radius: 10px;
+	border-bottom-right-radius: 10px;
+}
+.sideBar ul a {
+	text-decoration: none;
+    color: #1a1f27;
+	transition: 0.5s ease;
+}
+.sideBar ul a:hover {
+	cursor:pointer;
+}	
+/* ----- End: .sideBar ----- */
+
+/* ---------------------------------------------------------------- */
+/* ----- End: 공통부분 ----- */
+/* ---------------------------------------------------------------- */

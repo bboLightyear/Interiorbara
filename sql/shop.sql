@@ -2,17 +2,79 @@
 drop table shop_product purge;
 drop sequence seq_shop_product;
 
+SELECT
+    P.PRODUCT_ID,
+    P.SELLER_ID,
+    P.CATEGORY_ID,
+    P.NAME,
+    P.REP_PRICE,
+    P.REP_DISCOUNTED_PRICE,
+    P.IS_DISCOUNTED,
+    P.DISCOUNT_RATE,
+    P.DELIVERY_FEE,
+    P.DELIVERY_TYPE,
+    P.REF_PRICE,
+    P.OPTION_TYPE,
+    P.OPTION1_SET_ID,
+    P.OPTION2_SET_ID,
+    P.REG_TIME,
+    P.HITS,
+    P.SALES,
+    P.SCRAPS,
+    P.REVIEWS,
+    S.NICKNAME,
+    I.FILE_SRC
+FROM
+    SHOP_PRODUCT P
+JOIN
+    SHOP_SELLER S
+ON
+    P.SELLER_ID = S.SELLER_ID
+JOIN (
+    SELECT
+        ROWNUM, II.*
+    FROM
+        SHOP_PRODUCT_IMG II
+    WHERE
+        II.PRODUCT_ID = 42 AND ROWNUM = 1) I
+ON
+    P.PRODUCT_ID = I.PRODUCT_ID;
+WHERE
+    P.PRODUCT_ID = 42;
+    
+SELECT 
+    p.*,
+    pi.* 
+FROM 
+    shop_product p
+JOIN 
+    (SELECT 
+         product_id,
+         file_src,
+         ROW_NUMBER() OVER (PARTITION BY product_id ORDER BY product_img_id) AS rn
+     FROM 
+         shop_product_img) pi
+ON 
+    p.product_id = pi.product_id
+WHERE 
+    pi.rn = 1;
+
+
 create table shop_product (
     product_id number,
+    seller_id number,
     category_id number,
     option_set_id number,
+    detail_info_id number,
     name varchar2(100)
 );
 
 create sequence seq_shop_product;
 
+commit;
+
 select
-    category_id
+    category_id OPTION_NAME
 from (
     select
         category_id

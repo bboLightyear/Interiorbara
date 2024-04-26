@@ -1,0 +1,693 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.tech.ibara.oh.dao.OHInterfaceDao">
+
+	<!-- 선경님 -->
+	
+	<select id="getPhotoBoardLikeList">
+		select pb.pb_no,pb.pb_title from oh_photo_board pb join oh_photo_like pl on pb.pb_no=pl.pb_no where pl.memno=#{param1};
+	</select>
+	<select id="getPhotoBoardScrapList">
+		select pb.pb_no,pb.pb_title from oh_photo_board pb join oh_photo_scrap ps on pb.pb_no=ps.pb_no where ps.memno=#{param1};
+	</select>
+
+	<!-- resultMap OHPhotoBoard -->
+	
+	<resultMap type="com.tech.ibara.oh.dto.OHPhotoBoard" id="OHPhotoBoard">
+		<result column="NO" property="no" />
+		<result column="PB_NO" property="pb_no" />	
+		<result column="MEMNO" property="memno" />
+		<result column="PB_TITLE" property="pb_title" />
+		<result column="PB_CONTENT" property="pb_content" />
+		<result column="PB_DATE" property="pb_date" />
+		<result column="PB_LIKE" property="pb_like" />
+		<result column="PB_SCRAP" property="pb_scrap" />
+		<result column="PB_REPLY" property="pb_reply" />
+		<result column="PB_LINK" property="pb_link" />
+		<result column="PB_HIT" property="pb_hit" />
+		<result column="PB_RESIDENCE" property="pb_residence" />
+		<result column="PB_ROOM" property="pb_room" />
+		<result column="PB_STYLE" property="pb_style" />
+		<result column="PB_SKILL" property="pb_skill" />
+		<!-- collection -->
+		<collection property="ohPhotoAttach" resultMap="OHPhotoAttach"/>
+		<collection property="myMemberInfoDto" resultMap="MyMemberInfoDto"/>
+		<collection property="ohPhotoLike" resultMap="OHPhotoLike"/>
+		<collection property="ohPhotoScrap" resultMap="OHPhotoScrap"/>
+	</resultMap>
+	
+	<!-- resultMap OHPhotoAttach -->
+	
+	<resultMap type="com.tech.ibara.oh.dto.OHPhotoAttach" id="OHPhotoAttach">
+		<result column="PA_NO" property="pa_no" />
+		<result column="PA_ATTACH" property="pa_attach" />
+		<result column="PB_NO" property="pb_no" />
+	</resultMap>	
+	
+	<!-- resultMap MyMemberInfoDto -->
+	
+	<resultMap type="com.tech.ibara.my.dto.MyMemberInfoDto" id="MyMemberInfoDto">
+		<result column="MEMNO" property="memno" />
+		<result column="NICKNAME" property="nickname" />
+		<result column="PROFILEIMG" property="profileimg" />
+	</resultMap>
+	
+	<!-- resultMap OHPhotoLike -->
+	
+	<resultMap type="com.tech.ibara.oh.dto.OHPhotoLike" id="OHPhotoLike">
+		<result column="PL_NO" property="pl_no" />
+		<result column="MEMNO" property="memno" />
+		<result column="PL_DATE" property="pl_date" />
+		<result column="PB_NO" property="pb_no" />
+	</resultMap>	
+	
+	<!-- resultMap OHPhotoScrap -->
+	
+	<resultMap type="com.tech.ibara.oh.dto.OHPhotoScrap" id="OHPhotoScrap">
+		<result column="PS_NO" property="ps_no" />
+		<result column="MEMNO" property="memno" />
+		<result column="PS_DATE" property="ps_date" />
+		<result column="PB_NO" property="pb_no" />
+	</resultMap>		
+	
+	<!-- OHMainView.jsp -->
+	
+	<select id="ohMainPhotoViewOrderDate" resultType="com.tech.ibara.oh.dto.OHPhotoBoard" resultMap="OHPhotoBoard">
+		SELECT
+		    ROWNUM, N.*
+		FROM (
+		    SELECT 
+		        OH1.*, OH2.PA_NO, OH2.PA_ATTACH 
+		    FROM (
+		        SELECT
+		            OHA.NICKNAME, OHA.PROFILEIMG, OHB.*
+		        FROM 
+		            MY_MEMBER_INFO OHA
+		        INNER JOIN
+		            OH_PHOTO_BOARD OHB
+		        ON 
+		            OHA.MEMNO = OHB.MEMNO
+		        ) OH1 
+		    LEFT OUTER JOIN (
+		        SELECT 
+		            * 
+		        FROM 
+		            OH_PHOTO_ATTACH 
+		        WHERE 
+		            PA_NO IN (
+		                SELECT 
+		                    MIN(PA_NO) 
+		                FROM 
+		                    OH_PHOTO_ATTACH 
+		                GROUP BY 
+		                    PB_NO
+		                )
+		        ) OH2
+		    ON
+		        OH1.PB_NO = OH2.PB_NO
+		    ORDER BY
+		        OH1.PB_NO DESC
+		    ) N
+		WHERE
+		    ROWNUM BETWEEN 1 AND #{param1}
+	</select>
+	<select id="ohMainPhotoViewOrderLike" resultType="com.tech.ibara.oh.dto.OHPhotoBoard" resultMap="OHPhotoBoard">
+		SELECT
+		    ROWNUM, N.*
+		FROM (
+		    SELECT 
+		        OH1.*, OH2.PA_NO, OH2.PA_ATTACH 
+		    FROM (
+		        SELECT
+		            OHA.NICKNAME, OHA.PROFILEIMG, OHB.*
+		        FROM 
+		            MY_MEMBER_INFO OHA
+		        INNER JOIN
+		            OH_PHOTO_BOARD OHB
+		        ON 
+		            OHA.MEMNO = OHB.MEMNO
+		        ) OH1 
+		    LEFT OUTER JOIN (
+		        SELECT 
+		            * 
+		        FROM 
+		            OH_PHOTO_ATTACH 
+		        WHERE 
+		            PA_NO IN (
+		                SELECT 
+		                    MIN(PA_NO) 
+		                FROM 
+		                    OH_PHOTO_ATTACH 
+		                GROUP BY 
+		                    PB_NO
+		                )
+		        ) OH2
+		    ON
+		        OH1.PB_NO = OH2.PB_NO
+		    ORDER BY
+		        OH1.PB_LIKE DESC
+		    ) N
+		WHERE
+		    ROWNUM BETWEEN 1 AND #{param1}
+	</select>
+	<select id="ohMainPhotoViewOrderHit" resultType="com.tech.ibara.oh.dto.OHPhotoBoard" resultMap="OHPhotoBoard">
+		SELECT
+		    ROWNUM, N.*
+		FROM (
+		    SELECT 
+		        OH1.*, OH2.PA_NO, OH2.PA_ATTACH 
+		    FROM (
+		        SELECT
+		            OHA.NICKNAME, OHA.PROFILEIMG, OHB.*
+		        FROM 
+		            MY_MEMBER_INFO OHA
+		        INNER JOIN
+		            OH_PHOTO_BOARD OHB
+		        ON 
+		            OHA.MEMNO = OHB.MEMNO
+		        ) OH1 
+		    LEFT OUTER JOIN (
+		        SELECT 
+		            * 
+		        FROM 
+		            OH_PHOTO_ATTACH 
+		        WHERE 
+		            PA_NO IN (
+		                SELECT 
+		                    MIN(PA_NO) 
+		                FROM 
+		                    OH_PHOTO_ATTACH 
+		                GROUP BY 
+		                    PB_NO
+		                )
+		        ) OH2
+		    ON
+		        OH1.PB_NO = OH2.PB_NO
+		    ORDER BY
+		        OH1.PB_HIT DESC
+		    ) N
+		WHERE
+		    ROWNUM BETWEEN 1 AND #{param1}	
+	</select>	
+	
+	<!-- OHPhotoView.jsp -->
+	
+	<select id="ohPhotoView" resultType="com.tech.ibara.oh.dto.OHPhotoBoard" resultMap="OHPhotoBoard">
+		SELECT
+			*
+		FROM
+			(SELECT
+			 	ROWNUM NO, N.*
+			 FROM
+			 	(SELECT
+			     	OH1.*, OH2.PA_NO, OH2.PA_ATTACH 
+			     FROM (
+			        SELECT
+			            OHA.NICKNAME, OHA.PROFILEIMG, OHB.*
+			        FROM 
+			            MY_MEMBER_INFO OHA
+			        INNER JOIN
+			            OH_PHOTO_BOARD OHB
+			        ON 
+			            OHA.MEMNO = OHB.MEMNO
+			        ) OH1 			     	
+			     LEFT OUTER JOIN 
+			     	(SELECT 
+			         	* 
+			         FROM 
+			            OH_PHOTO_ATTACH 
+			         WHERE 
+			            PA_NO IN (SELECT 
+			                      	  MIN(PA_NO) 
+			                      FROM 
+			                      	  OH_PHOTO_ATTACH 
+			                      GROUP BY 
+			                      	  PB_NO
+			                     ) 
+			        ) OH2
+			     ON
+			     	OH1.PB_NO = OH2.PB_NO
+				 <choose>
+					 <when test='param3 == "pb_date" and param4 == "desc"'>
+						 ORDER BY 
+							 PB_DATE DESC
+					 </when>
+					 <when test='param3 == "pb_date" and param4 == "asc"'>
+						 ORDER BY 
+							 PB_DATE ASC
+					 </when>
+					 <when test='param3 == "pb_like" and param4 == "desc"'>
+						 ORDER BY 
+							 PB_LIKE DESC
+					 </when>
+					 <when test='param3 == "pb_like" and param4 == "asc"'>
+						 ORDER BY 
+							 PB_LIKE ASC
+					 </when>
+					 <when test='param3 == "pb_hit" and param4 == "desc"'>
+						 ORDER BY 
+							 PB_HIT DESC
+					 </when>
+					 <when test='param3 == "pb_hit" and param4 == "asc"'>
+						 ORDER BY 
+							 PB_HIT ASC
+					 </when>										
+				 </choose>			     	
+			    ) N
+			 <trim prefix="WHERE" prefixOverrides="AND">
+				 <if test='param5 != "default"' >
+					 AND PB_RESIDENCE = #{param5}
+				 </if>
+				 <if test='param6 != "default"' >
+					 AND PB_ROOM = #{param6}
+				 </if>						
+				 <if test='param7 != "default"' >
+					 AND PB_STYLE = #{param7}
+				 </if>
+				 <if test='param8 != "default"' >
+					 AND PB_SKILL = #{param8}
+				 </if>
+				 <choose>						
+					 <when test='param9 == "default"'>
+						 AND (PB_TITLE LIKE '%'||#{param10}||'%' OR PB_CONTENT LIKE '%'||#{param10}||'%')
+					 </when>	
+					 <when test='param9 == "pb_title"'>
+						 AND (PB_TITLE LIKE '%'||#{param10}||'%')
+					 </when>
+					 <when test='param9 == "pb_content"'>
+						 AND (PB_CONTENT LIKE '%'||#{param10}||'%')
+					 </when>
+					 <otherwise></otherwise>				
+				 </choose>													
+			 </trim>
+		    )
+		WHERE
+			NO BETWEEN #{param1} AND #{param2}
+	</select>
+	<select id="getPostTotalCount" resultType="Integer">
+		SELECT 
+			COUNT(*) 
+		FROM 
+			OH_PHOTO_BOARD
+		<trim prefix="WHERE" prefixOverrides="AND">
+			<if test='param1 != "default"' >
+				AND PB_RESIDENCE = #{param1}
+			</if>
+			<if test='param2 != "default"' >
+				AND PB_ROOM = #{param2}
+			</if>						
+			<if test='param3 != "default"' >
+				AND PB_STYLE = #{param3}
+			</if>
+			<if test='param4 != "default"' >
+				AND PB_SKILL = #{param4}
+			</if>
+			<choose>						
+				<when test='param5 == "default"'>
+					AND (PB_TITLE LIKE '%'||#{param6}||'%' OR PB_CONTENT LIKE '%'||#{param6}||'%')
+				</when>	
+				<when test='param5 == "pb_title"'>
+					AND (PB_TITLE LIKE '%'||#{param6}||'%')
+				</when>
+				<when test='param5 == "pb_content"'>
+					AND (PB_CONTENT LIKE '%'||#{param6}||'%')
+				</when>
+				<otherwise></otherwise>				
+			</choose>													
+		</trim>
+	</select>	
+	<select id="ohPhotoLikeView" resultType="com.tech.ibara.oh.dto.OHPhotoLike">
+		SELECT
+			*
+		FROM
+			OH_PHOTO_LIKE
+		WHERE
+			MEMNO = #{param1}
+	</select>
+	<select id="ohPhotoScrapView" resultType="com.tech.ibara.oh.dto.OHPhotoScrap">
+		SELECT
+			*
+		FROM
+			OH_PHOTO_SCRAP
+		WHERE
+			MEMNO = #{param1}
+	</select>
+	
+	<!-- OHPhotoLikeExecute -->
+	
+	<select id="likeCheck" resultType="Integer">
+		SELECT
+			COUNT(*)
+		FROM
+			OH_PHOTO_LIKE
+		WHERE
+			MEMNO = #{param1} AND PB_NO = #{param2}
+	</select>
+	<insert id="likeSave">
+		INSERT INTO
+			OH_PHOTO_LIKE
+		VALUES (
+			OH_PHOTO_LIKE_SEQ.NEXTVAL, #{param1}, SYSDATE, #{param2}
+		)
+	</insert>
+	<update id="likeIncrease">
+		UPDATE
+			OH_PHOTO_BOARD
+		SET
+			PB_LIKE = PB_LIKE + 1
+		WHERE
+			PB_NO = #{param1}
+	</update>
+	<delete id="likeDelete">
+		DELETE FROM 
+			OH_PHOTO_LIKE
+		WHERE
+			MEMNO = #{param1} AND PB_NO = #{param2}
+	</delete>
+	<update id="likeDecrease">
+		UPDATE
+			OH_PHOTO_BOARD
+		SET
+			PB_LIKE = PB_LIKE - 1
+		WHERE
+			PB_NO = #{param1}	
+	</update>
+	<select id="likeGetNumber" resultType="Integer">
+		SELECT
+			PB_LIKE
+		FROM
+			OH_PHOTO_BOARD
+		WHERE
+			PB_NO = #{param1}		
+	</select>
+	
+	<!-- OHPhotoScrapExecute -->
+		
+	<select id="scrapCheck" resultType="Integer">
+		SELECT
+			COUNT(*)
+		FROM
+			OH_PHOTO_SCRAP
+		WHERE
+			MEMNO = #{param1} AND PB_NO = #{param2}
+	</select>	
+	<insert id="scrapSave">
+		INSERT INTO
+			OH_PHOTO_SCRAP
+		VALUES (
+			OH_PHOTO_SCRAP_SEQ.NEXTVAL, #{param1}, SYSDATE, #{param2}
+		)
+	</insert>
+	<update id="scrapIncrease">
+		UPDATE
+			OH_PHOTO_BOARD
+		SET
+			PB_SCRAP = PB_SCRAP + 1
+		WHERE
+			PB_NO = #{param1}
+	</update>
+	<delete id="scrapDelete">
+		DELETE FROM 
+			OH_PHOTO_SCRAP
+		WHERE
+			MEMNO = #{param1} AND PB_NO = #{param2}
+	</delete>
+	<update id="scrapDecrease">
+		UPDATE
+			OH_PHOTO_BOARD
+		SET
+			PB_SCRAP = PB_SCRAP - 1
+		WHERE
+			PB_NO = #{param1}	
+	</update>
+	<select id="scrapGetNumber" resultType="Integer">
+		SELECT
+			PB_SCRAP
+		FROM
+			OH_PHOTO_BOARD
+		WHERE
+			PB_NO = #{param1}		
+	</select>	
+	
+	<!-- OHPhotoWriteExecute -->
+	
+	<insert id="ohPhotoWriteExecute">
+		INSERT INTO 
+		    OH_PHOTO_BOARD
+		VALUES (
+			OH_PHOTO_BOARD_SEQ.NEXTVAL, #{param1}, #{param2}, #{param3}, 
+			SYSDATE, 0, 0, 0, 0, 0, 
+		    #{param4}, #{param5}, #{param6}, #{param7}
+		)
+	</insert>
+	<select id="getRecentPb_no" resultType="Integer">
+		SELECT 
+			MAX(PB_NO) 
+		FROM 
+			OH_PHOTO_BOARD
+	</select>
+	<insert id="setFileUpload">
+		INSERT INTO 
+		    OH_PHOTO_ATTACH 
+		VALUES (
+		    OH_PHOTO_ATTACH_SEQ.NEXTVAL, #{param2}, #{param1} 
+		)
+	</insert>
+	
+	<!-- OHPhotoDetailView -->
+	
+	<update id="updatePb_hit">
+		UPDATE
+			OH_PHOTO_BOARD
+		SET
+			PB_HIT = PB_HIT + 1
+		WHERE
+			PB_NO = #{param1}
+	</update>
+	<select id="getDtoOHPhotoBoard" resultType="com.tech.ibara.oh.dto.OHPhotoBoard" resultMap="OHPhotoBoard">
+		SELECT
+		    OHA.NICKNAME, OHA.PROFILEIMG, OHB.*
+		FROM 
+		    MY_MEMBER_INFO OHA
+		INNER JOIN
+		    OH_PHOTO_BOARD OHB
+		ON 
+		    OHA.MEMNO = OHB.MEMNO
+		WHERE
+			PB_NO = #{param1}
+	</select>
+	<select id="getDtoOHPhotoAttach" resultType="com.tech.ibara.oh.dto.OHPhotoAttach">
+		SELECT
+			*
+		FROM
+			OH_PHOTO_ATTACH
+		WHERE
+			PB_NO = #{param1}		
+	</select>
+	<select id="getOHPhotoReplyNumber" resultType="Integer">
+		SELECT
+			COUNT(*)
+		FROM
+			OH_PHOTO_REPLY
+		WHERE
+			PB_NO = #{param1}	
+	</select>	
+	<select id="ohPhotoDetailLikeView" resultType="com.tech.ibara.oh.dto.OHPhotoLike">
+		SELECT
+			*
+		FROM
+			OH_PHOTO_LIKE
+		WHERE
+			MEMNO = ${param1} AND PB_NO = ${param2}
+	</select>
+	<select id="ohPhotoDetailScrapView" resultType="com.tech.ibara.oh.dto.OHPhotoScrap">
+		SELECT
+			*
+		FROM
+			OH_PHOTO_SCRAP
+		WHERE
+			MEMNO = ${param1} AND PB_NO = ${param2}			
+	</select>	
+		
+	<!-- resultMap OHPhotoReply -->
+	
+	<resultMap type="com.tech.ibara.oh.dto.OHPhotoReply" id="OHPhotoReply">
+		<result column="PR_NO" property="pr_no" />
+		<result column="MEMNO" property="memno" />	
+		<result column="PR_CONTENT" property="pr_content" />
+		<result column="PR_LIKE" property="pr_like" />
+		<result column="PR_DATE" property="pr_date" />
+		<result column="PR_GROUP" property="pr_group" />
+		<result column="PR_STEP" property="pr_step" />
+		<result column="PR_INDENT" property="pr_indent" />
+		<result column="PB_NO" property="pb_no" />
+		<!-- collection -->
+		<collection property="myMemberInfoDto" resultMap="ReplyMyMemberInfoDto"/>
+	</resultMap>	
+	
+	<!-- resultMap ReplyMyMemberInfoDto -->
+	
+	<resultMap type="com.tech.ibara.my.dto.MyMemberInfoDto" id="ReplyMyMemberInfoDto">
+		<result column="MEMNO" property="memno" />
+		<result column="NICKNAME" property="nickname" />
+		<result column="PROFILEIMG" property="profileimg" />
+	</resultMap>		
+		
+	<!-- OHPhotoDetailView -->
+	<!-- OHPhotoReplyView -->
+	
+	<select id="ohPhotoReplyView" resultType="com.tech.ibara.oh.dto.OHPhotoReply" resultMap="OHPhotoReply">			
+		SELECT
+	        OHA.NICKNAME, OHA.PROFILEIMG, OHB.*
+	    FROM 
+	        MY_MEMBER_INFO OHA
+	    INNER JOIN
+	        (SELECT
+	            PR_NO, MEMNO, PR_CONTENT, PR_LIKE,
+	            TO_CHAR(PR_DATE, 'YYYY.MM.DD') AS PR_DATE,
+	            PR_GROUP, PR_STEP, PR_INDENT, PB_NO
+	        FROM
+	            OH_PHOTO_REPLY
+	        ) OHB
+	    ON 
+	        OHA.MEMNO = OHB.MEMNO
+        WHERE
+        	PB_NO = #{param1}
+	    ORDER BY
+	        PR_NO DESC	
+	</select>
+	<select id="ohPhotoReplyLikeView" resultType="com.tech.ibara.oh.dto.OHPhotoReplyLike">
+		SELECT
+			*
+		FROM
+			OH_PHOTO_REPLY_LIKE
+		WHERE
+			MEMNO = #{param1}
+	</select>
+	
+	<!-- OHPhotoReplyLikeExecute -->
+	
+	<select id="replyLikeCheck" resultType="Integer">
+		SELECT
+			COUNT(*)
+		FROM
+			OH_PHOTO_REPLY_LIKE
+		WHERE
+			MEMNO = #{param1} AND PR_NO = #{param2}
+	</select>	
+	<insert id="replyLikeSave">
+		INSERT INTO
+			OH_PHOTO_REPLY_LIKE
+		VALUES (
+			OH_PHOTO_REPLY_LIKE_SEQ.NEXTVAL, #{param1}, SYSDATE, #{param2}
+		)
+	</insert>	
+	<update id="replyLikeIncrease">
+		UPDATE
+			OH_PHOTO_REPLY
+		SET
+			PR_LIKE = PR_LIKE + 1
+		WHERE
+			PR_NO = #{param1}
+	</update>	
+	<delete id="replyLikeDelete">
+		DELETE FROM 
+			OH_PHOTO_REPLY_LIKE
+		WHERE
+			MEMNO = #{param1} AND PR_NO = #{param2}
+	</delete>	
+	<update id="replyLikeDecrease">
+		UPDATE
+			OH_PHOTO_REPLY
+		SET
+			PR_LIKE = PR_LIKE - 1
+		WHERE
+			PR_NO = #{param1}	
+	</update>	
+	<select id="replyLikeGetNumber" resultType="Integer">
+		SELECT
+			PR_LIKE
+		FROM
+			OH_PHOTO_REPLY
+		WHERE
+			PR_NO = #{param1}		
+	</select>	
+	
+	<!-- OHPhotoReplyWriteExecute -->
+	
+	<insert id="ohPhotoReplyWriteExecute">
+		INSERT INTO
+			OH_PHOTO_REPLY
+		VALUES (
+			OH_PHOTO_REPLY_SEQ.NEXTVAL, #{param1}, #{param2}, 
+			0, SYSDATE, 0, 0, 0, #{param3}
+		)
+	</insert>
+	<update id="ohPhotoReplyIncrease">
+		UPDATE
+			OH_PHOTO_BOARD
+		SET
+			PB_REPLY = PB_REPLY + 1
+		WHERE
+			PB_NO = #{param1}			
+	</update>
+	<select id="ohPhotoReplyGetNumber" resultType="Integer">
+		SELECT
+			COUNT(*)
+		FROM
+			OH_PHOTO_REPLY
+		WHERE
+			PB_NO = #{param1}			
+	</select>
+	
+	<!-- OHPhotoEditExecute -->
+	
+	<update id="ohPBEditUpdate">
+		UPDATE
+			OH_PHOTO_BOARD
+		SET
+			PB_TITLE = #{param2},
+			PB_CONTENT = #{param3},
+			PB_RESIDENCE = #{param4},
+			PB_ROOM = #{param5},
+			PB_STYLE = #{param6},
+			PB_SKILL = #{param7}
+		WHERE
+			PB_NO = #{param1}
+	</update>	
+	<delete id="ohPAEditDelete">
+		DELETE FROM 
+			OH_PHOTO_ATTACH
+		WHERE
+			PB_NO = #{param1}
+	</delete>	
+	<insert id="ohPAEditFileUpload">
+		INSERT INTO 
+		    OH_PHOTO_ATTACH 
+		VALUES (
+		    OH_PHOTO_ATTACH_SEQ.NEXTVAL, #{param2}, #{param1} 
+		)
+	</insert>
+	<select id="getPAFileNames" resultType="string">
+		SELECT
+			PA_ATTACH
+		FROM
+			OH_PHOTO_ATTACH
+		WHERE
+			PB_NO = #{param1}
+	</select>	
+	
+	<!-- OHPhotoDeleteExecute -->	
+	
+	<delete id="ohPBDelete">
+		DELETE FROM 
+			OH_PHOTO_BOARD
+		WHERE
+			PB_NO = #{param1}
+	</delete>	
+	
+</mapper>

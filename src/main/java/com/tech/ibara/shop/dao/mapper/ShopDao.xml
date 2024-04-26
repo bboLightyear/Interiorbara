@@ -1,0 +1,1068 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.tech.ibara.shop.dao.ShopDao">
+	
+	<select id="selectProductsByCategory" resultType="com.tech.ibara.shop.dto.ProductDto">
+		SELECT
+			PRODUCT_ID,
+			SELLER_ID,
+			CATEGORY_ID,
+			NAME,
+			REP_PRICE,
+			REP_DISCOUNTED_PRICE,
+			IS_DISCOUNTED,
+			DISCOUNT_RATE,
+			DELIVERY_FEE,
+			DELIVERY_TYPE,
+			REF_PRICE,
+			OPTION_TYPE,
+			OPTION1_SET_ID,
+			OPTION2_SET_ID,
+			REG_TIME,
+			HITS,
+			SALES,
+			SCRAPS,
+			REVIEWS
+		FROM
+			SHOP_PRODUCT
+		WHERE
+			CATEGORY_ID = #{param1}
+		ORDER BY
+			PRODUCT_ID
+	</select>
+	
+	<!-- <select id="selectProductsByCategories" resultType="com.tech.ibara.shop.dto.ProductDto">
+		SELECT
+			PRODUCT_ID,
+			SELLER_ID,
+			CATEGORY_ID,
+			NAME,
+			REP_PRICE,
+			REP_DISCOUNTED_PRICE,
+			IS_DISCOUNTED,
+			DISCOUNT_RATE,
+			DELIVERY_FEE,
+			DELIVERY_TYPE,
+			REF_PRICE,
+			OPTION_TYPE,
+			OPTION1_SET_ID,
+			OPTION2_SET_ID,
+			REG_TIME,
+			HITS,
+			SALES,
+			SCRAPS,
+			REVIEWS
+		FROM
+			SHOP_PRODUCT
+		WHERE
+			CATEGORY_ID IN
+			<foreach item="item" index="index" collection="list" open="(" separator="," close=")">
+				#{item.category_id}
+			</foreach>
+		ORDER BY
+			PRODUCT_ID	
+	</select> -->
+	
+	<select id="selectCategoriesByParent" resultType="com.tech.ibara.shop.dto.CategoryDto">
+		SELECT
+			CATEGORY_ID,
+			PARENT_CATEGORY_ID,
+			NAME
+		FROM
+			SHOP_CATEGORY
+		WHERE
+			PARENT_CATEGORY_ID = #{param1}
+	</select>
+	
+	<select id="selectCategory" resultType="com.tech.ibara.shop.dto.CategoryDto">
+		SELECT
+			CATEGORY_ID,
+			PARENT_CATEGORY_ID,
+			NAME
+		FROM
+			SHOP_CATEGORY
+		WHERE
+			CATEGORY_ID = #{param1}
+	</select>
+	
+	<select id="selectAllSubCategoriesById" resultType="com.tech.ibara.shop.dto.CategoryDto">
+		SELECT
+		    NVL(S4.CATEGORY_ID,
+		    	NVL(S3.CATEGORY_ID, S2.CATEGORY_ID)) CATEGORY_ID,
+		    NVL(S4.PARENT_CATEGORY_ID,
+		    	NVL(S3.PARENT_CATEGORY_ID, S2.PARENT_CATEGORY_ID)) PARENT_CATEGORY_ID,
+		    NVL(S4.NAME,
+		    	NVL(S3.NAME, S2.NAME)) NAME
+		FROM
+		    SHOP_CATEGORY S1
+		INNER JOIN
+		    SHOP_CATEGORY S2
+		ON
+		    S1.CATEGORY_ID = S2.PARENT_CATEGORY_ID
+		LEFT OUTER JOIN
+		    SHOP_CATEGORY S3
+		ON
+		    S2.CATEGORY_ID = S3.PARENT_CATEGORY_ID    
+		LEFT OUTER JOIN
+		    SHOP_CATEGORY S4
+		ON
+		    S3.CATEGORY_ID = S4.PARENT_CATEGORY_ID
+		WHERE
+		    S1.CATEGORY_ID = #{param1}
+		ORDER BY
+		    CATEGORY_ID
+	</select>
+	
+	<select id="selectAllCategories" resultType="String">
+		SELECT
+		    LPAD(' ', 3 * (LEVEL - 1)) || NAME
+		FROM
+		    SHOP_CATEGORY
+		START WITH
+		    PARENT_CATEGORY_ID IS NULL
+		CONNECT BY
+		    PRIOR CATEGORY_ID = PARENT_CATEGORY_ID
+	</select>
+	
+	<select id="selectAllLevelCategories" resultType="com.tech.ibara.shop.dto.LevelCategoryDto">
+		SELECT
+		    LEVEL,
+		    CATEGORY_ID,
+		    PARENT_CATEGORY_ID,
+		    NAME
+		FROM
+		    SHOP_CATEGORY
+		START WITH
+		    PARENT_CATEGORY_ID IS NULL
+		CONNECT BY
+		    PRIOR CATEGORY_ID = PARENT_CATEGORY_ID
+	</select>
+	
+	<select id="selectLv1Categories" resultType="com.tech.ibara.shop.dto.LevelCategoryDto" >
+		SELECT
+		    CATEGORY_ID,
+		    PARENT_CATEGORY_ID,
+		    NAME
+		FROM
+		    SHOP_CATEGORY
+		WHERE
+		    PARENT_CATEGORY_ID IS NULL
+	</select>
+	
+	<resultMap type="com.tech.ibara.shop.dto.ProductImgDto" id="ProductImgDto">
+		<result column="PRODUCT_IMG_ID" property="product_img_id" />
+		<result column="PRODUCT_ID" property="product_id" />
+		<result column="FILE_SRC" property="file_src" />
+	</resultMap>
+	
+	<resultMap type="com.tech.ibara.shop.dto.ProductDto" id="ProductDto3">
+		<result column="PRODUCT_ID" property="product_id" />
+		<result column="SELLER_ID" property="seller_id" />
+		<result column="CATEGORY_ID" property="category_id" />
+		<result column="NAME" property="name" />
+		<result column="REP_PRICE" property="rep_price" />
+		<result column="REP_DISCOUNTED_PRICE" property="rep_discounted_price" />
+		<result column="IS_DISCOUNTED" property="is_discounted" />
+		<result column="DISCOUNT_RATE" property="discount_rate" />
+		<result column="DELIVERY_FEE" property="delivery_fee" />
+		<result column="DELIVERY_TYPE" property="delivery_type" />
+		<result column="REF_PRICE" property="ref_price" />
+		<result column="OPTION_TYPE" property="option_type" />
+		<result column="OPTION1_SET_ID" property="option1_set_id" />
+		<result column="OPTION2_SET_ID" property="option2_set_id" />
+		<result column="REG_TIME" property="reg_time" />
+		<result column="HITS" property="hits" />
+		<result column="SALES" property="sales" />
+		<result column="SCRAPS" property="scraps" />
+		<result column="REVIEWS" property="reviews" />
+		<result column="FILE_SRC" property="rep_img" />
+		<collection property="seller" resultMap="SellerDto"></collection>
+	</resultMap>
+	
+	<select id="selectProductsByCategories" resultType="com.tech.ibara.shop.dto.ProductDto" resultMap="ProductDto3">
+		SELECT
+			P.PRODUCT_ID,
+			P.SELLER_ID,
+			P.CATEGORY_ID,
+			P.NAME,
+			P.REP_PRICE,
+			P.REP_DISCOUNTED_PRICE,
+			P.IS_DISCOUNTED,
+			P.DISCOUNT_RATE,
+			P.DELIVERY_FEE,
+			P.DELIVERY_TYPE,
+			P.REF_PRICE,
+			P.OPTION_TYPE,
+			P.OPTION1_SET_ID,
+			P.OPTION2_SET_ID,
+			P.REG_TIME,
+			P.HITS,
+			P.SALES,
+			P.SCRAPS,
+			P.REVIEWS,
+			S.NICKNAME,
+			I.FILE_SRC
+		FROM
+			SHOP_PRODUCT P
+		JOIN
+			SHOP_SELLER S
+		ON
+			P.SELLER_ID = S.SELLER_ID
+		JOIN (
+			SELECT 
+		         PRODUCT_ID,
+		         FILE_SRC,
+		         ROW_NUMBER() OVER (PARTITION BY PRODUCT_ID ORDER BY PRODUCT_IMG_ID) AS RN
+		     FROM 
+		         SHOP_PRODUCT_IMG) I
+		ON
+			P.PRODUCT_ID = I.PRODUCT_ID
+		WHERE
+			P.CATEGORY_ID IN
+			<foreach item="item" index="index" collection="list" open="(" separator="," close=")">
+				#{item.category_id}
+			</foreach>
+			AND I.RN = 1
+	</select>
+	
+	<select id="selectProduct" resultType="com.tech.ibara.shop.dto.ProductDto">
+		SELECT
+			PRODUCT_ID,
+			SELLER_ID,
+			CATEGORY_ID,
+			NAME,
+			REP_PRICE,
+			REP_DISCOUNTED_PRICE,
+			IS_DISCOUNTED,
+			DISCOUNT_RATE,
+			DELIVERY_FEE,
+			DELIVERY_TYPE,
+			REF_PRICE,
+			OPTION_TYPE,
+			OPTION1_SET_ID,
+			OPTION2_SET_ID,
+			REG_TIME,
+			HITS,
+			SALES,
+			SCRAPS,
+			REVIEWS
+		FROM
+			SHOP_PRODUCT
+		WHERE
+			PRODUCT_ID = #{param1}
+	</select>
+	
+	<resultMap type="com.tech.ibara.shop.dto.SellerDto" id="SellerDto">
+		<result column="SELLER_ID" property="seller_id" />
+		<result column="NICKNAME" property="nickname" />
+		<result column="INTRODUCE" property="introduce" />
+	</resultMap>
+	
+	<resultMap type="com.tech.ibara.shop.dto.ProductDto" id="ProductDto2">
+		<result column="PRODUCT_ID" property="product_id" />
+		<result column="SELLER_ID" property="seller_id" />
+		<result column="CATEGORY_ID" property="category_id" />
+		<result column="NAME" property="name" />
+		<result column="REP_PRICE" property="rep_price" />
+		<result column="REP_DISCOUNTED_PRICE" property="rep_discounted_price" />
+		<result column="IS_DISCOUNTED" property="is_discounted" />
+		<result column="DISCOUNT_RATE" property="discount_rate" />
+		<result column="DELIVERY_FEE" property="delivery_fee" />
+		<result column="DELIVERY_TYPE" property="delivery_type" />
+		<result column="REF_PRICE" property="ref_price" />
+		<result column="OPTION_TYPE" property="option_type" />
+		<result column="OPTION1_SET_ID" property="option1_set_id" />
+		<result column="OPTION2_SET_ID" property="option2_set_id" />
+		<result column="REG_TIME" property="reg_time" />
+		<result column="HITS" property="hits" />
+		<result column="SALES" property="sales" />
+		<result column="SCRAPS" property="scraps" />
+		<result column="REVIEWS" property="reviews" />
+		<collection property="seller" resultMap="SellerDto"></collection>
+	</resultMap>
+	
+		<resultMap type="com.tech.ibara.shop.dto.ProductDto" id="ProductDto">
+		<result column="PRODUCT_ID" property="product_id" />
+		<result column="SELLER_ID" property="seller_id" />
+		<result column="CATEGORY_ID" property="category_id" />
+		<result column="NAME" property="name" />
+		<result column="REP_PRICE" property="rep_price" />
+		<result column="REP_DISCOUNTED_PRICE" property="rep_discounted_price" />
+		<result column="IS_DISCOUNTED" property="is_discounted" />
+		<result column="DISCOUNT_RATE" property="discount_rate" />
+		<result column="DELIVERY_FEE" property="delivery_fee" />
+		<result column="DELIVERY_TYPE" property="delivery_type" />
+		<result column="REF_PRICE" property="ref_price" />
+		<result column="OPTION_TYPE" property="option_type" />
+		<result column="OPTION1_SET_ID" property="option1_set_id" />
+		<result column="OPTION2_SET_ID" property="option2_set_id" />
+		<result column="REG_TIME" property="reg_time" />
+		<result column="HITS" property="hits" />
+		<result column="SALES" property="sales" />
+		<result column="SCRAPS" property="scraps" />
+		<result column="REVIEWS" property="reviews" />
+		<collection property="seller" resultMap="SellerDto"></collection>
+	</resultMap>
+	
+	<select id="selectProductJoinSeller" resultType="com.tech.ibara.shop.dto.ProductDto" resultMap="ProductDto2">
+		SELECT
+			P.PRODUCT_ID,
+			P.SELLER_ID,
+			P.CATEGORY_ID,
+			P.NAME,
+			P.REP_PRICE,
+			P.REP_DISCOUNTED_PRICE,
+			P.IS_DISCOUNTED,
+			P.DISCOUNT_RATE,
+			P.DELIVERY_FEE,
+			P.DELIVERY_TYPE,
+			P.REF_PRICE,
+			P.OPTION_TYPE,
+			P.OPTION1_SET_ID,
+			P.OPTION2_SET_ID,
+			P.REG_TIME,
+			P.HITS,
+			P.SALES,
+			P.SCRAPS,
+			P.REVIEWS,
+			S.NICKNAME
+		FROM
+			SHOP_PRODUCT P
+		JOIN
+			SHOP_SELLER S
+		ON
+			P.SELLER_ID = S.SELLER_ID
+		WHERE
+			PRODUCT_ID = #{param1}
+	</select>
+	
+	<select id="selectOptionSetByProduct" resultType="com.tech.ibara.shop.dto.OptionSetDto">
+		SELECT
+		    OPTION_SET_ID,
+		    NAME
+		FROM
+		    SHOP_OPTION_SET
+		WHERE
+		    OPTION_SET_ID = (
+			    SELECT
+			        OPTION_SET_ID
+			    FROM
+			        SHOP_PRODUCT
+			    WHERE
+			        PRODUCT_ID = #{param1})
+	</select>
+	
+	<select id="selectOptionSet" resultType="com.tech.ibara.shop.dto.OptionSetDto">
+		SELECT
+		    OPTION_SET_ID,
+		    NAME
+		FROM
+		    SHOP_OPTION_SET
+		WHERE
+		    OPTION_SET_ID = #{param1}
+	</select>
+	
+	<select id="selectOptionsByOptionSet" resultType="com.tech.ibara.shop.dto.OptionDto">
+		SELECT
+		    OPTION_ID,
+			OPTION_SET_ID,
+			PARENT_OPTION_ID,
+			NAME,
+			STOCK,
+			PRICE,
+			DISCOUNTED_PRICE
+		FROM
+		    SHOP_OPTION
+		WHERE
+		    OPTION_SET_ID = #{param1}
+	</select>
+	
+	<select id="selectOptionsByParentOption" resultType="com.tech.ibara.shop.dto.OptionDto">
+		SELECT
+		    OPTION_ID,
+			OPTION_SET_ID,
+			PARENT_OPTION_ID,
+			NAME,
+			STOCK,
+			PRICE,
+			DISCOUNTED_PRICE
+		FROM
+		    SHOP_OPTION
+		WHERE
+		    PARENT_OPTION_ID = #{param1}
+	</select>
+	
+	<select id="selectOptionByOptionSet" resultType="com.tech.ibara.shop.dto.OptionDto">
+		SELECT
+		    OPTION_ID,
+			OPTION_SET_ID,
+			PARENT_OPTION_ID,
+			NAME,
+			STOCK,
+			PRICE,
+			DISCOUNTED_PRICE
+		FROM
+		    SHOP_OPTION
+		WHERE
+		    OPTION_SET_ID = #{param1}
+	</select>
+	
+	<select id="selectOption" resultType="com.tech.ibara.shop.dto.OptionDto">
+		SELECT
+		    OPTION_ID,
+			OPTION_SET_ID,
+			PARENT_OPTION_ID,
+			NAME,
+			STOCK,
+			PRICE,
+			DISCOUNTED_PRICE
+		FROM
+		    SHOP_OPTION
+		WHERE
+		    OPTION_ID = #{param1}
+	</select>
+	
+	<select id="selectProductImgsByProduct" resultType="com.tech.ibara.shop.dto.ProductImgDto">
+		SELECT
+		    PRODUCT_IMG_ID,
+		    PRODUCT_ID,
+		    FILE_SRC
+		FROM
+		    SHOP_PRODUCT_IMG
+		WHERE
+		    PRODUCT_ID = #{param1}
+		ORDER BY
+			PRODUCT_IMG_ID
+	</select>
+	
+	<select id="selectBasketQuantity" resultType="Integer">
+		SELECT
+			QUANTITY
+		FROM
+			SHOP_BASKET
+		WHERE
+			USER_ID = #{param1} AND OPTION_ID = #{param2}
+	</select>
+		
+
+		
+	<resultMap type="com.tech.ibara.shop.dto.OptionDto" id="OptionDto">
+		<result column="OPTION_ID" property="option_id" />
+		<result column="OPTION_SET_ID" property="option_set_id" />
+		<result column="PARENT_OPTION_ID" property="parent_option_id" />
+		<result column="OPTION_NAME" property="name" />
+		<result column="STOCK" property="stock" />
+		<result column="PRICE" property="price" />
+		<result column="DISCOUNTED_PRICE" property="discounted_price" />
+	</resultMap>
+	
+	<resultMap type="com.tech.ibara.shop.dto.BasketDto" id="BasketDto">
+		<result column="BASKET_ID" property="basket_id" />
+		<result column="USER_ID" property="user_id" />
+		<result column="PRODUCT_ID" property="product_id" />
+		<result column="OPTION_ID" property="option_id" />
+		<result column="QUANTITY" property="quantity" />
+		<result column="OPTION_TEXT" property="option_text" />
+		<collection property="option" resultMap="OptionDto"></collection>
+		<collection property="product" resultMap="ProductDto"></collection>
+	</resultMap>
+	
+	<select id="selectBasketsByUser" resultType="com.tech.ibara.shop.dto.BasketDto" resultMap="BasketDto">
+		SELECT
+			B.BASKET_ID,
+			B.USER_ID,
+			B.PRODUCT_ID,
+			B.OPTION_ID,
+			B.QUANTITY,
+			B.OPTION_TEXT,
+			O.OPTION_SET_ID,
+			O.PARENT_OPTION_ID,
+			O.NAME OPTION_NAME,
+			O.STOCK,
+			O.PRICE,
+			O.DISCOUNTED_PRICE,
+			P.SELLER_ID,
+			P.CATEGORY_ID,
+			P.NAME,
+			P.REP_PRICE,
+			P.REP_DISCOUNTED_PRICE,
+			P.IS_DISCOUNTED,
+			P.DISCOUNT_RATE,
+			P.DELIVERY_FEE,
+			P.DELIVERY_TYPE,
+			P.REF_PRICE,
+			P.OPTION_TYPE,
+			P.OPTION1_SET_ID,
+			P.OPTION2_SET_ID,
+			P.REG_TIME,
+			P.HITS,
+			P.SALES,
+			P.SCRAPS,
+			P.REVIEWS
+		FROM
+			SHOP_BASKET B
+		JOIN
+			SHOP_OPTION O
+		ON
+			B.OPTION_ID = O.OPTION_ID
+		JOIN
+			SHOP_PRODUCT P
+		ON
+			B.PRODUCT_ID = P.PRODUCT_ID
+		WHERE
+			USER_ID = #{param1}
+	</select>
+	
+	<select id="selectBaskets" resultType="com.tech.ibara.shop.dto.BasketDto" resultMap="BasketDto">
+		SELECT
+			B.BASKET_ID,
+			B.USER_ID,
+			B.PRODUCT_ID,
+			B.OPTION_ID,
+			B.QUANTITY,
+			B.OPTION_TEXT,
+			O.OPTION_SET_ID,
+			O.PARENT_OPTION_ID,
+			O.NAME OPTION_NAME,
+			O.STOCK,
+			O.PRICE,
+			O.DISCOUNTED_PRICE,
+			P.SELLER_ID,
+			P.CATEGORY_ID,
+			P.NAME,
+			P.REP_PRICE,
+			P.REP_DISCOUNTED_PRICE,
+			P.IS_DISCOUNTED,
+			P.DISCOUNT_RATE,
+			P.DELIVERY_FEE,
+			P.DELIVERY_TYPE,
+			P.REF_PRICE,
+			P.OPTION_TYPE,
+			P.OPTION1_SET_ID,
+			P.OPTION2_SET_ID,
+			P.REG_TIME,
+			P.HITS,
+			P.SALES,
+			P.SCRAPS,
+			P.REVIEWS
+		FROM
+			SHOP_BASKET B
+		JOIN
+			SHOP_OPTION O
+		ON
+			B.OPTION_ID = O.OPTION_ID
+		JOIN
+			SHOP_PRODUCT P
+		ON
+			B.PRODUCT_ID = P.PRODUCT_ID
+		WHERE
+			BASKET_ID IN
+			<foreach item="item" index="index" collection="list" open="(" separator="," close=")">
+				#{item}
+			</foreach>
+	</select>
+
+	<select id="selectOrderById" resultType="com.tech.ibara.shop.dto.OrderDto">
+		SELECT
+			ORDER_ID,
+			USER_ID,
+			ORDER_STATE_ID,
+			ADDRESS_NAME,
+			RECEIVER_NAME,
+			RECEIVER_PHONE,
+			ZIPCODE,
+			BIG_ADDRESS,
+			DETAIL_ADDRESS,
+			ORDERER_NAME,
+			ORDERER_PHONE,
+			ORDERER_EMAIL,
+			PAYMENT_TYPE,
+			ORDER_DATE,
+			TOTAL_PRICE,
+			TOTAL_DELIVERY_FEE,
+			AMOUNT
+		FROM
+			SHOP_ORDER
+		WHERE
+			ORDER_ID = #{param1}
+	</select>
+	
+	<select id="selectOrderProductsByOrder" resultType="com.tech.ibara.shop.dto.OrderProductDto">
+		SELECT
+			ORDER_PRODUCT_ID,
+			ORDER_ID,
+			PRODUCT_ID,
+			OPTION_ID,
+			NAME,
+			TOTAL_PRICE,
+			TOTAL_DELIVERY_FEE,
+			QUANTITY,
+			OPTION_TEXT
+		FROM
+			SHOP_ORDER_PRODUCT
+		WHERE
+			ORDER_ID = #{param1}
+	</select>
+	
+	<select id="selectReviewsByProduct" resultType="com.tech.ibara.shop.dto.ReviewDto">
+		SELECT
+			REVIEW_ID,
+			PRODUCT_ID,
+			USER_ID,
+			SCORE,
+			FILE_SRC,
+			CONTENT,
+			REG_DATE
+		FROM
+			SHOP_REVIEW
+		WHERE
+			PRODUCT_ID = #{param1}
+	</select>
+	
+	<select id="selectReviewsPageByProduct" resultType="com.tech.ibara.shop.dto.ReviewDto">
+		SELECT
+			*
+		FROM (
+			SELECT
+				ROWNUM N, R.*
+			FROM (
+				SELECT
+					REVIEW_ID,
+					PRODUCT_ID,
+					USER_ID,
+					SCORE,
+					FILE_SRC,
+					CONTENT,
+					REG_DATE
+				FROM
+					SHOP_REVIEW
+				WHERE
+					PRODUCT_ID = #{param1}
+				ORDER BY
+					REG_DATE DESC) R )
+		WHERE
+			N BETWEEN #{param2} AND #{param3}
+		
+	</select>
+	
+	<select id="selectReviewsCount" resultType="Integer">
+		SELECT
+			COUNT(*)
+		FROM
+			SHOP_REVIEW
+		WHERE
+			PRODUCT_ID = #{param1}
+	</select>
+	
+	<select id="selectQnasPageByProduct" resultType="com.tech.ibara.shop.dto.QnaDto">
+		SELECT
+			*
+		FROM (
+			SELECT
+				ROWNUM N, Q.*
+			FROM (
+				SELECT
+					QNA_ID,
+					PRODUCT_ID,
+					USER_ID,
+					Q_REG_TIME,
+					Q_CONTENT,
+					IS_ANSWERED,
+					A_REG_TIME,
+					A_CONTENT
+				FROM
+					SHOP_QNA
+				WHERE
+					PRODUCT_ID = #{param1}
+				ORDER BY
+					Q_REG_TIME DESC) Q )
+		WHERE
+			N BETWEEN #{param2} AND #{param3}
+		
+	</select>
+	
+	<select id="selectQnasCount" resultType="Integer">
+		SELECT
+			COUNT(*)
+		FROM
+			SHOP_QNA
+		WHERE
+			PRODUCT_ID = #{param1}
+	</select>
+	
+	<select id="selectDetailImgsByProduct" resultType="com.tech.ibara.shop.dto.DetailImgDto">
+		SELECT
+			DETAIL_IMG_ID,
+			PRODUCT_ID,
+			FILE_SRC
+		FROM
+			SHOP_DETAIL_IMG
+		WHERE
+			PRODUCT_ID = #{param1}
+	</select>
+	
+	<!-- ===================== INSERT ===================== -->
+		
+	<insert id="insertOptionSet" parameterType="com.tech.ibara.shop.dto.OptionSetDto"
+		useGeneratedKeys="true" keyColumn="OPTION_SET_ID" keyProperty="option_set_id" >
+		INSERT INTO
+			SHOP_OPTION_SET (
+				OPTION_SET_ID,
+				NAME)
+		VALUES (
+			SEQ_SHOP_OPTION_SET.NEXTVAL,
+			#{name, jdbcType=VARCHAR})
+	</insert>
+	
+	<insert id="insertOption" parameterType="com.tech.ibara.shop.dto.OptionDto"
+		useGeneratedKeys="true" keyColumn="OPTION_ID" keyProperty="option_id" >
+		INSERT INTO
+			SHOP_OPTION (
+				OPTION_ID,
+				OPTION_SET_ID,
+				PARENT_OPTION_ID,
+				NAME,
+				STOCK,
+				PRICE,
+				DISCOUNTED_PRICE)
+		VALUES (
+			SEQ_SHOP_OPTION.NEXTVAL,
+			#{option_set_id},
+			#{parent_option_id, jdbcType=INTEGER},
+			#{name},
+			#{stock, jdbcType=INTEGER},
+			#{price, jdbcType=INTEGER},
+			#{discounted_price, jdbcType=INTEGER})
+	</insert>
+	
+	<insert id="insertProduct" parameterType="com.tech.ibara.shop.dto.ProductDto"
+		useGeneratedKeys="true" keyColumn="PRODUCT_ID" keyProperty="product_id" >
+		INSERT INTO
+			SHOP_PRODUCT (
+				PRODUCT_ID,
+				SELLER_ID,
+				CATEGORY_ID,
+				NAME,
+				REP_PRICE,
+				REP_DISCOUNTED_PRICE,
+				IS_DISCOUNTED,
+				DISCOUNT_RATE,
+				DELIVERY_FEE,
+				DELIVERY_TYPE,
+				REF_PRICE,
+				OPTION_TYPE,
+				OPTION1_SET_ID,
+				OPTION2_SET_ID,
+				REG_TIME,
+				HITS,
+				SALES,
+				SCRAPS,
+				REVIEWS)
+		VALUES (
+			SEQ_SHOP_PRODUCT.NEXTVAL,
+			#{seller_id},
+			#{category_id},
+			#{name},
+			#{rep_price},
+			#{rep_discounted_price},
+			#{is_discounted},
+			#{discount_rate},
+			#{delivery_fee},
+			#{delivery_type},
+			#{ref_price, jdbcType=INTEGER},
+			#{option_type},
+			#{option1_set_id},
+			#{option2_set_id, jdbcType=INTEGER},
+			SYSDATE,
+			0,
+			0,
+			0,
+			0)
+	</insert>
+	
+	<insert id="insertProductImg" parameterType="com.tech.ibara.shop.dto.ProductImgDto">
+		INSERT INTO
+			SHOP_PRODUCT_IMG (
+				PRODUCT_IMG_ID,
+				PRODUCT_ID,
+				FILE_SRC)
+		VALUES (
+			SEQ_SHOP_PRODUCT_IMG.NEXTVAL,
+			#{product_id},
+			#{file_src})
+	</insert>
+	
+	<insert id="insertBasket" parameterType="com.tech.ibara.shop.dto.BasketDto">
+		INSERT INTO
+			SHOP_BASKET (
+				BASKET_ID,
+				USER_ID,
+				PRODUCT_ID,
+				OPTION_ID,
+				QUANTITY,
+				OPTION_TEXT)
+		VALUES (
+			SEQ_SHOP_BASKET.NEXTVAL,
+			#{user_id},
+			#{product_id},
+			#{option_id},
+			#{quantity},
+			#{option_text})
+	</insert>
+	
+	<insert id="insertBaskets" parameterType="list">
+		DECLARE
+			BASKET_COUNT NUMBER;
+		BEGIN
+		<foreach collection="list" item="item" index="idx">
+			SELECT
+				COUNT(*)
+			INTO
+				BASKET_COUNT
+			FROM
+				SHOP_BASKET
+			WHERE
+				USER_ID = #{item.user_id}
+			AND
+				OPTION_ID = #{item.option_id};
+				
+			IF BASKET_COUNT != 0 THEN
+				UPDATE
+					SHOP_BASKET
+				SET
+					QUANTITY = QUANTITY + #{item.quantity}
+				WHERE
+					USER_ID = #{item.user_id}
+				AND
+					OPTION_ID = #{item.option_id};
+			ELSE
+				INSERT INTO
+					SHOP_BASKET (
+						BASKET_ID,
+						USER_ID,
+						PRODUCT_ID,
+						OPTION_ID,
+						QUANTITY,
+						OPTION_TEXT)
+				VALUES (
+					SEQ_SHOP_BASKET.NEXTVAL,
+					#{item.user_id},
+					#{item.product_id},
+					#{item.option_id},
+					#{item.quantity},
+					#{item.option_text});
+			END IF;
+		</foreach>
+		END;
+	</insert>
+	
+	<insert id="insertOrder" parameterType="com.tech.ibara.shop.dto.OrderDto"
+		useGeneratedKeys="true" keyColumn="ORDER_ID" keyProperty="order_id" >
+		INSERT INTO
+			SHOP_ORDER (
+				ORDER_ID,
+				USER_ID,
+				ORDER_STATE_ID,
+				ADDRESS_NAME,
+				RECEIVER_NAME,
+				RECEIVER_PHONE,
+				ZIPCODE,
+				BIG_ADDRESS,
+				DETAIL_ADDRESS,
+				ORDERER_NAME,
+				ORDERER_PHONE,
+				ORDERER_EMAIL,
+				PAYMENT_TYPE,
+				ORDER_DATE,
+				TOTAL_PRICE,
+				TOTAL_DELIVERY_FEE,
+				AMOUNT)
+		VALUES (
+			SEQ_SHOP_ORDER.NEXTVAL,
+			#{user_id},
+			#{order_state_id},
+			#{address_name, jdbcType=VARCHAR},
+			#{receiver_name, jdbcType=VARCHAR},
+			#{receiver_phone, jdbcType=INTEGER},
+			#{zipcode, jdbcType=INTEGER},
+			#{big_address, jdbcType=VARCHAR},
+			#{detail_address, jdbcType=VARCHAR},
+			#{orderer_name, jdbcType=VARCHAR},
+			#{orderer_phone, jdbcType=INTEGER},
+			#{orderer_email, jdbcType=VARCHAR},
+			#{payment_type, jdbcType=VARCHAR},
+			#{order_date, jdbcType=DATE},
+			#{total_price},
+			#{total_delivery_fee},
+			#{amount})
+	</insert>
+	
+	<insert id="insertOrderProduct" parameterType="com.tech.ibara.shop.dto.OrderProductDto">
+		INSERT INTO
+			SHOP_ORDER_PRODUCT (
+				ORDER_PRODUCT_ID,
+				ORDER_ID,
+				PRODUCT_ID,
+				OPTION_ID,
+				NAME,
+				TOTAL_PRICE,
+				TOTAL_DELIVERY_FEE,
+				QUANTITY,
+				OPTION_TEXT)
+		VALUES (
+			SEQ_SHOP_ORDER_PRODUCT.NEXTVAL,
+			#{order_id},
+			#{product_id},
+			#{option_id},
+			#{name},
+			#{total_price},
+			#{total_delivery_fee},
+			#{quantity},
+			#{option_text})
+	</insert>
+	
+	<insert id="insertReview" parameterType="com.tech.ibara.shop.dto.ReviewDto">
+		INSERT INTO
+			SHOP_REVIEW (
+				REVIEW_ID,
+				PRODUCT_ID,
+				USER_ID,
+				SCORE,
+				FILE_SRC,
+				CONTENT,
+				REG_DATE)
+		VALUES (
+			SEQ_SHOP_REVIEW.NEXTVAL,
+			#{product_id},
+			#{user_id},
+			#{score},
+			#{file_src, jdbcType=VARCHAR},
+			#{content},
+			SYSDATE)
+	</insert>
+	
+	<insert id="insertQna" parameterType="com.tech.ibara.shop.dto.QnaDto" >
+		INSERT INTO
+			SHOP_QNA (
+				QNA_ID,
+				PRODUCT_ID,
+				USER_ID,
+				Q_REG_TIME,
+				Q_CONTENT,
+				IS_ANSWERED,
+				A_REG_TIME,
+				A_CONTENT)
+		VALUES (
+			SEQ_SHOP_QNA.NEXTVAL,
+			#{product_id},
+			#{user_id},
+			SYSDATE,
+			#{q_content},
+			'N',
+			NULL,
+			NULL)
+	</insert>
+	
+	<insert id="insertDetailImg" parameterType="com.tech.ibara.shop.dto.DetailImgDto" >
+		INSERT INTO
+			SHOP_DETAIL_IMG (
+				DETAIL_IMG_ID,
+				PRODUCT_ID,
+				FILE_SRC)
+		VALUES (
+			SEQ_SHOP_DETAIL_IMG.NEXTVAL,
+			#{product_id},
+			#{file_src})
+	</insert>
+	
+	<!-- ===================== UPDATE ===================== -->
+	
+	<update id="updateBasketQuantity">
+		UPDATE
+			SHOP_BASKET
+		SET
+		<choose>
+			<when test="param3 == 'add'">
+				QUANTITY = QUANTITY + 1
+			</when>
+			<when test="param3 == 'sub'">
+				QUANTITY = QUANTITY - 1
+			</when>
+		</choose>
+		WHERE
+			USER_ID = #{param1} AND OPTION_ID = #{param2}
+	</update>
+	
+	<update id="updateProductIncreaseOne">
+		UPDATE
+			SHOP_PRODUCT
+		SET
+		<choose>
+			<when test="param2 == 'hits'">
+				HITS = HITS + 1
+			</when>
+			<when test="param2 == 'reviews'">
+				REVIEWS = REVIEWS + 1
+			</when>
+			<when test="param2 == 'scraps'">
+				SCRAPS = SCRAPS + 1
+			</when>
+			<when test="param2 == 'sales'">
+				SALES = SALES + 1
+			</when>
+		</choose>
+		WHERE
+			PRODUCT_ID = #{param1}
+	</update>
+	
+	<update id="updateWriteQnaAnswer">
+		UPDATE
+			SHOP_QNA
+		SET
+			IS_ANSWERED = "Y",
+			A_REG_TIME = SYSDATE,
+			A_CONTENT = #{param2}
+		WHERE
+			QNA_ID = #{param1}
+	</update>
+	
+	<update id="updateCompleteOrder" parameterType="com.tech.ibara.shop.dto.OrderDto">
+		UPDATE
+			SHOP_ORDER
+		SET
+			ORDER_STATE_ID = 3,
+			ADDRESS_NAME = #{address_name},
+			RECEIVER_NAME = #{receiver_name},
+			RECEIVER_PHONE = #{receiver_phone},
+			ZIPCODE = #{zipcode},
+			BIG_ADDRESS = #{big_address},
+			DETAIL_ADDRESS = #{detail_address},
+			ORDERER_NAME = #{orderer_name},
+			ORDERER_PHONE = #{orderer_phone},
+			ORDERER_EMAIL = #{orderer_email},
+			PAYMENT_TYPE = #{payment_type},
+			ORDER_DATE = SYSDATE
+		WHERE
+			USER_ID = #{user_id} AND ORDER_ID = #{order_id}
+	</update>
+	
+	<!-- ===================== DELETE ===================== -->
+	
+	<delete id="deleteBasket">
+		DELETE
+			SHOP_BASKET
+		WHERE
+		<choose>
+			<when test="param3 == 'product'">
+				USER_ID = #{param1} AND PRODUCT_ID = #{param2}
+			</when>
+			<when test="param3 == 'option'">
+				USER_ID = #{param1} AND OPTION_ID = #{param2}
+			</when>
+		</choose>
+	</delete>
+</mapper>

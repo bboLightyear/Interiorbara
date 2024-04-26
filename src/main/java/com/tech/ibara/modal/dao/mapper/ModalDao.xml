@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.tech.ibara.modal.dao.mapper.ModalDao">
+
+	 <select id="selectServiceItems" resultType="com.tech.ibara.modal.dto.ModalCheckDto">
+         SELECT M_PNAME, M_PEXP, M_PPRICE
+   		 FROM MODAL_CHECK
+   		 WHERE M_TYPE = #{m_type}
+    </select>
+    
+	<insert id="insertNonMember" parameterType="com.tech.ibara.modal.dto.NonMemberDto">
+        INSERT INTO MY_NONMEMBER (NAME, PHONE, EMAIL, PW)
+		VALUES (
+            #{name},
+            #{phone},
+            #{email},
+            #{pw, jdbcType=VARCHAR})
+    </insert>
+    
+   <insert id="updateModalComplete" parameterType="com.tech.ibara.modal.dto.ModalCompleteDto">
+    INSERT INTO MODAL_COMPLETE 
+    VALUES (
+        'M' || TO_CHAR(SYSDATE, 'YYYYMMDD') || LPAD(COALESCE(TO_NUMBER((SELECT MAX(SUBSTR(ESTINO, 10, 4)) FROM MODAL_COMPLETE WHERE TRUNC(M_DATE) = TRUNC(SYSDATE))), 0) + 1, 4, '0') || LPAD(FLOOR(DBMS_RANDOM.VALUE(0, 100)), 2, '0'),
+        SYSDATE,
+        #{m_addr},
+        #{phone},
+        #{m_content},
+        #{m_size},
+        #{m_request},
+        #{m_price},
+        #{m_wanttime},
+        #{m_wantdate},
+        #{m_circs},
+        #{m_place},
+        #{m_type},
+        #{m_contentprice}
+    	)
+	</insert>
+
+	<select id="selectCompleteInfo" parameterType="string" resultType="com.tech.ibara.modal.dto.CompleteInfoDto">
+	    SELECT mn.NAME, mn.EMAIL, mn.PHONE, mc.ESTINO
+	    FROM MY_NONMEMBER mn
+	    JOIN MODAL_COMPLETE mc ON mn.PHONE = mc.PHONE
+	    WHERE mn.PHONE = #{phone}
+	</select>
+
+</mapper>

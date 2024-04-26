@@ -33,10 +33,6 @@
 		<beans:property name="prefix" value="/WEB-INF/views/" />
 		<beans:property name="suffix" value=".jsp" />
 	</beans:bean>
-	 <!-- Main CSS mapping -->
-   <resources mapping="/mainCSS/**" location="/resources/css/main/" />
-   <!-- Main Image view Mapping -->
-   <resources mapping="/mainImagesOH/**" location="/resources/upload/oh/"/>
 	
 
 	<context:component-scan
@@ -59,6 +55,11 @@
 		<beans:property name="dataSource" ref="dataSource" />
 		<beans:property name="mapperLocations"
 			value="classpath:com/tech/ibara/*/dao/mapper/*.xml" />
+		<beans:property name="configuration">
+	        <beans:bean class="org.apache.ibatis.session.Configuration">
+	            <beans:property name="jdbcTypeForNull" value="VARCHAR"/>
+	        </beans:bean>
+    	</beans:property>
 	</beans:bean>
 
 	<beans:bean id="sqlSession"
@@ -67,6 +68,14 @@
 			ref="sqlSessionFactory"></beans:constructor-arg>
 
 
+	</beans:bean>
+	
+	<beans:bean
+		class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+		<beans:property name="basePackage"
+			value="com.tech.ibara.*.dao.mapper" />
+		<beans:property name="sqlSessionFactoryBeanName"
+			value="sqlSessionFactory" />
 	</beans:bean>
 
 	<aop:aspectj-autoproxy />

@@ -1,0 +1,397 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    
+<mapper namespace="com.tech.ibara.biz.dao.BizPriceIDao">
+
+
+<!-- 시공사례 게시판 쿼리 -->
+	
+	<select id="bizPriceListView" resultType="com.tech.ibara.biz.dto.BizPriceDto">
+		SELECT NUM, BP_NO, BP_NAME, BP_CONTENT, BP_PRICE, BP_CATEGORY, BP_TYPE, BP_IMG, INTENO
+		 FROM 
+		 (SELECT ROWNUM NUM,N.* FROM (SELECT BP_NO, BP_NAME, BP_CONTENT, BP_PRICE, BP_CATEGORY, BP_TYPE, BP_IMG, INTENO 
+		 FROM BIZ_PRICE ORDER BY BP_NO ASC) N)
+		 WHERE INTENO=#{param1}
+		 ORDER BY BP_NO ASC
+	</select>
+	
+	<select id="bizPriceCnt" resultType="Integer">
+		SELECT COUNT(*)  
+		 FROM BIZ_PRICE 
+		 WHERE INTENO=#{param1}
+	</select>
+	
+	<select id="selBp_no" resultType="Integer">
+		SELECT MAX(BP_NO) FROM BIZ_PRICE
+	</select>
+	
+	<insert id="bizPriceWrite">
+		INSERT INTO BIZ_PRICE(BP_NO, BP_NAME, BP_CONTENT, BP_PRICE, BP_CATEGORY, BP_TYPE, BP_IMG, INTENO) 
+    	VALUES(BIZ_PRICE_SEQ.NEXTVAL,#{param1},#{param2},#{param3},#{param4},#{param5},#{param6},#{param7})
+	</insert>
+	
+	<update id="bizPriceImgWrite">
+		UPDATE BIZ_PRICE SET BP_IMG=#{param2} WHERE BP_NO=#{param1}
+	</update>
+	
+	<update id="bizPriceModAll">
+		UPDATE BIZ_PRICE SET
+		 BP_NAME=#{param2},
+		 BP_CONTENT=#{param3},
+		 BP_PRICE=#{param4},
+		 BP_CATEGORY=#{param5},
+		 BP_TYPE=#{param6},
+		 BP_IMG=#{param7} 
+		 WHERE BP_NO=#{param1} AND INTENO=#{param8}
+	</update>
+	
+	<select id="bizPriceModEachView" resultType="com.tech.ibara.biz.dto.BizPriceDto">
+		SELECT BP_NO, BP_NAME, BP_CONTENT, BP_PRICE, BP_CATEGORY, BP_TYPE, BP_IMG, INTENO
+		 FROM BIZ_PRICE
+		 WHERE INTENO=#{param1} AND BP_NO=#{param2}
+	</select>
+	
+		<update id="bizPriceModEach">
+		UPDATE BIZ_PRICE SET
+		 BP_NAME=#{param2},
+		 BP_CONTENT=#{param3},
+		 BP_PRICE=#{param4},
+		 BP_CATEGORY=#{param5},
+		 BP_TYPE=#{param6},
+		 BP_IMG=#{param7}
+		 WHERE BP_NO=#{param1} AND INTENO=#{param8}
+	</update>
+	
+<!-- 
+	<select id="bizCasesContentView"
+		resultType="com.tech.ibara.biz.dto.BizCasesDto">
+		SELECT BC_NO,BC_TITLE,BC_CONTENT,BC_WRITER,BC_DATE,BC_HIT,INTENO 
+		FROM BIZ_CASES
+		WHERE BC_NO=#{param1}
+	</select>
+	
+	<select id="bizCasesDelView"
+		resultType="com.tech.ibara.biz.dto.BizCasesDto">
+		SELECT BC_NO, BC_TITLE 
+		FROM BIZ_CASES
+		WHERE BC_NO=#{param1}
+	</select>
+
+	<update id="bizCasesUpHit">
+		UPDATE BIZ_CASES SET BC_HIT=BC_HIT+1 WHERE
+		BC_NO=#{PARAM1}
+	</update>
+
+	<update id="bizCasesMod">
+		UPDATE BIZ_CASES SET
+		BC_TITLE=#{param2},BC_CONTENT=#{param3}
+		WHERE BC_NO=#{param1}
+	</update>
+
+	<update id="bizCasesDel">
+		DELETE FROM BIZ_CASES WHERE BC_NO=#{param1}
+	</update>
+	
+	<update id="bizCasesImgDel">
+		DELETE FROM BIZ_CASES_IMG WHERE BC_NO=#{param1}
+	</update>
+
+	<insert id="bizCasesWrite" >
+		INSERT INTO BIZ_CASES(BC_NO,BC_TITLE,BC_CONTENT,BC_WRITER,BC_DATE,BC_HIT,INTENO) 
+    	VALUES(BIZ_CASES_SEQ.NEXTVAL,#{param1},#{param2},#{param3},SYSDATE,0,#{param4})
+	</insert>
+	
+	<insert id="bizCasesImgWrite">
+		INSERT INTO BIZ_CASES_IMG
+		VALUES(BIZ_CASES_IMG_SEQ.NEXTVAL,#{param2},#{param3},#{param1})
+	</insert>
+
+	<select id="selBc_no" resultType="Integer">
+		SELECT MAX(BC_NO) FROM BIZ_CASES
+	</select>
+
+	<select id="selectBizCasesImg" resultType="com.tech.ibara.biz.dto.BizCasesImgDto">
+		SELECT * FROM BIZ_CASES_IMG WHERE BC_NO=#{param1}
+	</select>	
+	
+	<select id="selectCasesTotalCount1" resultType="Integer">
+		SELECT COUNT(*)
+		FROM BIZ_CASES 
+		WHERE BC_TITLE LIKE '%'||#{param1}||'%'
+	</select>
+
+	<select id="selectCasesTotalCount2" resultType="Integer">
+		SELECT COUNT(*)
+		FROM BIZ_CASES 
+		WHERE BC_CONTENT LIKE '%'||#{param1}||'%'
+	</select>
+
+	<select id="selectCasesTotalCount3" resultType="Integer">
+		SELECT COUNT(*)
+		FROM BIZ_CASES 
+		WHERE BC_TITLE LIKE '%'||#{param1}||'%' OR BC_CONTENT LIKE '%'||#{param1}||'%'
+	</select>
+	
+	<select id="selectCasesTotalCount4" resultType="Integer">
+		SELECT COUNT(*)
+		FROM BIZ_CASES 
+	</select>
+
+
+
+매거진 게시판 쿼리
+
+	<sql id="mgzIncludlist">
+		<choose>
+			<when test="param4==1">
+				WHERE BM_TITLE LIKE '%'||#{param3}||'%'
+			</when>
+			<when test="param4==2">
+				WHERE BM_CONTENT LIKE '%'||#{param3}||'%'
+			</when>
+			<when test="param4==3">
+				WHERE BM_TITLE LIKE '%'||#{param3}||'%' OR BM_CONTENT LIKE '%'||#{param3}||'%'
+			</when>
+			<otherwise></otherwise>
+		</choose>
+	</sql>
+
+	
+	<select id="bizMgzList" resultType="com.tech.ibara.biz.dto.BizMgzDto">
+		SELECT BM_NO,BM_TITLE,BM_CONTENT,BM_WRITER,BM_DATE,BM_HIT,MEMNO FROM 
+		(SELECT ROWNUM NUM,N.* FROM (SELECT BM_NO,BM_TITLE,BM_CONTENT,BM_WRITER,BM_DATE,BM_HIT,MEMNO 
+		FROM BIZ_MGZ ORDER BY BM_NO DESC) N
+		<include refid="mgzIncludlist" />
+		)WHERE NUM BETWEEN #{param1} AND #{param2}
+	</select>
+
+	<select id="bizMgzContentView"
+		resultType="com.tech.ibara.biz.dto.BizMgzDto">
+		SELECT BM_NO,BM_TITLE,BM_CONTENT,BM_WRITER,BM_DATE,BM_HIT,MEMNO  
+		FROM BIZ_MGZ
+		WHERE BM_NO=#{param1}
+	</select>
+	
+	<select id="bizMgzDelView"
+		resultType="com.tech.ibara.biz.dto.BizMgzDto">
+		SELECT BM_NO, BM_TITLE 
+		FROM BIZ_MGZ
+		WHERE BM_NO=#{param1}
+	</select>
+
+	<update id="bizMgzUpHit">
+		UPDATE BIZ_MGZ SET BM_HIT=BM_HIT+1 WHERE
+		BM_NO=#{PARAM1}
+	</update>
+
+	<update id="bizMgzMod">
+		UPDATE BIZ_MGZ SET
+		BM_TITLE=#{param2},BM_CONTENT=#{param3}
+		WHERE BM_NO=#{param1}
+	</update>
+
+	<update id="bizMgzDel">
+		DELETE FROM BIZ_MGZ WHERE BM_NO=#{param1}
+	</update>
+	
+	<update id="bizMgzImgDel">
+		DELETE FROM BIZ_MGZ_IMG WHERE BM_NO=#{param1}
+	</update>
+
+	<insert id="bizMgzWrite" >
+		INSERT INTO BIZ_MGZ(BM_NO,BM_TITLE,BM_CONTENT,BM_WRITER,BM_DATE,BM_HIT,MEMNO) 
+    	VALUES(BIZ_MGZ_SEQ.NEXTVAL,#{param1},#{param2},#{param3},SYSDATE,0,#{param4})
+	</insert>
+	
+	<insert id="bizMgzImgWrite">
+		INSERT INTO BIZ_MGZ_IMG
+		VALUES(BIZ_MGZ_IMG_SEQ.NEXTVAL,#{param2},#{param3},#{param1})
+	</insert>
+
+	<select id="selBm_no" resultType="Integer">
+		SELECT MAX(BM_NO) FROM BIZ_MGZ
+	</select>
+
+	<select id="selectBizMgzImg" resultType="com.tech.ibara.biz.dto.BizMgzImgDto">
+		SELECT * FROM BIZ_MGZ_IMG WHERE BM_NO=#{param1}
+	</select>	
+	
+	<select id="selectMgzTotalCount1" resultType="Integer">
+		SELECT COUNT(*)
+		FROM BIZ_MGZ 
+		WHERE BM_TITLE LIKE '%'||#{param1}||'%'
+	</select>
+
+	<select id="selectMgzTotalCount2" resultType="Integer">
+		SELECT COUNT(*)
+		FROM BIZ_MGZ 
+		WHERE BM_CONTENT LIKE '%'||#{param1}||'%'
+	</select>
+
+	<select id="selectMgzTotalCount3" resultType="Integer">
+		SELECT COUNT(*)
+		FROM BIZ_MGZ 
+		WHERE BM_TITLE LIKE '%'||#{param1}||'%' OR BM_CONTENT LIKE '%'||#{param1}||'%'
+	</select>
+	
+	<select id="selectMgzTotalCount4" resultType="Integer">
+		SELECT COUNT(*)
+		FROM BIZ_MGZ 
+	</select>
+
+
+
+리뷰 기능 쿼리
+
+	<sql id="rvIncludlist">
+		<choose>
+			<when test="param4==1">
+				WHERE BR_CONTENT LIKE '%'||#{param3}||'%'
+			</when>
+			<when test="param4==2">
+				WHERE BR_WRITER LIKE '%'||#{param3}||'%'
+			</when>
+			<when test="param4==3">
+				WHERE BR_CONTENT LIKE '%'||#{param3}||'%' OR BR_WRITER LIKE '%'||#{param3}||'%'
+			</when>
+			<otherwise></otherwise>
+		</choose>
+	</sql>
+
+	
+	<select id="bizRvList" resultType="com.tech.ibara.biz.dto.BizRvDto">
+		SELECT BR_NO, BR_CONTENT, BR_WRITER, BR_LIKE_CNT, BR_DATE, BR_POINT, INTENO, MEMNO FROM 
+		(SELECT ROWNUM NUM,N.* FROM (SELECT BR_NO, BR_CONTENT, BR_WRITER, BR_LIKE_CNT, BR_DATE, BR_POINT, INTENO, MEMNO 
+		FROM BIZ_RV ORDER BY BR_NO DESC) N
+		<include refid="rvIncludlist" />
+		)WHERE NUM BETWEEN #{param1} AND #{param2}
+	</select>
+
+	<select id="bizRvContentView"
+		resultType="com.tech.ibara.biz.dto.BizRvDto">
+		SELECT BR_NO, BR_CONTENT, BR_WRITER, BR_LIKE_CNT, BR_DATE, BR_POINT, INTENO, MEMNO  
+		FROM BIZ_RV
+		WHERE BR_NO=#{param1}
+	</select>
+
+	<update id="bizMgzUpHit">
+		UPDATE BIZ_MGZ SET BM_HIT=BM_HIT+1 WHERE
+		BM_NO=#{PARAM1}
+	</update>
+
+	<update id="bizRvMod">
+		UPDATE BIZ_RV SET BR_POINT=#{param2}, BR_CONTENT=#{param3} 
+		WHERE BR_NO=#{param1}
+	</update>
+
+	<update id="bizRvDel">
+		DELETE FROM BIZ_RV WHERE BR_NO=#{param1}
+	</update>
+	
+	<update id="bizRvImgDel">
+		DELETE FROM BIZ_RV_IMG WHERE BR_NO=#{param1}
+	</update>
+
+	<insert id="bizRvWrite" >
+		INSERT INTO BIZ_RV(BR_NO, BR_CONTENT, BR_WRITER, BR_LIKE_CNT, BR_DATE, BR_POINT, INTENO, MEMNO) 
+    	VALUES(BIZ_MGZ_SEQ.NEXTVAL,#{param1},#{param2},0,SYSDATE,#{param3},#{param4},#{param5})
+	</insert>
+	
+	<insert id="bizRvImgWrite">
+		INSERT INTO BIZ_RV_IMG
+		VALUES(BIZ_RV_IMG_SEQ.NEXTVAL,#{param2},#{param3},#{param1})
+	</insert>
+
+	<select id="selBr_no" resultType="Integer">
+		SELECT MAX(BR_NO) FROM BIZ_RV
+	</select>
+
+	<select id="selectBizRvImg" resultType="com.tech.ibara.biz.dto.BizRvImgDto">
+		SELECT * FROM BIZ_RV_IMG WHERE BR_NO=#{param1}
+	</select>	
+	
+	<select id="selectRvTotalCount1" resultType="Integer">
+		SELECT COUNT(*)
+		FROM BIZ_RV 
+		WHERE BR_CONTENT LIKE '%'||#{param1}||'%'
+	</select>
+
+	<select id="selectRvTotalCount2" resultType="Integer">
+		SELECT COUNT(*)
+		FROM BIZ_RV 
+		WHERE BR_WRITER LIKE '%'||#{param1}||'%'
+	</select>
+
+	<select id="selectRvTotalCount3" resultType="Integer">
+		SELECT COUNT(*)
+		FROM BIZ_RV 
+		WHERE BR_CONTENT LIKE '%'||#{param1}||'%' OR BR_WRITER LIKE '%'||#{param1}||'%'
+	</select>
+	
+	<select id="selectRvTotalCount4" resultType="Integer">
+		SELECT COUNT(*)
+		FROM BIZ_RV 
+	</select>
+
+	<select id="getRvImgJoin" parameterType="com.tech.ibara.biz.dto.BizRvDto" resultMap="BizRvDto">
+		SELECT RV.BR_NO, RV.BR_CONTENT, RV.BR_WRITER, RV.BR_LIKE_CNT, RV.BR_DATE, RV.BR_POINT, RV.INTENO, RV.MEMNO, IMG.BRIMG_CGN 
+				FROM BIZ_RV RV INNER JOIN BIZ_RV_IMG IMG ON RV.BR_NO=IMG.BR_NO
+	</select>
+
+	<insert id="bizRvReport" >
+		INSERT INTO MY_REPORT(RENO, TARGETNO, TARGETTYPE, MEMNO, TARGETMEMNO, CAUSE, REDATE) 
+    	VALUES(MY_REPORT_SEQ.NEXTVAL,#{param1}, 'BIZ_RV', 1, #{param2}, #{param3}, SYSDATE)
+	</insert>	
+	
+	<select id="bizRvReportResultView"
+		resultType="com.tech.ibara.biz.dto.BizRvDto">
+		SELECT BR_NO, BR_WRITER 
+		FROM BIZ_RV 
+		WHERE BR_NO=#{param1}
+	</select>
+
+	<select id="bizRvLikeCnt" resultType="Integer">
+		SELECT COUNT(*) 
+		 FROM BIZ_RV_LIKE 
+		 WHERE BR_NO=#{param1} AND MEMNO=#{param2}
+	</select>
+	
+	<update id="bizRvLikeDel">
+		DELETE FROM BIZ_RV_LIKE WHERE MEMNO=#{param1} AND BR_NO=#{param2}
+	</update>
+	
+	<insert id="bizRvLikeAdd">
+		INSERT INTO BIZ_RV_LIKE(BR_LIKE_NO, MEMNO, BR_NO) 
+		 VALUES(BIZ_RV_LIKE_SEQ.NEXTVAL,#{param1},#{param2})
+	</insert>
+	
+	<update id="bizRvLikeSubt">
+		UPDATE BIZ_RV SET BR_LIKE_CNT=BR_LIKE_CNT-1
+		 WHERE BR_NO=#{param1}
+	</update>
+
+	<update id="bizRvLikePlus">
+		UPDATE BIZ_RV SET BR_LIKE_CNT=BR_LIKE_CNT+1
+		 WHERE BR_NO=#{param1}
+	</update>
+	
+	<select id="bizRvAllUserLikeCnt" resultType="Integer">
+		SELECT COUNT(*) 
+		 FROM BIZ_RV_LIKE 
+		 WHERE BR_NO=#{param1}
+	</select>
+	
+	
+	<insert id="bizRvReportedWrite" >
+		INSERT INTO BIZ_RV_REPORTED(BRR_NO, BRR_CONTENT, BRR_WRITER, BRR_LIKE_CNT, BRR_DATE, BRR_POINT, INTENO, MEMNO, BR_NO) 
+    	VALUES(BIZ_RV_REPORTED_SEQ.NEXTVAL,#{param1},#{param2},#{param3},#{param4},#{param5},#{param6},#{param7},#{param8})
+	</insert>
+	 -->
+	
+
+
+</mapper>
+

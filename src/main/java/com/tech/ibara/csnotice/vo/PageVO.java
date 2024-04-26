@@ -1,7 +1,7 @@
 package com.tech.ibara.csnotice.vo;
 
 public class PageVO {
-    private Integer displayRowCount = 5;           // 출력할 데이터 개수
+    private Integer displayRowCount = 10;           // 출력할 데이터 개수
     private Integer grpPageCnt=5;                   //// 페이지그룹에서 페이지갯수 수정*
     private Integer rowStart;                       // 시작행번호
     private Integer rowEnd;                         // 종료행 번호

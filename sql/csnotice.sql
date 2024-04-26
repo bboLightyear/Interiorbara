@@ -1,13 +1,3 @@
---고객센터 관련 sql
-
-
------------------------------------커밋,롤백
-commit;
-rollback;
-
-------------------------------------테이블, 시퀀스 생성
-
-
 
 create table cs_noticeboard (
 nbno number primary key, --글번호
@@ -22,8 +12,6 @@ nbstep number,           --스탭 (답글 구분용)
 nbindent number,         --인텐트 (답글 구분용)
 nbfilecode varchar2(50)      --첨부파일
 );
-
-
 create sequence cs_noticeboard_seq;
 
 create table cs_noticeboard_img(
@@ -31,71 +19,123 @@ nbno number primary key,
 nbfilecode varchar2 (50),
 filesrc varchar2(50)
 );
-
 create sequence cs_noticeboard_img_seq;
 
---테이블 드랍
-drop table cs_noticeboard;
-drop table cs_noticeboard_img;
+
+create table cs_noticeboard_reply(
+nbno number ,
+rnbno number primary key,
+rnbwriter varchar2(50),
+rnbcontent varchar2(50),
+rnbstep number,
+rnbgroup number,
+rnbindent number
+);
+create SEQUENCE cs_noticeboard_reply_seq;
+
+---------------------qna
+
+create table cs_qnaboard (
+qbno number primary key, --글번호
+qbtitle varchar2(50),    --글제목
+qbqnadiv varchar2(20),   --글 분류
+qbcontent varchar2(300), --글내용
+qbwriter varchar2(30),   --작성자
+qbhit number,            --조회수
+qbdate date,             --작성일
+qbgroup number,          --그룹 (답글 구분용)
+qbstep number,           --스탭 (답글 구분용)
+qbindent number,         --인텐트 (답글 구분용)
+qbfilecode varchar2(50)      --첨부파일
+);
+create sequence cs_qnaboard_seq;
+
+create table cs_qnaboard_img(
+qbno number primary key, 
+qbfilecode varchar2 (50),
+filesrc varchar2(50)
+);
+create sequence cs_qnaboard_img_seq;
+
+create table cs_qnaboard_reply(
+qbno number,
+rqbno number primary key,
+rqbwriter varchar2(50),
+rqbcontent varchar2(50),
+rqbstep number,
+rqbgroup number,
+rqbindent number
+);
+create SEQUENCE cs_qnaboard_reply_seq;
 
 
---img 파일과 fk 생성
-ALTER TABLE cs_noticeboard_img
-ADD CONSTRAINTS qnaimg_fk FOREIGN KEY(nbno)
-REFERENCES cs_noticeboard(nbno);
-
------------------------------------- select 문
-select * from cs_noticeboard;
-select * from cs_noticeboard_img;
-
-SELECT MAX(NBFILECODE) FROM
-		CS_NOTICEBOARD_IMG;
+--------------------
+--insert
+INSERT INTO
+		CS_NOTICEBOARD(NBNO,NBTITLE,NBCONTENT,NBWRITER,NBHIT,NBDATE,NBGROUP,NBSTEP,NBINDENT,NBFILECODE,NBQNADIV)
+		VALUES(CS_QNABOARD_SEQ.NEXTVAL,'공지사항입니다5(제목)','공지사항입니다5(내용)','admin',0,SYSDATE,0,0,0,null,'ss');
         
-select nbno,nbtitle,nbcontent,nbwriter,nbhit,nbdate,nbfile
-from cs_noticeboard
-where nbno='2';
-
-select s.name, p.name 
-from cs_noticeboard b left outer join cs_noticeboard_img i 
-on p.profno=s.profno;
-
-SELECT NBNO,NBWRITER,NBTITLE,NBCONTENT,NBDATE,NBHIT,NBGROUP,NBSTEP,NBINDENT 
-		FROM (SELECT ROWNUM NUM,N.* 
-				FROM (SELECT NBNO,NBWRITER,NBTITLE,NBCONTENT,NBDATE,NBHIT,NBGROUP,NBSTEP,NBINDENT
-		FROM cs_noticeboard
-		ORDER BY NBGROUP DESC,NBSTEP ASC)N
-		WHERE NBTITLE LIKE '%'||'안녕'||'%'
-		)WHERE NUM BETWEEN 1 AND 5;
+INSERT INTO
+		CS_QNABOARD(QBNO,QBTITLE,QBCONTENT,QBWRITER,QBHIT,QBDATE,QBGROUP,QBSTEP,QBINDENT,QBFILECODE,QBQNADIV)
+		VALUES(CS_QNABOARD_SEQ.NEXTVAL,'pf','회원정보/로그인','cus',0,SYSDATE,0,0,0,null,'pf');        
         
-        SELECT NBNO,NBWRITER,NBTITLE,NBCONTENT,NBDATE,NBHIT,NBGROUP,NBSTEP,NBINDENT,NBQNADIV
-		FROM (SELECT ROWNUM NUM,N.* 
-				FROM (SELECT NBNO,NBWRITER,NBTITLE,NBCONTENT,NBDATE,NBHIT,NBGROUP,NBSTEP,NBINDENT,NBQNADIV
-		FROM cs_noticeboard
-		ORDER BY NBGROUP DESC,NBSTEP ASC)N
-		WHERE 
-        NBQNADIV='qq' AND
-        NBTITLE LIKE '%'||'안녕'||'%'
-		)WHERE NUM BETWEEN 1 AND 10;
-
-		SELECT COUNT(*)
-		FROM CS_NOTICEBOARD
-		WHERE NBQNADIV='ALL' AND NBTITLE LIKE '%'||''||'%';
+        commit;
         
-        SELECT COUNT(*)
-		FROM CS_NOTICEBOARD
-		WHERE NBQNADIV='ALL' ;
+        delete from cs_qnaboard;
+--------------------
+--select
+SELECT ROWNUM, n.*
+FROM (
+    SELECT *
+    FROM cs_noticeboard
+    ORDER BY nbhit DESC
+) n
+WHERE ROWNUM <= 5;
 
+	SELECT * FROM CS_NOTICEBOARD
+    	ORDER BY NBHIT DESC
+    	FETCH FIRST 5 ROWS ONLY;
+
+		SELECT NBTITLE
+		FROM (
+			SELECT ROWNUM, N.*
+			FROM (
+		    	SELECT *
+		    	FROM CS_NOTICEBOARD
+		    	ORDER BY NBHIT DESC
+			) N
+		)
+		WHERE ROWNUM <= 5;
+
+	SELECT ROWNUM, n.nbtitle
+		FROM (
+		    SELECT *
+		    FROM CS_NOTICEBOARD
+		    ORDER BY NBHIT DESC
+		) N
+		WHERE ROWNUM <  =        5;
         
------------------------------------- insert 문
-insert into cs_noticeboard(nbno,nbtitle,nbcontent,nbwriter,nbhit,nbdate,nbgroup,nbstep,nbindent,nbfile) 
-    values(cs_noticeboard_seq.nextval,'안녕하세요','안녕하세요안녕하세요안녕하세요안녕하세요','보근',0,sysdate,0,0,0,'00.png');
-
-INSERT INTO CS_NOTICEBOARD(NBNO,NBTITLE,NBCONTENT,NBWRITER,NBHIT,NBDATE,NBGROUP,NBSTEP,NBINDENT,NBFILECODE,NBQNADIV)
-VALUES(CS_NOTICEBOARD_SEQ.NEXTVAL,'안녕','안녕안녕','조보',0,SYSDATE,0,0,0,1,'qq');
-
-INSERT INTO CS_NOTICEBOARD_IMG
-VALUES(CS_NOTICEBOARD_IMG_SEQ.NEXTVAL,1,'000.png');
------------------------------------- delete 문
-
------------------------------------- update 문
-
+        
+        SELECT QBTITLE
+		FROM (
+			SELECT ROWNUM, N.*
+			FROM (
+		    	SELECT *
+		    	FROM CS_QNABOARD
+		    	ORDER BY QBHIT DESC
+			) N
+		)
+		WHERE ROWNUM <= 15 AND QBQNADIV= '';
+        
+        SELECT QBTITLE,QBNO
+		FROM (
+			SELECT ROWNUM, N.*
+			FROM (
+		    	SELECT *
+		    	FROM CS_QNABOARD
+		    	ORDER BY QBHIT DESC
+			) N
+		)
+		WHERE ROWNUM <= 15 
+    
+        

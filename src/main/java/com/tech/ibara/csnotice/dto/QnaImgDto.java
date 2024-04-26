@@ -11,7 +11,8 @@ import lombok.Setter;
 @NoArgsConstructor
 public class QnaImgDto {
 	
-	private int nbno;
-	private int nbfilecode;
+	private int qbno;
+	private int qbfilecode;
 	private String filesrc;
+	
 }

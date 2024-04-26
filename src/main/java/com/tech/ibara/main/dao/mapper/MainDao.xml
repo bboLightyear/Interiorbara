@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    
+<mapper namespace="com.tech.ibara.main.dao.MainDao">
+	<resultMap type="com.tech.ibara.main.dto.BizPreviewDto" id="bh_preview">
+		<result column="BH_NO" property="bh_no" />
+		<result column="BH_NAME" property="bh_name" />
+		<result column="BH_ADDR1" property="bh_addr1" />
+		<result column="BH_ADDR2" property="bh_addr2" />
+		<result column="BH_IMG" property="bh_img" />
+	</resultMap>
+	<select id="bizPreview" resultType="com.tech.ibara.main.dto.BizPreviewDto" resultMap="bh_preview">
+		SELECT BH_NO, BH_NAME, BH_ADDR1, BH_ADDR2, BH_IMG
+		FROM BIZ_HOME
+		WHERE (BH_ADDR1, BH_ADDR2) IN (
+		    SELECT BH_ADDR1, MIN(BH_ADDR2)
+		    FROM BIZ_HOME
+		    GROUP BY BH_ADDR1
+		) AND ROWNUM &lt; = 4
+		ORDER BY BH_NO DESC
+	</select>
+	<resultMap type="com.tech.ibara.main.dto.ShopPreviewDto" id="shop_preview">
+		<result column="PRODUCT_ID" property="product_id" />
+		<result column="NAME" property="name" />
+		<result column="REP_PRICE" property="rep_price" />
+		<result column="FILE_SRC" property="file_src" />
+	</resultMap>
+	<select id="shopPreview" resultType="com.tech.ibara.main.dto.ShopPreviewDto" resultMap="shop_preview">
+		SELECT A.PRODUCT_ID, A.NAME, A.REP_PRICE, B.FILE_SRC 
+		FROM (SELECT PRODUCT_ID, NAME, REP_PRICE FROM SHOP_PRODUCT WHERE REP_PRICE &lt; = 70900 AND REP_PRICE &gt; = 55000	ORDER BY REP_PRICE DESC) A, SHOP_PRODUCT_IMG B 
+		WHERE A.PRODUCT_ID = B.PRODUCT_ID 
+		AND ROWNUM &lt; = 4
+	</select>
+	<resultMap type="com.tech.ibara.main.dto.OHPreviewDto" id="oh_preview">
+		<result column="PB_NO" property="pb_no" />
+		<result column="PB_TITLE" property="pb_title" />
+		<result column="PB_CONTENT" property="pb_content" />
+		<result column="PA_ATTACH" property="pa_attach" />
+	</resultMap>
+	<select id="ohPreview" resultType="com.tech.ibara.main.dto.OHPreviewDto" resultMap="oh_preview">
+		SELECT A.PB_NO, A.PB_TITLE, A.PB_CONTENT, B.PA_ATTACH 
+		FROM (SELECT PB_NO, PB_TITLE, PB_CONTENT FROM OH_PHOTO_BOARD) A, 
+			(SELECT PB_NO, MAX(PA_ATTACH) AS PA_ATTACH FROM OH_PHOTO_ATTACH GROUP BY PB_NO ORDER BY PB_NO DESC) B 
+		WHERE A.PB_NO = B.PB_NO AND ROWNUM &lt; = 4
+	</select>
+	<resultMap type="com.tech.ibara.main.dto.NoticePreviewDto" id="notice_preview">
+		<result column="NBNO" property="notice_no" />
+		<result column="NBTITLE" property="notice_title" />
+		<result column="NBWRITER" property="notice_writer" />
+		<result column="NBHIT" property="notice_hit" />
+		<result column="NBDATE" property="notice_date" />
+	</resultMap>
+	<select id="noticePreview" resultType="com.tech.ibara.main.dto.NoticePreviewDto" resultMap="notice_preview">
+		SELECT NBNO, NBTITLE, NBWRITER, NBHIT, NBDATE
+		FROM (
+			SELECT NBNO, NBTITLE, NBWRITER, NBHIT, NBDATE
+			FROM CS_NOTICEBOARD
+			ORDER BY NBNO DESC
+			)
+		WHERE ROWNUM &lt;= 3
+	</select>
+	<resultMap type="com.tech.ibara.main.dto.QnAPreviewDto" id="qna_preview">
+		<result column="QBNO" property="qna_no" />
+		<result column="QBTITLE" property="qna_title" />
+		<result column="QBWRITER" property="qna_writer" />
+		<result column="QBHIT" property="qna_hit" />
+		<result column="QBDATE" property="qna_date" />
+	</resultMap>
+	<select id="qnaPreview" resultType="com.tech.ibara.main.dto.QnAPreviewDto" resultMap="qna_preview">
+		SELECT QBNO, QBTITLE, QBWRITER, QBHIT, QBDATE
+		FROM (
+			SELECT QBNO, QBTITLE, QBWRITER, QBHIT, QBDATE
+			FROM CS_QNABOARD
+			ORDER BY QBNO DESC
+			)
+		WHERE ROWNUM &lt;= 3
+	</select>
+</mapper>

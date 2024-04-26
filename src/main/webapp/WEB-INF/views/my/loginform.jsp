@@ -1,24 +1,35 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<!DOCTYPE html>
-<html>
-<head>
-	<meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>로그인</title>
-</head>
-<body>
+<%@include file="header.jsp"%>
+<script defer src="${path}/resources/js/my/my_loginform.js"></script>
+<script>
+	document.title = "Login";
+</script>
+<main class="Site-content textcenter">
     <form action="login" method="post">
-        <input type="text" name="email" placeholder="이메일"> <br>
-        <input type="text" name="pw" placeholder="비밀번호"> <br>
-        <input type="submit" value="로그인">
+    <input type="hidden" name="ref" id="ref" value="${ref}" />
+    	<table align="center" class="classtable" style="margin-top:50px;">
+    		<tr>
+    			<td class="tdheight">
+    				<input class="radius10" type="text" name="email" style="padding:10px;" size="50" placeholder="이메일" required>
+    			</td>
+    		</tr>
+    		<tr>
+    			<td class="password tdheight">
+    				<input class="radius10" type="password" name="pw" id="pw" style="padding:10px;" size="50" placeholder="비밀번호" required>
+    				<span id="togglePwd"><i class="fa-solid fa-eye"></i></span>	<br />
+    				<span id="pwResult" class="fontbold"></span><br />
+    			</td>
+    		</tr>
+    		<tr>
+    			<td class="tdheight">
+    				<input class="radius10" id="btn" type="submit" value="로그인">
+    			</td>
+    		</tr>
+    	</table>
     </form>
-    <a href="#">비밀번호 재설정</a><a href="joinform">회원가입</a>
-    <a href="nonmember">비회원 견적 및 주문 조회하기</a>
-<hr />
-<c:out value="${msg }" default="" />
-
-</body>
-</html>
-
+    <span class="returnmsg"><c:out value="${msg}" default="" /></span><br />
+    <span class="fs12px"><a href="passwordReset"><b>비밀번호재설정&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="joinform">회원가입</a></span><br />
+    <span class="fs12px"><a href="nonmember">내 견적 조회하기</b></a></span>
+</main>
+<%@include file ="footer.jsp" %>

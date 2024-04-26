@@ -1,0 +1,686 @@
+@charset "UTF-8";
+
+/* ---------------------------------------------------------------- */
+/* ----- Start: OHPhotoDetailView.jsp ----- */
+/* ---------------------------------------------------------------- */
+
+/* ----- Start: #OHPhotoDetailView-main ----- */
+#OHPhotoDetailView-main {
+	position: relative;
+	width: 1480px;
+}
+/* ----- End: #OHPhotoDetailView-main ----- */	
+
+/* ----- Start: #OHPhotoDetailView-main-1 ----- */
+#OHPhotoDetailView-main-1 {
+	position: relative;
+	text-align: center;
+	height: 100px;
+}
+#OHPhotoDetailView-main-1Title {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+    transform: translate(-50%, -50%);  
+	width: 800px;
+	height: 100px;
+	line-height: 100px;
+	text-align: center;
+	font-size: 25px;
+    font-weight: bold;
+    color: #1a1f27;
+    display: inline-block;	
+}
+#OHPhotoDetailView-main-1toWriteButton {
+    position: absolute;
+    top: 50%;
+	left: 1200px;
+    transform: translate(0, -50%);    
+    width: 80px;
+    height: 50px;
+   	border: none;
+    border-radius: 10px;
+    color: #1a1f27;	
+	background-color: #e2f0fe;
+	font-size: 15px;
+	transition: 0.5s ease;	
+}
+#OHPhotoDetailView-main-1toWriteButton:hover {
+	font-size: 16px;
+	background-color: #1e90ff;
+	cursor:pointer;		
+}
+#OHPhotoDetailView-main-1toEditButton {
+	position: absolute;
+    top: 50%;
+	left: 1290px;
+    transform: translate(0, -50%);    
+    width: 80px;
+    height: 50px;
+   	border: none;
+    border-radius: 10px;
+    color: #1a1f27;	
+	background-color: #e2f0fe;
+	font-size: 15px;
+	transition: 0.5s ease;	
+}
+#OHPhotoDetailView-main-1toEditButton:hover {
+	font-size: 16px;
+	background-color: #1e90ff;
+	cursor:pointer;			
+}
+#OHPhotoDetailView-main-1toDeleteButton {
+	position: absolute;
+    top: 50%;
+		left: 1380px;
+    transform: translate(0, -50%);    
+    width: 80px;
+    height: 50px;
+   	border: none;
+    border-radius: 10px;
+    color: #1a1f27;		
+	background-color: #e2f0fe;
+	font-size: 15px;
+	transition: 0.5s ease;
+}
+#OHPhotoDetailView-main-1toDeleteButton:hover {
+	font-size: 16px;
+	background-color: #1e90ff;
+	cursor:pointer;		
+}
+/* ----- End: #OHPhotoDetailView-main-1 ----- */	
+
+/* ----- Start: #OHPhotoDetailView-main-2 ----- */
+#OHPhotoDetailView-main-2 {
+	position: relative;
+	text-align: center;
+  	height: 150px;
+}
+#OHPhotoDetailView-main-2residence {
+	position: relative;
+	display: inline-block;
+	top: 50%;
+	transform: translate(0, -50%);  
+	color: #1a1f27;	  
+	background-color: #e2f0fe;
+	padding: 10px 10px 10px 10px;
+	border: 1px solid #1a1f27;
+	border-radius: 10px;    
+}
+#OHPhotoDetailView-main-2room {
+	position: relative;
+	display: inline-block;
+	top: 50%;
+	transform: translate(0, -50%);
+	color: #1a1f27;	    
+	background-color: #e2f0fe;
+	padding: 10px 10px 10px 10px;
+	border: 1px solid #1a1f27;
+	border-radius: 10px;    
+}
+#OHPhotoDetailView-main-2style {
+	position: relative;
+	display: inline-block;
+	top: 50%;
+	transform: translate(0, -50%);
+	color: #1a1f27;	    
+	background-color: #e2f0fe;
+	padding: 10px 10px 10px 10px;
+	border: 1px solid #1a1f27;
+	border-radius: 10px;    
+}
+#OHPhotoDetailView-main-2skill {
+	position: relative;
+	display: inline-block;
+	top: 50%;
+	transform: translate(0, -50%);  
+	color: #1a1f27;	  
+	background-color: #e2f0fe;
+	padding: 10px 10px 10px 10px;
+	border: 1px solid #1a1f27;
+	border-radius: 10px;    
+}
+/* ----- End: #OHPhotoDetailView-main-2 ----- */
+
+/* ----- Start: #OHPhotoDetailView-main-3 ----- */
+#OHPhotoDetailView-main-3 {
+	position: relative;
+	text-align: center;
+}
+.OHPhotoDetailView-main-3photoSector {
+	position: relative;
+	margin-top: 50px;
+	margin-bottom: 50px;
+}
+.OHPhotoDetailView-main-3photoSector img {
+	width: 720px;
+	height: 720px;
+}
+/* ----- End: #OHPhotoDetailView-main-3 ----- */
+
+/* ----- Start: #OHPhotoDetailView-main-4 ----- */
+#OHPhotoDetailView-main-4 {
+	position: relative;
+	text-align: center;
+}
+#OHPhotoDetailView-main-4photoContent {
+	display: inline-block;
+	text-align: left;
+	width: 720px;
+	line-height: 30px;
+	color: #1a1f27;
+}
+/* ----- End: #OHPhotoDetailView-main-4 ----- */
+
+/* ----- Start: #OHPhotoDetailView-main-5 ----- */
+#OHPhotoDetailView-main-5 {
+	position: relative;
+	left: 50%;
+	transform: translate(-50%, 0%);   
+	width: 720px;
+	height: 40px;
+	line-height: 40px;
+	margin: 40px 0px 10px 0px;
+}
+#OHPhotoDetailView-main-5dateLable {
+	position: absolute;
+	top: 50%;
+	left: 0%;
+	width: 50px;
+	transform: translate(0%, -50%);  
+	display: inline-block;
+	color: #1a1f27;	
+}
+#OHPhotoDetailView-main-5date {
+	position: absolute;
+	top: 50%;
+	left: 60px;
+	text-align: left;
+	width: 100px;
+	transform: translate(0%, -50%);  
+	display: inline-block;
+	color: #1a1f27;	
+}
+/* ----- End: #OHPhotoDetailView-main-5 ----- */
+
+/* ----- Start: #OHPhotoDetailView-main-6 ----- */
+#OHPhotoDetailView-main-6 {
+	position: relative;
+	left: 50%;
+	transform: translate(-50%, 0%);   
+	width: 720px;
+	height: 40px;
+	line-height: 40px;
+	margin: 0px 0px 30px 0px;
+}
+#OHPhotoDetailView-main-6like {
+	position: absolute;
+	top: 50%;
+	left: 0px;
+	transform: translate(0%, -50%);  
+	width: 25px;
+	height: 25px;
+	line-height: 25px;
+	display: inline-block;
+	text-align: center;
+	font-size: 25px;
+	color: #1a1f27;	
+	transition: 0.5s ease;	
+}
+#OHPhotoDetailView-main-6like.clickColor {
+	color: #1034a6;
+}
+#OHPhotoDetailView-main-6like:hover {
+	font-size: 26px;
+	cursor:pointer;	
+}
+#OHPhotoDetailView-main-6likeNumber {
+	position: absolute;
+	top: 50%;
+	left: 30px;
+    width: 40px;
+    height: 25px;
+    line-height: 25px;     
+	text-align: center;
+	transform: translate(0%, -50%);  
+	display: inline-block;
+	color: #1a1f27;			
+}
+#OHPhotoDetailView-main-6scrap {
+	position: absolute;
+	top: 50%;
+	left: 120px;
+	transform: translate(0%, -50%);  
+	width: 25px;
+	height: 25px;
+	line-height: 25px;
+	display: inline-block;
+	text-align: center;
+	font-size: 25px;
+	color: #1a1f27;	
+	transition: 0.5s ease;		
+}
+#OHPhotoDetailView-main-6scrap.clickColor {
+	color: #1034a6;	
+}
+#OHPhotoDetailView-main-6scrap:hover {
+	font-size: 26px;
+	cursor:pointer;		
+}
+#OHPhotoDetailView-main-6scrapNumber {
+	position: absolute;
+	top: 50%;
+	left: 150px;
+    width: 40px;
+    height: 25px;
+    line-height: 25px;     
+	text-align: center;
+	transform: translate(0%, -50%);  
+	display: inline-block;
+	color: #1a1f27;	
+}
+#OHPhotoDetailView-main-6views {
+	position: absolute;
+	top: 50%;
+	left: 240px;
+	text-align: center;
+	width: 50px;
+	height: 25px;
+    line-height: 25px;	
+	transform: translate(0%, -50%);  
+	display: inline-block;
+	color: #1a1f27;	
+}
+#OHPhotoDetailView-main-6viewsNumber {
+	position: absolute;
+	top: 50%;
+	left: 295px;
+	text-align: center;
+    width: 40px;
+	height: 25px;
+    line-height: 25px;		
+	transform: translate(0%, -50%);  
+	display: inline-block;
+	color: #1a1f27;	
+}
+#OHPhotoDetailView-main-6complaintButton {
+	position: absolute;
+	top: 50%;
+	right: 10px;
+	transform: translate(0%, -50%);  
+	text-align: center;
+	width: 70px;
+	height: 35px;
+	line-height: 35px;
+	border: none;
+	border-radius: 10px;
+	color: #1a1f27;	
+	background-color: #b1b8c0;
+	font-size: 15px;
+	transition: 0.5s ease;	
+}
+#OHPhotoDetailView-main-6complaintButton:hover {
+	font-size: 16px;
+	background-color: #1e90ff;
+	cursor: pointer;		
+}
+/* ----- End: #OHPhotoDetailView-main-6 ----- */
+
+/* ----- Start: #OHPhotoDetailView-main-7 ----- */
+#OHPhotoDetailView-main-7 {
+	position: relative;
+	left: 50%;
+	transform: translate(-50%, 0%);   
+	width: 720px;
+	height: 80px;
+	margin: 0px 0px 50px 0px;
+}
+#OHPhotoDetailView-main-7profileImage {
+	position: absolute;
+	top: 20px;
+    width: 40px;
+    height: 40px;
+	border-radius: 50%;	
+	transition: 0.5s ease;
+}
+#OHPhotoDetailView-main-7profileImage:hover {
+	transform: scale(1.03);   
+	cursor:pointer;	    
+}
+#OHPhotoDetailView-main-7writerName {
+	position: absolute;
+	top: 50%;
+	left: 60px;
+	transform: translate(0%, -50%);
+	width: 300px;
+	height: 80px;
+	line-height: 80px;
+	text-align: left;
+	color: #1a1f27;	
+}
+#OHPhotoDetailView-main-7writerName a {
+	text-decoration: none;
+	color: #1a1f27;
+	font-size: 15px;
+	transition: 0.5s ease;
+}
+#OHPhotoDetailView-main-7writerName a:hover {
+	font-size: 16px;
+	cursor: pointer;		
+}
+#OHPhotoDetailView-main-7moveToList	{
+	position: absolute;
+	top: 50%;
+	right: 10px;
+	transform: translate(0%, -50%);		
+    width: 120px;
+    height: 50px;	
+    color: #1a1f27; 
+   	background-color: #e2f0fe;	
+   	border: none;
+    border-radius: 10px;   	
+    font-size: 15px;
+    transition: 0.5s ease;
+}
+#OHPhotoDetailView-main-7moveToList:hover {
+	font-size: 16px;
+	background-color: #1e90ff;
+	cursor:pointer;		
+}
+/* ----- End: #OHPhotoDetailView-main-7 ----- */
+
+/* ----- Start: #OHPhotoDetailView-main-8 ----- */
+#OHPhotoDetailView-main-8 {
+	position: relative;
+	left: 50%;
+	transform: translate(-50%, 0%);   
+	width: 720px;
+	height: 60px;
+	margin: 0px 0px 0px 0px;
+}
+#OHPhotoDetailView-main-8replyLable {
+	position: absolute;
+	left: 0px;
+	top: 50%;
+	transform: translate(0%, -50%);
+	width: 80px;
+	height: 60px;
+	line-height: 60px;
+	text-align: center;
+	font-size: 20px;
+	font-weight: bold;
+	display: inline-block;
+    color: #1a1f27;
+}
+#OHPhotoDetailView-main-8replyTotal {
+	position: absolute;
+	left: 90px;
+	top: 50%;
+	transform: translate(0%, -50%);	
+	width: 80px;
+	height: 60px;
+	line-height: 60px;
+	text-align: left;
+	font-size: 20px;
+	font-weight: bold;
+	display: inline-block;
+    color: #1a1f27;
+}
+/* ----- End: #OHPhotoDetailView-main-8 ----- */
+
+/* ----- Start: #OHPhotoDetailView-main-9 ----- */
+#OHPhotoDetailView-main-9 {
+	position: relative;
+	left: 50%;
+	transform: translate(-50%, 0%);  
+	width: 720px;
+	height: 60px;
+	margin: 0px 0px 30px 0px;	 	
+}
+#OHPhotoDetailView-main-9inputReply {
+	position: absolute;
+	top: 50%;
+	left: 0%;
+	transform: translate(0%, -50%);
+	width: 610px;
+	height: 60px;
+	line-height: 19px;
+    border: 1px solid #1a1f27;
+    border-radius: 10px;
+	margin-left: 10px;
+    padding: 10px;
+	color: #1a1f27;	
+	resize: none;
+}
+#OHPhotoDetailView-main-9inputReplyButton {
+    position: absolute;
+    top: 50%;
+    left: 630px;
+    transform: translate(0%, -50%);     
+    width: 80px;
+    height: 60px;
+    color: #1a1f27; 
+   	/* background-color => OHPhotoDetailView.js에서 설정 */
+   	border: none;
+    border-radius: 10px;
+	font-size: 15px;
+	transition: 0.5s ease;  
+	background-color: #e2f0fe;  
+}
+#OHPhotoDetailView-main-9inputReplyButton:disabled {
+    background-color: #b1b8c0;
+}
+/* disabled 속성이 false인 버튼에 대해서만 :hover 상태일 때 스타일을 적용 */
+#OHPhotoDetailView-main-9inputReplyButton:not(:disabled):hover {
+	font-size: 16px;
+	background-color: #1e90ff;
+	cursor: pointer;	
+}
+/* ----- End: #OHPhotoDetailView-main-9 ----- */
+
+/* ----- Start: #OHPhotoDetailView-main-10 ----- */
+#OHPhotoDetailView-main-10 {
+	position: relative;
+	left: 50%;
+	transform: translate(-50%, 0%);  
+	width: 720px;
+	margin: 0px 0px 0px 0px;		
+}
+.contentReply {
+	display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+.reply-container {
+	position: relative;	
+	margin: 0px 0px 15px 0px;
+	width: 650px;
+	height: 150px;
+}
+.reply-container-layer1 {
+	position: relative;
+	width: 650px;
+	height: 40px;
+}
+.reply-profileImage {
+	position: absolute;
+	top: 5px;
+	left: 0px;	
+	width: 30px;
+	height: 30px;
+	border-radius: 50%;	
+	transition: 0.5s ease;
+}
+.reply-profileImage:hover {
+	transform: scale(1.03);   
+	cursor:pointer;	
+}
+.reply-userName {
+	position: absolute;
+	top: 50%;
+	left: 40px;
+	transform: translate(0%, -50%);
+	display: inline-block;
+	width: 350px;
+	height: 40px;
+	line-height: 40px;
+	text-align: left;
+    color: #1a1f27;     
+}
+.reply-userName a {
+	text-decoration: none;
+	color: #1a1f27;
+	font-size: 15px;
+	transition: 0.5s ease;		
+}
+.reply-userName a:hover {
+	font-size: 16px;
+	cursor:pointer;
+}
+.reply-checkMyReply {
+	position: absolute;
+	top: 50%;
+	left: 410px;
+	transform: translate(0%, -50%);
+	display: inline-block;
+	padding: 5px;
+	text-align: center;
+	color: #1a1f27; 
+	background-color: #e2f0fe;
+	border: 1px solid #1a1f27;
+	border-radius: 10px;
+	font-size: 13px;
+}
+.reply-container-layer2 {
+	position: relative;
+	width: 650px;
+	height: 50px;	
+}
+.reply-content {
+	position: absolute;
+	top: 50%;
+	left: 0px;
+	transform: translate(0%, -50%);
+	width: 650px;
+	text-align: left;	
+	padding: 0px 10px 0px 10px;
+	color: #1a1f27;	
+}
+.reply-container-layer3 {
+	position: relative;
+	width: 650px;
+	height: 40px;	
+}
+.reply-writtenDate {
+	position: absolute;
+	top: 50%;
+	left: 20px;
+	transform: translate(0%, -50%);  
+	display: inline-block;
+	width: 90px;
+	height: 40px;
+	line-height: 40px;
+	text-align: left;
+	color: #1a1f27;	
+}
+.reply-likeButton {
+	position: absolute;
+	top: 50%;
+	left: 120px;
+	transform: translate(0%, -50%);  
+	display: inline-block;
+	width: 20px;
+	height: 20px;
+	line-height: 20px;
+	text-align: center;
+    font-size: 20px;
+	color: #1a1f27;	
+	transition: 0.5s ease;
+}
+.reply-likeButton.clickColor {
+    color: #1034a6;
+}
+.reply-likeButton:hover {
+	font-size: 21px;
+	cursor: pointer;		
+}
+.reply-likeNumber {
+	position: absolute;
+	top: 50%;
+	left: 145px;
+	transform: translate(0%, -50%);  
+	display: inline-block;
+	width: 40px;
+	height: 20px;
+	line-height: 20px;
+	text-align: center;
+	color: #1a1f27;	
+}
+.reply-replyToReplyButton {
+    position: absolute;
+    top: 50%;
+    left: 220px;
+    transform: translate(0%, -50%);     
+    width: 70px;
+    height: 30px;
+    color: #1a1f27; 
+   	background-color: #e2f0fe;
+   	border: none;
+    border-radius: 10px;
+    font-size: 15px;	
+	transition: 0.5s ease;    
+}
+.reply-replyToReplyButton:hover {
+	font-size: 16px;
+	background-color: #1e90ff;
+	cursor:pointer;		
+}
+.reply-deleteButton {
+    position: absolute;
+    top: 50%;
+    left: 300px;
+    transform: translate(0%, -50%);     
+    width: 70px;
+    height: 30px;
+    color: #1a1f27; 
+   	background-color: #e2f0fe;
+   	border: none;
+    border-radius: 10px;
+    font-size: 15px;	
+	transition: 0.5s ease;       	
+}
+.reply-deleteButton:hover {
+	font-size: 16px;
+	background-color: #1e90ff;
+	cursor:pointer;		
+}
+.reply-complaintButton {
+    position: absolute;
+    top: 50%;
+    left: 380px;
+    transform: translate(0%, -50%);     
+    width: 70px;
+    height: 30px;
+    color: #1a1f27; 
+   	background-color: #b1b8c0;
+   	border: none;
+    border-radius: 10px;	
+    font-size: 15px;	
+	transition: 0.5s ease;    
+}
+.reply-complaintButton:hover {
+	font-size: 16px;
+	background-color: #1e90ff;
+	cursor:pointer;		
+}
+/* ----- End: #OHPhotoDetailView-main-10 ----- */
+
+/* ---------------------------------------------------------------- */
+/* ----- End: OHPhotoDetailView.jsp ----- */
+/* ---------------------------------------------------------------- */
+
+
+
+
+
