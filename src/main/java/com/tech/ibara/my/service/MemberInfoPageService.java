@@ -29,17 +29,27 @@ public class MemberInfoPageService implements VService {
 		MyMemberInfoDto mdto;
 		ArrayList<PhotoAttachDto> palist;
 		if (smemno == null) {
+			int countnickname=mdao.countCheck("2",nickname);
+			if(countnickname==0) {
+				model.addAttribute("msg","조회된 닉네임의 회원이 없습니다.");
+			}else {
 			mdto = mdao.getMemberInfo("2", nickname);
 			model.addAttribute("mdto", mdto);
 			int memno = mdao.getMemberMemno(nickname);
 			palist = mdao.getMyPhoto(memno);
 			model.addAttribute("palist", palist);
+			}
 		} else {
+			int countmemno=mdao.countCheck("1", smemno);
+			if(countmemno==0) {
+				model.addAttribute("msg","조회된 멤버넘버의 회원이 없습니다.");				
+			}else {
 			mdto = mdao.getMemberInfo("1", smemno);
 			model.addAttribute("mdto", mdto);
 			int memno = Integer.parseInt(smemno);
 			palist = mdao.getMyPhoto(memno);
 			model.addAttribute("palist", palist);
+			}
 		}
 	}
 }

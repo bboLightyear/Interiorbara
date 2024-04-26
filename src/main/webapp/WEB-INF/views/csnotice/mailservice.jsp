@@ -27,7 +27,7 @@
 		
 		<div class="cs_home_white_space"></div>
 		
-		<form action="mailsend">
+		<form action="mailsend" method="POST" enctype="multipart/form-data">
 			<div class="cs_mail_wrap_selectBox">
 				<h4 style="margin: 0;">어떤 유형의 문의인가요?</h4>
 				<div class="selectBox">
@@ -75,21 +75,21 @@
 				</div><!--cs_write_wrap_form_content-->
 			</div><!--cs_write_wrap_form_wrap_content-->
 		
-			<!-- <div class="cs_write_wrap_form_wrap_filebtn">
+			 <div class="cs_write_wrap_form_wrap_filebtn">
 				<label for="file-upload" class="custom-file-upload">
 	   				<i class="fa fa-cloud-upload"></i> 파일 첨부하기
 				</label>
 						
 				<input id="file-upload" type="file" class="cs_write_wrap_form_filebtn" name="mailfile" multiple="multiple" style="display: none;" onchange="displayFileName(this)"/>
-							<input type="file" class="cs_write_wrap_form_filebtn" name="qbfile" multiple="multiple" />
-			</div>cs_write_wrap_form_wrap_filebtn
+				<input type="file" class="cs_write_wrap_form_filebtn" name="mailfile1" style="display: none;" multiple="multiple" />
+			</div>
 					
 			<div class="cs_write_wrap_form_file_wrap_display">
 				<div id="file-name-display-a" class="cs_write_wrap_form_file_display">
 					<p style="margin: 0; border-bottom: 1px;">첨부된 파일</p>
 					<div class="" id="file-name-display"> </div>					
 				</div>
-			</div> -->
+			</div>
 					
 			<script>// 사진 첨부 후에 첨부한 사진 리스트 나오도록 하는 스크립트
 				function displayFileName(input) {

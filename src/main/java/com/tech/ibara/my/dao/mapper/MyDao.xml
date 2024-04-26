@@ -537,7 +537,7 @@
 	</resultMap>	
 
 	<select id="getBizRvList" resultType="com.tech.ibara.my.dto.MyBizRvDto" resultMap="MyBizRvListDto">
-		SELECT BR.BR_NO,BR.BR_WRITER,BR.BR_CONTENT,MAX(BRI.BRIMG_CGN) 
+		SELECT BR.BR_NO,BR.BR_WRITER,BR.BR_CONTENT,MAX(BRI.BRIMG_CGN) brimg_cgn 
 		FROM BIZ_RV BR JOIN BIZ_RV_IMG BRI ON BR.BR_NO=BRI.BR_NO WHERE BR.INTENO=#{param1} 
 		GROUP BY BR.BR_NO,BR.BR_WRITER,BR.BR_CONTENT
 	</select>

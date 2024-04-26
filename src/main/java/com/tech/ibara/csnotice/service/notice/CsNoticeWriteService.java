@@ -16,7 +16,7 @@ import com.tech.ibara.csnotice.dao.QnaBoardIDao;
 
 public class CsNoticeWriteService implements CsNoticeService {
 
-	CsNoticeService csNoticeService;
+//	CsNoticeService csNoticeService;
 	
 	private SqlSession sqlSession;
 	
