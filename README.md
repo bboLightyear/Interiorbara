@@ -1,29 +1,19 @@
 # Interiorbara
-> 퀵 견적 $ 빠른 업체 컨텍 웹 사이트
-
-한 두 문단으로 프로젝트 소개 글을 작성합니다.
+> 퀵 견적 & 빠른 업체 컨텍 웹 사이트
 
 ![](../header.png)
 
-## 설치 방법
+## 프로젝트 소개
 
 OS X & 리눅스:
 
-```sh
-npm install my-crazy-module --save
-```
+## 기술 스택
 
-윈도우:
+### frame work
+<img src="https://img.shields.io/badge/Spring-6DB33F?style=flat-square&logo=Spring&logoColor=white"/>
 
-```sh
-edit autoexec.bat
-```
-
-## 사용 예제
-
-스크린 샷과 코드 예제를 통해 사용 방법을 자세히 설명합니다.
-
-_더 많은 예제와 사용법은 [Wiki][wiki]를 참고하세요._
+### language
+<img src="https://img.shields.io/badge/java-007396?style=flat-square&logo=java&logoColor=white"/> <img src="https://img.shields.io/badge/HTML5-E34F26?style=flat-square&logo=html5&logoColor=white"/> <img src="https://img.shields.io/badge/CSS-1572B6?style=flatsquare&logo=css3&logoColor=white"/> <img src="https://img.shields.io/badge/jQuery-0769AD?style=flat-square&logo=jQuery&logoColor=white"/> <img src="https://img.shields.io/badge/ORACLE-F80000?style=flat-square&logo=oracle&logoColor=white"/> <img src="https://img.shields.io/badge/Python-3776AB?style=flat-square&logo=Python&logoColor=white"/> <img src="https://img.shields.io/badge/Selenium-43B02A?style=flat-square&logo=Selenium&logoColor=white"/> 
 
 ## 개발 환경 설정
 
