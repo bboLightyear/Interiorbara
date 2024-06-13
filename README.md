@@ -33,10 +33,31 @@
 <img src="https://img.shields.io/badge/ORACLE-F80000?style=flat-square&logo=oracle&logoColor=white"/>
 <br/>
 
-## 담당 기능
-### 고객센터 파트 담당 ( 문의 게시판, 이메일문의 기능 )
+## 담당 기능 (고객센터 파트 담당)
+
 |<img src="src/main/webapp/resources/bara-cshome.png" width="500" height="250"/>|<img src="src/main/webapp/resources/bara-csmail.png" width="500" height="250"/>|
 |:---:|:---:|
 |고객센터화면|이메일문의|
 |<img src="src/main/webapp/resources/bara-cs content.png" width="500" height="250"/>|<img src="src/main/webapp/resources/bara-cs reply.png" width="500" height="250"/>|
 |고객센터 게시판|게시판 답글|
+<br/>
+
+### 이메일을 통한 문의 📧
+- 고객정보의 이메일로 지정된 메일에 문의를 전송하는 기능 
+- 이미지 첨부하여 전송 가능
+
+### 문의 게시판 📢
+- 문의용 게시판, 공지사항 게시판 제작
+- 문의 게시판 내부에는 답글기능 추가
+- 이미지 최대 2장으로 제한
+
+### 전체적인 버튼이벤트 로그인 유무 구분 ✔
+- 로그인 세션 확인을 통해 로그인 시에만 가능하도록 제작
+
+<br/>
+## 아쉬운점
+
+- 답글기능 부분의 ui와 답글에 삭제, 수정 기능이 빠져 추후 추가할 예정
+- 이메일 전송 시 첨부내용 확인을 위해 로컬 파일에 저장 후 전송하는데 저장하지 않고 하는 방식으로 개선해야함
+- 첫 프로젝트라 git에 서툴렀음 더 공부할 예정
+- 전체적으로 서툰 코드를 좀 더 공부해서 하나씩 수정해나갈 예정
