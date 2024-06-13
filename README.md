@@ -38,5 +38,5 @@
 |<img src="src/main/webapp/resources/bara-cshome.png" width="500" height="250"/>|<img src="src/main/webapp/resources/bara-csmail.png" width="500" height="250"/>|
 |:---:|:---:|
 |고객센터화면|이메일문의|
-|<img src="src/main/webapp/resources/bara-cs content.png" width="500" height="250"/>|
-|고객센터 게시판|
+|<img src="src/main/webapp/resources/bara-cs content.png" width="500" height="250"/>|<img src="src/main/webapp/resources/bara-cs reply.png" width="500" height="250"/>|
+|고객센터 게시판|게시판 답글|
