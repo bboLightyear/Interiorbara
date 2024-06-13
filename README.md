@@ -35,6 +35,8 @@
 
 ## 담당 기능
 ### 고객센터 파트 담당 ( 문의 게시판, 이메일문의 기능 )
-|![image](src/main/webapp/resources/bara-cshome.png)|![image](src/main/webapp/resources/bara-csmail.png)|
+|<img src="src/main/webapp/resources/bara-cshome.png" width="500" height="250"/>|<img src="src/main/webapp/resources/bara-csmail.png" width="500" height="250"/>|
 |:---:|:---:|
 |고객센터화면|이메일문의|
+|<img src="src/main/webapp/resources/bara-cs content.png" width="500" height="250"/>|
+|고객센터 게시판|
